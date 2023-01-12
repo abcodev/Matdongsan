@@ -7,7 +7,6 @@
 </head>
 <body>
 
-
 <%--<jsp:include page="common/header.jsp" />--%>
 
 
