@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-git master Test
+
 </body>
 </html>
