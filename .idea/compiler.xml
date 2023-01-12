@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Matdongsan" />
+        <module name="Mat Final Project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,6 +17,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Mat Final Project" options="-Xlint:all" />
       <module name="Matdongsan" options="-Xlint:all" />
       <module name="PublicReservation" options="-Xlint:all" />
     </option>
