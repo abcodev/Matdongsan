@@ -10,7 +10,7 @@
 
 <%--<jsp:include page="common/header.jsp" />--%>
 
-
+<h1>안녕</h1>
 
 
 </body>
