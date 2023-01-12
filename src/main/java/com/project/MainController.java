@@ -15,4 +15,5 @@ public class MainController {
         mv.setViewName("index");
         return mv;
     }
+
 }
