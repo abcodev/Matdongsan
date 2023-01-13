@@ -8,9 +8,8 @@
 <body>
 
 <%--<jsp:include page="common/header.jsp" />--%>
-<h1>hi</h1>
-<h1>hig</h1>
 
+깃 테스트
 
 
 </body>
