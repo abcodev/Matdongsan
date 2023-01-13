@@ -1,0 +1,63 @@
+#bgd {
+    position: absolute;
+    background-image: url("../../images/downtown-cityscape-at-night-in-seoul-south-korea.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: auto;
+    min-height: auto;
+}
+
+.container-max {
+    max-width: 1200px;
+}
+
+#content {
+    color: #f2f2f2;
+    position: relative;
+    margin-left: 18%;
+    margin-top: 9.5%;
+}
+
+#content h1 {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 74px;
+    margin: 1.25em 0 0.2em;
+    letter-spacing: -2px;
+
+    text-shadow: 0px -6px 0 #212121,
+        0 19px 1px rgba(0, 0, 0, .1),
+        0 0 6px rgba(0, 0, 0, .1),
+        0 6px 3px rgba(0, 0, 0, .3),
+        0 12px 6px rgba(0, 0, 0, .2),
+        0 18px 18px rgba(0, 0, 0, .25),
+        0 24px 24px rgba(0, 0, 0, .2),
+        0 36px 36px rgba(0, 0, 0, .15);
+}
+
+#content p {
+    margin: 0 0 1.313em;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+#content #startPage {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #f2f2f2;
+    border: 1px solid #989de1;
+    border-color: #989de1;
+    background-color: #989de1;
+    display: inline-block;
+    padding: 19px;
+    font-size: 19px;
+}
+
+#content #startPage:hover {
+    border-color: #585c9c;
+    background-color: #585c9c;
+}
