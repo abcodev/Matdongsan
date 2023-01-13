@@ -9,8 +9,11 @@
     </settings>
 
     <typeAliases>
+        <typeAlias type="com.kh.project.board.freeBoard.vo.FreeBoard" alias="Fboard"/>
+        <typeAlias type="com.kh.project.board.qnaBoard.vo.qnaBoard" alias="Qboard"/>
     </typeAliases>
 
     <mappers>
+        <mapper resource="/mappers/board-mapper.xml"/>
     </mappers>
 </configuration>

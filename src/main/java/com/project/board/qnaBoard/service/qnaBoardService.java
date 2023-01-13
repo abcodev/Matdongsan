@@ -1,4 +1,10 @@
 package com.project.board.qnaBoard.service;
 
-public class qnaBoardService {
+import org.springframework.stereotype.Service;
+
+
+@Service
+public interface qnaBoardService {
+
+    public int selectBoardList(int bno);
 }
