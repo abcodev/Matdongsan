@@ -10,8 +10,7 @@
 
 <%--<jsp:include page="common/header.jsp" />--%>
 
-깃 테스트22222
-
+깃 테스트
 
 </body>
 </html>
