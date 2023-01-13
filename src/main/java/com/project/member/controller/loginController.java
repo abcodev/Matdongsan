@@ -42,7 +42,7 @@ public class loginController {
 
         model.addAttribute("naverUrl",naverAuthUrl);
 
-        return "LoginPage";
+        return "member/loginPage";
     }
 
     /**
@@ -79,6 +79,6 @@ public class loginController {
 
         model.addAttribute("result", apiResult);
 
-        return "login";
+        return "member/loginPage";
     }
 }
