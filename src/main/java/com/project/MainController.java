@@ -11,7 +11,6 @@ public class MainController {
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){
-        log.info("MainPage");
         mv.setViewName("index");
         return mv;
     }
