@@ -325,7 +325,8 @@ CREATE TABLE "CHAT_MESSAGE"
 (
     "CM_NO"        VARCHAR(255)                 NOT NULL,
     "CHAT_ROOM_NO" VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"    VARCHAR(255)                 NOT NULL,
+    "RECEIVER_NO"    VARCHAR(255)                 NOT NULL,
+    "SEND_NO"    VARCHAR(255)                 NOT NULL,
     "CREATE_DATE"  VARCHAR(255) DEFAULT SYSDATE NULL,
     "READ"         VARCHAR(255) DEFAULT 'Y'     NULL,
     "MS_CONTENT"   VARCHAR(255)                 NULL
