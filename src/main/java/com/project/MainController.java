@@ -12,7 +12,11 @@ public class MainController {
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){
         mv.setViewName("index");
+
         return mv;
     }
+
+
+
 
 }

@@ -1,4 +1,4 @@
 package com.project.board.qnaBoard.controller;
 
-public class qanBoardController {
+public class qnaBoardController {
 }
