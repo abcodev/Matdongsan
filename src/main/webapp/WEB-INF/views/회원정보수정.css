@@ -1,0 +1,82 @@
+*{
+    box-sizing: border-box;
+}
+
+div{
+    border: 2px solid black;
+}
+
+.userinfo{
+    display: flex;
+    padding-left:220px;
+    margin: 10px 0 10px 0;
+}
+
+#content{
+    padding: 20px 300px 20px 300px;
+}
+
+#userimg{
+    text-align: center;
+}
+
+#userimg > img{
+    width: 150px;
+    height: 150px;
+}
+
+.userinfo > input{
+    margin: 15px 0 0 40px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.userinfo > button{
+    margin: 15px 0 0 40px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+}
+
+.nickName > input {
+    width: 200px;
+}
+
+.nickName > button {
+    width: 85px;
+}
+
+.email > input {
+    width: 300px;
+}
+
+.phone > input {
+    width: 200px;
+}
+
+.phone > button {
+    width: 50px;
+}
+
+.adressNum > input {
+    width: 140px;
+}
+
+.adressNum > button {
+    width: 50px;
+}
+
+.address > input {
+    width: 330px;
+}
+
+.btn_box > button{
+    width: 150px;
+    height: 40px;
+    margin: 5px 0 5px 30px;
+
+}
+
+.btn_box{
+    padding-left: 260px;
+}   
