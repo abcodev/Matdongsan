@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+}
+
+/* div {
+    border: 2px solid black;
+} */
+
+.content {
+    display: flex;
+}
+
+.head {
+    height: 60px;
+    padding: 5px 250px 5px 250px;
+}
+
+.search_input {
+    width: 80%;
+    padding-left: 150px;
+}
+
+.search_input>input {
+    width:100%;
+    height: 80%;
+}
+
+.search_icon {
+    width: 20%;
+    height: 80%;
+    margin-left: 20px;
+}
+
+.search_icon > button {
+    width: 40%;
+    height: 100%;
+    background-color: #213048;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.fa-magnifying-glass {
+    font-size: 25px;
+    margin-right: 5px;
+}
+
+.body {
+    height: 800px;
+    padding: 50px 30px 20px 30px;
+}
+
+.sidebar {
+    width: 15%;
+}
+
+.sidebar > div > a{
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    margin: 20px 0 10px 20px;
+    font-weight: bold;
+    color: #213048;
+}
+
+.sidebar > div {
+    position: fixed;
+}
+
+.boardlist {
+    width: 75%;
+}
+
+.boardlist_head {
+    display: flex;
+}
+
+#writebtn {
+    width: 140px;
+    height: 40px;
+    margin-left: 700px;
+    background-color: #213048;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.fa-pencil{
+    margin: 5px;
+    font-size: 20px;
+}
+
+#boardlist_main {
+    width: 100%;
+    height: 94.5%;
+    margin-top: 20px;
+
+}
+
+.paging {
+    width: 100%;
+    height: 50px;
+    margin-top: 20px;
+}
+
+.boardlist_head>select {
+    width: 150px;
+    height: 30px;
+    margin-left: 55px;
+    margin-top: 5px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th {
+    color: #213048;
+    background-color: #d9cbea;
+    text-align: center;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.table th:first-child,
+.table td:first-child {
+    border-left: 0;
+}
+
+.table th:last-child,
+.table td:last-child {
+    border-right: 0;
+}
+
+.table tr td:first-child {
+    text-align: left;
+}
+
+.table tr td:nth-child(n+2){
+    text-align: center;
+}
+
+.table th:nth-child(even){
+    width: 90px;
+}
+
+.table th:nth-child(3){
+    width: 140px;
+}
+
+
+
+
