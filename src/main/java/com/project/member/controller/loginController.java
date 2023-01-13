@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 
 import com.project.client.oauth.naver.NaverLoginBO;
+import com.project.member.dto.NaverMemberDto;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -76,6 +77,10 @@ public class loginController {
         String email = (String) response_obj.get("email");
         String name = (String) response_obj.get("name");
         String profileImage = (String) response_obj.get("profile_image");
+
+
+
+
 
         model.addAttribute("result", apiResult);
 
