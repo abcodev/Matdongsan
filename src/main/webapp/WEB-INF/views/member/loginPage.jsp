@@ -18,7 +18,7 @@
     </div>
     <div id="login_body">
         <button>카카오</button>
-        <button datasrc="${naverUrl}">네이버</button>
+        <a href="${naverUrl}">네이버</a>
         <button>구글</button>
     </div>
 </div>
