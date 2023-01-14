@@ -10,9 +10,12 @@
 
     <typeAliases>
         <typeAlias type="com.project.member.vo.Member" alias="member"/>
+        <typeAlias type="com.kh.project.board.freeBoard.vo.FreeBoard" alias="Fboard"/>
+        <typeAlias type="com.kh.project.board.qnaBoard.vo.qnaBoard" alias="Qboard"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
+        <mapper resource="/mappers/board-mapper.xml"/>
     </mappers>
 </configuration>
