@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="로그인.css">
+    <link rel="stylesheet" href="<c:url value="/resources/css/member/loginPage.css"/>">
 </head>
 <body>
 <div id="content">
@@ -17,7 +17,11 @@
         <h2>소셜로그인</h2>
     </div>
     <div id="login_body">
-        <button>카카오</button>
+
+        <a href="https://kauth.kakao.com/oauth/authorize?client_id=857210a016a83ceffadc50f61d649c7b&redirect_uri=http://localhost:8070/Matdongsan/login&response_type=code">
+            <img src="<c:url value="/resources/images/oauth/kakao_login_medium_wide.png"/>">
+        </a>
+        <br>
         <a href="${naverUrl}">네이버</a>
         <button>구글</button>
     </div>

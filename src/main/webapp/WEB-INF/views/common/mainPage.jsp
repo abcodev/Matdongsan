@@ -10,12 +10,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>맛동산</title>
-<%--    <link rel="stylesheet" href="mainPage.css">--%>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
+
 <header id="header">
     <div class="inner">
         <div class="logo">
@@ -43,11 +44,29 @@
                 </div>
             </div>
         </nav>
+
         <div class="login">
-            <a href="${pageContext.request.contextPath}/login">로그인</a>
+
+            <c:choose>
+            <c:when test="${ empty loginUser}">
+                <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+            </c:when>
+            <c:otherwise>
+                <label>
+                    <img src="${loginUser.profileImage}" width="50px">
+                        ${loginUser.memberName} 님 환영합니다.
+                </label> &nbsp;&nbsp;
+                <%--                    <a href="${contextPath}/myPage">마이페이지</a>--%>
+                <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+            </c:otherwise>
+            </c:choose>
+
         </div>
+
     </div>
 </header>
+
+
 <main>
     <div class="map">
         <div class="mapImg">

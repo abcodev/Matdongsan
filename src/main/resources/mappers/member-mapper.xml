@@ -1,3 +1,37 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+    <resultMap type="Member" id="memberResultSet">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="PROFILE_IMAGE" property="profileImage"/>
+        <result column="EMAIL" property="email"/>
+        <result column="NICKNAME" property="nickName"/>
+        <result column="PHONE" property="phone"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="STATUS" property="status"/>
+        <result column="GRADE" property="grade"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="member">
+        INSERT INTO MEMBER
+        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, STATUS, GRADE)
+        VALUES (SEQ_MEMBER_NO.NEXTVAL, #{provider}, #{providerId}, #{memberName}, #{profileImage}, #{email},
+                #{nickName}, #{phone}, #{address}, #{status}, #{grade})
+    </insert>
+
+    <select id="select" parameterType="Map" resultMap="memberResultSet">
+        SELECT *
+        FROM MEMBER
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
+    </select>
+
+
+</mapper>
