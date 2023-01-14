@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 
-public class FreeBoardController {
+public class freeBoardController {
 
 
 
