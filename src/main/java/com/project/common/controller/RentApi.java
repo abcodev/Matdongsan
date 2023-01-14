@@ -3,6 +3,7 @@ package com.project.common.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -23,7 +24,7 @@ public class RentApi {
         urlBuilder.append("/" + URLEncoder.encode("1000","UTF-8")); /*요청종료위치*/
 
         // 서비스별 추가 요청 인자이며 자세한 내용은 각 서비스별 '요청인자'부분에 자세히 나와 있습니다.
-        urlBuilder.append("/" + URLEncoder.encode("아파트","UTF-8")); /* 서비스별 추가 요청인자들*/
+        //urlBuilder.append("/" + URLEncoder.encode("아파트","UTF-8")); /* 서비스별 추가 요청인자들*/
 
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -50,4 +51,5 @@ public class RentApi {
         System.out.println(result);
 
     }
+
 }
