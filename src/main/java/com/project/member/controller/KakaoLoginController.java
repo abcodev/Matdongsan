@@ -37,7 +37,6 @@ public class KakaoLoginController {
     @RequestMapping(value="/logout")
     public ModelAndView logout(HttpSession session) {
         ModelAndView mav = new ModelAndView();
-
         session.removeAttribute("loginUser");
         mav.setViewName("redirect:/");
         return mav;
