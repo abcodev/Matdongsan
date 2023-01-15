@@ -1,4 +1,44 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
-<properties/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+    <resultMap type="QBoard" id="qBoardResultSet">
+        <result column="QNA_BNO" property="qnaBno"/>
+        <result column="MEMBER_NO" property="qnaWriter"/>
+        <result column="P_BNO" property="pBno"/>
+        <result column="QNA_TITLE" property="qnaTitle"/>
+        <result column="QNA_CONTENT" property="qnaContent"/>
+        <result column="QNA_DATE" property="qnaDate"/>
+        <result column="COUNT" property="count"/>
+        <result column="STATUS" property="status"/>
+        <result column="QNA_AREA" property="qnaArea"/>
+    </resultMap>
+
+    <resultMap type="FBoard" id="fBoardResultSet">
+        <result column="FREE_BNO" property="freeBno"/>
+        <result column="MEMBER_NO" property="freeWriter"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_WRITER" property="boardWriter"/>
+        <result column="BOARD_CONTENT" property="boardContent"/>
+        <result column="BOARD_DATE" property="boardDate"/>
+        <result column="BOARD_AREA" property="boardArea"/>
+        <result column="STATUS" property="status"/>
+    </resultMap>
+
+
+
+    <select id="selectList" resultMap="qBoardResultSet">
+            SELECT
+                QNA_BNO,
+                MEMBER_NO,
+                P_BNO,
+                QNA_TITLE,
+                QNA_CONTENT,
+                QNA_DATE
+            FROM QNA_BOARD
+            WHERE STATUS = 'Y'
+            ORDER BY QNA_DATE DESC;
+    </select>
+</mapper>
 

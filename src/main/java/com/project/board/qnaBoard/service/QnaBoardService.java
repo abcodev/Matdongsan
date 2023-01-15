@@ -1,10 +1,10 @@
 package com.project.board.qnaBoard.service;
 
-import org.springframework.stereotype.Service;
+import java.util.Map;
 
-
-@Service
 public interface QnaBoardService {
+
+    public Map<String,Object>selectList();
 
     public int selectBoardList(int bno);
 }
