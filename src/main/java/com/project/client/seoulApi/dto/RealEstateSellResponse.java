@@ -12,6 +12,6 @@ import lombok.ToString;
 @ToString
 public class RealEstateSellResponse {
 
-    @JsonProperty("ListRealEstateSell")
-    private ListRealEstateSell sellList;
+    @JsonProperty("tbLnOpendataRtmsV")
+    private tbLnOpendataRtmsV sellList;
 }

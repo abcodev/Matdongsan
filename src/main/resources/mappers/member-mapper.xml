@@ -33,5 +33,10 @@
           AND PROVIDER_ID = #{providerId}
     </select>
 
+    <insert id="NaverLogin" parameterType="naverMember">
+        INSERT INTO MEMBER(MEMBER_NO,MEMBER_NAME,EMAIL,PROFILE_IMAGE)
+        VALUES (SEQ_MEMBER_NO.NEXTVAL, #{name},#{email},#{profileImage})
+    </insert>
+
 
 </mapper>

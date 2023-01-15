@@ -20,7 +20,7 @@ public class SeoulApiClient {
 
     // Scheduling
     public List<RealEstateSellDto> getRealEstateSellList() {
-        String serviceName = "ListRealEstateSell";
+        String serviceName = "tbLnOpendataRtmsV";
         String url = this.generateUrl(serviceName, 1, 1000);
 
         try {

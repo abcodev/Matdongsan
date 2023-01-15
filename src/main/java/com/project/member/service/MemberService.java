@@ -3,6 +3,7 @@ package com.project.member.service;
 import com.project.client.oauth.kakao.KakaoOAuthClient;
 import com.project.client.oauth.kakao.dto.OAuthUser;
 import com.project.member.dao.MemberDao;
+import com.project.member.dto.NaverMemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,7 @@ public class MemberService {
     }
 
 
-
+    public int NaverLogin(NaverMemberDto loginUser) {
+        return memberDao.NaverLogin(loginUser);
+    }
 }

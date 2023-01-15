@@ -1,5 +1,6 @@
 package com.project.member.dao;
 
+import com.project.member.dto.NaverMemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -33,7 +34,7 @@ public class MemberDao {
     }
 
 
-
-
-
+    public int NaverLogin(NaverMemberDto loginUser) {
+        return sqlSession.insert("memberMapper.NaverLogin",loginUser);
+    }
 }
