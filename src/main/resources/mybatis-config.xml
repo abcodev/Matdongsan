@@ -9,8 +9,13 @@
     </settings>
 
     <typeAliases>
+        <typeAlias type="com.project.member.vo.Member" alias="member"/>
+<!--        <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="Fboard"/>-->
+<!--        <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="Qboard"/>-->
     </typeAliases>
 
     <mappers>
+        <mapper resource="/mappers/member-mapper.xml"/>
+<!--        <mapper resource="/mappers/board-mapper.xml"/>-->
     </mappers>
 </configuration>
