@@ -14,19 +14,19 @@ public class RentHouseDto {
     @JsonProperty("SGG_CD")
     private String sggCd;
     @JsonProperty("SGG_NM")
-    private String sggNm;
+    private String sggName;
     @JsonProperty("BJDONG_CD")
-    private String bjdongCd;
+    private String bjdCd;
     @JsonProperty("BJDONG_NM")
-    private String bjdongNm;
+    private String bjdName;
     @JsonProperty("LAND_GBN")
     private String landGbn;
     @JsonProperty("LAND_GBN_NM")
     private String landGbnNm;
     @JsonProperty("BOBN")
-    private String bonbeon;
+    private String boBn;
     @JsonProperty("BUBN")
-    private String bubeon;
+    private String buBn;
     @JsonProperty("FLR_NO")
     private String floorNo;
     @JsonProperty("CNTRCT_DE")
@@ -40,7 +40,7 @@ public class RentHouseDto {
     @JsonProperty("RENT_FEE")
     private String rentFee;
     @JsonProperty("BLDG_NM")
-    private String buildingNm;
+    private String buildName;
     @JsonProperty("BUILD_YEAR")
     private String buildYear;
     @JsonProperty("HOUSE_GBN_NM")

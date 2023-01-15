@@ -28,17 +28,17 @@ public class RentHouse {
         return RentHouse.builder()
                 .accYear(rentHouseDto.getAccYear())
                 .sggCd(rentHouseDto.getSggCd())
-                .sggName(rentHouseDto.getSggNm())
-                .bjdCd(rentHouseDto.getBjdongCd())
-                .bjdName(rentHouseDto.getBjdongNm())
-                .boBn(rentHouseDto.getBonbeon())
-                .buBn(rentHouseDto.getBubeon())
+                .sggName(rentHouseDto.getSggName())
+                .bjdCd(rentHouseDto.getBjdCd())
+                .bjdName(rentHouseDto.getBjdName())
+                .boBn(rentHouseDto.getBoBn())
+                .buBn(rentHouseDto.getBuBn())
                 .dealYmd(rentHouseDto.getDealYmd())
                 .rentGbn(rentHouseDto.getRentGbn())
                 .rentArea(rentHouseDto.getRentArea())
                 .rentGtn(rentHouseDto.getRentGtn())
                 .rentFee(rentHouseDto.getRentFee())
-                .buildName(rentHouseDto.getBuildingNm())
+                .buildName(rentHouseDto.getBuildName())
                 .houseType(rentHouseDto.getHouseType()).build();
     }
 

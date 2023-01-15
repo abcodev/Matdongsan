@@ -30,23 +30,23 @@
         INSERT INTO REALEATATE_RENT
         (RENT_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BOBN, BUBN, DEAL_YMD, RENT_GBN,
         RENT_AREA, RENT_GTN, RENT_FEE, BLDG_NM, HOUSE_GBN_NM)
-        SELECT rentHouse.* FROM (
+        SELECT  SEQ_RENT_NO.NEXTVAL, rentHouse.* FROM (
         <foreach collection="list" item="rH" separator="UNION ALL ">
             <![CDATA[
 				    SELECT
-				        SEQ_RENT_NO.NEXTVAL,
                         #{rH.accYear},
                         #{rH.sggCd},
                         #{rH.sggNm},
-                        #{rH.bjdongCd},
-                        #{rH.bjdongNm},
-                        #{rH.bondbeon},
-                        #{rH.bubeon},
-                        #{rH.bldgNm},
+                        #{rH.bjdCd},
+                        #{rH.bjdName},
+                        #{rH.boBn},
+                        #{rH.buBn},
                         #{rH.dealYmd},
-                        #{rH.objAmt},
-                        #{rH.bldgArea},
-                        #{rH.buildYear},
+                        #{rH.rentGbn},
+                        #{rH.rentArea},
+                        #{rH.rentGtn},
+                        #{rH.rentFee},
+                        #{rH.buildName},
                         #{rH.houseType}
                     FROM dual
                 ]]>
