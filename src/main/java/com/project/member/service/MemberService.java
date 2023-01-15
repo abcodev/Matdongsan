@@ -28,7 +28,6 @@ public class MemberService {
         }
     }
 
-
     public int naverLogin(NaverMemberDto loginUser) {
         if(memberDao.naverExist(loginUser)){
             return memberDao.naverLogin(loginUser);

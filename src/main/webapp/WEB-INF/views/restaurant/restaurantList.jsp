@@ -26,21 +26,59 @@
     </div>
     <div id="place_body">
         <div class="place_list">
-            <div class="place info">
-                <img src="맛집.jpg">
-                <div>가게명</div>
-                <div>별점</div>
-            </div>
-            <div class="place info">
-                <img src="맛집.jpg">
-                <div>가게명</div>
-                <div>별점</div>
-            </div>
-            <div class="place info">
-                <img src="맛집.jpg">
-                <div>가게명</div>
-                <div>별점</div>
-            </div>
+
+<%--            <c:set var="i" value="0"/>--%>
+<%--            <c:set var="j" value="4"/>--%>
+<%--            <table border=1>--%>
+<%--                <c:choose>--%>
+<%--                    <c:when test="${selectCultureList != null && fn:length(selectCultureList) > 0 }">--%>
+<%--                        <c:forEach items="${selectCultureList}" var="selectCultureList">--%>
+<%--                            <c:if test="{i%j == 0}">--%>
+<%--                                <tr>--%>
+<%--                            </c:if>--%>
+
+<%--                            <td align="center">--%>
+<%--                                <a href="cultureDetail?svcId=${selectCultureList.svcId}">링크</a><br>--%>
+<%--                                <img src="<c:out value="${selectCultureList.imgUrl}" />" width="250px" height="300px">--%>
+<%--                                <hr>--%>
+<%--                                <c:out value="${selectCultureList.minClassName}"/> <br>--%>
+<%--                                <c:out value="${selectCultureList.serviceName}"/><br>--%>
+<%--                                <c:out value="${selectCultureList.svcId}"/>--%>
+<%--                            </td>--%>
+
+
+<%--                            <c:if test="${i%j == j-1}">--%>
+<%--                                </tr>--%>
+<%--                            </c:if>--%>
+<%--                            <c:set var="i" value="${i+1}"/>--%>
+<%--                        </c:forEach>--%>
+<%--                    </c:when>--%>
+<%--                    <c:otherwise>--%>
+<%--                        <tr>--%>
+<%--                            <td>내역이 존재하지 않습니다.</td>--%>
+<%--                        </tr>--%>
+<%--                    </c:otherwise>--%>
+<%--                </c:choose>--%>
+<%--            </table>--%>
+
+
+
+<%--            <div class="place info">--%>
+<%--                <img src="맛집.jpg">--%>
+<%--                <div>가게명</div>--%>
+<%--                <div>별점</div>--%>
+<%--            </div>--%>
+<%--            <div class="place info">--%>
+<%--                <img src="맛집.jpg">--%>
+<%--                <div>가게명</div>--%>
+<%--                <div>별점</div>--%>
+<%--            </div>--%>
+<%--            <div class="place info">--%>
+<%--                <img src="맛집.jpg">--%>
+<%--                <div>가게명</div>--%>
+<%--                <div>별점</div>--%>
+<%--            </div>--%>
+
         </div>
     </div>
 </div>

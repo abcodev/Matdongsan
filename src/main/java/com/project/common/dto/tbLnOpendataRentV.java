@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ListRentHouse {
+public class tbLnOpendataRentV {
     @JsonProperty("row")
     private RentHouseDto[] houseList;
 }

@@ -18,7 +18,6 @@
         <result column="GRADE" property="grade"/>
     </resultMap>
 
-
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
         (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS)

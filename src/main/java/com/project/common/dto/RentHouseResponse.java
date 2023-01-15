@@ -12,6 +12,6 @@ import lombok.ToString;
 @ToString
 public class RentHouseResponse {
 
-    @JsonProperty("ListRentHouse")
-    private ListRentHouse houseList;
+    @JsonProperty("tbLnOpendataRentV")
+    private tbLnOpendataRentV houseList;
 }

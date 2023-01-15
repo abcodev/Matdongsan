@@ -21,7 +21,7 @@ public class ApiTemplate {
 
     // Scheduling
     public List<RentHouseDto> getRentHouseList() {
-        String serviceName = "ListRentHouse";
+        String serviceName = "tbLnOpendataRentV";
         String url = this.generateUrl(serviceName, 1, 1000);
 
         try {
