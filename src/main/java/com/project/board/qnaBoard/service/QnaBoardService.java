@@ -6,5 +6,4 @@ public interface QnaBoardService {
 
     public Map<String,Object>selectList();
 
-    public int selectBoardList(int bno);
 }
