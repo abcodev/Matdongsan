@@ -49,6 +49,7 @@ public class LoginController {
         return "member/loginPage";
     }
 
+
     /**
      * 네이버 로그인 성공시 callback 함수 호출
      * 임시 ------(네이버 개발 페이지에서 미리 정해둔 url/http://localhost:8070/Matdongsan)
@@ -59,36 +60,9 @@ public class LoginController {
                            @RequestParam String state,
                            HttpSession session
     ) throws IOException, ParseException {
-
-        System.out.println("여기는 callback");
-        OAuth2AccessToken oauthToken;
-        oauthToken = naverLoginBO.getAccessToken(session, code, state);
-        System.out.println("stat : " + state);
-
-        //1. 로그인 사용자 정보를 읽어온다.
-        apiResult = naverLoginBO.getUserProfile(oauthToken);  //String형식의 json데이터
-        System.out.println(apiResult);
-        //2. String형식인 apiResult를 json형태로 바꿈
-        JSONParser parser = new JSONParser();
-        Object obj = parser.parse(apiResult);
-        JSONObject jsonObj = (JSONObject) obj;
-
-        //3. 데이터 파싱
-        //Top레벨 단계 _response 파싱
-        JSONObject response_obj = (JSONObject)jsonObj.get("response");
-
-
-        // 프로필 조회
-        String providerId = (String) response_obj.get("id");
-        String email = (String) response_obj.get("email");
-        String name = (String) response_obj.get("name");
-        String profileImage = (String) response_obj.get("profile_image");
-        String provider = "NAVER";
-
-        NaverMemberDto loginUser = new NaverMemberDto(provider,providerId,email,name,profileImage);
-       int result =  memberService.naverLogin(loginUser);
-       session.setAttribute("loginUser",loginUser);
-       model.addAttribute("loginUser", loginUser);
+        NaverMemberDto loginUser = memberService.Test(session,code,state);
+        session.setAttribute("loginUser",loginUser);
+        model.addAttribute("loginUser", loginUser);
 
         return "common/mainPage";
     }
