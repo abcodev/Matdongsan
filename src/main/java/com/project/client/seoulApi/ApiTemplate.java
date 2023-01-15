@@ -5,11 +5,15 @@ import com.project.client.seoulApi.dto.RealEstateSellDto;
 import com.project.client.seoulApi.dto.RealEstateSellResponse;
 import com.project.common.dto.RentHouseDto;
 import com.project.common.dto.RentHouseResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Component
+@RequiredArgsConstructor
 public class ApiTemplate {
     private RestTemplate restTemplate;
     private static final String apiUrl = "http://openapi.seoul.go.kr:8088";

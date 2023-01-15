@@ -10,7 +10,5 @@ import java.util.List;
 
 @Service
 public interface RentHouseService {
-    void insertData(RentHouseDto dataDto) throws IOException, ParserConfigurationException, SAXException;
-
-    List<RentHouseDto> houseList();
+   int getAndSave();
 }

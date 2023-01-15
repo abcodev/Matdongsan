@@ -1,13 +1,14 @@
 package com.project.common.vo;
 
-import lombok.Builder;
-import lombok.Data;
 import com.project.common.dto.RentHouseDto;
+import lombok.*;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RentHouse {
 
-    private String rentNo;
     private String accYear;
     private String sggCd; //자치구 코드
     private String sggName;
@@ -22,5 +23,23 @@ public class RentHouse {
     private String rentFee;
     private String buildName;
     private String houseType;
+
+    public static RentHouse of(RentHouseDto rentHouseDto){
+        return RentHouse.builder()
+                .accYear(rentHouseDto.getAccYear())
+                .sggCd(rentHouseDto.getSggCd())
+                .sggName(rentHouseDto.getSggNm())
+                .bjdCd(rentHouseDto.getBjdongCd())
+                .bjdName(rentHouseDto.getBjdongNm())
+                .boBn(rentHouseDto.getBonbeon())
+                .buBn(rentHouseDto.getBubeon())
+                .dealYmd(rentHouseDto.getDealYmd())
+                .rentGbn(rentHouseDto.getRentGbn())
+                .rentArea(rentHouseDto.getRentArea())
+                .rentGtn(rentHouseDto.getRentGtn())
+                .rentFee(rentHouseDto.getRentFee())
+                .buildName(rentHouseDto.getBuildingNm())
+                .houseType(rentHouseDto.getHouseType()).build();
+    }
 
 }
