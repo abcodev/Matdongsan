@@ -10,6 +10,7 @@
 
     <typeAliases>
         <typeAlias type="com.project.member.vo.Member" alias="member"/>
+        <typeAlias type="com.project.realestate.vo.RealEstateSell" alias="realEstate"/>
         <typeAlias type="com.project.member.dto.NaverMemberDto" alias="naverMember"/>
 <!--        <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="Fboard"/>-->
 <!--        <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="Qboard"/>-->
@@ -17,6 +18,7 @@
 
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
+        <mapper resource="/mappers/realestate-mapper.xml"/>
 <!--        <mapper resource="/mappers/board-mapper.xml"/>-->
     </mappers>
 </configuration>
