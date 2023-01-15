@@ -1,5 +1,6 @@
 package com.project.member.dao;
 
+import com.project.client.oauth.kakao.dto.OAuthUser;
 import com.project.member.dto.NaverMemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +20,14 @@ public class MemberDao {
         return sqlSession.insert("memberMapper.insert", member);
     }
 
-    public boolean exist(String provider, long providerId) {
+    public boolean exist(String provider, String providerId) {
         Map<String, Object> params = new HashMap<>();
         params.put("provider", provider);
         params.put("providerId", providerId);
         return sqlSession.selectOne("memberMapper.select", params) != null;
     }
 
-    public Member find(String provider, long providerId) {
+    public Member find(String provider, String providerId) {
         Map<String, Object> params = new HashMap<>();
         params.put("provider", provider);
         params.put("providerId", providerId);
@@ -34,12 +35,12 @@ public class MemberDao {
     }
 
 
-    public int naverLogin(NaverMemberDto loginUser) {
-        return sqlSession.insert("memberMapper.NaverLogin",loginUser);
+    public int naverLogin(OAuthUser oAuthUser) {
+        return sqlSession.insert("memberMapper.NaverLogin",oAuthUser);
     }
 
-    public boolean naverExist(NaverMemberDto loginUser) {
-        return sqlSession.selectOne("memberMapper.naverExist",loginUser) == null;
+    public boolean naverExist(OAuthUser oAuthUser) {
+        return sqlSession.selectOne("memberMapper.naverExist",oAuthUser) == null;
 
     }
 }

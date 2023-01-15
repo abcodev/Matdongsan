@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
+import com.project.client.oauth.kakao.dto.OAuthUser;
 import com.project.client.oauth.naver.NaverLoginBO;
 import com.project.member.dto.NaverMemberDto;
 import com.project.member.service.MemberService;
@@ -60,7 +61,7 @@ public class LoginController {
                            @RequestParam String state,
                            HttpSession session
     ) throws IOException, ParseException {
-        NaverMemberDto loginUser = memberService.Test(session,code,state);
+        OAuthUser loginUser = memberService.Test(session,code,state);
         session.setAttribute("loginUser",loginUser);
         model.addAttribute("loginUser", loginUser);
 

@@ -5,6 +5,11 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import com.project.client.oauth.kakao.dto.OAuthUser;
+import com.project.member.dto.NaverMemberDto;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.util.StringUtils;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
@@ -81,7 +86,7 @@ public class NaverLoginBO {
         return (String) session.getAttribute(SESSION_STATE);
     }
     /* Access Token을 이용하여 네이버 사용자 프로필 API를 호출 */
-    public String getUserProfile(OAuth2AccessToken oauthToken) throws IOException{
+    public OAuthUser getUserProfile(OAuth2AccessToken oauthToken) throws IOException, ParseException {
 
         OAuth20Service oauthService =new ServiceBuilder()
                 .apiKey(CLIENT_ID)
@@ -91,6 +96,25 @@ public class NaverLoginBO {
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
         oauthService.signRequest(oauthToken, request);
         Response response = request.send();
-        return response.getBody();
+
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(response.getBody());
+        JSONObject jsonObj = (JSONObject) obj;
+
+        //3. 데이터 파싱
+        //Top레벨 단계 _response 파싱
+        JSONObject response_obj = (JSONObject)jsonObj.get("response");
+
+
+        // 프로필 조회
+        String id = (String) response_obj.get("id");
+        String email = (String) response_obj.get("email");
+        String name = (String) response_obj.get("name");
+        String profileImage = (String) response_obj.get("profile_image");
+        String provider = "NAVER";
+
+        OAuthUser oAuthUser =  new OAuthUser(provider,id,email,name,profileImage);
+
+        return oAuthUser;
     }
 }

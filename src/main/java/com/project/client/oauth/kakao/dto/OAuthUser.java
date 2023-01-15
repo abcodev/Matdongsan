@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class OAuthUser {
     private String provider;
-    private long id;
+    private String id;
     private String nickname;
     private String email;
     private String profileImage;
