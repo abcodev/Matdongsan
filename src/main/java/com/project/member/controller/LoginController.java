@@ -6,12 +6,14 @@ import javax.servlet.http.HttpSession;
 
 import com.project.client.oauth.naver.NaverLoginBO;
 import com.project.member.dto.NaverMemberDto;
+import com.project.member.service.MemberService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,10 +28,13 @@ public class LoginController {
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
 
-    public LoginController(NaverLoginBO naverLoginBO) {
-        this.naverLoginBO = naverLoginBO;
-    }
+    private MemberService memberService;
 
+    @Autowired
+    public LoginController(NaverLoginBO naverLoginBO, MemberService memberService) {
+        this.naverLoginBO = naverLoginBO;
+        this.memberService = memberService;
+    }
 
     /**
      * 로그인 페이지 이동
@@ -61,7 +66,7 @@ public class LoginController {
 
         //1. 로그인 사용자 정보를 읽어온다.
         apiResult = naverLoginBO.getUserProfile(oauthToken);  //String형식의 json데이터
-
+        System.out.println(apiResult);
         //2. String형식인 apiResult를 json형태로 바꿈
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(apiResult);
@@ -71,17 +76,17 @@ public class LoginController {
         //Top레벨 단계 _response 파싱
         JSONObject response_obj = (JSONObject)jsonObj.get("response");
 
+
         // 프로필 조회
         String email = (String) response_obj.get("email");
         String name = (String) response_obj.get("name");
         String profileImage = (String) response_obj.get("profile_image");
 
+        NaverMemberDto loginUser = new NaverMemberDto(email,name,profileImage);
+       int result =  memberService.NaverLogin(loginUser);
+       session.setAttribute("loginUser",loginUser);
+       model.addAttribute("loginUser", loginUser);
 
-
-
-
-        model.addAttribute("result", apiResult);
-
-        return "member/loginPage";
+        return "common/mainPage";
     }
 }

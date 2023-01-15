@@ -54,7 +54,7 @@
             <c:otherwise>
                 <label>
                     <img src="${loginUser.profileImage}" width="50px">
-                        ${loginUser.memberName} 님 환영합니다.
+                        ${loginUser.name} 님 환영합니다.
                 </label> &nbsp;&nbsp;
                 <%--                    <a href="${contextPath}/myPage">마이페이지</a>--%>
                 <a href="${pageContext.request.contextPath}/logout">로그아웃</a>

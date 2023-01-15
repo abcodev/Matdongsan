@@ -19,6 +19,8 @@
     </resultMap>
 
 
+
+
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
         (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, STATUS, GRADE)
@@ -32,6 +34,11 @@
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}
     </select>
+
+    <insert id="NaverLogin" parameterType="naverMember">
+        INSERT INTO MEMBER(MEMBER_NO,MEMBER_NAME,EMAIL,PROFILE_IMAGE)
+        VALUES (SEQ_MEMBER_NO.NEXTVAL, #{name},#{email},#{profileImage})
+    </insert>
 
 
 </mapper>

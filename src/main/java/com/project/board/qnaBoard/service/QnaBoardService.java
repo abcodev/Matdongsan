@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public interface qnaBoardService {
+public interface QnaBoardService {
 
     public int selectBoardList(int bno);
 }
