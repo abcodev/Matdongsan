@@ -83,7 +83,7 @@ public class LoginController {
         String email = (String) response_obj.get("email");
         String name = (String) response_obj.get("name");
         String profileImage = (String) response_obj.get("profile_image");
-        String provider = "네이버";
+        String provider = "NAVER";
 
         NaverMemberDto loginUser = new NaverMemberDto(provider,providerId,email,name,profileImage);
        int result =  memberService.naverLogin(loginUser);

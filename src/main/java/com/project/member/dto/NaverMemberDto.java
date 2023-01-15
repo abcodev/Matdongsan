@@ -12,7 +12,7 @@ public class NaverMemberDto {
     private String provider;
     private String providerId;
     private String email;
-    private String name;
+    private String memberName;
     private String profileImage;
 
 }

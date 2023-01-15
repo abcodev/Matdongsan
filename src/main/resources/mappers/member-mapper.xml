@@ -21,9 +21,9 @@
 
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
-        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, STATUS, GRADE)
+        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS)
         VALUES (SEQ_MEMBER_NO.NEXTVAL, #{provider}, #{providerId}, #{memberName}, #{profileImage}, #{email},
-                #{nickName}, #{phone}, #{address}, #{status}, #{grade})
+                #{nickName}, #{phone}, #{address})
     </insert>
 
     <select id="select" parameterType="Map" resultMap="memberResultSet">
