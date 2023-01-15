@@ -1,7 +1,9 @@
 package com.project.member.service;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.project.client.oauth.kakao.KakaoOAuthClient;
 import com.project.client.oauth.kakao.dto.OAuthUser;
+import com.project.client.oauth.naver.NaverLoginBO;
 import com.project.member.dao.MemberDao;
 import com.project.member.dto.NaverMemberDto;
 import com.project.member.vo.Member;
