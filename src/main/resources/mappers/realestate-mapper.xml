@@ -29,17 +29,16 @@
         INSERT INTO REALEATATE_SELL
         (SELL_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BONBEON, BUBEON, BLDG_NM, DEAL_YMD,
         OBJ_AMT, BLDG_AREA, BUILD_YEAR, HOUSE_TYPE)
-        SELECT realEstateSell.* FROM (
+        SELECT SEQ_SELL_NO.NEXTVAL, realEstateSell.* FROM (
         <foreach collection="list" item="r" separator="UNION ALL ">
             <![CDATA[
 				    SELECT
-				        SEQ_SELL_NO.NEXTVAL,
                         #{r.accYear},
                         #{r.sggCd},
                         #{r.sggNm},
                         #{r.bjdongCd},
                         #{r.bjdongNm},
-                        #{r.bondbeon},
+                        #{r.bonbeon},
                         #{r.bubeon},
                         #{r.bldgNm},
                         #{r.dealYmd},
