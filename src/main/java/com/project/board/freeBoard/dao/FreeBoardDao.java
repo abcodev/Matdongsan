@@ -1,4 +1,4 @@
 package com.project.board.freeBoard.dao;
 
-public class freeBoardDao {
+public class FreeBoardDao {
 }

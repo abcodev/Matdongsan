@@ -1,12 +1,16 @@
 package com.project.board.qnaBoard.dao;
+
 import com.project.board.qnaBoard.vo.QnaBoard;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
-public class qnaBoardDao {
+import java.util.ArrayList;
 
-    public int selectBoard(SqlSession sqlSession, int bno) {
-        return sqlSession.selectOne("boardMapper.selectList", bno);
+@Repository
+public class QnaBoardDao {
+
+    public ArrayList<QnaBoard> selectList(SqlSession sqlSession){
+        return sqlSession.selectOne("boardMapper.selectList");
     }
-
 
 }
