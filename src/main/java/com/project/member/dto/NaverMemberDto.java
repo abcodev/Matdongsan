@@ -9,7 +9,10 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class NaverMemberDto {
+    private String provider;
+    private String providerId;
     private String email;
     private String name;
     private String profileImage;
+
 }

@@ -29,7 +29,10 @@ public class MemberService {
     }
 
 
-    public int NaverLogin(NaverMemberDto loginUser) {
-        return memberDao.NaverLogin(loginUser);
+    public int naverLogin(NaverMemberDto loginUser) {
+        if(memberDao.naverExist(loginUser)){
+            return memberDao.naverLogin(loginUser);
+        }
+        return 1;
     }
 }

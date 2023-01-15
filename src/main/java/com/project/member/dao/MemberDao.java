@@ -34,7 +34,12 @@ public class MemberDao {
     }
 
 
-    public int NaverLogin(NaverMemberDto loginUser) {
+    public int naverLogin(NaverMemberDto loginUser) {
         return sqlSession.insert("memberMapper.NaverLogin",loginUser);
+    }
+
+    public boolean naverExist(NaverMemberDto loginUser) {
+        return sqlSession.selectOne("memberMapper.naverExist",loginUser) == null;
+
     }
 }

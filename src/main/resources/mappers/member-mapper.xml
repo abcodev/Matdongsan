@@ -36,9 +36,16 @@
     </select>
 
     <insert id="NaverLogin" parameterType="naverMember">
-        INSERT INTO MEMBER(MEMBER_NO,MEMBER_NAME,EMAIL,PROFILE_IMAGE)
-        VALUES (SEQ_MEMBER_NO.NEXTVAL, #{name},#{email},#{profileImage})
+        INSERT INTO MEMBER(MEMBER_NO,PROVIDER_ID,PROVIDER,MEMBER_NAME,EMAIL,PROFILE_IMAGE)
+        VALUES (SEQ_MEMBER_NO.NEXTVAL, #{providerId},#{provider},#{name},#{email},#{profileImage})
     </insert>
+
+    <select id="naverExist" parameterType="naverMember" resultMap="memberResultSet">
+        SELECT *
+        FROM MEMBER
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
+    </select>
 
 
 </mapper>

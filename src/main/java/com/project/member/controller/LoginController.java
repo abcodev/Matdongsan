@@ -63,6 +63,7 @@ public class LoginController {
         System.out.println("여기는 callback");
         OAuth2AccessToken oauthToken;
         oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        System.out.println("stat : " + state);
 
         //1. 로그인 사용자 정보를 읽어온다.
         apiResult = naverLoginBO.getUserProfile(oauthToken);  //String형식의 json데이터
@@ -78,12 +79,14 @@ public class LoginController {
 
 
         // 프로필 조회
+        String providerId = (String) response_obj.get("id");
         String email = (String) response_obj.get("email");
         String name = (String) response_obj.get("name");
         String profileImage = (String) response_obj.get("profile_image");
+        String provider = "네이버";
 
-        NaverMemberDto loginUser = new NaverMemberDto(email,name,profileImage);
-       int result =  memberService.NaverLogin(loginUser);
+        NaverMemberDto loginUser = new NaverMemberDto(provider,providerId,email,name,profileImage);
+       int result =  memberService.naverLogin(loginUser);
        session.setAttribute("loginUser",loginUser);
        model.addAttribute("loginUser", loginUser);
 

@@ -22,9 +22,12 @@
             <img src="<c:url value="/resources/images/oauth/kakao_login_medium_wide.png"/>">
         </a>
         <br>
-        <a href="${naverUrl}">네이버</a>
-        <button>카카오</button>
-        <button onclick="location.href='${naverUrl}'">네이버</button>
+        <br>
+        <br>
+        <a href="${naverUrl}">
+            <img src="<c:url value="/resources/images/oauth/btnG_완성형.png"/>" width="300px;" height="50px;">
+        </a>
+
         <button>구글</button>
     </div>
 </div>
