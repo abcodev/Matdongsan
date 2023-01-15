@@ -26,11 +26,11 @@ public class RealEstateApiServiceImpl implements RealEstateApiService{
     public int retrieveAndSave() {
         List<RealEstateSell> sellList = seoulApiClient.getRealEstateSellList()
                 .stream()
-//                .filter(realEstateSellDto -> realEstateSellDto.getDealYmd().equals(""))
+                .filter(realEstateSellDto -> realEstateSellDto.getHouseType().equals("아파트"))
                 .map(RealEstateSell::of)
                 .collect(Collectors.toList());
 
-        realEstateSellApiDao.truncate();
+//        realEstateSellApiDao.truncate();
         realEstateSellApiDao.batchInsert(sellList);
         return sellList.size();
     }
