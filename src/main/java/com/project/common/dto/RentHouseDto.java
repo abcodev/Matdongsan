@@ -1,8 +1,11 @@
 package com.project.common.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class RentHouseDto {
 
     private String url;

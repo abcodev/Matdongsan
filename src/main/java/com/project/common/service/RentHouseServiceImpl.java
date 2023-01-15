@@ -12,21 +12,5 @@ import java.util.List;
 @Log4j
 public class RentHouseServiceImpl implements RentHouseService{
 
-    private RentHouseDao rentHouseDao;
 
-    @Autowired
-    public RentHouseServiceImpl(RentHouseDao rentHouseDao) {
-        this.rentHouseDao = rentHouseDao;
-    }
-
-    @Override
-    public void insertData(RentHouseDto dataDto) {
-
-        RentHouseDao.insertData(dataDto);
-    }
-
-    @Override
-    public List<RentHouseDto> houseList() {
-        return rentHouseDao.houseList();
-    }
 }

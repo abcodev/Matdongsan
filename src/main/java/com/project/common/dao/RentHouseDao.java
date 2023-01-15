@@ -10,5 +10,5 @@ public class RentHouseDao {
     public void insertData(RentHouseDto dataDto){
     }
 
-    List<RentHouseDto> houseList() throws Exception;
+    //List<RentHouseDto> houseList() throws Exception;
 }
