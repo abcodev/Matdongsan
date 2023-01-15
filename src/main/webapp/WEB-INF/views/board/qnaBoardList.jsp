@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,8 +33,10 @@
             </div>
             <div id="boardlist_main">
                 <table class="table">
+                    <c:forEach var="qb" items="${list}">
                     <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
-                    <tr><td>게시물 글 제목입니다</td><td>user</td><td>2018-08-01</td><td>15</td></tr>
+                    <tr><td>${qb.qnaTtitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                    </c:forEach>
                 </table>
             </div>
         </div>
