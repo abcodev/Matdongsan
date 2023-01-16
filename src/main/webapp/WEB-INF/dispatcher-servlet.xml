@@ -24,9 +24,6 @@
               <property name="suffix" value=".jsp"/>
        </bean>
 
-       <bean id="NaverLoginBO" class="com.project.client.oauth.naver.NaverLoginBO" />
-
-
        <!--    추가-->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 

@@ -1,4 +1,4 @@
-package com.project.client.oauth.kakao.dto;
+package com.project.client.oauth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

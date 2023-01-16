@@ -18,13 +18,13 @@
     </div>
     <div id="login_body">
 
-        <a href="https://kauth.kakao.com/oauth/authorize?client_id=857210a016a83ceffadc50f61d649c7b&redirect_uri=http://localhost:8070/Matdongsan/login&response_type=code">
+        <a href="<c:url value="/login/kakao"/>">
             <img src="<c:url value="/resources/images/oauth/kakao_login_medium_wide.png"/>">
         </a>
         <br>
         <br>
         <br>
-        <a href="${naverUrl}">
+        <a href="<c:url value="/login/naver"/>">
             <img src="<c:url value="/resources/images/oauth/btnG_완성형.png"/>" width="300px;" height="50px;">
         </a>
 
