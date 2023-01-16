@@ -11,7 +11,7 @@ public class RentHouse {
 
     private String accYear;
     private String sggCd; //자치구 코드
-    private String sggName;
+    private String sggNm;
     private String bjdCd;
     private String bjdName;
     private String boBn; //본번
@@ -28,7 +28,7 @@ public class RentHouse {
         return RentHouse.builder()
                 .accYear(rentHouseDto.getAccYear())
                 .sggCd(rentHouseDto.getSggCd())
-                .sggName(rentHouseDto.getSggName())
+                .sggNm(rentHouseDto.getSggNm())
                 .bjdCd(rentHouseDto.getBjdCd())
                 .bjdName(rentHouseDto.getBjdName())
                 .boBn(rentHouseDto.getBoBn())

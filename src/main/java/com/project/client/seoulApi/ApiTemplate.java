@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ApiTemplate {
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private static final String apiUrl = "http://openapi.seoul.go.kr:8088";
     private final String apiKey = "6d504f496761686137326a50747377";
 
@@ -29,7 +29,7 @@ public class ApiTemplate {
             }
             return Arrays.asList(response.getHouseList().getHouseList());
         } catch (Exception ex) {
-            throw new RuntimeException(serviceName + " 조회 실패!");
+            throw new RuntimeException(serviceName + " 조회 실패!!");
         }
     }
 
