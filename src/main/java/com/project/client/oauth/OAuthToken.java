@@ -1,4 +1,4 @@
-package com.project.client.oauth.kakao.dto;
+package com.project.client.oauth;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

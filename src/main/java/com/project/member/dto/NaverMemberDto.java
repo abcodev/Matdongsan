@@ -1,8 +1,6 @@
 package com.project.member.dto;
 
 
-import com.project.client.oauth.kakao.dto.OAuthUser;
-import com.project.member.vo.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

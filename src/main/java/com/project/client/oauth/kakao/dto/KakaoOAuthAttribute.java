@@ -2,6 +2,7 @@ package com.project.client.oauth.kakao.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.project.client.oauth.OAuthUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class KakaoOAuthAttribute {
-    private long id;
+    private String id;
     private KakaoOAuthProperties properties;
     private String email;
 

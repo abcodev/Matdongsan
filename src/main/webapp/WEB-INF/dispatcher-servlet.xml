@@ -24,7 +24,7 @@
               <property name="suffix" value=".jsp"/>
        </bean>
 
-       <bean id="NaverLoginBO" class="com.project.client.oauth.naver.NaverLoginBO" />
+       <bean id="NaverLoginBO" class="com.project.client.oauth.naver.NaverOAuthClient" />
 
 
        <!--    추가-->
