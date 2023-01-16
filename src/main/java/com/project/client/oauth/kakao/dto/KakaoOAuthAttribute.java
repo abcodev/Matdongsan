@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class KakaoOAuthAttribute {
-    private long id;
+    private String id;
     private KakaoOAuthProperties properties;
     private String email;
 

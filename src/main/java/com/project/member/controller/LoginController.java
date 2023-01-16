@@ -7,9 +7,12 @@ import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
+import com.project.member.vo.Member;
+import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,8 @@ public class LoginController {
     /* NaverLoginBO */
     private final MemberService memberService;
     private final OAuthClientService oAuthClientService;
+
+
 
     /**
      * 로그인 페이지 이동
@@ -56,8 +61,6 @@ public class LoginController {
     ) {
         ModelAndView mav = new ModelAndView();
         Member loginUser = memberService.login(session, provider, code, state);
-
-        System.out.println("login info : " + loginUser.getProfileImage());
         session.setAttribute("loginUser", loginUser);
         mav.setViewName("common/mainPage");
         return mav;
@@ -70,5 +73,4 @@ public class LoginController {
         mav.setViewName("redirect:/");
         return mav;
     }
-
 }

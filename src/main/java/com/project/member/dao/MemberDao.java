@@ -1,6 +1,6 @@
 package com.project.member.dao;
 
-import com.project.member.dto.NaverMemberDto;
+import com.project.client.oauth.OAuthUser;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,27 +19,11 @@ public class MemberDao {
         return sqlSession.insert("memberMapper.insert", member);
     }
 
-    public boolean exist(String provider, long providerId) {
+    public boolean exist(String provider, String providerId) {
         Map<String, Object> params = new HashMap<>();
         params.put("provider", provider);
         params.put("providerId", providerId);
-        return sqlSession.selectOne("memberMapper.select", params) != null;
+        return sqlSession.selectOne("memberMapper.select", params) == null;
     }
 
-    public Member find(String provider, long providerId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("provider", provider);
-        params.put("providerId", providerId);
-        return sqlSession.selectOne("memberMapper.select", params);
-    }
-
-
-    public int naverLogin(NaverMemberDto loginUser) {
-        return sqlSession.insert("memberMapper.NaverLogin",loginUser);
-    }
-
-    public boolean naverExist(NaverMemberDto loginUser) {
-        return sqlSession.selectOne("memberMapper.naverExist",loginUser) == null;
-
-    }
 }
