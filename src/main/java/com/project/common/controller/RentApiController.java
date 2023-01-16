@@ -1,8 +1,6 @@
 package com.project.common.controller;
 
 import com.project.client.seoulApi.ApiTemplate;
-import com.project.client.seoulApi.SeoulApiClient;
-import com.project.common.service.RealEstateApiService;
 import com.project.common.service.RentHouseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -28,7 +26,6 @@ public class RentApiController {
 
         log.info("파싱 스타트 체크");
         int result = rentHouseService.getAndSave();
-//        System.out.println(result);
 
         log.info("파싱 정보 입력 끝");
     }

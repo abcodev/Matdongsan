@@ -14,7 +14,7 @@ public class RentHouseDto {
     @JsonProperty("SGG_CD")
     private String sggCd;
     @JsonProperty("SGG_NM")
-    private String sggName;
+    private String sggNm;
     @JsonProperty("BJDONG_CD")
     private String bjdCd;
     @JsonProperty("BJDONG_NM")

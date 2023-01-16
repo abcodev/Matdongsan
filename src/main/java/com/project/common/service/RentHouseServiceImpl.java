@@ -31,7 +31,7 @@ public class RentHouseServiceImpl implements RentHouseService{
     public int getAndSave() {
         List<RentHouse> houseList = apiTemplate.getRentHouseList()
                 .stream()
-//                .filter(realEstateSellDto -> realEstateSellDto.getDealYmd().equals(""))
+                .filter(rentHouseDto -> rentHouseDto.getHouseType().equals("아파트"))
                 .map(RentHouse::of)
                 .collect(Collectors.toList());
 
