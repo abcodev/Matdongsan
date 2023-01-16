@@ -75,6 +75,10 @@
         </div>
         <div class="side news">
             <h3>부동산 주요 뉴스</h3>
+            <br>
+            <p><a href="https://land.naver.com/news/newsRead.naver?type=region&prsco_id=417&arti_id=0000882363">${title}</a> </p>
+            <br>
+            <p>${news}</p>
 
 
         </div>
