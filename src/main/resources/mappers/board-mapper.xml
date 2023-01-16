@@ -40,5 +40,45 @@
             WHERE STATUS = 'Y'
             ORDER BY QNA_DATE DESC;
     </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD
+        WHERE STATUS = 'Y';
+    </select>
+
+    <insert id="insertQnaBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO,MEMBER_NO,QNA_TITLE,QNA_CONTENT,QNA_DATE,QNA_AREA)
+        VALUES(SEQ_BNO.NEXTVAL,
+               MEMBER_NO = #{use_no},
+               QNA_TITLE = #{qnaTitle},
+               QNA_CONTENT = #{qnaContent},
+               QNA_DATE = #{sysdate},
+               QNA_AREA =#{qnaArea}
+               )
+    </insert>
+    <select id="searchList" resultMap="qBoardResultSet">
+        QNA_BNO,
+        MEMBER_NO,
+        P_BNO,
+        QNA_TITLE,
+        QNA_CONTENT,
+        QNA_DATE
+        FROM QNA_BOARD
+        WHERE STATUS='Y'
+        <if test='keyword != null and keyword != ""'>
+            AND
+            <choose>
+                <when test="condition == 'qnaTitle'">
+                    QNA_TITLE LIKE '%${keyword}%'
+                </when>
+
+                <when test="condition == 'qnaContent'">
+                    QNA_CONTENT LIKE '%${keyword}%'
+                </when>
+            </choose>
+        </if>
+        ORDER BY QNA_DATE DESC
+    </select>
 </mapper>
 

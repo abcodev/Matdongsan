@@ -27,7 +27,7 @@ public class NaverOAuthClient implements OAuthClient {
     //state: 애플리케이션이 생성한 상태 토큰
     private final static String CLIENT_ID = "3Y5hO0TcAEavJAQGHzKc";
     private final static String CLIENT_SECRET = "TXkzMNWLnU";
-    private final static String REDIRECT_URI = "http://localhost:8070/Matdongsan/callback";
+    private final static String REDIRECT_URI = "http://localhost:8070/Matdongsan/naver/callback";
     private final static String SESSION_STATE = "oauth_state";
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
@@ -100,7 +100,7 @@ public class NaverOAuthClient implements OAuthClient {
             String email = (String) response_obj.get("email");
             String name = (String) response_obj.get("name");
             String profileImage = (String) response_obj.get("profile_image");
-            return new OAuthUser("NAVER", Long.parseLong(providerId), name, email, profileImage);
+            return new OAuthUser("NAVER", providerId, name, email, profileImage);
         } catch (Exception ignored) { }
         return null;
     }

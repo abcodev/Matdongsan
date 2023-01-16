@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,9 +75,14 @@
         </div>
         <div class="side news">
             <h3>부동산 주요 뉴스</h3>
+
+
         </div>
+
         <div class="side lookList">
             <h3>최근 본 부동산 목록</h3>
+
+
         </div>
     </div>
     <button id="go-top"><i class="fa-solid fa-angles-up"></i></button>

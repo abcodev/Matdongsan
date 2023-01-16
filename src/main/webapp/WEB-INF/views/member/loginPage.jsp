@@ -24,7 +24,7 @@
         <br>
         <br>
         <br>
-        <a href="<c:url value="/login/naver"/>">
+        <a href="<c:url value="/login/naver"/> ">
             <img src="<c:url value="/resources/images/oauth/btnG_완성형.png"/>" width="300px;" height="50px;">
         </a>
 
