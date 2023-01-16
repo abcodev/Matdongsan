@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="realEstateMapper">
+<mapper namespace="sellMapper">
 
-    <resultMap type="realEstate" id="realEstateSellResultSet">
+    <resultMap type="realEstateSell" id="realEstateSellResultSet">
         <result column="ACC_YEAR" property="accYear" />
         <result column="SGG_CD" property="sggCd" />
         <result column="SGG_NM" property="sggNM" />

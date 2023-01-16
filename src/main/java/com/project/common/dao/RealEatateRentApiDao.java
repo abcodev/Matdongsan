@@ -13,11 +13,11 @@ public class RealEatateRentApiDao {
     private final SqlSessionTemplate sqlSession;
 
     public void truncateData() {
-        sqlSession.delete("rentHouseMapper.deleteAll");
+        sqlSession.delete("rentMapper.deleteAll");
     }
 
     public void packageInsert(List<RealEstateRent> houseList) {
-        sqlSession.insert("rentHouseMapper.packageInsert", houseList);
+        sqlSession.insert("rentMapper.packageInsert", houseList);
     }
     //List<RentHouseDto> houseList() throws Exception;
 }

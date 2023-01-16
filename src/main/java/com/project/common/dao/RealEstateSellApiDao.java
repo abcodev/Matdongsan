@@ -18,7 +18,7 @@ public class RealEstateSellApiDao {
 //    }
 
     public void batchInsert(List<RealEstateSell> sellList) {
-        sqlSession.insert("realEstateMapper.batchInsert", sellList);
+        sqlSession.insert("sellMapper.batchInsert", sellList);
     }
 
 

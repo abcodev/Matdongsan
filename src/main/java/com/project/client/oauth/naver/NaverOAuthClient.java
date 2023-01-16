@@ -75,7 +75,7 @@ public class NaverOAuthClient implements OAuthClient {
     @Override
     public OAuthUser getUserProfile(HttpSession session, String code, String state) {
         OAuth2AccessToken accessToken = this.getAccessToken(session, code, state);
-        OAuth20Service oauthService =new ServiceBuilder()
+        OAuth20Service oauthService = new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI).build(NaverLoginApi.instance());
@@ -83,7 +83,10 @@ public class NaverOAuthClient implements OAuthClient {
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
         oauthService.signRequest(accessToken, request);
         Response response = request.send();
+        return naverJson(response);
+    }
 
+    public OAuthUser naverJson(Response response){
         try {
             String body = response.getBody();
 
@@ -104,7 +107,6 @@ public class NaverOAuthClient implements OAuthClient {
         } catch (Exception ignored) { }
         return null;
     }
-
     /* 세션 유효성 검증을 위한 난수 생성기 */
     private String generateRandomString() {
         return UUID.randomUUID().toString();
@@ -119,5 +121,4 @@ public class NaverOAuthClient implements OAuthClient {
     private void setSession(HttpSession session, String state) {
         session.setAttribute(SESSION_STATE, state);
     }
-
 }
