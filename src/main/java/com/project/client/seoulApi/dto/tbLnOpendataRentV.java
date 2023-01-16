@@ -1,6 +1,7 @@
-package com.project.common.dto;
+package com.project.client.seoulApi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.client.seoulApi.dto.RentHouseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

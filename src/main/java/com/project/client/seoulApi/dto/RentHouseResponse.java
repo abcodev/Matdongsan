@@ -1,4 +1,4 @@
-package com.project.common.dto;
+package com.project.client.seoulApi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

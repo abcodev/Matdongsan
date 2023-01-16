@@ -59,7 +59,6 @@ public class LoginController {
 
         System.out.println("login info : " + loginUser.getProfileImage());
         session.setAttribute("loginUser", loginUser);
-//        mav.setViewName("redirect:/");
         mav.setViewName("common/mainPage");
         return mav;
     }
@@ -72,20 +71,4 @@ public class LoginController {
         return mav;
     }
 
-//    /**
-//     * 네이버 로그인 성공시 callback 함수 호출
-//     * 임시 ------(네이버 개발 페이지에서 미리 정해둔 url/http://localhost:8070/Matdongsan)
-//     */
-//    @RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
-//    public String callback(Model model,
-//                           @RequestParam String code,
-//                           @RequestParam String state,
-//                           HttpSession session
-//    ) throws IOException, ParseException {
-//        NaverMemberDto loginUser = memberService.Test(session,code,state);
-//        session.setAttribute("loginUser",loginUser);
-//        model.addAttribute("loginUser", loginUser);
-//
-//        return "common/mainPage";
-//    }
 }

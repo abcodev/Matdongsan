@@ -1,6 +1,6 @@
 package com.project.common.vo;
 
-import com.project.common.dto.RentHouseDto;
+import com.project.client.seoulApi.dto.RentHouseDto;
 import lombok.*;
 
 @Getter

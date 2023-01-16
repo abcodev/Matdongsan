@@ -3,7 +3,6 @@ package com.project.common.service;
 import com.project.client.seoulApi.ApiTemplate;
 
 import com.project.common.dao.RentHouseDao;
-import com.project.common.dto.RentHouseDto;
 import com.project.common.vo.RentHouse;
 import lombok.extern.log4j.Log4j;
 import org.apache.ibatis.session.SqlSession;

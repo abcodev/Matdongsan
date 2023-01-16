@@ -1,10 +1,8 @@
 package com.project.client.seoulApi;
 
 
-import com.project.client.seoulApi.dto.RealEstateSellDto;
-import com.project.client.seoulApi.dto.RealEstateSellResponse;
-import com.project.common.dto.RentHouseDto;
-import com.project.common.dto.RentHouseResponse;
+import com.project.client.seoulApi.dto.RentHouseDto;
+import com.project.client.seoulApi.dto.RentHouseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
