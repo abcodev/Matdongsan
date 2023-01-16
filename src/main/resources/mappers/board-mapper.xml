@@ -40,5 +40,22 @@
             WHERE STATUS = 'Y'
             ORDER BY QNA_DATE DESC;
     </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD
+        WHERE STATUS = 'Y';
+    </select>
+
+    <insert id="insertQnaBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO,MEMBER_NO,QNA_TITLE,QNA_CONTENT,QNA_DATE,QNA_AREA)
+        VALUES(SEQ_BNO.NEXTVAL,
+               MEMBER_NO = #{use_no},
+               QNA_TITLE = #{qnaTitle},
+               QNA_CONTENT = #{qnaContent},
+               QNA_DATE = #{sysdate},
+               QNA_AREA =#{qnaArea}
+               )
+    </insert>
 </mapper>
 
