@@ -25,7 +25,6 @@ public class RealEstateApiController {
 
         log.info("파싱 스타트 체크");
         int result = realEstateApiService.retrieveAndSave();
-//        System.out.println(result);
 
         log.info("파싱 정보 입력 끝");
     }

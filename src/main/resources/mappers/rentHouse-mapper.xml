@@ -23,11 +23,11 @@
     </resultMap>
 
     <delete id="deleteAll">
-        TRUNCATE TABLE REALEATATE_RENT
+        TRUNCATE TABLE REALESTATE_RENT
     </delete>
 
     <insert id="packageInsert" parameterType="list">
-        INSERT INTO REALEATATE_RENT
+        INSERT INTO REALESTATE_RENT
         (RENT_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BOBN, BUBN, DEAL_YMD, RENT_GBN,
         RENT_AREA, RENT_GTN, RENT_FEE, BLDG_NM, HOUSE_GBN_NM)
         SELECT  SEQ_RENT_NO.NEXTVAL, rentHouse.* FROM (

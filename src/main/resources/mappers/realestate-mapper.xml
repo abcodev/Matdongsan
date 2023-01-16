@@ -22,11 +22,11 @@
     </resultMap>
 
     <delete id="deleteAll">
-        TRUNCATE TABLE REALEATATE_SELL
+        TRUNCATE TABLE REALESTATE_SELL
     </delete>
 
     <insert id="batchInsert" parameterType="list">
-        INSERT INTO REALEATATE_SELL
+        INSERT INTO REALESTATE_SELL
         (SELL_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BONBEON, BUBEON, BLDG_NM, DEAL_YMD,
         OBJ_AMT, BLDG_AREA, BUILD_YEAR, HOUSE_TYPE)
         SELECT SEQ_SELL_NO.NEXTVAL, realEstateSell.* FROM (

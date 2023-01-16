@@ -13,14 +13,14 @@
         <typeAlias type="com.project.realestate.vo.RealEstateSell" alias="realEstate"/>
         <typeAlias type="com.project.member.dto.NaverMemberDto" alias="naverMember"/>
         <typeAlias type="com.project.common.vo.RentHouse" alias="rentHouse"/>
-<!--        <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="Fboard"/>-->
-<!--        <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="Qboard"/>-->
+        <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="FBoard"/>
+        <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="QBoard"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
         <mapper resource="/mappers/realestate-mapper.xml"/>
         <mapper resource="/mappers/rentHouse-mapper.xml"/>
-<!--        <mapper resource="/mappers/board-mapper.xml"/>-->
+        <mapper resource="/mappers/board-mapper.xml"/>
     </mappers>
 </configuration>
