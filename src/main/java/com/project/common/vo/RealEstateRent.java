@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RentHouse {
+public class RealEstateRent {
 
     private String accYear;
     private String sggCd; //자치구 코드
@@ -24,8 +24,8 @@ public class RentHouse {
     private String buildName;
     private String houseType;
 
-    public static RentHouse of(RentHouseDto rentHouseDto){
-        return RentHouse.builder()
+    public static RealEstateRent of(RentHouseDto rentHouseDto){
+        return RealEstateRent.builder()
                 .accYear(rentHouseDto.getAccYear())
                 .sggCd(rentHouseDto.getSggCd())
                 .sggNm(rentHouseDto.getSggNm())

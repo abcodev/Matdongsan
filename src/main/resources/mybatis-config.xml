@@ -10,9 +10,9 @@
 
     <typeAliases>
         <typeAlias type="com.project.member.vo.Member" alias="member"/>
-        <typeAlias type="com.project.realestate.vo.RealEstateSell" alias="realEstate"/>
+        <typeAlias type="com.project.common.vo.RealEstateSell" alias="realEstate"/>
         <typeAlias type="com.project.member.dto.NaverMemberDto" alias="naverMember"/>
-        <typeAlias type="com.project.common.vo.RentHouse" alias="rentHouse"/>
+        <typeAlias type="com.project.common.vo.RealEstateRent" alias="rentHouse"/>
         <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="FBoard"/>
         <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="QBoard"/>
     </typeAliases>

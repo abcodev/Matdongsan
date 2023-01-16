@@ -1,7 +1,7 @@
 package com.project.common.controller;
 
-import com.project.client.seoulApi.ApiTemplate;
-import com.project.common.service.RentHouseService;
+import com.project.client.seoulApi.SeoulRentApiClient;
+import com.project.common.service.RealEstateRentApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -16,16 +16,16 @@ import java.io.IOException;
 @Controller
 @RequiredArgsConstructor
 @Log4j
-public class RentApiController {
+public class RealEstateRentApiController {
 
-    private final RentHouseService rentHouseService;
-    private final ApiTemplate apiTemplate;
+    private final RealEstateRentApiService realEstateRentApiService;
+    private final SeoulRentApiClient seoulRentApiClient;
 
     @GetMapping("/parsingRentList")
     public void parsingSell(Model model) throws ParserConfigurationException, SAXException, IOException {
 
         log.info("파싱 스타트 체크");
-        int result = rentHouseService.getAndSave();
+        int result = realEstateRentApiService.getAndSave();
 
         log.info("파싱 정보 입력 끝");
     }
