@@ -38,4 +38,8 @@ public class QnaBoardDao {
         return (ArrayList) sqlSession.selectList("boardMapper.searchList", paramMap ,rowBounds);
     }
 
+    public int insertBoard(SqlSession sqlSession, QnaBoard qb){
+        return sqlSession.insert("boardMapper.insertBoard",qb);
+    }
+
 }

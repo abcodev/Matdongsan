@@ -34,8 +34,6 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 
         Map<String , Object> map = new HashMap();
 
-        // 1. 페이징 처리 작업.
-
         int listCount = selectListCount();
 
         int pageLimit = 10;
@@ -69,4 +67,10 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 
         return map;
     }
+
+    @Override
+    public int insertBoard(QnaBoard qb){
+        return boardDao.insertBoard(sqlSession, qb);
+    }
+
 }

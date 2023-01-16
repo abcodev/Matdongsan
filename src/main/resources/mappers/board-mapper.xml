@@ -57,5 +57,28 @@
                QNA_AREA =#{qnaArea}
                )
     </insert>
+    <select id="searchList" resultMap="qBoardResultSet">
+        QNA_BNO,
+        MEMBER_NO,
+        P_BNO,
+        QNA_TITLE,
+        QNA_CONTENT,
+        QNA_DATE
+        FROM QNA_BOARD
+        WHERE STATUS='Y'
+        <if test='keyword != null and keyword != ""'>
+            AND
+            <choose>
+                <when test="condition == 'qnaTitle'">
+                    QNA_TITLE LIKE '%${keyword}%'
+                </when>
+
+                <when test="condition == 'qnaContent'">
+                    QNA_CONTENT LIKE '%${keyword}%'
+                </when>
+            </choose>
+        </if>
+        ORDER BY QNA_DATE DESC
+    </select>
 </mapper>
 

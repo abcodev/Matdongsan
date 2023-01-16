@@ -14,12 +14,20 @@
 <body>
 <main>
     <div class="content head">
+        <form id="searchForm" action="${ContextPath }" method="get" align="center">
+        <div class="select">
+            <select class="custom-select" name="condition">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+            </select>
+        </div>
         <div class="search_input">
-            <input type="text">
+            <input type="text" name="keyword">
         </div>
         <div class="search_icon">
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+        </form>
     </div>
     <div class="content body">
         <div class="sidebar">
@@ -72,12 +80,10 @@
 
 
     <script>
-
-
                      $(function(){
                          $("#boardlist_main>table>td").on('click', function(){
                             let bno = $(this).children().eq(0).text();
-                            location.href = '${pageContext.request.contextPath}/board/detail.bo?bno='+bno;
+                            location.href = '${pageContext.request.contextPath}/board/detail.bo?qnaBno='+qnaBno;
                          });
                       })
     </script>
