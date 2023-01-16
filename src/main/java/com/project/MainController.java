@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 @Log4j
 public class MainController {
@@ -19,4 +20,6 @@ public class MainController {
     public String mainPage() {
         return "common/mainPage";
     }
+
+
 }
