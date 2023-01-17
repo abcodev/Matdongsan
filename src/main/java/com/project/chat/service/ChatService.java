@@ -36,4 +36,8 @@ public class ChatService {
         ChatRoom chatRoom = chatRepository.createRoom(roomId);
         return chatRoom;
     }
+
+    /**
+     *
+     */
 }
