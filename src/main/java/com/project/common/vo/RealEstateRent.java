@@ -1,6 +1,6 @@
 package com.project.common.vo;
 
-import com.project.client.seoulApi.dto.RentHouseDto;
+import com.project.client.seoulApi.dto.RealEstateRentDto;
 import lombok.*;
 
 @Getter
@@ -24,22 +24,22 @@ public class RealEstateRent {
     private String buildName;
     private String houseType;
 
-    public static RealEstateRent of(RentHouseDto rentHouseDto){
+    public static RealEstateRent of(RealEstateRentDto realEstateRentDto){
         return RealEstateRent.builder()
-                .accYear(rentHouseDto.getAccYear())
-                .sggCd(rentHouseDto.getSggCd())
-                .sggNm(rentHouseDto.getSggNm())
-                .bjdCd(rentHouseDto.getBjdCd())
-                .bjdName(rentHouseDto.getBjdName())
-                .boBn(rentHouseDto.getBoBn())
-                .buBn(rentHouseDto.getBuBn())
-                .dealYmd(rentHouseDto.getDealYmd())
-                .rentGbn(rentHouseDto.getRentGbn())
-                .rentArea(rentHouseDto.getRentArea())
-                .rentGtn(rentHouseDto.getRentGtn())
-                .rentFee(rentHouseDto.getRentFee())
-                .buildName(rentHouseDto.getBuildName())
-                .houseType(rentHouseDto.getHouseType()).build();
+                .accYear(realEstateRentDto.getAccYear())
+                .sggCd(realEstateRentDto.getSggCd())
+                .sggNm(realEstateRentDto.getSggNm())
+                .bjdCd(realEstateRentDto.getBjdCd())
+                .bjdName(realEstateRentDto.getBjdName())
+                .boBn(realEstateRentDto.getBoBn())
+                .buBn(realEstateRentDto.getBuBn())
+                .dealYmd(realEstateRentDto.getDealYmd())
+                .rentGbn(realEstateRentDto.getRentGbn())
+                .rentArea(realEstateRentDto.getRentArea())
+                .rentGtn(realEstateRentDto.getRentGtn())
+                .rentFee(realEstateRentDto.getRentFee())
+                .buildName(realEstateRentDto.getBuildName())
+                .houseType(realEstateRentDto.getHouseType()).build();
     }
 
 }
