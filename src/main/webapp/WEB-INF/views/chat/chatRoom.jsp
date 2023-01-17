@@ -15,6 +15,7 @@
 </head>
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <div class="container">
     <div id="chat_left">
         <div class="chatSelect">
