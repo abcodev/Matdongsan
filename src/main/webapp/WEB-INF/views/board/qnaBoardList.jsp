@@ -1,5 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="list" value="${map.list}"/>
+<c:set var="pi" value="${map.pi}"/>
 <!DOCTYPE html>
+<c:if test="${!empty param.condition }">
+    <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
+</c:if>
+<c:forEach items="${boardTypeList }" var="bt">
+    <c:if test="${boardCode == bt.boardCd }">
+        <c:set var="boardNm" value="${bt.boardName }"/>
+    </c:if>
+</c:forEach>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,12 +22,20 @@
 <body>
 <main>
     <div class="content head">
+        <form id="searchForm" action="${boardCode }" method="get" align="center">
+        <div class="select">
+            <select class="custom-select" name="condition">
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+            </select>
+        </div>
         <div class="search_input">
-            <input type="text">
+            <input type="text" name="keyword">
         </div>
         <div class="search_icon">
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+        </form>
     </div>
     <div class="content body">
         <div class="sidebar">
@@ -41,9 +59,42 @@
             </div>
         </div>
     </div>
-    <div class="paging">
+    <c:set var="url" value="${boardCode }?cpage="/>
+        <div id="paging">
+            <ul class="pagination">
+                <c:choose>
+                    <c:when test="${ pi.currentPage eq 1 }">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></li>
+                    </c:otherwise>
+                </c:choose>
 
-    </div>
+                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                    <li class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
+                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+
+
+    <script>
+                     $(function(){
+                         $("#boardlist_main>table>td").on('click', function(){
+                            let bno = $(this).children().eq(0).text();
+                             location.href = '${contextPath}/board/detail/${boardCode}/'+bno;
+                         });
+                      })
+    </script>
 </main>
 </body>
 </html>

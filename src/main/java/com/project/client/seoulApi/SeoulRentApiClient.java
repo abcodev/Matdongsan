@@ -1,8 +1,8 @@
 package com.project.client.seoulApi;
 
 
-import com.project.client.seoulApi.dto.RentHouseDto;
-import com.project.client.seoulApi.dto.RentHouseResponse;
+import com.project.client.seoulApi.dto.RealEstateRentDto;
+import com.project.client.seoulApi.dto.RealEstateRentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -18,12 +18,12 @@ public class SeoulRentApiClient {
     private final String apiKey = "6d504f496761686137326a50747377";
 
     // Scheduling
-    public List<RentHouseDto> getRentHouseList() {
+    public List<RealEstateRentDto> getRentHouseList() {
         String serviceName = "tbLnOpendataRentV";
         String url = this.generateUrl(serviceName, 1, 1000);
 
         try {
-            RentHouseResponse response = restTemplate.getForObject(url, RentHouseResponse.class);
+            RealEstateRentResponse response = restTemplate.getForObject(url, RealEstateRentResponse.class);
             if (response == null) {
                 throw new RuntimeException(serviceName + " 조회 실패!");
             }

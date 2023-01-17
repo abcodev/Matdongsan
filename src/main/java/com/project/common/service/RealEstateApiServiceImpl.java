@@ -30,7 +30,7 @@ public class RealEstateApiServiceImpl implements RealEstateApiService{
                 .map(RealEstateSell::of)
                 .collect(Collectors.toList());
 
-//        realEstateSellApiDao.truncate();
+        realEstateSellApiDao.truncate();
         realEstateSellApiDao.batchInsert(sellList);
         return sellList.size();
     }

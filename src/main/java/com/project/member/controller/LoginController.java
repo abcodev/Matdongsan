@@ -7,20 +7,13 @@ import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
-import com.project.member.vo.Member;
-import lombok.RequiredArgsConstructor;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-
-
 
 
 @Controller
@@ -30,7 +23,6 @@ public class LoginController {
     /* NaverLoginBO */
     private final MemberService memberService;
     private final OAuthClientService oAuthClientService;
-
 
 
     /**

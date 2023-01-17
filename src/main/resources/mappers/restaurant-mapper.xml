@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="resMapper">
+
+    <resultMap type="restaurant" id="restaurantResultSet">
+        <result column="RES_NO" property="resNo" />
+        <result column="RES_NAME" property="resName" />
+        <result column="STATE" property="state" />
+        <result column="ADDRESS" property="address" />
+        <result column="RES_PHONE" property="resPhone" />
+        <result column="WEBSITE" property="website" />
+        <result column="RES_TIME" property="resTime" />
+        <result column="TRANSPORT" property="transport" />
+        <result column="RES_FOOD" property="resFood" />
+        <result column="RES_IMG_URL" property="resImgUrl" />
+    </resultMap>
+
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM RESTAURANT
+    </select>
+
+
+    <select id="selectResList" resultMap="restaurantResultSet">
+--         SELECT * FROM (
+--                           SELECT * FROM RESTAURANT ORDER BY DBMS_RANDOM.RANDOM
+--                       )
+        SELECT * FROM RESTAURANT
+    </select>
+
+
+
+</mapper>
