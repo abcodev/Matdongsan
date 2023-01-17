@@ -3,8 +3,6 @@ package com.project.common.template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.project.board.qnaBoard.vo.PageInfo;
-
 @Component
 public class Pagination {
 

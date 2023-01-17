@@ -1,6 +1,6 @@
 package com.project.realestate.dao;
 
-import com.project.board.qnaBoard.vo.PageInfo;
+import com.project.common.template.PageInfo;
 import com.project.common.vo.RealEstateRent;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;

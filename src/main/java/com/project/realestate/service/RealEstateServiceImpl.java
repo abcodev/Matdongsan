@@ -1,6 +1,6 @@
 package com.project.realestate.service;
 
-import com.project.board.qnaBoard.vo.PageInfo;
+import com.project.common.template.PageInfo;
 import com.project.common.template.Pagination;
 import com.project.common.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;

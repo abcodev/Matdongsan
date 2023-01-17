@@ -15,6 +15,7 @@
         <typeAlias type="com.project.restaurant.vo.Restaurant" alias="restaurant"/>
         <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="FBoard"/>
         <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="QBoard"/>
+        <typeAlias type="com.project.board.qnaBoard.vo.BoardType" alias="boardType"/>
     </typeAliases>
 
     <mappers>
