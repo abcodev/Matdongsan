@@ -37,7 +37,7 @@
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
                     <div class="dropdown-submenu">
                         <a href="">자유게시판</a>
-                        <a href="">질문&답변</a>
+                        <a href="${contextPath }/board/list/${boardCode}">질문&답변</a>
                     </div>
                 </div>
                 <div class="dropdown">

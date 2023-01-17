@@ -2,6 +2,14 @@
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <!DOCTYPE html>
+<c:if test="${!empty param.condition }">
+    <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
+</c:if>
+<c:forEach items="${boardTypeList }" var="bt">
+    <c:if test="${boardCode == bt.boardCd }">
+        <c:set var="boardNm" value="${bt.boardName }"/>
+    </c:if>
+</c:forEach>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +22,7 @@
 <body>
 <main>
     <div class="content head">
-        <form id="searchForm" action="${ContextPath }" method="get" align="center">
+        <form id="searchForm" action="${boardCode }" method="get" align="center">
         <div class="select">
             <select class="custom-select" name="condition">
                 <option value="title">제목</option>
@@ -51,7 +59,7 @@
             </div>
         </div>
     </div>
-
+    <c:set var="url" value="${boardCode }?cpage="/>
         <div id="paging">
             <ul class="pagination">
                 <c:choose>
@@ -83,7 +91,7 @@
                      $(function(){
                          $("#boardlist_main>table>td").on('click', function(){
                             let bno = $(this).children().eq(0).text();
-                            location.href = '${pageContext.request.contextPath}/board/detail.bo?qnaBno='+qnaBno;
+                             location.href = '${contextPath}/board/detail/${boardCode}/'+bno;
                          });
                       })
     </script>

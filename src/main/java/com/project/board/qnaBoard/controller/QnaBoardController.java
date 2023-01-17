@@ -19,27 +19,29 @@ import java.util.Map;
 public class QnaBoardController {
 
     private QnaBoardService boardService;
-    private Pagination pagination;
 
-
-    @RequestMapping(value = "/qlist.bo", method = RequestMethod.GET)
+    @RequestMapping("/list/{boardCode}")
     public String selectList(
-            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-            Model model,
-            @RequestParam Map<String, Object> paramMap
-    ) {
+            @PathVariable("boardCode") String boardCode,
+            @RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model,
+            @RequestParam Map<String, Object> paramMap) {
         Map<String, Object> map = new HashMap();
 
         if (paramMap.get("condition") == null) {
-            map = boardService.selectList(currentPage);
+
+            map = boardService.selectList(currentPage, boardCode);
+
         } else {
             paramMap.put("cpage", currentPage);
+            paramMap.put("boardCode", boardCode);
             map = boardService.selectList(paramMap);
-
-            model.addAttribute("map", map);
         }
 
+        model.addAttribute("map", map);
+
         return "board/qnaBoardList";
+
+
     }
 
 
