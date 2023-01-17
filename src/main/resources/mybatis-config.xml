@@ -22,5 +22,6 @@
         <mapper resource="/mappers/realestate-mapper.xml"/>
         <mapper resource="/mappers/rentHouse-mapper.xml"/>
         <mapper resource="/mappers/board-mapper.xml"/>
+        <mapper resource="/mappers/chat-mapper.xml"/>
     </mappers>
 </configuration>
