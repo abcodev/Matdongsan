@@ -30,7 +30,9 @@
                 </div>
 
                 <div class="dropdown">
-                    <button class="dropdown-btn"><a href="">동네맛집</a></button>
+                    <button class="dropdown-btn">
+                        <a href="${pageContext.request.contextPath}/restaurantList">동네맛집</a>
+                    </button>
                 </div>
 
                 <div class="dropdown">
@@ -57,7 +59,7 @@
                     <img src="${loginUser.profileImage}" width="50px">
                         ${loginUser.memberName} 님 환영합니다.
                 </label> &nbsp;&nbsp;
-                <%--                    <a href="${contextPath}/myPage">마이페이지</a>--%>
+                <%--                    <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>--%>
                 <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
             </c:otherwise>
             </c:choose>

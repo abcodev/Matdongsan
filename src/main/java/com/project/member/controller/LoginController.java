@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
-
-
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
@@ -30,7 +27,6 @@ public class LoginController {
     /* NaverLoginBO */
     private final MemberService memberService;
     private final OAuthClientService oAuthClientService;
-
 
 
     /**
