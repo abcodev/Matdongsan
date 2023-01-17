@@ -1,7 +1,7 @@
 package com.project.board.qnaBoard.dao;
 
 import com.project.board.qnaBoard.vo.BoardType;
-import com.project.board.qnaBoard.vo.PageInfo;
+import com.project.common.template.PageInfo;
 import com.project.board.qnaBoard.vo.QnaBoard;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;

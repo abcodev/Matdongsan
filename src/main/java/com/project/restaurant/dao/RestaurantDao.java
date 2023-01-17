@@ -1,6 +1,6 @@
 package com.project.restaurant.dao;
 
-import com.project.common.template.PageInfo;
+import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dto.RestaurantListFilter;
 import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +25,8 @@ public class RestaurantDao {
     }
 
 
-    public List<Restaurant> selectResList(PageInfo pageInfo, RestaurantListFilter filter) {
-        RowBounds rowBounds = pageInfo.generateRowBounds();
+    public List<Restaurant> selectResList(PageInfoCombine pageInfoCombine, RestaurantListFilter filter) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
         return sqlSession.selectList("resMapper.selectResList", filter, rowBounds);
     }
 

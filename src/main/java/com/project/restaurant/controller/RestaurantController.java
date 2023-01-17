@@ -50,7 +50,7 @@ public class RestaurantController {
         RestaurantListResponse resp = restaurantService.selectList(req);
 
         model.addAttribute("selectResList", resp.getRestaurantList());
-        model.addAttribute("pi", resp.getPageInfo());
+        model.addAttribute("pi", resp.getPageInfoCombine());
         return "restaurant/restaurantList";
     }
 

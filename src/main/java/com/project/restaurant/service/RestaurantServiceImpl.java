@@ -1,6 +1,6 @@
 package com.project.restaurant.service;
 
-import com.project.common.template.PageInfo;
+import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dao.RestaurantDao;
 import com.project.restaurant.dto.RestaurantListFilter;
 import com.project.restaurant.dto.RestaurantListRequest;
@@ -39,9 +39,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantListResponse selectList(RestaurantListRequest request) {
 
         int count = restaurantDao.selectResListCount();
-        PageInfo pageInfo = new PageInfo(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
-        List<Restaurant> result = restaurantDao.selectResList(pageInfo, RestaurantListFilter.from(request));
-        return new RestaurantListResponse(result, pageInfo);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
+        List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, RestaurantListFilter.from(request));
+        return new RestaurantListResponse(result, pageInfoCombine);
     }
 
 

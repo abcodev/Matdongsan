@@ -2,15 +2,11 @@ package com.project.board.qnaBoard.service;
 
 import com.project.board.qnaBoard.dao.QnaBoardDao;
 import com.project.board.qnaBoard.vo.BoardType;
-import com.project.board.qnaBoard.vo.PageInfo;
+import com.project.common.template.PageInfo;
 import com.project.board.qnaBoard.vo.QnaBoard;
 import com.project.common.template.Pagination;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
