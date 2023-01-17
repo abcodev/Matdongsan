@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<c:set var="list" value="${map.list}"/>
+<c:set var="pi" value="${map.pi}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,9 @@
         <div id="search_box">
             <div class ="search city">
                 <select>
-
+                    <c:forEach var="r" items="${list}">
+                        <option value="${r.sggNm}">${r.sggNm}</option>
+                    </c:forEach>
                 </select>
                 <select>동</select>
             </div>
@@ -42,12 +45,50 @@
         </div>
         <div id="search_list">
             <table class="table">
-                <tr><th>건물명</th><th>실거래가</th><th>평수</th></tr>
-                <tr><td>$$아파트</td><td>20,000,000</td><td>25평형</td></tr>
+                <tr>
+                    <th>자치구명</th>
+                    <th>아파트명</th>
+                    <th>전/월세</th>
+                    <th>보증금</th>
+                    <th>임대면적</th>
+                </tr>
+                <c:forEach var="r" items="${ list }">
+                    <tr>
+                        <td class="rno">${ r.sggNm }</td>
+                        <td>${r.buildName }</td>
+                        <td>${r.rentGbn }</td>
+                        <td>${r.rentGtn}</td>
+                        <td>${r.rentArea }</td>
+                    </tr>
+                </c:forEach>
+
             </table>
         </div>
-        <div id="paging">
 
+        <div id="paging">
+            <c:set var="url" value="?currentPage="/>
+            <ul class="pagination">
+                <c:choose>
+                <c:when test="${pi.currentPage eq 1 }">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                </c:when>
+                <c:otherwise>
+                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage-1 }${sUrl}">Previous</a></li>
+                </c:otherwise>
+                </c:choose>
+
+                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                <li class="page-item"><a class="page-link" href="${url}${item }${sUrl}">${item }</a></li>
+                </c:forEach>
+
+                <c:choose>
+                <c:when test="${pi.currentPage eq pi.maxPage }">
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                </c:when>
+                <c:otherwise>
+                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage+1 }${sUrl}">Next</a></li>
+                </c:otherwise>
+                </c:choose>
         </div>
     </div>
 </div>

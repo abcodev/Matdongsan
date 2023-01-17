@@ -26,9 +26,34 @@ public class RealEstateServiceImpl implements RealEstateService{
     private Pagination pagination;
 
 
+    public int selectListCount(int currentPage){
+        return realEstateDao.selectListCount(sqlSession);
+    }
+
+    @Override
     public int selectListCount(Map<String, Object> paramMap) {
         return realEstateDao.selectListCount(sqlSession, paramMap);
     }
+
+    @Override
+    public Map<String, Object> selectList(int currentPage){
+        Map<String, Object> map = new HashMap();
+
+        //페이징 처리 작업
+        int listCount = selectListCount(currentPage);
+
+        int pageLimit = 5;
+        int boardLimit = 8;
+        PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+
+        map.put("pi", pi);
+        ArrayList<RealEstateRent> list = realEstateDao.selectList(sqlSession, pi);
+
+        map.put("list", list);
+
+        return map;
+    }
+
     @Override
     public Map<String, Object> selectList(Map<String, Object> paramMap){
 
@@ -37,7 +62,7 @@ public class RealEstateServiceImpl implements RealEstateService{
         int listCount = selectListCount(paramMap);
 
         int pageLimit = 5;
-        int boardLimit = 5;
+        int boardLimit = 8;
         PageInfo pi = pagination.getPageInfo(listCount, (Integer)paramMap.get("currentPage"), pageLimit, boardLimit);
         paramMap.put("pi", pi);
         map.put("pi", pi);

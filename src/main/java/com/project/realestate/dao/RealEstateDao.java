@@ -11,6 +11,25 @@ import java.util.Map;
 
 @Repository
 public class RealEstateDao {
+
+    public int selectListCount(SqlSession sqlSession) {
+        return sqlSession.selectOne("rentMapper.selectListCount");
+    }
+    public int selectListCount(SqlSession sqlSession, Map<String, Object> paramMap) {
+        return sqlSession.selectOne("rentMapper.searchListCount", paramMap);
+    }
+
+    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfo pi){
+
+        int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+        int limit = pi.getBoardLimit();
+
+        RowBounds rowBounds = new RowBounds(offset, limit);
+
+        return (ArrayList)sqlSession.selectList("rentMapper.selectList", rowBounds);
+    }
+
+
     public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, Map<String, Object> paramMap) {
 
         int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() - 1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
@@ -18,7 +37,7 @@ public class RealEstateDao {
 
         RowBounds rowBounds = new RowBounds(offset, limit);
 
-        return (ArrayList) sqlSession.selectList("realestateMapper.searchList", paramMap, rowBounds);
+        return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
     }
 
 }

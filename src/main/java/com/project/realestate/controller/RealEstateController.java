@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/realEstate")
 public class RealEstateController {
 
     private RealEstateService realEstateService;
@@ -18,7 +19,7 @@ public class RealEstateController {
         this.realEstateService = realEstateService;
     }
 
-    @RequestMapping("/realEstate")
+    @RequestMapping("/list")
     public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
                                  @RequestParam Map<String, Object> paramMap){
         Map<String, Object> map = new HashMap();
