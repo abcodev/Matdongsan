@@ -23,7 +23,8 @@ public class QnaBoardController {
     @RequestMapping("/list/{boardCode}")
     public String selectList(
             @PathVariable("boardCode") String boardCode,
-            @RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model,
+            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+            Model model,
             @RequestParam Map<String, Object> paramMap) {
         Map<String, Object> map = new HashMap();
 

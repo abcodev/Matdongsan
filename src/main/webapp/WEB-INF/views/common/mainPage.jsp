@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -36,8 +37,12 @@
                 <div class="dropdown">
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
                     <div class="dropdown-submenu">
-                        <a href="">자유게시판</a>
-                        <a href="${contextPath }/board/list/${boardCode}">질문&답변</a>
+                        <c:forEach var="board" items="${boardTypeList}">
+                            <a href="${contextPath}/board/list/${board.boardCd}">${board.boardName}</a>
+                        </c:forEach>
+
+                        <a href="${contextPath }/board/list/C">질문&답변</a>
+
                     </div>
                 </div>
                 <div class="dropdown">
