@@ -33,7 +33,7 @@ public class MainController {
     @RequestMapping(value = "/mainPage")
     public String getStockPrice(Model model) throws IOException {
 
-        String url = "https://land.naver.com/news/region.naver?city_no=1100000000&dvsn_no=1168000000";
+        String url = "https://land.naver.com/news/region.naver?page=1";
 
         Document doc = Jsoup.connect(url).get();
 
@@ -42,8 +42,8 @@ public class MainController {
 
         Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
 
-        ArrayList<String> newsTitle = null;
-        ArrayList<String> newsUrl= null;
+        ArrayList<String> newsTitle = new ArrayList<>();
+        ArrayList<String> newsUrl= new ArrayList<>();
 
         for(int i = 0; i< 4; i++){
             Element articleElement = photoElements.get(i);
@@ -51,11 +51,8 @@ public class MainController {
             Element aElement = aElements.get(0);
 
             String articleUrl = "https://land.naver.com"+aElement.attr("href"); // 기사링크
-            Element link = doc.select("a").first();
-
 
             Element imgElement = aElement.select("img").get(0);
-//            String imgUrl = imgElement.attr("src"); // 사진링크
             String title = imgElement.attr("alt"); //기사제목
 
             System.out.println(title);
