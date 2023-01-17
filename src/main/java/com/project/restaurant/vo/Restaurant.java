@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Restaurant {
 
-    private String resNO;
+    private String resNo;
     private String resName;
     private String state;
     private String address;
@@ -25,7 +25,7 @@ public class Restaurant {
     public static Restaurant of(Restaurant restaurant) {
 
         return Restaurant.builder()
-                .resNO(restaurant.getResNO())
+                .resNo(restaurant.getResNo())
                 .resName(restaurant.getResName())
                 .state(restaurant.getState())
                 .address(restaurant.getAddress())

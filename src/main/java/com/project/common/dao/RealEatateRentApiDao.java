@@ -19,5 +19,4 @@ public class RealEatateRentApiDao {
     public void packageInsert(List<RealEstateRent> houseList) {
         sqlSession.insert("rentMapper.packageInsert", houseList);
     }
-    //List<RentHouseDto> houseList() throws Exception;
 }

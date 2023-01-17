@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class RentHouseDto {
+public class RealEstateRentDto {
 
     @JsonProperty("ACC_YEAR")
     private String accYear;
