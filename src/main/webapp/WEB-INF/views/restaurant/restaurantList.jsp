@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>동네맛집리스트</title>
 <%--    <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">--%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
+<%--          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">--%>
 </head>
 <body>
 <div id="content">
@@ -24,20 +24,42 @@
 
         <div class="place city">
             <select id="searchState">
-                <option>${selectResList.state}</option>
+                <option value="">선택</option>
+                <option value="강남구">강남구</option>
+                <option value="노원구">노원구</option>
+<%--                <option value="${selectResList.state}">${selectResList.state}</option>--%>
             </select>
+
+
         </div>
 
         <div class="place hashtag">
-            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
-            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
-<%--            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">--%>
-<%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>--%>
-<%--            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">--%>
-<%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>--%>
+            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_code" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="btn-check-outlined">한식</label>
+            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_code" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="btn-check-outlined">중식</label>
+            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_code" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="btn-check-outlined">양식</label>
         </div>
 
+        <script>
+
+            $(document).ready(function(){
+                $("#btn-check-outlined").change(function(){
+                    if($("#btn-check-outlined").is(":checked")){
+                        alert("체크박스 체크했음!");
+                    }else{
+                        alert("체크박스 체크 해제!");
+                    }
+                });
+            });
+        </script>
+
+
+
     </div>
+
+
     <div id="place_body">
         <div class="place_list">
             <div class="place info">
@@ -54,7 +76,7 @@
                                 </c:if>
 
                                 <td align="center">
-<%--                                    <a href="cultureDetail?svcId=${selectCultureList.svcId}">링크</a><br>--%>
+<%--                                    <a href="resDetail?resNo=${selectResList.resNo}">이동</a><br>--%>
 <%--                                    <img src="<c:out value="${selectResList.ResImgUrl}" />" width="300px" height="300px">--%>
                                     <c:out value="${selectResList.resName}"/> <br>
                                     <c:out value="${selectResList.state}"/><br>
@@ -76,6 +98,47 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <div id="pagingArea">
+        <ul class="pagination">
+            <c:choose>
+                <c:when test="${ pi.currentPage eq 1 }">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link" href="selectResList?cpage=${pi.currentPage -1 }">Previous</a></li>
+                </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                <li class="page-item"><a class="page-link" href="selectResList?cpage=${item }">${item }</a></li>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link" href="selectResList?cpage=${pi.currentPage + 1}">Next</a></li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </div>
+
+
+
+
+
 </div>
+
+
+
+
+
+
+
 </body>
 </html>

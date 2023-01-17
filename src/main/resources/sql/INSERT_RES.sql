@@ -1,4 +1,4 @@
--- RESTAURANT
+-- DDL for Table RESTAURANT
 Insert into MATDONGSAN.RESTAURANT (RES_NO,RES_NAME,STATE,ADDRESS,RES_PHONE,WEBSITE,RES_TIME,TRANSPORT,RES_FOOD) values (5974,'한추','강남구 ','서울 강남구 논현로175길 68 (신사동)','02-541-0969',null,'17:00~02:00','3호선 신사 8번 출구  분당선 압구정로데오 45번 출구','후라이드치킨 고추튀김 계란말이');
 Insert into MATDONGSAN.RESTAURANT (RES_NO,RES_NAME,STATE,ADDRESS,RES_PHONE,WEBSITE,RES_TIME,TRANSPORT,RES_FOOD) values (6278,'한스케익','강남구 ','서울 강남구 논현로167길 21 (신사동)','02-515-4677','http://www.hanscake.co.kr/','09:30 ~ 22:00','3호선 압구정역 4번 출구','베이커리');
 Insert into MATDONGSAN.RESTAURANT (RES_NO,RES_NAME,STATE,ADDRESS,RES_PHONE,WEBSITE,RES_TIME,TRANSPORT,RES_FOOD) values (10813,'리틀사이공','강남구 ','서울특별시 강남구 언주로174길 26 (신사동)','02-547-9050',null,'매일 11:30 ~ 22:00','3호선 압구정 2번 출구 분당선 압구정로데오 56번 출구 도보 10분소요','고이꾸온 짜죠 꼼징능주 분짜');

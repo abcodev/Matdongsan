@@ -1,4 +1,4 @@
---HASHTAG
+-- DDL for Table HASHTAG
 Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H01','#한식');
 Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H02','#중식');
 Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H03','#양식');

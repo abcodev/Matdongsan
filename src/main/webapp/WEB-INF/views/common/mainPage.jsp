@@ -31,7 +31,7 @@
 
                 <div class="dropdown">
                     <button class="dropdown-btn">
-                        <a href="${pageContext.request.contextPath}/restaurantList">동네맛집</a>
+                        <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
                     </button>
                 </div>
 
@@ -73,7 +73,16 @@
 <main>
     <div class="map">
         <div class="mapImg">
-            <img src="" alt="">
+            <div id="map" style="width:100%;height:600px;"></div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d144cacea9a46e256bfcdd30547dea9e"></script>
+            <script>
+                var container = document.getElementById('map');
+                var options = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667),
+                    level: 3
+                };
+                var map = new kakao.maps.Map(container, options);
+            </script>
         </div>
         <div class="side news">
             <h3>부동산 주요 뉴스</h3>

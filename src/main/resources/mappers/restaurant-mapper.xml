@@ -18,12 +18,19 @@
     </resultMap>
 
 
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM RESTAURANT
+    </select>
+
+
     <select id="selectResList" resultMap="restaurantResultSet">
 --         SELECT * FROM (
 --                           SELECT * FROM RESTAURANT ORDER BY DBMS_RANDOM.RANDOM
 --                       )
         SELECT * FROM RESTAURANT
     </select>
+
 
 
 </mapper>
