@@ -67,9 +67,19 @@
     </div>
 </header>
 
-
 <main>
     <div class="map">
+        <div id="map" style="width:100%;height:600px;"></div>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d144cacea9a46e256bfcdd30547dea9e"></script>
+        <script>
+            var container = document.getElementById('map');
+            var options = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                level: 3
+            };
+
+            var map = new kakao.maps.Map(container, options);
+        </script>
         <div class="mapImg">
             <img src="" alt="">
         </div>
@@ -86,8 +96,9 @@
         <div class="side lookList">
             <h3>최근 본 부동산 목록</h3>
 
-
         </div>
+
+
     </div>
     <button id="go-top"><i class="fa-solid fa-angles-up"></i></button>
     <div class="floating-chat">
