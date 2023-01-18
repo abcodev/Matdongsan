@@ -23,7 +23,7 @@ public class QnaBoardDao {
     }
 
     public ArrayList<QnaBoard> selectList(SqlSession sqlSession, PageInfo pi, String boardCode){
-        int offset = (pi.getCurrentPage() -1)*pi.getBoardLimit();
+        int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
 
         RowBounds rowBounds = new RowBounds(offset,limit);
@@ -31,7 +31,7 @@ public class QnaBoardDao {
         return (ArrayList) sqlSession.selectList("boardMapper.selectList", boardCode ,rowBounds);
     }
     public ArrayList<QnaBoard> selectList(SqlSession sqlSession, Map<String,Object> paramMap){
-        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() -1)* ((PageInfo)paramMap.get("pi")).getBoardLimit();
+        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() -1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
         int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
 
         RowBounds rowBounds = new RowBounds(offset,limit);
@@ -44,6 +44,16 @@ public class QnaBoardDao {
     }
     public List<BoardType> selectBoardTypeList(SqlSession sqlSession) {
         return sqlSession.selectList("boardMapper.selectBoardTypeList");
+    }
+
+    public QnaBoard selectQboard(SqlSession sqlSession, int qBno) {
+        return sqlSession.selectOne("boardMapper.selectQboard",qBno);
+    }
+    public int updateBoard(SqlSession sqlSession, int qBno){
+        return sqlSession.update("boardMapper.updateBoard",qBno);
+    }
+    public int increaseCount(SqlSession sqlSession,int qBno){
+    return sqlSession.update("boardMapper.increaseCount",qBno);
     }
 
 }

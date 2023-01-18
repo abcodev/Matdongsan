@@ -12,11 +12,13 @@ public interface QnaBoardService {
 
     public int selectListCount(Map<String, Object> paramMap);
     public List<BoardType> selectBoardTypeList();
-
     public Map<String, Object> selectList(int currentPage,String boardCode);
 
     Map<String, Object> selectList(Map<String, Object> paramMap);
 
     public int insertBoard(QnaBoard qb);
+    public QnaBoard selectQboard(int qBno);
+    public int updateBoard(int qBno);
+    public int increaseCount(int qBno);
 
 }
