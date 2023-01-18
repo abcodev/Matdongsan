@@ -48,8 +48,8 @@ public class RestaurantController {
             @RequestParam(value = "state", defaultValue = "") String state,
             @RequestParam(value = "hashtag", defaultValue = "") List<String> hashtags
     ) {
-        // TODO : 하드코딩된걸 JSP에서 넘어온 값으로 대체하기
-        state = "강남구";
+        // TODO : jsp값 받아오기,,,
+        state = "영등포구";
         hashtags = List.of();
 
         RestaurantListRequest req = new RestaurantListRequest(currentPage, state, hashtags);
