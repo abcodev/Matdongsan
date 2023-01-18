@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>동네맛집리스트</title>
 <%--    <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">--%>
 <%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
@@ -20,14 +21,14 @@
         <div>
             <button>새로운 맛집 등록하기</button>
         </div>
-
+        <button onclick='retrieveRestaurants()'>테스트용</button>
 
         <div class="place city">
             <select id="searchState">
                 <option value="">선택</option>
-                <option value="강남구">강남구</option>
-                <option value="노원구">노원구</option>
-<%--                <option value="${selectResList.state}">${selectResList.state}</option>--%>
+                <c:forEach items="${stateList}" var="state">
+                    <option value="${state}">${state}</option>
+                </c:forEach>
             </select>
 
 
@@ -42,18 +43,6 @@
             <label class="btn btn-outline-secondary" for="btn-check-outlined">양식</label>
         </div>
 
-        <script>
-
-            $(document).ready(function(){
-                $("#btn-check-outlined").change(function(){
-                    if($("#btn-check-outlined").is(":checked")){
-                        alert("체크박스 체크했음!");
-                    }else{
-                        alert("체크박스 체크 해제!");
-                    }
-                });
-            });
-        </script>
 
 
 
@@ -129,7 +118,18 @@
     </div>
 
 
+<script>
+    function retrieveRestaurants() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/restaurants',
+            success(data) {
+                console.log(data['restaurantList'])
+                console.log(data['pageInfoCombine'])
+            }
+        })
+    }
 
+</script>
 
 
 </div>

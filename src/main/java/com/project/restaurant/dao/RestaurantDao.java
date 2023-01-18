@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -20,8 +21,8 @@ public class RestaurantDao {
 //        return sqlSession.selectList("resMapper.selectResList");
 //    }
 
-    public int selectResListCount() {
-        return sqlSession.selectOne("resMapper.selectListCount");
+    public int selectResListCount(RestaurantListFilter filter) {
+        return sqlSession.selectOne("resMapper.selectListCount", filter);
     }
 
 
@@ -31,9 +32,14 @@ public class RestaurantDao {
     }
 
 
+    public List<String> selectStateList() {
+        return sqlSession.selectList("resMapper.selectStateList");
+    }
 
-
-
-
-
+    public void updateImage(String restaurantNumber, String imageUrl) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("RES_NO", restaurantNumber);
+        params.put("RES_IMGURL", imageUrl);
+        sqlSession.update("resMapper.updateImage", params);
+    }
 }

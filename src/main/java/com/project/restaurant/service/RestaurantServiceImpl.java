@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -17,10 +18,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     private static final int DEFAULT_RES_SIZE = 12;
 
     private final RestaurantDao restaurantDao;
+    private final RestaurantCrawlingService restaurantCrawlingService;
 
     @Autowired
-    public RestaurantServiceImpl(RestaurantDao restaurantDao) {
+    public RestaurantServiceImpl(RestaurantDao restaurantDao, RestaurantCrawlingService restaurantCrawlingService) {
         this.restaurantDao = restaurantDao;
+        this.restaurantCrawlingService = restaurantCrawlingService;
     }
 
 //    @Override
@@ -28,24 +31,35 @@ public class RestaurantServiceImpl implements RestaurantService {
 //        return restaurantDao.selectResList();
 //    }
 
+
     @Override
     public int selectResListCount() {
-        return restaurantDao.selectResListCount();
+        return 0;
     }
-
-
 
     @Override
     public RestaurantListResponse selectList(RestaurantListRequest request) {
+        RestaurantListFilter filter = RestaurantListFilter.from(request);
+        int count = restaurantDao.selectResListCount(filter);
 
-        int count = restaurantDao.selectResListCount();
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
-        List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, RestaurantListFilter.from(request));
+        List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, filter);
+        result.forEach(this::updateImageIfEmpty); // 메소드 참조형태
         return new RestaurantListResponse(result, pageInfoCombine);
     }
 
+    private void updateImageIfEmpty(Restaurant restaurant) {
+        if (Objects.isNull(restaurant.getResImgUrl()) || restaurant.getResImgUrl().isEmpty()) {
+            String imageUrl = restaurantCrawlingService.findImage(restaurant.getResName());
+            restaurantDao.updateImage(restaurant.getResNo(), imageUrl);
+            restaurant.setImageUrl(imageUrl);
+        }
+    }
 
-
+    @Override
+    public List<String> selectStateList() {
+        return restaurantDao.selectStateList();
+    }
 
 
 }

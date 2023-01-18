@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -42,8 +43,10 @@ public class MainController {
 
         Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
 
-        ArrayList<String> newsTitle = new ArrayList<>();
-        ArrayList<String> newsUrl= new ArrayList<>();
+        //ArrayList<String> newsTitle = new ArrayList<>();
+        //ArrayList<String> newsUrl= new ArrayList<>();
+
+        ArrayList<HashMap> newsList = new ArrayList();
 
         for(int i = 0; i< 4; i++){
             Element articleElement = photoElements.get(i);
@@ -58,12 +61,18 @@ public class MainController {
             System.out.println(title);
             System.out.println(articleUrl);
 
-            newsTitle.add(title);
-            newsUrl.add(articleUrl);
+            HashMap<String,String> newsInfo = new HashMap<>();
+            newsInfo.put("newsTitle" , title);
+            newsInfo.put("newsUrl",articleUrl);
+            newsList.add(newsInfo);
+            //newsTitle.add(title);
+            //newsUrl.add(articleUrl);
         }
 
-        model.addAttribute("newsTitle", newsTitle.get(0));
-        model.addAttribute("newsUrl", newsUrl.get(0));
+        model.addAttribute("newsList",newsList);
+
+        //model.addAttribute("newsTitle", newsTitle);
+        //model.addAttribute("newsUrl", newsUrl);
 
         return "common/mainPage";
     }
