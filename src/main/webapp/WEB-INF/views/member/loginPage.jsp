@@ -29,6 +29,9 @@
         </a>
 
         <button>구글</button>
+        <a href="<c:url value="/login/google"/> ">
+            <img src="<c:url value="/resources/images/oauth/btnG_완성형.png"/>" width="300px;" height="50px;">
+        </a>
     </div>
 </div>
 </body>

@@ -164,10 +164,6 @@
             <c:forEach var="news" items="${newsList}">
                     <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
             </c:forEach>
-
-
-
-
             <hr>
             <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
 
