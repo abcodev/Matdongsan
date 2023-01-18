@@ -36,6 +36,14 @@ public class RestaurantDao {
         return sqlSession.selectList("resMapper.selectStateList");
     }
 
+
+    public List<String> selectHashtagList() {
+        return sqlSession.selectList("hashtagMapper.selectHashtagList");
+    }
+
+
+
+
     public void updateImage(String restaurantNumber, String imageUrl) {
         HashMap<String, String> params = new HashMap<>();
         params.put("RES_NO", restaurantNumber);
@@ -46,4 +54,6 @@ public class RestaurantDao {
     public Restaurant restaurantDetail(String resNo) {
         return sqlSession.selectOne("resMapper.selectDetail",resNo);
     }
+
+
 }

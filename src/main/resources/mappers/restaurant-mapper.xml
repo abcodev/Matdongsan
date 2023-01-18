@@ -18,10 +18,13 @@
     </resultMap>
 
 
+
+
+
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM RESTAURANT res
-        WHERE TRIM(res.STATE) = #{state}
+        WHERE TRIM(res.STATE) like '%' || #{state} || '%'
         <choose>
             <when test="hashtags.size != 0">
                 AND res.RES_NO IN (SELECT res_tag.RES_NO
@@ -39,7 +42,7 @@
     <select id="selectResList" resultMap="restaurantResultSet">
         SELECT *
         FROM RESTAURANT res
-        WHERE TRIM(res.STATE) = #{state}
+        WHERE TRIM(res.STATE) like '%' || #{state} || '%'
         <choose>
             <when test="hashtags.size != 0">
                 AND res.RES_NO IN (SELECT res_tag.RES_NO
@@ -58,6 +61,8 @@
         SELECT DISTINCT TRIM(RESTAURANT.STATE)
         FROM RESTAURANT
     </select>
+
+
 
     <update id="updateImage" parameterType="Map">
         UPDATE RESTAURANT SET RESTAURANT.RES_IMGURL = #{RES_IMGURL} WHERE RESTAURANT.RES_NO = #{RES_NO}

@@ -15,8 +15,7 @@ import java.util.Objects;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private static final int DEFAULT_RES_SIZE = 1000;
-
+    private static final int DEFAULT_RES_SIZE = 12;
     private final RestaurantDao restaurantDao;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
@@ -60,6 +59,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<String> selectStateList() {
         return restaurantDao.selectStateList();
     }
+
+    @Override
+    public List<String> selectHashtagList() {
+        return restaurantDao.selectHashtagList();
+    }
+
 
 
 
