@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
+<c:set var="l" value="${localList}"/>
+<c:set var="r" value="com.project.common.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,31 +19,42 @@
 <body>
 <div id="content">
     <div id="content_left">
-        <div id="search_box">
-            <div class ="search city">
-                <select>
-                    <c:forEach var="r" items="${list}">
-                        <option value="${r.sggNm}">${r.sggNm}</option>
-                    </c:forEach>
-                </select>
-                <select>동</select>
+        <form name="searchArea" action="">
+            <div id="search_box">
+                <div class ="search city">
+                    <select name="condition" onchange="changeLocation(this)">
+                        <option value="0">자치구 선택</option>
+                        <c:forEach var="l" items="${localList}">
+                            <option value="${l.sggCd}">${l.sggNm}</option>
+                        </c:forEach>
+                    </select>
+                    <select name="dong">
+                        <option value="0">동 선택</option>
+                    </select>
+                </div>
+                <div class ="search option">
+                    <select>
+                        <option value="">전/월세</option>
+                        <option value="a">전세</option>
+                        <option value="b">월세</option>
+                    </select>
+                    <select>
+
+                    </select>
+                    <select>평수</select>
+                </div>
+                <div class="btn_box">
+                    <button type="submit">조회</button>
+                </div>
             </div>
-            <div class ="search option">
-                <select>거래유형</select>
-                <select>가격</select>
-                <select>평수</select>
-            </div>
-            <div class="btn_box">
-                <button>조회</button>
-            </div>
-        </div>
+        </form>
         <div id="place">
 
         </div>
     </div>
     <div id="content_right">
         <div id="search_map">
-            <img src="카카오맵.png">
+
         </div>
         <div id="search_list">
             <table class="table">
@@ -92,5 +105,73 @@
         </div>
     </div>
 </div>
+
+<%--검색 동 변경--%>
+<script>
+    function changeLocation(e){
+        
+    }
+</script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
+<script>
+    const container = document.getElementById('search_map'); //지도를 담을 영역의 DOM 레퍼런스
+    let options = { //지도를 생성할 때 필요한 기본 옵션
+        center: new kakao.maps.LatLng(37.566826, 126.9786567), //지도의 중심좌표.
+        level: 3 //지도의 레벨(확대, 축소 정도)
+    };
+    let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+    // HTML5의 geolocation으로 사용할 수 있는지 확인
+    if (navigator.geolocation) {
+
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(function(position) {
+
+            var lat = position.coords.latitude, // 위도
+                lon = position.coords.longitude; // 경도
+
+            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+                message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
+
+            // 마커와 인포윈도우를 표시
+            displayMarker(locPosition, message);
+
+        });
+
+    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
+
+        var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
+            message = 'geolocation을 사용할수 없어요..'
+
+        displayMarker(locPosition, message);
+    }
+
+    // 지도에 마커와 인포윈도우를 표시하는 함수
+    function displayMarker(locPosition, message) {
+
+        // 마커를 생성합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: locPosition
+        });
+
+        var iwContent = message, // 인포윈도우에 표시할 내용
+            iwRemoveable = true;
+
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content : iwContent,
+            removable : iwRemoveable
+        });
+
+        // 인포윈도우를 마커위에 표시
+        infowindow.open(map, marker);
+
+        // 지도 중심좌표를 접속위치로 변경
+        map.setCenter(locPosition);
+    }
+</script>
+
 </body>
 </html>

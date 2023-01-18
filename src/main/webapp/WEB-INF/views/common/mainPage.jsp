@@ -27,7 +27,7 @@
         <nav class="navbar">
             <div class="navbar_menu">
                 <div class="dropdown">
-                    <button class="dropdown-btn"><a href="">부동산</a></button>
+                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate/list">부동산</a></button>
                 </div>
 
                 <div class="dropdown">
