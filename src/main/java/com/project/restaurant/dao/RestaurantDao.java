@@ -42,4 +42,8 @@ public class RestaurantDao {
         params.put("RES_IMGURL", imageUrl);
         sqlSession.update("resMapper.updateImage", params);
     }
+
+    public Restaurant restaurantDetail(String resNo) {
+        return sqlSession.selectOne("resMapper.selectDetail",resNo);
+    }
 }

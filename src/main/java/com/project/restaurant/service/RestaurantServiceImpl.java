@@ -15,7 +15,7 @@ import java.util.Objects;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private static final int DEFAULT_RES_SIZE = 12;
+    private static final int DEFAULT_RES_SIZE = 1000;
 
     private final RestaurantDao restaurantDao;
     private final RestaurantCrawlingService restaurantCrawlingService;
@@ -44,7 +44,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
         List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, filter);
-        result.forEach(this::updateImageIfEmpty); // 메소드 참조형태
+        result.forEach(this::updateImageIfEmpty);
         return new RestaurantListResponse(result, pageInfoCombine);
     }
 
@@ -60,6 +60,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<String> selectStateList() {
         return restaurantDao.selectStateList();
     }
+
+
+
+    @Override
+    public Restaurant restaurantDetail(String resNo) {
+        return restaurantDao.restaurantDetail(resNo);
+    }
+
 
 
 }

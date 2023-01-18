@@ -20,7 +20,7 @@ public class RestaurantCrawlingService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (Exception ignored) {
-            return "";
+            return "https://cdn-icons-png.flaticon.com/512/3875/3875433.png";
         }
     }
 

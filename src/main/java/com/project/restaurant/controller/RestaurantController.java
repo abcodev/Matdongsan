@@ -5,6 +5,7 @@ import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.service.RestaurantCrawlingService;
 import com.project.restaurant.service.RestaurantService;
 import com.project.restaurant.type.SearchState;
+import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +56,7 @@ public class RestaurantController {
         RestaurantListResponse resp = restaurantService.selectList(req);
         // HTTP Status 중에서 200(OK) -> ResponseBody 에 담음
         // ResponseEntity 는 Spring REST API 에서 응답을 내릴 때 주로사용하는 객체
-        // Rest API 에서 내려야하는 기본적인 형태를 쉽게만들 수 음
+        // Rest API에서 내려야하는 기본적인 형태를 쉽게만들 수 있음
         return ResponseEntity.ok(resp);
     }
 
@@ -64,5 +65,21 @@ public class RestaurantController {
     public String find(@PathVariable String name) {
         return restaurantCrawlingService.findImage(name);
     }
+
+
+    /**
+     * 동네맛집 상세보기
+     */
+    @RequestMapping("/restaurantDetail")
+    public String restaurantDetail(@RequestParam("resNo") String resNo, Model model) {
+        Restaurant restaurant = restaurantService.restaurantDetail(resNo);
+        model.addAttribute("restaurantDetail", restaurant);
+
+        return "restaurant/restaurantDetailPage";
+    }
+
+
+
+
 
 }

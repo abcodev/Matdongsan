@@ -63,4 +63,15 @@
         UPDATE RESTAURANT SET RESTAURANT.RES_IMGURL = #{RES_IMGURL} WHERE RESTAURANT.RES_NO = #{RES_NO}
     </update>
 
+
+    <select id="selectDetail" resultMap="restaurantResultSet">
+        SELECT *
+        FROM RESTAURANT
+        WHERE RES_NO = #{resNo}
+    </select>
+
+
+
+
+
 </mapper>
