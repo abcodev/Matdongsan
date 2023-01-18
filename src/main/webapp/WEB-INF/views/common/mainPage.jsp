@@ -160,7 +160,10 @@
         <div class="side news">
             <h3>부동산 주요 뉴스</h3>
             <br>
-            <p><a href=${newsUrl}>${newsTitle}</a> </p>
+<%--            <p><a href=${newsUrl}>${newsTitle}</a> </p>--%>
+            <c:forEach var="news" items="${newsUrl}">
+              <a href="${newsUrl}">${newsTitle}</a>
+            </c:forEach>
             <hr>
             <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
 
