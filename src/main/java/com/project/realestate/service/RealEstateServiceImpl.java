@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,6 +18,7 @@ public class RealEstateServiceImpl implements RealEstateService{
     public RealEstateServiceImpl(RealEstateDao realEstateDao, SqlSession sqlSession, Pagination pagination){
         this.realEstateDao = realEstateDao;
         this.sqlSession = sqlSession;
+        this.pagination = pagination;
     }
     @Autowired
     private RealEstateDao realEstateDao;
@@ -26,7 +28,7 @@ public class RealEstateServiceImpl implements RealEstateService{
     private Pagination pagination;
 
 
-    public int selectListCount(int currentPage){
+    public int selectListCount(){
         return realEstateDao.selectListCount(sqlSession);
     }
 
@@ -40,7 +42,7 @@ public class RealEstateServiceImpl implements RealEstateService{
         Map<String, Object> map = new HashMap();
 
         //페이징 처리 작업
-        int listCount = selectListCount(currentPage);
+        int listCount = selectListCount();
 
         int pageLimit = 5;
         int boardLimit = 8;
@@ -72,4 +74,10 @@ public class RealEstateServiceImpl implements RealEstateService{
 
         return map;
     }
+
+    @Override
+    public List<RealEstateRent> searchLocalList(){
+        return realEstateDao.searchLocalList(sqlSession);
+    }
+
 }

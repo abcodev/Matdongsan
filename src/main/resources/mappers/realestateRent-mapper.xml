@@ -77,11 +77,11 @@
         ORDER BY SGG_NM
     </select>
 
-<!--    <select id="selectListCategory" resultMap="realEstateRentListResultSet" parameterType="condition">-->
-<!--        SELECT-->
-<!--            SGG_NM AS ITEMS-->
-<!--        FROM REALESTATE_RENT-->
-<!--        ORDER BY SGG_NM-->
-<!--    </select>-->
+    <select id="searchLocalList" resultMap="realEstateRentListResultSet">
+        SELECT
+            DISTINCT SGG_NM
+        FROM REALESTATE_RENT
+        ORDER BY SGG_NM
+    </select>
 
 </mapper>
