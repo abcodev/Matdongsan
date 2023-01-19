@@ -12,11 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 public class RestaurantListFilter {
 
-    private String search;
-    private List<SearchState> SearchStateList;
-    private String area;
+    private String state;
+    private List<String> hashtags;
 
     public static RestaurantListFilter from(RestaurantListRequest req) {
-        return new RestaurantListFilter(req.getSearch(), req.getSearchState(), req.getArea());
+        return new RestaurantListFilter(req.getState(), req.getHashtags());
     }
 }
