@@ -24,7 +24,7 @@
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="SGG_NM" property="sggNm"/>
         <result column="BLDG_NM" property="buildName"/>
-        <result column="RENT_GBN" property="rentGbn"/>
+        <result column="DEAL_YMD" property="dealYmd"/>
         <result column="RENT_GTN" property="rentGtn"/>
         <result column="RENT_AREA" property="rentArea"/>
     </resultMap>
@@ -70,10 +70,18 @@
         SELECT
             SGG_NM,
             BLDG_NM,
-            RENT_GBN,
+            DEAL_YMD,
             RENT_GTN,
             RENT_AREA
         FROM REALESTATE_RENT
+        UNION  ALL
+        SELECT
+            SGG_NM,
+            BLDG_NM,
+            DEAL_YMD,
+            OBJ_AMT,
+            BLDG_AREA
+        FROM REALESTATE_SELL
         ORDER BY SGG_NM
     </select>
 
@@ -84,12 +92,12 @@
         ORDER BY SGG_NM
     </select>
 
-    <select id="selectOption" resultMap="realEstateRentListResultSet">
-        SELECT
-            DISTINCT BJDONG_NM
-        FROM REALESTATE_RENT
-        WHERE SGG_CD = ${search_option}
-        ORDER BY BJDONG_NM
-    </select>
+<!--    <select id="selectOption" resultMap="realEstateRentListResultSet">-->
+<!--        SELECT-->
+<!--            DISTINCT BJDONG_NM-->
+<!--        FROM REALESTATE_RENT-->
+<!--        WHERE SGG_CD = ${search_option}-->
+<!--        ORDER BY BJDONG_NM-->
+<!--    </select>-->
 
 </mapper>
