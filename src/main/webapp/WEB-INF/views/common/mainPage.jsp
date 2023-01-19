@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="s" value="com.project.common.vo.RealEstateSell"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,7 +110,9 @@
                             lon = position.coords.longitude; // 경도
 
                         var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
-                            message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
+                            message = '<div style="padding:5px;">현재 위치</div>' +
+                                '<div style="padding: 5px">매매가 : </div>'; // 인포윈도우에 표시될 내용
+
 
                         // 마커와 인포윈도우를 표시
                         displayMarker(locPosition, message);
@@ -151,19 +155,23 @@
                 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
                 var positions = [
                     {
-                        content: '<div>역삼역</div>',
+                        content: '<div>역삼역</div>' +
+                            '<div style="padding: 5px">매매가 : </div>',
                         latlng: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977)
                     },
                     {
-                        content: '<div>강남역</div>',
+                        content: '<div>강남역</div>' +
+                            '<div style="padding: 5px">매매가 : </div>',
                         latlng: new kakao.maps.LatLng(37.497894084226566, 127.0275224134069)
                     },
                     {
-                        content: '<div>신논현역</div>',
+                        content: '<div>신논현역</div>' +
+                            '<div style="padding: 5px">매매가 : </div>',
                         latlng: new kakao.maps.LatLng(37.50376021959136, 127.0248781368448)
                     },
                     {
-                        content: '<div>서울역</div>',
+                        content: '<div>서울역</div>' +
+                            '<div style="padding: 5px">매매가 : </div>',
                         latlng: new kakao.maps.LatLng(37.55436845910307, 126.97066305930028)
                     }
                 ];
@@ -201,6 +209,11 @@
                     };
                 }
             </script>
+<%--            <c:forEach var="s" items="${ list }">--%>
+<%--                <tr>--%>
+<%--                    <td class="">${}</td>--%>
+<%--                </tr>--%>
+<%--            </c:forEach>--%>
 
 
 
@@ -208,7 +221,6 @@
         <div class="side news">
             <h3>부동산 주요 뉴스</h3>
             <br>
-<%--            <p><a href=${newsUrl}>${newsTitle}</a> </p>--%>
             <c:forEach var="news" items="${newsList}">
                     <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
             </c:forEach>
