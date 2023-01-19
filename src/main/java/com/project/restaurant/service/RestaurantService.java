@@ -18,4 +18,6 @@ public interface RestaurantService {
 
     List<String> selectHashtagList();
 
+    List<String> resHashtagByAdmin();
+
 }

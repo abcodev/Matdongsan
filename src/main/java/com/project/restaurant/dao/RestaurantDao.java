@@ -45,6 +45,12 @@ public class RestaurantDao {
         return sqlSession.selectOne("resMapper.selectDetail",resNo);
     }
 
+    public List<String> resHashtagByAdmin() {
+        return sqlSession.selectList("hashtagMapper.resHashtagByAdmin");
+    }
+
+
+
 
 
 }

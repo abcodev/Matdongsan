@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +22,15 @@ public class RealEstateController {
 
     private RealEstateService realEstateService;
 
-    public RealEstateController(RealEstateService realEstateService){
+    public RealEstateController(RealEstateService realEstateService) {
         this.realEstateService = realEstateService;
     }
 
     @RequestMapping("/list")
-    public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
-                                 @RequestParam Map<String, Object> paramMap) {
+    public String realEstatePage(
+            Model model,
+            @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam Map<String, Object> paramMap) {
         Map<String, Object> map = new HashMap();
         List<RealEstateRent> localList = new ArrayList<>();
 
@@ -56,8 +59,9 @@ public class RealEstateController {
         return "realestate/realestateList";
     }
 
+
     @RequestMapping("/list/{option1}")
-    public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
+    public String realEstatePage(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
                                  @RequestParam Map<String, Object> paramMap,
                                  @PathVariable String option1) {
         Map<String, Object> map = new HashMap();
