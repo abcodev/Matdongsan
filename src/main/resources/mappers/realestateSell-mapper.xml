@@ -52,6 +52,16 @@
         ) realEstateSell
     </insert>
 
+    <select id="getSellList" resultMap="realEstateSellResultSet">
+    SELECT
+        BJDONG_NM,
+        BONBEON,
+        BUBEON,
+        OBJ_AMT
+        FROM REALESTATE_SELL
+        ORDER BY BJDONG_NM
+    </select>
+
 
 
 

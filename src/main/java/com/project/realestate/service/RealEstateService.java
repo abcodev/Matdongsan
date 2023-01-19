@@ -1,6 +1,7 @@
 package com.project.realestate.service;
 
 import com.project.common.vo.RealEstateRent;
+import com.project.common.vo.RealEstateSell;
 
 import java.util.List;
 import java.util.Map;
@@ -15,5 +16,8 @@ public interface RealEstateService {
     Map<String, Object> selectList(Map<String, Object> paramMap);
 
    public List<RealEstateRent> searchLocalList();
+
+   public List<String> getSellList();
+
 
 }

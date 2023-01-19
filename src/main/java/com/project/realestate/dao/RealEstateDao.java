@@ -3,6 +3,7 @@ package com.project.realestate.dao;
 
 import com.project.common.template.PageInfo;
 import com.project.common.vo.RealEstateRent;
+import com.project.common.vo.RealEstateSell;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,11 @@ public class RealEstateDao {
 
     public ArrayList<RealEstateRent> searchLocalList(SqlSession sqlSession){
         return (ArrayList) sqlSession.selectList("rentMapper.searchLocalList");
+    }
+
+    public ArrayList<String> getSellList(SqlSession sqlSession){
+        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
+
     }
 
 }
