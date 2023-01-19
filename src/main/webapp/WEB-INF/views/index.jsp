@@ -19,20 +19,7 @@
     <h1>맛동산</h1>
     <p>정확한 실거래가와 맛집 & 동네정보까지 한번에!</p>
     <a href="${pageContext.request.contextPath}/mainPage" id="startPage"><strong>start here</strong></a>
-<%--    <a href="${pageContext.request.contextPath}/loginPage" id="startPage"><strong>로그인</strong></a>--%>
-
-    <c:choose>
-        <c:when test="${ empty loginUser}">
-            <a href="${pageContext.request.contextPath}/loginPage" id="startPage"><strong>로그인</strong></a>
-        </c:when>
-        <c:otherwise>
-            <a href="${pageContext.request.contextPath}/logout" id="startPage"><strong>로그아웃</strong></a>
-        </c:otherwise>
-    </c:choose>
-
-
-
-
+    <a href="${pageContext.request.contextPath}/loginPage" id="startPage"><strong>로그인</strong></a>
 </div>
 </body>
 </html>
