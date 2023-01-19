@@ -5,7 +5,7 @@
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <c:set var="l" value="${localList}"/>
-<c:set var="r" value="com.project.common.vo.RealEstateRent"/>
+<c:set var="r" value="com.project.realestate.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +35,8 @@
                 </div>
                 <div class ="search option">
                     <select name="rentType" id="rentType">
-                        <option value="">전/월세</option>
+                        <option value="">선택</option>
+                        <option value="">매매</option>
                         <option value="selectA">전세</option>
                         <option value="selectB">월세</option>
                     </select>

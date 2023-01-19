@@ -1,6 +1,6 @@
 package com.project.realestate.service;
 
-import com.project.common.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateRent;
 
 import java.util.List;
 import java.util.Map;

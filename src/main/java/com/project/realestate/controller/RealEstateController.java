@@ -1,8 +1,7 @@
 package com.project.realestate.controller;
 
-import com.project.common.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.service.RealEstateService;
-import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +26,10 @@ public class RealEstateController {
 
     @RequestMapping("/list/{search_option}")
     @ResponseBody
-    public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
+    public String realEstatePage(Model model,
+                                 @RequestParam(value="currentPage",defaultValue="1") int currentPage,
                                  @RequestParam Map<String, Object> paramMap,
-                                    @PathVariable String search_option) {
+                                 @PathVariable String search_option) {
         Map<String, Object> map = new HashMap();
         List<RealEstateRent> localList = new ArrayList<>();
 

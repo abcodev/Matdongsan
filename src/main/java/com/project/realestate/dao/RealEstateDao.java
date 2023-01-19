@@ -2,14 +2,12 @@ package com.project.realestate.dao;
 
 
 import com.project.common.template.PageInfo;
-import com.project.common.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateRent;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @Repository

@@ -2,7 +2,7 @@ package com.project.realestate.service;
 
 import com.project.common.template.PageInfo;
 import com.project.common.template.Pagination;
-import com.project.common.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

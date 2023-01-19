@@ -3,7 +3,7 @@ package com.project.common.service;
 import com.project.client.seoulApi.SeoulRentApiClient;
 
 import com.project.common.dao.RealEatateRentApiDao;
-import com.project.common.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateRent;
 import lombok.extern.log4j.Log4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
