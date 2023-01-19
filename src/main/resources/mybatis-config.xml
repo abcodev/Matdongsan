@@ -13,6 +13,7 @@
         <typeAlias type="com.project.common.vo.RealEstateSell" alias="realEstateSell"/>
         <typeAlias type="com.project.common.vo.RealEstateRent" alias="realEstateRent"/>
         <typeAlias type="com.project.restaurant.vo.Restaurant" alias="restaurant"/>
+        <typeAlias type="com.project.restaurant.vo.Hashtag" alias="hashtag"/>
         <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="FBoard"/>
         <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="QBoard"/>
         <typeAlias type="com.project.board.qnaBoard.vo.BoardType" alias="boardType"/>
@@ -23,6 +24,7 @@
         <mapper resource="/mappers/realestateSell-mapper.xml"/>
         <mapper resource="/mappers/realestateRent-mapper.xml"/>
         <mapper resource="/mappers/restaurant-mapper.xml"/>
+        <mapper resource="/mappers/hashtag-mapper.xml"/>
         <mapper resource="/mappers/board-mapper.xml"/>
         <mapper resource="/mappers/chat-mapper.xml"/>
     </mappers>

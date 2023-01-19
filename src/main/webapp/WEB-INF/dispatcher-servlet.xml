@@ -28,6 +28,13 @@
        <!--    추가-->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
+       <mvc:interceptors>
+              <mvc:interceptor>
+              <mvc:mapping path="/src/**"/>
+              <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>
+              </mvc:interceptor>
+       </mvc:interceptors>
+
        <context:component-scan base-package="com.project">
               <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
               <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>

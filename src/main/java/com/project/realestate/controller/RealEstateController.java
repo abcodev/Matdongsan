@@ -1,13 +1,16 @@
 package com.project.realestate.controller;
 
+import com.project.common.vo.RealEstateRent;
 import com.project.realestate.service.RealEstateService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @Controller
 @RequestMapping("/realEstate")
@@ -21,14 +24,16 @@ public class RealEstateController {
 
     @RequestMapping("/list")
     public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
-                                 @RequestParam Map<String, Object> paramMap){
+                                 @RequestParam Map<String, Object> paramMap) {
         Map<String, Object> map = new HashMap();
+        List<RealEstateRent> localList = new ArrayList<>();
 
-        if(paramMap.get("condition") == null) { // 검색 요청을 하지 않은 경우
+        if (paramMap.get("condition") == null) { // 검색 요청을 하지 않은 경우
 
             map = realEstateService.selectList(currentPage);
+            localList = realEstateService.searchLocalList();
 
-        }else { // 검색 요청을 한 경우
+        } else { // 검색 요청을 한 경우
             // 검색에 필요한 데이터를 paramMap을 넣어서 호출
             // condition, keyword
             paramMap.put("currentPage", currentPage);
@@ -38,7 +43,8 @@ public class RealEstateController {
         }
 
         //3. 페이징 포워딩(pi 객체와 list 객체 저장시키면서)
-        model.addAttribute("map",map);
+        model.addAttribute("map", map);
+        model.addAttribute("localList", localList);
 
         return "realestate/realestateList";
     }

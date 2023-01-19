@@ -7,7 +7,7 @@
     <resultMap type="RealEstateRent" id="realEstateRentResultSet">
         <result column="ACC_YEAR" property="accYear"/>
         <result column="SGG_CD" property="sggCd"/>
-        <result column="SGG_NM" property="sggNm"/>
+        <result column="SGG_NM" property="sggName"/>
         <result column="BJDONG_CD" property="bjdCd"/>
         <result column="BJDONG_NM" property="bjdName"/>
         <result column="BOBN" property="boBn"/>
@@ -77,9 +77,9 @@
         ORDER BY SGG_NM
     </select>
 
-    <select id="selectListCategory" resultMap="realEstateRentListResultSet">
+    <select id="searchLocalList" resultMap="realEstateRentListResultSet">
         SELECT
-            SGG_NM AS ITEMS
+            DISTINCT SGG_NM
         FROM REALESTATE_RENT
         ORDER BY SGG_NM
     </select>

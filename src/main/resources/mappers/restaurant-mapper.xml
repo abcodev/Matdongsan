@@ -5,31 +5,71 @@
 <mapper namespace="resMapper">
 
     <resultMap type="restaurant" id="restaurantResultSet">
-        <result column="RES_NO" property="resNo" />
-        <result column="RES_NAME" property="resName" />
-        <result column="STATE" property="state" />
-        <result column="ADDRESS" property="address" />
-        <result column="RES_PHONE" property="resPhone" />
-        <result column="WEBSITE" property="website" />
-        <result column="RES_TIME" property="resTime" />
-        <result column="TRANSPORT" property="transport" />
-        <result column="RES_FOOD" property="resFood" />
-        <result column="RES_IMG_URL" property="resImgUrl" />
+        <result column="RES_NO" property="resNo"/>
+        <result column="RES_NAME" property="resName"/>
+        <result column="STATE" property="state"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="RES_PHONE" property="resPhone"/>
+        <result column="WEBSITE" property="website"/>
+        <result column="RES_TIME" property="resTime"/>
+        <result column="TRANSPORT" property="transport"/>
+        <result column="RES_FOOD" property="resFood"/>
+        <result column="RES_IMGURL" property="resImgUrl"/>
     </resultMap>
 
 
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
+        FROM RESTAURANT res
+        WHERE TRIM(res.STATE) like '%' || #{state} || '%'
+        <choose>
+            <when test="hashtags.size != 0">
+                AND res.RES_NO IN (SELECT res_tag.RES_NO
+                FROM RES_HASHTAG res_tag
+                INNER JOIN HASHTAG h ON res_tag.HASHTAG_ID = h.HASHTAG_ID
+                WHERE h.HASHTAG IN
+                <foreach collection="hashtags" item="hashtag" separator="," open="(" close=")">
+                    #{hashtag}
+                </foreach>
+                )
+            </when>
+        </choose>
+    </select>
+
+    <select id="selectResList" resultMap="restaurantResultSet">
+        SELECT *
+        FROM RESTAURANT res
+        WHERE TRIM(res.STATE) like '%' || #{state} || '%'
+        <choose>
+            <when test="hashtags.size != 0">
+                AND res.RES_NO IN (SELECT res_tag.RES_NO
+                FROM RES_HASHTAG res_tag
+                INNER JOIN HASHTAG h ON res_tag.HASHTAG_ID = h.HASHTAG_ID
+                WHERE h.HASHTAG IN
+                <foreach collection="hashtags" item="hashtag" separator="," open="(" close=")">
+                    #{hashtag}
+                </foreach>
+                )
+            </when>
+        </choose>
+    </select>
+
+    <select id="selectStateList" resultType="String">
+        SELECT DISTINCT TRIM(RESTAURANT.STATE)
         FROM RESTAURANT
     </select>
 
+    <update id="updateImage" parameterType="Map">
+        UPDATE RESTAURANT SET RESTAURANT.RES_IMGURL = #{RES_IMGURL} WHERE RESTAURANT.RES_NO = #{RES_NO}
+    </update>
 
-    <select id="selectResList" resultMap="restaurantResultSet">
---         SELECT * FROM (
---                           SELECT * FROM RESTAURANT ORDER BY DBMS_RANDOM.RANDOM
---                       )
-        SELECT * FROM RESTAURANT
+    <select id="selectDetail" resultMap="restaurantResultSet">
+        SELECT *
+        FROM RESTAURANT
+        WHERE RES_NO = #{resNo}
     </select>
+
+
 
 
 

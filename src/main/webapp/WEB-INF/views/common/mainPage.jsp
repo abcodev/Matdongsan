@@ -27,7 +27,7 @@
         <nav class="navbar">
             <div class="navbar_menu">
                 <div class="dropdown">
-                    <button class="dropdown-btn"><a href="">부동산</a></button>
+                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate/list">부동산</a></button>
                 </div>
 
                 <div class="dropdown">
@@ -39,11 +39,9 @@
                 <div class="dropdown">
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
                     <div class="dropdown-submenu">
-                        <c:forEach var="board" items="${boardTypeList}">
-                            <a href="${contextPath}/board/list/${board.boardCd}">${board.boardName}</a>
-                        </c:forEach>
+                            <a href="${pageContext.request.contextPath}/board/list/Q">자유게시판</a>
 
-                        <a href="${contextPath }/board/list/C">질문&답변</a>
+                        <a href="${pageContext.request.contextPath}/board/list/C">질문&답변</a>
 
                     </div>
                 </div>
@@ -160,7 +158,10 @@
         <div class="side news">
             <h3>부동산 주요 뉴스</h3>
             <br>
-            <p><a href=${newsUrl}>${newsTitle}</a> </p>
+<%--            <p><a href=${newsUrl}>${newsTitle}</a> </p>--%>
+            <c:forEach var="news" items="${newsList}">
+                    <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
+            </c:forEach>
             <hr>
             <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
 

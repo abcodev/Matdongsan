@@ -1,10 +1,12 @@
 package com.project.realestate.dao;
 
+
 import com.project.common.template.PageInfo;
 import com.project.common.vo.RealEstateRent;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -38,6 +40,11 @@ public class RealEstateDao {
         RowBounds rowBounds = new RowBounds(offset, limit);
 
         return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
+    }
+
+
+    public ArrayList<RealEstateRent> searchLocalList(SqlSession sqlSession){
+        return (ArrayList) sqlSession.selectList("rentMapper.searchLocalList");
     }
 
 }

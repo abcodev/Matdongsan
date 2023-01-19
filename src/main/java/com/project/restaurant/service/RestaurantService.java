@@ -8,12 +8,13 @@ import java.util.List;
 
 public interface RestaurantService {
 
-//    public List<Restaurant> selectResList() throws Exception;
-
     public int selectResListCount();
 
     public RestaurantListResponse selectList(RestaurantListRequest request);
 
+    List<String> selectStateList();
 
+    Restaurant restaurantDetail(String resNo);
 
+    List<String> selectHashtagList();
 }

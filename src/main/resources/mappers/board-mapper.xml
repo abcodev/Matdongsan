@@ -42,6 +42,8 @@
                 QNA_TITLE,
                 QNA_CONTENT,
                 QNA_DATE
+                COUNT,
+                BOARD_CD
             FROM QNA_BOARD
             WHERE STATUS = 'Y' AND BOARD_CD= #{boardCode}
             ORDER BY QNA_DATE DESC
@@ -112,7 +114,7 @@
         </if>
     </select>
 
-    <!--<select id="qnaBoardlist" resultMap="qnaBoardResultSet">
+    <!--<select id="qnaBoardlist" resultMap="qBoardResultSet">
         SELECT LEVEL, Q.*
         FROM
             (SELECT QNA_BNO,
@@ -130,5 +132,27 @@
         CONNECT BY PRIOR QNA_BNO = P_BNO
         ORDER SIBLINGS BY QNA_BNO ASC;
     </select>-->
+
+    <select id="selectQboard" parameterType="int" resultMap="qBoardResultSet">
+        SELECT
+            QNA_BNO,
+            QNA_TITLE,
+            M.MEMBER_NO,
+            QNA_CONTENT,
+            QNA_DATE,
+            M.NICKNAME
+        FROM QNA_BOARD Q
+        JOIN MEMBER M ON(M.MEMBER_NO = Q.MEMBER_NO)
+        WHERE Q.STATUS = 'Y' AND QNA_BNO = #{qBno};
+
+    </select>
+
+    <update id="increaseCount" parameterType="int">
+        UPDATE QNA_BOARD
+        SET COUNT =  COUNT + 1
+        WHERE QNA_BNO = #{qBno}
+    </update>
+
+
 </mapper>
 
