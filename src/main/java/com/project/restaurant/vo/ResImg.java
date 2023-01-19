@@ -1,8 +1,12 @@
 package com.project.restaurant.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResImg {
 
     private String imgNo;

@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -65,10 +69,31 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void restaurantInsert(MultipartFile file, Restaurant restaurant) {
+    public void restaurantInsert(MultipartFile file, Restaurant restaurant , HttpServletRequest session) {
+        //원본파일네임이 넘어왔는지 빈칸인지 검사
+            String savePath = session.getServletContext().getRealPath("/resources/images/"); // 업로드 하고자하는 물리적인 위치 알아내기
+            String changeName = Utils.saveFile(file);
 
-        Utils.saveFile(file);
-    }
+            try {
+                file.transferTo(new File(savePath + changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
+
+
+                restaurant.setImageUrl("resources/images/" + changeName);
+                restaurant = restaurantDao.resInsert(restaurant);
+
+                ResImg resImg = new ResImg();
+                resImg.setChangeName(changeName);
+                resImg.setOriginName(file.getOriginalFilename());
+                resImg.setResNo(restaurant.getResNo());
+
+                restaurantDao.resInsertImg(resImg);
+
+
+            } catch (IllegalStateException | IOException e) {
+                System.out.println("파일 업로드 오류");
+            }
+        }
+
 
 
     @Override

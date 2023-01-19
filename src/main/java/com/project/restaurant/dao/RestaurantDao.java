@@ -2,6 +2,7 @@ package com.project.restaurant.dao;
 
 import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dto.RestaurantListFilter;
+import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
@@ -49,8 +50,13 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin");
     }
 
+    public Restaurant resInsert(Restaurant restaurant) {
+        sqlSession.insert("resMapper.resInsert",restaurant);
+        return restaurant;
+    }
 
-
-
+    public int resInsertImg(ResImg resImg) {
+        return sqlSession.insert("resMapper.resInsertImg",resImg);
+    }
 
 }

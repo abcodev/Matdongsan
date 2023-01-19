@@ -89,6 +89,18 @@
         WHERE RES_NO = #{resNo}
     </select>
 
+    <insert id="resInsert" parameterType="restaurant">
+        INSERT INTO RESTAURANT(RES_NO, RES_NAME, STATE, ADDRESS, RES_PHONE,RES_FOOD, RES_IMGURL)
+        VALUES(SEQ_RES_NO.NEXTVAL,#{resName},DEFAULT,#{address},#{resPhone},#{resFood},#{resImgUrl})
+    </insert>
+
+
+
+    <insert id="resImg" parameterType="resImg">
+        INSERT INTO RES_IMG(IMG_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
+        VALUES(SEQ_IMG_NO.NEXTVAL,#{resNo},#{originName},#{changeName})
+    </insert>
+
 
 
 
