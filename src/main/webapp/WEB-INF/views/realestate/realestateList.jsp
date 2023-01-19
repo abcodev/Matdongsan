@@ -5,7 +5,7 @@
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <c:set var="l" value="${localList}"/>
-<c:set var="r" value="com.project.common.vo.RealEstateRent"/>
+<c:set var="r" value="com.project.realestate.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,26 +22,52 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="condition" onchange="changeLocation(this)">
-                        <option value="0">자치구 선택</option>
+                    <select name="selectOption1" onchange="changeLocation(this , 'city')">
+                        <option value="option1">자치구 선택</option>
                         <c:forEach var="l" items="${localList}">
                             <option value="${l.sggCd}">${l.sggNm}</option>
                         </c:forEach>
                     </select>
-                    <select name="dong">
-                        <option value="0">동 선택</option>
+                    <select name="selectOption2">
+                        <option value="">전체</option>
+
                     </select>
                 </div>
                 <div class ="search option">
-                    <select>
-                        <option value="">전/월세</option>
-                        <option value="a">전세</option>
-                        <option value="b">월세</option>
+                    <select name="rentType" id="rentType">
+                        <option value="">선택</option>
+                        <option value="">매매</option>
+                        <option value="selectA">전세</option>
+                        <option value="selectB">월세</option>
                     </select>
-                    <select>
 
+                    <select name="rentGtn">
+                        <option value="level0">보증금(만원)</option>
+                        <option value="level1">~ 1000이하</option>
+                        <option value="level2">1000초과 ~ 5000이하</option>
+                        <option value="level3">5000초과 ~ 10000이하</option>
+                        <option value="level4">10000초과</option>
+                    </select >
+
+                    <select name="chooseType">
+                        <c:choose>
+                            <c:when test="$(#rentType).val() == 'selectA'">
+                                <option value="area0">면적</option>
+                                <option value="area1">~ 30이하</option>
+                                <option value="area2">30초과 ~ 60이하</option>
+                                <option value="area3">60초과 ~ 120이하</option>
+                                <option value="area4">120초과</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="fee0">임대료(만원)</option>
+                                <option value="fee1">~ 10이하</option>
+                                <option value="fee2">10초과 30이하</option>
+                                <option value="fee3">30초과 60이하</option>
+                                <option value="fee4">60초과 100이하</option>
+                                <option value="fee5">100초과</option>
+                            </c:otherwise>
+                        </c:choose>
                     </select>
-                    <select>평수</select>
                 </div>
                 <div class="btn_box">
                     <button type="submit">조회</button>
@@ -108,11 +134,23 @@
 
 <%--검색 동 변경--%>
 <script>
-    function changeLocation(e){
-        
+    function changeLocation(${l.sggCd} , search_option){
+        $.ajax({
+            type: 'GET',
+            url: '/' + ${l.sggCd}+'/'+search_option,
+            contentType: "application/json; charset=UTF-8",
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        })
     }
 </script>
 
+<%--지도 관련 스크립트--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
 <script>
     const container = document.getElementById('search_map'); //지도를 담을 영역의 DOM 레퍼런스

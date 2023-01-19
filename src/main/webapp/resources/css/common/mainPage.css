@@ -191,4 +191,11 @@ main{
     border-radius: 40px;
 }
 
+#map{
+    width: 80%;
+    height: 600px;
+    float: right;
+    padding-top: 10px;
+}
+
 /***************   채팅   *****************/
