@@ -23,12 +23,13 @@ a{
 #header{
     position: absolute;
     z-index: 999;
-    background-color: #989de1;
+    background-color: #d9cbea;;
+    width: 100%;
 }
 
 .inner{
     display: flex;
-    background-color: #989de1;
+    background-color: #d9cbea;
 }
 
 .logo > img{
@@ -66,7 +67,7 @@ a{
     font-size: 20px;
     border: none;
     cursor: pointer;
-    background-color: #989de1;
+    background-color: #d9cbea;
     font-weight: bold;
 }
 
@@ -75,7 +76,7 @@ a{
     position: absolute;
     min-width: 200px;
     z-index: 1;
-    background-color: #989de1;
+    background-color: #d9cbea;
 }
 
 .dropdown-submenu a {
@@ -87,7 +88,7 @@ a{
 }
 
 .dropdown-btn a:hover {
-    color: #989de1;
+    color: #d9cbea;
     text-decoration: none;
 }
 
@@ -104,7 +105,7 @@ a{
     width: 250px;
     text-align: center;
     margin:40px 0 0 160px;
-    background-color: #989de1;
+    background-color: #d9cbea;
 }
 
 .login a{

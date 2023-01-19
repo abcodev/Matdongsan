@@ -15,36 +15,53 @@
 <header id="header">
   <div class="inner">
     <div class="logo">
-      <img src="<c:url value="/resources/images/common/맛동산%20로고.png"/>" alt="로고">
+      <img src="${pageContext.request.contextPath}/resources/images/common/맛동산%20로고.png" alt="로고">
     </div>
     <nav class="navbar">
       <div class="navbar_menu">
         <div class="dropdown">
-          <button class="dropdown-btn"><a href="">부동산</a></button>
+          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate/list">부동산</a></button>
         </div>
 
         <div class="dropdown">
-          <button class="dropdown-btn"><a href="">동네맛집</a></button>
+          <button class="dropdown-btn">
+            <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
+          </button>
         </div>
 
         <div class="dropdown">
           <button class="dropdown-btn"><a href="">커뮤니티</a></button>
           <div class="dropdown-submenu">
-            <a href="">자유게시판</a>
-            <a href="">질문&답변</a>
+            <a href="${pageContext.request.contextPath}/board/list/Q">자유게시판</a>
+
+            <a href="${pageContext.request.contextPath}/board/list/C">질문&답변</a>
+
           </div>
         </div>
         <div class="dropdown">
-          <button class="dropdown-btn"><a href="">1:1문의</a></button>
+          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/admin/chat">1:1문의</a></button>
         </div>
       </div>
     </nav>
+
     <div class="login">
-      <a href="">로그인</a>
+
+      <c:choose>
+        <c:when test="${ empty loginUser}">
+          <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+        </c:when>
+        <c:otherwise>
+          <label>
+            <img src="${loginUser.profileImage}" width="50px">
+              ${loginUser.memberName} 님 환영합니다.
+          </label> &nbsp;&nbsp;
+          <%--                    <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>--%>
+          <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+        </c:otherwise>
+      </c:choose>
     </div>
   </div>
 </header>
-
   <script>
     const header = document.querySelector('#header');
 
