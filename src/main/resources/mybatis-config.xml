@@ -17,6 +17,7 @@
         <typeAlias type="com.project.board.freeBoard.vo.FreeBoard" alias="FBoard"/>
         <typeAlias type="com.project.board.qnaBoard.vo.QnaBoard" alias="QBoard"/>
         <typeAlias type="com.project.board.qnaBoard.vo.BoardType" alias="boardType"/>
+        <typeAlias type="com.project.chat.dto.ChatRoom" alias="chatRoom"/>
     </typeAliases>
 
     <mappers>
@@ -26,6 +27,7 @@
         <mapper resource="/mappers/restaurant-mapper.xml"/>
         <mapper resource="/mappers/hashtag-mapper.xml"/>
         <mapper resource="/mappers/board-mapper.xml"/>
+        <mapper resource="/mappers/chat-mapper.xml"/>
     </mappers>
 
 </configuration>
