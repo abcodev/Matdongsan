@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>시작페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/startPage.css"/>">
+    <jsp:include page="../views/template/font.jsp"></jsp:include>
 </head>
 <body>
 <div id="bgd"></div>

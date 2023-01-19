@@ -16,11 +16,10 @@
     <title>맛동산</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 
 <body>
-
-
 <header id="header">
     <div class="inner">
         <div class="logo">
