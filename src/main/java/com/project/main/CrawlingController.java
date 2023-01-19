@@ -6,63 +6,41 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.io.IOException;
 
 @Controller
 public class CrawlingController {
-    public static HashMap<String, String> map;
+    public static void main(String[] args) throws IOException{
 
-    @RequestMapping(value = "/news", method = RequestMethod.GET)
-    public String startCrawl(Model model) throws IOException {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
-        Date currentTime = new Date();
+        String url = "https://land.naver.com/news/region.naver?page=1";
 
-        String dTime = formatter.format(currentTime);
-        String e_date = dTime;
+        Document doc = Jsoup.connect(url).get();
 
-        currentTime.setDate(currentTime.getDate() -1);
-        String s_date = formatter.format(currentTime);
+        Elements e1 = doc.getElementsByAttributeValue("class", "section_headline");
+        Element e2 = e1.get(0);
 
-        String query = "부동산";
-        String s_from = s_date.replace(".", "");
-        String e_to = e_date.replace(".", "");
+        Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
 
-        int page = 1;
-        ArrayList<String> list1 = new ArrayList<>();
-        ArrayList<String> list2 = new ArrayList<>();
+//        ArrayList<String> newsTitle = new ArrayList<>();
+//        ArrayList<String> newsUrl= new ArrayList<>();
 
-        while (page < 20){
-            String address = "https://search.naver.com/search.naver?where=news&query=" + query + "&sort=1&ds=" + s_date
-                    + "&de=" + e_date + "&nso=so%3Ar%2Cp%3Afrom" + s_from + "to" + e_to + "%2Ca%3A&start="
-                    + Integer.toString(page);
-            Document rawData = Jsoup.connect(address).timeout(5000).get();
-            //System.out.println(address);
-            Elements blogOption = rawData.select("dl dt");
-            String realURL = "";
-            String realTITLE = "";
+        for(int i = 0; i< 4; i++){
+            Element articleElement = photoElements.get(i);
+            Elements aElements = articleElement.select("a");
+            Element aElement = aElements.get(0);
 
-            for(Element option : blogOption){
-                realURL = option.select("a").attr("href");
-                realTITLE = option.select("a").attr("title");
-                System.out.println(realTITLE);
-                list1.add(realURL);
-                list2.add(realTITLE);
-            }
-            page += 10;
-            //System.out.println(query);
+            String articleUrl = "https://land.naver.com"+aElement.attr("href"); // 기사링크
+
+            Element imgElement = aElement.select("img").get(0);
+            String title = imgElement.attr("alt"); //기사제목
+
+            System.out.println(title);
+            System.out.println(articleUrl);
+
         }
-        model.addAttribute("urls", list1);
-        model.addAttribute("titles", list2);
-
-        return "common/news";
 
     }
-
 
 }

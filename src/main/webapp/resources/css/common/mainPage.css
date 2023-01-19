@@ -16,8 +16,8 @@ main{
 }
 
 #header.on { position: fixed;  }
-#header.on .inner { height: 80px; transition: 0.1s;} 
-#header.on .inner img { height: 75px; width: 120px; transition: 0.1s;} 
+#header.on .inner { height: 80px; transition: 0.1s;}
+#header.on .inner img { height: 75px; width: 120px; transition: 0.1s;}
 #header.on .inner .dropdown-btn{ height: 40px; font-size: 17px;}
 #header.on .inner .dropdown-submenu{height: 55px;}
 #header.on .inner .dropdown-submenu a {font-size: 13px;}
@@ -32,7 +32,7 @@ main{
     z-index: 999;
 }
 
-.inner{ 
+.inner{
     display: flex;
     background-color: white;
 }
@@ -104,7 +104,7 @@ main{
 
 .dropdown:hover .dropdown-submenu {
     display: block;
-} 
+}
 
 .login{
     width: 250px;
@@ -189,6 +189,6 @@ main{
     width: 50px;
     height: 50px;
     border-radius: 40px;
-  }
+}
 
-  /***************   채팅   *****************/
+/***************   채팅   *****************/
