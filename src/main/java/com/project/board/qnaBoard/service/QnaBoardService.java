@@ -20,5 +20,4 @@ public interface QnaBoardService {
     public QnaBoard selectQboard(int qBno);
     public int updateBoard(int qBno);
     public int increaseCount(int qBno);
-
 }

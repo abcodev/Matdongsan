@@ -11,11 +11,10 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -107,6 +106,19 @@ public class RestaurantController {
         modelAndView.addObject("hashtagList", hashtagList);
         modelAndView.setViewName("admin/restaurantEnroll");
         return modelAndView;
+    }
+
+    @PostMapping("/admin/resInsert")
+    public String restaurantInsert(@RequestParam("file")MultipartFile file,
+                                   @RequestBody Restaurant restaurant,
+                                   RedirectAttributes redirectAttributes){
+
+        restaurantService.restaurantInsert(file,restaurant);
+
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + restaurant.getResName() + "!");
+
+        return "redirect:/";
     }
 
 }
