@@ -11,7 +11,7 @@
 
 
     <select id="selectHashtagList" resultType="String">
-        SELECT DISTINCT TRIM(HASHTAG.HASHTAG)
+        SELECT TRIM(HASHTAG.HASHTAG)
         FROM HASHTAG
     </select>
 

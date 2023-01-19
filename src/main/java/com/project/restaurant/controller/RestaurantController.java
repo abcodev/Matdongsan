@@ -82,4 +82,13 @@ public class RestaurantController {
         return "restaurant/restaurantDetail";
     }
 
+    @RequestMapping("/admin/resEnroll")
+    public ModelAndView restaurantEnroll(){
+        List<String> hashtagList = restaurantService.selectHashtagList();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.setViewName("admin/restaurantEnroll");
+        return modelAndView;
+    }
+
 }

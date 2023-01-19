@@ -25,7 +25,7 @@
     <div id="place_head">
 
         <div>
-            <button>새로운 맛집 등록하기</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/admin/resEnroll'">새로운 맛집 등록하기</button>
         </div>
 
         <div class="place city">
