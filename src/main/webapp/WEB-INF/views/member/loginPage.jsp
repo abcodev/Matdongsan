@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/loginPage.css"/>">
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 <body>
 <div id="content">
@@ -19,12 +20,12 @@
     <div id="login_body">
 
         <a href="<c:url value="/login/kakao"/>">
-            <img src="<c:url value="/resources/images/oauth/kakao_login_medium_wide.png"/>">
+            <img src="<c:url value="/resources/images/oauth/kakao_login.png"/>">
         </a>
         <br>
         <br>
         <a href="<c:url value="/login/naver"/> ">
-            <img src="<c:url value="/resources/images/oauth/btnG_완성형.png"/>" width="300px;" height="50px;">
+            <img src="<c:url value="/resources/images/oauth/naver_login.png"/>" width="300px;" height="50px;">
         </a>
         <br>
         <br>

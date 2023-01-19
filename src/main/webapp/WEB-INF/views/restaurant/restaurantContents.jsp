@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">
+<jsp:include page="../template/font.jsp"></jsp:include>
 
 <div id="restaurant_list_ajax">
     <div class="place_list">
@@ -16,7 +17,7 @@
             <c:set var="i" value="0"/>
             <c:set var="j" value="3"/>
 
-            <table border=1>
+            <table>
                 <c:choose>
                     <c:when test="${selectResList != null && fn:length(selectResList) > 0 }">
                         <c:forEach items="${selectResList}" var="selectResList">
@@ -25,10 +26,9 @@
                             </c:if>
 
                             <td align="center" onclick="location.href='restaurantDetail?resNo=${selectResList.resNo}'" style="cursor:pointer;">
-                                    <%-- <a href="restaurantDetail?resNo=${selectResList.resNo}">이동</a><br>--%>
                                 <img src="<c:out value="${selectResList.resImgUrl}" />" width="300px" height="250px">
-                                <c:out value="${selectResList.resName}"/> <br>
                                 <c:out value="${selectResList.state}"/><br>
+                                <c:out value="${selectResList.resName}"/> <br>
                             </td>
                             <c:if test="${i%j == j-1}">
                                 </tr>

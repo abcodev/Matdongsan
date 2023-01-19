@@ -9,9 +9,14 @@
         <result column="HASHTAG" property="hashTag"/>
     </resultMap>
 
+
     <select id="selectHashtagList" resultType="String">
         SELECT DISTINCT TRIM(HASHTAG.HASHTAG)
         FROM HASHTAG
     </select>
+
+
+
+
 
 </mapper>

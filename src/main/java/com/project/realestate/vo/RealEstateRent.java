@@ -1,4 +1,4 @@
-package com.project.common.vo;
+package com.project.realestate.vo;
 
 import com.project.client.seoulApi.dto.RealEstateRentDto;
 import lombok.*;

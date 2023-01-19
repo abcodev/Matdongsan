@@ -11,8 +11,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>동네맛집리스트</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
-<%--          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">--%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 <body>
 <script>
@@ -27,7 +28,6 @@
             <button>새로운 맛집 등록하기</button>
         </div>
 
-
         <div class="place city">
             <select id="select_state" onchange="retrieveRestaurants(1)">
                 <option value="">선택</option>
@@ -38,16 +38,10 @@
         </div>
 
         <div class="place hashtag">
-<%--            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_hashtag" autocomplete="off" value="#한식" onchange="retrieveRestaurants(1)">--%>
-<%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#한식</label>--%>
-<%--            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_hashtag" autocomplete="off" value="#중식" onchange="retrieveRestaurants(1)">--%>
-<%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#중식</label>--%>
-
-            <c:forEach items="${hashtagList}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_hashtag" autocomplete="off" value="${hashtag}" onchange="retrieveRestaurants(1)">
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+            <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag}" onchange="retrieveRestaurants(1)">
+                <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag}</label>
             </c:forEach>
-
         </div>
 
     </div>

@@ -1,6 +1,6 @@
 package com.project.common.dao;
 
-import com.project.common.vo.RealEstateSell;
+import com.project.realestate.vo.RealEstateSell;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;

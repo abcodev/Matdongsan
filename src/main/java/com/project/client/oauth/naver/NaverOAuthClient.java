@@ -84,29 +84,29 @@ public class NaverOAuthClient implements OAuthClient {
         oauthService.signRequest(accessToken, request);
         Response response = request.send();
         return naverJson(response);
-    }
+        }
 
-    public OAuthUser naverJson(Response response){
-        try {
-            String body = response.getBody();
+        public OAuthUser naverJson(Response response){
+            try {
+                String body = response.getBody();
 
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(body);
-            JSONObject jsonObj = (JSONObject) obj;
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(body);
+                JSONObject jsonObj = (JSONObject) obj;
 
-            //3. 데이터 파싱
-            //Top레벨 단계 _response 파싱
-            JSONObject response_obj = (JSONObject)jsonObj.get("response");
+                //3. 데이터 파싱
+                //Top레벨 단계 _response 파싱
+                JSONObject response_obj = (JSONObject)jsonObj.get("response");
 
-            // 프로필 조회
-            String providerId = (String) response_obj.get("id");
-            String email = (String) response_obj.get("email");
-            String name = (String) response_obj.get("name");
-            String profileImage = (String) response_obj.get("profile_image");
-            return new OAuthUser("NAVER", providerId, name, email, profileImage);
-        } catch (Exception ignored) { }
-        return null;
-    }
+                // 프로필 조회
+                String providerId = (String) response_obj.get("id");
+                String email = (String) response_obj.get("email");
+                String name = (String) response_obj.get("name");
+                String profileImage = (String) response_obj.get("profile_image");
+                return new OAuthUser("NAVER", providerId, name, email, profileImage);
+            } catch (Exception ignored) { }
+            return null;
+        }
     /* 세션 유효성 검증을 위한 난수 생성기 */
     private String generateRandomString() {
         return UUID.randomUUID().toString();
@@ -121,4 +121,5 @@ public class NaverOAuthClient implements OAuthClient {
     private void setSession(HttpSession session, String state) {
         session.setAttribute(SESSION_STATE, state);
     }
+
 }

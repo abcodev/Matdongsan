@@ -17,4 +17,5 @@ public interface RestaurantService {
     Restaurant restaurantDetail(String resNo);
 
     List<String> selectHashtagList();
+
 }

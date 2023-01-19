@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -25,5 +26,4 @@ public class MemberDao {
         params.put("providerId", providerId);
         return sqlSession.selectOne("memberMapper.select", params) == null;
     }
-
 }

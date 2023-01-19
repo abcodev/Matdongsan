@@ -1,7 +1,7 @@
 package com.project.realestate.controller;
 
-import com.project.common.vo.RealEstateRent;
 import com.project.realestate.service.RealEstateService;
+import com.project.realestate.vo.RealEstateRent;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

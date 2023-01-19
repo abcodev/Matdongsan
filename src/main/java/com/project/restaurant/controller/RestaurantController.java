@@ -71,11 +71,15 @@ public class RestaurantController {
      * 동네맛집 상세보기
      */
     @RequestMapping("/restaurantDetail")
-    public String restaurantDetail(@RequestParam("resNo") String resNo, Model model) {
+    public String restaurantDetail(
+            @RequestParam("resNo") String resNo,
+            Model model) {
+
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
+
         model.addAttribute("restaurantDetail", restaurant);
 
-        return "restaurant/restaurantDetailPage";
+        return "restaurant/restaurantDetail";
     }
 
 }

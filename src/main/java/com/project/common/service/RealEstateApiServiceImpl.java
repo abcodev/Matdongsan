@@ -2,7 +2,7 @@ package com.project.common.service;
 
 import com.project.client.seoulApi.SeoulApiClient;
 import com.project.common.dao.RealEstateSellApiDao;
-import com.project.common.vo.RealEstateSell;
+import com.project.realestate.vo.RealEstateSell;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,14 +3,15 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:beans="http://www.springframework.org/schema/c"
+       xmlns:beans="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
-       <!--    servlet-context.xml-->
+
+       <!--servlet-context.xml-->
 
        <!-- Annotation 활성화 -->
        <mvc:annotation-driven/>
@@ -27,12 +28,12 @@
        <!--    추가-->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
-       <mvc:interceptors>
-              <mvc:interceptor>
-              <mvc:mapping path="/src/**"/>
-              <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>
-              </mvc:interceptor>
-       </mvc:interceptors>
+<!--       <mvc:interceptors>-->
+<!--              <mvc:interceptor>-->
+<!--              <mvc:mapping path="/src/**"/>-->
+<!--              <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>-->
+<!--              </mvc:interceptor>-->
+<!--       </mvc:interceptors>-->
 
        <context:component-scan base-package="com.project">
               <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
@@ -40,5 +41,6 @@
               <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
        </context:component-scan>
 
-
+       <!-- websocket xml import -->
+<!--       <beans:import resource="webSocket.xml"/>-->
 </beans>

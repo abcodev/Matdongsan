@@ -1,3 +1,7 @@
+*{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
 #bgd {
     position: absolute;
     background-image: url("../../images/downtown-cityscape-at-night-in-seoul-south-korea.jpg");
