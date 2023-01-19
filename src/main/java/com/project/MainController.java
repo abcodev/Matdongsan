@@ -58,8 +58,8 @@ public class MainController {
             Element imgElement = aElement.select("img").get(0);
             String title = imgElement.attr("alt"); //기사제목
 
-            System.out.println(title);
-            System.out.println(articleUrl);
+//            System.out.println(title);
+//            System.out.println(articleUrl);
 
             HashMap<String,String> newsInfo = new HashMap<>();
             newsInfo.put("newsTitle" , title);
