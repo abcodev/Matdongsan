@@ -27,9 +27,9 @@
        <!--    추가-->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
-       <mvc:interceptors>
+      <mvc:interceptors>
               <mvc:interceptor>
-              <mvc:mapping path="/src/**"/>
+              <mvc:mapping path="/**"/>
               <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>
               </mvc:interceptor>
        </mvc:interceptors>
