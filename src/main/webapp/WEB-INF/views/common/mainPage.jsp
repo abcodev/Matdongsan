@@ -224,7 +224,7 @@
             <h3>부동산 주요 뉴스</h3>
             <br>
             <c:forEach var="news" items="${newsList}">
-                <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
+                <a href="${news.newsUrl}">${news.newsTitle}</a><br>
             </c:forEach>
             <hr>
             <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
