@@ -1,10 +1,12 @@
 package com.project.restaurant.service;
 
+import com.project.common.Utils;
 import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dao.RestaurantDao;
 import com.project.restaurant.dto.RestaurantListFilter;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
+import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +67,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void restaurantInsert(MultipartFile file, Restaurant restaurant) {
 
+        Utils.saveFile(file);
     }
 
 
