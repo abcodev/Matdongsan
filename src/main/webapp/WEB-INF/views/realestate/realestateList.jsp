@@ -30,6 +30,7 @@
                     </select>
                     <select name="dong">
                         <option value="0">동 선택</option>
+
                     </select>
                 </div>
                 <div class ="search option">
@@ -109,7 +110,20 @@
 <%--검색 동 변경--%>
 <script>
     function changeLocation(e){
-        
+        $.ajax({
+            type: 'GET',
+            url: '/' + option1,
+            contentType: "application/json; charset=UTF-8",
+            dataType: 'json',
+            success: function (result) {
+                console.log(result)
+                for (i = 0; i < result.length; i++) {
+                    selectOption.options[i] = new Option(result[i], i);
+                }
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        })
     }
 </script>
 
