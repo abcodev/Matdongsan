@@ -18,4 +18,7 @@ public interface RealEstateService {
 
    public List<String> selectOption(String option1);
 
+   public List<String> getSellList();
+
+
 }

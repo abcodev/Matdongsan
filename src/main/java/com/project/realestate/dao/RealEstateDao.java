@@ -49,4 +49,9 @@ public class RealEstateDao {
     public ArrayList<String> selectOption(SqlSession sqlSession, String option1){
         return  (ArrayList) sqlSession.selectList("rentMapper.selectOption", option1);
     }
+    public ArrayList<String> getSellList(SqlSession sqlSession){
+        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
+
+    }
+
 }

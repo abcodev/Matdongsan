@@ -126,6 +126,9 @@
                     displayMarker(locPosition, message);
                 }
 
+                // 주소-좌표 변환 객체 생성
+
+
                 // 지도에 마커와 인포윈도우를 표시하는 함수
                 function displayMarker(locPosition, message) {
 
