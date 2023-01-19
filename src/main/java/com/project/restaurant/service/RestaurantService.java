@@ -7,6 +7,8 @@ import com.project.restaurant.vo.Review;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface RestaurantService {
@@ -21,7 +23,7 @@ public interface RestaurantService {
 
     List<String> selectHashtagList();
 
-    void restaurantInsert(MultipartFile file, Restaurant restaurant);
+    void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpServletRequest session);
 
     List<String> resHashtagByAdmin();
 

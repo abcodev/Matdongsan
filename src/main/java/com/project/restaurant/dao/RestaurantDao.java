@@ -53,9 +53,14 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin");
     }
 
+    public Restaurant resInsert(Restaurant restaurant) {
+        sqlSession.insert("resMapper.resInsert",restaurant);
+        return restaurant;
+    }
 
-
-
+    public int resInsertImg(ResImg resImg) {
+        return sqlSession.insert("resMapper.resInsertImg",resImg);
+    }
 
 
     public ArrayList<Review> selectReviewList(SqlSession sqlSession, int resNo) {

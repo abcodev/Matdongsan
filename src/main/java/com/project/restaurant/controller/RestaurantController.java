@@ -19,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -142,10 +144,11 @@ public class RestaurantController {
 
     @PostMapping("/admin/resInsert")
     public String restaurantInsert(@RequestParam("file")MultipartFile file,
-                                   @RequestBody Restaurant restaurant,
+                                   Restaurant restaurant,
+                                   HttpServletRequest session,
                                    RedirectAttributes redirectAttributes){
 
-        restaurantService.restaurantInsert(file,restaurant);
+        restaurantService.restaurantInsert(file,restaurant,session);
 
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + restaurant.getResName() + "!");

@@ -46,7 +46,7 @@
         </c:forEach>
     </div>
     <div class="res img">
-        <input class="form-control form-control-sm" id="formFileSm" type="file">
+        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file">
     </div>
     <div class="btn_box">
         <button>취소</button>
