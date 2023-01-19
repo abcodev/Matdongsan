@@ -73,12 +73,9 @@ public class RestaurantController {
     @RequestMapping("/restaurantDetail")
     public String restaurantDetail(
             @RequestParam("resNo") String resNo,
-
             Model model) {
 
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
-
-
 
         model.addAttribute("restaurantDetail", restaurant);
 

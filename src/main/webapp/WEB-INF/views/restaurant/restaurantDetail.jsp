@@ -28,7 +28,7 @@
             </div>
             <div class="head tag">
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined"></label>
+                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtagListByAdmin.hashtag}</label>
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined"></label>
 
