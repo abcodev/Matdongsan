@@ -14,4 +14,13 @@
         FROM HASHTAG
     </select>
 
+    <select id="hashtagListByAdmin" resultType="String">
+        SELECT DISTINCT TRIM(RES_HASHTAG.HASHTAG_ID)
+        FROM RES_HASHTAG
+        JOIN HASHTAG H on RES_HASHTAG.HASHTAG_ID = H.HASHTAG_ID
+        WHERE MEMBER_NO = 1
+    </select>
+
+
+
 </mapper>

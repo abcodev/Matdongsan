@@ -28,9 +28,9 @@
             </div>
             <div class="head tag">
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label >
+                <label class="btn btn-outline-secondary" for="btn-check-outlined"></label>
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
+                <label class="btn btn-outline-secondary" for="btn-check-outlined"></label>
 
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>

@@ -78,8 +78,7 @@ public class RestaurantController {
 
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
 
-        List<String> hashtagList = restaurantService.selectHashtagList();
-        model.addAttribute("hashtagList", hashtagList);
+
 
         model.addAttribute("restaurantDetail", restaurant);
 
