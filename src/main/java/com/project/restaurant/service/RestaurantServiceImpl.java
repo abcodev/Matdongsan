@@ -74,5 +74,12 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
 
+    @Override
+    public List<String> resHashtagByAdmin() {
+        return restaurantDao.resHashtagByAdmin();
+    }
+
+
+
 
 }

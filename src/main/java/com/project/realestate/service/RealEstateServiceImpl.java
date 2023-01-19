@@ -81,7 +81,11 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     @Override
-    public List<String> selectOption(String search_option){
-        return realEstateDao.selectOption(sqlSession, search_option);
+    public List<String> selectOption(String option1){
+        return realEstateDao.selectOption(sqlSession, option1);
     }
+    @Override
+    public List<String> getSellList(){ return realEstateDao.getSellList(sqlSession);}
+
+
 }

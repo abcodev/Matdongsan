@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>커뮤니티 질문과 답변</title>
     <link rel="stylesheet" href="community_2.css">
+    <jsp:include page="../template/font.jsp"></jsp:include>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 </head>
 <body>

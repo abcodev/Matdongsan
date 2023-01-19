@@ -27,6 +27,11 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
+
+
+    /**
+     * 동네맛집 리스트
+     */
     @RequestMapping("/selectResList")
     public ModelAndView restaurantList() {
         List<String> stateList = restaurantService.selectStateList();
@@ -59,6 +64,9 @@ public class RestaurantController {
         return modelAndView;
     }
 
+    /**
+     * 목록 이미지 크롤링
+     */
     @ResponseBody
     @RequestMapping("/restaurant/image/{name}")
     public String find(@PathVariable String name) {
@@ -70,23 +78,29 @@ public class RestaurantController {
      * 동네맛집 상세보기
      */
     @RequestMapping("/restaurantDetail")
-    public String restaurantDetail(
+    public ModelAndView restaurantDetail(
             @RequestParam("resNo") String resNo,
-
             Model model) {
+        ModelAndView modelAndView = new ModelAndView();
 
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
 
+        List<String> resHashtagByAdmin = restaurantService.resHashtagByAdmin();
         List<String> hashtagList = restaurantService.selectHashtagList();
-        model.addAttribute("hashtagList", hashtagList);
 
-        model.addAttribute("restaurantDetail", restaurant);
+        modelAndView.addObject("resHashtagByAdmin", resHashtagByAdmin);
+        modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.addObject("restaurantDetail", restaurant);
 
-        return "restaurant/restaurantDetail";
+        modelAndView.setViewName("restaurant/restaurantDetail");
+
+        return modelAndView;
     }
 
+
+
     @RequestMapping("/admin/resEnroll")
-    public ModelAndView restaurantEnroll(){
+    public ModelAndView restaurantEnroll() {
         List<String> hashtagList = restaurantService.selectHashtagList();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("hashtagList", hashtagList);

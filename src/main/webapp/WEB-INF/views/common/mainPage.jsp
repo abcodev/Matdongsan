@@ -16,11 +16,10 @@
     <title>맛동산</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 
 <body>
-
-
 <header id="header">
     <div class="inner">
         <div class="logo">
@@ -127,6 +126,9 @@
                     displayMarker(locPosition, message);
                 }
 
+                // 주소-좌표 변환 객체 생성
+
+
                 // 지도에 마커와 인포윈도우를 표시하는 함수
                 function displayMarker(locPosition, message) {
 
@@ -222,7 +224,7 @@
             <h3>부동산 주요 뉴스</h3>
             <br>
             <c:forEach var="news" items="${newsList}">
-                <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
+                <a href="${news.newsUrl}">${news.newsTitle}</a><br>
             </c:forEach>
             <hr>
             <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>

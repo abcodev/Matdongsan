@@ -20,17 +20,19 @@
     <div id="content">
         <div class="detail head">
             <div class="head name">
-                <span>가게명</span>
+                <span>${restaurantDetail.resName}</span>
             </div>
             <div class="head star">
                 <i class="fa-solid fa-star"></i>
-                <span>N/N</span>
+                <span>N/5</span>
             </div>
             <div class="head tag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label >
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
+
+                <c:forEach items="${resHashtagByAdmin}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag.hashtagId}</label>
+                </c:forEach>
+
 
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
@@ -86,12 +88,62 @@
     <!-- 리뷰 모달 -->
     <div class="black_bg"></div>
     <div class="modal_wrap">
-        <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
-        <div>
-            
+        <div id="modal_content">
+            <div id="content_head">
+                <span>가게명</span>
+                <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            <div id="content_body">
+                <span>별점</span>
+                <form name="reviewForm" id="reviewForm" method="post">
+                    <div id="review_star">
+                        <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                            for="rate1">★</label>
+                        <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                            for="rate2">★</label>
+                        <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                            for="rate3">★</label>
+                        <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                            for="rate4">★</label>
+                        <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                            for="rate5">★</label>
+                    </div>
+                    <div id="review_hashtag">
+                        <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
+                            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag}">
+                            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag}</label>
+                        </c:forEach>
+                    </div>
+
+
+                    <script>
+                        $('input:checkbox[name=chk_hashtag]').click(function(){
+                            let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
+
+                            let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+                            if(cntEPT>3){
+                                alert('해시태그는 최대 3개까지 선택 가능합니다.')
+                                $(this).prop('checked', false);
+                            }
+                        });
+                    </script>
+
+
+
+                    <div id="review_text">
+                        <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
+                    </div>
+                    <div class="review_img">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                    </div>
+
+                    <button class="" onclick="insertReply();">등록하기</button>
+
+                </form>
+
+            </div>
         </div>
     </div>
-
 
 
 
@@ -115,5 +167,66 @@
 
 
     </script>
+
+
+
+
+
+    <script>
+        $(function (){
+            selectReviewList();
+        })
+
+        function selectReviewList(){
+            $.ajax({
+                url : "review",
+                data : {resNo : ${restaurantDetail.resNo} },
+                dataType : "json",
+                success : function(list) {
+                    console.log(list);
+                    let str = "";
+                    for(let i of list){
+                        str += "<tr>"
+                            + "<td>" + i.reviewWriter + "</td>"
+                            + "<td>" + i.reviewContent + "</td>"
+                            + "<td>" + i.revImg + "</td>"
+                            + "</tr>";
+                    }
+                    $("#replyArea tbody").html(str);
+                    $("#rCount").html(list.length);
+                },
+                error : function(){
+                    console.log("댓글리스트조회 ajax통신 실패");
+                }
+            });
+        }
+
+
+        function insertReply(){
+            $.ajax({
+                url:"insertReview",
+                data:{
+                    replyContent : $("#content").val(),
+                    resNo : ${restaurantDetail.resNo}
+                },
+                success : (result) => {
+                    if(result > 0){
+                        selectReviewList();
+                        $("#content").val("");
+                    }
+                },
+                error : function (){
+                    console.log("ajax통신 실패");
+                }
+            });
+        }
+
+    </script>
+
+
+
+
+
+
 </body>
 </html>

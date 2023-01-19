@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface RestaurantService {
+
     public int selectResListCount();
 
     public RestaurantListResponse selectList(RestaurantListRequest request);
@@ -19,4 +20,7 @@ public interface RestaurantService {
     List<String> selectHashtagList();
 
     void restaurantInsert(MultipartFile file, Restaurant restaurant);
+
+    List<String> resHashtagByAdmin();
+
 }
