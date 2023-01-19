@@ -134,7 +134,7 @@
                         <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
                     </div>
                     <div class="review_img">
-                        <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <input class="form-control form-cont중rol-sm" id="formFileSm" type="file">
                     </div>
 
                     <button class="" onclick="insertReply();">등록하기</button>
