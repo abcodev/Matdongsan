@@ -1,5 +1,6 @@
 package com.project;
 
+import com.project.realestate.service.RealEstateService;
 import lombok.extern.log4j.Log4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -7,18 +8,40 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
 @Log4j
 public class MainController {
+
+    private final RealEstateService realEstateService;
+
+    public MainController(RealEstateService realEstateService) {
+        this.realEstateService = realEstateService;
+    }
+
+//    @ResponseBody
+//    public ModelAndView realEstateList(){
+//        List<String> sellList = realEstateService.getSellList();
+//
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("sellList", sellList);
+//
+//        modelAndView.setViewName("common/mainPage");
+//
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){
@@ -32,7 +55,7 @@ public class MainController {
     }*/
 
     @RequestMapping(value = "/mainPage")
-    public String getStockPrice(Model model) throws IOException {
+    public String getNews(Model model) throws IOException {
 
         String url = "https://land.naver.com/news/region.naver?page=1";
 
@@ -43,36 +66,26 @@ public class MainController {
 
         Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
 
-        //ArrayList<String> newsTitle = new ArrayList<>();
-        //ArrayList<String> newsUrl= new ArrayList<>();
-
         ArrayList<HashMap> newsList = new ArrayList();
 
-        for(int i = 0; i< 4; i++){
+        for (int i = 0; i < 4; i++) {
             Element articleElement = photoElements.get(i);
             Elements aElements = articleElement.select("a");
             Element aElement = aElements.get(0);
 
-            String articleUrl = "https://land.naver.com"+aElement.attr("href"); // 기사링크
+            String articleUrl = "https://land.naver.com" + aElement.attr("href"); // 기사링크
 
             Element imgElement = aElement.select("img").get(0);
             String title = imgElement.attr("alt"); //기사제목
 
-            System.out.println(title);
-            System.out.println(articleUrl);
 
-            HashMap<String,String> newsInfo = new HashMap<>();
-            newsInfo.put("newsTitle" , title);
-            newsInfo.put("newsUrl",articleUrl);
+            HashMap<String, String> newsInfo = new HashMap<>();
+            newsInfo.put("newsTitle", title);
+            newsInfo.put("newsUrl", articleUrl);
             newsList.add(newsInfo);
-            //newsTitle.add(title);
-            //newsUrl.add(articleUrl);
         }
 
-        model.addAttribute("newsList",newsList);
-
-        //model.addAttribute("newsTitle", newsTitle);
-        //model.addAttribute("newsUrl", newsUrl);
+        model.addAttribute("newsList", newsList);
 
         return "common/mainPage";
     }

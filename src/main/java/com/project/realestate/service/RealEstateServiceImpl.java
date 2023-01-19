@@ -2,7 +2,7 @@ package com.project.realestate.service;
 
 import com.project.common.template.PageInfo;
 import com.project.common.template.Pagination;
-import com.project.common.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +79,13 @@ public class RealEstateServiceImpl implements RealEstateService{
     public List<RealEstateRent> searchLocalList(){
         return realEstateDao.searchLocalList(sqlSession);
     }
+
+    @Override
+    public List<String> selectOption(String option1){
+        return realEstateDao.selectOption(sqlSession, option1);
+    }
+    @Override
+    public List<String> getSellList(){ return realEstateDao.getSellList(sqlSession);}
+
 
 }
