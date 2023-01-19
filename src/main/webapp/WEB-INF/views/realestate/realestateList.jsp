@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/realeatate/realestateList.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>부동산</title>
 </head>
 <body>
@@ -25,7 +26,7 @@
                     <select name="selectOption1" id="selectOption1" onchange="get_option2(selectOption1.value, selectOption2)">
                         <option value="option1">자치구 선택</option>
                         <c:forEach var="l" items="${localList}">
-                            <option value="${l.sggCd}">${l.sggNm}</option>
+                            <option value="${l.sggNm}">${l.sggNm}</option>
                         </c:forEach>
                     </select>
                     <select name="selectOption2" id="selectOption2">
@@ -147,14 +148,12 @@
     function get_option2(option1, selectOption) {
         $.ajax({
             type: 'GET',
-            url: '/' + option1,
+            url: '${pageContext.request.contextPath}/',
             contentType: "application/json; charset=UTF-8",
             dataType: 'json',
             success: function (result) {
                 console.log(result)
-                for (i = 0; i < result.length; i++) {
-                    selectOption.options[i] = new Option(result[i], i);
-                }
+
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
