@@ -1,11 +1,14 @@
 package com.project.restaurant.controller;
 
+import com.google.gson.Gson;
+import com.project.member.vo.Member;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.service.RestaurantCrawlingService;
 import com.project.restaurant.service.RestaurantService;
 import com.project.restaurant.type.SearchState;
 import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -96,6 +101,33 @@ public class RestaurantController {
 
         return modelAndView;
     }
+
+
+
+//    @RequestMapping("selectReview")
+//    @ResponseBody
+//    public String selectReviewList(int resNo, Model model) {
+//        ArrayList<Review> list = restaurantService.selectReviewList(resNo);
+//        Gson gson = new Gson();
+//        String result = gson.toJson(list);
+//        return result;
+//    }
+//
+//    // 댓글 작성
+//    @RequestMapping("insertReview")
+//    @ResponseBody
+//    public int insertReply(Review review, HttpSession session) {
+//        String userNo = Integer.toString((int) ((Member)session.getAttribute("loginUser")).getMemberNo());
+//        review.setMemberNo(review.getMemberNo());
+//        int result = restaurantService.insertReview(review);
+//        return result;
+//    }
+//
+
+
+
+
+
 
 
 

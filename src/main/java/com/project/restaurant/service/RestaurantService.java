@@ -3,8 +3,10 @@ package com.project.restaurant.service;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface RestaurantService {
@@ -22,5 +24,18 @@ public interface RestaurantService {
     void restaurantInsert(MultipartFile file, Restaurant restaurant);
 
     List<String> resHashtagByAdmin();
+
+//    List<Review> selectReview(String resNo);
+//
+//    int insesrtReview(Review review);
+
+
+
+
+
+
+
+
+
 
 }

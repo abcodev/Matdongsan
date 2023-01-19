@@ -1,4 +1,4 @@
-package com.project.common;
+package com.project.common.template;
 
 import org.springframework.web.multipart.MultipartFile;
 

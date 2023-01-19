@@ -2,12 +2,16 @@ package com.project.restaurant.dao;
 
 import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dto.RestaurantListFilter;
+import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,6 +52,34 @@ public class RestaurantDao {
     public List<String> resHashtagByAdmin() {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin");
     }
+
+
+
+
+
+
+    public ArrayList<Review> selectReviewList(SqlSession sqlSession, int resNo) {
+        return (ArrayList) sqlSession.selectList("resMapper.selectReviewList", resNo);
+    }
+
+    public int insertReview(SqlSession sqlSession, Review review) {
+        return sqlSession.insert("resMapper.insertReview",review);
+    }
+
+    public int insertResImg(SqlSession sqlSession, ResImg img) {
+        return sqlSession.update("boardMapper.insertResImg",img);
+    }
+
+    public int insertResImgList(SqlSession sqlSession, List<ResImg> ResImgList) {
+        return sqlSession.insert("resMapper.insertResImgList", ResImgList);
+    }
+
+
+
+
+
+
+
 
 
 
