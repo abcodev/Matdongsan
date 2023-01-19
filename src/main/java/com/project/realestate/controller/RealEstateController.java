@@ -25,11 +25,10 @@ public class RealEstateController {
         this.realEstateService = realEstateService;
     }
 
-    @RequestMapping("/list/{search_option}")
-    @ResponseBody
+    @RequestMapping("/list/{option1}")
     public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
                                  @RequestParam Map<String, Object> paramMap,
-                                    @PathVariable String search_option) {
+                                 @PathVariable String option1) {
         Map<String, Object> map = new HashMap();
         List<RealEstateRent> localList = new ArrayList<>();
 
@@ -40,7 +39,7 @@ public class RealEstateController {
 
             map = realEstateService.selectList(currentPage);
             localList = realEstateService.searchLocalList();
-            optionList = realEstateService.selectOption(search_option);
+            optionList = realEstateService.selectOption(option1);
 
         } else { // 검색 요청을 한 경우
             // 검색에 필요한 데이터를 paramMap을 넣어서 호출
