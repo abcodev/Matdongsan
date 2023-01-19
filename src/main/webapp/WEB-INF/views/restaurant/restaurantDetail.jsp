@@ -14,6 +14,7 @@
 
 </head>
 <body>
+<%@include file ="../template/header.jsp" %>
 <div id="content">
     <div class="detail head">
         <div class="head name">
