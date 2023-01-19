@@ -90,6 +90,54 @@
     </select>
 
 
+    <select id="selectReviewList" parameterType="int" resultMap="reviewResultSet">
+        SELECT
+            REV_NO,
+            RES_NO,
+            STAR_RATING,
+            REVIEW_CONTENT,
+            R.MEMBER_NO,
+            R.CREATE_DATE,
+            R.STATUS,
+            M.MEMBER_NAME
+        FROM REVIEW R
+                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+        WHERE RES_NO = #{resNo}
+          AND R.STATUS = 'Y'
+    </select>
+
+<!--    <insert id="insertReview" parameterType="review">-->
+<!--        INSERT INTO REVIEW(REV_NO, MEMBER_NO, RES_NO, REPLY_WRITER, CREATE_DATE, STATUS)-->
+<!--        VALUES (SEQ_REV_NO.NEXTVAL, #{replyContent}, #{refBno}, #{replyWriter}, SYSDATE , DEFAULT)-->
+<!--    </insert>-->
+
+
+<!--    <insert id="insertReview" parameterType="review" useGeneratedKeys="true">-->
+
+<!--        <selectKey keyProperty="resNo" resultType="_int" order="BEFORE">-->
+<!--            SELECT SEQ_REV_NO.NEXTVAL FROM DUAL-->
+<!--        </selectKey>-->
+
+<!--        INSERT INTO REVEIW(BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER, ORIGIN_NAME, CHANGE_NAME, BOARD_CD)-->
+<!--        VALUES (#{boardNo}, #{boardTitle}, #{boardContent}, #{boardWriter}, #{originName}, #{changeName}, #{boardCd})-->
+<!--    </insert>-->
+
+<!--    <insert id="insertBoardImgList" parameterType="list">-->
+<!--        INSERT INTO RES_IMG-->
+<!--        SELECT SEQ_IMG_NO.NEXTVAL AS IMG_NO , C.* FROM-->
+<!--        (-->
+<!--        <foreach collection="list" item="img" separator="UNION ALL">-->
+<!--            SELECT #{img.originName} as ORIGIN_NAME,-->
+<!--            #{img.changeName} as CHANGE_NAME,-->
+<!--            #{img.refBno} as REF_BNO,-->
+<!--            #{img.imgLevel} as IMG_LEVEL-->
+<!--            FROM DUAL-->
+<!--        </foreach>-->
+<!--        ) C-->
+<!--    </insert>-->
+
+
+
 
 
 
