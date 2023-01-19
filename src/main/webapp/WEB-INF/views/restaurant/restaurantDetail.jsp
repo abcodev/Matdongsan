@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +31,7 @@
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label >
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
+
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
@@ -36,28 +40,33 @@
         </div>
         <div class="detail main">
             <div class="main img">
-                <img src="맛집.jpg">
+                <img src="${restaurantDetail.resImgUrl}">
             </div>
             <div class="main infolist">
                 <div class="info menu">
                     <i class="fa-solid fa-utensils"></i>
                     <span>주메뉴</span>
+                    <span>${restaurantDetail.resFood}</span>
                 </div>
                 <div class="info address">
                     <i class="fa-solid fa-map-location-dot"></i>
                     <span>주소</span>
+                    <span>${restaurantDetail.address}</span>
                 </div>
                 <div class="info number">
                     <i class="fa-solid fa-phone"></i>
                     <span>전화번호</span>
+                    <span>${restaurantDetail.resPhone}</span>
                 </div>
                 <div class="info time">
                     <i class="fa-regular fa-clock"></i>
                     <span>영업시간</span>
+                    <span>${restaurantDetail.resTime}</span>
                 </div>
                 <div class="info way">
                     <i class="fa-solid fa-train-subway"></i>
                     <span>오시는 길</span>
+                    <span>${restaurantDetail.transport}</span>
                 </div>
             </div>
         </div>

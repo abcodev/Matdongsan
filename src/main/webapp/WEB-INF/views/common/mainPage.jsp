@@ -41,7 +41,7 @@
                 <div class="dropdown">
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
                     <div class="dropdown-submenu">
-                            <a href="${pageContext.request.contextPath}/board/list/Q">자유게시판</a>
+                        <a href="${pageContext.request.contextPath}/board/list/Q">자유게시판</a>
 
                         <a href="${pageContext.request.contextPath}/board/list/C">질문&답변</a>
 
@@ -56,17 +56,17 @@
         <div class="login">
 
             <c:choose>
-            <c:when test="${ empty loginUser}">
-                <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
-            </c:when>
-            <c:otherwise>
-                <label>
-                    <img src="${loginUser.profileImage}" width="50px">
-                        ${loginUser.memberName} 님 환영합니다.
-                </label> &nbsp;&nbsp;
-                <%--                    <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>--%>
-                <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
-            </c:otherwise>
+                <c:when test="${ empty loginUser}">
+                    <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+                </c:when>
+                <c:otherwise>
+                    <label>
+                        <img src="${loginUser.profileImage}" width="50px">
+                            ${loginUser.memberName} 님 환영합니다.
+                    </label> &nbsp;&nbsp;
+                    <%--                    <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>--%>
+                    <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+                </c:otherwise>
             </c:choose>
 
         </div>
@@ -209,11 +209,11 @@
                     };
                 }
             </script>
-<%--            <c:forEach var="s" items="${ list }">--%>
-<%--                <tr>--%>
-<%--                    <td class="">${}</td>--%>
-<%--                </tr>--%>
-<%--            </c:forEach>--%>
+            <%--            <c:forEach var="s" items="${ list }">--%>
+            <%--                <tr>--%>
+            <%--                    <td class="">${}</td>--%>
+            <%--                </tr>--%>
+            <%--            </c:forEach>--%>
 
 
 
@@ -222,7 +222,7 @@
             <h3>부동산 주요 뉴스</h3>
             <br>
             <c:forEach var="news" items="${newsList}">
-                    <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
+                <a href="${news.newsUrl}">${news.newsTitle}</a><br><br>
             </c:forEach>
             <hr>
             <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
