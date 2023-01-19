@@ -11,7 +11,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-stomp") // 연결될 엔드 포인트
+        registry.addEndpoint("/stomp/chat") // 연결될 엔드 포인트
+                .setAllowedOrigins("http://localhost:8070")
                 .withSockJS(); // SocketJS 를 연결한다는 설정
     }
     @Override
