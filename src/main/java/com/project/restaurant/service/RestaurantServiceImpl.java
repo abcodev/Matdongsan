@@ -25,12 +25,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.restaurantCrawlingService = restaurantCrawlingService;
     }
 
-//    @Override
-//    public List<Restaurant> selectResList() throws Exception {
-//        return restaurantDao.selectResList();
-//    }
-
-
     @Override
     public int selectResListCount() {
         return 0;
@@ -40,7 +34,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantListResponse selectList(RestaurantListRequest request) {
         RestaurantListFilter filter = RestaurantListFilter.from(request);
         int count = restaurantDao.selectResListCount(filter);
-
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
         List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, filter);
         result.forEach(this::updateImageIfEmpty);
@@ -64,8 +57,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<String> selectHashtagList() {
         return restaurantDao.selectHashtagList();
     }
-
-
 
 
     @Override

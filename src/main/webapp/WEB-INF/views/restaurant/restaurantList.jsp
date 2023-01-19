@@ -27,6 +27,7 @@
             <button>새로운 맛집 등록하기</button>
         </div>
 
+
         <div class="place city">
             <select id="select_state" onchange="retrieveRestaurants(1)">
                 <option value="">선택</option>
@@ -41,26 +42,25 @@
 <%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#한식</label>--%>
 <%--            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_hashtag" autocomplete="off" value="#중식" onchange="retrieveRestaurants(1)">--%>
 <%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#중식</label>--%>
-<%--            <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_hashtag" autocomplete="off" value="#양식" onchange="retrieveRestaurants(1)">--%>
-<%--            <label class="btn btn-outline-secondary" for="btn-check-outlined">#양식</label>--%>
 
             <c:forEach items="${hashtagList}" var="hashtag">
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" name="chk_hashtag" autocomplete="off" value="${hashtag}" onchange="retrieveRestaurants(1)">
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-<%--                <option value="${hashtags}">${hashtags}</option>--%>
             </c:forEach>
 
         </div>
 
     </div>
+
     <div class="place_body">
 
     </div>
 </div>
+
 <script>
     function retrieveRestaurants(current_page) {
-        const checkHashtag = []; // 배열 선언
-        $('input:checkbox[name=chk_hashtag]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+        const checkHashtag = [];
+        $('input:checkbox[name=chk_hashtag]:checked').each(function() {
             checkHashtag.push(this.value);
         });
 

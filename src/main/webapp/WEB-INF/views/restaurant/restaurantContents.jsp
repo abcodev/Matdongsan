@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">
+
 <div id="restaurant_list_ajax">
     <div class="place_list">
         <div class="place info">
@@ -25,7 +26,7 @@
 
                             <td align="center" onclick="location.href='restaurantDetail?resNo=${selectResList.resNo}'" style="cursor:pointer;">
                                     <%-- <a href="restaurantDetail?resNo=${selectResList.resNo}">이동</a><br>--%>
-                                <img src="<c:out value="${selectResList.resImgUrl}" />" width="300px" height="300px">
+                                <img src="<c:out value="${selectResList.resImgUrl}" />" width="300px" height="250px">
                                 <c:out value="${selectResList.resName}"/> <br>
                                 <c:out value="${selectResList.state}"/><br>
                             </td>
@@ -37,7 +38,7 @@
                     </c:when>
                     <c:otherwise>
                         <tr>
-                            <td>내역이 존재하지 않습니다.</td>
+                            <td>맛집이 존재하지 않습니다.</td>
                         </tr>
                     </c:otherwise>
                 </c:choose>
@@ -75,8 +76,8 @@
 
 <script>
     function retrieveRestaurants(current_page) {
-        const checkHashtag = []; // 배열 선언
-        $('input:checkbox[name=chk_hashtag]:checked').each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
+        const checkHashtag = [];
+        $('input:checkbox[name=chk_hashtag]:checked').each(function() {
             checkHashtag.push(this.value);
         });
 

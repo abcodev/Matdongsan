@@ -18,9 +18,6 @@
     </resultMap>
 
 
-
-
-
     <select id="selectListCount" resultType="int">
         SELECT COUNT(*)
         FROM RESTAURANT res
@@ -62,12 +59,9 @@
         FROM RESTAURANT
     </select>
 
-
-
     <update id="updateImage" parameterType="Map">
         UPDATE RESTAURANT SET RESTAURANT.RES_IMGURL = #{RES_IMGURL} WHERE RESTAURANT.RES_NO = #{RES_NO}
     </update>
-
 
     <select id="selectDetail" resultMap="restaurantResultSet">
         SELECT *
