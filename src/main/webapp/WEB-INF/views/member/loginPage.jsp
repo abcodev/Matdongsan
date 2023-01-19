@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/loginPage.css"/>">
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 <body>
 <div id="content">

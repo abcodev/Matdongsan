@@ -12,6 +12,7 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<c:url value="/resources/css/chat/chatRoom.css"/>">
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 
 <body>
