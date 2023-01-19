@@ -6,8 +6,10 @@ import com.project.restaurant.dto.RestaurantListFilter;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.vo.Restaurant;
+import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,9 +17,11 @@ import java.util.Objects;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
+    public static final String webPath = "/resources/images/";
     private static final int DEFAULT_RES_SIZE = 12;
     private final RestaurantDao restaurantDao;
     private final RestaurantCrawlingService restaurantCrawlingService;
+
 
     @Autowired
     public RestaurantServiceImpl(RestaurantDao restaurantDao, RestaurantCrawlingService restaurantCrawlingService) {
@@ -56,6 +60,11 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<String> selectHashtagList() {
         return restaurantDao.selectHashtagList();
+    }
+
+    @Override
+    public void restaurantInsert(MultipartFile file, Restaurant restaurant) {
+
     }
 
 

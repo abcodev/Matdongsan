@@ -21,23 +21,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<form>
+<form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data">
 <div id="content">
     <div class="res name">
         <h3>맛집이름</h3>
-        <input type="text">
+        <input type="text" name="resName">
     </div>
     <div class="res address">
         <h3>주소</h3>
-        <input type="text">
+        <input type="text" name="address">
     </div>
     <div class="res phone">
         <h3>전화번호</h3>
-        <input type="text">
+        <input type="text" name="resPhone">
     </div>
     <div class="res menu">
         <h3>주요 메뉴</h3>
-        <input type="text">
+        <input type="text" name="resFood">
     </div>
     <div class="place hashtag">
         <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
@@ -50,12 +50,11 @@
     </div>
     <div class="btn_box">
         <button>취소</button>
-        <button>등록</button>
+        <button type="submit">등록</button>
     </div>
 </div>
 <script>
     $('input:checkbox[name=chk_hashtag]').click(function(){
-        let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
 
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if(cntEPT>2){
@@ -64,7 +63,6 @@
         }
     });
 </script>
-    <input type="submit" value="등록하기">
 </form>
 </body>
 </html>
