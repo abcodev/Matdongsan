@@ -31,9 +31,12 @@ public class RestaurantController {
     @RequestMapping("/selectResList")
     public ModelAndView restaurantList() {
         List<String> stateList = restaurantService.selectStateList();
+        List<String> hashtagList = restaurantService.selectHashtagList();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("stateList", stateList);
+        modelAndView.addObject("hashtagList", hashtagList);
+
         modelAndView.setViewName("restaurant/restaurantList");
         return modelAndView;
     }
@@ -41,23 +44,20 @@ public class RestaurantController {
     /**
      * 동네맛집 리스트
      */
-    @ResponseBody
     @RequestMapping("/restaurants")
-    public ResponseEntity<RestaurantListResponse> selectResList(
+    public ModelAndView selectResList(
             @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
             @RequestParam(value = "state", defaultValue = "") String state,
             @RequestParam(value = "hashtag", defaultValue = "") List<String> hashtags
     ) {
-        // TODO : jsp값 받아오기,,,
-        state = "영등포구";
-        hashtags = List.of();
-
         RestaurantListRequest req = new RestaurantListRequest(currentPage, state, hashtags);
         RestaurantListResponse resp = restaurantService.selectList(req);
-        // HTTP Status 중에서 200(OK) -> ResponseBody 에 담음
-        // ResponseEntity 는 Spring REST API 에서 응답을 내릴 때 주로사용하는 객체
-        // Rest API에서 내려야하는 기본적인 형태를 쉽게만들 수 있음
-        return ResponseEntity.ok(resp);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("selectResList", resp.getRestaurantList());
+        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.setViewName("restaurant/restaurantContents");
+        return modelAndView;
     }
 
     @ResponseBody
@@ -77,9 +77,5 @@ public class RestaurantController {
 
         return "restaurant/restaurantDetailPage";
     }
-
-
-
-
 
 }

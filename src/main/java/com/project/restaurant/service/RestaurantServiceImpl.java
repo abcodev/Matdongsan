@@ -15,8 +15,7 @@ import java.util.Objects;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private static final int DEFAULT_RES_SIZE = 1000;
-
+    private static final int DEFAULT_RES_SIZE = 12;
     private final RestaurantDao restaurantDao;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
@@ -25,12 +24,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.restaurantDao = restaurantDao;
         this.restaurantCrawlingService = restaurantCrawlingService;
     }
-
-//    @Override
-//    public List<Restaurant> selectResList() throws Exception {
-//        return restaurantDao.selectResList();
-//    }
-
 
     @Override
     public int selectResListCount() {
@@ -41,7 +34,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantListResponse selectList(RestaurantListRequest request) {
         RestaurantListFilter filter = RestaurantListFilter.from(request);
         int count = restaurantDao.selectResListCount(filter);
-
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
         List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, filter);
         result.forEach(this::updateImageIfEmpty);
@@ -61,6 +53,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantDao.selectStateList();
     }
 
+    @Override
+    public List<String> selectHashtagList() {
+        return restaurantDao.selectHashtagList();
+    }
 
 
     @Override

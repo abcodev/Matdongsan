@@ -17,23 +17,21 @@ public class RestaurantDao {
 
     private final SqlSessionTemplate sqlSession;
 
-//    public List<Restaurant> selectResList() {
-//        return sqlSession.selectList("resMapper.selectResList");
-//    }
-
     public int selectResListCount(RestaurantListFilter filter) {
         return sqlSession.selectOne("resMapper.selectListCount", filter);
     }
-
 
     public List<Restaurant> selectResList(PageInfoCombine pageInfoCombine, RestaurantListFilter filter) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
         return sqlSession.selectList("resMapper.selectResList", filter, rowBounds);
     }
 
-
     public List<String> selectStateList() {
         return sqlSession.selectList("resMapper.selectStateList");
+    }
+
+    public List<String> selectHashtagList() {
+        return sqlSession.selectList("hashtagMapper.selectHashtagList");
     }
 
     public void updateImage(String restaurantNumber, String imageUrl) {
@@ -46,4 +44,6 @@ public class RestaurantDao {
     public Restaurant restaurantDetail(String resNo) {
         return sqlSession.selectOne("resMapper.selectDetail",resNo);
     }
+
+
 }
