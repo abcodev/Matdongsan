@@ -84,4 +84,12 @@
         ORDER BY SGG_NM
     </select>
 
+    <select id="selectOption" resultMap="realEstateRentListResultSet">
+        SELECT
+            DISTINCT BJDONG_NM
+        FROM REALESTATE_RENT
+        WHERE SGG_CD = ${search_option}
+        ORDER BY BJDONG_NM
+    </select>
+
 </mapper>

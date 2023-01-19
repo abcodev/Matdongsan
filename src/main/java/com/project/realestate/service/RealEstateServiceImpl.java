@@ -80,4 +80,8 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.searchLocalList(sqlSession);
     }
 
+    @Override
+    public List<String> selectOption(String search_option){
+        return realEstateDao.selectOption(sqlSession, search_option);
+    }
 }
