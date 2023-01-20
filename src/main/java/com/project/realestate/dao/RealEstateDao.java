@@ -1,10 +1,11 @@
 package com.project.realestate.dao;
 
-
-import com.project.common.template.PageInfo;
+import com.project.common.template.PageInfoCombine;
+import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.vo.RealEstateRent;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,35 +21,34 @@ public class RealEstateDao {
         return sqlSession.selectOne("rentMapper.searchListCount", paramMap);
     }
 
-    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfo pi){
+    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
 
-        int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
-        int limit = pi.getBoardLimit();
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return (ArrayList) sqlSession.selectList("rentMapper.selectList", filter, rowBounds);
 
-        RowBounds rowBounds = new RowBounds(offset, limit);
-
-        return (ArrayList)sqlSession.selectList("rentMapper.selectList", rowBounds);
     }
 
 
-    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, Map<String, Object> paramMap) {
+//    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, Map<String, Object> paramMap) {
+//
+//        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() - 1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
+//        int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
+//
+//        RowBounds rowBounds = new RowBounds(offset, limit);
+//
+//        return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
+//    }
 
-        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() - 1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
-        int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
-
-        RowBounds rowBounds = new RowBounds(offset, limit);
-
-        return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
-    }
-
-
+    // 자치구 리스트
     public ArrayList<RealEstateRent> searchLocalList(SqlSession sqlSession){
         return (ArrayList) sqlSession.selectList("rentMapper.searchLocalList");
     }
 
+    // 동 리스트
     public ArrayList<String> selectOption(SqlSession sqlSession, String local){
         return  (ArrayList) sqlSession.selectList("rentMapper.selectOption", local);
     }
+
     public ArrayList<String> getSellList(SqlSession sqlSession){
         return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
 

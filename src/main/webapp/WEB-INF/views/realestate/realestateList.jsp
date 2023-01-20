@@ -119,18 +119,20 @@
 
 <%--검색 동 변경--%>
 <script>
-
-    function get_option() {
-        var local = document.getElementById(selectOption1).selected().value;
-
+    function get_option2(option1, selectOption) {
+        console.log(option1)
+        console.log(selectOption)
         $.ajax({
             type: 'GET',
-            url: '${pageContext.request.contextPath}/list' + local ,
-            data : local,
+            url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
-            dataType: 'html',
+            data: {
+                'selectOption1' : option1
+            },
+            dataType: 'json',
             success: function (result) {
                 console.log(result)
+
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -142,8 +144,8 @@
 
     function optionType(e){
 
-        const type1 = ['~50000', '50000~100000', '100000~20000','20000~'];
-        const type2 = ['~1000', '1000~5000', '5000~10000', '10000'];
+        const type1 = ['200000', '1000000', '2000000', '3000000'];
+        const type2 = ['1000', '5000', '10000', '20000'];
         const target = document.getElementById("rentGtn");
 
         if(e.value == "a"){

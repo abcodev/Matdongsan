@@ -1,7 +1,10 @@
 package com.project.realestate.service;
 
 import com.project.common.template.PageInfo;
-import com.project.common.template.Pagination;
+import com.project.common.template.PageInfoCombine;
+import com.project.realestate.dto.RealEstateRentListFilter;
+import com.project.realestate.dto.RealEstateRentListRequest;
+import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
 import org.apache.ibatis.session.SqlSession;
@@ -15,18 +18,16 @@ import java.util.Map;
 
 @Service
 public class RealEstateServiceImpl implements RealEstateService{
-    public RealEstateServiceImpl(RealEstateDao realEstateDao, SqlSession sqlSession, Pagination pagination){
+    public RealEstateServiceImpl(RealEstateDao realEstateDao, SqlSession sqlSession){
         this.realEstateDao = realEstateDao;
         this.sqlSession = sqlSession;
-        this.pagination = pagination;
     }
     @Autowired
     private RealEstateDao realEstateDao;
     @Autowired
     private SqlSession sqlSession;
-    @Autowired
-    private Pagination pagination;
 
+    private static final int deafaultSize = 8;
 
     public int selectListCount(){
         return realEstateDao.selectListCount(sqlSession);
@@ -38,52 +39,48 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     @Override
-    public Map<String, Object> selectList(int currentPage){
-        Map<String, Object> map = new HashMap();
+    public RealEstateRentListResponse selectList(RealEstateRentListRequest req){
 
         //페이징 처리 작업
         int listCount = selectListCount();
 
-        int pageLimit = 5;
-        int boardLimit = 8;
-        PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(listCount, req.getCurrentPage(), deafaultSize );
+        List<RealEstateRent> result = realEstateDao.selectList(sqlSession, pageInfoCombine, RealEstateRentListFilter.from(req));
 
-        map.put("pi", pi);
-        ArrayList<RealEstateRent> list = realEstateDao.selectList(sqlSession, pi);
-
-        map.put("list", list);
-
-        return map;
+        return new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
-    @Override
-    public Map<String, Object> selectList(Map<String, Object> paramMap){
+//    @Override
+//    public Map<String, Object> selectList(Map<String, Object> paramMap){
+//
+//        Map<String, Object> map = new HashMap();
+//        //페이징 처리 작업
+//        int listCount = selectListCount(paramMap);
+//
+//        int pageLimit = 5;
+//        int boardLimit = 8;
+//        PageInfo pi = pagination.getPageInfo(listCount, (Integer)paramMap.get("currentPage"), pageLimit, boardLimit);
+//        paramMap.put("pi", pi);
+//        map.put("pi", pi);
+//
+//        ArrayList<RealEstateRent> list =  realEstateDao.selectList(sqlSession, paramMap);
+//        map.put("list", list);
+//
+//        return map;
+//    }
 
-        Map<String, Object> map = new HashMap();
-        //페이징 처리 작업
-        int listCount = selectListCount(paramMap);
-
-        int pageLimit = 5;
-        int boardLimit = 8;
-        PageInfo pi = pagination.getPageInfo(listCount, (Integer)paramMap.get("currentPage"), pageLimit, boardLimit);
-        paramMap.put("pi", pi);
-        map.put("pi", pi);
-
-        ArrayList<RealEstateRent> list =  realEstateDao.selectList(sqlSession, paramMap);
-        map.put("list", list);
-
-        return map;
-    }
-
+    // 자치구 리스트
     @Override
     public List<RealEstateRent> searchLocalList(){
         return realEstateDao.searchLocalList(sqlSession);
     }
 
+    // 동 리스트
     @Override
     public List<String> selectOption(String local){
         return realEstateDao.selectOption(sqlSession, local);
     }
+
     @Override
     public List<String> getSellList(){ return realEstateDao.getSellList(sqlSession);}
 
