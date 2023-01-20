@@ -16,7 +16,7 @@ public interface RealEstateService {
 
    public List<RealEstateRent> searchLocalList();
 
-   public List<String> selectOption(String option1);
+   public List<String> selectOption(String local);
 
    public List<String> getSellList();
 

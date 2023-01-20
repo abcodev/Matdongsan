@@ -24,7 +24,7 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1" onchange="get_option2(selectOption1.value, selectOption2)">
+                    <select name="selectOption1" id="selectOption1" onchange="get_option()">
                         <option value="option1">자치구 선택</option>
                         <c:forEach var="l" items="${localList}">
                             <option value="${l.sggNm}">${l.sggNm}</option>
@@ -37,48 +37,21 @@
                 </div>
                 <div class ="search option">
                     <select name="rentType" id="rentType" onchange="optionType(this)">
-                        <option value="selectA">매매</option>
-                        <option value="selectB">전세</option>
-                        <option value="selectC">월세</option>
+                        <option value="a">매매</option>
+                        <option value="b">전세</option>
+                        <option value="c">월세</option>
                     </select>
 
-                    <select name="rentGtn">
-                        <c:choose>
-                            <c:when test="$(#rentType).selected == 'selectA'">
-                                <option value="charge0">실거래가(만원)</option>
-                                <option value="level1">~ 50000이하</option>
-                                <option value="level2">50000초과 ~ 100000이하</option>
-                                <option value="level3">100000초과 ~ 20000이하</option>
-                                <option value="level4">200000초과</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="level0">보증금(만원)</option>
-                                <option value="level1">~ 1000이하</option>
-                                <option value="level2">1000초과 ~ 5000이하</option>
-                                <option value="level3">5000초과 ~ 10000이하</option>
-                                <option value="level4">10000초과</option>
-                            </c:otherwise>
-                        </c:choose>
+                    <select name="rentGtn" id="rentGtn">
+                        <option value="">가격(만원)</option>
                     </select >
 
-                    <select name="chooseType">
-                        <c:choose>
-                            <c:when test="$(#rentType).selected == 'selectC'">
-                                <option value="fee0">임대료(만원)</option>
-                                <option value="fee1">~ 10이하</option>
-                                <option value="fee2">10초과 30이하</option>
-                                <option value="fee3">30초과 60이하</option>
-                                <option value="fee4">60초과 100이하</option>
-                                <option value="fee5">100초과</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="area0">면적</option>
-                                <option value="area1">~ 30이하</option>
-                                <option value="area2">30초과 ~ 60이하</option>
-                                <option value="area3">60초과 ~ 120이하</option>
-                                <option value="area4">120초과</option>
-                            </c:otherwise>
-                        </c:choose>
+                    <select name="chooseType" id="chooseType">
+                        <option value="area0">면적</option>
+                        <option value="area1">~ 30이하</option>
+                        <option value="area2">30초과 ~ 60이하</option>
+                        <option value="area3">60초과 ~ 120이하</option>
+                        <option value="area4">120초과</option>
                     </select>
                 </div>
                 <div class="btn_box">
@@ -146,15 +119,18 @@
 
 <%--검색 동 변경--%>
 <script>
-    function get_option2(option1, selectOption) {
+
+    function get_option() {
+        var local = document.getElementById(selectOption1).selected().value;
+
         $.ajax({
             type: 'GET',
-            url: '${pageContext.request.contextPath}/',
+            url: '${pageContext.request.contextPath}/list' + local ,
+            data : local,
             contentType: "application/json; charset=UTF-8",
-            dataType: 'json',
+            dataType: 'html',
             success: function (result) {
                 console.log(result)
-
             }
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -163,24 +139,30 @@
 </script>
 
 <script>
+
     function optionType(e){
-        var a = ["지수", "제니", "로제", "리사"];
-        var b = ["빅토리아", "엠버", "루나", "크리스탈"];
-        var c = ["LE", "하니", "정화", "혜린", "솔지"];
-        var target = document.getElementById("good");
 
-        if(e.value == "a") var d = good_a;
-        else if(e.value == "b") var d = good_b;
-        else if(e.value == "c") var d = good_c;
+        const type1 = ['~50000', '50000~100000', '100000~20000','20000~'];
+        const type2 = ['~1000', '1000~5000', '5000~10000', '10000'];
+        const target = document.getElementById("rentGtn");
 
-        target.options.length = 0;
+        if(e.value == "a"){
+            add = type1;
+        }else {
+            add = type2;
+        }
 
-        for (x in d) {
-            var opt = document.createElement("option");
-            opt.value = d[x];
-            opt.innerHTML = d[x];
+        console.log(e.value);
+
+        target.options.length = 1;
+
+        for(x in add){
+            let opt = document.createElement("option");
+            opt.value = add[x];
+            opt.innerHTML = add[x];
             target.appendChild(opt);
         }
+
     }
 </script>
 
