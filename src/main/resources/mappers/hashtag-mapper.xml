@@ -22,8 +22,8 @@
         FROM HASHTAG
     </select>
 
-    <select id="resHashtagByAdmin" resultMap="resHashtagResultSet">
-        SELECT HASHTAG
+    <select id="resHashtagByAdmin" resultType="String">
+        SELECT H.HASHTAG
         FROM RES_HASHTAG
             JOIN RESTAURANT R on RES_HASHTAG.RES_NO = R.RES_NO
             JOIN HASHTAG H on RES_HASHTAG.HASHTAG_ID = H.HASHTAG_ID

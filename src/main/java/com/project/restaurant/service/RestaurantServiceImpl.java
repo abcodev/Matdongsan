@@ -73,7 +73,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void restaurantInsert(MultipartFile file, Restaurant restaurant , HttpServletRequest session) {
-        //원본파일네임이 넘어왔는지 빈칸인지 검사
+            // 원본파일네임이 넘어왔는지 빈칸인지 검사
             String savePath = session.getServletContext().getRealPath("/resources/images/"); // 업로드 하고자하는 물리적인 위치 알아내기
             String changeName = Utils.saveFile(file);
 
@@ -106,25 +106,22 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public List<String> resHashtagByAdmin() {
-        return restaurantDao.resHashtagByAdmin();
+    public List<String> resHashtagByAdmin(String resNo) {
+        return restaurantDao.resHashtagByAdmin(resNo);
     }
 
 
 
 
 //    @Override
-//    public ArrayList<Review> selectReplyList(String resNo) {
-//        return restaurantDao.selectReviewList(resNo);
+//    public ArrayList<Review> selectReviewList(int resNo) {
+//        return restaurantDao.selectReviewList(sqlSession, resNo);
 //    }
-//
+
 //    @Override
-//    public int insertReply(Review review){
-//        return restaurantDao.insertReview(review);
+//    public int insertReview(Review review){
+//        return restaurantDao.insertReview(sqlSession, review);
 //    }
-
-
-
 
 
 

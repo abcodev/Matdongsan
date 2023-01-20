@@ -133,14 +133,9 @@
     </select>
 
 
-    <insert id="insertReview" parameterType="review" useGeneratedKeys="true">
-
-        <selectKey keyProperty="resNo" resultType="_int" order="BEFORE">
-            SELECT SEQ_REV_NO.NEXTVAL FROM DUAL
-        </selectKey>
-
-        INSERT INTO REVEIW(REV_NO, MEMBER_NO, RES_NO, STAR_RATING, REVIEW_CONTENT, CREATE_DATE, STATUS)
-        VALUES (#{revNo}, #{memberNo}, #{resNo}, #{starRating}, #{reviewContent}, #{createDate}, #{status})
+    <insert id="insertReview" parameterType="review">
+        INSERT INTO REVIEW (REV_NO, MEMBER_NO, RES_NO, STAR_RATING, REVIEW_CONTENT, CREATE_DATE, STATUS)
+        VALUES (SEQ_REV_NO.NEXTVAL, #{memberNo}, #{resNo}, #{starRating}, #{reviewContent}, #{createDate}, #{status})
     </insert>
 
     <insert id="insertResImgList" parameterType="list">

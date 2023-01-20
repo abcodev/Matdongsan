@@ -54,7 +54,7 @@ public class LoginController {
         ModelAndView mav = new ModelAndView();
         Member loginUser = memberService.login(session, provider, code, state);
         session.setAttribute("loginUser", loginUser);
-        mav.setViewName("common/mainPage");
+        mav.setViewName("redirect:/mainPage");
         return mav;
     }
 

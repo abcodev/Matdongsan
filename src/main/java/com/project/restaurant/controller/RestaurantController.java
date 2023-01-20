@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -92,7 +93,7 @@ public class RestaurantController {
 
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
 
-        List<String> resHashtagByAdmin = restaurantService.resHashtagByAdmin();
+        List<String> resHashtagByAdmin = restaurantService.resHashtagByAdmin(resNo);
         List<String> hashtagList = restaurantService.selectHashtagList();
 
         modelAndView.addObject("resHashtagByAdmin", resHashtagByAdmin);
@@ -106,33 +107,6 @@ public class RestaurantController {
 
 
 
-//    @RequestMapping("selectReview")
-//    @ResponseBody
-//    public String selectReviewList(int resNo, Model model) {
-//        ArrayList<Review> list = restaurantService.selectReviewList(resNo);
-//        Gson gson = new Gson();
-//        String result = gson.toJson(list);
-//        return result;
-//    }
-//
-//    // 댓글 작성
-//    @RequestMapping("insertReview")
-//    @ResponseBody
-//    public int insertReply(Review review, HttpSession session) {
-//        String userNo = Integer.toString((int) ((Member)session.getAttribute("loginUser")).getMemberNo());
-//        review.setMemberNo(review.getMemberNo());
-//        int result = restaurantService.insertReview(review);
-//        return result;
-//    }
-//
-
-
-
-
-
-
-
-
     @RequestMapping("/admin/resEnroll")
     public ModelAndView restaurantEnroll() {
         List<String> hashtagList = restaurantService.selectHashtagList();
@@ -143,11 +117,12 @@ public class RestaurantController {
     }
 
     @PostMapping("/admin/resInsert")
-    public String restaurantInsert(@RequestParam("file")MultipartFile file,
+    public String restaurantInsert(@RequestParam("file") MultipartFile file,
                                    Restaurant restaurant,
                                    HttpServletRequest session,
-                                   RedirectAttributes redirectAttributes){
+                                   RedirectAttributes redirectAttributes) throws IOException {
 
+        log.info(file.getOriginalFilename());
         restaurantService.restaurantInsert(file,restaurant,session);
 
         redirectAttributes.addFlashAttribute("message",

@@ -33,7 +33,6 @@ public class RealEstateController {
             @RequestParam Map<String, Object> paramMap) {
         Map<String, Object> map = new HashMap();
         List<RealEstateRent> localList = new ArrayList<>();
-
         //select dong 옵션 받아오기
         List<String> optionList = new ArrayList();
 

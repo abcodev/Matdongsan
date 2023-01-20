@@ -25,11 +25,11 @@ public interface RestaurantService {
 
     void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpServletRequest session);
 
-    List<String> resHashtagByAdmin();
+    List<String> resHashtagByAdmin(String resNo);
 
-//    List<Review> selectReview(String resNo);
+//    public ArrayList<Review> selectReviewList(int resNo);
 //
-//    int insesrtReview(Review review);
+//    int insertReview(Review review);
 
 
 

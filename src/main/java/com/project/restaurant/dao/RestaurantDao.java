@@ -49,8 +49,8 @@ public class RestaurantDao {
         return sqlSession.selectOne("resMapper.selectDetail",resNo);
     }
 
-    public List<String> resHashtagByAdmin() {
-        return sqlSession.selectList("hashtagMapper.resHashtagByAdmin");
+    public List<String> resHashtagByAdmin(String resNo) {
+        return sqlSession.selectList("hashtagMapper.resHashtagByAdmin", resNo);
     }
 
     public Restaurant resInsert(Restaurant restaurant) {
@@ -67,9 +67,6 @@ public class RestaurantDao {
         return (ArrayList) sqlSession.selectList("resMapper.selectReviewList", resNo);
     }
 
-    public int insertReview(SqlSession sqlSession, Review review) {
-        return sqlSession.insert("resMapper.insertReview",review);
-    }
 
     public int insertResImg(SqlSession sqlSession, ResImg img) {
         return sqlSession.update("boardMapper.insertResImg",img);

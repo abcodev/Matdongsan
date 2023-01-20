@@ -28,6 +28,7 @@
                         <option value="option1">자치구 선택</option>
                         <c:forEach var="l" items="${localList}">
                             <option value="${l.sggNm}">${l.sggNm}</option>
+                            <option value="${l.sggNm}">${l.sggNm}</option>
                         </c:forEach>
                     </select>
                     <select name="selectOption2" id="selectOption2">
@@ -147,10 +148,15 @@
 <%--검색 동 변경--%>
 <script>
     function get_option2(option1, selectOption) {
+        console.log(option1)
+        console.log(selectOption)
         $.ajax({
             type: 'GET',
-            url: '${pageContext.request.contextPath}/',
+            url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
+            data: {
+                'selectOption1': option1
+            },
             dataType: 'json',
             success: function (result) {
                 console.log(result)
@@ -222,6 +228,20 @@
         map.setCenter(locPosition);
     }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
