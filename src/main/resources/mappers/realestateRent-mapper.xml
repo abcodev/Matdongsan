@@ -66,6 +66,7 @@
         FROM REALESTATE_RENT
     </select>
 
+    <!-- 부동산 리스트 -->
     <select id="selectList" resultMap="realEstateRentListResultSet">
         SELECT
             SGG_NM,
@@ -85,6 +86,7 @@
         ORDER BY SGG_NM
     </select>
 
+    <!-- 자치구 이름   -->
     <select id="searchLocalList" resultMap="realEstateRentListResultSet">
         SELECT
             DISTINCT SGG_NM
@@ -92,12 +94,13 @@
         ORDER BY SGG_NM
     </select>
 
-<!--    <select id="selectOption" resultMap="realEstateRentListResultSet">-->
-<!--        SELECT-->
-<!--            DISTINCT BJDONG_NM-->
-<!--        FROM REALESTATE_RENT-->
-<!--        WHERE SGG_CD = ${search_option}-->
-<!--        ORDER BY BJDONG_NM-->
-<!--    </select>-->
+    <!-- 동 이름 -->
+    <select id="selectOption" resultMap="realEstateRentListResultSet">
+        SELECT
+            DISTINCT BJDONG_NM
+        FROM REALESTATE_RENT
+        WHERE SGG_CD = ${local}
+        ORDER BY BJDONG_NM
+    </select>
 
 </mapper>
