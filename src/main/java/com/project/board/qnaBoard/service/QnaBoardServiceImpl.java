@@ -6,6 +6,7 @@ import com.project.common.template.PageInfo;
 import com.project.board.qnaBoard.vo.QnaBoard;
 import com.project.common.template.Pagination;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,22 +17,23 @@ import java.util.Map;
 @Service
 public class QnaBoardServiceImpl implements QnaBoardService{
 
+    @Autowired
     private QnaBoardDao boardDao;
-    private QnaBoardService boardService;
+    @Autowired
     private SqlSession sqlSession;
+    @Autowired
     private Pagination pagination;
     @Override
     public int selectListCount(String boardCode) {
-        return boardDao.selectListCount(sqlSession, boardCode);
+        return boardDao.selectListCount(sqlSession,boardCode);
     }
-
     @Override
     public int selectListCount(Map<String,Object> paramMap) {
         return boardDao.selectListCount(sqlSession, paramMap);
     }
 
     @Override
-    public Map<String , Object> selectList(int currentPage, String boardCode){
+    public Map<String , Object> selectList(int currentPage,String boardCode){
 
         Map<String , Object> map = new HashMap();
 
@@ -44,7 +46,7 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 
         map.put("pi",pi);
 
-        ArrayList<QnaBoard> list = boardDao.selectList(sqlSession, pi, boardCode);
+        ArrayList<QnaBoard> list = boardDao.selectList(sqlSession, pi,boardCode);
 
         map.put("list", list);
         return map;

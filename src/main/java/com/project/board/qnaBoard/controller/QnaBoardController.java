@@ -1,9 +1,13 @@
 package com.project.board.qnaBoard.controller;
 
 import com.project.board.qnaBoard.service.QnaBoardService;
+import com.project.board.qnaBoard.service.QnaBoardServiceImpl;
 import com.project.board.qnaBoard.vo.BoardType;
 import com.project.board.qnaBoard.vo.QnaBoard;
 import com.project.common.template.Pagination;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,23 +21,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 @Controller
 @RequestMapping("/board")
 public class QnaBoardController {
 
+    private static final Logger logger = LoggerFactory.getLogger(QnaBoardController.class);
+
+    @Autowired
     private QnaBoardService boardService;
+
 
     @RequestMapping("/list/{boardCode}")
     public String selectList(
             @PathVariable("boardCode") String boardCode,
-            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             Model model,
             @RequestParam Map<String, Object> paramMap) {
         Map<String, Object> map = new HashMap();
 
         if (paramMap.get("condition") == null) {
 
-            map = boardService.selectList(currentPage, boardCode);
+            map = boardService.selectList(currentPage,boardCode);
 
         } else {
             paramMap.put("cpage", currentPage);

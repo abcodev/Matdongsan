@@ -1,4 +1,10 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<html lang="en">
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <!DOCTYPE html>
@@ -6,16 +12,19 @@
     <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
 </c:if>
 <c:forEach items="${boardTypeList }" var="bt">
-    <c:if test="${boardCode == bt.boardCd }">
-        <c:set var="boardNm" value="${bt.boardName }"/>
-    </c:if>
+<c:if test="${boardCode == bt.boardCd }">
+    <c:set var="boardNM" value="${bt.boardName }"/>
+</c:if>
 </c:forEach>
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>커뮤니티 질문과 답변</title>
+    <title>커뮤니티</title>
+    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
     <link rel="stylesheet" href="community_2.css">
     <jsp:include page="../template/font.jsp"></jsp:include>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
@@ -23,7 +32,7 @@
 <body>
 <main>
     <div class="content head">
-        <form id="searchForm" action="${boardCode }" method="get" align="center">
+        <form id="searchForm" action="${boardCode}" method="get">
         <div class="select">
             <select class="custom-select" name="condition">
                 <option value="title">제목</option>
@@ -41,26 +50,37 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="#">자유게시판</a>
-                <a href="#">질문과 답변</a>
+                <a href="${pageContext.request.contextPath}/board/fList/${boardCode}">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/list/${boardCode}">질문과 답변</a>
             </div>
         </div>
         <div class="boardlist">
             <div class="boardlist_head">
                 <select>구를 선택해주세요</select>
-                <button id="writebtn"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
             </div>
             <div id="boardlist_main">
                 <table class="table">
+
                     <c:forEach var="qb" items="${list}">
+                        <%--원본글--%>
+                        <c:if test="${qb.parentBno == 0}">
                     <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
-                    <tr><td>${qb.qnaTtitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                    <tr><td onclick="movePage(${qb.qnaBno})">${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                        </c:if>
+                        <%--첫번쨰 답글일시--%>
+                      <c:if test="${qb.parentBno  == qb.qnaBno -1 }">
+                            <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
+                            <tr><td>&nbsp&nbsp&nbsp└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                        </c:if>
+                         <%--다답글일시--%>
+
                     </c:forEach>
                 </table>
             </div>
         </div>
     </div>
-    <c:set var="url" value="${boardCode }?cpage="/>
+    <c:set var="url" value="${boardCode}?cpage="/>
         <div id="paging">
             <ul class="pagination">
                 <c:choose>
@@ -89,12 +109,13 @@
 
 
     <script>
-                     $(function(){
-                         $("#boardlist_main>table>td").on('click', function(){
-                            let bno = $(this).children().eq(0).text();
-                             location.href = '${contextPath}/board/detail/${boardCode}/'+bno;
-                         });
-                      })
+        function movePage(qBno){
+            location.href = '${pageContext.request.contextPath}/board/detail/${boardCode}/'+qBno;
+        }
+
+        function  movePage2(qBno){
+            location.href = '${pageContext.request.contextPath}/board/enrollForm/${boardCode}/';
+        }
     </script>
 </main>
 </body>

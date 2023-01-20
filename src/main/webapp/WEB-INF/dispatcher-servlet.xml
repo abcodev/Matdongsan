@@ -11,7 +11,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 
-       <!--servlet-context.xml-->
+       <!--    servlet-context.xml-->
 
        <!-- Annotation 활성화 -->
        <mvc:annotation-driven/>
@@ -28,12 +28,12 @@
        <!--    추가-->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
-<!--       <mvc:interceptors>-->
-<!--              <mvc:interceptor>-->
-<!--              <mvc:mapping path="/src/**"/>-->
-<!--              <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>-->
-<!--              </mvc:interceptor>-->
-<!--       </mvc:interceptors>-->
+       <mvc:interceptors>
+              <mvc:interceptor>
+              <mvc:mapping path="/src/**"/>
+              <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>
+              </mvc:interceptor>
+       </mvc:interceptors>
 
        <context:component-scan base-package="com.project">
               <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
