@@ -59,17 +59,16 @@
                 <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
             </div>
             <div id="boardlist_main">
-                <table class="table">
 
+                <table class="table">
+                    <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
                     <c:forEach var="qb" items="${list}">
                         <%--원본글--%>
                         <c:if test="${qb.parentBno == 0}">
-                    <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
                     <tr><td onclick="movePage(${qb.qnaBno})">${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
                         </c:if>
                         <%--첫번쨰 답글일시--%>
                       <c:if test="${qb.parentBno  == qb.qnaBno -1 }">
-                            <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
                             <tr><td>&nbsp&nbsp&nbsp└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
                         </c:if>
                          <%--다답글일시--%>
