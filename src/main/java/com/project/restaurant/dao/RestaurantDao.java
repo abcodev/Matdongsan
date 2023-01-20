@@ -2,6 +2,8 @@ package com.project.restaurant.dao;
 
 import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dto.RestaurantListFilter;
+import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class RestaurantDao {
         return sqlSession.selectList("resMapper.selectStateList");
     }
 
-    public List<String> selectHashtagList() {
+    public List<Hashtag> selectHashtagList() {
         return sqlSession.selectList("hashtagMapper.selectHashtagList");
     }
 
@@ -50,13 +53,20 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin");
     }
 
-    public Restaurant resInsert(Restaurant restaurant) {
+    public String resInsert(Restaurant restaurant) {
         sqlSession.insert("resMapper.resInsert",restaurant);
-        return restaurant;
+        return restaurant.getResNo();
     }
 
     public int resInsertImg(ResImg resImg) {
         return sqlSession.insert("resMapper.resInsertImg",resImg);
     }
 
+    public void hasTagInsert(String h) {
+        sqlSession.insert("resMapper.hashTagInsert",h);
+    }
+
+    public void resHashtagInsert(ResHashtag resHashtag) {
+        sqlSession.insert("hashtagMapper.resHashtagInsert",resHashtag);
+    }
 }

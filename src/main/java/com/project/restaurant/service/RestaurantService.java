@@ -2,6 +2,8 @@ package com.project.restaurant.service;
 
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
+import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.Restaurant;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +21,9 @@ public interface RestaurantService {
 
     Restaurant restaurantDetail(String resNo);
 
-    List<String> selectHashtagList();
+    List<Hashtag> selectHashtagList();
 
-    void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpServletRequest session);
+    void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session,List<String> hashTagId);
 
     List<String> resHashtagByAdmin();
 

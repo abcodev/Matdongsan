@@ -6,7 +6,7 @@
 
     <resultMap id="hashtagResultSet" type="hashtag">
         <result column="HASHTAG_ID" property="hashtagId"/>
-        <result column="HASHTAG" property="hashTag"/>
+        <result column="HASHTAG" property="hashtag"/>
     </resultMap>
     
     <resultMap id="resHashtagResultSet" type="resHashtag">
@@ -17,8 +17,10 @@
     </resultMap>
 
 
-    <select id="selectHashtagList" resultType="String">
-        SELECT HASHTAG.HASHTAG
+    <select id="selectHashtagList" resultMap="hashtagResultSet">
+        SELECT
+            HASHTAG_ID,
+            HASHTAG.HASHTAG
         FROM HASHTAG
     </select>
 
@@ -31,8 +33,8 @@
         AND MEMBER_NO = 1
     </select>
 
-
-
-
-
+    <insert id="resHashtagInsert" parameterType="resHashtag">
+        INSERT INTO RES_HASHTAG(RES_NO, HASHTAG_ID, MEMBER_NO)
+        VALUES (#{resNo},#{hashtagId},#{memberNo})
+    </insert>
 </mapper>

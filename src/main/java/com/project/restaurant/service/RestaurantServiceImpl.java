@@ -6,17 +6,21 @@ import com.project.restaurant.dao.RestaurantDao;
 import com.project.restaurant.dto.RestaurantListFilter;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
+import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -64,30 +68,39 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<String> selectHashtagList() {
+    public List<Hashtag> selectHashtagList() {
         return restaurantDao.selectHashtagList();
     }
 
     @Override
-    public void restaurantInsert(MultipartFile file, Restaurant restaurant , HttpServletRequest session) {
+    public void restaurantInsert(MultipartFile file, Restaurant restaurant , HttpSession session,List<String> hashTagId) {
         //원본파일네임이 넘어왔는지 빈칸인지 검사
-            String savePath = session.getServletContext().getRealPath("/resources/images/"); // 업로드 하고자하는 물리적인 위치 알아내기
+            String savePath = session.getServletContext().getRealPath("/resources/images/restaurant/"); // 업로드 하고자하는 물리적인 위치 알아내기
             String changeName = Utils.saveFile(file);
-
+            System.out.println(restaurant.getAddress());
             try {
-                file.transferTo(new File(savePath + changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
+                file.transferTo(new File( savePath+ changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
 
 
-                restaurant.setImageUrl("resources/images/" + changeName);
-                restaurant = restaurantDao.resInsert(restaurant);
+                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + changeName);
+                String resNo = restaurantDao.resInsert(restaurant);
 
                 ResImg resImg = new ResImg();
                 resImg.setChangeName(changeName);
                 resImg.setOriginName(file.getOriginalFilename());
-                resImg.setResNo(restaurant.getResNo());
+                resImg.setResNo(resNo);
+
+
+
+                for(int i = 0; i<hashTagId.size();i++){
+                    ResHashtag resHashtag = new ResHashtag();
+                    resHashtag.setHashtagId(hashTagId.get(i));
+                    resHashtag.setResNo(resNo);
+                    resHashtag.setMemberNo("1");
+                    restaurantDao.resHashtagInsert(resHashtag);
+                }
 
                 restaurantDao.resInsertImg(resImg);
-
 
             } catch (IllegalStateException | IOException e) {
                 System.out.println("파일 업로드 오류");
@@ -109,5 +122,5 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
 
+    }
 
-}
