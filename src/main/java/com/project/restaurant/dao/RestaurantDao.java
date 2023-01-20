@@ -2,6 +2,8 @@ package com.project.restaurant.dao;
 
 import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dto.RestaurantListFilter;
+import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
@@ -53,9 +55,9 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin", resNo);
     }
 
-    public Restaurant resInsert(Restaurant restaurant) {
+    public String resInsert(Restaurant restaurant) {
         sqlSession.insert("resMapper.resInsert",restaurant);
-        return restaurant;
+        return restaurant.getResNo();
     }
 
     public int resInsertImg(ResImg resImg) {
@@ -87,4 +89,11 @@ public class RestaurantDao {
 
 
 
+    public void hasTagInsert(String h) {
+        sqlSession.insert("resMapper.hashTagInsert",h);
+    }
+
+    public void resHashtagInsert(ResHashtag resHashtag) {
+        sqlSession.insert("hashtagMapper.resHashtagInsert",resHashtag);
+    }
 }

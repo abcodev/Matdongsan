@@ -7,10 +7,13 @@ import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.service.RestaurantCrawlingService;
 import com.project.restaurant.service.RestaurantService;
 import com.project.restaurant.type.SearchState;
+import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy._Proxy_;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -88,12 +92,11 @@ public class RestaurantController {
     @RequestMapping("/restaurantDetail")
     public ModelAndView restaurantDetail(
             @RequestParam("resNo") String resNo,
-            Model model) {
-        ModelAndView modelAndView = new ModelAndView();
+            ModelAndView modelAndView) {
 
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
 
-        List<String> resHashtagByAdmin = restaurantService.resHashtagByAdmin(resNo);
+        List<String> resHashtagByAdmin = restaurantService.resHashtagByAdmin();
         List<String> hashtagList = restaurantService.selectHashtagList();
 
         modelAndView.addObject("resHashtagByAdmin", resHashtagByAdmin);
@@ -109,21 +112,25 @@ public class RestaurantController {
 
     @RequestMapping("/admin/resEnroll")
     public ModelAndView restaurantEnroll() {
-        List<String> hashtagList = restaurantService.selectHashtagList();
+        List<Hashtag> hashtag = restaurantService.selectHashtagList();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.addObject("hashtag", hashtag);
         modelAndView.setViewName("admin/restaurantEnroll");
         return modelAndView;
     }
 
     @PostMapping("/admin/resInsert")
-    public String restaurantInsert(@RequestParam("file") MultipartFile file,
+    public String restaurantInsert(@RequestParam("file")MultipartFile file,
                                    Restaurant restaurant,
-                                   HttpServletRequest session,
-                                   RedirectAttributes redirectAttributes) throws IOException {
+                                   HttpSession session,
+                                   @RequestParam("hashtagId") List<String> hashtagId,
+                                   RedirectAttributes redirectAttributes,
+                                   HttpServletRequest req){
+        System.out.println("해쉬태그"+hashtagId.get(0)+"/" + hashtagId.get(1));
 
-        log.info(file.getOriginalFilename());
-        restaurantService.restaurantInsert(file,restaurant,session);
+        List arr = Arrays.asList(req.getParameterValues("hashtagId"));
+
+        restaurantService.restaurantInsert(file,restaurant,session,hashtagId);
 
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + restaurant.getResName() + "!");

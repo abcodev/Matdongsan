@@ -39,10 +39,12 @@
         <h3>주요 메뉴</h3>
         <input type="text" name="resFood">
     </div>
+        <input type="text" name="state">
+    </div>
     <div class="place hashtag">
-        <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
-            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag}">
-            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag}</label>
+        <c:forEach items="${hashtag}" var="hash" varStatus="i">
+            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hash.hashtagId}">
+            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hash.hashtag}</label>
         </c:forEach>
     </div>
     <div class="res img">
@@ -56,7 +58,7 @@
 <script>
     $('input:checkbox[name=chk_hashtag]').click(function(){
 
-        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+        let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
             alert('해시태그는 최대 2개까지 선택 가능합니다.')
             $(this).prop('checked', false);

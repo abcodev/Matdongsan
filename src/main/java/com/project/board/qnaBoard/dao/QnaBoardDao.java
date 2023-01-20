@@ -58,5 +58,4 @@ public class QnaBoardDao {
     public int increaseCount(SqlSession sqlSession,int qBno){
     return sqlSession.update("boardMapper.increaseCount",qBno);
     }
-
 }

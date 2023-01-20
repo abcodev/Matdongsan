@@ -38,9 +38,9 @@
         </div>
 
         <div class="place hashtag">
-            <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag}" onchange="retrieveRestaurants(1)">
-                <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag}</label>
+            <c:forEach items="${hash}" var="hash" varStatus="i">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hash.hashtagId}" onchange="retrieveRestaurants(1)">
+                <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hash.hashtag}</label>
             </c:forEach>
         </div>
 
