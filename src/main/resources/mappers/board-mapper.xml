@@ -87,9 +87,11 @@
         P_BNO,
         QNA_TITLE,
         QNA_CONTENT,
+        M.NICKNAME,
         TO_DATE(QNA_DATE,'YYYY-MM-DD')
-        FROM QNA_BOARD
-        WHERE STATUS='Y'
+        FROM QNA_BOARD Q
+        LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
+        WHERE Q.STATUS='Y'
         <if test='keyword != null and keyword != ""'>
             AND
             <choose>
@@ -101,7 +103,7 @@
                 </when>
             </choose>
         </if>
-        ORDER BY TO_DATE(QNA_DATE,'YYYY-MM-DD') DESC
+        ORDER BY QNA_BNO ASC
     </select>
 
     <select id="searchListCount" resultType="int">

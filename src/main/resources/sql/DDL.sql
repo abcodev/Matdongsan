@@ -575,7 +575,8 @@ CREATE TABLE "QNA_BOARD"
     "QNA_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
     "COUNT"       VARCHAR(255) DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
-    "QNA_AREA"    VARCHAR(255)                 NOT NULL
+    "QNA_AREA"    VARCHAR(255)                 NOT NULL,
+    "BOARD_CD"    CHAR(1)      DEFAULT 'C'     NULL
 );
 
 COMMENT
@@ -604,6 +605,22 @@ COMMENT
 
 COMMENT
     ON COLUMN "QNA_BOARD"."QNA_AREA" IS '지역';
+
+COMMENT
+    ON COLUMN "QNA_BOARD"."BOARD_CD" IS '보드타입';
+
+CREATE TABLE "BOARD_TYPE"
+(
+    "BOARD_CD"    VARCHAR2(20)                 NOT NULL,
+    "BOARD_NAME"  CHAR(1)                      NOT NULL
+);
+
+COMMENT
+    ON COLUMN "BOARD_TYPE"."BOARD_CD" IS '게시판 타입 C: 질문 게시판 , F:자유 게시판';
+
+COMMENT
+    ON COLUMN "BOARD_TYPE"."BOARD_NAME" IS '게시판 이름';
+
 
 
 
