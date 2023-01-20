@@ -114,7 +114,6 @@ public class RestaurantController {
 //        String result = gson.toJson(list);
 //        return result;
 //    }
-//
 //    // 댓글 작성
 //    @RequestMapping("insertReview")
 //    @ResponseBody

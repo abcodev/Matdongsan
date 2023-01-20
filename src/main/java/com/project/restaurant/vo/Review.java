@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class Review {
 
-    private String revNo;
+    private int revNo;
     private String memberNo;
-    private String resNo;
+    private int resNo;
     private String starRating;
     private String reviewContent;
     private String createDate;

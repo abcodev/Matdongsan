@@ -147,10 +147,15 @@
 <%--검색 동 변경--%>
 <script>
     function get_option2(option1, selectOption) {
+        console.log(option1)
+        console.log(selectOption)
         $.ajax({
             type: 'GET',
-            url: '${pageContext.request.contextPath}/',
+            url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
+            data: {
+                'selectOption1' : option1
+            },
             dataType: 'json',
             success: function (result) {
                 console.log(result)
