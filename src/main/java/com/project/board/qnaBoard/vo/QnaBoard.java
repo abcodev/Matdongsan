@@ -8,7 +8,7 @@ import java.util.Date;
 public class QnaBoard {
     private int qnaBno;
     private int memberNo;
-    private int pBno;
+    private int parentBno;
     private String qnaTitle;
     private String qnaContent;
     private Date qnaDate;

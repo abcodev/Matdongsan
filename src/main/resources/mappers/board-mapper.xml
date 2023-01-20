@@ -7,7 +7,7 @@
     <resultMap type="QBoard" id="qBoardResultSet" >
         <result column="QNA_BNO" property="qnaBno"/>
         <result column="MEMBER_NO" property="memberNo"/>
-        <result column="P_BNO" property="pBno"/>
+        <result column="P_BNO" property="parentBno"/>
         <result column="QNA_TITLE" property="qnaTitle"/>
         <result column="QNA_CONTENT" property="qnaContent"/>
         <result column="QNA_DATE" property="qnaDate"/>
@@ -38,19 +38,23 @@
 
 
     <select id="selectList" resultMap="qBoardResultSet">
-        SELECT
-            QNA_BNO,
-            Q.MEMBER_NO,
-            P_BNO,
-            QNA_TITLE,
-            QNA_CONTENT,
-            TO_DATE(QNA_DATE,'YYYY-MM-DD'),
-            Q.COUNT,
-            M.NICKNAME
-        FROM QNA_BOARD Q
-                 JOIN MEMBER M ON (Q.MEMBER_NO = M.MEMBER_NO)
-        WHERE Q.STATUS = 'Y' AND BOARD_CD = #{boardCode}
-        ORDER BY TO_DATE(QNA_DATE,'YYYY-MM-DD') DESC
+        SELECT LEVEL, Q.*
+        FROM
+            (SELECT
+                 QNA_BNO,
+                 M.MEMBER_NO,
+                 M.NICKNAME,
+                 P_BNO,
+                 QNA_TITLE,
+                 TO_DATE(QNA_DATE,'YYYY-MM-DD'),
+                 COUNT
+             FROM QNA_BOARD B
+             LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+             WHERE B.STATUS = 'Y' AND BOARD_CD = #{boardCode})
+                Q
+        START WITH P_BNO IS NULL
+        CONNECT BY PRIOR QNA_BNO = P_BNO
+        ORDER SIBLINGS BY QNA_BNO ASC
     </select>
 
     <select id="selectListCount" resultType="int">
@@ -110,7 +114,6 @@
                 <when test="condition == 'title'">
                     QNA_TITLE LIKE '%${keyword}%'
                 </when>
-
                 <when test="condition == 'content'">
                     QNA_CONTENT LIKE '%${keyword}%'
                 </when>
@@ -119,22 +122,22 @@
     </select>
 
     <!--<select id="qnaBoardlist" resultMap="qBoardResultSet">
-        SELECT LEVEL, Q.*
-        FROM
-            (SELECT QNA_BNO,
-                    M.MEMBER_NO,
-                    P_BNO,
-                    QNA_TITLE,
-                    QNA_CONTENT,
-                    QNA_DATE,
-                    COUNT,
-                    QNA_AREA
-             from QNA_BOARD B
-                      JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
-             WHERE QNA_BNO =1) Q
-        START WITH P_BNO IS NULL
-        CONNECT BY PRIOR QNA_BNO = P_BNO
-        ORDER SIBLINGS BY QNA_BNO ASC;
+            SELECT LEVEL, Q.*
+            FROM
+                (SELECT QNA_BNO,
+                        M.MEMBER_NO,
+                        P_BNO,
+                        QNA_TITLE,
+                        QNA_CONTENT,
+                        QNA_DATE,
+                        COUNT,
+                        QNA_AREA
+                 from QNA_BOARD B
+                          JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+                 WHERE QNA_BNO =1) Q
+            START WITH P_BNO IS NULL
+            CONNECT BY PRIOR QNA_BNO = P_BNO
+            ORDER SIBLINGS BY QNA_BNO ASC;
     </select>-->
 
     <select id="selectQboard" parameterType="int" resultMap="qBoardResultSet">
