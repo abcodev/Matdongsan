@@ -23,6 +23,7 @@
 
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="SGG_NM" property="sggNm"/>
+        <result column="BJDONG_NM" property="bjdName"/>
         <result column="BLDG_NM" property="buildName"/>
         <result column="DEAL_YMD" property="dealYmd"/>
         <result column="RENT_GTN" property="rentGtn"/>
