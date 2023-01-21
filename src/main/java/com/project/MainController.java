@@ -31,17 +31,17 @@ public class MainController {
         this.realEstateService = realEstateService;
     }
 
-//    @ResponseBody
-//    public ModelAndView realEstateList(){
-//        List<String> sellList = realEstateService.getSellList();
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("sellList", sellList);
-//
-//        modelAndView.setViewName("common/mainPage");
-//
-//        return modelAndView;
-//    }
+    @ResponseBody
+    public ModelAndView realEstateList(){
+        List<String> sellList = realEstateService.getSellList();
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("sellList", sellList);
+
+        modelAndView.setViewName("common/mainPage");
+
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){

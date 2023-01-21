@@ -30,6 +30,23 @@
         <result column="RENT_AREA" property="rentArea"/>
     </resultMap>
 
+    <resultMap type="RealEstateSell" id="realEstateSellResultSet">
+        <result column="ACC_YEAR" property="accYear" />
+        <result column="SGG_CD" property="sggCd" />
+        <result column="SGG_NM" property="sggNM" />
+        <result column="BJDONG_CD" property="bjdongCd" />
+        <result column="BJDONG_NM" property="bjdongNm" />
+        <result column="BONBEON" property="bonbeon" />
+        <result column="BUBEON" property="bubeon" />
+        <result column="BLDG_NM" property="bldgNm" />
+        <result column="DEAL_NM" property="dealNm" />
+        <result column="DEAL_YMD" property="dealYmd" />
+        <result column="OBJ_AMT" property="objAmt" />
+        <result column="BLDG_AREA" property="bldgArea" />
+        <result column="BUILD_YEAR" property="buildYear" />
+        <result column="HOUSE_TYPE" property="houseType" />
+    </resultMap>
+
     <delete id="deleteAll">
         TRUNCATE TABLE REALESTATE_RENT
     </delete>
