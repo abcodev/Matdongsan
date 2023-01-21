@@ -29,6 +29,7 @@
         <mapper resource="/mappers/realestateRent-mapper.xml"/>
         <mapper resource="/mappers/restaurant-mapper.xml"/>
         <mapper resource="/mappers/hashtag-mapper.xml"/>
+        <mapper resource="/mappers/resHashtag-mapper.xml"/>
         <mapper resource="/mappers/board-mapper.xml"/>
         <mapper resource="/mappers/chat-mapper.xml"/>
     </mappers>

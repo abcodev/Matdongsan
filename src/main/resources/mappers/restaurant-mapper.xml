@@ -107,10 +107,6 @@
 
 
 
-
-
-
-
     <select id="selectReviewList" parameterType="int" resultMap="reviewResultSet">
         SELECT
             REV_NO,
@@ -137,8 +133,11 @@
 
 
     <insert id="insertReview" parameterType="review">
+        <selectKey keyProperty="revNo" resultType="_int" order="BEFORE">
+            select SEQ_REV_NO.nextval FROM DUAL
+        </selectKey>
         INSERT INTO REVIEW (REV_NO, MEMBER_NO, RES_NO, STAR_RATING, REVIEW_CONTENT, CREATE_DATE, STATUS)
-        VALUES (SEQ_REV_NO.NEXTVAL, #{memberNo}, #{resNo}, #{starRating}, #{reviewContent}, #{createDate}, #{status})
+        VALUES (${revNo}, #{memberNo}, #{resNo}, #{starRating}, #{reviewContent}, #{createDate}, #{status})
     </insert>
 
     <insert id="insertResImgList" parameterType="list">

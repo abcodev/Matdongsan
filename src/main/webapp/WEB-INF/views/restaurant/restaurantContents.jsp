@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div id="pagingArea">
+    <div id="paging">
         <ul class="pagination">
             <c:choose>
                 <c:when test="${ pi.currentPage eq 1 }">

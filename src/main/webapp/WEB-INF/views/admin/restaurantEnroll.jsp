@@ -42,9 +42,9 @@
         <input type="text" name="state">
     </div>
     <div class="place hashtag">
-        <c:forEach items="${hashtag}" var="hash" varStatus="i">
-            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hash.hashtagId}">
-            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hash.hashtag}</label>
+        <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
+            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
+            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
         </c:forEach>
     </div>
     <div class="res img">

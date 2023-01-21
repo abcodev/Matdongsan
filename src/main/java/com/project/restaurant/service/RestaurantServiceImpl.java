@@ -11,13 +11,18 @@ import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -25,22 +30,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
 
     public static final String webPath = "/resources/images/";
     private static final int DEFAULT_RES_SIZE = 12;
+    private final ServletContext servletContext;
     private final RestaurantDao restaurantDao;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
-
-
-    @Autowired
-    public RestaurantServiceImpl(RestaurantDao restaurantDao, RestaurantCrawlingService restaurantCrawlingService) {
-        this.restaurantDao = restaurantDao;
-        this.restaurantCrawlingService = restaurantCrawlingService;
-    }
 
     @Override
     public int selectResListCount() {
@@ -71,46 +72,88 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<String> selectHashtagList() {
+    public List<Hashtag> selectHashtagList() {
         return restaurantDao.selectHashtagList();
     }
 
+
     @Override
-    public void restaurantInsert(MultipartFile file, Restaurant restaurant , HttpSession session,List<String> hashTagId) {
+    @Transactional
+    public void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId) {
+        /**
+         *  1. 이미지 파일 저장
+         *  2. Restaurant 엔티티 생성 후 저장
+         *  3. ResImg 엔티티 생성 후 저장
+         *  4. ResHashTag 엔티티 List 생성 후 저장
+         */
         //원본파일네임이 넘어왔는지 빈칸인지 검사
-            String savePath = session.getServletContext().getRealPath("/resources/images/restaurant/"); // 업로드 하고자하는 물리적인 위치 알아내기
-            String changeName = Utils.saveFile(file);
-            System.out.println(restaurant.getAddress());
-            try {
-                file.transferTo(new File( savePath+ changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
 
+        // ImageUploadSupporter.save(path, file)
+        System.out.println(restaurant.getAddress());
+        try {
+            // 1. 이미지 파일 저장
+            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+            String fileName = Utils.saveFile(savePath, file);
 
-                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + changeName);
-                String resNo = restaurantDao.resInsert(restaurant);
+            // 2. Restaurant 엔티티 생성 후 저장
+            restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
+            String resNo = restaurantDao.resInsert(restaurant);
 
-                ResImg resImg = new ResImg();
-                resImg.setChangeName(changeName);
-                resImg.setOriginName(file.getOriginalFilename());
-                resImg.setResNo(resNo);
+            // 3. ResImg 엔티티 생성 후 저장
+            ResImg resImg = new ResImg();
+            resImg.setChangeName(fileName);
+            resImg.setOriginName(file.getOriginalFilename());
+            resImg.setResNo(resNo);
+            restaurantDao.resInsertImg(resImg);
 
-
-
-                for(int i = 0; i<hashTagId.size();i++){
-                    ResHashtag resHashtag = new ResHashtag();
-                    resHashtag.setHashtagId(hashTagId.get(i));
-                    resHashtag.setResNo(resNo);
-                    resHashtag.setMemberNo("1");
-                    restaurantDao.resHashtagInsert(resHashtag);
-                }
-
-                restaurantDao.resInsertImg(resImg);
-
-
-            } catch (IllegalStateException | IOException e) {
-                System.out.println("파일 업로드 오류");
-            }
+            // 4. ResHashTag 엔티티 List 생성 후 저장
+            hashTagId.forEach(tagId -> {
+                ResHashtag resHashtag = new ResHashtag();
+                resHashtag.setHashtagId(tagId);
+                resHashtag.setResNo(resNo);
+                resHashtag.setMemberNo(1L);
+                restaurantDao.resHashtagInsert(resHashtag);
+            });
+        } catch (IllegalStateException e) {
+            System.out.println("파일 업로드 오류");
         }
+    }
 
+
+//    @Override
+//    public void restaurantInsert(MultipartFile file, Restaurant restaurant , HttpSession session,List<String> hashTagId) {
+//        //원본파일네임이 넘어왔는지 빈칸인지 검사
+//            String savePath = session.getServletContext().getRealPath("/resources/images/restaurant/"); // 업로드 하고자하는 물리적인 위치 알아내기
+//            String changeName = Utils.saveFile(file);
+//            System.out.println(restaurant.getAddress());
+//            try {
+//                file.transferTo(new File( savePath+ changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
+//
+//
+//                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + changeName);
+//                String resNo = restaurantDao.resInsert(restaurant);
+//
+//                ResImg resImg = new ResImg();
+//                resImg.setChangeName(changeName);
+//                resImg.setOriginName(file.getOriginalFilename());
+//                resImg.setResNo(resNo);
+//
+//
+//                for(int i = 0; i<hashTagId.size();i++){
+//                    ResHashtag resHashtag = new ResHashtag();
+//                    resHashtag.setHashtagId(hashTagId.get(i));
+//                    resHashtag.setResNo(resNo);
+//                    resHashtag.setMemberNo("1");
+//                    restaurantDao.resHashtagInsert(resHashtag);
+//                }
+//
+//                restaurantDao.resInsertImg(resImg);
+//
+//
+//            } catch (IllegalStateException | IOException e) {
+//                System.out.println("파일 업로드 오류");
+//            }
+//        }
 
 
     @Override
@@ -125,8 +168,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
 
-
-
 //    @Override
 //    public ArrayList<Review> selectReviewList(int resNo) {
 //        return restaurantDao.selectReviewList(sqlSession, resNo);
@@ -136,15 +177,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 //    public int insertReview(Review review){
 //        return restaurantDao.insertReview(sqlSession, review);
 //    }
-
-
-
-
-
-
-
-
-
 
 
 }

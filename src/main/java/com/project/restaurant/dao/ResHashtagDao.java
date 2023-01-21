@@ -1,20 +1,16 @@
 package com.project.restaurant.dao;
 
-import com.project.restaurant.vo.Review;
+import com.project.restaurant.vo.ResHashtag;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ReviewDao {
-
+public class ResHashtagDao {
     private final SqlSessionTemplate sqlSession;
 
-    public int insertReview(Review review) {
-        sqlSession.insert("resMapper.insertReview", review);
-        return review.getRevNo();
+    public void insert(ResHashtag resHashtag) {
+        sqlSession.insert("resHashtagMapper.insert", resHashtag);
     }
-
 }

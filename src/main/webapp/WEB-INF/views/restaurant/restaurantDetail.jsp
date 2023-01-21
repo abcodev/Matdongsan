@@ -112,8 +112,8 @@
             <div id="review_hashtag">
                 <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
                     <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag"
-                           autocomplete="off" value="${hashtag}">
-                    <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag}</label>
+                           autocomplete="off" value="${hashtag.hashtag}">
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
                 </c:forEach>
             </div>
                 <script>
@@ -131,7 +131,11 @@
                 <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
             </div>
             <div class="review_img">
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                <input class="form-control form-control-sm" id="formFileSm1" type="file">
+
+
+                <input class="form-control form-control-sm" id="formFileSm2" type="file">
+                <input class="form-control form-control-sm" id="formFileSm3" type="file">
             </div>
 
             <button class="" onclick="insertReply()">등록하기</button>
@@ -199,7 +203,7 @@
             hashtags.push(this.value);
         });
         const contents = $('#reviewContent').val()
-        const files = $('#formFileSm').files
+        const files = $('#formFileSm1')[0].files
 
         const formData = new FormData();
         formData.set("resNo", ${restaurantDetail.resNo});

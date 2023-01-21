@@ -26,8 +26,8 @@
                 <div class ="search city">
                     <select name="selectOption1" id="selectOption1" onchange="get_option()">
                         <option value="option1">자치구 선택</option>
-                        <c:forEach var="l" items="${localList}">
-                            <option value="${l.sggNm}">${l.sggNm}</option>
+                        <c:forEach var="localList" items="${localList}">
+                            <option value="${localList.sggNm}">${localList.sggNm}</option>
                         </c:forEach>
                     </select>
                     <select name="selectOption2" id="selectOption2">
@@ -55,9 +55,28 @@
                     </select>
                 </div>
                 <div class="btn_box">
-                    <button type="submit">조회</button>
+                    <button onclick="detailSearch()">조회</button>
                 </div>
             </div>
+
+            <form id="form" method="get" action="<c:url value="/realEstate/list"/>">
+                <input type="hidden" id="state" name="state">
+            </form>
+            <script>
+                function detailSearch() {
+                    console.log($('#selectOption1 option:checked').text())
+
+                    $('#state').val($('#selectOption1 option:checked').text())
+                    console.log($('#state').val())
+                    $('form').submit()
+                }
+            </script>
+
+
+
+
+
+
         </form>
         <div id="place">
 
@@ -76,13 +95,13 @@
                     <th>금액</th>
                     <th>임대면적</th>
                 </tr>
-                <c:forEach var="r" items="${ list }">
+                <c:forEach var="selectAllList" items="${ selectAllList }">
                     <tr>
-                        <td class="rno">${ r.sggNm }</td>
-                        <td>${r.buildName }</td>
-                        <td>${r.dealYmd }</td>
-                        <td>${r.rentGtn}</td>
-                        <td>${r.rentArea }</td>
+                        <td class="rno">${ selectAllList.sggNm }</td>
+                        <td>${selectAllList.buildName }</td>
+                        <td>${selectAllList.dealYmd }</td>
+                        <td>${selectAllList.rentGtn}</td>
+                        <td>${selectAllList.rentArea }</td>
                     </tr>
                 </c:forEach>
 
@@ -90,29 +109,56 @@
         </div>
 
         <div id="paging">
-            <c:set var="url" value="?currentPage="/>
+
             <ul class="pagination">
                 <c:choose>
-                <c:when test="${pi.currentPage eq 1 }">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                </c:when>
-                <c:otherwise>
-                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage-1 }${sUrl}">Previous</a></li>
-                </c:otherwise>
+                    <c:when test="${ pi.currentPage eq 1 }">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="selectAllList?cpage=${pi.currentPage -1 }">Previous</a></li>
+                    </c:otherwise>
                 </c:choose>
 
                 <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item"><a class="page-link" href="${url}${item }${sUrl}">${item }</a></li>
+                    <li class="page-item"><a class="page-link" href="selectAllList?cpage=${item }">${item }</a></li>
                 </c:forEach>
 
                 <c:choose>
-                <c:when test="${pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </c:when>
-                <c:otherwise>
-                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage+1 }${sUrl}">Next</a></li>
-                </c:otherwise>
+                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="selectAllList?cpage=${pi.currentPage + 1}">Next</a></li>
+                    </c:otherwise>
                 </c:choose>
+            </ul>
+
+
+
+<%--            <c:set var="url" value="?currentPage="/>--%>
+<%--            <ul class="pagination">--%>
+<%--                <c:choose>--%>
+<%--                <c:when test="${pi.currentPage eq 1 }">--%>
+<%--                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage-1 }${selectAllList}">Previous</a></li>--%>
+<%--                </c:otherwise>--%>
+<%--                </c:choose>--%>
+
+<%--                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
+<%--                <li class="page-item"><a class="page-link" href="${url}${item }${selectAllList}">${item }</a></li>--%>
+<%--                </c:forEach>--%>
+
+<%--                <c:choose>--%>
+<%--                <c:when test="${pi.currentPage eq pi.maxPage }">--%>
+<%--                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage+1 }${selectAllList}">Next</a></li>--%>
+<%--                </c:otherwise>--%>
+<%--                </c:choose>--%>
         </div>
     </div>
 </div>
@@ -167,6 +213,12 @@
 
     }
 </script>
+
+
+
+
+
+
 
 <%--지도 관련 스크립트--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>

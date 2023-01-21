@@ -36,7 +36,7 @@ public class RestaurantDao {
         return sqlSession.selectList("resMapper.selectStateList");
     }
 
-    public List<String> selectHashtagList() {
+    public List<Hashtag> selectHashtagList() {
         return sqlSession.selectList("hashtagMapper.selectHashtagList");
     }
 

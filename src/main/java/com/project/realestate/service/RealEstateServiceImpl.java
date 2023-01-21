@@ -18,37 +18,49 @@ import java.util.Map;
 
 @Service
 public class RealEstateServiceImpl implements RealEstateService{
+
+    private static final int DEFAULT_BOARD_SIZE = 1000;
+
+    private final RealEstateDao realEstateDao;
+    private final SqlSession sqlSession;
+
+
+    @Autowired
     public RealEstateServiceImpl(RealEstateDao realEstateDao, SqlSession sqlSession){
         this.realEstateDao = realEstateDao;
         this.sqlSession = sqlSession;
     }
-    @Autowired
-    private RealEstateDao realEstateDao;
-    @Autowired
-    private SqlSession sqlSession;
 
-    private static final int deafaultSize = 8;
 
+    @Override
     public int selectListCount(){
         return realEstateDao.selectListCount(sqlSession);
     }
 
-    @Override
-    public int selectListCount(Map<String, Object> paramMap) {
-        return realEstateDao.selectListCount(sqlSession, paramMap);
-    }
+//    @Override
+//    public int selectListCount(Map<String, Object> paramMap) {
+//        return realEstateDao.selectListCount(sqlSession, paramMap);
+//    }
 
     @Override
-    public RealEstateRentListResponse selectList(RealEstateRentListRequest req){
-
-        //페이징 처리 작업
-        int listCount = selectListCount();
-
-        PageInfoCombine pageInfoCombine = new PageInfoCombine(listCount, req.getCurrentPage(), deafaultSize );
-        List<RealEstateRent> result = realEstateDao.selectList(sqlSession, pageInfoCombine, RealEstateRentListFilter.from(req));
-
-        return new RealEstateRentListResponse(result, pageInfoCombine);
+    public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
+        int count = realEstateDao.selectListCount(sqlSession);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_BOARD_SIZE);
+        List<RealEstateRent> result = realEstateDao.selectList(pageInfoCombine, RealEstateRentListFilter.from(req));
+        return new RealEstateRentListResponse(result,pageInfoCombine);
     }
+
+//    @Override
+//    public RealEstateRentListResponse selectList(RealEstateRentListRequest req){
+//
+//        //페이징 처리 작업
+//        int listCount = selectListCount();
+//
+//        PageInfoCombine pageInfoCombine = new PageInfoCombine(listCount, req.getCurrentPage(), deafaultSize );
+//        List<RealEstateRent> result = realEstateDao.selectList(sqlSession, pageInfoCombine, RealEstateRentListFilter.from(req));
+//
+//        return new RealEstateRentListResponse(result, pageInfoCombine);
+//    }
 
 //    @Override
 //    public Map<String, Object> selectList(Map<String, Object> paramMap){
@@ -68,6 +80,9 @@ public class RealEstateServiceImpl implements RealEstateService{
 //
 //        return map;
 //    }
+
+
+
 
     // 자치구 리스트
     @Override

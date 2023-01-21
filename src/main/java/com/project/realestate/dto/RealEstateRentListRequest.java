@@ -10,5 +10,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class RealEstateRentListRequest {
     private int currentPage;
-    private Map<String, Object> param;
+//    private Map<String, Object> param;
+    private String state;
+    private String dong;
 }
