@@ -23,7 +23,7 @@ public interface RealEstateService {
    public List<RealEstateRent> searchLocalList();
 
    // 동 리스트
-   public List<String> selectOption(String local);
+   public List<RealEstateRent> searchDongList(String state);
 
    public List<String> getSellList();
 

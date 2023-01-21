@@ -92,8 +92,8 @@ public class RealEstateServiceImpl implements RealEstateService{
 
     // 동 리스트
     @Override
-    public List<String> selectOption(String local){
-        return realEstateDao.selectOption(sqlSession, local);
+    public List<RealEstateRent> searchDongList(String state){
+        return realEstateDao.searchDongList(sqlSession, state);
     }
 
     @Override

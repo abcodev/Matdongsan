@@ -24,8 +24,7 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1" onchange="get_option()">
-                        <option value="option1">자치구 선택</option>
+                    <select name="selectOption1" id="selectOption1" >
                         <c:forEach var="localList" items="${localList}">
                             <option value="${localList.sggNm}">${localList.sggNm}</option>
                         </c:forEach>
@@ -61,6 +60,7 @@
 
             <form id="form" method="get" action="<c:url value="/realEstate/list"/>">
                 <input type="hidden" id="state" name="state">
+                <input type="hidden" id="dong" name="dong">
             </form>
             <script>
                 function detailSearch() {
@@ -68,6 +68,10 @@
 
                     $('#state').val($('#selectOption1 option:checked').text())
                     console.log($('#state').val())
+
+                    $('#dong').val($('#selectOption2 option:checked').text())
+                    console.log($('#dong').val())
+
                     $('form').submit()
                 }
             </script>
@@ -84,7 +88,9 @@
     </div>
     <div id="content_right">
         <div id="search_map">
+            <c:forEach var="r" items="${list}">
 
+            </c:forEach>
         </div>
         <div id="search_list">
             <table class="table">
@@ -135,55 +141,31 @@
             </ul>
 
 
-
-<%--            <c:set var="url" value="?currentPage="/>--%>
-<%--            <ul class="pagination">--%>
-<%--                <c:choose>--%>
-<%--                <c:when test="${pi.currentPage eq 1 }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage-1 }${selectAllList}">Previous</a></li>--%>
-<%--                </c:otherwise>--%>
-<%--                </c:choose>--%>
-
-<%--                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--                <li class="page-item"><a class="page-link" href="${url}${item }${selectAllList}">${item }</a></li>--%>
-<%--                </c:forEach>--%>
-
-<%--                <c:choose>--%>
-<%--                <c:when test="${pi.currentPage eq pi.maxPage }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage+1 }${selectAllList}">Next</a></li>--%>
-<%--                </c:otherwise>--%>
-<%--                </c:choose>--%>
         </div>
     </div>
 </div>
 
 <%--검색 동 변경--%>
 <script>
-    function get_option2(option1, selectOption) {
-        console.log(option1)
-        console.log(selectOption)
-        $.ajax({
-            type: 'GET',
-            url: '${pageContext.request.contextPath}/realEstate/list',
-            contentType: "application/json; charset=UTF-8",
-            data: {
-                'selectOption1' : option1
-            },
-            dataType: 'json',
-            success: function (result) {
-                console.log(result)
+    <%--function get_option2(option1, selectOption) {--%>
+    <%--    console.log(option1)--%>
+    <%--    console.log(selectOption)--%>
+    <%--    $.ajax({--%>
+    <%--        type: 'GET',--%>
+    <%--        url: '${pageContext.request.contextPath}/realEstate/list',--%>
+    <%--        contentType: "application/json; charset=UTF-8",--%>
+    <%--        data: {--%>
+    <%--            'selectOption1' : option1--%>
+    <%--        },--%>
+    <%--        dataType: 'json',--%>
+    <%--        success: function (result) {--%>
+    <%--            alert(result);--%>
 
-            }
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        })
-    }
+    <%--        }--%>
+    <%--    }).fail(function (error) {--%>
+    <%--        alert(JSON.stringify(error));--%>
+    <%--    })--%>
+    <%--}--%>
 </script>
 
 <script>

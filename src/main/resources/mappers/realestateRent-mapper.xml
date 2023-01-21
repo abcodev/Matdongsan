@@ -23,6 +23,7 @@
 
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="SGG_NM" property="sggNm"/>
+        <result column="BJDONG_NM" property="bjdName"/>
         <result column="BLDG_NM" property="buildName"/>
         <result column="DEAL_YMD" property="dealYmd"/>
         <result column="RENT_GTN" property="rentGtn"/>
@@ -95,12 +96,13 @@
     </select>
 
     <!-- 동 이름 -->
-    <select id="selectOption" resultMap="realEstateRentListResultSet">
+    <select id="searchDongList" resultMap="realEstateRentListResultSet">
         SELECT
-            DISTINCT BJDONG_NM
-        FROM REALESTATE_RENT
-        WHERE SGG_CD = ${local}
-        ORDER BY BJDONG_NM
+            DISTINCT RR.BJDONG_NM
+        FROM REALESTATE_RENT RR
+                 LEFT JOIN REALESTATE_SELL RS ON RS.ACC_YEAR = RR.ACC_YEAR
+        WHERE RR.SGG_NM = '${state}'
+        ORDER BY RR.BJDONG_NM
     </select>
 
 </mapper>
