@@ -27,6 +27,9 @@ public class ReviewService {
     private final ResHashtagDao resHashtagDao;
     private final ServletContext servletContext;
 
+    /**
+     *
+     */
     @Transactional
     public void create(Member member, InsertReviewRequest req) {
         Review review = Review.of(member, req);
@@ -42,9 +45,7 @@ public class ReviewService {
         // Image 저장
         String savePath = servletContext.getRealPath("/resources/images/restaurant/");
         req.getFiles().forEach(file -> {
-            // 파라미터 5개라 DTO 만들어서 넘겨도 될것같고..
             String savedFileName = Utils.saveFile(savePath, file);
-
             ResImg resImg = ResImg.builder()
                     .resNo(req.getResNo())
                     .changeName(savedFileName)
@@ -57,6 +58,3 @@ public class ReviewService {
     }
 }
 
-/**
- * GlobalExceptionHandler
- */

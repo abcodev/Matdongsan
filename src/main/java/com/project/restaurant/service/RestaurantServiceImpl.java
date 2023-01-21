@@ -10,27 +10,15 @@ import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
 import com.project.restaurant.vo.Restaurant;
-import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +36,9 @@ public class RestaurantServiceImpl implements RestaurantService {
         return 0;
     }
 
+    /**
+     * 전체 리스트 조회
+     */
     @Override
     public RestaurantListResponse selectList(RestaurantListRequest request) {
         RestaurantListFilter filter = RestaurantListFilter.from(request);
@@ -58,12 +49,25 @@ public class RestaurantServiceImpl implements RestaurantService {
         return new RestaurantListResponse(result, pageInfoCombine);
     }
 
+    /**
+     * 이미지 크롤링
+     */
     private void updateImageIfEmpty(Restaurant restaurant) {
         if (Objects.isNull(restaurant.getResImgUrl()) || restaurant.getResImgUrl().isEmpty()) {
             String imageUrl = restaurantCrawlingService.findImage(restaurant.getResName());
             restaurantDao.updateImage(restaurant.getResNo(), imageUrl);
             restaurant.setImageUrl(imageUrl);
         }
+    }
+
+    @Override
+    public Restaurant restaurantDetail(String resNo) {
+        return restaurantDao.restaurantDetail(resNo);
+    }
+
+    @Override
+    public List<String> resHashtagByAdmin(String resNo) {
+        return restaurantDao.resHashtagByAdmin(resNo);
     }
 
     @Override
@@ -76,20 +80,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantDao.selectHashtagList();
     }
 
-
+    /**
+     * 관리자 - 등록
+     */
     @Override
-    @Transactional
+    @Transactional // 트랜잭션 해줘야함(전부 성공했을때만 들어가도록)
     public void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId) {
-        /**
-         *  1. 이미지 파일 저장
-         *  2. Restaurant 엔티티 생성 후 저장
-         *  3. ResImg 엔티티 생성 후 저장
-         *  4. ResHashTag 엔티티 List 생성 후 저장
-         */
-        //원본파일네임이 넘어왔는지 빈칸인지 검사
 
-        // ImageUploadSupporter.save(path, file)
-        System.out.println(restaurant.getAddress());
         try {
             // 1. 이미지 파일 저장
             String savePath = servletContext.getRealPath("/resources/images/restaurant/");
@@ -118,6 +115,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             System.out.println("파일 업로드 오류");
         }
     }
+
 
 
 //    @Override
@@ -156,27 +154,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 //        }
 
 
-    @Override
-    public Restaurant restaurantDetail(String resNo) {
-        return restaurantDao.restaurantDetail(resNo);
-    }
 
 
-    @Override
-    public List<String> resHashtagByAdmin(String resNo) {
-        return restaurantDao.resHashtagByAdmin(resNo);
-    }
-
-
-//    @Override
-//    public ArrayList<Review> selectReviewList(int resNo) {
-//        return restaurantDao.selectReviewList(sqlSession, resNo);
-//    }
-
-//    @Override
-//    public int insertReview(Review review){
-//        return restaurantDao.insertReview(sqlSession, review);
-//    }
 
 
 }

@@ -131,7 +131,9 @@
                 // 주소-좌표 변환 객체 생성
 
 
-                // 지도에 마커와 인포윈도우를 표시하는 함수
+
+
+                    // 지도에 마커와 인포윈도우를 표시하는 함수
                 function displayMarker(locPosition, message) {
 
                     // 마커를 생성합니다
@@ -156,6 +158,7 @@
                     map.setCenter(locPosition);
                 }
 
+
                 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
                 var positions = [
                     {
@@ -179,6 +182,9 @@
                         latlng: new kakao.maps.LatLng(37.55436845910307, 126.97066305930028)
                     }
                 ];
+
+
+
 
                 for (var i = 0; i < positions.length; i ++) {
                     // 마커를 생성합니다

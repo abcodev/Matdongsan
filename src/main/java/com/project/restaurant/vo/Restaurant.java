@@ -36,7 +36,6 @@ public class Restaurant {
                 .build();
     }
 
-
     public void setImageUrl(String imageUrl) {
         this.resImgUrl = imageUrl;
     }

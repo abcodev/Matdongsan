@@ -151,7 +151,7 @@ CREATE TABLE "MEMBER"
     "ADDRESS"       VARCHAR(255)             NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y' NULL,
     "GRADE"         VARCHAR(255) DEFAULT 1   NULL,
-    "RECENT_ACCESS" VARCHAR2(255)            NULL
+    "RECENT_ACCESS" DATE                     NULL
 
 );
 
@@ -197,15 +197,15 @@ COMMENT
 CREATE TABLE "INTEREST"
 (
     "SELL_NO"    VARCHAR(255) NOT NULL,
-    "GROUP_PORD" VARCHAR(255) NOT NULL,
-    "MEMBER_NO"  VARCHAR(255) NOT NULL
+    "RENT_NO" VARCHAR(255) NOT NULL,
+    "MEMBER_NO"  NUMBER       NOT NULL
 );
 
 COMMENT
     ON COLUMN "INTEREST"."SELL_NO" IS '실거래가번호';
 
 COMMENT
-    ON COLUMN "INTEREST"."GROUP_PORD" IS '전월세가번호';
+    ON COLUMN "INTEREST"."RENT_NO" IS '전월세가번호';
 
 COMMENT
     ON COLUMN "INTEREST"."MEMBER_NO" IS '회원번호';
@@ -265,10 +265,10 @@ COMMENT
 
 CREATE TABLE "REVIEW"
 (
-    "REV_NO"         VARCHAR(255)             NOT NULL,
-    "MEMBER_NO"      VARCHAR(255)             NOT NULL,
+    "REV_NO"         NUMBER                   NOT NULL,
+    "MEMBER_NO"      NUMBER                   NOT NULL,
     "RES_NO"         VARCHAR(255)             NOT NULL,
-    "STAR_RATING"    VARCHAR(255)             NULL,
+    "STAR_RATING"    NUMBER                   NOT NULL,
     "REVIEW_CONTENT" VARCHAR(255)             NULL,
     "CREATE_DATE"    VARCHAR(255)             NULL,
     "STATUS"         VARCHAR(255) DEFAULT 'Y' NULL
@@ -299,12 +299,12 @@ COMMENT
 
 CREATE TABLE "REPLY"
 (
-    "REPLY_NO"      VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"     VARCHAR(255)                 NOT NULL,
-    "FREE_BNO"      VARCHAR(255)                 NOT NULL,
+    "REPLY_NO"      NUMBER                       NOT NULL,
+    "MEMBER_NO"     NUMBER                       NOT NULL,
+    "FREE_BNO"      NUMBER                 NOT NULL,
     "REPLY_CONTENT" VARCHAR(255)                 NULL,
-    "REF_BNO"       VARCHAR(255)                 NULL,
-    "REPLY_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
+    "REF_BNO"       NUMBER                       NULL,
+    "REPLY_DATE"    DATE         DEFAULT SYSDATE NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
 
@@ -349,9 +349,9 @@ COMMENT
 
 CREATE TABLE "HOTWEEK"
 (
-    "FREE_BNO"  VARCHAR(255) NOT NULL,
-    "MEMBER_NO" VARCHAR(255) NOT NULL,
-    "DATE"      VARCHAR(255) NOT NULL
+    "FREE_BNO"  NUMBER       NOT NULL,
+    "MEMBER_NO" NUMBER       NOT NULL,
+    "DATE"      DATE         NOT NULL
 );
 
 COMMENT
@@ -368,11 +368,11 @@ COMMENT
 
 CREATE TABLE "CHAT_MESSAGE"
 (
-    "CM_NO"        VARCHAR(255)                 NOT NULL,
-    "CHAT_ROOM_NO" VARCHAR(255)                 NOT NULL,
-    "RECEIVER_NO"  VARCHAR(255)                 NOT NULL,
-    "SEND_NO"      VARCHAR(255)                 NOT NULL,
-    "CREATE_DATE"  VARCHAR(255) DEFAULT SYSDATE NULL,
+    "CM_NO"        NUMBER                 NOT NULL,
+    "CHAT_ROOM_NO" NUMBER                 NOT NULL,
+    "RECEIVER_NO"  NUMBER                 NOT NULL,
+    "SEND_NO"      NUMBER                NOT NULL,
+    "CREATE_DATE"  DATE  DEFAULT SYSDATE NULL,
     "READ"         VARCHAR(255) DEFAULT 'Y'     NULL,
     "MS_CONTENT"   VARCHAR(255)                 NULL
 );
@@ -400,10 +400,10 @@ COMMENT
 
 CREATE TABLE "CHAT_ROOM"
 (
-    "CHAT_ROOM_NO" VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"    VARCHAR(255)                 NOT NULL,
+    "CHAT_ROOM_NO" NUMBER                 NOT NULL,
+    "MEMBER_NO"    NUMBER                       NOT NULL,
     "STATUS"       VARCHAR(255) DEFAULT 'Y'     NULL,
-    "CREATE_DATE"  VARCHAR(255) DEFAULT SYSDATE NULL
+    "CREATE_DATE"  DATE DEFAULT SYSDATE NULL
 );
 
 COMMENT
@@ -424,8 +424,8 @@ COMMENT
 
 CREATE TABLE "CHAT_ROOM_JOIN"
 (
-    "CHAT_ROOM_NO" VARCHAR(255) NOT NULL,
-    "MEMBER_NO"    VARCHAR(255) NOT NULL
+    "CHAT_ROOM_NO" NUMBER NOT NULL,
+    "MEMBER_NO"    NUMBER       NOT NULL
 );
 
 COMMENT
@@ -439,11 +439,11 @@ COMMENT
 
 CREATE TABLE "RES_IMG"
 (
-    "IMG_NO"       VARCHAR(255) NOT NULL,
-    "REVIEW_NO"    VARCHAR(255) NOT NULL,
-    "MEMBER_NO"    VARCHAR(255) NOT NULL,
+    "IMG_NO"       NUMBER NOT NULL,
+    "REVIEW_NO"    NUMBER NULL,
+    "MEMBER_NO"    NUMBER       NOT NULL,
     "RES_NO"       VARCHAR(255) NOT NULL,
-    "IMAGE_LEVEL" VARCHAR(255) NULL,
+    "IMAGE_LEVEL"  NUMBER NULL,
     "ORIGIN_NAME"  VARCHAR(255) NULL,
     "CHANGE_NAME"  VARCHAR(255) NULL
 );
@@ -476,8 +476,8 @@ CREATE TABLE "RES_HASHTAG"
 (
     "RES_NO"     VARCHAR(255) NULL,
     "HASHTAG_ID" VARCHAR(255) NULL,
-    "REV_NO"     VARCHAR(255) NULL,
-    "MEMBER_NO"  VARCHAR(255) NULL
+    "REV_NO"     NUMBER       NULL,
+    "MEMBER_NO"  NUMBER       NOT NULL
 );
 
 COMMENT
@@ -497,12 +497,12 @@ COMMENT
 
 CREATE TABLE "FREE_BOARD"
 (
-    "FREE_BNO"      VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"     VARCHAR(255)                 NOT NULL,
+    "FREE_BNO"      NUMBER                 NOT NULL,
+    "MEMBER_NO"     NUMBER                       NOT NULL,
     "BOARD_TITLE"   VARCHAR(255)                 NOT NULL,
     "BOARD_WRITER"  VARCHAR(255)                 NOT NULL,
     "BOARD_CONTENT" VARCHAR(255)                 NULL,
-    "BOARD_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
+    "BOARD_DATE"    DATE DEFAULT SYSDATE NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
@@ -536,11 +536,11 @@ COMMENT
 
 CREATE TABLE "REPORT"
 (
-    "REPORT_NO"      VARCHAR(255) NULL,
-    "FREE_BNO"       VARCHAR(255) NULL,
-    "MEMBER_NO"      VARCHAR(255) NULL,
+    "REPORT_NO"      NUMBER NULL,
+    "FREE_BNO"       NUMBER NULL,
+    "MEMBER_NO"      NUMBER       NULL,
     "REPORT_REASON"  VARCHAR(255) NULL,
-    "REPORT_USER"    VARCHAR(255) NULL,
+    "REPORT_USER_NO"    NUMBER NULL,
     "REPORT_CONTENT" VARCHAR(255) NULL
 );
 
@@ -557,7 +557,7 @@ COMMENT
     ON COLUMN "REPORT"."REPORT_REASON" IS '신고사유';
 
 COMMENT
-    ON COLUMN "REPORT"."REPORT_USER" IS '신고회원번호';
+    ON COLUMN "REPORT"."REPORT_USER_NO" IS '신고회원번호';
 
 COMMENT
     ON COLUMN "REPORT"."REPORT_CONTENT" IS '상세사유';
@@ -567,13 +567,13 @@ COMMENT
 
 CREATE TABLE "QNA_BOARD"
 (
-    "QNA_BNO"     VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"   VARCHAR(255)                 NOT NULL,
-    "P_BNO"       VARCHAR(255)                 NOT NULL,
+    "QNA_BNO"     NUMBER                    NOT NULL,
+    "MEMBER_NO"   NUMBER                       NOT NULL,
+    "P_BNO"       NUMBER                        NOT NULL,
     "QNA_TITLE"   VARCHAR(255)                 NOT NULL,
     "QNA_CONTENT" VARCHAR(255)                 NOT NULL,
-    "QNA_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
-    "COUNT"       VARCHAR(255) DEFAULT 0       NULL,
+    "QNA_DATE"    DATE DEFAULT SYSDATE NULL,
+    "COUNT"       NUMBER DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NOT NULL,
     "BOARD_CD"    CHAR(1)      DEFAULT 'C'     NULL
@@ -611,8 +611,8 @@ COMMENT
 
 CREATE TABLE "BOARD_TYPE"
 (
-    "BOARD_CD"    VARCHAR2(20)                 NOT NULL,
-    "BOARD_NAME"  CHAR(1)                      NOT NULL
+    "BOARD_CD"    CHAR(1)                 NOT NULL,
+    "BOARD_NAME"  VARCHAR2(20)                      NOT NULL
 );
 
 COMMENT

@@ -29,15 +29,6 @@ public interface RestaurantService {
 
     List<String> resHashtagByAdmin(String resNo);
 
-//    public ArrayList<Review> selectReviewList(int resNo);
-//
-//    int insertReview(Review review);
-
-
-
-
-
-
 
 
 
