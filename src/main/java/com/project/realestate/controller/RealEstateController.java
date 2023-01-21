@@ -40,20 +40,16 @@ public class RealEstateController {
         List<RealEstateRent> localList = realEstateService.searchLocalList();
 
 
-
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
-
-
-
-
-
 
         model.addAttribute("localList", localList);
 
 
+        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
+        model.addAttribute("dongList", dongList);
 
-
+        System.out.println(dongList);
         model.addAttribute("selectAllList", resp.getRealEstateRentList());
         model.addAttribute("pi", resp.getPageInfoCombine());
         return "realestate/realestateList";

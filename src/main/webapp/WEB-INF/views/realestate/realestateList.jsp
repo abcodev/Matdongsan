@@ -24,7 +24,7 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1" onchange="get_option()">
+                    <select name="selectOption1" id="selectOption1" >
                         <option value="option1">자치구 선택</option>
                         <c:forEach var="localList" items="${localList}">
                             <option value="${localList.sggNm}">${localList.sggNm}</option>
@@ -61,6 +61,7 @@
 
             <form id="form" method="get" action="<c:url value="/realEstate/list"/>">
                 <input type="hidden" id="state" name="state">
+                <input type="hidden" id="dong" name="dong">
             </form>
             <script>
                 function detailSearch() {
@@ -68,6 +69,10 @@
 
                     $('#state').val($('#selectOption1 option:checked').text())
                     console.log($('#state').val())
+
+                    $('#dong').val($('#selectOption2 option:checked').text())
+                    console.log($('#dong').val())
+
                     $('form').submit()
                 }
             </script>
@@ -84,7 +89,9 @@
     </div>
     <div id="content_right">
         <div id="search_map">
+            <c:forEach var="r" items="${list}">
 
+            </c:forEach>
         </div>
         <div id="search_list">
             <table class="table">
@@ -135,55 +142,31 @@
             </ul>
 
 
-
-<%--            <c:set var="url" value="?currentPage="/>--%>
-<%--            <ul class="pagination">--%>
-<%--                <c:choose>--%>
-<%--                <c:when test="${pi.currentPage eq 1 }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage-1 }${selectAllList}">Previous</a></li>--%>
-<%--                </c:otherwise>--%>
-<%--                </c:choose>--%>
-
-<%--                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--                <li class="page-item"><a class="page-link" href="${url}${item }${selectAllList}">${item }</a></li>--%>
-<%--                </c:forEach>--%>
-
-<%--                <c:choose>--%>
-<%--                <c:when test="${pi.currentPage eq pi.maxPage }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage+1 }${selectAllList}">Next</a></li>--%>
-<%--                </c:otherwise>--%>
-<%--                </c:choose>--%>
         </div>
     </div>
 </div>
 
 <%--검색 동 변경--%>
 <script>
-    function get_option2(option1, selectOption) {
-        console.log(option1)
-        console.log(selectOption)
-        $.ajax({
-            type: 'GET',
-            url: '${pageContext.request.contextPath}/realEstate/list',
-            contentType: "application/json; charset=UTF-8",
-            data: {
-                'selectOption1' : option1
-            },
-            dataType: 'json',
-            success: function (result) {
-                console.log(result)
+    <%--function get_option2(option1, selectOption) {--%>
+    <%--    console.log(option1)--%>
+    <%--    console.log(selectOption)--%>
+    <%--    $.ajax({--%>
+    <%--        type: 'GET',--%>
+    <%--        url: '${pageContext.request.contextPath}/realEstate/list',--%>
+    <%--        contentType: "application/json; charset=UTF-8",--%>
+    <%--        data: {--%>
+    <%--            'selectOption1' : option1--%>
+    <%--        },--%>
+    <%--        dataType: 'json',--%>
+    <%--        success: function (result) {--%>
+    <%--            alert(result);--%>
 
-            }
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        })
-    }
+    <%--        }--%>
+    <%--    }).fail(function (error) {--%>
+    <%--        alert(JSON.stringify(error));--%>
+    <%--    })--%>
+    <%--}--%>
 </script>
 
 <script>
@@ -223,62 +206,101 @@
 <%--지도 관련 스크립트--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
 <script>
-    const container = document.getElementById('search_map'); //지도를 담을 영역의 DOM 레퍼런스
-    let options = { //지도를 생성할 때 필요한 기본 옵션
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), //지도의 중심좌표.
-        level: 3 //지도의 레벨(확대, 축소 정도)
-    };
-    let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    // const container = document.getElementById('search_map'); //지도를 담을 영역의 DOM 레퍼런스
+    // let options = { //지도를 생성할 때 필요한 기본 옵션
+    //     center: new kakao.maps.LatLng(37.566826, 126.9786567), //지도의 중심좌표.
+    //     level: 3 //지도의 레벨(확대, 축소 정도)
+    // };
+    // let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    //
+    // // HTML5의 geolocation으로 사용할 수 있는지 확인
+    // if (navigator.geolocation) {
+    //
+    //     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    //     navigator.geolocation.getCurrentPosition(function(position) {
+    //
+    //         var lat = position.coords.latitude, // 위도
+    //             lon = position.coords.longitude; // 경도
+    //
+    //         var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+    //             message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
+    //
+    //         // 마커와 인포윈도우를 표시
+    //         displayMarker(locPosition, message);
+    //
+    //     });
+    //
+    // } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
+    //
+    //     var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
+    //         message = 'geolocation을 사용할수 없어요..'
+    //
+    //     displayMarker(locPosition, message);
+    // }
+    //
+    // // 지도에 마커와 인포윈도우를 표시하는 함수
+    // function displayMarker(locPosition, message) {
+    //
+    //     // 마커를 생성합니다
+    //     var marker = new kakao.maps.Marker({
+    //         map: map,
+    //         position: locPosition
+    //     });
+    //
+    //     var iwContent = message, // 인포윈도우에 표시할 내용
+    //         iwRemoveable = true;
+    //
+    //     // 인포윈도우를 생성합니다
+    //     var infowindow = new kakao.maps.InfoWindow({
+    //         content : iwContent,
+    //         removable : iwRemoveable
+    //     });
+    //
+    //     // 인포윈도우를 마커위에 표시
+    //     infowindow.open(map, marker);
+    //
+    //     // 지도 중심좌표를 접속위치로 변경
+    //     map.setCenter(locPosition);
+    // }
 
-    // HTML5의 geolocation으로 사용할 수 있는지 확인
-    if (navigator.geolocation) {
+    var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
 
-        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-        navigator.geolocation.getCurrentPosition(function(position) {
+    // 지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
 
-            var lat = position.coords.latitude, // 위도
-                lon = position.coords.longitude; // 경도
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
 
-            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
-                message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('서울특별시 강서구 내발산동 0749 0000', function(result, status) {
 
-            // 마커와 인포윈도우를 표시
-            displayMarker(locPosition, message);
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
 
-        });
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
 
-        var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
-            message = 'geolocation을 사용할수 없어요..'
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            });
+            infowindow.open(map, marker);
 
-        displayMarker(locPosition, message);
-    }
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        }
+    });
 
-    // 지도에 마커와 인포윈도우를 표시하는 함수
-    function displayMarker(locPosition, message) {
 
-        // 마커를 생성합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: locPosition
-        });
-
-        var iwContent = message, // 인포윈도우에 표시할 내용
-            iwRemoveable = true;
-
-        // 인포윈도우를 생성합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content : iwContent,
-            removable : iwRemoveable
-        });
-
-        // 인포윈도우를 마커위에 표시
-        infowindow.open(map, marker);
-
-        // 지도 중심좌표를 접속위치로 변경
-        map.setCenter(locPosition);
-    }
 </script>
 
 </body>

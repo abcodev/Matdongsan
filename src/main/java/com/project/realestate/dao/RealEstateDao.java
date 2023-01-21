@@ -58,8 +58,8 @@ public class RealEstateDao {
     }
 
     // 동 리스트
-    public ArrayList<String> selectOption(SqlSession sqlSession, String local){
-        return  (ArrayList) sqlSession.selectList("rentMapper.selectOption", local);
+    public ArrayList<RealEstateRent> searchDongList(SqlSession sqlSession, String state){
+        return  (ArrayList) sqlSession.selectList("rentMapper.searchDongList", state);
     }
 
     public ArrayList<String> getSellList(SqlSession sqlSession){
