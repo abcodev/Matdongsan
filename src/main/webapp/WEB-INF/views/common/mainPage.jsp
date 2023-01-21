@@ -23,7 +23,7 @@
 <header id="header">
     <div class="inner">
         <div class="logo">
-            <img src="${pageContext.request.contextPath}/resources/images/common/맛동산%20로고.png" alt="로고">
+            <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
         </div>
         <nav class="navbar">
             <div class="navbar_menu">
@@ -51,20 +51,22 @@
                 </div>
             </div>
         </nav>
-
         <div class="login">
 
             <c:choose>
                 <c:when test="${ empty loginUser}">
-                    <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+                    <div class="login_before">
+                        <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+                    </div>
                 </c:when>
                 <c:otherwise>
-                    <label>
-                        <img src="${loginUser.profileImage}" width="50px">
-                            ${loginUser.memberName} 님 환영합니다.
-                    </label> &nbsp;&nbsp;
-                    <%--                    <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>--%>
-                    <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+                    <div class="login_after">
+                        <img src="${loginUser.profileImage}" class="user_img">
+<%--                            ${loginUser.memberName} 님 환영합니다.--%>
+                        <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>
+                        <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+                        <i class="fa-regular fa-bell"></i>
+                    </div>
                 </c:otherwise>
             </c:choose>
 
@@ -237,28 +239,6 @@
 
         </div>
     </div>
-    <button id="go-top"><i class="fa-solid fa-angles-up"></i></button>
-    <div class="floating-chat">
-        <i class="fa-regular fa-comments"></i><span>1:1문의</span>
-        <div class="chat">
-            <div class="header">
-                    <span class="title">
-                        what's on your mind?
-                    </span>
-                <button>
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-            </div>
-            <ul class="messages">
-                <li class="other">메세지</li>
-                <li class="self">메세지</li>
-            </ul>
-            <div class="footer">
-                <div class="text-box" contenteditable="true" disabled="true"></div>
-                <button id="sendMessage">send</button>
-            </div>
-        </div>
-    </div>
     </div>
 
 </main>
@@ -279,25 +259,6 @@
     window.addEventListener('scroll', scrollFunc);
 
 
-    var backToTop = () => {
-        // Scroll | button show/hide
-        window.addEventListener('scroll', () => {
-            if (document.querySelector('html').scrollTop > 100) {
-                document.getElementById('go-top').style.display = "block";
-            } else {
-                document.getElementById('go-top').style.display = "none";
-            }
-        });
-        // back to top
-        document.getElementById('go-top').addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-            });
-        })
-    };
-    backToTop();
 
 
     //채팅//

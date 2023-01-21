@@ -9,13 +9,13 @@ a{
 }
 
 #header.on { position: fixed;  }
-#header.on .inner { height: 80px; transition: 0.1s;}
-#header.on .inner img { height: 75px; width: 120px; transition: 0.1s;}
-#header.on .inner .dropdown-btn{ height: 40px; font-size: 17px;}
+#header.on .inner { height: 80px; transition: 0.3s;}
+#header.on .inner img { height: 75px; width: 120px; transition: 0.3s;}
+#header.on .inner .dropdown-btn{ height: 40px; font-size: 17px; transition: 0.3s;}
 #header.on .inner .dropdown-submenu{height: 55px;}
 #header.on .inner .dropdown-submenu a {font-size: 13px;}
-#header.on .navbar {padding-top: 20px; transition: 0.1s;}
-#header.on .login {margin-top: 23px; transition: 0.1s;}
+#header.on .navbar {transition: 0.3s;}
+#header.on .login {margin-top: 23px; transition: 0.3s;}
 #header.on .login a{font-size: 12px;}
 
 
@@ -45,7 +45,7 @@ a{
 
 .navbar{
     width: 850px;
-    padding: 35px 0 0 120px;
+    padding: 0 0 0 120px;
 }
 
 .navbar a{

@@ -15,7 +15,7 @@
 <header id="header">
   <div class="inner">
     <div class="logo">
-      <img src="${pageContext.request.contextPath}/resources/images/common/맛동산%20로고.png" alt="로고">
+      <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
     </div>
     <nav class="navbar">
       <div class="navbar_menu">
