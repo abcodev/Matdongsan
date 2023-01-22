@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,23 +37,22 @@ public class ReviewController {
         reviewService.create(sampleMember, req);
     }
 
-//    @RequestMapping("selectReview")
-//    @ResponseBody
-//    public String selectReviewList(int resNo, Model model) {
-//        ArrayList<Review> list = reviewService.selectReviewList(resNo);
-//        Gson gson = new Gson();
-//        String result = gson.toJson(list);
-//        return result;
-//    }
-//    // 댓글 작성
-//    @RequestMapping("insertReview")
-//    @ResponseBody
-//    public int insertReply(Review review, HttpSession session) {
-//        String userNo = Integer.toString((int) ((Member)session.getAttribute("loginUser")).getMemberNo());
-//        review.setMemberNo(review.getMemberNo());
-//        int result = restaurantService.insertReview(review);
-//        return result;
-//    }
+
+
+
+    @RequestMapping("/restaurant/selectReview")
+    @ResponseBody
+    public String selectReviewList(String resNo, Model model) {
+        List<Review> list = reviewService.selectReviewList(resNo);
+        Gson gson = new Gson();
+        String result = gson.toJson(list);
+        return result;
+    }
+
+
+
+
+
 
 
 }

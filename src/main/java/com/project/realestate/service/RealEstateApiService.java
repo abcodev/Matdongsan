@@ -1,4 +1,4 @@
-package com.project.common.service;
+package com.project.realestate.service;
 
 public interface RealEstateApiService {
 

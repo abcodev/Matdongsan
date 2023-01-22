@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class QnaBoard {
     private int qnaBno;
-    private int memberNo;
+    private long memberNo;
     private int parentBno;
     private String qnaTitle;
     private String qnaContent;

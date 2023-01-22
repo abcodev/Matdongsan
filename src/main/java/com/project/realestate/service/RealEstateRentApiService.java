@@ -1,4 +1,4 @@
-package com.project.common.service;
+package com.project.realestate.service;
 
 import org.springframework.stereotype.Service;
 

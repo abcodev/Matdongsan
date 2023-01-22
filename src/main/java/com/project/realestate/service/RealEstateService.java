@@ -1,5 +1,6 @@
 package com.project.realestate.service;
 
+import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
@@ -25,7 +26,8 @@ public interface RealEstateService {
    // 동 리스트
    public List<RealEstateRent> searchDongList(String state);
 
-   public List<String> getSellList();
+//   public List<String> getSellList();
 
+    public List<RealEstateMainListDto> getSellList();
 
 }

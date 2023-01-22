@@ -25,14 +25,22 @@
               <property name="suffix" value=".jsp"/>
        </bean>
 
-       <!--    추가-->
+       <!-- 추가 -->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
        <mvc:interceptors>
               <mvc:interceptor>
               <mvc:mapping path="/src/**"/>
-              <bean class="com.project.common.interceptor.BoardTypeInterceptor"/>
+              <bean class="com.project.common.aop.BoardTypeInterceptor"/>
               </mvc:interceptor>
+
+              <!-- 사용자 로그인체크 & 사용자 권한 체크 -->
+<!--              		<mvc:interceptor> &lt;!&ndash; 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.&ndash;&gt;-->
+              <!--			<mvc:mapping path="/"/>-->
+              <!--			<mvc:exclude-mapping path="/"/>-->
+              <!--			<beans:bean class="com.project.common.AccessValidator"/>-->
+              <!--		</mvc:interceptor>-->
+
        </mvc:interceptors>
 
        <context:component-scan base-package="com.project">

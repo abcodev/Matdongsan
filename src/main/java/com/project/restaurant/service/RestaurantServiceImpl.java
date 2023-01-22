@@ -98,9 +98,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 
             // 3. ResImg 엔티티 생성 후 저장
             ResImg resImg = new ResImg();
-            resImg.setChangeName(fileName);
-            resImg.setOriginName(file.getOriginalFilename());
+            resImg.setMemberNo(1L);
             resImg.setResNo(resNo);
+            resImg.setOriginName(file.getOriginalFilename());
+            resImg.setChangeName(fileName);
             restaurantDao.resInsertImg(resImg);
 
             // 4. ResHashTag 엔티티 List 생성 후 저장
@@ -152,6 +153,49 @@ public class RestaurantServiceImpl implements RestaurantService {
 //                System.out.println("파일 업로드 오류");
 //            }
 //        }
+
+
+    /**
+     * 관리자 - 수정
+     */
+    @Override
+    @Transactional
+    public void restaurantModify(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId) {
+
+        try {
+            // 1. 이미지 파일 저장
+            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+            String fileName = Utils.saveFile(savePath, file);
+
+            // 2. Restaurant 엔티티 생성 후 저장
+            restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
+            String resNo = restaurantDao.resModify(restaurant);
+
+            // 3. ResImg 엔티티 생성 후 저장
+            ResImg resImg = new ResImg();
+            resImg.setMemberNo(1L);
+            resImg.setResNo(resNo);
+            resImg.setOriginName(file.getOriginalFilename());
+            resImg.setChangeName(fileName);
+            restaurantDao.resModifyImg(resImg);
+
+            // 4. ResHashTag 엔티티 List 생성 후 저장
+            hashTagId.forEach(tagId -> {
+                ResHashtag resHashtag = new ResHashtag();
+                resHashtag.setHashtagId(tagId);
+                resHashtag.setResNo(resNo);
+                resHashtag.setMemberNo(1L);
+                restaurantDao.resHashtagModify(resHashtag);
+            });
+        } catch (IllegalStateException e) {
+            System.out.println("파일 업로드 오류");
+        }
+    }
+
+
+
+
+
 
 
 

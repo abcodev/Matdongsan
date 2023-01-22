@@ -21,6 +21,15 @@
 </head>
 <div id="content">
     <div class="detail head">
+
+        <div>
+<%--            관리자--%>
+            <button onclick="location.href='restaurantModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
+            <button>삭제하기</button>
+        </div>
+
+
+
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
@@ -85,6 +94,9 @@
         <div class="review content"></div>
         <div class="review tag"></div>
     </div>
+
+
+
 </div>
 
 <!-- 리뷰 모달 -->
@@ -97,6 +109,7 @@
         </div>
         <div id="content_body">
             <span>별점</span>
+<%--            별점이 무조건 5개로 넘어오는 상태--%>
             <div id="review_star">
                 <input type="radio" name="reviewStar" value="5" id="rate1"><label
                     for="rate1">★</label>
@@ -130,12 +143,13 @@
             <div id="review_text">
                 <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
             </div>
+
+
+
             <div class="review_img">
+                <input class="form-control form-control-sm" id="formFileSm" type="file">
                 <input class="form-control form-control-sm" id="formFileSm1" type="file">
-
-
                 <input class="form-control form-control-sm" id="formFileSm2" type="file">
-                <input class="form-control form-control-sm" id="formFileSm3" type="file">
             </div>
 
             <button class="" onclick="insertReply()">등록하기</button>
@@ -166,7 +180,6 @@
         selectReviewList();
     };
 
-
 </script>
 <script>
     function selectReviewList() {
@@ -181,7 +194,7 @@
                     str += "<tr>"
                         + "<td>" + i.reviewWriter + "</td>"
                         + "<td>" + i.reviewContent + "</td>"
-                        + "<td>" + i.revImg + "</td>"
+                        <%--+ "<td>" + <img src="<c:url value="/i.revImg"/>"/> + "</td>" //3장까지 보여줘야함--%>
                         + "</tr>";
                 }
                 $("#replyArea tbody").html(str);
@@ -195,7 +208,7 @@
 
 
     function insertReply() {
-        // TODO : 다시다시
+        // TODO : 사진 3장 어떻게 넘기지,,,,,,,
         const score = 5;
 
         const hashtags = [];
@@ -203,7 +216,8 @@
             hashtags.push(this.value);
         });
         const contents = $('#reviewContent').val()
-        const files = $('#formFileSm1')[0].files
+        const files = $('#formFileSm')[0].files
+
 
         const formData = new FormData();
         formData.set("resNo", ${restaurantDetail.resNo});
@@ -228,6 +242,7 @@
             },
             error: function () {
                 console.log("ajax통신 실패");
+                // alert("리뷰 등록에 실패했습니다.");
             }
         });
     }

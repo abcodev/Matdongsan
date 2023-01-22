@@ -109,7 +109,7 @@ public class RestaurantController {
 
 
     /**
-     * 관리자 - 맛집등록
+     * 관리자 - 등록
      */
     @RequestMapping("/admin/resEnroll")
     public ModelAndView restaurantEnroll() {
@@ -134,5 +134,33 @@ public class RestaurantController {
                 "You successfully uploaded " + restaurant.getResName() + "!");
         return "redirect:/";
     }
+
+    /**
+     * 관리자 - 수정
+     */
+    @RequestMapping("/admin/resModify")
+    public ModelAndView restaurantModify() {
+        List<Hashtag> hashtagList = restaurantService.selectHashtagList();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.setViewName("admin/restaurantModify");
+        return modelAndView;
+    }
+
+//    @PostMapping("/admin/resInsert")
+//    public String restaurantInsert(@RequestParam("file") MultipartFile file,
+//                                   Restaurant restaurant,
+//                                   HttpSession session,
+//                                   @RequestParam("hashtagId") List<String> hashtagId,
+//                                   RedirectAttributes redirectAttributes,
+//                                   HttpServletRequest req) {
+////        System.out.println("해쉬태그"+hashtagId.get(0)+"/" + hashtagId.get(1));
+//        List arr = Arrays.asList(req.getParameterValues("hashtagId"));
+//        restaurantService.restaurantInsert(file, restaurant, session, hashtagId);
+//        redirectAttributes.addFlashAttribute("message",
+//                "You successfully uploaded " + restaurant.getResName() + "!");
+//        return "redirect:/";
+//    }
+
 
 }

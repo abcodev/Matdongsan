@@ -2,6 +2,7 @@ package com.project.realestate.service;
 
 import com.project.common.template.PageInfo;
 import com.project.common.template.PageInfoCombine;
+import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
@@ -96,8 +97,13 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.searchDongList(sqlSession, state);
     }
 
+//    @Override
+//    public List<String> getSellList(){ return realEstateDao.getSellList(sqlSession);}
+
     @Override
-    public List<String> getSellList(){ return realEstateDao.getSellList(sqlSession);}
+    public List<RealEstateMainListDto> getSellList() {
+        return realEstateDao.getSellList(sqlSession);
+    }
 
 
 }

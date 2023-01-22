@@ -29,6 +29,33 @@ public class RealEstateController {
     }
 
 
+//    @RequestMapping("/list")
+//    public String realEstatePage(
+//            Model model,
+//            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+//            @RequestParam(value = "state", defaultValue = "") String state,
+//            @RequestParam(value = "dong", defaultValue = "") String dong
+//    ) throws Exception {
+//        System.out.println("검색!!!! " + state);
+//        List<RealEstateRent> localList = realEstateService.searchLocalList();
+//
+//
+//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
+//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
+//
+//        model.addAttribute("localList", localList);
+//
+//
+//        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
+//        model.addAttribute("dongList", dongList);
+//
+//        System.out.println(state + "동이름 : " + dongList);
+//
+//        model.addAttribute("selectAllList", resp.getRealEstateRentList());
+//        model.addAttribute("pi", resp.getPageInfoCombine());
+//        return "realestate/realestateList";
+//    }
+
     @RequestMapping("/list")
     public String realEstatePage(
             Model model,
@@ -37,19 +64,15 @@ public class RealEstateController {
             @RequestParam(value = "dong", defaultValue = "") String dong
     ) throws Exception {
         System.out.println("검색!!!! " + state);
-        List<RealEstateRent> localList = realEstateService.searchLocalList();
 
+        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
+        List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
         model.addAttribute("localList", localList);
-
-
-        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
         model.addAttribute("dongList", dongList);
-
-        System.out.println(state + "동이름 : " + dongList);
 
         model.addAttribute("selectAllList", resp.getRealEstateRentList());
         model.addAttribute("pi", resp.getPageInfoCombine());

@@ -13,11 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 public class ResImg {
 
-    private String imgNo;
-    private String reviewNo;
-    private String memberNo;
+    private int imgNo;
+    private int reviewNo;
+    private long memberNo;
     private String resNo;
-    private String imageLevel;
+    private int imageLevel;
     private String originName;
     private String changeName;
 

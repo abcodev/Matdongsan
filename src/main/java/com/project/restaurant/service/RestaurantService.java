@@ -29,6 +29,8 @@ public interface RestaurantService {
 
     List<String> resHashtagByAdmin(String resNo);
 
+    void restaurantModify(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId);
+
 
 
 

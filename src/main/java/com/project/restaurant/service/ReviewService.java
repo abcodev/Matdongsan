@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletContext;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,11 +52,32 @@ public class ReviewService {
                     .resNo(req.getResNo())
                     .changeName(savedFileName)
                     .originName(file.getOriginalFilename())
-                    .reviewNo(String.valueOf(revNo))
-                    .memberNo(String.valueOf(member.getMemberNo()))
+                    .reviewNo(revNo)
+                    .memberNo(member.getMemberNo())
                     .build();
             restaurantDao.resInsertImg(resImg);
         });
     }
+
+
+
+
+
+    public List<Review> selectReviewList(String resNo) {
+        return reviewDao.selectReviewList(resNo);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 

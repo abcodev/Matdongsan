@@ -100,8 +100,8 @@
 
 
     <insert id="resInsertImg" parameterType="resImg">
-        INSERT INTO RES_IMG(IMG_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
-        VALUES(SEQ_IMG_NO.NEXTVAL,#{resNo},#{originName},#{changeName})
+        INSERT INTO RES_IMG(IMG_NO, MEMBER_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
+        VALUES(SEQ_IMG_NO.NEXTVAL,#{memberNo}, #{resNo},#{originName},#{changeName})
     </insert>
 
 
@@ -145,14 +145,32 @@
         SELECT SEQ_IMG_NO.NEXTVAL AS IMG_NO , R.* FROM
         (
         <foreach collection="list" item="img" separator="UNION ALL">
-            SELECT #{img.originName} as ORIGIN_NAME,
-            #{img.changeName} as CHANGE_NAME,
-            #{img.revNo} as REV_NO,
-            #{img.imgLevel} as IMG_LEVEL
+            SELECT
+                #{img.originName} as ORIGIN_NAME,
+                #{img.changeName} as CHANGE_NAME,
+                #{img.revNo} as REV_NO,
+                #{img.imgLevel} as IMG_LEVEL
             FROM DUAL
         </foreach>
         ) R
     </insert>
+
+
+
+<!--    <select id="selectReviewList" parameterType="string" resultMap="reviewResultSet">-->
+<!--        SELECT-->
+<!--            REV_NO, R.MEMBER_NO, RES_NO, STAR_RATING, REVIEW_CONTENT, R.CREATE_DATE, R.STATUS,-->
+<!--            M.MEMBER_NAME-->
+<!--        FROM REVIEW R-->
+<!--                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO-->
+<!--        WHERE RES_NO = #{resNo}-->
+<!--          AND R.STATUS = 'Y'-->
+<!--    </select>-->
+
+
+
+
+
 
 
 
