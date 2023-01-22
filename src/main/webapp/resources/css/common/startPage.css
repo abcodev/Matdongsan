@@ -45,8 +45,8 @@
 
 #content p {
     margin: 0 0 1.313em;
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 25px;
+    font-weight: 400;
 }
 
 #content #startPage {
@@ -55,10 +55,12 @@
     color: #f2f2f2;
     border: 1px solid #989de1;
     border-color: #989de1;
+    border-radius: 2px;
     background-color: #989de1;
     display: inline-block;
-    padding: 19px;
+    padding: 15px 12px 15px 12px;
     font-size: 19px;
+    margin-right: 15px;
 }
 
 #content #startPage:hover {

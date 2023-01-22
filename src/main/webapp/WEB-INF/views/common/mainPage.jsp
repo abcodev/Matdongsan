@@ -61,10 +61,21 @@
                 </c:when>
                 <c:otherwise>
                     <div class="login_after">
-                        <img src="${loginUser.profileImage}" class="user_img">
-<%--                            ${loginUser.memberName} 님 환영합니다.--%>
-                        <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>
-                        <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+                        <table>
+                            <tr>
+                                <td rowspan="2">
+                                    <img src="${loginUser.profileImage}" class="user_img">
+                                </td>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                                </td>
+                            </tr>
+                        </table>
                         <i class="fa-regular fa-bell"></i>
                     </div>
                 </c:otherwise>
@@ -78,7 +89,7 @@
 
 <main>
     <div class="map">
-        <div class="mapImg">
+        <div class="map_img">
             <div id="map"></div>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
             <script>
