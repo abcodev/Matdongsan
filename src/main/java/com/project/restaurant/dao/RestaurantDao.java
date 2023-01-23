@@ -84,7 +84,7 @@ public class RestaurantDao {
     }
 
     /**
-     * 관리자 - 등록
+     * 관리자 - 맛집 등록
      */
 
     public String resInsert(Restaurant restaurant) {
@@ -102,7 +102,7 @@ public class RestaurantDao {
 
 
     /**
-     * 관리자 - 수정
+     * 관리자 - 맛집 수정
      */
 
     public String resModify(Restaurant restaurant) {
@@ -110,11 +110,14 @@ public class RestaurantDao {
         return restaurant.getResNo();
     }
 
-    public int resModifyImg(ResImg resImg) {
-        return sqlSession.update("resMapper.resModifyImg", resImg);
-    }
-
     public void resHashtagModify(ResHashtag resHashtag) {
         sqlSession.update("hashtagMapper.resHashtagUpdate",resHashtag);
+    }
+
+    /**
+     * 관리자 - 맛집 삭제
+     */
+    public int deleteRes(String resNo) {
+        return sqlSession.delete("resMapper.deleteRes", resNo);
     }
 }

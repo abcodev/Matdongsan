@@ -24,8 +24,8 @@
 
         <div>
 <%--            관리자--%>
-            <button onclick="location.href='restaurantModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-            <button>삭제하기</button>
+            <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
+            <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
         </div>
 
 
@@ -208,7 +208,7 @@
 
 
     function insertReply() {
-        // TODO : 사진 3장 어떻게 넘기지,,,,,,,
+        // TODO : 사진 3장 어떻게 넘기지
         const score = 5;
 
         const hashtags = [];
