@@ -167,10 +167,10 @@
             },
             dataType: 'json',
             success: function (result) {
-                $("#selectOption2").remove();
+                $("#selectOption2 option").remove();
                 $("#selectOption2").append("<option value='total'>전체</option>");
 
-                alert(result);
+                alert(JSON.stringify(result));
             }
         }).fail(function (error) {
             console.log(error);

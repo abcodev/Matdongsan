@@ -71,26 +71,12 @@ public class RealEstateController {
 
         model.addAttribute("localList", localList);
         model.addAttribute("dongList", dongList);
+        System.out.println("동 : " + dongList.toString());
 
         model.addAttribute("selectAllList", resp.getRealEstateRentList());
         model.addAttribute("pi", resp.getPageInfoCombine());
         return "realestate/realestateList";
     }
-
-
-    @RequestMapping("/list/state")
-    @ResponseBody
-    public String realEstateDong(
-            Model model,
-            @RequestBody String state
-    ) throws Exception {
-        System.out.println("검색!!!! " + state);
-
-        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
-
-        return dongList.toString();
-    }
-
 
 
 
