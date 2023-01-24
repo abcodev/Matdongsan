@@ -39,6 +39,7 @@
         <h3>주요 메뉴</h3>
         <input type="text" name="resFood">
     </div>
+        <h3>지역</h3>
         <input type="text" name="state">
     </div>
     <div class="place hashtag">

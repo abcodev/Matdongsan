@@ -77,8 +77,6 @@ public class RestaurantDao {
 
 
 
-
-    // 이거 안쓰지?
     public void hasTagInsert(String h) {
         sqlSession.insert("resMapper.hashTagInsert",h);
     }
@@ -111,7 +109,7 @@ public class RestaurantDao {
     }
 
     public void resHashtagModify(ResHashtag resHashtag) {
-        sqlSession.update("hashtagMapper.resHashtagUpdate",resHashtag);
+        sqlSession.update("resHashtagMapper.resHashtagUpdate",resHashtag);
     }
 
     /**
@@ -119,5 +117,13 @@ public class RestaurantDao {
      */
     public int deleteRes(String resNo) {
         return sqlSession.delete("resMapper.deleteRes", resNo);
+    }
+
+    public int deleteResImg(String resNo) {
+        return sqlSession.delete("resMapper.deleteResImg", resNo);
+    }
+
+    public int deleteResHash(String resNo) {
+        return sqlSession.delete("resHashtagMapper.deleteResHash",resNo);
     }
 }

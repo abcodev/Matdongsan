@@ -160,7 +160,6 @@ public class RestaurantServiceImpl implements RestaurantService {
      * 관리자 - 수정
      */
     @Override
-    @Transactional
     public void restaurantModify(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId) {
 
         try {
@@ -199,8 +198,10 @@ public class RestaurantServiceImpl implements RestaurantService {
      */
     @Override
     @Transactional
-    public int deleteRes(String resNo) {
-        return restaurantDao.deleteRes(resNo);
+    public void deleteRes(String resNo) {
+        restaurantDao.deleteResHash(resNo);
+        restaurantDao.deleteResImg(resNo);
+        restaurantDao.deleteRes(resNo);
     }
 
 

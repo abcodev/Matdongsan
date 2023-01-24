@@ -163,7 +163,7 @@ public class RestaurantController {
     }
 
 
-    @PostMapping("/admin/resModify")
+    @PostMapping("/admin/resUpdate")
     public String restaurantModify(
             @RequestParam("file") MultipartFile file,
             Restaurant restaurant, HttpSession session,
@@ -172,31 +172,25 @@ public class RestaurantController {
             HttpServletRequest req
     ) {
         List arr = Arrays.asList(req.getParameterValues("hashtagId"));
-
         restaurantService.restaurantModify(file, restaurant, session, hashtagId);
-        redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + restaurant.getResName() + "!");
+//        redirectAttributes.addFlashAttribute("alertMsg", "You successfully uploaded " + restaurant.getResName() + "!");
 
-        return "restaurant/restaurantList"; // 해당하는 resNo url로 보내야함
+        return "redirect:/selectResList"; // 성공하면 해당하는 resNo url로 보내야함
     }
 
     /**
      * 관리자 - 맛집 삭제
      */
     @RequestMapping("/admin/resDelete")
-    public ModelAndView restaurantDelete(@RequestParam("resNo") String resNo,
-                                   ModelAndView modelAndView) {
-
-        int result = restaurantService.deleteRes(resNo);
-		if(result>0) {
-			modelAndView.addObject("alertMsg","성공적으로 삭제되었습니다.");
-			modelAndView.setViewName("restaurant/restaurantList");
-            return modelAndView;
-		}else {
-            modelAndView.addObject("errorMsg", "삭제 실패");
-            modelAndView.setViewName("restaurant/restaurantList");
-            return modelAndView;
-		}
+    public ModelAndView restaurantDelete(
+            @RequestParam("resNo") String resNo,
+            ModelAndView modelAndView
+    ) {
+        restaurantService.deleteRes(resNo);
+        modelAndView.setViewName("redirect:/selectResList");
+        return modelAndView;
     }
-
-
 }
+
+
+

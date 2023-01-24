@@ -27,4 +27,18 @@
             INNER JOIN HASHTAG H ON R.HASHTAG_ID = H.HASHTAG_ID
         WHERE R.RES_NO = #{resNo}
     </select>
+
+    <update id="resHashtagUpdate" parameterType="resHashtag">
+        UPDATE RES_HASHTAG
+        SET HASHTAG_ID = #{hashtagId}
+        WHERE RES_NO = #{resNo}
+    </update>
+
+    <!-- 관리자 - 맛집 삭제 -->
+    <delete id="deleteResHash" parameterType="string">
+        DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo}
+    </delete>
+
+
+
 </mapper>

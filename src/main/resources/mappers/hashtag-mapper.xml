@@ -44,4 +44,6 @@
         INSERT INTO RES_HASHTAG(RES_NO, HASHTAG_ID, MEMBER_NO)
         VALUES (#{resNo},#{hashtagId},#{memberNo})
     </insert>
+
+
 </mapper>

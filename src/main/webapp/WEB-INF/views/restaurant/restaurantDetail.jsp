@@ -24,16 +24,24 @@
 
         <div>
 <%--            관리자--%>
-            <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-            <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+<%--            <c:if test="${loginUser.memberGrade }">--%>
+                <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
+                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+<%--            </c:if>--%>
         </div>
 
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
         <div class="head star">
-            <i class="fa-solid fa-star"></i>
-            <span id="star_rating"></span><span>/5</span>
+<%--            <c:if test="${!empty starRating }">--%>
+                <i class="fa-solid fa-star"></i>
+                <span id="star_rating"></span><span>/5</span>
+<%--            </c:if>--%>
+
+
+
+
         </div>
         <div class="head tag">
 
@@ -107,9 +115,6 @@
 
 
 
-
-
-
     </div>
 
 
@@ -150,8 +155,6 @@
             <div id="review_text">
                 <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
             </div>
-
-
 
             <div class="review_img">
                 <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
@@ -215,19 +218,19 @@
                 let str = "";
                 for (let i of list) {
                     str += "<tr>"
-                        + "<td>" + i.memberNo + "</td>"
+                        + "<td>" + i.memberName + "</td>"
                         + "<td>" + i.reviewContent + "</td>"
-                        <%--+ "<td>" + <img src="<c:url value="/i.revImg"/>"/> + "</td>" //3장까지 보여줘야함--%>
-                        + "<td>" + i.Hashtag + "</td>"
+                        + "<td>" + i.Hashtag + "</td>" // 해시태그 자체는 넘어오는데 undefined 로 보여짐
+                        + "<td>" + i.starRating + "</td>"
+                        <%--+ "<td>" + <img src="${pageContext.request.contextPath}/resources/images/restaurant/" i.changeName /> + "</td>"--%>
+                        <%--+ "<td>" + <img src="<c:url value="/resources/images/restaurant/i.changeName"/>"/> + "</td>" // changeName으로 넘겨받아야 하는데 3장을 어떻게 처리하지--%>
                         + "</tr>";
                 }
                 $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
 
-                // TODO : 반올림 처리 필요
-                // Math.round()
-                const star_rating = list.map(obj => obj['starRating'])
-                    .reduce((accumulator, current) => accumulator + current, 0) / list.length
+                const star_rating = Math.round(list.map(obj => obj['starRating'])
+                    .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) /10
                 $('#star_rating').html(star_rating)
             },
             error: function () {

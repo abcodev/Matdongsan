@@ -30,18 +30,21 @@
 
        <mvc:interceptors>
               <mvc:interceptor>
-              <mvc:mapping path="/src/**"/>
-              <bean class="com.project.common.aop.BoardTypeInterceptor"/>
+                     <mvc:mapping path="/src/**"/>
+                     <bean class="com.project.common.aop.BoardTypeInterceptor"/>
               </mvc:interceptor>
 
-              <!-- 사용자 로그인체크 & 사용자 권한 체크 -->
-<!--              		<mvc:interceptor> &lt;!&ndash; 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.&ndash;&gt;-->
-              <!--			<mvc:mapping path="/"/>-->
-              <!--			<mvc:exclude-mapping path="/"/>-->
-              <!--			<beans:bean class="com.project.common.AccessValidator"/>-->
-              <!--		</mvc:interceptor>-->
+<!--&lt;!&ndash;               사용자 로그인체크 & 사용자 권한 체크 &ndash;&gt;-->
+<!--             <mvc:interceptor> &lt;!&ndash; 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.&ndash;&gt;-->
+<!--                 <mvc:mapping path="/admin/**"/>-->
+<!--&lt;!&ndash;                 <mvc:exclude-mapping path="/"/>&ndash;&gt;-->
+<!--                 <beans:bean class="com.project.common.aop.AccessInterceptor"/>-->
+<!--             </mvc:interceptor>-->
 
        </mvc:interceptors>
+
+
+
 
        <context:component-scan base-package="com.project">
               <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>

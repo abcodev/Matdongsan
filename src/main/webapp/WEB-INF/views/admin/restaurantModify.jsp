@@ -22,11 +22,12 @@
 
 <jsp:include page="../common/header.jsp" />
 
-<form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
     <div id="content">
         <div class="res name">
             <h3>맛집이름</h3>
             <input type="text" name="resName" value="${restaurantDetail.resName}">
+            <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
         </div>
         <div>
             <h3>지역</h3>

@@ -38,6 +38,7 @@
         <result column="MEMBER_NAME" property="memberName"/>
 
         <result column="HASHTAG" property="hashtag"/>
+        <result column="CHANGE_NAME" property="changeName"/>
     </resultMap>
 
 
@@ -203,6 +204,10 @@
 
     <delete id="deleteRes" parameterType="string">
         DELETE FROM RESTAURANT WHERE RES_NO = #{resNo}
+    </delete>
+
+    <delete id="deleteResImg" parameterType="string">
+        DELETE FROM RES_IMG WHERE RES_NO = #{resNo}
     </delete>
 
 
