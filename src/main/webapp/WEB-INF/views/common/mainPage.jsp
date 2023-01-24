@@ -85,9 +85,6 @@
 
     </div>
 </header>
-
-
-<main>
     <div class="map">
         <div class="map_img">
             <div id="map"></div>
@@ -251,9 +248,6 @@
         </div>
     </div>
     </div>
-
-</main>
-
 </body>
 
 

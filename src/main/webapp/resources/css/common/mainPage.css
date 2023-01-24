@@ -9,15 +9,9 @@ a{
     text-decoration: none;
 }
 
-main{
-    padding-top: 110px;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
 
 #header.on { position: fixed;  }
-#header.on .inner { height: 80px; transition: 0.3s;}
+#header.on .inner { height: 80px; transition: 0.3s; width: 100%}
 #header.on .inner .logo > img { height: 75px; width: 120px; transition: 0.3s;}
 #header.on .inner .dropdown-btn{ height: 40px; font-size: 17px;}
 #header.on .inner .dropdown-submenu{height: 55px;}
@@ -158,9 +152,11 @@ main{
 }
 
 .map{
-    position: relative;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin-top: 100px;
 }
-
 
 .news{
     position: absolute;
@@ -173,6 +169,7 @@ main{
     border-radius: 5px;
     text-align: center;
     padding-top: 20px;
+    z-index: 100;
 }
 
 .lookList{
@@ -186,6 +183,7 @@ main{
     border-radius: 5px;
     text-align: center;
     padding-top: 20px;
+    z-index: 100;
 }
 
 .side{
