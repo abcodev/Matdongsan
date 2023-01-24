@@ -20,7 +20,7 @@
         <result column="BUILD_YEAR" property="buildYear" />
         <result column="HOUSE_TYPE" property="houseType" />
 
-        <result column="address" property="address" />
+        <result column="ADDRESS" property="address" />
     </resultMap>
 
     <delete id="deleteAll">
@@ -56,7 +56,7 @@
 
     <select id="getSellList" resultMap="realEstateSellResultSet">
     SELECT
-        SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as address,
+        SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
         OBJ_AMT,
         BLDG_NM
         FROM REALESTATE_SELL
