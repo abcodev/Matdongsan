@@ -118,6 +118,7 @@
             R.CREATE_DATE,
             R.STATUS,
             M.MEMBER_NAME,
+            M.PROFILE_IMAGE,
             H.HASHTAG,
             I.CHANGE_NAME
         FROM REVIEW R

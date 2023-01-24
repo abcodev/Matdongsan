@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +28,13 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @RequestMapping(value = "/restaurant/insertReview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void insertReview(@ModelAttribute InsertReviewRequest req) {
-        Member sampleMember = Member.builder().memberNo(1).build();
-        reviewService.create(sampleMember, req);
+    public void insertReview(
+            @ModelAttribute InsertReviewRequest req,
+            HttpSession session
+    ) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        Member reviewMember = Member.builder().memberNo(loginUser.getMemberNo()).build();
+        reviewService.create(reviewMember, req);
     }
 
     @RequestMapping("/restaurant/selectReview")
@@ -38,7 +43,6 @@ public class ReviewController {
         List<ReviewAndMemberDto> list = reviewService.selectReviewList(resNo);
         return ResponseEntity.ok(list);
     }
-
 
 
 

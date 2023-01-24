@@ -129,7 +129,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 //            try {
 //                file.transferTo(new File( savePath+ changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
 //
-//
 //                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + changeName);
 //                String resNo = restaurantDao.resInsert(restaurant);
 //
@@ -137,7 +136,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 //                resImg.setChangeName(changeName);
 //                resImg.setOriginName(file.getOriginalFilename());
 //                resImg.setResNo(resNo);
-//
 //
 //                for(int i = 0; i<hashTagId.size();i++){
 //                    ResHashtag resHashtag = new ResHashtag();
@@ -148,7 +146,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 //                }
 //
 //                restaurantDao.resInsertImg(resImg);
-//
 //
 //            } catch (IllegalStateException | IOException e) {
 //                System.out.println("파일 업로드 오류");

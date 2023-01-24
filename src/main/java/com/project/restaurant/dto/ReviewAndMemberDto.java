@@ -18,6 +18,7 @@ public class ReviewAndMemberDto {
     private String memberName;
 
 
+    private String profileImage;
     private String hashtag;
     private String changeName;
 
