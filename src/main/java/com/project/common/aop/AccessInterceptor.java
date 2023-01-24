@@ -9,6 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+// AOP -> Interceptor + Annotation
+    // To-Be : RequestUrl 을 기준으로 확인한다.
+    // As-Is : Annotation 이 붙은 Controller Handler 를 기준으로 확인한다.
+            // @OnlyAdmin 어노테이션이 붙은 애들에 대해서만 권한체크
+// AOP -> Aspect + Annotation
+// 요청 -> Interceptor, Filter
+
+// 몽키패치(수정할 수 없는 클래스를 수정하거나 확장하고싶을때?)
+// Transactional -> Proxy Pattern
 public class AccessInterceptor extends HandlerInterceptorAdapter {
 
 //    @Override

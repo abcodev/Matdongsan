@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: apple
@@ -5,6 +6,7 @@
   Time: 5:37 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -24,26 +26,27 @@
     <div id="content">
         <div class="res name">
             <h3>맛집이름</h3>
-            <input type="text" name="resName">
+            <input type="text" name="resName" value="${restaurantDetail.resName}">
         </div>
         <div>
             <h3>지역</h3>
-            <input type="text" name="state">
+            <input type="text" name="state" value="${restaurantDetail.state}">
         </div>
         <div class="res address">
             <h3>주소</h3>
-            <input type="text" name="address">
+            <input type="text" name="address" value="${restaurantDetail.address}">
         </div>
         <div class="res phone">
             <h3>전화번호</h3>
-            <input type="text" name="resPhone">
+            <input type="text" name="resPhone" value="${restaurantDetail.resPhone}">
         </div>
         <div class="res menu">
             <h3>주요 메뉴</h3>
-            <input type="text" name="resFood">
+            <input type="text" name="resFood" value="${restaurantDetail.resFood}">
         </div>
 
     </div>
+
     <div class="place hashtag">
         <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
             <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
@@ -51,40 +54,53 @@
         </c:forEach>
     </div>
 
+
     <div class="res img">
+        <div>
+            <img src="${restaurantDetail.resImgUrl}">
+        </div>
+
         <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
         <img id="preview" />
 
-        <script>
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.getElementById('preview').src = e.target.result;
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                } else {
-                    document.getElementById('preview').src = "";
-                }
-            }
-        </script>
     </div>
+
+
+
 
     <div class="btn_box">
         <button>취소</button>
         <button type="submit">수정</button>
     </div>
-    </div>
-    <script>
-        $('input:checkbox[name=chk_hashtag]').click(function(){
 
-            let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
-            if(cntEPT>2){
-                alert('해시태그는 최대 2개까지 선택 가능합니다.')
-                $(this).prop('checked', false);
-            }
-        });
-    </script>
 </form>
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+</script>
+
+
+<script>
+    $('input:checkbox[name=chk_hashtag]').click(function(){
+
+        let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
+        if(cntEPT>2){
+            alert('해시태그는 최대 2개까지 선택 가능합니다.')
+            $(this).prop('checked', false);
+        }
+    });
+</script>
+
+
 </body>
 </html>

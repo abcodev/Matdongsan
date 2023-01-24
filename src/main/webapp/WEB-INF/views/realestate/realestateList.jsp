@@ -424,7 +424,7 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1" onclick="getDongList(this.value)" >
+                    <select name="selectOption1" id="selectOption1" onchange="getDongList(this.value)" >
                         <option value="">선택</option>
                         <c:forEach var="localList" items="${localList}">
                             <option value="${localList.sggNm}">${localList.sggNm}</option>
@@ -546,13 +546,16 @@
 검색 동 변경
 <script>
     function getDongList(e) {
-        var state =  $("select[name='selectOption1']").val()
+        var state = $("select[name='selectOption1']").val()
+        console.log(state)
 
         $.ajax({
-            type: 'GET',
             url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
-            data: state,
+            type: 'GET',
+            data: {
+                'state': state
+            },
             dataType: 'json',
             success: function (result) {
                 $("#selectOption2").remove();
@@ -561,7 +564,8 @@
                 alert(result);
             }
         }).fail(function (error) {
-            alert("통신 실패 : " + error);
+            console.log(error);
+            alert("통신 실패");
         })
     }
 </script>

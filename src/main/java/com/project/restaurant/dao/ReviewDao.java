@@ -1,5 +1,6 @@
 package com.project.restaurant.dao;
 
+import com.project.restaurant.dto.ReviewAndMemberDto;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,7 +20,7 @@ public class ReviewDao {
         return review.getRevNo();
     }
 
-    public List<Review> selectReviewList(String resNo) {
-        return sqlSession.selectList("resMapper.selectReview", resNo);
+    public List<ReviewAndMemberDto> selectReviewList(String resNo) {
+        return sqlSession.selectList("resMapper.selectReviewList", resNo);
     }
 }

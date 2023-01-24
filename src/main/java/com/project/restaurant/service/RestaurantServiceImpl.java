@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -177,7 +178,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             resImg.setResNo(resNo);
             resImg.setOriginName(file.getOriginalFilename());
             resImg.setChangeName(fileName);
-            restaurantDao.resModifyImg(resImg);
+            restaurantDao.resInsertImg(resImg);
 
             // 4. ResHashTag 엔티티 List 생성 후 저장
             hashTagId.forEach(tagId -> {
@@ -193,8 +194,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
 
-
-
+    /**
+     * 관리자 - 맛집 삭제
+     */
+    @Override
+    @Transactional
+    public int deleteRes(String resNo) {
+        return restaurantDao.deleteRes(resNo);
+    }
 
 
 

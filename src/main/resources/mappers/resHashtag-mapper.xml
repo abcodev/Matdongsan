@@ -9,9 +9,22 @@
         <result column="REV_NO" property="revNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
+    <resultMap id="resHashtagDtoResultSet" type="com.project.restaurant.dto.ResHashtagDto">
+        <result column="RES_NO" property="resNo"/>
+        <result column="HASHTAG_ID" property="hashtagId"/>
+        <result column="REV_NO" property="revNo"/>
+        <result column="HASHTAG" property="hashtag"/>
+    </resultMap>
 
     <insert id="insert" parameterType="resHashtag">
         INSERT INTO RES_HASHTAG(RES_NO, HASHTAG_ID, REV_NO, MEMBER_NO)
         VALUES (#{resNo}, #{hashtagId}, #{revNo}, #{memberNo})
     </insert>
+
+    <select id="selectList" parameterType="String" resultMap="resHashtagDtoResultSet">
+        SELECT *
+        FROM RES_HASHTAG R
+            INNER JOIN HASHTAG H ON R.HASHTAG_ID = H.HASHTAG_ID
+        WHERE R.RES_NO = #{resNo}
+    </select>
 </mapper>

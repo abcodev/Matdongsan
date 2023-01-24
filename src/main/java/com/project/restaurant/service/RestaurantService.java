@@ -32,7 +32,6 @@ public interface RestaurantService {
     void restaurantModify(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId);
 
 
-
-
+    int deleteRes(String resNo);
 
 }

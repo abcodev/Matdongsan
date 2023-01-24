@@ -9,10 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -32,9 +29,8 @@ public class MainController {
         this.realEstateService = realEstateService;
     }
 
-
-
     @ResponseBody
+    @GetMapping("/test")
     public ModelAndView realEstateList(ModelAndView modelAndView){
 //        List<String> sellList = realEstateService.getSellList();
         List<RealEstateMainListDto> sellList = realEstateService.getSellList();
