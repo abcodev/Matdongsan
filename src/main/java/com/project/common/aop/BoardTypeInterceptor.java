@@ -1,4 +1,4 @@
-package com.project.common.interceptor;
+package com.project.common.aop;
 
 import java.util.List;
 

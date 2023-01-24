@@ -5,13 +5,13 @@ DROP TABLE "INTEREST";
 DROP TABLE "RESTAURANT";
 DROP TABLE "RES_IMG";
 DROP TABLE "REVIEW";
-DROP TABLE "REPLY";
 DROP TABLE "HASHTAG";
 DROP TABLE "RES_HASHTAG";
 DROP TABLE "CHAT_MESSAGE";
 DROP TABLE "CHAT_ROOM";
 DROP TABLE "CHAT_ROOM_JOIN";
 DROP TABLE "FREE_BOARD";
+DROP TABLE "REPLY";
 DROP TABLE "QNA_BOARD";
 DROP TABLE "HOTWEEK";
 DROP TABLE "REPORT";
@@ -136,26 +136,22 @@ COMMENT
     ON COLUMN "REALESTATE_RENT"."HOUSE_GBN_NM" IS '건물용도';
 
 
-
-
-
 -- DROP TABLE "MEMBER";
 
 CREATE TABLE "MEMBER"
 (
-    "MEMBER_NO"     NUMBER                   NOT NULL,
-    "PROVIDER"      VARCHAR(255)             NOT NULL,
-    "PROVIDER_ID"   VARCHAR(255)             NOT NULL,
-    "MEMBER_NAME"   VARCHAR(255)             NOT NULL,
-    "PROFILE_IMAGE" VARCHAR(255)             NOT NULL,
-    "EMAIL"         VARCHAR(255)             NULL,
-    "NICKNAME"      VARCHAR(255)             NULL,
-    "PHONE"         VARCHAR(255)             NULL,
-    "ADDRESS"       VARCHAR(255)             NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y' NULL,
-    "GRADE"         VARCHAR(255) DEFAULT 1   NULL,
-    "RECENT_ACCESS" VARCHAR2(255)            NULL
-
+    "MEMBER_NO"     NUMBER                         NOT NULL,
+    "PROVIDER"      VARCHAR(255)                   NOT NULL,
+    "PROVIDER_ID"   VARCHAR(255)                   NOT NULL,
+    "MEMBER_NAME"   VARCHAR(255)                   NOT NULL,
+    "PROFILE_IMAGE" VARCHAR(255)                   NOT NULL,
+    "EMAIL"         VARCHAR(255)                   NULL,
+    "NICKNAME"      VARCHAR(255)                   NULL,
+    "PHONE"         VARCHAR(255)                   NULL,
+    "ADDRESS"       VARCHAR(255)                   NULL,
+    "STATUS"        VARCHAR(255) DEFAULT 'Y'       NULL,
+    "GRADE"         VARCHAR(255) DEFAULT 'GENERAL' NULL,
+    "RECENT_ACCESS" DATE                           NULL
 );
 
 COMMENT
@@ -199,35 +195,38 @@ COMMENT
 
 CREATE TABLE "INTEREST"
 (
-    "SELL_NO"    VARCHAR(255) NOT NULL,
-    "GROUP_PORD" VARCHAR(255) NOT NULL,
-    "MEMBER_NO"  VARCHAR(255) NOT NULL
+    "MEMBER_NO" NUMBER                   NOT NULL,
+    "SELL_NO"   VARCHAR(255)             NULL,
+    "RENT_NO"   VARCHAR(255)             NULL,
+    "STATUS"    VARCHAR2(20) DEFAULT 'Y' NOT NULL
 );
 
 COMMENT
     ON COLUMN "INTEREST"."SELL_NO" IS '실거래가번호';
 
 COMMENT
-    ON COLUMN "INTEREST"."GROUP_PORD" IS '전월세가번호';
+    ON COLUMN "INTEREST"."RENT_NO" IS '전월세가번호';
 
 COMMENT
     ON COLUMN "INTEREST"."MEMBER_NO" IS '회원번호';
 
+COMMENT
+    ON COLUMN "INTEREST"."STATUS" IS '관심목록 등록여부';
 
 
 -- DROP TABLE "RESTAURANT";
 
 CREATE TABLE "RESTAURANT"
 (
-    "RES_NO"     VARCHAR(255)  NOT NULL,
-    "RES_NAME"   VARCHAR(255)  NOT NULL,
-    "STATE"      VARCHAR(255)  NOT NULL,
-    "ADDRESS"    VARCHAR(255)  NULL,
-    "RES_PHONE"  VARCHAR(255)  NULL,
-    "WEBSITE"    VARCHAR(255)  NULL,
-    "RES_TIME"   VARCHAR(255)  NULL,
-    "TRANSPORT"  VARCHAR(255)  NULL,
-    "RES_FOOD"   VARCHAR(255)  NULL,
+    "RES_NO"     VARCHAR(255)   NOT NULL,
+    "RES_NAME"   VARCHAR(255)   NOT NULL,
+    "STATE"      VARCHAR(255)   NOT NULL,
+    "ADDRESS"    VARCHAR(255)   NULL,
+    "RES_PHONE"  VARCHAR(255)   NULL,
+    "WEBSITE"    VARCHAR(255)   NULL,
+    "RES_TIME"   VARCHAR(255)   NULL,
+    "TRANSPORT"  VARCHAR(255)   NULL,
+    "RES_FOOD"   VARCHAR(255)   NULL,
     "RES_IMGURL" VARCHAR2(2056) NULL
 );
 
@@ -262,19 +261,17 @@ COMMENT
     ON COLUMN "RESTAURANT"."RES_IMGURL" IS '레스토랑이미지경로';
 
 
-
-
 -- DROP TABLE "REVIEW";
 
 CREATE TABLE "REVIEW"
 (
-    "REV_NO"         VARCHAR(255)             NOT NULL,
-    "MEMBER_NO"      VARCHAR(255)             NOT NULL,
-    "RES_NO"         VARCHAR(255)             NOT NULL,
-    "STAR_RATING"    VARCHAR(255)             NULL,
-    "REVIEW_CONTENT" VARCHAR(255)             NULL,
-    "CREATE_DATE"    VARCHAR(255)             NULL,
-    "STATUS"         VARCHAR(255) DEFAULT 'Y' NULL
+    "REV_NO"         NUMBER                  NOT NULL,
+    "MEMBER_NO"      NUMBER                  NOT NULL,
+    "RES_NO"         VARCHAR(255)            NOT NULL,
+    "STAR_RATING"    NUMBER                  NOT NULL,
+    "REVIEW_CONTENT" TIMESTAMP          NOT NULL,
+    "CREATE_DATE"    VARCHAR2(255)           NOT NULL,
+    "STATUS"         VARCHAR(20) DEFAULT 'Y' NOT NULL
 );
 
 COMMENT
@@ -296,41 +293,7 @@ COMMENT
     ON COLUMN "REVIEW"."CREATE_DATE" IS '리뷰작성일';
 
 COMMENT
-    ON COLUMN "REVIEW"."STATUS" IS '리뷰상태';
-
--- DROP TABLE "REPLY";
-
-CREATE TABLE "REPLY"
-(
-    "REPLY_NO"      VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"     VARCHAR(255)                 NOT NULL,
-    "FREE_BNO"      VARCHAR(255)                 NOT NULL,
-    "REPLY_CONTENT" VARCHAR(255)                 NULL,
-    "REF_BNO"       VARCHAR(255)                 NULL,
-    "REPLY_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
-);
-
-COMMENT
-    ON COLUMN "REPLY"."REPLY_NO" IS '댓글번호';
-
-COMMENT
-    ON COLUMN "REPLY"."MEMBER_NO" IS '회원번호';
-
-COMMENT
-    ON COLUMN "REPLY"."FREE_BNO" IS '게시글번호';
-
-COMMENT
-    ON COLUMN "REPLY"."REPLY_CONTENT" IS '댓글내용';
-
-COMMENT
-    ON COLUMN "REPLY"."REF_BNO" IS '참조번호';
-
-COMMENT
-    ON COLUMN "REPLY"."REPLY_DATE" IS '댓글작성일';
-
-COMMENT
-    ON COLUMN "REPLY"."STATUS" IS '상태값';
+    ON COLUMN "REVIEW"."STATUS" IS '리뷰노출상태';
 
 
 -- DROP TABLE "HASHTAG";
@@ -352,9 +315,9 @@ COMMENT
 
 CREATE TABLE "HOTWEEK"
 (
-    "FREE_BNO"  VARCHAR(255) NOT NULL,
-    "MEMBER_NO" VARCHAR(255) NOT NULL,
-    "DATE"      VARCHAR(255) NOT NULL
+    "FREE_BNO"  NUMBER NOT NULL,
+    "MEMBER_NO" NUMBER NOT NULL,
+    "DATE"      DATE   NOT NULL
 );
 
 COMMENT
@@ -371,13 +334,13 @@ COMMENT
 
 CREATE TABLE "CHAT_MESSAGE"
 (
-    "CM_NO"        VARCHAR(255)                 NOT NULL,
-    "CHAT_ROOM_NO" VARCHAR(255)                 NOT NULL,
-    "RECEIVER_NO"  VARCHAR(255)                 NOT NULL,
-    "SEND_NO"      VARCHAR(255)                 NOT NULL,
-    "CREATE_DATE"  VARCHAR(255) DEFAULT SYSDATE NULL,
-    "READ"         VARCHAR(255) DEFAULT 'Y'     NULL,
-    "MS_CONTENT"   VARCHAR(255)                 NULL
+    "CM_NO"        NUMBER                      NOT NULL,
+    "CHAT_ROOM_NO" NUMBER                      NOT NULL,
+    "RECEIVER_NO"  NUMBER                      NOT NULL,
+    "SEND_NO"      NUMBER                      NOT NULL,
+    "CREATE_DATE"  DATE        DEFAULT SYSDATE NOT NULL,
+    "READ"         VARCHAR(20) DEFAULT 'Y'     NULL,
+    "MS_CONTENT"   VARCHAR(255)                NULL
 );
 
 COMMENT
@@ -403,10 +366,10 @@ COMMENT
 
 CREATE TABLE "CHAT_ROOM"
 (
-    "CHAT_ROOM_NO" VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"    VARCHAR(255)                 NOT NULL,
+    "CHAT_ROOM_NO" NUMBER                       NOT NULL,
+    "MEMBER_NO"    NUMBER                       NOT NULL,
     "STATUS"       VARCHAR(255) DEFAULT 'Y'     NULL,
-    "CREATE_DATE"  VARCHAR(255) DEFAULT SYSDATE NULL
+    "CREATE_DATE"  DATE         DEFAULT SYSDATE NULL
 );
 
 COMMENT
@@ -422,13 +385,12 @@ COMMENT
     ON COLUMN "CHAT_ROOM"."CREATE_DATE" IS '생성일자';
 
 
-
 -- DROP TABLE "CHAT_ROOM_JOIN";
 
 CREATE TABLE "CHAT_ROOM_JOIN"
 (
-    "CHAT_ROOM_NO" VARCHAR(255) NOT NULL,
-    "MEMBER_NO"    VARCHAR(255) NOT NULL
+    "CHAT_ROOM_NO" NUMBER NOT NULL,
+    "MEMBER_NO"    NUMBER NOT NULL
 );
 
 COMMENT
@@ -442,20 +404,20 @@ COMMENT
 
 CREATE TABLE "RES_IMG"
 (
-    "IMG_NO"       VARCHAR(255) NOT NULL,
-    "REVIEW_NO"    VARCHAR(255) NOT NULL,
-    "MEMBER_NO"    VARCHAR(255) NOT NULL,
-    "RES_NO"       VARCHAR(255) NOT NULL,
-    "IMAGE_LEVEL" VARCHAR(255) NULL,
-    "ORIGIN_NAME"  VARCHAR(255) NULL,
-    "CHANGE_NAME"  VARCHAR(255) NULL
+    "IMG_NO"      NUMBER       NOT NULL,
+    "REV_NO"   NUMBER          NULL,
+    "MEMBER_NO"   NUMBER       NOT NULL,
+    "RES_NO"      VARCHAR(255) NOT NULL,
+    "IMAGE_LEVEL" NUMBER       NULL,
+    "ORIGIN_NAME" VARCHAR(255) NULL,
+    "CHANGE_NAME" VARCHAR(255) NULL
 );
 
 COMMENT
     ON COLUMN "RES_IMG"."IMG_NO" IS '이미지 번호';
 
 COMMENT
-    ON COLUMN "RES_IMG"."REVIEW_NO" IS '리뷰번호';
+    ON COLUMN "RES_IMG"."REV_NO" IS '리뷰번호';
 
 COMMENT
     ON COLUMN "RES_IMG"."MEMBER_NO" IS '회원번호';
@@ -479,8 +441,8 @@ CREATE TABLE "RES_HASHTAG"
 (
     "RES_NO"     VARCHAR(255) NULL,
     "HASHTAG_ID" VARCHAR(255) NULL,
-    "REV_NO"     VARCHAR(255) NULL,
-    "MEMBER_NO"  VARCHAR(255) NULL
+    "REV_NO"     NUMBER       NULL,
+    "MEMBER_NO"  NUMBER       NOT NULL
 );
 
 COMMENT
@@ -500,12 +462,12 @@ COMMENT
 
 CREATE TABLE "FREE_BOARD"
 (
-    "FREE_BNO"      VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"     VARCHAR(255)                 NOT NULL,
+    "FREE_BNO"      NUMBER                       NOT NULL,
+    "MEMBER_NO"     NUMBER                       NOT NULL,
     "BOARD_TITLE"   VARCHAR(255)                 NOT NULL,
     "BOARD_WRITER"  VARCHAR(255)                 NOT NULL,
-    "BOARD_CONTENT" VARCHAR(255)                 NULL,
-    "BOARD_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
+    "BOARD_CONTENT" VARCHAR(2056)                NULL,
+    "BOARD_DATE"    DATE         DEFAULT SYSDATE NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
@@ -535,16 +497,51 @@ COMMENT
     ON COLUMN "FREE_BOARD"."STATUS" IS '상태';
 
 
+-- DROP TABLE "REPLY";
+
+CREATE TABLE "REPLY"
+(
+    "REPLY_NO"      NUMBER                       NOT NULL,
+    "MEMBER_NO"     NUMBER                       NOT NULL,
+    "FREE_BNO"      NUMBER                       NOT NULL,
+    "REPLY_CONTENT" VARCHAR(2056)                NULL,
+    "REF_BNO"       NUMBER                       NULL,
+    "REPLY_DATE"    DATE         DEFAULT SYSDATE NULL,
+    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
+);
+
+COMMENT
+    ON COLUMN "REPLY"."REPLY_NO" IS '댓글번호';
+
+COMMENT
+    ON COLUMN "REPLY"."MEMBER_NO" IS '회원번호';
+
+COMMENT
+    ON COLUMN "REPLY"."FREE_BNO" IS '게시글번호';
+
+COMMENT
+    ON COLUMN "REPLY"."REPLY_CONTENT" IS '댓글내용';
+
+COMMENT
+    ON COLUMN "REPLY"."REF_BNO" IS '참조번호';
+
+COMMENT
+    ON COLUMN "REPLY"."REPLY_DATE" IS '댓글작성일';
+
+COMMENT
+    ON COLUMN "REPLY"."STATUS" IS '상태값';
+
+
 -- DROP TABLE "REPORT";
 
 CREATE TABLE "REPORT"
 (
-    "REPORT_NO"      VARCHAR(255) NULL,
-    "FREE_BNO"       VARCHAR(255) NULL,
-    "MEMBER_NO"      VARCHAR(255) NULL,
-    "REPORT_REASON"  VARCHAR(255) NULL,
-    "REPORT_USER"    VARCHAR(255) NULL,
-    "REPORT_CONTENT" VARCHAR(255) NULL
+    "REPORT_NO"      NUMBER        NOT NULL,
+    "FREE_BNO"       NUMBER        NOT NULL,
+    "MEMBER_NO"      NUMBER        NULL,
+    "REPORT_REASON"  VARCHAR(255)  NULL,
+    "REPORT_USER_NO" NUMBER        NULL,
+    "REPORT_CONTENT" VARCHAR(2056) NULL
 );
 
 COMMENT
@@ -560,7 +557,7 @@ COMMENT
     ON COLUMN "REPORT"."REPORT_REASON" IS '신고사유';
 
 COMMENT
-    ON COLUMN "REPORT"."REPORT_USER" IS '신고회원번호';
+    ON COLUMN "REPORT"."REPORT_USER_NO" IS '신고회원번호';
 
 COMMENT
     ON COLUMN "REPORT"."REPORT_CONTENT" IS '상세사유';
@@ -570,13 +567,13 @@ COMMENT
 
 CREATE TABLE "QNA_BOARD"
 (
-    "QNA_BNO"     VARCHAR(255)                 NOT NULL,
-    "MEMBER_NO"   VARCHAR(255)                 NOT NULL,
-    "P_BNO"       VARCHAR(255)                 NOT NULL,
+    "QNA_BNO"     NUMBER                       NOT NULL,
+    "MEMBER_NO"   NUMBER                       NOT NULL,
+    "P_BNO"       NUMBER                       NOT NULL,
     "QNA_TITLE"   VARCHAR(255)                 NOT NULL,
-    "QNA_CONTENT" VARCHAR(255)                 NOT NULL,
-    "QNA_DATE"    VARCHAR(255) DEFAULT SYSDATE NULL,
-    "COUNT"       VARCHAR(255) DEFAULT 0       NULL,
+    "QNA_CONTENT" VARCHAR(2056)                NOT NULL,
+    "QNA_DATE"    DATE         DEFAULT SYSDATE NULL,
+    "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NOT NULL,
     "BOARD_CD"    CHAR(1)      DEFAULT 'C'     NULL
@@ -614,8 +611,8 @@ COMMENT
 
 CREATE TABLE "BOARD_TYPE"
 (
-    "BOARD_CD"    VARCHAR2(20)                 NOT NULL,
-    "BOARD_NAME"  CHAR(1)                      NOT NULL
+    "BOARD_CD"   CHAR(1)      NOT NULL,
+    "BOARD_NAME" VARCHAR2(20) NOT NULL
 );
 
 COMMENT
@@ -623,10 +620,6 @@ COMMENT
 
 COMMENT
     ON COLUMN "BOARD_TYPE"."BOARD_NAME" IS '게시판 이름';
-
-
-
-
 
 
 

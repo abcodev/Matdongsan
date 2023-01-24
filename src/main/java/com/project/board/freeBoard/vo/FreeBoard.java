@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class FreeBoard {
     private int boardNo;
-    private int memberNo;
+    private long memberNo;
     private String boardTitle;
     private String boardWriter;
     private String boardContent;

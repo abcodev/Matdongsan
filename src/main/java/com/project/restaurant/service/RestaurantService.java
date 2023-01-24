@@ -29,17 +29,8 @@ public interface RestaurantService {
 
     List<String> resHashtagByAdmin(String resNo);
 
-//    public ArrayList<Review> selectReviewList(int resNo);
-//
-//    int insertReview(Review review);
+    void restaurantModify(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId);
 
-
-
-
-
-
-
-
-
+    void deleteRes(String resNo);
 
 }

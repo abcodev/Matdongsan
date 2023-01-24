@@ -25,7 +25,7 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1">
+                    <select name="selectOption1" id="selectOption1" >
                         <c:forEach var="localList" items="${localList}">
                             <option value="${localList.sggNm}">${localList.sggNm}</option>
                         </c:forEach>
@@ -72,6 +72,7 @@
             </form>
             <script>
                 function detailSearch() {
+                    console.log($('#selectOption1 option:checked').text())
 
                     $('#state').val($('#selectOption1 option:checked').text())
                     console.log($('#state').val())
@@ -82,6 +83,10 @@
                     $('form').submit()
                 }
             </script>
+
+
+
+
 
 
         </form>
@@ -154,23 +159,26 @@
        let state = $("#selectOption1").val();
 
         $.ajax({
-            type: 'GET',
-            url: '${pageContext.request.contextPath}/realEstate/list/state',
+            url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
-            data: state,
-            success: function (data) {
-                $("#selectOption2 option").remove();
-                selectOp2  = $("#selectOption2").html("<option value='total'>전체</option>");
-                alert(data);
-                // $.each(JSON.parse(data) , function (key, value) {
-                //     selectOp2 += "<option value=" + value.code + ">" + value.name + "</option>";
-                // });
-                // $("#selectOption2").append(selectOp2);
+            type: 'GET',
+            data: {
+                'state': state
+            },
+            dataType: 'json',
+            success: function (result) {
+                $("#selectOption2").remove();
+                $("#selectOption2").append("<option value='total'>전체</option>");
+
+                alert(result);
             }
         }).fail(function (error) {
-            alert("통신 실패 : " + JSON.stringify(error));
+            console.log(error);
+            alert("통신 실패");
         })
     })
+
+
 
 
 </script>
@@ -201,6 +209,10 @@
 
     }
 </script>
+
+
+
+
 
 
 

@@ -21,12 +21,27 @@
 </head>
 <div id="content">
     <div class="detail head">
+
+        <div>
+<%--            관리자--%>
+<%--            <c:if test="${loginUser.memberGrade }">--%>
+                <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
+                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+<%--            </c:if>--%>
+        </div>
+
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
         <div class="head star">
-            <i class="fa-solid fa-star"></i>
-            <span>N/5</span>
+<%--            <c:if test="${!empty starRating }">--%>
+                <i class="fa-solid fa-star"></i>
+                <span id="star_rating"></span><span>/5</span>
+<%--            </c:if>--%>
+
+
+
+
         </div>
         <div class="head tag">
 
@@ -34,12 +49,10 @@
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
             </c:forEach>
-
-
-            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
-            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
+            <c:forEach items="${resHashtagByReview}" var="hashtag">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+            </c:forEach>
         </div>
     </div>
     <div class="detail main">
@@ -76,15 +89,37 @@
     </div>
     <div class="detail review">
         <div class="review_btn_box">
-            <span>리뷰</span>
+            <span>리뷰</span> <span id="rCount"></span>
             <button id="review_btn"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
         </div>
 
-        <div class="review user"></div>
-        <div class="review img"></div>
-        <div class="review content"></div>
-        <div class="review tag"></div>
+
+
+<%--        <div class="review user"></div>--%>
+<%--        <div class="review img"></div>--%>
+
+        <div class="review content">
+            <table id="reviewArea" class="table" align="center">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+<%--        <div class="review tag"></div>--%>
+
+
+
+
+
+
+
+
     </div>
+
+
+
+
 </div>
 
 <!-- 리뷰 모달 -->
@@ -116,29 +151,16 @@
                     <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
                 </c:forEach>
             </div>
-                <script>
-                    $('input:checkbox[name=chk_hashtag]').click(function(){
-                        let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
 
-                        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
-                        if(cntEPT>3){
-                            alert('해시태그는 최대 3개까지 선택 가능합니다.')
-                            $(this).prop('checked', false);
-                        }
-                    });
-                </script>
             <div id="review_text">
                 <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
             </div>
+
             <div class="review_img">
-                <input class="form-control form-control-sm" id="formFileSm1" type="file">
-
-
-                <input class="form-control form-control-sm" id="formFileSm2" type="file">
-                <input class="form-control form-control-sm" id="formFileSm3" type="file">
+                <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
             </div>
 
-            <button class="" onclick="insertReply()">등록하기</button>
+            <button class="" id="review_insert" onclick="insertReply()">등록하기</button>
 
 
         </div>
@@ -160,32 +182,56 @@
         }
 
         document.getElementById('review_btn').addEventListener('click', onClick);
+        document.getElementById('review_insert').addEventListener('click', offClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
         selectReviewList();
     };
 
-
 </script>
+
+<script>
+    // 해시태그 최대 선택 개수 제한
+    $('input:checkbox[name=chk_hashtag]').click(function(){
+        let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
+
+        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+        if(cntEPT>3){
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            $(this).prop('checked', false);
+        }
+    });
+</script>
+
 <script>
     function selectReviewList() {
         $.ajax({
-            url: "review",
-            data: {resNo: ${restaurantDetail.resNo}},
+            url: '${pageContext.request.contextPath}/restaurant/selectReview',
+            type: 'GET',
+            data: {
+                resNo: ${restaurantDetail.resNo}
+            },
             dataType: "json",
             success: function (list) {
                 console.log(list);
                 let str = "";
                 for (let i of list) {
                     str += "<tr>"
-                        + "<td>" + i.reviewWriter + "</td>"
+                        + "<td>" + i.memberName + "</td>"
                         + "<td>" + i.reviewContent + "</td>"
-                        + "<td>" + i.revImg + "</td>"
+                        + "<td>" + i.Hashtag + "</td>" // 해시태그 자체는 넘어오는데 undefined 로 보여짐
+                        + "<td>" + i.starRating + "</td>"
+                        <%--+ "<td>" + <img src="${pageContext.request.contextPath}/resources/images/restaurant/" i.changeName /> + "</td>"--%>
+                        <%--+ "<td>" + <img src="<c:url value="/resources/images/restaurant/i.changeName"/>"/> + "</td>" // changeName으로 넘겨받아야 하는데 3장을 어떻게 처리하지--%>
                         + "</tr>";
                 }
-                $("#replyArea tbody").html(str);
+                $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
+
+                const star_rating = Math.round(list.map(obj => obj['starRating'])
+                    .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) /10
+                $('#star_rating').html(star_rating)
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -195,15 +241,13 @@
 
 
     function insertReply() {
-        // TODO : 다시다시
-        const score = 5;
-
+        const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function() {
             hashtags.push(this.value);
         });
         const contents = $('#reviewContent').val()
-        const files = $('#formFileSm1')[0].files
+        const files = $('#formFileSm')[0].files
 
         const formData = new FormData();
         formData.set("resNo", ${restaurantDetail.resNo});
@@ -211,7 +255,7 @@
         formData.set("hashtags", hashtags.join(","));
         formData.set("contents", contents);
         for (let i = 0; i < files.length; ++i) {
-            formData.append("files", files[i])
+            formData.append("files", files[i]) // 이미지 없을때 null 을 보내는데, 빈 리스트를 보내야할듯
         }
 
         $.ajax({
@@ -228,6 +272,7 @@
             },
             error: function () {
                 console.log("ajax통신 실패");
+                // alert("리뷰 등록에 실패했습니다.");
             }
         });
     }

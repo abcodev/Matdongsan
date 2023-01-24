@@ -27,9 +27,24 @@
         <result column="STATUS" property="status"/>
     </resultMap>
 
+    <resultMap id="reviewAndMemberResultSet" type="com.project.restaurant.dto.ReviewAndMemberDto">
+        <result column="REV_NO" property="revNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="RES_NO" property="resNo"/>
+        <result column="STAR_RATING" property="starRating"/>
+        <result column="REVIEW_CONTENT" property="reviewContent"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="STATUS" property="status"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+
+        <result column="HASHTAG" property="hashtag"/>
+        <result column="CHANGE_NAME" property="changeName"/>
+    </resultMap>
+
+
     <resultMap id="resImgResultSet" type="resImg">
         <result column="IMG_NO" property="imgNo"/>
-        <result column="REVIEW_NO" property="reviewNo"/>
+        <result column="REV_NO" property="revNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="RES_NO" property="resNo"/>
         <result column="IMAGE_LEVEL" property="imageLevel"/>
@@ -77,6 +92,7 @@
     <select id="selectStateList" resultType="String">
         SELECT DISTINCT TRIM(RESTAURANT.STATE)
         FROM RESTAURANT
+        ORDER BY TRIM(RESTAURANT.STATE)
     </select>
 
     <update id="updateImage" parameterType="Map">
@@ -89,38 +105,28 @@
         WHERE RES_NO = #{resNo}
     </select>
 
-    <insert id="resInsert" parameterType="restaurant">
-        <selectKey keyProperty="resNo" resultType="string" order="BEFORE">
-            select SEQ_RES_NO.nextval FROM DUAL
-        </selectKey>
-        INSERT INTO RESTAURANT(RES_NO, RES_NAME, STATE, ADDRESS, RES_PHONE,RES_FOOD, RES_IMGURL)
-        VALUES(#{resNo},#{resName},#{state},#{address},#{resPhone},#{resFood},#{resImgUrl})
-    </insert>
 
-
-
-    <insert id="resInsertImg" parameterType="resImg">
-        INSERT INTO RES_IMG(IMG_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
-        VALUES(SEQ_IMG_NO.NEXTVAL,#{resNo},#{originName},#{changeName})
-    </insert>
-
-
-
-
-    <select id="selectReviewList" parameterType="int" resultMap="reviewResultSet">
+    <!-- 리뷰 목록 -->
+    <!-- Projection -> 모양에맞는 별도의 객체 -->
+    <select id="selectReviewList" parameterType="String" resultMap="reviewAndMemberResultSet">
         SELECT
-            REV_NO,
-            RES_NO,
-            STAR_RATING,
-            REVIEW_CONTENT,
+            R.REV_NO,
+            R.RES_NO,
+            R.STAR_RATING,
+            R.REVIEW_CONTENT,
             R.MEMBER_NO,
             R.CREATE_DATE,
             R.STATUS,
-            M.MEMBER_NAME
+            M.MEMBER_NAME,
+            H.HASHTAG,
+            I.CHANGE_NAME
         FROM REVIEW R
-                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
-        WHERE RES_NO = #{resNo}
-          AND R.STATUS = 'Y'
+                JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+                JOIN RES_HASHTAG RH on R.REV_NO = RH.REV_NO
+                JOIN HASHTAG H on RH.HASHTAG_ID = H.HASHTAG_ID
+                JOIN RES_IMG I on R.REV_NO = I.REV_NO
+        WHERE R.RES_NO = #{resNo}
+            AND R.STATUS = 'Y'
     </select>
 
 
@@ -132,6 +138,7 @@
     </select>
 
 
+    <!-- 리뷰 등록 -->
     <insert id="insertReview" parameterType="review">
         <selectKey keyProperty="revNo" resultType="_int" order="BEFORE">
             select SEQ_REV_NO.nextval FROM DUAL
@@ -145,14 +152,77 @@
         SELECT SEQ_IMG_NO.NEXTVAL AS IMG_NO , R.* FROM
         (
         <foreach collection="list" item="img" separator="UNION ALL">
-            SELECT #{img.originName} as ORIGIN_NAME,
-            #{img.changeName} as CHANGE_NAME,
-            #{img.revNo} as REV_NO,
-            #{img.imgLevel} as IMG_LEVEL
+            SELECT
+                #{img.originName} as ORIGIN_NAME,
+                #{img.changeName} as CHANGE_NAME,
+                #{img.revNo} as REV_NO,
+                #{img.imgLevel} as IMG_LEVEL
             FROM DUAL
         </foreach>
         ) R
     </insert>
+
+
+
+
+
+
+    <!-- 관리자 - 맛집 등록 -->
+    <insert id="resInsert" parameterType="restaurant">
+        <selectKey keyProperty="resNo" resultType="string" order="BEFORE">
+            select SEQ_RES_NO.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO RESTAURANT(RES_NO, RES_NAME, STATE, ADDRESS, RES_PHONE,RES_FOOD, RES_IMGURL)
+        VALUES(#{resNo},#{resName},#{state},#{address},#{resPhone},#{resFood},#{resImgUrl})
+    </insert>
+
+
+
+    <insert id="resInsertImg" parameterType="resImg">
+        INSERT INTO RES_IMG(IMG_NO, MEMBER_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
+        VALUES(SEQ_IMG_NO.NEXTVAL,#{memberNo}, #{resNo},#{originName},#{changeName})
+    </insert>
+
+
+
+
+    <!-- 관리자 - 맛집 수정 -->
+    <update id="resModify" parameterType="restaurant">
+        UPDATE RESTAURANT
+        SET RES_NAME   = #{resName},
+            STATE      = #{state},
+            ADDRESS    = #{address},
+            RES_PHONE  = #{resPhone},
+            RES_FOOD   = #{resFood},
+            RES_IMGURL = #{resImgUrl}
+        WHERE RES_NO = #{resNo}
+    </update>
+
+
+
+
+
+    <delete id="deleteRes" parameterType="string">
+        DELETE FROM RESTAURANT WHERE RES_NO = #{resNo}
+    </delete>
+
+    <delete id="deleteResImg" parameterType="string">
+        DELETE FROM RES_IMG WHERE RES_NO = #{resNo}
+    </delete>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

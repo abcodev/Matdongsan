@@ -1,6 +1,7 @@
 package com.project.realestate.dao;
 
 import com.project.common.template.PageInfoCombine;
+import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.vo.RealEstateRent;
 import lombok.RequiredArgsConstructor;
@@ -62,9 +63,14 @@ public class RealEstateDao {
         return  (ArrayList) sqlSession.selectList("rentMapper.searchDongList", state);
     }
 
-    public ArrayList<String> getSellList(SqlSession sqlSession){
-        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
+//    public ArrayList<String> getSellList(SqlSession sqlSession){
+//        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
+//
+//    }
 
+    public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
+        return sqlSession.selectList("sellMapper.getSellList");
     }
+
 
 }

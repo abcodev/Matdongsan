@@ -4,8 +4,8 @@ import java.util.UUID;
 
 @Data
 public class ChatRoom {
-    private String chatRoomNo;
-    private String memberNo;
+    private int chatRoomNo;
+    private long memberNo;
 
 
 //    public ChatRoom create(){

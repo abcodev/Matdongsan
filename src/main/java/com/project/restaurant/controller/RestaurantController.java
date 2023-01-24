@@ -6,6 +6,7 @@ import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.service.RestaurantCrawlingService;
 import com.project.restaurant.service.RestaurantService;
+import com.project.restaurant.service.ReviewService;
 import com.project.restaurant.type.SearchState;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.ResHashtag;
@@ -37,6 +38,7 @@ import java.util.List;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+    private final ReviewService reviewService;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
 
@@ -96,9 +98,11 @@ public class RestaurantController {
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
 
         List<String> resHashtagByAdmin = restaurantService.resHashtagByAdmin(resNo);
+        List<String> resHashtagByReview = reviewService.retrieveTop2Hashtag(resNo, resHashtagByAdmin);
         List<Hashtag> hashtagList = restaurantService.selectHashtagList();
 
         modelAndView.addObject("resHashtagByAdmin", resHashtagByAdmin);
+        modelAndView.addObject("resHashtagByReview", resHashtagByReview);
         modelAndView.addObject("hashtagList", hashtagList);
         modelAndView.addObject("restaurantDetail", restaurant);
 
@@ -109,7 +113,7 @@ public class RestaurantController {
 
 
     /**
-     * 관리자 - 맛집등록
+     * 관리자 - 맛집 등록
      */
     @RequestMapping("/admin/resEnroll")
     public ModelAndView restaurantEnroll() {
@@ -135,4 +139,58 @@ public class RestaurantController {
         return "redirect:/";
     }
 
+
+
+
+
+
+    /**
+     * 관리자 - 맛집 수정
+     */
+    @RequestMapping("/admin/resModify")
+    public ModelAndView restaurantModify(
+            @RequestParam("resNo") String resNo,
+            ModelAndView modelAndView
+    ) {
+        Restaurant restaurant = restaurantService.restaurantDetail(resNo);
+        List<Hashtag> hashtagList = restaurantService.selectHashtagList();
+
+        modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.addObject("restaurantDetail", restaurant);
+
+        modelAndView.setViewName("admin/restaurantModify");
+        return modelAndView;
+    }
+
+
+    @PostMapping("/admin/resUpdate")
+    public String restaurantModify(
+            @RequestParam("file") MultipartFile file,
+            Restaurant restaurant, HttpSession session,
+            @RequestParam("hashtagId") List<String> hashtagId,
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest req
+    ) {
+        List arr = Arrays.asList(req.getParameterValues("hashtagId"));
+        restaurantService.restaurantModify(file, restaurant, session, hashtagId);
+//        redirectAttributes.addFlashAttribute("alertMsg", "You successfully uploaded " + restaurant.getResName() + "!");
+
+        return "redirect:/selectResList"; // 성공하면 해당하는 resNo url로 보내야함
+    }
+
+    /**
+     * 관리자 - 맛집 삭제
+     */
+    @RequestMapping("/admin/resDelete")
+    public ModelAndView restaurantDelete(
+            @RequestParam("resNo") String resNo,
+            ModelAndView modelAndView
+    ) {
+        restaurantService.deleteRes(resNo);
+        modelAndView.setViewName("redirect:/selectResList");
+        return modelAndView;
+    }
 }
+
+
+

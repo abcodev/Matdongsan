@@ -40,6 +40,9 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.selectHashtagList");
     }
 
+    /**
+     * 맛집 이미지 크롤링
+     */
     public void updateImage(String restaurantNumber, String imageUrl) {
         HashMap<String, String> params = new HashMap<>();
         params.put("RES_NO", restaurantNumber);
@@ -55,6 +58,33 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin", resNo);
     }
 
+
+    //
+    public ArrayList<Review> selectReviewList(SqlSession sqlSession, int resNo) {
+        return (ArrayList) sqlSession.selectList("resMapper.selectReviewList", resNo);
+    }
+
+
+    //
+    public int insertResImg(SqlSession sqlSession, ResImg img) {
+        return sqlSession.update("boardMapper.insertResImg",img);
+    }
+
+    //
+    public int insertResImgList(SqlSession sqlSession, List<ResImg> ResImgList) {
+        return sqlSession.insert("resMapper.insertResImgList", ResImgList);
+    }
+
+
+
+    public void hasTagInsert(String h) {
+        sqlSession.insert("resMapper.hashTagInsert",h);
+    }
+
+    /**
+     * 관리자 - 맛집 등록
+     */
+
     public String resInsert(Restaurant restaurant) {
         sqlSession.insert("resMapper.resInsert",restaurant);
         return restaurant.getResNo();
@@ -64,36 +94,36 @@ public class RestaurantDao {
         return sqlSession.insert("resMapper.resInsertImg",resImg);
     }
 
-
-    public ArrayList<Review> selectReviewList(SqlSession sqlSession, int resNo) {
-        return (ArrayList) sqlSession.selectList("resMapper.selectReviewList", resNo);
-    }
-
-
-    public int insertResImg(SqlSession sqlSession, ResImg img) {
-        return sqlSession.update("boardMapper.insertResImg",img);
-    }
-
-    public int insertResImgList(SqlSession sqlSession, List<ResImg> ResImgList) {
-        return sqlSession.insert("resMapper.insertResImgList", ResImgList);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    public void hasTagInsert(String h) {
-        sqlSession.insert("resMapper.hashTagInsert",h);
-    }
-
     public void resHashtagInsert(ResHashtag resHashtag) {
         sqlSession.insert("hashtagMapper.resHashtagInsert",resHashtag);
+    }
+
+
+    /**
+     * 관리자 - 맛집 수정
+     */
+
+    public String resModify(Restaurant restaurant) {
+        sqlSession.update("resMapper.resModify", restaurant);
+        return restaurant.getResNo();
+    }
+
+    public void resHashtagModify(ResHashtag resHashtag) {
+        sqlSession.update("resHashtagMapper.resHashtagUpdate",resHashtag);
+    }
+
+    /**
+     * 관리자 - 맛집 삭제
+     */
+    public int deleteRes(String resNo) {
+        return sqlSession.delete("resMapper.deleteRes", resNo);
+    }
+
+    public int deleteResImg(String resNo) {
+        return sqlSession.delete("resMapper.deleteResImg", resNo);
+    }
+
+    public int deleteResHash(String resNo) {
+        return sqlSession.delete("resHashtagMapper.deleteResHash",resNo);
     }
 }

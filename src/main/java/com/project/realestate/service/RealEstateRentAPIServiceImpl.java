@@ -1,8 +1,8 @@
-package com.project.common.service;
+package com.project.realestate.service;
 
 import com.project.client.seoulApi.SeoulRentApiClient;
 
-import com.project.common.dao.RealEatateRentApiDao;
+import com.project.realestate.dao.RealEatateRentApiDao;
 import com.project.realestate.vo.RealEstateRent;
 import lombok.extern.log4j.Log4j;
 import org.apache.ibatis.session.SqlSession;

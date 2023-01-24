@@ -37,11 +37,13 @@
             JOIN RESTAURANT R on RES_HASHTAG.RES_NO = R.RES_NO
             JOIN HASHTAG H on RES_HASHTAG.HASHTAG_ID = H.HASHTAG_ID
         WHERE R.RES_NO = #{resNo}
-        AND MEMBER_NO = 1
+          AND RES_HASHTAG.REV_NO is null
     </select>
 
     <insert id="resHashtagInsert" parameterType="resHashtag">
         INSERT INTO RES_HASHTAG(RES_NO, HASHTAG_ID, MEMBER_NO)
         VALUES (#{resNo},#{hashtagId},#{memberNo})
     </insert>
+
+
 </mapper>

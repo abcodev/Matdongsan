@@ -8,7 +8,7 @@ import lombok.Data;
 public class ResHashtag {
     private String resNo;
     private String hashtagId;
-    private int revNo;
+    private long revNo;
     private long memberNo;
 
     public ResHashtag() {}
