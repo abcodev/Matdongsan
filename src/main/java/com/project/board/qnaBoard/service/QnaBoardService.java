@@ -15,8 +15,11 @@ public interface QnaBoardService {
     public List<BoardType> selectBoardTypeList();
     public Map<String, Object> selectList(int currentPage,String boardCode);
     Map<String, Object> selectList(Map<String, Object> paramMap);
-    public int insertBoard(QnaBoard qb);
+    public int insertQboard(QnaBoard qb);
     public QnaBoard selectQboard(int qBno);
     public int updateBoard(int qBno);
     public int increaseCount(int qBno);
+
+    public int insertAnswer(QnaBoard qb);
+
 }
