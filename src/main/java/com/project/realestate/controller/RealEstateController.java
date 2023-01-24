@@ -7,9 +7,7 @@ import com.project.realestate.vo.RealEstateRent;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -33,23 +31,19 @@ public class RealEstateController {
     public String realEstatePage(
             Model model,
             @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-            @RequestParam(value = "state", defaultValue = "") String state,
+            @RequestParam(value = "state", defaultValue = "강남구") String state,
             @RequestParam(value = "dong", defaultValue = "") String dong
     ) throws Exception {
         System.out.println("검색!!!! " + state);
-        List<RealEstateRent> localList = realEstateService.searchLocalList();
 
+        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
+        List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
         model.addAttribute("localList", localList);
-
-
-        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
         model.addAttribute("dongList", dongList);
-
-        System.out.println(state + "동이름 : " + dongList);
 
         model.addAttribute("selectAllList", resp.getRealEstateRentList());
         model.addAttribute("pi", resp.getPageInfoCombine());
@@ -57,76 +51,20 @@ public class RealEstateController {
     }
 
 
+    @RequestMapping("/list/state")
+    @ResponseBody
+    public String realEstateDong(
+            Model model,
+            @RequestBody String state
+    ) throws Exception {
+        System.out.println("검색!!!! " + state);
+
+        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
+
+        return dongList.toString();
+    }
 
 
-
-
-
-
-//    @RequestMapping("/list")
-//    public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
-//                                 @RequestParam Map<String, Object> paramMap) {
-//        Map<String, Object> map = new HashMap();
-//        List<RealEstateRent> localList = new ArrayList<>();
-//
-//        //select 자치구 옵션 받아오기
-//        // List<String> optionList = new ArrayList();
-//
-//        if (paramMap.get("selectOption1") == null) { // 검색 요청을 하지 않은 경우
-//
-//            map = realEstateService.selectList(currentPage);
-//            localList = realEstateService.searchLocalList();
-//
-//        } else { // 검색 요청을 한 경우
-//            // 검색에 필요한 데이터를 paramMap을 넣어서 호출
-//            // condition, keyword
-//            paramMap.put("currentPage", currentPage);
-//
-//            // 2. 게시글 셀렉트
-//            map = realEstateService.selectList(paramMap);
-//        }
-//
-//        //3. 페이징 포워딩(pi 객체와 list 객체 저장시키면서)
-//        model.addAttribute("map", map);
-//        model.addAttribute("localList", localList);
-//        // model.addAttribute("optionList", optionList);
-//
-//        return "realestate/realestateList";
-//    }
-
-
-//    @RequestMapping("/list/{local}")
-//    public String realEstatePage(Model model, @RequestParam(value="currentPage",defaultValue="1")int currentPage,
-//                                 @RequestParam Map<String, Object> paramMap,
-//                                 @PathVariable String local) {
-//        Map<String, Object> map = new HashMap();
-//        List<RealEstateRent> localList = new ArrayList<>();
-//
-//        //select dong 옵션 받아오기
-//        List<String> optionList = new ArrayList();
-//
-//        if (paramMap.get("selectOption1") == null) { // 검색 요청을 하지 않은 경우
-//
-//            map = realEstateService.selectList(currentPage);
-//            localList = realEstateService.searchLocalList();
-//           // optionList = realEstateService.selectDong(local);
-//
-//        } else { // 검색 요청을 한 경우
-//            // 검색에 필요한 데이터를 paramMap을 넣어서 호출
-//            // condition, keyword
-//            paramMap.put("currentPage", currentPage);
-//
-//            // 2. 게시글 셀렉트
-//            map = realEstateService.selectList(paramMap);
-//        }
-//
-//        //3. 페이징 포워딩(pi 객체와 list 객체 저장시키면서)
-//        model.addAttribute("map", map);
-//        model.addAttribute("localList", localList);
-//        model.addAttribute("optionList", optionList);
-//
-//        return "realestate/realestateList";
-//    }
 
 
 }
