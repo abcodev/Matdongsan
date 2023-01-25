@@ -21,22 +21,27 @@
         VALUES (#{resNo}, #{hashtagId}, #{revNo}, #{memberNo})
     </insert>
 
-    <select id="selectList" parameterType="String" resultMap="resHashtagDtoResultSet">
+    <select id="selectListByResNo" parameterType="String" resultMap="resHashtagDtoResultSet">
         SELECT *
         FROM RES_HASHTAG R
             INNER JOIN HASHTAG H ON R.HASHTAG_ID = H.HASHTAG_ID
         WHERE R.RES_NO = #{resNo}
     </select>
 
-    <update id="resHashtagUpdate" parameterType="resHashtag">
-        UPDATE RES_HASHTAG
-        SET HASHTAG_ID = #{hashtagId}
-        WHERE RES_NO = #{resNo}
-    </update>
+    <select id="selectListByRevNo" parameterType="_int" resultMap="resHashtagDtoResultSet">
+        SELECT *
+        FROM RES_HASHTAG R
+                 INNER JOIN HASHTAG H ON R.HASHTAG_ID = H.HASHTAG_ID
+        WHERE R.REV_NO = #{revNo}
+    </select>
 
     <!-- 관리자 - 맛집 삭제 -->
     <delete id="deleteResHash" parameterType="string">
         DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo}
+    </delete>
+
+    <delete id="deleteResHashOnlyAdmin" parameterType="string">
+        DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo} AND REV_NO is null
     </delete>
 
 

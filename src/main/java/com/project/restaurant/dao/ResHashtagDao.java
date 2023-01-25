@@ -18,6 +18,10 @@ public class ResHashtagDao {
     }
 
     public List<ResHashtagDto> selectByResNo(String resNo) {
-        return sqlSession.selectList("resHashtagMapper.selectList", resNo);
+        return sqlSession.selectList("resHashtagMapper.selectListByResNo", resNo);
+    }
+
+    public List<ResHashtagDto> selectByRevNo(int revNo) {
+        return sqlSession.selectList("resHashtagMapper.selectListByRevNo", revNo);
     }
 }
