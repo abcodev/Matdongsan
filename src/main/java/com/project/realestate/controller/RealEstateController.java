@@ -54,14 +54,40 @@ public class RealEstateController {
 //        return "realestate/realestateList";
 //    }
 
+//    @RequestMapping("/list")
+//    public String realEstatePage(
+//            Model model,
+//            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+//            @RequestParam(value = "state", defaultValue = "강남구") String state,
+//            @RequestParam(value = "dong", defaultValue = "") String dong
+//    ) throws Exception {
+//        System.out.println("검색!!!! " + state);
+//
+//        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
+//        List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
+//
+//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
+//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
+//
+//        model.addAttribute("localList", localList);
+//        model.addAttribute("dongList", dongList);
+//
+//        model.addAttribute("selectAllList", resp.getRealEstateRentList());
+//        model.addAttribute("pi", resp.getPageInfoCombine());
+//        return "realestate/realestateList";
+//    }
+
     @RequestMapping("/list")
-    public String realEstatePage(
-            Model model,
+    public ModelAndView realEstatePage(
             @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
             @RequestParam(value = "state", defaultValue = "강남구") String state,
-            @RequestParam(value = "dong", defaultValue = "") String dong
+            @RequestParam(value = "dong", defaultValue = "") String dong,
+            @RequestParam Map<String, Object> paramMap
     ) throws Exception {
         System.out.println("검색!!!! " + state);
+
+        ModelAndView mv = new ModelAndView();
+        Map<String, Object> map = new HashMap();
 
         List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
         List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
@@ -69,15 +95,20 @@ public class RealEstateController {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        model.addAttribute("localList", localList);
-        model.addAttribute("dongList", dongList);
-        System.out.println("동 : " + dongList.toString());
+        if(!paramMap.isEmpty()){
+            List<RealEstateRent> searchResult = realEstateService.searchResult();
+        }
 
-        model.addAttribute("selectAllList", resp.getRealEstateRentList());
-        model.addAttribute("pi", resp.getPageInfoCombine());
-        return "realestate/realestateList";
+        mv.addObject("localList", localList);
+        mv.addObject("dongList", dongList);
+        mv.addObject("selectAllList", resp.getRealEstateRentList());
+        mv.addObject("pi", resp.getPageInfoCombine());
+
+        mv.setViewName("realestate/realestateList");
+
+        return mv;
+
     }
-
 
 
 }

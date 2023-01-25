@@ -22,7 +22,7 @@
 <body>
 <div id="content">
     <div id="content_left">
-        <form name="searchArea" action="">
+        <form name="searchArea" action="/realEstate/list">
             <div id="search_box">
                 <div class ="search city">
                     <select name="selectOption1" id="selectOption1" >
@@ -85,10 +85,6 @@
             </script>
 
 
-
-
-
-
         </form>
         <div id="place">
 
@@ -105,7 +101,7 @@
                 <tr>
                     <th>자치구명</th>
                     <th>아파트명</th>
-                    <th>거래일자</th>
+                    <th>거래타입</th>
                     <th>금액</th>
                     <th>임대면적</th>
                 </tr>
@@ -113,7 +109,7 @@
                     <tr>
                         <td class="rno">${ selectAllList.sggNm }</td>
                         <td>${selectAllList.buildName }</td>
-                        <td>${selectAllList.dealYmd }</td>
+                        <td>${selectAllList.rentGbn }</td>
                         <td>${selectAllList.rentGtn}</td>
                         <td>${selectAllList.rentArea }</td>
                     </tr>

@@ -106,4 +106,10 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
 
+    // 검색 결과
+    @Override
+    public List<RealEstateRent> searchResult(){
+
+    }
+
 }

@@ -26,8 +26,12 @@ public interface RealEstateService {
    // 동 리스트
    public List<RealEstateRent> searchDongList(String state);
 
-//   public List<String> getSellList();
+    // 검색 결과
+    public List<RealEstateRent> searchResult();
+
+
 
     public List<RealEstateMainListDto> getSellList();
+
 
 }
