@@ -30,7 +30,7 @@ public class MainController {
     }
 
     @ResponseBody
-    @GetMapping("/mainPage")
+    @GetMapping("/test")
     public ModelAndView realEstateList(ModelAndView modelAndView){
 //        List<String> sellList = realEstateService.getSellList();
         List<RealEstateMainListDto> sellList = realEstateService.getSellList();
@@ -53,41 +53,42 @@ public class MainController {
         return "common/mainPage";
     }*/
 
-//    @RequestMapping(value = "/mainPage")
-//    public String getNews(Model model) throws IOException {
-//
-//        String url = "https://land.naver.com/news/region.naver?page=1";
-//
-//        Document doc = Jsoup.connect(url).get();
-//
-//        Elements e1 = doc.getElementsByAttributeValue("class", "section_headline");
-//        Element e2 = e1.get(0);
-//
-//        Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
-//
-//        ArrayList<HashMap> newsList = new ArrayList();
-//
-//        for (int i = 0; i < 4; i++) {
-//            Element articleElement = photoElements.get(i);
-//            Elements aElements = articleElement.select("a");
-//            Element aElement = aElements.get(0);
-//
-//            String articleUrl = "https://land.naver.com" + aElement.attr("href"); // 기사링크
-//
-//            Element imgElement = aElement.select("img").get(0);
-//            String title = imgElement.attr("alt"); //기사제목
-//
-//            HashMap<String, String> newsInfo = new HashMap<>();
-//
-//            newsInfo.put("newsTitle", title);
-//            newsInfo.put("newsUrl", articleUrl);
-//            newsList.add(newsInfo);
-//        }
-//
-//        model.addAttribute("newsList", newsList);
-//
-//        return "common/mainPage";
-//    }
+    @RequestMapping(value = "/mainPage")
+    public String getNews(Model model) throws IOException {
+
+        String url = "https://land.naver.com/news/region.naver?page=1";
+
+        Document doc = Jsoup.connect(url).get();
+
+        Elements e1 = doc.getElementsByAttributeValue("class", "section_headline");
+        Element e2 = e1.get(0);
+
+        Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
+
+        ArrayList<HashMap> newsList = new ArrayList();
+
+        for (int i = 0; i < 4; i++) {
+            Element articleElement = photoElements.get(i);
+            Elements aElements = articleElement.select("a");
+            Element aElement = aElements.get(0);
+
+            String articleUrl = "https://land.naver.com" + aElement.attr("href"); // 기사링크
+
+            Element imgElement = aElement.select("img").get(0);
+            String title = imgElement.attr("alt"); //기사제목
+
+            HashMap<String, String> newsInfo = new HashMap<>();
+
+            newsInfo.put("newsTitle", title);
+            newsInfo.put("newsUrl", articleUrl);
+            newsList.add(newsInfo);
+        }
+
+
+        model.addAttribute("newsList", newsList);
+
+        return "common/mainPage";
+    }
 
 
 }
