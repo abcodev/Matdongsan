@@ -23,13 +23,13 @@ a{
 #header{
     position: absolute;
     z-index: 999;
-    background-color: #d9cbea;;
+    background: linear-gradient(99deg, rgb(217, 203, 234), rgb(86, 99, 146));
     width: 100%;
 }
 
 .inner{
     display: flex;
-    background-color: #d9cbea;
+    background: linear-gradient(99deg, rgb(217, 203, 234), rgb(86, 99, 146));
 }
 
 .logo > img{
@@ -67,7 +67,7 @@ a{
     font-size: 20px;
     border: none;
     cursor: pointer;
-    background-color: #d9cbea;
+    background: none;
     font-weight: bold;
 }
 
@@ -76,7 +76,7 @@ a{
     position: absolute;
     min-width: 200px;
     z-index: 1;
-    background-color: #d9cbea;
+    background: none;
 }
 
 .dropdown-submenu a {
@@ -105,7 +105,7 @@ a{
     width: 250px;
     text-align: center;
     margin:40px 0 0 160px;
-    background-color: #d9cbea;
+    background: none;
 }
 
 .login a{

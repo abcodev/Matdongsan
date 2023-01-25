@@ -80,9 +80,7 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-
         </div>
-
     </div>
 </header>
     <div class="map">
