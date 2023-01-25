@@ -17,5 +17,6 @@ public class QnaBoard {
     private String qnaArea;
     private String boardCd;
     private String qnaWriter;
+    private int depth;
 
 }
