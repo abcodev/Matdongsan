@@ -5,7 +5,6 @@
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <c:set var="l" value="${localList}"/>
-<c:set var="d" value="${dongList}"/>
 <c:set var="r" value="com.project.common.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,16 +24,14 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1">
+                    <select name="selectOption1" id="selectOption1" >
                         <c:forEach var="localList" items="${localList}">
                             <option value="${localList.sggNm}">${localList.sggNm}</option>
                         </c:forEach>
                     </select>
                     <select name="selectOption2" id="selectOption2">
                         <option value="total">전체</option>
-                        <c:forEach var="dongList" items="${dongList}">
-                            <option value="${dongList.bjdName}">${dongList.bjdName}</option>
-                        </c:forEach>
+
                     </select>
                 </div>
                 <div class ="search option">
@@ -45,12 +42,7 @@
                     </select>
 
                     <select name="rentGtn" id="rentGtn">
-                        <option value="">매매가(만원)</option>
-                        <option value="range1">50000이하</option>
-                        <option value="range2">50000~100000</option>
-                        <option value="range3">100000~150000</option>
-                        <option value="range4">150000~200000</option>
-                        <option value="range5">200000이상</option>
+                        <option value="">가격(만원)</option>
                     </select >
 
                     <select name="chooseType" id="chooseType">
@@ -72,6 +64,7 @@
             </form>
             <script>
                 function detailSearch() {
+                    console.log($('#selectOption1 option:checked').text())
 
                     $('#state').val($('#selectOption1 option:checked').text())
                     console.log($('#state').val())
@@ -82,6 +75,10 @@
                     $('form').submit()
                 }
             </script>
+
+
+
+
 
 
         </form>
@@ -150,57 +147,58 @@
 
 <%--검색 동 변경--%>
 <script>
-    $("#selectOption1").change(function (){
-       let state = $("#selectOption1").val();
+    <%--function get_option2(option1, selectOption) {--%>
+    <%--    console.log(option1)--%>
+    <%--    console.log(selectOption)--%>
+    <%--    $.ajax({--%>
+    <%--        type: 'GET',--%>
+    <%--        url: '${pageContext.request.contextPath}/realEstate/list',--%>
+    <%--        contentType: "application/json; charset=UTF-8",--%>
+    <%--        data: {--%>
+    <%--            'selectOption1' : option1--%>
+    <%--        },--%>
+    <%--        dataType: 'json',--%>
+    <%--        success: function (result) {--%>
+    <%--            alert(result);--%>
 
-        $.ajax({
-            type: 'GET',
-            url: '${pageContext.request.contextPath}/realEstate/list/state',
-            contentType: "application/json; charset=UTF-8",
-            data: state,
-            success: function (data) {
-                $("#selectOption2 option").remove();
-                selectOp2  = $("#selectOption2").html("<option value='total'>전체</option>");
-                alert(data);
-                // $.each(JSON.parse(data) , function (key, value) {
-                //     selectOp2 += "<option value=" + value.code + ">" + value.name + "</option>";
-                // });
-                // $("#selectOption2").append(selectOp2);
-            }
-        }).fail(function (error) {
-            alert("통신 실패 : " + JSON.stringify(error));
-        })
-    })
-
-
+    <%--        }--%>
+    <%--    }).fail(function (error) {--%>
+    <%--        alert(JSON.stringify(error));--%>
+    <%--    })--%>
+    <%--}--%>
 </script>
 
 <script>
 
     function optionType(e){
 
+        const type1 = ['200000', '1000000', '2000000', '3000000'];
+        const type2 = ['1000', '5000', '10000', '20000'];
+        const target = document.getElementById("rentGtn");
+
+        if(e.value == "a"){
+            add = type1;
+        }else {
+            add = type2;
+        }
+
         console.log(e.value);
 
-        if(e.value != "a"){
-            $("#rentGtn option").remove();
-            $("#rentGtn").html("<option>보증금(만원)</option>" +
-                                "<option value='range1'>1000이하</option>" +
-                                "<option value='range2'>1000~5000</option>" +
-                                "<option value='range3'>5000~10000</option>" +
-                                "<option value='range4'>10000~15000</option>" +
-                                "<option value='range5'>15000이상</option>");
-        }else {
-            $("#rentGtn option").remove();
-            $("#rentGtn").html("<option>매매가(만원)</option>" +
-                "<option value='range1'>50000이하</option>" +
-                "<option value='range2'>50000~100000</option>" +
-                "<option value='range3'>100000~150000</option>" +
-                "<option value='range4'>150000~200000</option>" +
-                "<option value='range5'>200000이상</option>");
+        target.options.length = 1;
+
+        for(x in add){
+            let opt = document.createElement("option");
+            opt.value = add[x];
+            opt.innerHTML = add[x];
+            target.appendChild(opt);
         }
 
     }
 </script>
+
+
+
+
 
 
 

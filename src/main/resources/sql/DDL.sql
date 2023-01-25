@@ -270,8 +270,8 @@ CREATE TABLE "REVIEW"
     "MEMBER_NO"      NUMBER                  NOT NULL,
     "RES_NO"         VARCHAR(255)            NOT NULL,
     "STAR_RATING"    NUMBER                  NOT NULL,
-    "REVIEW_CONTENT" TIMESTAMP          NOT NULL,
-    "CREATE_DATE"    VARCHAR2(255)           NOT NULL,
+    "REVIEW_CONTENT" VARCHAR(2056)          NOT NULL,
+    "CREATE_DATE"    TIMESTAMP           NOT NULL,
     "STATUS"         VARCHAR(20) DEFAULT 'Y' NOT NULL
 );
 

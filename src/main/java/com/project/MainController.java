@@ -35,6 +35,8 @@ public class MainController {
 //        List<String> sellList = realEstateService.getSellList();
         List<RealEstateMainListDto> sellList = realEstateService.getSellList();
 
+        System.out.println(sellList.size());
+
         modelAndView.addObject("sellList", sellList);
         modelAndView.setViewName("common/mainPage");
         return modelAndView;
@@ -81,6 +83,7 @@ public class MainController {
             newsInfo.put("newsUrl", articleUrl);
             newsList.add(newsInfo);
         }
+
 
         model.addAttribute("newsList", newsList);
 
