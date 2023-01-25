@@ -56,12 +56,16 @@
 
     <select id="getSellList" resultMap="realEstateSellResultSet">
     SELECT
-        SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
-        OBJ_AMT,
-        BLDG_NM
+        BJDONG_NM,
+        BONBEON,
+        BUBEON,
+        OBJ_AMT
         FROM REALESTATE_SELL
         ORDER BY BJDONG_NM
     </select>
+
+
+
 
 
 
