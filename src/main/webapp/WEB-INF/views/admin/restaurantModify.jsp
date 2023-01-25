@@ -68,10 +68,8 @@
     </div>
 
 
-
-
     <div class="btn_box">
-        <button>취소</button>
+        <button onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
         <button type="submit">수정</button>
     </div>
 

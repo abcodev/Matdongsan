@@ -24,21 +24,16 @@
 
         <div>
 <%--            관리자--%>
-<%--            <c:if test="${loginUser.memberGrade.equals('ADMIN')}">--%>
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
                 <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
-<%--            </c:if>--%>
         </div>
 
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
         <div class="head star">
-<%--            <c:if test="${!empty starRating }">--%>
                 <i class="fa-solid fa-star"></i>
                 <span id="star_rating"></span>
-<%--            </c:if>--%>
-
 
 
 
