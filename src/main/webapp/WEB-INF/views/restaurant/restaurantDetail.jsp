@@ -24,21 +24,16 @@
 
         <div>
 <%--            관리자--%>
-<%--            <c:if test="${loginUser.memberGrade }">--%>
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
                 <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
-<%--            </c:if>--%>
         </div>
 
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
         <div class="head star">
-<%--            <c:if test="${!empty starRating }">--%>
                 <i class="fa-solid fa-star"></i>
-                <span id="star_rating"></span><span>/5</span>
-<%--            </c:if>--%>
-
+                <span id="star_rating"></span>
 
 
 
@@ -194,7 +189,7 @@
 <script>
     // 해시태그 최대 선택 개수 제한
     $('input:checkbox[name=chk_hashtag]').click(function(){
-        let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
+        // let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
 
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if(cntEPT>3){
@@ -217,20 +212,43 @@
                 console.log(list);
                 let str = "";
                 for (let i of list) {
-                    str += "<tr>"
-                        + "<td>" + i.memberName + "</td>"
-                        + "<td>" + i.reviewContent + "</td>"
-                        + "<td>" + i.Hashtag + "</td>" // 해시태그 자체는 넘어오는데 undefined 로 보여짐
-                        + "<td>" + i.starRating + "</td>"
-                        <%--+ "<td>" + <img src="${pageContext.request.contextPath}/resources/images/restaurant/" i.changeName /> + "</td>"--%>
-                        <%--+ "<td>" + <img src="<c:url value="/resources/images/restaurant/i.changeName"/>"/> + "</td>" // changeName으로 넘겨받아야 하는데 3장을 어떻게 처리하지--%>
-                        + "</tr>";
+                    console.log(i)
+                    let hashtagList = '';
+                    for (let hashtag of i.hashtags) {
+                        hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
+                    }
+                    // str += '<tr>'
+                    //     + "<td>" + i.memberName + "</td>"
+                    //     + "<td><img src=\"" + i.profileImage + "\" /></td>"
+                    //     + "<td>" + i.reviewContent + "</td>"
+                    //     + "<td>" + hashtagList + "</td>"
+                    //     + "<td>" + i.starRating + "</td>"
+                    //     + "<td><img src=\"" + i.changeName + "\" /></td>"
+                    //     + "</tr>";
+
+
+                    str += '<div>'
+                        + "<div>" + i.memberName + "</div>"
+                        + "<div> <img src=\"" + i.profileImage + "\"/> </div>"
+                        + "<div>" + i.reviewContent + "</div>"
+                        + "<div>" + hashtagList + "</div>"
+                        + "<div>" + i.starRating + "</div>"
+                        + "<div> <img src=\"" + i.changeName + "\" /> </div>"
+                        + "</div>";
+
+
                 }
                 $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
 
-                const star_rating = Math.round(list.map(obj => obj['starRating'])
-                    .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) /10
+                let star_rating;
+                if (list.length === 0) {
+                    star_rating = '별점을 남겨주세요!'
+                } else {
+                    star_rating = Math.round(list.map(obj => obj['starRating'])
+                        .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10
+                    star_rating += '/5'
+                }
                 $('#star_rating').html(star_rating)
             },
             error: function () {
@@ -264,11 +282,8 @@
             data: formData,
             contentType: false,
             processData: false,
-            success: (result) => {
-                if (result > 0) {
-                    selectReviewList();
-                    $("#content").val("");
-                }
+            success: () => {
+                selectReviewList();
             },
             error: function () {
                 console.log("ajax통신 실패");

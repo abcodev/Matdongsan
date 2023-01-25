@@ -59,6 +59,7 @@
     <div class="res img">
         <div>
             <img src="${restaurantDetail.resImgUrl}">
+            <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
         </div>
 
         <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
@@ -67,10 +68,8 @@
     </div>
 
 
-
-
     <div class="btn_box">
-        <button>취소</button>
+        <button onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
         <button type="submit">수정</button>
     </div>
 
@@ -92,8 +91,7 @@
 
 
 <script>
-    $('input:checkbox[name=chk_hashtag]').click(function(){
-
+    $('input:checkbox[name=hashtagId]').click(function(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
             alert('해시태그는 최대 2개까지 선택 가능합니다.')

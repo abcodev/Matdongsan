@@ -129,7 +129,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 //            try {
 //                file.transferTo(new File( savePath+ changeName)); // 경로와 수정파일명을 합쳐서 업로드하기
 //
-//
 //                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + changeName);
 //                String resNo = restaurantDao.resInsert(restaurant);
 //
@@ -137,7 +136,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 //                resImg.setChangeName(changeName);
 //                resImg.setOriginName(file.getOriginalFilename());
 //                resImg.setResNo(resNo);
-//
 //
 //                for(int i = 0; i<hashTagId.size();i++){
 //                    ResHashtag resHashtag = new ResHashtag();
@@ -149,12 +147,10 @@ public class RestaurantServiceImpl implements RestaurantService {
 //
 //                restaurantDao.resInsertImg(resImg);
 //
-//
 //            } catch (IllegalStateException | IOException e) {
 //                System.out.println("파일 업로드 오류");
 //            }
 //        }
-
 
     /**
      * 관리자 - 수정
@@ -164,34 +160,37 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         try {
             // 1. 이미지 파일 저장
-            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
-            String fileName = Utils.saveFile(savePath, file);
+            if (file.getSize() > 0) {
+                String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+                String fileName = Utils.saveFile(savePath, file);
+
+                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
+
+                ResImg resImg = new ResImg();
+                resImg.setMemberNo(1L);
+                resImg.setResNo(restaurant.getResNo());
+                resImg.setChangeName(fileName);
+                restaurantDao.resInsertImg(resImg);
+            }
 
             // 2. Restaurant 엔티티 생성 후 저장
-            restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
             String resNo = restaurantDao.resModify(restaurant);
 
-            // 3. ResImg 엔티티 생성 후 저장
-            ResImg resImg = new ResImg();
-            resImg.setMemberNo(1L);
-            resImg.setResNo(resNo);
-            resImg.setOriginName(file.getOriginalFilename());
-            resImg.setChangeName(fileName);
-            restaurantDao.resInsertImg(resImg);
-
             // 4. ResHashTag 엔티티 List 생성 후 저장
-            hashTagId.forEach(tagId -> {
-                ResHashtag resHashtag = new ResHashtag();
-                resHashtag.setHashtagId(tagId);
-                resHashtag.setResNo(resNo);
-                resHashtag.setMemberNo(1L);
-                restaurantDao.resHashtagModify(resHashtag);
-            });
+            if (!hashTagId.isEmpty()) {
+                restaurantDao.deleteResHashOnlyAdmin(resNo);
+                hashTagId.forEach(tagId -> {
+                    ResHashtag resHashtag = new ResHashtag();
+                    resHashtag.setHashtagId(tagId);
+                    resHashtag.setResNo(resNo);
+                    resHashtag.setMemberNo(1L);
+                    restaurantDao.resHashtagInsert(resHashtag);
+                });
+            }
         } catch (IllegalStateException e) {
             System.out.println("파일 업로드 오류");
         }
     }
-
 
     /**
      * 관리자 - 맛집 삭제
