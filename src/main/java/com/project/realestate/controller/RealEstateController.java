@@ -26,34 +26,6 @@ public class RealEstateController {
         this.realEstateService = realEstateService;
     }
 
-
-//    @RequestMapping("/list")
-//    public String realEstatePage(
-//            Model model,
-//            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//            @RequestParam(value = "state", defaultValue = "") String state,
-//            @RequestParam(value = "dong", defaultValue = "") String dong
-//    ) throws Exception {
-//        System.out.println("검색!!!! " + state);
-//        List<RealEstateRent> localList = realEstateService.searchLocalList();
-//
-//
-//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
-//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
-//
-//        model.addAttribute("localList", localList);
-//
-//
-//        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
-//        model.addAttribute("dongList", dongList);
-//
-//        System.out.println(state + "동이름 : " + dongList);
-//
-//        model.addAttribute("selectAllList", resp.getRealEstateRentList());
-//        model.addAttribute("pi", resp.getPageInfoCombine());
-//        return "realestate/realestateList";
-//    }
-
 //    @RequestMapping("/list")
 //    public String realEstatePage(
 //            Model model,
@@ -78,6 +50,7 @@ public class RealEstateController {
 //    }
 
     @RequestMapping("/list")
+    @ResponseBody
     public ModelAndView realEstatePage(
             @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
             @RequestParam(value = "state", defaultValue = "강남구") String state,
@@ -85,6 +58,7 @@ public class RealEstateController {
             @RequestParam Map<String, Object> paramMap
     ) throws Exception {
         System.out.println("검색!!!! " + state);
+        System.out.println("dong!! :" + dong);
 
         ModelAndView mv = new ModelAndView();
         Map<String, Object> map = new HashMap();
@@ -95,9 +69,10 @@ public class RealEstateController {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        if(!paramMap.isEmpty()){
-            List<RealEstateRent> searchResult = realEstateService.searchResult();
-        }
+        System.out.println("동 리스트: " + dongList.toString());
+//        if(!paramMap.isEmpty()){
+//            List<RealEstateRent> searchResult = realEstateService.searchResult();
+//        }
 
         mv.addObject("localList", localList);
         mv.addObject("dongList", dongList);

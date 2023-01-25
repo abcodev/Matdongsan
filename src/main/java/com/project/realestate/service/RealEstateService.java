@@ -27,7 +27,7 @@ public interface RealEstateService {
    public List<RealEstateRent> searchDongList(String state);
 
     // 검색 결과
-    public List<RealEstateRent> searchResult();
+//    public List<RealEstateRent> searchResult();
 
 
 

@@ -152,10 +152,9 @@
             BLDG_AREA
         FROM REALESTATE_SELL
         WHERE SGG_NM = '${sggNm}'
-        <if test="selectOption2 != null">
+        <if test="selectOption2 != null and selectOption2 != 'total'">
             AND BLDG_NM = '${bjdongNm}'
         </if>
-
         ORDER BY SGG_NM
     </select>
 

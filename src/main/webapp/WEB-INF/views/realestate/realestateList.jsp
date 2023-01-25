@@ -22,7 +22,7 @@
 <body>
 <div id="content">
     <div id="content_left">
-        <form name="searchArea" action="/realEstate/list">
+        <form name="searchArea">
             <div id="search_box">
                 <div class ="search city">
                     <select name="selectOption1" id="selectOption1" >
@@ -72,7 +72,6 @@
             </form>
             <script>
                 function detailSearch() {
-                    console.log($('#selectOption1 option:checked').text())
 
                     $('#state').val($('#selectOption1 option:checked').text())
                     console.log($('#state').val())
@@ -174,13 +173,10 @@
         })
     })
 
-
-
-
 </script>
 
+<%-- 매매/전,월세 select 변경 --%>
 <script>
-
     function optionType(e){
 
         console.log(e.value);
@@ -205,10 +201,6 @@
 
     }
 </script>
-
-
-
-
 
 
 
