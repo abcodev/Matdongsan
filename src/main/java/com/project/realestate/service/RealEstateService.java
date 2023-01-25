@@ -17,9 +17,8 @@ public interface RealEstateService {
 
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req);
 
-//    public RealEstateRentListResponse selectList(RealEstateRentListRequest req);
+    public RealEstateRentListResponse searchResult(RealEstateRentListRequest req);
 
-//    Map<String, Object> selectList(Map<String, Object> paramMap);
 
     // 자치구 리스트,
    public List<RealEstateRent> searchLocalList();

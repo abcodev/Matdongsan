@@ -13,7 +13,7 @@ public class RealEstateRentListFilter {
 
     private String state;
     private String dong;
-    private String transaction;
+    private String rentType;
     private String fee;
     private String area;
 
@@ -21,7 +21,7 @@ public class RealEstateRentListFilter {
     }
 
     public static RealEstateRentListFilter from (RealEstateRentListRequest req){
-        return new RealEstateRentListFilter(req.getState(), req.getDong(), req.getTransaction(), req.getFee(), req.getArea());
+        return new RealEstateRentListFilter(req.getState(), req.getDong(), req.getRentType(), req.getFee(), req.getArea());
     }
 
 }

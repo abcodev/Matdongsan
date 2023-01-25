@@ -22,7 +22,7 @@
 <body>
 <div id="content">
     <div id="content_left">
-        <form name="searchArea">
+        <form name="searchArea" action="<c:url value="/realEstate/list"/>">
             <div id="search_box">
                 <div class ="search city">
                     <select name="selectOption1" id="selectOption1" >
@@ -53,8 +53,8 @@
                         <option value="range5">200000이상</option>
                     </select >
 
-                    <select name="chooseType" id="chooseType">
-                        <option value="area0">면적</option>
+                    <select name="area" id="area">
+                        <option value="">면적</option>
                         <option value="area1">~ 30이하</option>
                         <option value="area2">30초과 ~ 60이하</option>
                         <option value="area3">60초과 ~ 120이하</option>
@@ -66,18 +66,21 @@
                 </div>
             </div>
 
-            <form id="form" method="get" action="<c:url value="/realEstate/list"/>">
-                <input type="hidden" id="state" name="state">
-                <input type="hidden" id="dong" name="dong">
-            </form>
+<%--            <form id="form" method="get" action="<c:url value="/realEstate/list"/>">--%>
+<%--                <input type="hidden" id="state" name="state">--%>
+<%--                <input type="hidden" id="dong" name="dong">--%>
+<%--            </form>--%>
             <script>
                 function detailSearch() {
 
-                    $('#state').val($('#selectOption1 option:checked').text())
-                    console.log($('#state').val())
+                    // $('#state').val($('#selectOption1 option:checked').val())
+                    // $('#dong').val($('#selectOption2 option:checked').val())
 
-                    $('#dong').val($('#selectOption2 option:checked').text())
-                    console.log($('#dong').val())
+                    $("#selectOption1 option:checked").val()
+                    $("#selectOption2 option:checked").val()
+                    $('#rentType option:checked').val()
+                    $('#rentGtn option:checked').val()
+                    $('#area option:checked').val()
 
                     $('form').submit()
                 }
@@ -183,7 +186,7 @@
 
         if(e.value != "a"){
             $("#rentGtn option").remove();
-            $("#rentGtn").html("<option>보증금(만원)</option>" +
+            $("#rentGtn").html("<option value=''>보증금(만원)</option>" +
                                 "<option value='range1'>1000이하</option>" +
                                 "<option value='range2'>1000~5000</option>" +
                                 "<option value='range3'>5000~10000</option>" +

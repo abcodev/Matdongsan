@@ -36,8 +36,8 @@ public class RealEstateDao {
 
     public List<RealEstateRent> searchResult(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter){
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        
-        return sqlSession.selectList("rentMapper.select")
+
+        return sqlSession.selectList("rentMapper.searchSellResult", filter, rowBounds);
     }
 
 

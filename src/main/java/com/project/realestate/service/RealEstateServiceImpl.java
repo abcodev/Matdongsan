@@ -21,7 +21,7 @@ import java.util.Map;
 @Service
 public class RealEstateServiceImpl implements RealEstateService{
 
-    private static final int DEFAULT_BOARD_SIZE = 1000;
+    private static final int DEFAULT_BOARD_SIZE = 10;
 
     private final RealEstateDao realEstateDao;
     private final SqlSession sqlSession;
@@ -52,9 +52,21 @@ public class RealEstateServiceImpl implements RealEstateService{
 
         List<RealEstateRent> result = realEstateDao.selectList(pageInfoCombine, RealEstateRentListFilter.from(req));
 
-        List<RealEstateRent> searchResult = realEstateDao.selectSearchList(pageInfoCombine, RealEstateRentListFilter.from(req));
+        //List<RealEstateRent> searchResult = realEstateDao.selectSearchList(pageInfoCombine, RealEstateRentListFilter.from(req));
 
-        return new RealEstateRentListResponse(result, pageInfoCombine, searchResult);
+        return new RealEstateRentListResponse(result, pageInfoCombine);
+
+    }
+
+    @Override
+    public RealEstateRentListResponse searchResult(RealEstateRentListRequest req){
+        int count = realEstateDao.selectListCount(sqlSession);
+
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_BOARD_SIZE);
+
+        List<RealEstateRent> result = realEstateDao.searchResult(pageInfoCombine, RealEstateRentListFilter.from(req));
+
+        return  new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
 //    @Override

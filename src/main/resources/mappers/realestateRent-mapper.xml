@@ -85,7 +85,7 @@
             (SELECT
                  SGG_NM,
                  BLDG_NM,
-                 DEAL_YMD,
+                 RENT_GBN,
                  RENT_GTN,
                  RENT_AREA
              FROM REALESTATE_RENT
@@ -93,7 +93,7 @@
              SELECT
                  SGG_NM,
                  BLDG_NM,
-                 DEAL_YMD,
+                 RENT_GBN,
                  OBJ_AMT,
                  BLDG_AREA
              FROM REALESTATE_SELL
@@ -151,11 +151,99 @@
             OBJ_AMT,
             BLDG_AREA
         FROM REALESTATE_SELL
-        WHERE SGG_NM = '${sggNm}'
-        <if test="selectOption2 != null and selectOption2 != 'total'">
-            AND BLDG_NM = '${bjdongNm}'
+        WHERE SGG_NM = '${state}'
+        <if test="dong != null and dong != 'total'">
+            AND BJDONG_NM = '${dong}'
+        </if>
+        <if test="fee != null">
+            <choose>
+                <when test="fee == 'range1'">
+                    <![CDATA[AND TO_NUMBER(OBJ_AMT) <= 50000]]>
+                </when>
+                <when test="fee == 'range2'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 50000 AND 100000
+                </when>
+                <when test="fee == 'range3'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 100000 AND 150000
+                </when>
+                <when test="fee == 'range4'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 150000 AND 200000
+                </when>
+                <when test="fee == 'range5'">
+                    AND TO_NUMBER(OBJ_AMT) >= 200000
+                </when>
+            </choose>
+        </if>
+        <if test="area != null">
+            <choose>
+                <when test="area == 'area1'">
+                    <![CDATA[AND TO_NUMBER(BLDG_AREA) <= 30]]>
+                </when>
+                <when test="area == 'area2'">
+                    AND TO_NUMBER(BLDG_AREA) BETWEEN 30 AND 60
+                </when>
+                <when test="area == 'area3'">
+                    AND TO_NUMBER(BLDG_AREA) BETWEEN 60 AND 120
+                </when>
+                <when test="area == 'area4'">
+                    AND TO_NUMBER(BLDG_AREA) >= 120
+                </when>
+            </choose>
         </if>
         ORDER BY SGG_NM
     </select>
+
+    <!-- RENT 검색 -->
+<!--    <select id="searchRentResult" resultMap="realEstateRentResultSet">-->
+<!--        SELECT-->
+<!--        SGG_NM,-->
+<!--        BLDG_NM,-->
+<!--        RENT_GBN,-->
+<!--        RENT_GTN,-->
+<!--        RENT_AREA-->
+<!--        FROM REALESTATE_RENT-->
+<!--        WHERE SGG_NM = '${sggNm}'-->
+<!--        <if test="dong != null and dong != 'total'">-->
+<!--            AND BJDONG_NM = '${bjdNm}'-->
+<!--        </if>-->
+<!--        <if test="rentGtn != null">-->
+<!--            <choose>-->
+<!--                <when test="rentGtn == 'range1'">-->
+<!--                    AND TO_NUMBER(RENT_GTN) <= 1000-->
+<!--                </when>-->
+<!--                <when test="rentGtn == 'range2'">-->
+<!--                    AND TO_NUMBER(RENT_GTN) BETWEEN 1000 AND 5000-->
+<!--                </when>-->
+<!--                <when test="rentGtn == 'range3'">-->
+<!--                    AND TO_NUMBER(RENT_GTN) BETWEEN 5000 AND 10000-->
+<!--                </when>-->
+<!--                <when test="rentGtn == 'range4'">-->
+<!--                    AND TO_NUMBER(RENT_GTN) BETWEEN 10000 AND 15000-->
+<!--                </when>-->
+<!--                <when test="rentGtn == 'range5'">-->
+<!--                    AND TO_NUMBER(RENT_GTN) >= 15000-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--        <if test="area != null">-->
+<!--            <choose>-->
+<!--                <when test="area == 'area1'">-->
+<!--                    AND TO_NUMBER(RENT_AREA) <= 30-->
+<!--                </when>-->
+<!--                <when test="area == 'area2'">-->
+<!--                    AND TO_NUMBER(RENT_AREA) BETWEEN 30 AND 60-->
+<!--                </when>-->
+<!--                <when test="area == 'area3'">-->
+<!--                    AND TO_NUMBER(RENT_AREA) BETWEEN 60 AND 120-->
+<!--                </when>-->
+<!--                <when test="area == 'area4'">-->
+<!--                    AND TO_NUMBER(RENT_AREA) >= 120-->
+<!--                </when>-->
+<!--            </choose>-->
+<!--        </if>-->
+<!--        ORDER BY SGG_NM-->
+<!--    </select>-->
+
+
 
 </mapper>

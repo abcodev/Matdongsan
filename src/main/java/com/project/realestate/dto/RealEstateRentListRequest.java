@@ -13,7 +13,7 @@ public class RealEstateRentListRequest {
 //    private Map<String, Object> param;
     private String state;
     private String dong;
-    private String transaction;
+    private String rentType;
     private String fee;
     private String area;
 }
