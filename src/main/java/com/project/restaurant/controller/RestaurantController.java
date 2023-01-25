@@ -133,10 +133,10 @@ public class RestaurantController {
                                    HttpServletRequest req) {
 //        System.out.println("해쉬태그"+hashtagId.get(0)+"/" + hashtagId.get(1));
         List arr = Arrays.asList(req.getParameterValues("hashtagId"));
-        restaurantService.restaurantInsert(file, restaurant, session, hashtagId);
+        String resNo = restaurantService.restaurantInsert(file, restaurant, session, hashtagId);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + restaurant.getResName() + "!");
-        return "redirect:/";
+        return "redirect:/restaurantDetail?resNo=" + resNo;
     }
 
 
