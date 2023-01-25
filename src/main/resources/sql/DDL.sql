@@ -141,7 +141,7 @@ CREATE TABLE "MEMBER"
     "PROVIDER"      VARCHAR(255)                   NOT NULL,
     "PROVIDER_ID"   VARCHAR(255)                   NOT NULL,
     "MEMBER_NAME"   VARCHAR(255)                   NOT NULL,
-    "PROFILE_IMAGE" VARCHAR(255)                   NOT NULL,
+    "PROFILE_IMAGE" VARCHAR(255)                   NULL,
     "EMAIL"         VARCHAR(255)                   NULL,
     "NICKNAME"      VARCHAR(255)                   NULL,
     "PHONE"         VARCHAR(255)                   NULL,

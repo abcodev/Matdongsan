@@ -5,6 +5,7 @@ import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.vo.RealEstateRent;
+import com.project.realestate.vo.RealEstateSell;
 
 import java.util.List;
 import java.util.Map;
