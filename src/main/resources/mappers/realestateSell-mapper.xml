@@ -54,17 +54,25 @@
         ) realEstateSell
     </insert>
 
+<!--    <select id="getSellList" resultMap="realEstateSellResultSet">-->
+<!--    SELECT-->
+<!--        BJDONG_NM,-->
+<!--        BONBEON,-->
+<!--        BUBEON,-->
+<!--        OBJ_AMT-->
+<!--        FROM REALESTATE_SELL-->
+<!--        ORDER BY BJDONG_NM-->
+<!--    </select>-->
+
+
     <select id="getSellList" resultMap="realEstateSellResultSet">
-    SELECT
-        BJDONG_NM,
-        BONBEON,
-        BUBEON,
-        OBJ_AMT
+        SELECT
+            SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
+            OBJ_AMT,
+            BLDG_NM
         FROM REALESTATE_SELL
         ORDER BY BJDONG_NM
     </select>
-
-
 
 
 
