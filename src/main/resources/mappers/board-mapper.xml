@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="boardMapper">
-    <resultMap type="QBoard" id="qBoardResultSet" >
+    <resultMap type="QBoard" id="qBoardResultSet">
         <result column="QNA_BNO" property="qnaBno"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="P_BNO" property="parentBno"/>
@@ -16,8 +16,8 @@
         <result column="QNA_AREA" property="qnaArea"/>
         <result column="BOARD_CD" property="boardCd"/>
         <result column="NICKNAME" property="qnaWriter"/>
+        <result column="QNA_DEPTH" property="depth"/>
     </resultMap>
-
 
 
     <resultMap type="boardType" id="boardTypeResultSet">
@@ -38,29 +38,28 @@
 
 
     <select id="selectList" resultMap="qBoardResultSet">
-        SELECT LEVEL, Q.*
-        FROM
-            (SELECT
-                 QNA_BNO,
-                 M.MEMBER_NO,
-                 M.NICKNAME,
-                 P_BNO,
-                 QNA_TITLE,
-                 TO_DATE(QNA_DATE,'YYYY-MM-DD'),
-                 COUNT
-             FROM QNA_BOARD B
-             LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
-             WHERE B.STATUS = 'Y' AND BOARD_CD = #{boardCode})
-                Q
+        SELECT QNA_BNO,
+               M.MEMBER_NO,
+               M.NICKNAME,
+               P_BNO,
+               QNA_TITLE,
+               TO_DATE(QNA_DATE, 'YYYY-MM-DD'),
+               QNA_DEPTH,
+               COUNT
+        FROM QNA_BOARD B
+                 LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+        WHERE B.STATUS = 'Y'
+          AND BOARD_CD = #{boardCode}
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
         ORDER SIBLINGS BY QNA_BNO ASC
     </select>
 
     <select id="selectListCount" resultType="int">
-            SELECT COUNT(*)
-            FROM QNA_BOARD
-            WHERE STATUS = 'Y' AND BOARD_CD = #{boardCode}
+        SELECT COUNT(*)
+        FROM QNA_BOARD
+        WHERE STATUS = 'Y'
+          AND BOARD_CD = #{boardCode}
     </select>
 
     <select id="selectBoardTypeList" resultMap="boardTypeResultSet">
@@ -69,21 +68,15 @@
         ORDER BY BOARD_CD
     </select>
 
-   <!-- <insert id="insertQnaBoard" parameterType="QBoard">
-        INSERT INTO QNA_BOARD(QNA_BNO,MEMBER_NO,QNA_TITLE,QNA_CONTENT,QNA_DATE,QNA_AREA)
-        VALUES(SEQ_BNO.NEXTVAL,
-               MEMBER_NO = #{use_no},
-               QNA_TITLE = #{qnaTitle},
-               QNA_CONTENT = #{qnaContent},
-               QNA_DATE = #{sysdate},
-               QNA_AREA =#{qnaArea}
-               )
-    </insert>-->
+    <insert id="insertQboard" parameterType="QBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent})
+    </insert>
 
     <select id="searchList" resultMap="qBoardResultSet">
         SELECT
         QNA_BNO,
-        MEMBER_NO,
+        Q.MEMBER_NO,
         P_BNO,
         QNA_TITLE,
         QNA_CONTENT,
@@ -91,7 +84,7 @@
         TO_DATE(QNA_DATE,'YYYY-MM-DD')
         FROM QNA_BOARD Q
         LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
-        WHERE Q.STATUS='Y'
+        WHERE Q.STATUS='Y' AND BOARD_CD = #{boardCode}
         <if test='keyword != null and keyword != ""'>
             AND
             <choose>
@@ -114,7 +107,7 @@
             AND
             <choose>
                 <when test="condition == 'title'">
-                    QNA_TITLE LIKE '%${keyword}%'
+                    QNA_TITLE LIKE 'f%${keyword}%'
                 </when>
                 <when test="condition == 'content'">
                     QNA_CONTENT LIKE '%${keyword}%'
@@ -123,45 +116,91 @@
         </if>
     </select>
 
-    <!--<select id="qnaBoardlist" resultMap="qBoardResultSet">
-            SELECT LEVEL, Q.*
-            FROM
-                (SELECT QNA_BNO,
-                        M.MEMBER_NO,
-                        P_BNO,
-                        QNA_TITLE,
-                        QNA_CONTENT,
-                        QNA_DATE,
-                        COUNT,
-                        QNA_AREA
-                 from QNA_BOARD B
-                          JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
-                 WHERE QNA_BNO =1) Q
-            START WITH P_BNO IS NULL
-            CONNECT BY PRIOR QNA_BNO = P_BNO
-            ORDER SIBLINGS BY QNA_BNO ASC;
-    </select>-->
 
     <select id="selectQboard" parameterType="int" resultMap="qBoardResultSet">
-        SELECT
-            QNA_BNO,
-            QNA_TITLE,
-            M.MEMBER_NO,
-            QNA_CONTENT,
-            TO_DATE(QNA_DATE,'YYYY-MM-DD'),
-            M.NICKNAME
-        FROM QNA_BOARD Q
-        JOIN MEMBER M ON(M.MEMBER_NO = Q.MEMBER_NO)
-        WHERE Q.STATUS = 'Y' AND QNA_BNO = #{qBno};
+        SELECT QNA_BNO,
+               COUNT,
+               QNA_TITLE,
+               QNA_CONTENT
+        FROM QNA_BOARD
+        WHERE STATUS = 'Y'
+          AND QNA_BNO = #{qBno}
 
     </select>
 
     <update id="increaseCount" parameterType="int">
         UPDATE QNA_BOARD
-        SET COUNT =  COUNT + 1
+        SET COUNT = COUNT + 1
         WHERE QNA_BNO = #{qBno}
     </update>
 
+    <insert id="insertAnswer" parameterType="QBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT, P_BNO, QNA_DEPTH)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{parentBno}, #{depth})
+    </insert>
 
+
+<!-- ################################ 커뮤니티 자유게시판  ################################-->
+
+    <select id="selectFlist" resultMap="fBoardResultSet">
+        SELECT
+            FREE_BNO,
+            MEMBER_NO,
+            BOARD_TITLE,
+            BOARD_WRITER,
+            BOARD_CONTENT,
+            BOARD_DATE,
+            BOARD_AREA
+        FROM FREE_BOARD
+        WHERE STATUS = 'Y'
+    </select>
+
+    <select id="selectFlistCount" resultType="int">
+        SELECT COUNT(*)
+        FROM FREE_BOARD
+        WHERE STATUS = 'Y'
+    </select>
+
+    <select id="searchFlist" resultMap="fBoardResultSet">
+        SELECT
+        FREE_BNO,
+        MEMBER_NO,
+        BOARD_TITLE,
+        BOARD_WRITER,
+        BOARD_CONTENT,
+        BOARD_DATE,
+        BOARD_AREA
+        FROM FREE_BOARD
+        WHERE STATUS='Y' AND
+        <if test='keyword != null and keyword != ""'>
+            AND
+            <choose>
+                <when test="condition == 'title'">
+                    BOARD_TITLE LIKE '%${keyword}%'
+                </when>
+                <when test="condition == 'content'">
+                    BOARD_CONTENT LIKE '%${keyword}%'
+                </when>
+            </choose>
+        </if>
+        ORDER BY FREE_BNO ASC
+    </select>
+
+    <select id="searchFlistCount" resultType="int">
+        SELECT COUNT(*)
+        FROM FREE_BOARD
+        WHERE STATUS = 'Y'
+        <if test='keyword != null and keyword != ""'>
+            AND
+            <choose>
+                <when test="condition == 'title'">
+                     BOARD_TITLE LIKE 'f%${keyword}%'
+                </when>
+                <when test="condition == 'content'">
+                    BOARD_CONTENT LIKE '%${keyword}%'
+                </when>
+            </choose>
+        </if>
+    </select>
 </mapper>
 

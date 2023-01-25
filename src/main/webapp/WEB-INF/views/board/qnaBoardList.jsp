@@ -65,14 +65,20 @@
                     <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
                     <c:forEach var="qb" items="${list}">
                         <%--원본글--%>
-                        <c:if test="${qb.parentBno == 0}">
+                        <c:if test="${qb.depth == 1 }">
                     <tr><td onclick="movePage(${qb.qnaBno})">${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
                         </c:if>
-                        <%--첫번쨰 답글일시--%>
-                      <c:if test="${qb.parentBno  == qb.qnaBno -1 }">
-                            <tr><td>&nbsp&nbsp&nbsp└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                        <c:if test="${qb.depth == 2}">
+                            <tr><td onclick="movePage(${qb.qnaBno})">└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
                         </c:if>
-                         <%--다답글일시--%>
+                        <c:if test="${qb.depth == 3}">
+                            <tr><td onclick="movePage(${qb.qnaBno})">&nbsp;&nbsp;&nbsp;└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                        </c:if>
+                        <c:if test="${qb.depth == 4}">
+                            <tr><td onclick="movePage(${qb.qnaBno})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                        </c:if>
+
+
 
                     </c:forEach>
                 </table>
@@ -108,12 +114,13 @@
 
 
     <script>
+
         function movePage(qBno){
             location.href = '${pageContext.request.contextPath}/board/detail/${boardCode}/'+qBno;
         }
 
-        function  movePage2(qBno){
-            location.href = '${pageContext.request.contextPath}/board/enrollForm/${boardCode}/';
+        function movePage2(){
+            location.href = '${pageContext.request.contextPath}/board/insert/${boardCode}/';
         }
     </script>
 </main>
