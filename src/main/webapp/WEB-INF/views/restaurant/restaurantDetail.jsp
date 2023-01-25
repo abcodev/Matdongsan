@@ -233,7 +233,9 @@
                         + "<div>" + i.reviewContent + "</div>"
                         + "<div>" + hashtagList + "</div>"
                         + "<div>" + i.starRating + "</div>"
-                        + "<div> <img src=\"" + i.changeName + "\" /> </div>"
+
+                        + "<div> <img src=\"" + i.changeNames[0] + "\" /> </div>"
+
                         + "</div>";
 
 

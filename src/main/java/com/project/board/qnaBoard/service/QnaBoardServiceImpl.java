@@ -75,8 +75,8 @@ public class QnaBoardServiceImpl implements QnaBoardService{
 
 
     @Override
-    public int insertBoard(QnaBoard qb){
-        return boardDao.insertBoard(sqlSession, qb);
+    public int insertQboard(QnaBoard qb) {
+        return boardDao.insertQboard(sqlSession, qb);
     }
 
 
@@ -97,5 +97,9 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     @Override
     public int increaseCount(int qBno){
         return boardDao.increaseCount(sqlSession,qBno);
+    }
+    @Override
+    public int insertAnswer(QnaBoard qb){
+        return  boardDao.insertAnswer(sqlSession,qb);
     }
 }
