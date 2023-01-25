@@ -1,13 +1,11 @@
 package com.project.member.dao;
 
-import com.project.client.oauth.OAuthUser;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -25,5 +23,12 @@ public class MemberDao {
         params.put("provider", provider);
         params.put("providerId", providerId);
         return sqlSession.selectOne("memberMapper.select", params) == null;
+    }
+
+    public Member select(String provider, String providerId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("provider", provider);
+        params.put("providerId", providerId);
+        return sqlSession.selectOne("memberMapper.select", params);
     }
 }

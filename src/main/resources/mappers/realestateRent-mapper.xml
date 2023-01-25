@@ -23,10 +23,28 @@
 
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="SGG_NM" property="sggNm"/>
+        <result column="BJDONG_NM" property="bjdName"/>
         <result column="BLDG_NM" property="buildName"/>
         <result column="DEAL_YMD" property="dealYmd"/>
         <result column="RENT_GTN" property="rentGtn"/>
         <result column="RENT_AREA" property="rentArea"/>
+    </resultMap>
+
+    <resultMap type="RealEstateSell" id="realEstateSellResultSet">
+        <result column="ACC_YEAR" property="accYear" />
+        <result column="SGG_CD" property="sggCd" />
+        <result column="SGG_NM" property="sggNM" />
+        <result column="BJDONG_CD" property="bjdongCd" />
+        <result column="BJDONG_NM" property="bjdongNm" />
+        <result column="BONBEON" property="bonbeon" />
+        <result column="BUBEON" property="bubeon" />
+        <result column="BLDG_NM" property="bldgNm" />
+        <result column="DEAL_NM" property="dealNm" />
+        <result column="DEAL_YMD" property="dealYmd" />
+        <result column="OBJ_AMT" property="objAmt" />
+        <result column="BLDG_AREA" property="bldgArea" />
+        <result column="BUILD_YEAR" property="buildYear" />
+        <result column="HOUSE_TYPE" property="houseType" />
     </resultMap>
 
     <delete id="deleteAll">
@@ -66,6 +84,7 @@
         FROM REALESTATE_RENT
     </select>
 
+    <!-- 부동산 리스트 -->
     <select id="selectList" resultMap="realEstateRentListResultSet">
         SELECT
             SGG_NM,
@@ -85,6 +104,7 @@
         ORDER BY SGG_NM
     </select>
 
+    <!-- 자치구 이름   -->
     <select id="searchLocalList" resultMap="realEstateRentListResultSet">
         SELECT
             DISTINCT SGG_NM
@@ -92,12 +112,14 @@
         ORDER BY SGG_NM
     </select>
 
-<!--    <select id="selectOption" resultMap="realEstateRentListResultSet">-->
-<!--        SELECT-->
-<!--            DISTINCT BJDONG_NM-->
-<!--        FROM REALESTATE_RENT-->
-<!--        WHERE SGG_CD = ${search_option}-->
-<!--        ORDER BY BJDONG_NM-->
-<!--    </select>-->
+    <!-- 동 이름 -->
+    <select id="searchDongList" resultMap="realEstateRentListResultSet">
+        SELECT
+            DISTINCT RR.BJDONG_NM
+        FROM REALESTATE_RENT RR
+                 LEFT JOIN REALESTATE_SELL RS ON RS.ACC_YEAR = RR.ACC_YEAR
+        WHERE RR.SGG_NM = '${state}'
+        ORDER BY RR.BJDONG_NM
+    </select>
 
 </mapper>

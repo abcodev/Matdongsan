@@ -1,5 +1,6 @@
 package com.project;
 
+import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.service.RealEstateService;
 import lombok.extern.log4j.Log4j;
 import org.jsoup.Jsoup;
@@ -8,10 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -31,17 +29,16 @@ public class MainController {
         this.realEstateService = realEstateService;
     }
 
-//    @ResponseBody
-//    public ModelAndView realEstateList(){
+    @ResponseBody
+    @GetMapping("/test")
+    public ModelAndView realEstateList(ModelAndView modelAndView){
 //        List<String> sellList = realEstateService.getSellList();
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("sellList", sellList);
-//
-//        modelAndView.setViewName("common/mainPage");
-//
-//        return modelAndView;
-//    }
+        List<RealEstateMainListDto> sellList = realEstateService.getSellList();
+
+        modelAndView.addObject("sellList", sellList);
+        modelAndView.setViewName("common/mainPage");
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){
@@ -78,8 +75,8 @@ public class MainController {
             Element imgElement = aElement.select("img").get(0);
             String title = imgElement.attr("alt"); //기사제목
 
-
             HashMap<String, String> newsInfo = new HashMap<>();
+
             newsInfo.put("newsTitle", title);
             newsInfo.put("newsUrl", articleUrl);
             newsList.add(newsInfo);

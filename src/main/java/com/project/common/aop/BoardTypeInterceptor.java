@@ -1,4 +1,4 @@
-package com.project.common.interceptor;
+package com.project.common.aop;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class BoardTypeInterceptor extends HandlerInterceptorAdapter{
+
 
     @Autowired
     private QnaBoardService boardService;

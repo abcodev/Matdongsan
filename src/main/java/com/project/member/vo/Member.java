@@ -1,6 +1,7 @@
 package com.project.member.vo;
 
 import com.project.client.oauth.OAuthUser;
+import com.project.member.type.MemberGrade;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class Member {
     private String phone;
     private String address;
     private String status;
-    private String grade;
+    private MemberGrade grade = MemberGrade.GENERAL;
 
     public static Member of(OAuthUser oAuthUser) {
         return Member.builder()

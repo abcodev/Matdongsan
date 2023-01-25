@@ -1,7 +1,7 @@
-package com.project.common.controller;
+package com.project.realestate.controller;
 
-import com.project.client.seoulApi.SeoulApiClient;
-import com.project.common.service.RealEstateApiService;
+import com.project.client.seoulApi.SeoulRentApiClient;
+import com.project.realestate.service.RealEstateRentApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -12,19 +12,24 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
+
 @Controller
 @RequiredArgsConstructor
 @Log4j
-public class RealEstateApiController {
+public class RealEstateRentApiController {
 
-    private final RealEstateApiService realEstateApiService;
-    private final SeoulApiClient seoulApiClient;
+    private final RealEstateRentApiService realEstateRentApiService;
+    private final SeoulRentApiClient seoulRentApiClient;
 
-    @GetMapping("/parsingSellList")
+    @GetMapping("/parsingRentList")
     public void parsingSell(Model model) throws ParserConfigurationException, SAXException, IOException {
 
         log.info("파싱 스타트 체크");
-        int result = realEstateApiService.retrieveAndSave();
+        int result = realEstateRentApiService.getAndSave();
+
         log.info("파싱 정보 입력 끝");
     }
+
+
+
 }

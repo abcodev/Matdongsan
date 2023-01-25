@@ -1,4 +1,4 @@
-package com.project.common.dao;
+package com.project.realestate.dao;
 
 import com.project.realestate.vo.RealEstateRent;
 import lombok.RequiredArgsConstructor;

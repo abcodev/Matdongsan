@@ -5,6 +5,7 @@
 <c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <c:set var="l" value="${localList}"/>
+<c:set var="d" value="${dongList}"/>
 <c:set var="r" value="com.project.common.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,67 +25,61 @@
         <form name="searchArea" action="">
             <div id="search_box">
                 <div class ="search city">
-                    <select name="selectOption1" id="selectOption1" onchange="get_option2(selectOption1.value, selectOption2)">
-                        <option value="option1">자치구 선택</option>
-                        <c:forEach var="l" items="${localList}">
-                            <option value="${l.sggNm}">${l.sggNm}</option>
+                    <select name="selectOption1" id="selectOption1" onchange="getDongList(this.value)" >
+                        <option value="">선택</option>
+                        <c:forEach var="localList" items="${localList}">
+                            <option value="${localList.sggNm}">${localList.sggNm}</option>
                         </c:forEach>
                     </select>
                     <select name="selectOption2" id="selectOption2">
                         <option value="total">전체</option>
-
+                        <c:forEach var="dongList" items="${dongList}">
+                            <option value="${dongList.bjdName}">${dongList.bjdName}</option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class ="search option">
-                    <select name="rentType" id="rentType">
-                        <option value="selectA">매매</option>
-                        <option value="selectB">전세</option>
-                        <option value="selectC">월세</option>
+                    <select name="rentType" id="rentType" onchange="optionType(this)">
+                        <option value="a">매매</option>
+                        <option value="b">전세</option>
+                        <option value="c">월세</option>
                     </select>
 
-                    <select name="rentGtn">
-                        <c:choose>
-                            <c:when test="$(#rentType).selected == 'selectA'">
-                                <option value="charge0">실거래가(만원)</option>
-                                <option value="level1">~ 50000이하</option>
-                                <option value="level2">50000초과 ~ 100000이하</option>
-                                <option value="level3">100000초과 ~ 20000이하</option>
-                                <option value="level4">200000초과</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="level0">보증금(만원)</option>
-                                <option value="level1">~ 1000이하</option>
-                                <option value="level2">1000초과 ~ 5000이하</option>
-                                <option value="level3">5000초과 ~ 10000이하</option>
-                                <option value="level4">10000초과</option>
-                            </c:otherwise>
-                        </c:choose>
+                    <select name="rentGtn" id="rentGtn">
+                        <option value="">가격(만원)</option>
                     </select >
 
-                    <select name="chooseType">
-                        <c:choose>
-                            <c:when test="$(#rentType).selected == 'selectC'">
-                                <option value="fee0">임대료(만원)</option>
-                                <option value="fee1">~ 10이하</option>
-                                <option value="fee2">10초과 30이하</option>
-                                <option value="fee3">30초과 60이하</option>
-                                <option value="fee4">60초과 100이하</option>
-                                <option value="fee5">100초과</option>
-                            </c:when>
-                            <c:otherwise>
-                                <option value="area0">면적</option>
-                                <option value="area1">~ 30이하</option>
-                                <option value="area2">30초과 ~ 60이하</option>
-                                <option value="area3">60초과 ~ 120이하</option>
-                                <option value="area4">120초과</option>
-                            </c:otherwise>
-                        </c:choose>
+                    <select name="chooseType" id="chooseType">
+                        <option value="area0">면적</option>
+                        <option value="area1">~ 30이하</option>
+                        <option value="area2">30초과 ~ 60이하</option>
+                        <option value="area3">60초과 ~ 120이하</option>
+                        <option value="area4">120초과</option>
                     </select>
                 </div>
                 <div class="btn_box">
-                    <button type="submit">조회</button>
+                    <button onclick="detailSearch()">조회</button>
                 </div>
             </div>
+
+            <form id="form" method="get" action="<c:url value="/realEstate/list"/>">
+                <input type="hidden" id="state" name="state">
+                <input type="hidden" id="dong" name="dong">
+            </form>
+            <script>
+                function detailSearch() {
+
+                    $('#state').val($('#selectOption1 option:checked').text())
+                    console.log($('#state').val())
+
+                    $('#dong').val($('#selectOption2 option:checked').text())
+                    console.log($('#dong').val())
+
+                    $('form').submit()
+                }
+            </script>
+
+
         </form>
         <div id="place">
 
@@ -92,7 +87,9 @@
     </div>
     <div id="content_right">
         <div id="search_map">
+            <c:forEach var="r" items="${list}">
 
+            </c:forEach>
         </div>
         <div id="search_list">
             <table class="table">
@@ -103,13 +100,13 @@
                     <th>금액</th>
                     <th>임대면적</th>
                 </tr>
-                <c:forEach var="r" items="${ list }">
+                <c:forEach var="selectAllList" items="${ selectAllList }">
                     <tr>
-                        <td class="rno">${ r.sggNm }</td>
-                        <td>${r.buildName }</td>
-                        <td>${r.dealYmd }</td>
-                        <td>${r.rentGtn}</td>
-                        <td>${r.rentArea }</td>
+                        <td class="rno">${ selectAllList.sggNm }</td>
+                        <td>${selectAllList.buildName }</td>
+                        <td>${selectAllList.dealYmd }</td>
+                        <td>${selectAllList.rentGtn}</td>
+                        <td>${selectAllList.rentArea }</td>
                     </tr>
                 </c:forEach>
 
@@ -117,50 +114,92 @@
         </div>
 
         <div id="paging">
-            <c:set var="url" value="?currentPage="/>
+
             <ul class="pagination">
                 <c:choose>
-                <c:when test="${pi.currentPage eq 1 }">
-                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                </c:when>
-                <c:otherwise>
-                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage-1 }${sUrl}">Previous</a></li>
-                </c:otherwise>
+                    <c:when test="${ pi.currentPage eq 1 }">
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="selectAllList?cpage=${pi.currentPage -1 }">Previous</a></li>
+                    </c:otherwise>
                 </c:choose>
 
                 <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item"><a class="page-link" href="${url}${item }${sUrl}">${item }</a></li>
+                    <li class="page-item"><a class="page-link" href="selectAllList?cpage=${item }">${item }</a></li>
                 </c:forEach>
 
                 <c:choose>
-                <c:when test="${pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </c:when>
-                <c:otherwise>
-                <li class="page-item"><a class="page-link" href="${url}${pi.currentPage+1 }${sUrl}">Next</a></li>
-                </c:otherwise>
+                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" href="selectAllList?cpage=${pi.currentPage + 1}">Next</a></li>
+                    </c:otherwise>
                 </c:choose>
+            </ul>
+
+
         </div>
     </div>
 </div>
 
-<%--검색 동 변경--%>
+검색 동 변경
 <script>
-    function get_option2(option1, selectOption) {
+    function getDongList(e) {
+        var state = $("select[name='selectOption1']").val()
+        console.log(state)
+
         $.ajax({
-            type: 'GET',
-            url: '${pageContext.request.contextPath}/',
+            url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
+            type: 'GET',
+            data: {
+                'state': state
+            },
             dataType: 'json',
             success: function (result) {
-                console.log(result)
+                $("#selectOption2").remove();
+                $("#selectOption2").append("<option value='total'>전체</option>");
 
+                alert(result);
             }
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            console.log(error);
+            alert("통신 실패");
         })
     }
 </script>
+
+<script>
+
+    function optionType(e){
+
+        const type1 = ['200000', '1000000', '2000000', '3000000'];
+        const type2 = ['1000', '5000', '10000', '20000'];
+        const target = document.getElementById("rentGtn");
+
+        if(e.value == "a"){
+            add = type1;
+        }else {
+            add = type2;
+        }
+
+        console.log(e.value);
+
+        target.options.length = 1;
+
+        for(x in add){
+            let opt = document.createElement("option");
+            opt.value = add[x];
+            opt.innerHTML = add[x];
+            target.appendChild(opt);
+        }
+
+    }
+</script>
+
+
 
 <%--지도 관련 스크립트--%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
@@ -221,6 +260,8 @@
         // 지도 중심좌표를 접속위치로 변경
         map.setCenter(locPosition);
     }
+
+
 </script>
 
 </body>

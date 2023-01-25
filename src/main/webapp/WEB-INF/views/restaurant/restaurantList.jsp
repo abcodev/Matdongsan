@@ -25,7 +25,7 @@
     <div id="place_head">
 
         <div>
-            <button>새로운 맛집 등록하기</button>
+            <button onclick="location.href='${pageContext.request.contextPath}/admin/resEnroll'">새로운 맛집 등록하기</button>
         </div>
 
         <div class="place city">
@@ -39,8 +39,8 @@
 
         <div class="place hashtag">
             <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag}" onchange="retrieveRestaurants(1)">
-                <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag}</label>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag.hashtag}" onchange="retrieveRestaurants(1)">
+                <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
             </c:forEach>
         </div>
 

@@ -1,57 +1,76 @@
 package com.project.realestate.dao;
 
-
-import com.project.common.template.PageInfo;
+import com.project.common.template.PageInfoCombine;
+import com.project.realestate.dto.RealEstateMainListDto;
+import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.vo.RealEstateRent;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Repository
+@RequiredArgsConstructor
 public class RealEstateDao {
+
+    private final SqlSessionTemplate sqlSession;
 
     public int selectListCount(SqlSession sqlSession) {
         return sqlSession.selectOne("rentMapper.selectListCount");
     }
-    public int selectListCount(SqlSession sqlSession, Map<String, Object> paramMap) {
-        return sqlSession.selectOne("rentMapper.searchListCount", paramMap);
-    }
+//    public int selectListCount(SqlSession sqlSession, Map<String, Object> paramMap) {
+//        return sqlSession.selectOne("rentMapper.searchListCount", paramMap);
+//    }
 
-    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfo pi){
 
-        int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
-        int limit = pi.getBoardLimit();
-
-        RowBounds rowBounds = new RowBounds(offset, limit);
-
-        return (ArrayList)sqlSession.selectList("rentMapper.selectList", rowBounds);
+    public List<RealEstateRent> selectList(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("rentMapper.selectList", filter, rowBounds);
     }
 
 
-    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, Map<String, Object> paramMap) {
-
-        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() - 1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
-        int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
-
-        RowBounds rowBounds = new RowBounds(offset, limit);
-
-        return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
-    }
+//    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
+//
+//        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+//        return (ArrayList) sqlSession.selectList("rentMapper.selectList", filter, rowBounds);
+//
+//    }
 
 
+//    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, Map<String, Object> paramMap) {
+//
+//        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() - 1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
+//        int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
+//
+//        RowBounds rowBounds = new RowBounds(offset, limit);
+//
+//        return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
+//    }
+
+    // 자치구 리스트
     public ArrayList<RealEstateRent> searchLocalList(SqlSession sqlSession){
         return (ArrayList) sqlSession.selectList("rentMapper.searchLocalList");
     }
 
-    public ArrayList<String> selectOption(SqlSession sqlSession, String option1){
-        return  (ArrayList) sqlSession.selectList("rentMapper.selectOption", option1);
+    // 동 리스트
+    public ArrayList<RealEstateRent> searchDongList(SqlSession sqlSession, String state){
+        return  (ArrayList) sqlSession.selectList("rentMapper.searchDongList", state);
     }
-    public ArrayList<String> getSellList(SqlSession sqlSession){
-        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
 
+//    public ArrayList<String> getSellList(SqlSession sqlSession){
+//        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
+//
+//    }
+
+    public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
+        return sqlSession.selectList("sellMapper.getSellList");
     }
+
 
 }

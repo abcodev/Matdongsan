@@ -15,6 +15,4 @@ public class RestaurantListResponse {
 
     private List<Restaurant> restaurantList;
     private PageInfoCombine pageInfoCombine;
-
-
 }
