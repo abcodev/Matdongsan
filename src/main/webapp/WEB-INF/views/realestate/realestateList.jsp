@@ -264,5 +264,151 @@
 
 </script>
 
+
+
+
+
+
+
+
+
+<%--지도 관련 스크립트--%>
+<%--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>--%>
+<%--<script>--%>
+
+
+<%--    var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div--%>
+<%--        mapOption = {--%>
+<%--            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표--%>
+<%--            level: 4 // 지도의 확대 레벨--%>
+<%--        };--%>
+
+<%--    // 지도를 생성합니다--%>
+<%--    var map = new kakao.maps.Map(mapContainer, mapOption);--%>
+
+
+
+<%--    // HTML5의 geolocation으로 사용할 수 있는지 확인--%>
+<%--    if (navigator.geolocation) {--%>
+
+<%--        // GeoLocation을 이용해서 접속 위치를 얻어옵니다--%>
+<%--        navigator.geolocation.getCurrentPosition(function(position) {--%>
+
+<%--            var lat = position.coords.latitude, // 위도--%>
+<%--                lon = position.coords.longitude; // 경도--%>
+
+<%--            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성--%>
+<%--                message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용--%>
+
+<%--            // 마커와 인포윈도우를 표시--%>
+<%--            displayMarker(locPosition, message);--%>
+
+<%--        });--%>
+
+<%--    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정--%>
+
+<%--        var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),--%>
+<%--            message = 'geolocation을 사용할수 없어요..'--%>
+
+<%--        displayMarker(locPosition, message);--%>
+<%--    }--%>
+
+
+
+
+
+<%--    var geocoder = new kakao.maps.services.Geocoder();--%>
+
+<%--    var listData = [--%>
+<%--        // '서울시 강남구 도곡동 538',--%>
+<%--        // '서울시 강남구 역삼동 729-35',--%>
+<%--        // '서울특별시 송파구 오금로13길 8',--%>
+<%--        // '서울특별시 송파구 올림픽로 25',--%>
+<%--        // '서울특별시 광진구 동일로18길 80',--%>
+<%--        // '서울특별시 종로구 지봉로 25',--%>
+<%--        // '서울특별시 성북구 인촌로 73',--%>
+
+
+<%--        <c:forEach items="${selectAllList}" var="selectAllList">--%>
+<%--        '${selectAllList.buildName}',--%>
+<%--        </c:forEach>--%>
+
+
+
+<%--    ];--%>
+
+
+
+
+
+<%--    listData.forEach(function(addr, index) {--%>
+<%--        geocoder.addressSearch(addr, function(result, status) {--%>
+<%--            if (status === daum.maps.services.Status.OK) {--%>
+<%--                var coords = new daum.maps.LatLng(result[0].y, result[0].x);--%>
+
+<%--                var marker = new daum.maps.Marker({--%>
+<%--                    map: map,--%>
+<%--                    position: coords--%>
+<%--                });--%>
+<%--                var infowindow = new daum.maps.InfoWindow({--%>
+<%--                    content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',--%>
+<%--                    disableAutoPan: true--%>
+<%--                });--%>
+<%--                infowindow.open(map, marker);--%>
+<%--            }--%>
+<%--        });--%>
+<%--    });--%>
+
+
+
+
+
+<%--    // 지도에 마커와 인포윈도우를 표시하는 함수--%>
+<%--    function displayMarker(locPosition, message) {--%>
+
+<%--        // 마커를 생성합니다--%>
+<%--        var marker = new kakao.maps.Marker({--%>
+<%--            map: map,--%>
+<%--            position: locPosition--%>
+<%--        });--%>
+
+<%--        var iwContent = message, // 인포윈도우에 표시할 내용--%>
+<%--            iwRemoveable = true;--%>
+
+<%--        // 인포윈도우를 생성합니다--%>
+<%--        var infowindow = new kakao.maps.InfoWindow({--%>
+<%--            content : iwContent,--%>
+<%--            removable : iwRemoveable--%>
+<%--        });--%>
+
+<%--        // 인포윈도우를 마커위에 표시--%>
+<%--        infowindow.open(map, marker);--%>
+
+<%--        // 지도 중심좌표를 접속위치로 변경--%>
+<%--        map.setCenter(locPosition);--%>
+<%--    }--%>
+
+
+
+<%--</script>--%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

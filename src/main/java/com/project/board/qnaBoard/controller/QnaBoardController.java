@@ -8,12 +8,11 @@ import com.project.common.template.Pagination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -60,39 +59,73 @@ public class QnaBoardController {
 
     }
 
+    /*게시글 작성페이지*/
+    @RequestMapping(value = "/insert/{boardCode}",method = RequestMethod.GET)
+    public String insertBoard(
+            @PathVariable("boardCode") String boardCode
+    ) {
+        return "board/qnaInsertBoard";
+    }
 
-  /*  @RequestMapping("/insert/{boardCode}")
-    public String insertQboard(@PathVariable("boardCode") String boardCode,
-    Model model, QnaBoard qb, HttpSession session){
-        int result = boardService.insertBoard(qb);
+    /*게시글 등록*/
+    @RequestMapping("/insert/{boardCode}")
+    public String insertQboard(
+            @PathVariable("boardCode") String boardCode,
+            Model model, QnaBoard qb,HttpSession session){
 
-        if (result > 0) {
-            session.setAttribute("alertMsg", "게시글 작성 성공");
-            return "redirect:../list/"+boardCode";
-        } else {
-            model.addAttribute("errorMsg", "게시글 작성 실패");
-            return "redirect:/qlist.bo";
-            //에러페이지 만들면 변경
+
+        int result = boardService.insertQboard(qb);
+
+
+            return "board/qnaInsertBoard";
         }
-    }*/
+
+
+    /*답글달기 페이지*/
+    @RequestMapping(value = "/insertAnswer/{boardCode}",method = RequestMethod.GET)
+    public String insertBoard2(
+            @PathVariable("boardCode") String boardCode
+    ) {
+        return "board/qnaInsertAnswer";
+    }
+    /*답글 등록*/
+    @RequestMapping("insertAnswer/{boardCode}")
+    public String insertAnswer(
+            @PathVariable("boardCode")String boardCode,
+            @RequestParam("parentBno")int parentBno,
+            @RequestParam("depth")int depth,
+            @RequestParam("qnaBno")int qnaBno,
+            Model model, QnaBoard qb
+    ){
+
+      int arr = boardService.insertAnswer(qb);
+
+        qb.setDepth(qb.getDepth() + 1);
+        qb.setParentBno(qb.getParentBno() + 1);
+
+        model.addAttribute("qb",qb);
+
+        return "board/qnaInsertAnswer";
+
+    }
 
     // 상세페이지
-    @RequestMapping("/detail/{boardCode}")
-    public ModelAndView qBoardEnrollForm(
+    @RequestMapping("/detail/{boardCode}/{qBno}")
+    public ModelAndView qnaDetail(
             @PathVariable("boardCode") String boardCode,
-            ModelAndView mv,
-            int qBno
+            @PathVariable("qBno") int qBno,
+            ModelAndView mv
+
     ) {
         QnaBoard qb = boardService.selectQboard(qBno);
 
         int result = boardService.increaseCount(qBno);
 
-        if (result > 0) {
+
             mv.addObject("qb", qb);
-            mv.setViewName("board/boardDetailView");
-        } else {
-            mv.setViewName("board/qnaBoardList");
-        }
+            mv.setViewName("board/qnaDetailList");
+
+
         return mv;
 
     }

@@ -145,7 +145,7 @@ CREATE TABLE "MEMBER"
     "PROVIDER"      VARCHAR(255)                   NOT NULL,
     "PROVIDER_ID"   VARCHAR(255)                   NOT NULL,
     "MEMBER_NAME"   VARCHAR(255)                   NOT NULL,
-    "PROFILE_IMAGE" VARCHAR(255)                   NOT NULL,
+    "PROFILE_IMAGE" VARCHAR(255)                   NULL,
     "EMAIL"         VARCHAR(255)                   NULL,
     "NICKNAME"      VARCHAR(255)                   NULL,
     "PHONE"         VARCHAR(255)                   NULL,
@@ -570,14 +570,15 @@ CREATE TABLE "QNA_BOARD"
 (
     "QNA_BNO"     NUMBER                       NOT NULL,
     "MEMBER_NO"   NUMBER                       NOT NULL,
-    "P_BNO"       NUMBER                       NOT NULL,
+    "P_BNO"       NUMBER                       NULL,
     "QNA_TITLE"   VARCHAR(255)                 NOT NULL,
     "QNA_CONTENT" VARCHAR(2056)                NOT NULL,
     "QNA_DATE"    DATE         DEFAULT SYSDATE NULL,
     "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
-    "QNA_AREA"    VARCHAR(255)                 NOT NULL,
-    "BOARD_CD"    CHAR(1)      DEFAULT 'C'     NULL
+    "QNA_AREA"    VARCHAR(255)                 NULL,
+    "BOARD_CD"    CHAR(1)      DEFAULT 'C'     NULL,
+    "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL
 );
 
 COMMENT
@@ -609,6 +610,10 @@ COMMENT
 
 COMMENT
     ON COLUMN "QNA_BOARD"."BOARD_CD" IS '보드타입';
+
+COMMENT
+    ON COLUMN "QNA_BOARD"."QNA_DEPTH" IS '글깊이';
+
 
 CREATE TABLE "BOARD_TYPE"
 (

@@ -42,8 +42,8 @@ public class QnaBoardDao {
         return (ArrayList) sqlSession.selectList("boardMapper.searchList", paramMap ,rowBounds);
     }
 
-    public int insertBoard(SqlSession sqlSession, QnaBoard qb){
-        return sqlSession.insert("boardMapper.insertBoard",qb);
+    public int insertQboard(SqlSession sqlSession, QnaBoard qb){
+        return sqlSession.insert("boardMapper.insertQboard",qb);
     }
     public List<BoardType> selectBoardTypeList(SqlSession sqlSession) {
         return sqlSession.selectList("boardMapper.selectBoardTypeList");
@@ -58,4 +58,9 @@ public class QnaBoardDao {
     public int increaseCount(SqlSession sqlSession,int qBno){
     return sqlSession.update("boardMapper.increaseCount",qBno);
     }
+
+    public int insertAnswer(SqlSession sqlSession, QnaBoard qb){
+        return sqlSession.insert("boardMapper.insertAnswer",qb);
+    }
+
 }

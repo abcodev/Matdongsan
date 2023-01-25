@@ -1,20 +1,18 @@
 package com.project.realestate.vo;
 
 import com.project.client.seoulApi.dto.RealEstateSellDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 public class RealEstateSell {
 
     private String accYear;
     private String sggCd;
-    private String sggNm;
+    private String sggNM;
     private String bjdongCd;
     private String bjdongNm;
     private String bonbeon;
@@ -32,7 +30,7 @@ public class RealEstateSell {
         return RealEstateSell.builder()
                 .accYear(realEstateSellDto.getAccYear())
                 .sggCd(realEstateSellDto.getSggCd())
-                .sggNm(realEstateSellDto.getSggNm())
+                .sggNM(realEstateSellDto.getSggNm())
                 .bjdongCd(realEstateSellDto.getBjdongCd())
                 .bjdongNm(realEstateSellDto.getBjdongNm())
                 .bonbeon(realEstateSellDto.getBonbeon())
