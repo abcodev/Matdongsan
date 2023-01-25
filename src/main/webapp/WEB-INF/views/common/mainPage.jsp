@@ -96,94 +96,24 @@
                     // 지도를 생성합니다
                     var map = new kakao.maps.Map(mapContainer, mapOption);
 
-                    // var data = [
-                    //         [37.50060595890094, 127.03641515171977, '<div>역삼역</div>'],
-                    //     [37.497894084226566, 127.0275224134069, '<div>강남역</div>'],
-                    //     [37.50376021959136, 127.0248781368448, '<div>신논현역</div>']
-                    // ];
-
-                    // for(var i = 0; i<data.length; i++){
-                    //     var marker = new kakao.maps.Marker({
-                    //         position : new kakao.maps.LatLng(data[i][0], data[i][1], data[i][2]),
-                    //         map : map
-                    //     });
-                    //
-                    //     // 인포윈도우 생성
-                    //     var infoWindow = new kakao.maps.InfoWindow({
-                    //         content : data[i][2]
-                    //     });
-                    //
-                    //     infoWindow.open(map, marker);
-                    // }
-
-                    //
-                    //             // 마커에 표시할 인포윈도우를 생성합니다
-                    //             var infowindow = new kakao.maps.InfoWindow({
-                    //                 content: positions[i].content // 인포윈도우에 표시할 내용
-                    //             });
-                    //
-                    //             // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-                    //             // 이벤트 리스너로는 클로저를 만들어 등록합니다
-                    //             // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-                    //             kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-                    //             kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-                    //         }
-                    //         console.log(data);
-                    //     });
-                    // })
-                    //
-                    // // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
-                    // var positions = [
-                    //     {
-                    //         content: '<div>역삼역</div>' +
-                    //             '<div style="padding: 5px">매매가 : </div>',
-                    //         latlng: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977)
-                    //     },
-                    //     {
-                    //         content: '<div>강남역</div>' +
-                    //             '<div style="padding: 5px">매매가 : </div>',
-                    //         latlng: new kakao.maps.LatLng(37.497894084226566, 127.0275224134069)
-                    //     },
-                    //     {
-                    //         content: '<div>신논현역</div>' +
-                    //             '<div style="padding: 5px">매매가 : </div>',
-                    //         latlng: new kakao.maps.LatLng(37.50376021959136, 127.0248781368448)
-                    //     },
-                    //     {
-                    //         content: '<div>서울역</div>' +
-                    //             '<div style="padding: 5px">매매가 : </div>',
-                    //         latlng: new kakao.maps.LatLng(37.55436845910307, 126.97066305930028)
-                    //     }
-                    // ];
-
-
-
-
-
-
-
 
                     var geocoder = new kakao.maps.services.Geocoder();
 
 
                     var listData = [
-                        '서울시 강남구 도곡동 538',
-                        '서울시 강남구 역삼동 729-35',
-                        '서울특별시 송파구 오금로13길 8',
-                        '서울특별시 송파구 올림픽로 25',
-                        '서울특별시 광진구 동일로18길 80',
-                        '서울특별시 종로구 지봉로 25',
-                        '서울특별시 성북구 인촌로 73',
+                        // '서울시 강남구 도곡동 538',
+                        // '서울시 강남구 역삼동 729-35',
+                        // '서울특별시 송파구 오금로13길 8',
+                        // '서울특별시 송파구 올림픽로 25',
+                        // '서울특별시 광진구 동일로18길 80',
+                        // '서울특별시 종로구 지봉로 25',
+                        // '서울특별시 성북구 인촌로 73',
 
 
 
-<%--                        <c:forEach items="${sellList}" var="sellList">--%>
-<%--                        '${sellList.address}',--%>
-<%--                        '${sellList.bldgNm}'--%>
-<%--                        </c:forEach>--%>
+                        <c:forEach items="${sellList}" var="list">
 
-                        <c:forEach items="${sellList}" var="sellList">
-                        '${sellList.address}'
+                        '서울'+'${list.bldgNm}',
                         </c:forEach>
 
                     ];
@@ -213,64 +143,8 @@
                         });
                     });
 
-                   // 지도에 마커와 인포윈도우를 표시하는 함수
 
-
-
-
-
-
-
-
-
-
-                    //HTML5의 geolocation으로 사용할 수 있는지 확인
-                    if (navigator.geolocation) {
-
-                        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-                        navigator.geolocation.getCurrentPosition(function(position) {
-
-                            var lat = position.coords.latitude, // 위도
-                                lon = position.coords.longitude; // 경도
-
-                            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
-                                message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
-
-                            // 마커와 인포윈도우를 표시
-                            displayMarker(locPosition, message);
-
-                        });
-
-                    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
-
-                        var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
-                            message = 'geolocation을 사용할수 없어요..'
-
-                        displayMarker(locPosition, message);
-                    }
                 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
             </div>
@@ -279,99 +153,6 @@
 
 
 
-
-
-
-<%--            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>--%>
-<%--            <script>--%>
-<%--                var mapContainer = document.getElementById('map'), // 지도를 표시할 div--%>
-<%--                    mapOption = {--%>
-<%--                        center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표--%>
-<%--                        level: 6 // 지도의 확대 레벨--%>
-<%--                    };--%>
-
-<%--                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다--%>
-
-<%--                // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다--%>
-<%--                var mapTypeControl = new kakao.maps.MapTypeControl();--%>
-
-<%--                // 지도에 컨트롤을 추가해야 지도위에 표시됩니다--%>
-<%--                // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다--%>
-<%--                map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);--%>
-
-<%--                // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다--%>
-<%--                var zoomControl = new kakao.maps.ZoomControl();--%>
-<%--                map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);--%>
-
-<%--                // HTML5의 geolocation으로 사용할 수 있는지 확인--%>
-<%--                if (navigator.geolocation) {--%>
-
-<%--                    // GeoLocation을 이용해서 접속 위치를 얻어옵니다--%>
-<%--                    navigator.geolocation.getCurrentPosition(function(position) {--%>
-
-<%--                        var lat = position.coords.latitude, // 위도--%>
-<%--                            lon = position.coords.longitude; // 경도--%>
-
-<%--                        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성--%>
-<%--                            message = '<div style="padding:5px;">현재 위치</div>' +--%>
-<%--                                '<div style="padding: 5px">매매가 : </div>'; // 인포윈도우에 표시될 내용--%>
-
-
-<%--                        // 마커와 인포윈도우를 표시--%>
-<%--                        displayMarker(locPosition, message);--%>
-
-<%--                    });--%>
-
-<%--                } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정--%>
-
-<%--                    var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),--%>
-<%--                        message = 'geolocation을 사용할수 없어요..'--%>
-
-<%--                    displayMarker(locPosition, message);--%>
-<%--                }--%>
-
-<%--                // 주소-좌표 변환 객체 생성--%>
-
-
-
-
-<%--                    // 지도에 마커와 인포윈도우를 표시하는 함수--%>
-<%--                function displayMarker(locPosition, message) {--%>
-
-<%--                    // 마커를 생성합니다--%>
-<%--                    var marker = new kakao.maps.Marker({--%>
-<%--                        map: map,--%>
-<%--                        position: locPosition--%>
-<%--                    });--%>
-
-<%--                    var iwContent = message, // 인포윈도우에 표시할 내용--%>
-<%--                        iwRemoveable = true;--%>
-
-<%--                    // 인포윈도우를 생성합니다--%>
-<%--                    var infowindow = new kakao.maps.InfoWindow({--%>
-<%--                        content : iwContent,--%>
-<%--                        removable : iwRemoveable--%>
-<%--                    });--%>
-
-<%--                    // 인포윈도우를 마커위에 표시--%>
-<%--                    infowindow.open(map, marker);--%>
-
-<%--                    // 지도 중심좌표를 접속위치로 변경--%>
-<%--                    map.setCenter(locPosition);--%>
-<%--                }--%>
-
-
-
-
-
-
-
-
-            <%--            <c:forEach var="s" items="${ list }">--%>
-            <%--                <tr>--%>
-            <%--                    <td class="">${}</td>--%>
-            <%--                </tr>--%>
-            <%--            </c:forEach>--%>
 
 
 

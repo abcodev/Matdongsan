@@ -9,11 +9,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RealEstateMainListDto {
 
-    private String address;
+//    private String address;
 
     private String objAmt;
 
     private String bldgNm;
+
+    private String sggNm;
+
+    private String bjdongNm;
+
+    private String bonbeon;
+    private String bubeon;
 
 
 }
