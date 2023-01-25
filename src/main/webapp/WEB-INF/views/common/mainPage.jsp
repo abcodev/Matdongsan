@@ -174,24 +174,21 @@
 
 
                     var listData = [
-                        '서울시 강남구 도곡동 538',
-                        '서울시 강남구 역삼동 729-35',
-                        '서울특별시 송파구 오금로13길 8',
-                        '서울특별시 송파구 올림픽로 25',
-                        '서울특별시 광진구 동일로18길 80',
-                        '서울특별시 종로구 지봉로 25',
-                        '서울특별시 성북구 인촌로 73',
+                        // '서울시 강남구 도곡동 538',
+                        // '서울시 강남구 역삼동 729-35',
+                        // '서울특별시 송파구 오금로13길 8',
+                        // '서울특별시 송파구 올림픽로 25',
+                        // '서울특별시 광진구 동일로18길 80',
+                        // '서울특별시 종로구 지봉로 25',
+                        // '서울특별시 성북구 인촌로 73',
 
 
 
-<%--                        <c:forEach items="${sellList}" var="sellList">--%>
-<%--                        '${sellList.address}',--%>
-<%--                        '${sellList.bldgNm}'--%>
-<%--                        </c:forEach>--%>
 
-                        <c:forEach items="${sellList}" var="sellList">
-                        '${sellList.address}'
+                        <c:forEach items="${sellList}" var="list">
+                        '${list.bldgNm}'
                         </c:forEach>
+
 
                     ];
 
