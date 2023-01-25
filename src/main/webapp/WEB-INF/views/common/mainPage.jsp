@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../chat/chat_pop.jsp"></jsp:include>
 </head>
 
 <body>
@@ -225,47 +226,22 @@
             <%--                </tr>--%>
             <%--            </c:forEach>--%>
 
-
-
         </div>
         <div class="side news">
-            <h3>부동산 주요 뉴스</h3>
-            <br>
-            <c:forEach var="news" items="${newsList}">
-                <a href="${news.newsUrl}">${news.newsTitle}</a><br>
-            </c:forEach>
-            <hr>
-            <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
-
+            <span>부동산 주요 뉴스</span>
+            <div class="news_list">
+                <br>
+                <c:forEach var="news" items="${newsList}">
+                    <a href="${news.newsUrl}">${news.newsTitle}</a><br>
+                </c:forEach>
+            </div>
+            <span><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></span>
         </div>
 
         <div class="side lookList">
             <h3>최근 본 부동산 목록</h3>
-
-
         </div>
     </div>
     </div>
 </body>
-
-
-<script>
-    const header = document.querySelector('#header');
-
-    function scrollFunc() {
-        if (pageYOffset >= 1) {
-            header.classList.add('on');
-        } else {
-            header.classList.remove('on');
-        }
-    }
-    window.addEventListener('scroll', scrollFunc);
-
-
-
-
-    //채팅//
-
-</script>
-
 </html>
