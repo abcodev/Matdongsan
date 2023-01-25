@@ -16,5 +16,12 @@ public class RealEstateMainListDto {
 
     private String bldgNm;
 
+    private String sggNm;
+
+    private String bjdongNm;
+
+    private String bonbeon;
+    private String bubeon;
+
 
 }

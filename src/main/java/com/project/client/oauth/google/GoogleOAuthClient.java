@@ -32,7 +32,6 @@ public class GoogleOAuthClient implements OAuthClient {
     private final static String CLIENT_ID = "637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com";
     private final static String CLIENT_SECRET = "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";
     private final static String REDIRECT_URI = "http://localhost:8070/Matdongsan/google/callback";
-    /* 프로필 조회 API URL */
     private final RestTemplate restTemplate;
 
     @Override
