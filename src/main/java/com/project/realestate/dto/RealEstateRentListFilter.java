@@ -13,15 +13,15 @@ public class RealEstateRentListFilter {
 
     private String state;
     private String dong;
-//    private String transaction;
-//    private int price;
-//    private int area;
+    private String transaction;
+    private String fee;
+    private String area;
 
     public RealEstateRentListFilter(Map<String, Object> param) {
     }
 
     public static RealEstateRentListFilter from (RealEstateRentListRequest req){
-        return new RealEstateRentListFilter(req.getState(), req.getDong());
+        return new RealEstateRentListFilter(req.getState(), req.getDong(), req.getTransaction(), req.getFee(), req.getArea());
     }
 
 }

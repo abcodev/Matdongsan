@@ -34,6 +34,12 @@ public class RealEstateDao {
         return sqlSession.selectList("rentMapper.selectList", filter, rowBounds);
     }
 
+    public List<RealEstateRent> searchResult(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter){
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        
+        return sqlSession.selectList("rentMapper.select")
+    }
+
 
 //    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
 //

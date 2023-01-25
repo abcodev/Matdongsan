@@ -27,13 +27,18 @@ public class RealEstateController {
     }
 
 //    @RequestMapping("/list")
-//    public String realEstatePage(
-//            Model model,
+//    @ResponseBody
+//    public ModelAndView realEstatePage(
 //            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
 //            @RequestParam(value = "state", defaultValue = "강남구") String state,
-//            @RequestParam(value = "dong", defaultValue = "") String dong
+//            @RequestParam(value = "dong", defaultValue = "") String dong,
+//            @RequestParam Map<String, Object> paramMap
 //    ) throws Exception {
 //        System.out.println("검색!!!! " + state);
+//        System.out.println("dong!! :" + dong);
+//
+//        ModelAndView mv = new ModelAndView();
+//        Map<String, Object> map = new HashMap();
 //
 //        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
 //        List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
@@ -41,49 +46,57 @@ public class RealEstateController {
 //        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
 //        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 //
-//        model.addAttribute("localList", localList);
-//        model.addAttribute("dongList", dongList);
+//        System.out.println("동 리스트: " + dongList.toString());
+////        if(!paramMap.isEmpty()){
+////            List<RealEstateRent> searchResult = realEstateService.searchResult();
+////        }
 //
-//        model.addAttribute("selectAllList", resp.getRealEstateRentList());
-//        model.addAttribute("pi", resp.getPageInfoCombine());
-//        return "realestate/realestateList";
+//        mv.addObject("localList", localList);
+//        mv.addObject("dongList", dongList);
+//        mv.addObject("selectAllList", resp.getRealEstateRentList());
+//        mv.addObject("pi", resp.getPageInfoCombine());
+//
+//        mv.setViewName("realestate/realestateList");
+//
+//        return mv;
+//
 //    }
 
-    @RequestMapping("/list")
-    @ResponseBody
+    @RequestMapping("/list/search")
     public ModelAndView realEstatePage(
             @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
             @RequestParam(value = "state", defaultValue = "강남구") String state,
-            @RequestParam(value = "dong", defaultValue = "") String dong,
-            @RequestParam Map<String, Object> paramMap
+            @RequestParam(value = "dong", defaultValue = "total") String dong,
+            @RequestParam(value = "rentType", defaultValue ="a") String transaction,
+            @RequestParam(value = "rentGtn") String fee,
+            @RequestParam(value = "chooseType") String area
     ) throws Exception {
         System.out.println("검색!!!! " + state);
         System.out.println("dong!! :" + dong);
 
         ModelAndView mv = new ModelAndView();
-        Map<String, Object> map = new HashMap();
 
         List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
         List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
 
-        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
-        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
+        if(!state.isEmpty() && !dong.equals("total")){
+            RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, transaction, fee, area);
+            RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        System.out.println("동 리스트: " + dongList.toString());
-//        if(!paramMap.isEmpty()){
-//            List<RealEstateRent> searchResult = realEstateService.searchResult();
-//        }
+            mv.addObject("selectAllList", resp.getRealEstateRentList());
+            mv.addObject("pi", resp.getPageInfoCombine());
+        }
 
         mv.addObject("localList", localList);
         mv.addObject("dongList", dongList);
-        mv.addObject("selectAllList", resp.getRealEstateRentList());
-        mv.addObject("pi", resp.getPageInfoCombine());
 
         mv.setViewName("realestate/realestateList");
 
         return mv;
 
     }
+
+
 
 
 }

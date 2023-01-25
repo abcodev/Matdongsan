@@ -47,9 +47,14 @@ public class RealEstateServiceImpl implements RealEstateService{
     @Override
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
         int count = realEstateDao.selectListCount(sqlSession);
+
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_BOARD_SIZE);
+
         List<RealEstateRent> result = realEstateDao.selectList(pageInfoCombine, RealEstateRentListFilter.from(req));
-        return new RealEstateRentListResponse(result,pageInfoCombine);
+
+        List<RealEstateRent> searchResult = realEstateDao.selectSearchList(pageInfoCombine, RealEstateRentListFilter.from(req));
+
+        return new RealEstateRentListResponse(result, pageInfoCombine, searchResult);
     }
 
 //    @Override
