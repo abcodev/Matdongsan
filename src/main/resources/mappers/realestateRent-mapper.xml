@@ -80,8 +80,24 @@
     </insert>
 
     <select id="selectListCount" resultType="int">
-        SELECT COUNT(*)
-        FROM REALESTATE_RENT
+        Select count(*)
+        From
+            (SELECT
+                 SGG_NM,
+                 BLDG_NM,
+                 DEAL_YMD,
+                 RENT_GTN,
+                 RENT_AREA
+             FROM REALESTATE_RENT
+             UNION  ALL
+             SELECT
+                 SGG_NM,
+                 BLDG_NM,
+                 DEAL_YMD,
+                 OBJ_AMT,
+                 BLDG_AREA
+             FROM REALESTATE_SELL
+             ORDER BY SGG_NM)
     </select>
 
     <!-- 부동산 리스트 -->
@@ -115,11 +131,15 @@
     <!-- 동 이름 -->
     <select id="searchDongList" resultMap="realEstateRentListResultSet">
         SELECT
-            DISTINCT RR.BJDONG_NM
-        FROM REALESTATE_RENT RR
-                 LEFT JOIN REALESTATE_SELL RS ON RS.ACC_YEAR = RR.ACC_YEAR
-        WHERE RR.SGG_NM = '${state}'
-        ORDER BY RR.BJDONG_NM
+            DISTINCT BJDONG_NM
+        FROM REALESTATE_RENT
+        WHERE SGG_NM = '${sggNm}'
+        UNION
+        SELECT
+            DISTINCT BJDONG_NM
+        FROM REALESTATE_SELL
+        WHERE SGG_NM = '${sggNm}'
+        ORDER BY BJDONG_NM
     </select>
 
 </mapper>
