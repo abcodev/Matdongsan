@@ -1,11 +1,8 @@
 package com.project.member.service;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.project.client.oauth.OAuthClient;
-import com.project.client.oauth.kakao.KakaoOAuthClient;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
-import com.project.client.oauth.OAuthUser;
 import com.project.member.dao.MemberDao;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +25,9 @@ public class MemberService {
         if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
             memberDao.insertMember(member);
         }
-            return member;
-        }
+        return memberDao.select(member.getProvider(), member.getProviderId());
     }
+}
 
 
 

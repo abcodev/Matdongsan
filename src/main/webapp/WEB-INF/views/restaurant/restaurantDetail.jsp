@@ -24,18 +24,19 @@
 
         <div>
 <%--            관리자--%>
-            <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-            <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+                <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
+                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
         </div>
-
-
 
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
         <div class="head star">
-            <i class="fa-solid fa-star"></i>
-            <span>N/5</span>
+                <i class="fa-solid fa-star"></i>
+                <span id="star_rating"></span>
+
+
+
         </div>
         <div class="head tag">
 
@@ -43,12 +44,10 @@
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
             </c:forEach>
-
-
-            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
-            <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-            <label class="btn btn-outline-secondary" for="btn-check-outlined">#해시태그</label>
+            <c:forEach items="${resHashtagByReview}" var="hashtag">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+            </c:forEach>
         </div>
     </div>
     <div class="detail main">
@@ -85,15 +84,34 @@
     </div>
     <div class="detail review">
         <div class="review_btn_box">
-            <span>리뷰</span>
+            <span>리뷰</span> <span id="rCount"></span>
             <button id="review_btn"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
         </div>
 
-        <div class="review user"></div>
-        <div class="review img"></div>
-        <div class="review content"></div>
-        <div class="review tag"></div>
+
+
+<%--        <div class="review user"></div>--%>
+<%--        <div class="review img"></div>--%>
+
+        <div class="review content">
+            <table id="reviewArea" class="table" align="center">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+
+<%--        <div class="review tag"></div>--%>
+
+
+
+
+
+
+
+
     </div>
+
 
 
 
@@ -109,7 +127,6 @@
         </div>
         <div id="content_body">
             <span>별점</span>
-<%--            별점이 무조건 5개로 넘어오는 상태--%>
             <div id="review_star">
                 <input type="radio" name="reviewStar" value="5" id="rate1"><label
                     for="rate1">★</label>
@@ -129,30 +146,16 @@
                     <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
                 </c:forEach>
             </div>
-                <script>
-                    $('input:checkbox[name=chk_hashtag]').click(function(){
-                        let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
 
-                        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
-                        if(cntEPT>3){
-                            alert('해시태그는 최대 3개까지 선택 가능합니다.')
-                            $(this).prop('checked', false);
-                        }
-                    });
-                </script>
             <div id="review_text">
                 <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
             </div>
 
-
-
             <div class="review_img">
-                <input class="form-control form-control-sm" id="formFileSm" type="file">
-                <input class="form-control form-control-sm" id="formFileSm1" type="file">
-                <input class="form-control form-control-sm" id="formFileSm2" type="file">
+                <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
             </div>
 
-            <button class="" onclick="insertReply()">등록하기</button>
+            <button class="" id="review_insert" onclick="insertReply()">등록하기</button>
 
 
         </div>
@@ -174,6 +177,7 @@
         }
 
         document.getElementById('review_btn').addEventListener('click', onClick);
+        document.getElementById('review_insert').addEventListener('click', offClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
@@ -181,24 +185,71 @@
     };
 
 </script>
+
+<script>
+    // 해시태그 최대 선택 개수 제한
+    $('input:checkbox[name=chk_hashtag]').click(function(){
+        // let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
+
+        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+        if(cntEPT>3){
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            $(this).prop('checked', false);
+        }
+    });
+</script>
+
 <script>
     function selectReviewList() {
         $.ajax({
-            url: "review",
-            data: {resNo: ${restaurantDetail.resNo}},
+            url: '${pageContext.request.contextPath}/restaurant/selectReview',
+            type: 'GET',
+            data: {
+                resNo: ${restaurantDetail.resNo}
+            },
             dataType: "json",
             success: function (list) {
                 console.log(list);
                 let str = "";
                 for (let i of list) {
-                    str += "<tr>"
-                        + "<td>" + i.reviewWriter + "</td>"
-                        + "<td>" + i.reviewContent + "</td>"
-                        <%--+ "<td>" + <img src="<c:url value="/i.revImg"/>"/> + "</td>" //3장까지 보여줘야함--%>
-                        + "</tr>";
+                    console.log(i)
+                    let hashtagList = '';
+                    for (let hashtag of i.hashtags) {
+                        hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
+                    }
+                    // str += '<tr>'
+                    //     + "<td>" + i.memberName + "</td>"
+                    //     + "<td><img src=\"" + i.profileImage + "\" /></td>"
+                    //     + "<td>" + i.reviewContent + "</td>"
+                    //     + "<td>" + hashtagList + "</td>"
+                    //     + "<td>" + i.starRating + "</td>"
+                    //     + "<td><img src=\"" + i.changeName + "\" /></td>"
+                    //     + "</tr>";
+
+
+                    str += '<div>'
+                        + "<div>" + i.memberName + "</div>"
+                        + "<div> <img src=\"" + i.profileImage + "\"/> </div>"
+                        + "<div>" + i.reviewContent + "</div>"
+                        + "<div>" + hashtagList + "</div>"
+                        + "<div>" + i.starRating + "</div>"
+                        + "<div> <img src=\"" + i.changeName + "\" /> </div>"
+                        + "</div>";
+
+
                 }
-                $("#replyArea tbody").html(str);
+                $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
+
+                let star_rating;
+                if (list.length === 0) {
+                    star_rating = '별점을 남겨주세요!'
+                } else {
+                    star_rating = Math.round(list.map(obj => obj['starRating'])
+                        .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10
+                    star_rating += '/5'
+                }
+                $('#star_rating').html(star_rating)
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -208,9 +259,7 @@
 
 
     function insertReply() {
-        // TODO : 사진 3장 어떻게 넘기지
-        const score = 5;
-
+        const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function() {
             hashtags.push(this.value);
@@ -218,14 +267,13 @@
         const contents = $('#reviewContent').val()
         const files = $('#formFileSm')[0].files
 
-
         const formData = new FormData();
         formData.set("resNo", ${restaurantDetail.resNo});
         formData.set("score", score);
         formData.set("hashtags", hashtags.join(","));
         formData.set("contents", contents);
         for (let i = 0; i < files.length; ++i) {
-            formData.append("files", files[i])
+            formData.append("files", files[i]) // 이미지 없을때 null 을 보내는데, 빈 리스트를 보내야할듯
         }
 
         $.ajax({
@@ -234,11 +282,8 @@
             data: formData,
             contentType: false,
             processData: false,
-            success: (result) => {
-                if (result > 0) {
-                    selectReviewList();
-                    $("#content").val("");
-                }
+            success: () => {
+                selectReviewList();
             },
             error: function () {
                 console.log("ajax통신 실패");

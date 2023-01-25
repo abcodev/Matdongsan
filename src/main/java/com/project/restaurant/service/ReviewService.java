@@ -7,6 +7,8 @@ import com.project.restaurant.dao.ResHashtagDao;
 import com.project.restaurant.dao.RestaurantDao;
 import com.project.restaurant.dao.ReviewDao;
 import com.project.restaurant.dto.InsertReviewRequest;
+import com.project.restaurant.dto.ResHashtagDto;
+import com.project.restaurant.dto.ReviewResponse;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
@@ -16,8 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletContext;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,32 +55,40 @@ public class ReviewService {
                     .resNo(req.getResNo())
                     .changeName(savedFileName)
                     .originName(file.getOriginalFilename())
-                    .reviewNo(revNo)
+                    .revNo(revNo)
                     .memberNo(member.getMemberNo())
                     .build();
             restaurantDao.resInsertImg(resImg);
         });
     }
 
-
-
-
-
-    public List<Review> selectReviewList(String resNo) {
-        return reviewDao.selectReviewList(resNo);
+    public List<ReviewResponse> selectReviewList(String resNo) {
+        List<ReviewResponse> reviews = reviewDao.selectReviewList(resNo);
+        // Call By Reference
+        reviews.forEach(review -> {
+            List<ResHashtagDto> resHashtagList = resHashtagDao.selectByRevNo(review.getRevNo());
+            review.setHashtags(resHashtagList);
+            List<ResImg> resImgList = restaurantDao.selectImageListByRevNo(review.getRevNo());
+            review.setImage(resImgList);
+        });
+        return reviews;
     }
 
+    public List<String> retrieveTop2Hashtag(String resNo, List<String> excludeHashtags) {
+        List<ResHashtagDto> resHashtagList = resHashtagDao.selectByResNo(resNo);
 
+        Map<String, Long> hashtagCount = resHashtagList.stream() // List -> Stream
+                .map(ResHashtagDto::getHashtag) // ResHashtagDto -> HashTag
+                .filter(hashtag -> !excludeHashtags.contains(hashtag)) // HashTag 중에 exclude 에 포함 안된거 필터
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                    // HashTag 기준으로 Grouping -> [Key, Value] -> [HashTag, Counting] (Group By)
 
-
-
-
-
-
-
-
-
-
-
+        return hashtagCount.entrySet()
+                .stream() // Map<String, Long> -> Stream
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) // Value(Counting) 을 기준으로 내림차순 정렬
+                .map(Map.Entry::getKey) // Entry<String, Long> -> [Key, Value] -> [HashTag, Counting] -> HashTag
+                .limit(2) // 상위 2개 잘라내기
+                .collect(Collectors.toList());
+    }
 }
 

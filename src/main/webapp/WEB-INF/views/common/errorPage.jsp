@@ -14,7 +14,7 @@
   <title>Insert title here</title>
 </head>
 <body>
-<%--<jsp:include page="header.jsp" />--%>
+<jsp:include page="header.jsp" />
 
 <br>
 <div align="center">
@@ -22,7 +22,7 @@
   <br><br>
   <h1 style="font-weight:bold;">${errorMsg }</h1>
 </div>
-<
+
 
 
 

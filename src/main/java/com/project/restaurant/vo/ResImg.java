@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ResImg {
 
     private int imgNo;
-    private int reviewNo;
+    private int revNo;
     private long memberNo;
     private String resNo;
     private int imageLevel;

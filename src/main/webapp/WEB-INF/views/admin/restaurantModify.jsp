@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: apple
@@ -21,11 +22,12 @@
 
 <jsp:include page="../common/header.jsp" />
 
-<form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
     <div id="content">
         <div class="res name">
             <h3>맛집이름</h3>
             <input type="text" name="resName" value="${restaurantDetail.resName}">
+            <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
         </div>
         <div>
             <h3>지역</h3>
@@ -57,6 +59,7 @@
     <div class="res img">
         <div>
             <img src="${restaurantDetail.resImgUrl}">
+            <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
         </div>
 
         <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
@@ -65,10 +68,8 @@
     </div>
 
 
-
-
     <div class="btn_box">
-        <button>취소</button>
+        <button onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
         <button type="submit">수정</button>
     </div>
 
@@ -90,8 +91,7 @@
 
 
 <script>
-    $('input:checkbox[name=chk_hashtag]').click(function(){
-
+    $('input:checkbox[name=hashtagId]').click(function(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
             alert('해시태그는 최대 2개까지 선택 가능합니다.')

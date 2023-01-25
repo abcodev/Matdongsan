@@ -147,13 +147,16 @@
 검색 동 변경
 <script>
     function getDongList(e) {
-        var state =  $("select[name='selectOption1']").val()
+        var state = $("select[name='selectOption1']").val()
+        console.log(state)
 
         $.ajax({
-            type: 'GET',
             url: '${pageContext.request.contextPath}/realEstate/list',
             contentType: "application/json; charset=UTF-8",
-            data: state,
+            type: 'GET',
+            data: {
+                'state': state
+            },
             dataType: 'json',
             success: function (result) {
                 $("#selectOption2").remove();
@@ -162,7 +165,8 @@
                 alert(result);
             }
         }).fail(function (error) {
-            alert("통신 실패 : " + error);
+            console.log(error);
+            alert("통신 실패");
         })
     }
 </script>

@@ -58,6 +58,9 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin", resNo);
     }
 
+    public List<ResImg> selectImageListByRevNo(int revNo) {
+        return sqlSession.selectList("resMapper.selectImageListByRevNo", revNo);
+    }
 
     //
     public ArrayList<Review> selectReviewList(SqlSession sqlSession, int resNo) {
@@ -77,8 +80,6 @@ public class RestaurantDao {
 
 
 
-
-    // 이거 안쓰지?
     public void hasTagInsert(String h) {
         sqlSession.insert("resMapper.hashTagInsert",h);
     }
@@ -110,14 +111,22 @@ public class RestaurantDao {
         return restaurant.getResNo();
     }
 
-    public void resHashtagModify(ResHashtag resHashtag) {
-        sqlSession.update("hashtagMapper.resHashtagUpdate",resHashtag);
-    }
-
     /**
      * 관리자 - 맛집 삭제
      */
     public int deleteRes(String resNo) {
         return sqlSession.delete("resMapper.deleteRes", resNo);
+    }
+
+    public int deleteResImg(String resNo) {
+        return sqlSession.delete("resMapper.deleteResImg", resNo);
+    }
+
+    public int deleteResHash(String resNo) {
+        return sqlSession.delete("resHashtagMapper.deleteResHash",resNo);
+    }
+
+    public void deleteResHashOnlyAdmin(String resNo) {
+        sqlSession.delete("resHashtagMapper.deleteResHashOnlyAdmin",resNo);
     }
 }
