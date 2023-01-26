@@ -49,9 +49,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
         map.put("pi",pi);
 
-        ArrayList<QnaBoard> list = boardDao.selectFlist(sqlSession, pi,boardCode);
+        ArrayList<QnaBoard> flist = boardDao.selectFlist(sqlSession, pi,boardCode);
 
-        map.put("list", list);
+        map.put("flist", flist);
         return map;
     }
 
@@ -70,8 +70,8 @@ public class FreeBoardServiceImpl implements FreeBoardService{
         map.put("pi", pi);
 
 
-        ArrayList<QnaBoard> list = boardDao.selectFlist(sqlSession, paramMap);
-        map.put("list", list);
+        ArrayList<QnaBoard> flist = boardDao.selectFlist(sqlSession, paramMap);
+        map.put("flist", flist);
 
         return map;
     }

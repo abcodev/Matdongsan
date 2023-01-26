@@ -1,5 +1,19 @@
 <!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
+<c:set var="flist" value="${map.flist}"/>
+<c:set var="pi" value="${map.pi}"/>
+<c:if test="${!empty param.condition }">
+    <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
+</c:if>
+<c:forEach items="${boardTypeList }" var="bt">
+    <c:if test="${boardCode == bt.boardCd }">
+        <c:set var="boardNM" value="${bt.boardName }"/>
+    </c:if>
+</c:forEach>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +39,9 @@
         <div class="boardlist">
             <div id="boardlist_top">
                 <div id="listset">
-
+                    <c:forEach var="fb" items="${flist}">
+                        <Div>${fb.}</Div>
+                    </c:forEach>
                 </div>
                 <div id="writebtn">
 
