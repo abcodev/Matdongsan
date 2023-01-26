@@ -104,7 +104,7 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     }
 
     @Override
-    public QnaBoard selectAnswer(int qBno){
+    public List<QnaBoard> selectAnswer(int qBno){
         return boardDao.selectAnswer(sqlSession,qBno);
     }
 }

@@ -6,6 +6,7 @@ import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.http.ResponseEntity;
@@ -72,4 +73,22 @@ public class RealEstateController {
     // state를 매개변수로 전달하여 realEstateService 오브젝트에서 searchDongList 메소드를 호출하고
     // 반환된 RealEstateRent 목록은 해당 bjdName 속성에 맵핑되고 새 목록으로 수집함
     // HTTP OK(200) 응답을 bjdName 속성 목록을 반환
+
+
+
+//    @RequestMapping("/detail")
+//    public ModelAndView realEstateDetail(
+//            @RequestParam("rentNo") String rentNo,
+//            ModelAndView modelAndView) {
+//
+//        Restaurant restaurant = realEstateService.realEstateDetail(rentNo);
+//
+//        modelAndView.setViewName("restaurant/realEstateDetail");
+//
+//        return modelAndView;
+//    }
+//
+
+
+
 }
