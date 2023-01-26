@@ -34,8 +34,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <jsp:include page="../template/font.jsp"></jsp:include>
-    <jsp:include page="../chat/chat_pop.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
+    <jsp:include page="../chat/chat_pop.jsp"/>
 </head>
 
 <body>

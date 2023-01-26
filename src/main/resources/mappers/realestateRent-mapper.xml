@@ -100,189 +100,189 @@
     <select id="selectListCountByFilter" resultType="int">
         SELECT count(*)
         FROM (SELECT SGG_NM,
-                     BLDG_NM,
-                     RENT_GBN,
-                     RENT_GTN,
-                     RENT_AREA
-              FROM REALESTATE_RENT
-              WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
-                AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
-                AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
-                <if test="rentGtn != null">
-                    <choose>
-                        <when test="rentGtn == 'range1'">
-                            <![CDATA[AND TO_NUMBER(RENT_GTN) <= 1000]]>
-                        </when>
-                        <when test="rentGtn == 'range2'">
-                            AND TO_NUMBER(RENT_GTN) BETWEEN 1000 AND 5000
-                        </when>
-                        <when test="rentGtn == 'range3'">
-                            AND TO_NUMBER(RENT_GTN) BETWEEN 5000 AND 10000
-                        </when>
-                        <when test="rentGtn == 'range4'">
-                            AND TO_NUMBER(RENT_GTN) BETWEEN 10000 AND 15000
-                        </when>
-                        <when test="rentGtn == 'range5'">
-                            AND TO_NUMBER(RENT_GTN) >= 15000
-                        </when>
-                    </choose>
-                </if>
-                <if test="chooseType != null">
-                    <choose>
-                        <when test="chooseType == 'area1'">
-                            <![CDATA[AND TO_NUMBER(RENT_AREA) <= 30]]>
-                        </when>
-                        <when test="chooseType == 'area2'">
-                            AND TO_NUMBER(RENT_AREA) BETWEEN 30 AND 60
-                        </when>
-                        <when test="chooseType == 'area3'">
-                            AND TO_NUMBER(RENT_AREA) BETWEEN 60 AND 120
-                        </when>
-                        <when test="chooseType == 'area4'">
-                            AND TO_NUMBER(RENT_AREA) >= 120
-                        </when>
-                    </choose>
-                </if>
-              UNION ALL
-              SELECT SGG_NM,
-                     BLDG_NM,
-                     GBN,
-                     OBJ_AMT,
-                     BLDG_AREA
-              FROM REALESTATE_SELL
-              WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
-                AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
-                AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
-                <if test="rentGtn != null">
-                    <choose>
-                        <when test="rentGtn == 'range1'">
-                            <![CDATA[AND TO_NUMBER(OBJ_AMT) <= 50000]]>
-                        </when>
-                        <when test="rentGtn == 'range2'">
-                            AND TO_NUMBER(OBJ_AMT) BETWEEN 50000 AND 100000
-                        </when>
-                        <when test="rentGtn == 'range3'">
-                            AND TO_NUMBER(OBJ_AMT) BETWEEN 100000 AND 150000
-                        </when>
-                        <when test="rentGtn == 'range4'">
-                            AND TO_NUMBER(OBJ_AMT) BETWEEN 150000 AND 200000
-                        </when>
-                        <when test="rentGtn == 'range5'">
-                            AND TO_NUMBER(OBJ_AMT) >= 200000
-                        </when>
-                    </choose>
-                </if>
-                <if test="chooseType != null">
-                    <choose>
-                        <when test="chooseType == 'area1'">
-                            <![CDATA[AND TO_NUMBER(BLDG_AREA) <= 30]]>
-                        </when>
-                        <when test="chooseType == 'area2'">
-                            AND TO_NUMBER(BLDG_AREA) BETWEEN 30 AND 60
-                        </when>
-                        <when test="chooseType == 'area3'">
-                            AND TO_NUMBER(BLDG_AREA) BETWEEN 60 AND 120
-                        </when>
-                        <when test="chooseType == 'area4'">
-                            AND TO_NUMBER(BLDG_AREA) >= 120
-                        </when>
-                    </choose>
-                </if>
-              ORDER BY SGG_NM)
+        BLDG_NM,
+        RENT_GBN,
+        RENT_GTN,
+        RENT_AREA
+        FROM REALESTATE_RENT
+        WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
+        AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
+        AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
+        <if test="rentGtn != null">
+            <choose>
+                <when test="rentGtn == 'range1'">
+                    <![CDATA[AND TO_NUMBER(RENT_GTN) <= 1000]]>
+                </when>
+                <when test="rentGtn == 'range2'">
+                    AND TO_NUMBER(RENT_GTN) BETWEEN 1000 AND 5000
+                </when>
+                <when test="rentGtn == 'range3'">
+                    AND TO_NUMBER(RENT_GTN) BETWEEN 5000 AND 10000
+                </when>
+                <when test="rentGtn == 'range4'">
+                    AND TO_NUMBER(RENT_GTN) BETWEEN 10000 AND 15000
+                </when>
+                <when test="rentGtn == 'range5'">
+                    AND TO_NUMBER(RENT_GTN) >= 15000
+                </when>
+            </choose>
+        </if>
+        <if test="chooseType != null">
+            <choose>
+                <when test="chooseType == 'area1'">
+                    <![CDATA[AND TO_NUMBER(RENT_AREA) <= 30]]>
+                </when>
+                <when test="chooseType == 'area2'">
+                    AND TO_NUMBER(RENT_AREA) BETWEEN 30 AND 60
+                </when>
+                <when test="chooseType == 'area3'">
+                    AND TO_NUMBER(RENT_AREA) BETWEEN 60 AND 120
+                </when>
+                <when test="chooseType == 'area4'">
+                    AND TO_NUMBER(RENT_AREA) >= 120
+                </when>
+            </choose>
+        </if>
+        UNION ALL
+        SELECT SGG_NM,
+        BLDG_NM,
+        GBN,
+        OBJ_AMT,
+        BLDG_AREA
+        FROM REALESTATE_SELL
+        WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
+        AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
+        AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
+        <if test="rentGtn != null">
+            <choose>
+                <when test="rentGtn == 'range1'">
+                    <![CDATA[AND TO_NUMBER(OBJ_AMT) <= 50000]]>
+                </when>
+                <when test="rentGtn == 'range2'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 50000 AND 100000
+                </when>
+                <when test="rentGtn == 'range3'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 100000 AND 150000
+                </when>
+                <when test="rentGtn == 'range4'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 150000 AND 200000
+                </when>
+                <when test="rentGtn == 'range5'">
+                    AND TO_NUMBER(OBJ_AMT) >= 200000
+                </when>
+            </choose>
+        </if>
+        <if test="chooseType != null">
+            <choose>
+                <when test="chooseType == 'area1'">
+                    <![CDATA[AND TO_NUMBER(BLDG_AREA) <= 30]]>
+                </when>
+                <when test="chooseType == 'area2'">
+                    AND TO_NUMBER(BLDG_AREA) BETWEEN 30 AND 60
+                </when>
+                <when test="chooseType == 'area3'">
+                    AND TO_NUMBER(BLDG_AREA) BETWEEN 60 AND 120
+                </when>
+                <when test="chooseType == 'area4'">
+                    AND TO_NUMBER(BLDG_AREA) >= 120
+                </when>
+            </choose>
+        </if>
+        ORDER BY SGG_NM)
 
     </select>
 
     <!-- 부동산 리스트 -->
     <select id="selectListByFilter" resultMap="realEstateRentListResultSet">
         SELECT SGG_NM,
-               BLDG_NM,
-               RENT_GBN,
-               RENT_GTN,
-               RENT_AREA
+        BLDG_NM,
+        RENT_GBN,
+        RENT_GTN,
+        RENT_AREA
         FROM REALESTATE_RENT
         WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
-          AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
-          AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
-            <if test="rentGtn != null">
-                <choose>
-                    <when test="rentGtn == 'range1'">
-                        <![CDATA[AND TO_NUMBER(RENT_GTN) <= 1000]]>
-                    </when>
-                    <when test="rentGtn == 'range2'">
-                        AND TO_NUMBER(RENT_GTN) BETWEEN 1000 AND 5000
-                    </when>
-                    <when test="rentGtn == 'range3'">
-                        AND TO_NUMBER(RENT_GTN) BETWEEN 5000 AND 10000
-                    </when>
-                    <when test="rentGtn == 'range4'">
-                        AND TO_NUMBER(RENT_GTN) BETWEEN 10000 AND 15000
-                    </when>
-                    <when test="rentGtn == 'range5'">
-                        AND TO_NUMBER(RENT_GTN) >= 15000
-                    </when>
-                </choose>
-            </if>
-            <if test="chooseType != null">
-                <choose>
-                    <when test="chooseType == 'area1'">
-                        <![CDATA[AND TO_NUMBER(RENT_AREA) <= 30]]>
-                    </when>
-                    <when test="chooseType == 'area2'">
-                        AND TO_NUMBER(RENT_AREA) BETWEEN 30 AND 60
-                    </when>
-                    <when test="chooseType == 'area3'">
-                        AND TO_NUMBER(RENT_AREA) BETWEEN 60 AND 120
-                    </when>
-                    <when test="chooseType == 'area4'">
-                        AND TO_NUMBER(RENT_AREA) >= 120
-                    </when>
-                </choose>
-            </if>
+        AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
+        AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
+        <if test="rentGtn != null">
+            <choose>
+                <when test="rentGtn == 'range1'">
+                    <![CDATA[AND TO_NUMBER(RENT_GTN) <= 1000]]>
+                </when>
+                <when test="rentGtn == 'range2'">
+                    AND TO_NUMBER(RENT_GTN) BETWEEN 1000 AND 5000
+                </when>
+                <when test="rentGtn == 'range3'">
+                    AND TO_NUMBER(RENT_GTN) BETWEEN 5000 AND 10000
+                </when>
+                <when test="rentGtn == 'range4'">
+                    AND TO_NUMBER(RENT_GTN) BETWEEN 10000 AND 15000
+                </when>
+                <when test="rentGtn == 'range5'">
+                    AND TO_NUMBER(RENT_GTN) >= 15000
+                </when>
+            </choose>
+        </if>
+        <if test="chooseType != null">
+            <choose>
+                <when test="chooseType == 'area1'">
+                    <![CDATA[AND TO_NUMBER(RENT_AREA) <= 30]]>
+                </when>
+                <when test="chooseType == 'area2'">
+                    AND TO_NUMBER(RENT_AREA) BETWEEN 30 AND 60
+                </when>
+                <when test="chooseType == 'area3'">
+                    AND TO_NUMBER(RENT_AREA) BETWEEN 60 AND 120
+                </when>
+                <when test="chooseType == 'area4'">
+                    AND TO_NUMBER(RENT_AREA) >= 120
+                </when>
+            </choose>
+        </if>
         UNION ALL
         SELECT SGG_NM,
-               BLDG_NM,
-               GBN,
-               OBJ_AMT,
-               BLDG_AREA
+        BLDG_NM,
+        GBN,
+        OBJ_AMT,
+        BLDG_AREA
         FROM REALESTATE_SELL
         WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
-          AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
-          AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
-            <if test="rentGtn != null">
-                <choose>
-                    <when test="rentGtn == 'range1'">
-                        <![CDATA[AND TO_NUMBER(OBJ_AMT) <= 50000]]>
-                    </when>
-                    <when test="rentGtn == 'range2'">
-                        AND TO_NUMBER(OBJ_AMT) BETWEEN 50000 AND 100000
-                    </when>
-                    <when test="rentGtn == 'range3'">
-                        AND TO_NUMBER(OBJ_AMT) BETWEEN 100000 AND 150000
-                    </when>
-                    <when test="rentGtn == 'range4'">
-                        AND TO_NUMBER(OBJ_AMT) BETWEEN 150000 AND 200000
-                    </when>
-                    <when test="rentGtn == 'range5'">
-                        AND TO_NUMBER(OBJ_AMT) >= 200000
-                    </when>
-                </choose>
-            </if>
-            <if test="chooseType != null">
-                <choose>
-                    <when test="chooseType == 'area1'">
-                        <![CDATA[AND TO_NUMBER(BLDG_AREA) <= 30]]>
-                    </when>
-                    <when test="chooseType == 'area2'">
-                        AND TO_NUMBER(BLDG_AREA) BETWEEN 30 AND 60
-                    </when>
-                    <when test="chooseType == 'area3'">
-                        AND TO_NUMBER(BLDG_AREA) BETWEEN 60 AND 120
-                    </when>
-                    <when test="chooseType == 'area4'">
-                        AND TO_NUMBER(BLDG_AREA) >= 120
-                    </when>
-                </choose>
-            </if>
+        AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
+        AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
+        <if test="rentGtn != null">
+            <choose>
+                <when test="rentGtn == 'range1'">
+                    <![CDATA[AND TO_NUMBER(OBJ_AMT) <= 50000]]>
+                </when>
+                <when test="rentGtn == 'range2'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 50000 AND 100000
+                </when>
+                <when test="rentGtn == 'range3'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 100000 AND 150000
+                </when>
+                <when test="rentGtn == 'range4'">
+                    AND TO_NUMBER(OBJ_AMT) BETWEEN 150000 AND 200000
+                </when>
+                <when test="rentGtn == 'range5'">
+                    AND TO_NUMBER(OBJ_AMT) >= 200000
+                </when>
+            </choose>
+        </if>
+        <if test="chooseType != null">
+            <choose>
+                <when test="chooseType == 'area1'">
+                    <![CDATA[AND TO_NUMBER(BLDG_AREA) <= 30]]>
+                </when>
+                <when test="chooseType == 'area2'">
+                    AND TO_NUMBER(BLDG_AREA) BETWEEN 30 AND 60
+                </when>
+                <when test="chooseType == 'area3'">
+                    AND TO_NUMBER(BLDG_AREA) BETWEEN 60 AND 120
+                </when>
+                <when test="chooseType == 'area4'">
+                    AND TO_NUMBER(BLDG_AREA) >= 120
+                </when>
+            </choose>
+        </if>
         ORDER BY SGG_NM
     </select>
 

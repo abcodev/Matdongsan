@@ -54,17 +54,6 @@
         ) realEstateSell
     </insert>
 
-<!--    <select id="getSellList" resultMap="realEstateSellResultSet">-->
-<!--    SELECT-->
-<!--        SGG_NM,-->
-<!--        BJDONG_NM,-->
-<!--        BONBEON,-->
-<!--        BUBEON,-->
-<!--        BLDG_NM,-->
-<!--        OBJ_AMT-->
-<!--        FROM REALESTATE_SELL-->
-<!--        ORDER BY BJDONG_NM-->
-<!--    </select>-->
 
 
     <select id="getSellList" resultMap="realEstateSellResultSet">
