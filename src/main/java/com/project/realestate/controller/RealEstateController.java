@@ -1,5 +1,6 @@
 package com.project.realestate.controller;
 
+import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
@@ -30,7 +31,11 @@ public class RealEstateController {
         @RequestMapping
         public String realEstatePage(Model model) {
             List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
+            List<RealEstateMainListDto> sellList = realEstateService.getSellList(); // 실거래가 주소
+
             model.addAttribute("localList", localList);
+            model.addAttribute("sellList", sellList);
+
         return "realestate/realestateList";
     }
 
