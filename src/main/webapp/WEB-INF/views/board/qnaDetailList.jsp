@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!DOCTYPE html>
 <html lang="en">
@@ -11,6 +12,7 @@
       border: 1px solid black;
       height: 200px;
     }
+
   </style>
 
 </head>
@@ -36,19 +38,32 @@
     </tr>
   <input type="hidden" id="depth" value="${qb.depth}"/>
     <input type="hidden" id="parentBno" value="${qb.parentBno}"/>
+    <input type="hidden" id="qBno" value="${qb.qnaBno}"/>
 
     <button id="writebtn1" onclick="movePage()"><i class="fa-solid fa-pencil"></i>답글달기</button>
   </table>
   <br><br><br><br><br><br>
-  <Div>
-    <span>질문 1에 대한 ${ab.qnaTitle}</span><br><br>
-    <span>${ab.qnaWriter}</span><br><br><br>
-    <span>${ab.qnaContent}</span>
 
-  </Div>
+  <c:if test="${empty list}">
+    <span id="hong">작성된 답글이 없습니다</span>
+  </c:if>
+  <c:forEach var="list" items="${ab}">
+
+    <Div>
+      <span>${qb.qnaTitle}대한 답변</span><br><br>
+      <span>제목 : ${list.qnaTitle}</span><br><br>
+      <span>작성자 : ${list.qnaWriter}</span><br><br><br>
+      <span>내용 :${list.qnaContent}</span>
+
+    </Div>
+  </c:forEach>
   <script>
     function movePage(){
-      location.href = '${pageContext.request.contextPath}/board/insertAnswer/${boardCode}/';
+      let depth = document.getElementById("depth").value;
+      let pBno = document.getElementById("parentBno").value;
+      let qBno = document.getElementById("qBno").value;
+
+      location.href = '${pageContext.request.contextPath}/board/insertAnswer?boardCode=${boardCode}&depth='+depth+"&pBno="+pBno+"&qBno="+qBno;
     }
   </script>
 

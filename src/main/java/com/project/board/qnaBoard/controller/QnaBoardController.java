@@ -15,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -79,36 +81,45 @@ public class QnaBoardController {
         int result = boardService.insertQboard(qb);
 
 
-            return "board/qnaBoardList";
+        return "redirect:/board/list/C";
         }
 
 
     /*답글달기 페이지*/
-    @RequestMapping(value = "/insertAnswer/{boardCode}",method = RequestMethod.GET)
-    public String insertBoard2(
-            @PathVariable("boardCode") String boardCode
+    @RequestMapping(value = "/insertAnswer",method = RequestMethod.GET)
+    public ModelAndView insertBoard2(
+            @RequestParam("boardCode") String boardCode,
+            @RequestParam(value = "depth")String depth,
+            @RequestParam(value = "pBno")String parentBno,
+            @RequestParam(value = "qBno") String qBno,
+            ModelAndView mv
     ) {
-        return "board/qnaInsertAnswer";
+        mv.setViewName("board/qnaInsertAnswer");
+        mv.addObject("depth", depth);
+        mv.addObject("pBno", parentBno);
+        mv.addObject("qBno", qBno);
+
+        return mv;
     }
     /*답글 등록*/
-    @RequestMapping("insertAnswer/{boardCode}")
+    @RequestMapping("insertAnswer")
     public String insertAnswer(
-            @PathVariable("boardCode")String boardCode,
-            @RequestParam(value = "depth",required = false, defaultValue = "1")int depth,
-            @RequestParam(value = "parentBno",required = false, defaultValue = "1")int parentBno,
+
+            @RequestParam(value = "depth") String depth,
+            @RequestParam(value = "pBno") String parentBno,
+            @RequestParam(value = "qBno") String qBno,
             Model model, QnaBoard qb
+
     ){
         qb.setDepth(qb.getDepth() + 1);
-        qb.setParentBno(qb.getParentBno() + 1);
-
+        qb.setParentBno(Integer.parseInt(qBno));
 
         int answer = boardService.insertAnswer(qb);
 
-
         model.addAttribute("qb",qb);
 
-
-        return "board/qnaBoardList";
+        //response.sendRedirect("/list/C");
+        return "redirect:/board/list/C";
 
     }
 
@@ -122,7 +133,7 @@ public class QnaBoardController {
     ) {
         QnaBoard qb = boardService.selectQboard(qBno);
 
-        QnaBoard ab = boardService.selectAnswer(qBno);
+        List<QnaBoard> ab = boardService.selectAnswer(qBno);
 
         int result = boardService.increaseCount(qBno);
 

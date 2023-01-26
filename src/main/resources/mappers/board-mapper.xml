@@ -127,6 +127,8 @@
                QNA_TITLE,
                QNA_CONTENT,
                M.NICKNAME,
+               QNA_DEPTH,
+               P_BNO,
                QNA_DATE
         FROM QNA_BOARD Q
         LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
@@ -143,7 +145,7 @@
 
     <insert id="insertAnswer" parameterType="QBoard">
         INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT, P_BNO, QNA_DEPTH)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, ${parentBno} + 1, ${depth} + 1)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{parentBno}, #{depth})
     </insert>
 
 
@@ -218,7 +220,7 @@
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
-          AND QNA_BNO = #{qBno}
+          AND P_BNO = #{qBno}
 
 
     </select>

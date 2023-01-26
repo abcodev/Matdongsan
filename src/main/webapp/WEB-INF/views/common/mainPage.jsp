@@ -43,9 +43,11 @@
                 <div class="dropdown">
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
                     <div class="dropdown-submenu">
-                        <c:forEach items="${boardTypeList }" var="boardType">
+                        <%--<c:forEach items="${boardTypeList }" var="boardType">
                             <a href="${pageContext.request.contextPath}/board/list/${boardType.boardCd}">${boardType.boardName }</a>
-                        </c:forEach>
+                        </c:forEach>--%>
+                        <a href="${pageContext.request.contextPath}/board/list/C">질문 게시판</a>
+                        <a href="${pageContext.request.contextPath}/board/list/F">자유 게시판</a>
 
                     </div>
                 </div>

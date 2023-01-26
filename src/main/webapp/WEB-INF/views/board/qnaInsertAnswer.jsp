@@ -27,9 +27,9 @@
 
   <button type="reset"  class="btn btn-danger">취소하기</button>
 
-  <input type="hidden" id="depth" value="${qb.depth}">
-  <input type="hidden" id="parentBno" value="${qb.parentBno}">
-  <input type="hidden" id="qBno" value="${qBno}">
+  <input type="hidden" id="depth" name="depth" value="${depth}">
+  <input type="hidden" id="pBno" name="pBno" value="${pBno}">
+  <input type="hidden" id="qBno" name="qBno" value="${qBno}">
 </form>
 </body>
 </html>
