@@ -44,75 +44,75 @@
 
 
 <script>
-    var INDEX = 0;
-    $("#chat-submit").click(function (e) {
-      e.preventDefault();
-      var msg = $("#chat-input").val();
-      if (msg.trim() == "") {
-        return false;
-      }
-      generate_message(msg, "self");
-      var buttons = [
-        {
-          name: "Existing User",
-          value: "existing"
-        },
-        {
-          name: "New User",
-          value: "new"
-        }
-      ];
-      setTimeout(function () {
-        generate_message(msg, "user");
-      }, 1000);
-    });
-
-    function generate_message(msg, type) {
-      INDEX++;
-      var str = "";
-      str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
-      str += '          <span class="msg-avatar">';
-      str += "          </span>";
-      str += '          <div class="cm-msg-text">';
-      str += msg;
-      str += "          </div>";
-      str += "        </div>";
-      $(".chat-logs").append(str);
-      $("#cm-msg-" + INDEX)
-              .hide()
-              .fadeIn(300);
-      if (type == "self") {
-        $("#chat-input").val("");
-      }
-      $(".chat-logs")
-              .stop()
-              .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-    }
-
-
-    $(document).delegate(".chat-btn", "click", function () {
-      var value = $(this).attr("chat-value");
-      var name = $(this).html();
-      $("#chat-input").attr("disabled", false);
-      generate_message(name, "self");
-    });
+    // var INDEX = 0;
+    // $("#chat-submit").click(function (e) {
+    //   e.preventDefault();
+    //   var msg = $("#chat-input").val();
+    //   if (msg.trim() == "") {
+    //     return false;
+    //   }
+    //   generate_message(msg, "self");
+    //   var buttons = [
+    //     {
+    //       name: "Existing User",
+    //       value: "existing"
+    //     },
+    //     {
+    //       name: "New User",
+    //       value: "new"
+    //     }
+    //   ];
+    //   setTimeout(function () {
+    //     generate_message(msg, "user");
+    //   }, 1000);
+    // });
+    //
+    // function generate_message(msg, type) {
+    //   INDEX++;
+    //   var str = "";
+    //   str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
+    //   str += '          <span class="msg-avatar">';
+    //   str += "          </span>";
+    //   str += '          <div class="cm-msg-text">';
+    //   str += msg;
+    //   str += "          </div>";
+    //   str += "        </div>";
+    //   $(".chat-logs").append(str);
+    //   $("#cm-msg-" + INDEX)
+    //           .hide()
+    //           .fadeIn(300);
+    //   if (type == "self") {
+    //     $("#chat-input").val("");
+    //   }
+    //   $(".chat-logs")
+    //           .stop()
+    //           .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+    // }
+    //
+    //
+    // $(document).delegate(".chat-btn", "click", function () {
+    //   var value = $(this).attr("chat-value");
+    //   var name = $(this).html();
+    //   $("#chat-input").attr("disabled", false);
+    //   generate_message(name, "self");
+    // });
 
     $("#chat-circle").click(function () {
       $("#chat-circle").toggle("scale");
 
       $.ajax({
         url: '${pageContext.request.contextPath}/createChatRoom',
-        type: "POST"
-      })
-              .then(function (room){
-                $(".chat-box").toggle("scale");
-                connection(room);
+        type: "POST",
 
-              })
-              .fail(function (){
-                alert("로그인후 이용가능합니다")
-                $("#chat-circle").toggle("scale");
-              })
+        success :function (room){
+          $(".chat-box").toggle("scale");
+          connection(room);
+              },
+        fail : function (){
+          alert("사용 실패")
+          $("#chat-circle").toggle("scale");
+              }
+      })
     });
 
     $(".chat-box-toggle").click(function () {
@@ -127,7 +127,7 @@
     }
     function onConnected() {
       alert("연결 성공!");
-      stompClient.subscribe('/topic/'+room.roomNo, function (e){
+      stompClient.subscribe('/topic/test', function (e){
         showMessage(JSON.parse(e .body));
       });
     }
@@ -141,7 +141,7 @@
 
 
     function showMessage(data){
-      if(data.sender===userId){
+      if(data.sender==='${loginUser.memberNo}'){
         $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>");
       } else {
         $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>");
@@ -151,7 +151,7 @@
     //메시지 브로커로 메시지 전송
     function send(){
       data = {
-        'sender' :userId,
+        'sender' : ${loginUser.memberNo},
         'contents': $("#chat-submit").val()
       };
       // send(destination,헤더,페이로드)
