@@ -1,6 +1,5 @@
 package com.project.realestate.service;
 
-import com.project.common.template.PageInfo;
 import com.project.common.template.PageInfoCombine;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
@@ -8,20 +7,16 @@ import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
-import com.project.realestate.vo.RealEstateSell;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RealEstateServiceImpl implements RealEstateService{
 
-    private static final int DEFAULT_BOARD_SIZE = 1000;
+    private static final int DEFAULT_BOARD_SIZE = 10;
 
     private final RealEstateDao realEstateDao;
     private final SqlSession sqlSession;
@@ -46,10 +41,11 @@ public class RealEstateServiceImpl implements RealEstateService{
 
     @Override
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
-        int count = realEstateDao.selectListCount(sqlSession);
+        RealEstateRentListFilter filter = RealEstateRentListFilter.from(req);
+        int count = realEstateDao.selectListCountByFilter(filter);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_BOARD_SIZE);
-        List<RealEstateRent> result = realEstateDao.selectList(pageInfoCombine, RealEstateRentListFilter.from(req));
-        return new RealEstateRentListResponse(result,pageInfoCombine);
+        List<RealEstateRent> result = realEstateDao.selectListByFilter(pageInfoCombine, filter);
+        return new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
 //    @Override

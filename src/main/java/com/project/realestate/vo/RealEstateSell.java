@@ -24,6 +24,9 @@ public class RealEstateSell {
     private String buildYear;
     private String houseType;
 
+    private String address;
+
+
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {
 

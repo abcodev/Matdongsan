@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -28,17 +29,6 @@ public class MainController {
     public MainController(RealEstateService realEstateService) {
         this.realEstateService = realEstateService;
     }
-
-//    @ResponseBody
-//    @GetMapping("/test")
-//    public ModelAndView realEstateList(ModelAndView modelAndView){
-//        List<String> sellList = realEstateService.getSellList();
-//        List<RealEstateMainListDto> sellList = realEstateService.getSellList();
-//
-//        modelAndView.addObject("sellList", sellList);
-//        modelAndView.setViewName("common/mainPage");
-//        return modelAndView;
-//    }
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){
@@ -85,6 +75,9 @@ public class MainController {
 
         model.addAttribute("newsList", newsList);
         model.addAttribute("sellList", sellList);
+
+        System.out.println(sellList.size());
+
 
         return "common/mainPage";
     }

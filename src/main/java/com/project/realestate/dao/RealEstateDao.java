@@ -9,11 +9,9 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,14 +22,17 @@ public class RealEstateDao {
     public int selectListCount(SqlSession sqlSession) {
         return sqlSession.selectOne("rentMapper.selectListCount");
     }
+    public int selectListCountByFilter(RealEstateRentListFilter filter) {
+        return sqlSession.selectOne("rentMapper.selectListCountByFilter", filter);
+    }
 //    public int selectListCount(SqlSession sqlSession, Map<String, Object> paramMap) {
 //        return sqlSession.selectOne("rentMapper.searchListCount", paramMap);
 //    }
 
 
-    public List<RealEstateRent> selectList(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
+    public List<RealEstateRent> selectListByFilter(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("rentMapper.selectList", filter, rowBounds);
+        return sqlSession.selectList("rentMapper.selectListByFilter", filter, rowBounds);
     }
 
 
