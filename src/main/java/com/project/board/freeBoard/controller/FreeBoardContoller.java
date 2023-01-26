@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/fboard")
+@RequestMapping("/board")
 public class FreeBoardContoller {
 
     @Autowired

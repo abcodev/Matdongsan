@@ -7,7 +7,7 @@
     <resultMap type="RealEstateSell" id="realEstateSellResultSet">
         <result column="ACC_YEAR" property="accYear" />
         <result column="SGG_CD" property="sggCd" />
-        <result column="SGG_NM" property="sggNM" />
+        <result column="SGG_NM" property="sggNm" />
         <result column="BJDONG_CD" property="bjdongCd" />
         <result column="BJDONG_NM" property="bjdongNm" />
         <result column="BONBEON" property="bonbeon" />
@@ -54,24 +54,32 @@
         ) realEstateSell
     </insert>
 
+<!--    <select id="getSellList" resultMap="realEstateSellResultSet">-->
+<!--    SELECT-->
+<!--        SGG_NM,-->
+<!--        BJDONG_NM,-->
+<!--        BONBEON,-->
+<!--        BUBEON,-->
+<!--        BLDG_NM,-->
+<!--        OBJ_AMT-->
+<!--        FROM REALESTATE_SELL-->
+<!--        ORDER BY BJDONG_NM-->
+<!--    </select>-->
+
+
     <select id="getSellList" resultMap="realEstateSellResultSet">
-    SELECT
-        BJDONG_NM,
-        BONBEON,
-        BUBEON,
-        OBJ_AMT,
-        BLDG_NM
+        SELECT
+            SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
+            OBJ_AMT,
+            BLDG_NM
         FROM REALESTATE_SELL
         ORDER BY BJDONG_NM
     </select>
 
 
-<!--    <select id="getSellList" resultMap="realEstateSellResultSet">-->
-<!--        SELECT-->
-<!--            SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,-->
-<!--            OBJ_AMT,-->
-<!--            BLDG_NM-->
-<!--        FROM REALESTATE_SELL-->
-<!--        ORDER BY BJDONG_NM-->
-<!--    </select>-->
+
+
+
+
+
 </mapper>

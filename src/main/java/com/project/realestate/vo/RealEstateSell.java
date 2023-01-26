@@ -12,7 +12,7 @@ public class RealEstateSell {
 
     private String accYear;
     private String sggCd;
-    private String sggNM;
+    private String sggNm;
     private String bjdongCd;
     private String bjdongNm;
     private String bonbeon;
@@ -24,13 +24,16 @@ public class RealEstateSell {
     private String buildYear;
     private String houseType;
 
+    private String address;
+
+
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {
 
         return RealEstateSell.builder()
                 .accYear(realEstateSellDto.getAccYear())
                 .sggCd(realEstateSellDto.getSggCd())
-                .sggNM(realEstateSellDto.getSggNm())
+                .sggNm(realEstateSellDto.getSggNm())
                 .bjdongCd(realEstateSellDto.getBjdongCd())
                 .bjdongNm(realEstateSellDto.getBjdongNm())
                 .bonbeon(realEstateSellDto.getBonbeon())

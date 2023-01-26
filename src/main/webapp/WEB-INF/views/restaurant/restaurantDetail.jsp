@@ -19,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
           rel="stylesheet">
 </head>
+<body>
 <div id="content">
     <div class="detail head">
 

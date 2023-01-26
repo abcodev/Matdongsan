@@ -16,7 +16,7 @@ import java.io.IOException;
 @Controller
 @RequiredArgsConstructor
 @Log4j
-public class RealEstateRentApiController {
+public class RealEstateApiRentController {
 
     private final RealEstateRentApiService realEstateRentApiService;
     private final SeoulRentApiClient seoulRentApiClient;

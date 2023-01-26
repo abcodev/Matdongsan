@@ -41,7 +41,7 @@ public class QnaBoardServiceImpl implements QnaBoardService{
         int listCount = selectListCount(boardCode);
 
         int pageLimit = 10;
-        int boardLimit = 5;
+        int boardLimit = 15;
         PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 
         map.put("pi",pi);
@@ -60,7 +60,7 @@ public class QnaBoardServiceImpl implements QnaBoardService{
         int listCount = selectListCount(paramMap);
 
         int pageLimit = 10;
-        int boardLimit = 5;
+        int boardLimit = 15;
         PageInfo pi = pagination.getPageInfo(listCount, (Integer) paramMap.get("cpage"), pageLimit, boardLimit);
         paramMap.put("pi", pi);
 
@@ -101,5 +101,10 @@ public class QnaBoardServiceImpl implements QnaBoardService{
     @Override
     public int insertAnswer(QnaBoard qb){
         return  boardDao.insertAnswer(sqlSession,qb);
+    }
+
+    @Override
+    public QnaBoard selectAnswer(int qBno){
+        return boardDao.selectAnswer(sqlSession,qBno);
     }
 }

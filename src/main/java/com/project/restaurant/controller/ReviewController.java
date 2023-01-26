@@ -1,5 +1,6 @@
 package com.project.restaurant.controller;
 
+import com.google.gson.Gson;
 import com.project.member.vo.Member;
 import com.project.restaurant.dto.InsertReviewRequest;
 import com.project.restaurant.dto.ReviewResponse;
@@ -40,7 +41,4 @@ public class ReviewController {
         List<ReviewResponse> list = reviewService.selectReviewList(resNo);
         return ResponseEntity.ok(list);
     }
-
-
-
 }

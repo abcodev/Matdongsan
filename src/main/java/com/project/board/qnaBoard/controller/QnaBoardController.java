@@ -37,8 +37,10 @@ public class QnaBoardController {
             @PathVariable("boardCode") String boardCode,
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             Model model,
-            @RequestParam Map<String, Object> paramMap) {
+            @RequestParam Map<String, Object> paramMap,
+            HttpSession session) {
         Map<String, Object> map = new HashMap();
+
 
         if (paramMap.get("condition") == null) {
 
@@ -77,7 +79,7 @@ public class QnaBoardController {
         int result = boardService.insertQboard(qb);
 
 
-            return "board/qnaInsertBoard";
+            return "board/qnaBoardList";
         }
 
 
@@ -92,20 +94,17 @@ public class QnaBoardController {
     @RequestMapping("insertAnswer/{boardCode}")
     public String insertAnswer(
             @PathVariable("boardCode")String boardCode,
-            @RequestParam("parentBno")int parentBno,
-            @RequestParam("depth")int depth,
-            @RequestParam("qnaBno")int qnaBno,
-            Model model, QnaBoard qb
+            @RequestParam(value = "depth",required = false, defaultValue = "1")int depth,
+            @RequestParam(value = "qnaBno") int qnaBno,
+            Model model,
+            QnaBoard qb
     ){
 
-      int arr = boardService.insertAnswer(qb);
-
-        qb.setDepth(qb.getDepth() + 1);
-        qb.setParentBno(qb.getParentBno() + 1);
-
+        qb.setDepth(qb.getDepth());
+        int answer = boardService.insertAnswer(qb);
         model.addAttribute("qb",qb);
 
-        return "board/qnaInsertAnswer";
+        return "board/qnaBoardList";
 
     }
 
@@ -119,12 +118,14 @@ public class QnaBoardController {
     ) {
         QnaBoard qb = boardService.selectQboard(qBno);
 
+        QnaBoard ab = boardService.selectAnswer(qBno);
+
         int result = boardService.increaseCount(qBno);
 
 
             mv.addObject("qb", qb);
+            mv.addObject("ab", ab);
             mv.setViewName("board/qnaDetailList");
-
 
         return mv;
 

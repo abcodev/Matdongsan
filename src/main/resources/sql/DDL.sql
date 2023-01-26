@@ -137,7 +137,7 @@ COMMENT
     ON COLUMN "REALESTATE_RENT"."HOUSE_GBN_NM" IS '건물용도';
 
 
-DROP TABLE "MEMBER";
+-- DROP TABLE "MEMBER";
 
 CREATE TABLE "MEMBER"
 (
@@ -271,7 +271,7 @@ CREATE TABLE "REVIEW"
     "RES_NO"         VARCHAR(255)            NOT NULL,
     "STAR_RATING"    NUMBER                  NOT NULL,
     "REVIEW_CONTENT" VARCHAR(2056)          NOT NULL,
-    "CREATE_DATE"    TIMESTAMP           NOT NULL,
+    "CREATE_DATE"    TIMESTAMP              NOT NULL,
     "STATUS"         VARCHAR(20) DEFAULT 'Y' NOT NULL
 );
 
@@ -470,7 +470,8 @@ CREATE TABLE "FREE_BOARD"
     "BOARD_CONTENT" VARCHAR(2056)                NULL,
     "BOARD_DATE"    DATE         DEFAULT SYSDATE NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
+    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL,
+
 );
 
 COMMENT
@@ -496,6 +497,8 @@ COMMENT
 
 COMMENT
     ON COLUMN "FREE_BOARD"."STATUS" IS '상태';
+
+
 
 
 -- DROP TABLE "REPLY";
@@ -573,7 +576,7 @@ CREATE TABLE "QNA_BOARD"
     "P_BNO"       NUMBER                       NULL,
     "QNA_TITLE"   VARCHAR(255)                 NOT NULL,
     "QNA_CONTENT" VARCHAR(2056)                NOT NULL,
-    "QNA_DATE"    DATE         DEFAULT SYSDATE NULL,
+    "QNA_DATE"    TIMESTAMP    DEFAULT localtimestamp NULL,
     "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NULL,
