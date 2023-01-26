@@ -9,25 +9,6 @@ a{
     text-decoration: none;
 }
 
-main{
-    padding-top: 110px;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-#header.on { position: fixed;  }
-#header.on .inner { height: 80px; transition: 0.1s;}
-#header.on .inner img { height: 75px; width: 120px; transition: 0.1s;}
-#header.on .inner .dropdown-btn{ height: 40px; font-size: 17px;}
-#header.on .inner .dropdown-submenu{height: 55px;}
-#header.on .inner .dropdown-submenu a {font-size: 13px;}
-#header.on .navbar {padding-top: 20px; transition: 0.1s;}
-#header.on .login {margin-top: 23px; transition: 0.1s;}
-#header.on .login a{font-size: 12px;}
-
-
-
 #header{
     position: absolute;
     z-index: 999;
@@ -36,22 +17,25 @@ main{
 .inner{
     display: flex;
     background-color: white;
+    width: 100%;
+    height: 100px;
 }
 
 .logo > img{
     height: 100px;
     width: 160px;
     cursor: pointer;
-    margin: 5px 0 5px 100px;
+    margin: 5px 20px 5px 100px;
 }
 
 .logo{
-    width: 260px;
+    width: auto;
 }
 
 .navbar{
-    width: 850px;
-    padding: 35px 0 0 120px;
+    width: auto;
+    padding: 25px 0 0 100px;
+    height: 100px;
 }
 
 .navbar a{
@@ -108,13 +92,18 @@ main{
 }
 
 .login{
-    width: 250px;
+    width: auto;
     text-align: center;
-    margin:40px 0 0 160px;
     background-color: white;
 }
 
-.login a{
+.login_before{
+    width: 100%;
+    height: 100%;
+    padding: 30px 0 0 160px;
+}
+
+.login_before > a{
     text-decoration: none;
     font-size: 15px;
     color: #213048;
@@ -122,33 +111,81 @@ main{
     line-height: 40px;
 }
 
-.mapImg{
-    width: 100%;
-    height: 800px;
-}
-
-
-.mapImg > img{
+.login_after{
+    padding: 30px 0 0 30px;
     width: 100%;
     height: 100%;
+    display: flex;
+}
+
+.user_img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.after{
+    text-decoration: none;
+    font-size: 15px;
+    color: #213048;
+    font-weight: 700;
+    margin-right: 30px;
+}
+
+.fa-bell{
+    font-size: 30px;
+    padding-bottom: 30px;
 }
 
 .map{
-    position: relative;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    margin-top: 100px;
 }
 
+.map_img {
+    z-index: -100;
+}
 
 .news{
     position: absolute;
     left: 30px;
-    top: 150px;
-    width: 250px;
-    height: 300px;
+    top: 130px;
+    width: 280px;
+    height: 315px;
     display: table;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
     text-align: center;
-    padding-top: 20px;
+    padding: 10px 5px 10px 5px;
+    z-index: 100;
+}
+
+.news > span{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #566392;
+}
+
+.news_list > a{
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 450;
+    line-height: 1.2;
+    color: #213048;
+    display: block;
+}
+
+.news > span > a{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #566392;
+    border-top : #566392 2px solid;
+    display: block;
+    padding-top: 5px;
 }
 
 .lookList{
@@ -156,12 +193,13 @@ main{
     left: 30px;
     top: 480px;
     width: 250px;
-    height: 300px;
+    height: 280px;
     display: table;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
     text-align: center;
     padding-top: 20px;
+    z-index: 100;
 }
 
 .side{
@@ -172,31 +210,9 @@ main{
 .map h3{
     color:#213048;
 }
-
-#go-top {
-    display: none;
-    position: fixed;
-    right: 30px;
-    bottom: 100px;
-    outline: 0;
-    border: 0;
-    background: transparent;
-    background-color: rgba(255, 255, 255, 0.9);
-    cursor: pointer;
-    z-index: 9999;
-    color: #213048;
-    font-size: 15px;
-    font-weight: 700;
-    width: 50px;
-    height: 50px;
-    border-radius: 40px;
-}
-
 #map{
-    width: 80%;
-    height: 600px;
-    float: right;
+    width: 100%;
+    height: 1200px;
     padding-top: 10px;
 }
 
-/***************   채팅   *****************/

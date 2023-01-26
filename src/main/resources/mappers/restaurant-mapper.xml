@@ -27,7 +27,7 @@
         <result column="STATUS" property="status"/>
     </resultMap>
 
-    <resultMap id="reviewAndMemberResultSet" type="com.project.restaurant.dto.ReviewAndMemberDto">
+    <resultMap id="reviewAndMemberResultSet" type="com.project.restaurant.dto.ReviewResponse">
         <result column="REV_NO" property="revNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="RES_NO" property="resNo"/>
@@ -36,9 +36,7 @@
         <result column="CREATE_DATE" property="createDate"/>
         <result column="STATUS" property="status"/>
         <result column="MEMBER_NAME" property="memberName"/>
-
-        <result column="HASHTAG" property="hashtag"/>
-        <result column="CHANGE_NAME" property="changeName"/>
+        <result column="PROFILE_IMAGE" property="profileImage"/>
     </resultMap>
 
 
@@ -118,25 +116,20 @@
             R.CREATE_DATE,
             R.STATUS,
             M.MEMBER_NAME,
-            H.HASHTAG,
-            I.CHANGE_NAME
+            M.PROFILE_IMAGE
         FROM REVIEW R
-                JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
-                JOIN RES_HASHTAG RH on R.REV_NO = RH.REV_NO
-                JOIN HASHTAG H on RH.HASHTAG_ID = H.HASHTAG_ID
-                JOIN RES_IMG I on R.REV_NO = I.REV_NO
+                INNER JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
         WHERE R.RES_NO = #{resNo}
             AND R.STATUS = 'Y'
+        ORDER BY R.CREATE_DATE DESC
     </select>
 
-
-    <select id="selectImgList" resultMap="resImgResultSet">
+    <select id="selectImageListByRevNo" resultMap="resImgResultSet">
         SELECT *
         FROM RES_IMG
-        WHERE RES_NO = #{resNo}
+        WHERE REV_NO = #{revNo}
         ORDER BY IMAGE_LEVEL
     </select>
-
 
     <!-- 리뷰 등록 -->
     <insert id="insertReview" parameterType="review">
@@ -179,8 +172,8 @@
 
 
     <insert id="resInsertImg" parameterType="resImg">
-        INSERT INTO RES_IMG(IMG_NO, MEMBER_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
-        VALUES(SEQ_IMG_NO.NEXTVAL,#{memberNo}, #{resNo},#{originName},#{changeName})
+        INSERT INTO RES_IMG(IMG_NO, REV_NO, MEMBER_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
+        VALUES(SEQ_IMG_NO.NEXTVAL, #{revNo}, #{memberNo}, #{resNo},#{originName},#{changeName})
     </insert>
 
 

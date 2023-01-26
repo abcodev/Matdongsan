@@ -58,6 +58,9 @@ public class RestaurantDao {
         return sqlSession.selectList("hashtagMapper.resHashtagByAdmin", resNo);
     }
 
+    public List<ResImg> selectImageListByRevNo(int revNo) {
+        return sqlSession.selectList("resMapper.selectImageListByRevNo", revNo);
+    }
 
     //
     public ArrayList<Review> selectReviewList(SqlSession sqlSession, int resNo) {
@@ -108,10 +111,6 @@ public class RestaurantDao {
         return restaurant.getResNo();
     }
 
-    public void resHashtagModify(ResHashtag resHashtag) {
-        sqlSession.update("resHashtagMapper.resHashtagUpdate",resHashtag);
-    }
-
     /**
      * 관리자 - 맛집 삭제
      */
@@ -125,5 +124,9 @@ public class RestaurantDao {
 
     public int deleteResHash(String resNo) {
         return sqlSession.delete("resHashtagMapper.deleteResHash",resNo);
+    }
+
+    public void deleteResHashOnlyAdmin(String resNo) {
+        sqlSession.delete("resHashtagMapper.deleteResHashOnlyAdmin",resNo);
     }
 }

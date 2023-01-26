@@ -155,8 +155,8 @@ public class RestaurantController {
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
         List<Hashtag> hashtagList = restaurantService.selectHashtagList();
 
-        modelAndView.addObject("hashtagList", hashtagList);
         modelAndView.addObject("restaurantDetail", restaurant);
+        modelAndView.addObject("hashtagList", hashtagList);
 
         modelAndView.setViewName("admin/restaurantModify");
         return modelAndView;
@@ -166,22 +166,20 @@ public class RestaurantController {
     @PostMapping("/admin/resUpdate")
     public String restaurantModify(
             @RequestParam("file") MultipartFile file,
-            Restaurant restaurant, HttpSession session,
-            @RequestParam("hashtagId") List<String> hashtagId,
-            RedirectAttributes redirectAttributes,
+            Restaurant restaurant,
+            HttpSession session,
+            @RequestParam(value = "hashtagId", defaultValue = "") List<String> hashtagId,
             HttpServletRequest req
     ) {
-        List arr = Arrays.asList(req.getParameterValues("hashtagId"));
         restaurantService.restaurantModify(file, restaurant, session, hashtagId);
-//        redirectAttributes.addFlashAttribute("alertMsg", "You successfully uploaded " + restaurant.getResName() + "!");
-
-        return "redirect:/selectResList"; // 성공하면 해당하는 resNo url로 보내야함
+        return "redirect:/restaurantDetail?resNo=" + restaurant.getResNo(); // 성공하면 해당하는 resNo url로 보내야함
     }
 
     /**
      * 관리자 - 맛집 삭제
      */
     @RequestMapping("/admin/resDelete")
+    // @ResponseBody // AJAX 호출 -> success()
     public ModelAndView restaurantDelete(
             @RequestParam("resNo") String resNo,
             ModelAndView modelAndView

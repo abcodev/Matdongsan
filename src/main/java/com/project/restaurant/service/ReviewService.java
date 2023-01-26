@@ -8,7 +8,7 @@ import com.project.restaurant.dao.RestaurantDao;
 import com.project.restaurant.dao.ReviewDao;
 import com.project.restaurant.dto.InsertReviewRequest;
 import com.project.restaurant.dto.ResHashtagDto;
-import com.project.restaurant.dto.ReviewAndMemberDto;
+import com.project.restaurant.dto.ReviewResponse;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.ResImg;
@@ -21,8 +21,6 @@ import javax.servlet.ServletContext;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static org.apache.ibatis.ognl.DynamicSubscript.first;
 
 @Service
 @RequiredArgsConstructor
@@ -64,8 +62,16 @@ public class ReviewService {
         });
     }
 
-    public List<ReviewAndMemberDto> selectReviewList(String resNo) {
-        return reviewDao.selectReviewList(resNo);
+    public List<ReviewResponse> selectReviewList(String resNo) {
+        List<ReviewResponse> reviews = reviewDao.selectReviewList(resNo);
+        // Call By Reference
+        reviews.forEach(review -> {
+            List<ResHashtagDto> resHashtagList = resHashtagDao.selectByRevNo(review.getRevNo());
+            review.setHashtags(resHashtagList);
+            List<ResImg> resImgList = restaurantDao.selectImageListByRevNo(review.getRevNo());
+            review.setImage(resImgList);
+        });
+        return reviews;
     }
 
     public List<String> retrieveTop2Hashtag(String resNo, List<String> excludeHashtags) {
