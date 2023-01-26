@@ -39,9 +39,6 @@ public class ReviewController {
     @ResponseBody
     public ResponseEntity<List<ReviewResponse>> selectReviewList(String resNo) {
         List<ReviewResponse> list = reviewService.selectReviewList(resNo);
-
-
-
         return ResponseEntity.ok(list);
     }
 }

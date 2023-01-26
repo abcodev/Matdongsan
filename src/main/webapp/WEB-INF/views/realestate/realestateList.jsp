@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/realeatate/realestateList.css"/>">
-    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>부동산</title>
@@ -60,6 +60,7 @@
             </div>
             <div class="search option">
                 <select name="rentType" id="rentType" onchange="optionType(this)">
+                    <option value="">전체</option>
                     <option value="매매">매매</option>
                     <option value="전세">전세</option>
                     <option value="월세">월세</option>

@@ -17,10 +17,8 @@ import java.util.List;
 public class RealEstateServiceImpl implements RealEstateService{
 
     private static final int DEFAULT_BOARD_SIZE = 10;
-
     private final RealEstateDao realEstateDao;
     private final SqlSession sqlSession;
-
 
     @Autowired
     public RealEstateServiceImpl(RealEstateDao realEstateDao, SqlSession sqlSession){
@@ -28,17 +26,14 @@ public class RealEstateServiceImpl implements RealEstateService{
         this.sqlSession = sqlSession;
     }
 
-
     @Override
     public int selectListCount(){
         return realEstateDao.selectListCount(sqlSession);
     }
 
-//    @Override
-//    public int selectListCount(Map<String, Object> paramMap) {
-//        return realEstateDao.selectListCount(sqlSession, paramMap);
-//    }
-
+    /**
+     * 부동산 리스트 - 검색결과
+     */
     @Override
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
         RealEstateRentListFilter filter = RealEstateRentListFilter.from(req);
@@ -47,39 +42,6 @@ public class RealEstateServiceImpl implements RealEstateService{
         List<RealEstateRent> result = realEstateDao.selectListByFilter(pageInfoCombine, filter);
         return new RealEstateRentListResponse(result, pageInfoCombine);
     }
-
-//    @Override
-//    public RealEstateRentListResponse selectList(RealEstateRentListRequest req){
-//
-//        //페이징 처리 작업
-//        int listCount = selectListCount();
-//
-//        PageInfoCombine pageInfoCombine = new PageInfoCombine(listCount, req.getCurrentPage(), deafaultSize );
-//        List<RealEstateRent> result = realEstateDao.selectList(sqlSession, pageInfoCombine, RealEstateRentListFilter.from(req));
-//
-//        return new RealEstateRentListResponse(result, pageInfoCombine);
-//    }
-
-//    @Override
-//    public Map<String, Object> selectList(Map<String, Object> paramMap){
-//
-//        Map<String, Object> map = new HashMap();
-//        //페이징 처리 작업
-//        int listCount = selectListCount(paramMap);
-//
-//        int pageLimit = 5;
-//        int boardLimit = 8;
-//        PageInfo pi = pagination.getPageInfo(listCount, (Integer)paramMap.get("currentPage"), pageLimit, boardLimit);
-//        paramMap.put("pi", pi);
-//        map.put("pi", pi);
-//
-//        ArrayList<RealEstateRent> list =  realEstateDao.selectList(sqlSession, paramMap);
-//        map.put("list", list);
-//
-//        return map;
-//    }
-
-
 
 
     // 자치구 리스트
@@ -93,9 +55,6 @@ public class RealEstateServiceImpl implements RealEstateService{
     public List<RealEstateRent> searchDongList(String state){
         return realEstateDao.searchDongList(sqlSession, state);
     }
-
-//    @Override
-//    public List<String> getSellList(){ return realEstateDao.getSellList(sqlSession);}
 
     @Override
     public List<RealEstateMainListDto> getSellList() {

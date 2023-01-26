@@ -5,6 +5,7 @@ import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.restaurant.vo.Hashtag;
+import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,42 +21,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/realEstate")
 public class RealEstateController {
 
     private final RealEstateService realEstateService;
-
-    public RealEstateController(RealEstateService realEstateService) {
-        this.realEstateService = realEstateService;
-    }
-
-
-//    @RequestMapping("/list")
-//    public String realEstatePage(
-//            Model model,
-//            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//            @RequestParam(value = "state", defaultValue = "") String state,
-//            @RequestParam(value = "dong", defaultValue = "") String dong
-//    ) throws Exception {
-//        System.out.println("검색!!!! " + state);
-//        List<RealEstateRent> localList = realEstateService.searchLocalList();
-//
-//
-//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
-//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
-//
-//        model.addAttribute("localList", localList);
-//
-//
-//        List<RealEstateRent> dongList = realEstateService.searchDongList(state);
-//        model.addAttribute("dongList", dongList);
-//
-//        System.out.println(state + "동이름 : " + dongList);
-//
-//        model.addAttribute("selectAllList", resp.getRealEstateRentList());
-//        model.addAttribute("pi", resp.getPageInfoCombine());
-//        return "realestate/realestateList";
-//    }
 
     @RequestMapping
     public String realEstatePage(Model model) {
@@ -94,4 +64,7 @@ public class RealEstateController {
                         .collect(Collectors.toList())
         );
     }
+    // state를 매개변수로 전달하여 realEstateService 오브젝트에서 searchDongList 메소드를 호출하고
+    // 반환된 RealEstateRent 목록은 해당 bjdName 속성에 맵핑되고 새 목록으로 수집함
+    // HTTP OK(200) 응답을 bjdName 속성 목록을 반환
 }

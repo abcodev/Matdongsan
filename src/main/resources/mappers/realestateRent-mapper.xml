@@ -106,8 +106,8 @@
                      RENT_AREA
               FROM REALESTATE_RENT
               WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
-              AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
-              AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
+                AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
+                AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
               UNION ALL
               SELECT SGG_NM,
                      BLDG_NM,
@@ -117,7 +117,7 @@
               FROM REALESTATE_SELL
               WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
                 AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
-        <!--            AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%' -->
+                AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
               ORDER BY SGG_NM)
 
     </select>
@@ -125,25 +125,25 @@
     <!-- 부동산 리스트 -->
     <select id="selectListByFilter" resultMap="realEstateRentListResultSet">
         SELECT SGG_NM,
-                BLDG_NM,
-                DEAL_YMD,
-                RENT_GTN,
-                RENT_AREA
-         FROM REALESTATE_RENT
-         WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
-           AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
-           AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
-         UNION ALL
-         SELECT SGG_NM,
-                BLDG_NM,
-                DEAL_YMD,
-                OBJ_AMT,
-                BLDG_AREA
-         FROM REALESTATE_SELL
-         WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
-           AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
-<!--            AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%' -->
-         ORDER BY SGG_NM
+               BLDG_NM,
+               DEAL_YMD,
+               RENT_GTN,
+               RENT_AREA
+        FROM REALESTATE_RENT
+        WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
+          AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
+          AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
+        UNION ALL
+        SELECT SGG_NM,
+               BLDG_NM,
+               DEAL_YMD,
+               OBJ_AMT,
+               BLDG_AREA
+        FROM REALESTATE_SELL
+        WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
+          AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
+          AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
+        ORDER BY SGG_NM
     </select>
 
     <!-- 자치구 이름   -->
