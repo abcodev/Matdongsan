@@ -1,7 +1,7 @@
 //package com.project.chat.controller;
 //
 //
-//import com.project.chat.dto.ChatRoom;
+//import com.project.chat.dto.ChatingRoom;
 //import com.project.chat.service.ChatService;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@
 //     */
 //    @PostMapping("/chat/createRoom")
 //    public String createRoom(@RequestParam String roomId, RedirectAttributes rttr){
-//        ChatRoom room = chatService.createChatRoom(roomId);
+//        ChatingRoom room = chatService.createChatRoom(roomId);
 //        log.info("CREATE Chat Room {}", roomId);
 //        rttr.addFlashAttribute("roomName",room);
 //        return "redirect:/";

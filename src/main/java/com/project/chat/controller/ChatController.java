@@ -120,28 +120,34 @@
 
 package com.project.chat.controller;
 
-import com.project.chat.dto.ChatRoom;
+import com.project.chat.dto.ChatingRoom;
 import com.project.chat.service.ChatService;
+import com.project.member.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 @Controller
+@SessionAttributes("loginUser")
 public class ChatController {
 
     @Autowired
     ChatService chatService;
 
-    @RequestMapping("/admin/chat")
-    public String adminChatting(Model model){
-
-        List<ChatRoom> room = chatService.chatRoomList();
-        model.addAttribute("room",room);
-        return "chat/chatRoom";
+    @PostMapping("/createChatRoom")
+    @ResponseBody
+    public ResponseEntity<?> adminChatting(
+            @ModelAttribute("loginUser") Member loginUser
+    ){
+        ChatingRoom room = ChatingRoom.create(loginUser.getMemberNo());
+        chatService.createRoom(room);
+        chatService.enterChatRoom(room,loginUser.getMemberNo());
+        return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
 
