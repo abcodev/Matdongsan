@@ -10,7 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="<c:url value="/resources/css/chat/chat_pop.css"/>">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 </head>
 <body>
 <div class="floating-chat">
@@ -40,9 +42,7 @@
 </div>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 <script>
     var INDEX = 0;
     $("#chat-submit").click(function (e) {
@@ -106,7 +106,7 @@
       })
               .then(function (room){
                 $(".chat-box").toggle("scale");
-                connection();
+                connection(room);
 
               })
               .fail(function (){
@@ -120,17 +120,45 @@
       $(".chat-box").toggle("scale");
     });
 
-    function connection(){
-      let socket = new SockJS("/chatting");
+    function connection(room){
+      let socket = new SockJS("http://localhost:8070/Matdongsan/mainPage");
       stompClient = Stomp.over(socket);
-      stompClient.connect({}, onConnected, onError);
+      stompClient.connect({}, onConnected(room), onError);
     }
     function onConnected() {
       alert("연결 성공!");
+      stompClient.subscribe('/topic/'+room.roomNo, function (e){
+        showMessage(JSON.parse(e .body));
+      });
     }
     function onError(error) {
       alert("연결 실패");
     }
+    //엔터 눌렀을때 전송
+    $('#chat-submit').keypress(function(e){
+      if(e.keyCode===13) send();
+    });
+
+
+    function showMessage(data){
+      if(data.sender===userId){
+        $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>");
+      } else {
+        $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>");
+      }
+    }
+
+    //메시지 브로커로 메시지 전송
+    function send(){
+      data = {
+        'sender' :userId,
+        'contents': $("#chat-submit").val()
+      };
+      // send(destination,헤더,페이로드)
+      stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+      $("#chat-submit").val('');
+    }
+
 
 
 
