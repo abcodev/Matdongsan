@@ -4,7 +4,10 @@ import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
+import com.project.restaurant.vo.Hashtag;
+import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,103 +18,53 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/realEstate")
 public class RealEstateController {
 
     private final RealEstateService realEstateService;
 
-    public RealEstateController(RealEstateService realEstateService) {
-        this.realEstateService = realEstateService;
+    @RequestMapping
+    public String realEstatePage(Model model) {
+        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
+        model.addAttribute("localList", localList);
+        return "realestate/realestateList";
     }
-
-//    @RequestMapping("/list")
-//    @ResponseBody
-//    public ModelAndView realEstatePage(
-//            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//            @RequestParam(value = "state", defaultValue = "강남구") String state,
-//            @RequestParam(value = "dong", defaultValue = "") String dong,
-//            @RequestParam Map<String, Object> paramMap
-//    ) throws Exception {
-//        System.out.println("검색!!!! " + state);
-//        System.out.println("dong!! :" + dong);
-//
-//        ModelAndView mv = new ModelAndView();
-//        Map<String, Object> map = new HashMap();
-//
-//        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
-//        List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
-//
-//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong);
-//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
-//
-//        System.out.println("동 리스트: " + dongList.toString());
-////        if(!paramMap.isEmpty()){
-////            List<RealEstateRent> searchResult = realEstateService.searchResult();
-////        }
-//
-//        mv.addObject("localList", localList);
-//        mv.addObject("dongList", dongList);
-//        mv.addObject("selectAllList", resp.getRealEstateRentList());
-//        mv.addObject("pi", resp.getPageInfoCombine());
-//
-//        mv.setViewName("realestate/realestateList");
-//
-//        return mv;
-//
-//    }
 
     @RequestMapping("/list")
-    public ModelAndView realEstatePage(
+    @ResponseBody
+    public ModelAndView realEstateList(
             @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-            @RequestParam(value = "state", defaultValue = "강남구") String state,
-            @RequestParam(value = "dong", defaultValue = "total") String dong,
-            @RequestParam(value = "rentType", defaultValue ="") String rentType,
-            @RequestParam(value = "rentGtn", defaultValue = "") String fee,
-            @RequestParam(value = "area", defaultValue = "") String area
-    ) throws Exception {
-        System.out.println("검색!!!! " + state);
-        System.out.println("dong!! : " + dong);
-        System.out.println("rentType : " + rentType);
+            @RequestParam(value = "state", defaultValue = "") String state,
+            @RequestParam(value = "dong", defaultValue = "") String dong,
+            @RequestParam(value = "rentType", defaultValue = "") String rentType,
+            @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
+            @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+    ) {
+        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
+        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        ModelAndView mv = new ModelAndView();
-
-        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
-        List<RealEstateRent> dongList = realEstateService.searchDongList(state); // 해당 자치구 동 리스트
-
-        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, fee, area);
-
-        RealEstateRentListResponse resp;
-
-        if (!dong.equals("total")) {
-            resp = realEstateService.searchResult(req);
-
-            mv.addObject("searchResult", resp.getRealEstateRentList());
-            mv.addObject("pi", resp.getPageInfoCombine());
-
-        } else {
-            if(rentType.equals('a')){
-                resp = realEstateService.searchResult(req);
-
-                mv.addObject("searchResult", resp.getRealEstateRentList());
-            }else {
-                resp = realEstateService.selectAllList(req);
-
-                mv.addObject("selectAllList", resp.getRealEstateRentList());
-            }
-
-            mv.addObject("pi", resp.getPageInfoCombine());
-        }
-
-        mv.addObject("localList", localList);
-        mv.addObject("dongList", dongList);
-
-        mv.setViewName("realestate/realestateList");
-
-        return mv;
-
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("estateRentList", resp.getRealEstateRentList());
+        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.setViewName("realestate/realestateContents");
+        return modelAndView;
     }
 
 
+    @RequestMapping("/list/state")
+    @ResponseBody
+    public ResponseEntity<List<String>> realEstateDong(@RequestParam String state) {
+        return ResponseEntity.ok(
+                realEstateService.searchDongList(state).stream()
+                        .map(RealEstateRent::getBjdName)
+                        .collect(Collectors.toList())
+        );
+    }
+    // state를 매개변수로 전달하여 realEstateService 오브젝트에서 searchDongList 메소드를 호출하고
+    // 반환된 RealEstateRent 목록은 해당 bjdName 속성에 맵핑되고 새 목록으로 수집함
+    // HTTP OK(200) 응답을 bjdName 속성 목록을 반환
 }

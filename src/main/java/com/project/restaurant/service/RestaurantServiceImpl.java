@@ -86,7 +86,7 @@ public class RestaurantServiceImpl implements RestaurantService {
      */
     @Override
     @Transactional // 트랜잭션 해줘야함(전부 성공했을때만 들어가도록)
-    public void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId) {
+    public String restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session, List<String> hashTagId) {
 
         try {
             // 1. 이미지 파일 저장
@@ -113,8 +113,10 @@ public class RestaurantServiceImpl implements RestaurantService {
                 resHashtag.setMemberNo(1L);
                 restaurantDao.resHashtagInsert(resHashtag);
             });
+            return resNo;
         } catch (IllegalStateException e) {
             System.out.println("파일 업로드 오류");
+            return null;
         }
     }
 
@@ -202,11 +204,4 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantDao.deleteResImg(resNo);
         restaurantDao.deleteRes(resNo);
     }
-
-
-
-
-
-
-
 }

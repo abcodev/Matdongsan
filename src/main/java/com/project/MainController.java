@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -27,17 +28,6 @@ public class MainController {
 
     public MainController(RealEstateService realEstateService) {
         this.realEstateService = realEstateService;
-    }
-
-    @ResponseBody
-    @GetMapping("/test")
-    public ModelAndView realEstateList(ModelAndView modelAndView){
-//        List<String> sellList = realEstateService.getSellList();
-        List<RealEstateMainListDto> sellList = realEstateService.getSellList();
-
-        modelAndView.addObject("sellList", sellList);
-        modelAndView.setViewName("common/mainPage");
-        return modelAndView;
     }
 
     @RequestMapping(value = "/")
@@ -64,6 +54,7 @@ public class MainController {
         Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
 
         ArrayList<HashMap> newsList = new ArrayList();
+        List<RealEstateMainListDto> sellList = realEstateService.getSellList();
 
         for (int i = 0; i < 4; i++) {
             Element articleElement = photoElements.get(i);
@@ -83,6 +74,10 @@ public class MainController {
         }
 
         model.addAttribute("newsList", newsList);
+        model.addAttribute("sellList", sellList);
+
+        System.out.println(sellList.size());
+
 
         return "common/mainPage";
     }

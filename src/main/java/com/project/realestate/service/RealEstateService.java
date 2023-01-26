@@ -13,12 +13,8 @@ import java.util.Map;
 public interface RealEstateService {
 
     public int selectListCount();
-//    public int selectListCount(Map<String, Object> paramMap);
 
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req);
-
-    public RealEstateRentListResponse searchResult(RealEstateRentListRequest req);
-
 
     // 자치구 리스트,
    public List<RealEstateRent> searchLocalList();
@@ -26,12 +22,7 @@ public interface RealEstateService {
    // 동 리스트
    public List<RealEstateRent> searchDongList(String state);
 
-    // 검색 결과
-//    public List<RealEstateRent> searchResult();
-
-
 
     public List<RealEstateMainListDto> getSellList();
-
 
 }

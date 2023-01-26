@@ -15,9 +15,5 @@ public class RealEstateMainListDto {
 
     private String bldgNm;
 
-    private String sggNm;
 
-    private String rentGtn;
-
-    private String rentArea;
 }

@@ -25,7 +25,7 @@ public interface RestaurantService {
 
     List<Hashtag> selectHashtagList();
 
-    void restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session,List<String> hashTagId);
+    String restaurantInsert(MultipartFile file, Restaurant restaurant, HttpSession session,List<String> hashTagId);
 
     List<String> resHashtagByAdmin(String resNo);
 
