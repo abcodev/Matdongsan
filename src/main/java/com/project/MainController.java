@@ -36,10 +36,6 @@ public class MainController {
         return mv;
     }
 
-    /*@RequestMapping(value = "/mainPage")
-    public String mainPage() {
-        return "common/mainPage";
-    }*/
 
     @RequestMapping(value = "/mainPage")
     public String getNews(Model model) throws IOException {

@@ -15,6 +15,4 @@ public class RealEstateRentListResponse {
     private List<RealEstateRent> realEstateRentList;
     private PageInfoCombine pageInfoCombine;
 
-    //private List<RealEstateRent> realEstateSearch;
-
 }
