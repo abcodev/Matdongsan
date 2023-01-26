@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="root" value="${pageContext.request.contextPath}"/>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 <c:set var="s" value="com.project.common.vo.RealEstateSell"/>
 
 <!DOCTYPE html>
@@ -111,13 +112,26 @@
 
 
                 var geocoder = new kakao.maps.services.Geocoder();
-                var listData = [
+
+                var listData1 = [
                     <c:forEach items="${sellList}" var="list">
                         '${list.address}',
                     </c:forEach>
                 ];
 
-                listData.forEach(function (addr, index) {
+                var listData2 = [
+                    <c:forEach items="${sellList}" var="list2">
+                        '${list2.bldgNm}',
+                    </c:forEach>
+                ];
+
+                var listData3 = [
+                    <c:forEach items="${sellList}" var="list3">
+                        '${list3.objAmt}',
+                    </c:forEach>
+                ];
+
+                listData1.forEach(function (addr, index) {
                     geocoder.addressSearch(addr, function (result, status) {
                         if (status === daum.maps.services.Status.OK) {
                             var coords = new daum.maps.LatLng(result[0].y, result[0].x);
@@ -127,11 +141,36 @@
                                 position: coords
                             });
 
-                            var infowindow = new daum.maps.InfoWindow({
-                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',
-                                disableAutoPan: true
+                            var content = '<div class="wrap">' +
+                                '    <div class="info">' +
+                                '           <div class="title">' +
+                                '               <div class="bldgNm">'+'건물명  : '+ listData2[index]+ '</div>'+
+                                '                <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+                                '           </div>' +
+                                '            <div class="desc">' +
+                                '               <div style="width:150px;text-align:center;padding:6px 0;">' +'주소  : 서울특별시 '+ listData1[index] + '</div>'+
+                                '               <div style="width:150px;text-align:center;padding:6px 0;">' +'실거래가  : '+ listData3[index] + '</div>'+
+                                '            </div>' +
+                                '        </div>' +
+                                '    </div>';
+
+                            // 마커 위에 커스텀오버레이를 표시합니다
+                            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+                            var overlay = new kakao.maps.CustomOverlay({
+                                content: content,
+                                map: map,
+                                position: marker.getPosition()
                             });
-                            infowindow.open(map, marker);
+
+                            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+                            kakao.maps.event.addListener(marker, 'click', function() {
+                                overlay.setMap(map);
+                            });
+
+                            // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+                            function closeOverlay() {
+                                overlay.setMap(null);
+                            }
 
                             if (index == 0) {
                                 map.setCenter(coords);
@@ -179,6 +218,9 @@
             <c:forEach var="news" items="${newsList}">
                 <a href="${news.newsUrl}">${news.newsTitle}</a><br>
             </c:forEach>
+            <hr>
+            <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
+
         </div>
         <span><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></span>
     </div>
@@ -189,4 +231,44 @@
 </div>
 </div>
 </body>
+
+
+<script>
+    const header = document.querySelector('#header');
+
+    function scrollFunc() {
+        if (pageYOffset >= 1) {
+            header.classList.add('on');
+        } else {
+            header.classList.remove('on');
+        }
+    }
+    window.addEventListener('scroll', scrollFunc);
+
+
+    var backToTop = () => {
+        // Scroll | button show/hide
+        window.addEventListener('scroll', () => {
+            if (document.querySelector('html').scrollTop > 100) {
+                document.getElementById('go-top').style.display = "block";
+            } else {
+                document.getElementById('go-top').style.display = "none";
+            }
+        });
+        // back to top
+        document.getElementById('go-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        })
+    };
+    backToTop();
+
+
+    //채팅//
+
+</script>
+
 </html>
