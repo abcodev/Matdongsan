@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>커뮤니티 자유게시판</title>
     <link rel="stylesheet" href="community_1.css">
-    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
 <main>

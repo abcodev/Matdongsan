@@ -86,6 +86,10 @@
     <div id="content_right">
         <div class="place_body">
 
+            <div id="search_map">
+
+            </div>
+
         </div>
     </div>
 </div>
@@ -139,6 +143,13 @@
         }
     }
 </script>
+
+
+
+
+
+
+
 
 </body>
 </html>
