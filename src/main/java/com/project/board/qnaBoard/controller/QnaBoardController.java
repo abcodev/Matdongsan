@@ -95,11 +95,11 @@ public class QnaBoardController {
     public String insertAnswer(
             @PathVariable("boardCode")String boardCode,
             @RequestParam(value = "depth",required = false, defaultValue = "1")int depth,
-            @RequestParam(value = "qnaBno") int qnaBno,
+            @RequestParam(value = "parentBno",required = false, defaultValue = "1")int parentBno,
             Model model, QnaBoard qb
     ){
-
-            qb.setDepth(qb.getDepth() + 1);
+        qb.setDepth(qb.getDepth() + 1);
+        qb.setParentBno(qb.getParentBno() + 1);
 
 
         int answer = boardService.insertAnswer(qb);
