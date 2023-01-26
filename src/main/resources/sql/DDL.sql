@@ -137,7 +137,7 @@ COMMENT
     ON COLUMN "REALESTATE_RENT"."HOUSE_GBN_NM" IS '건물용도';
 
 
--- DROP TABLE "MEMBER";
+DROP TABLE "MEMBER";
 
 CREATE TABLE "MEMBER"
 (
@@ -145,7 +145,7 @@ CREATE TABLE "MEMBER"
     "PROVIDER"      VARCHAR(255)                   NOT NULL,
     "PROVIDER_ID"   VARCHAR(255)                   NOT NULL,
     "MEMBER_NAME"   VARCHAR(255)                   NOT NULL,
-    "PROFILE_IMAGE" VARCHAR(255)                   NOT NULL,
+    "PROFILE_IMAGE" VARCHAR(255)                   NULL,
     "EMAIL"         VARCHAR(255)                   NULL,
     "NICKNAME"      VARCHAR(255)                   NULL,
     "PHONE"         VARCHAR(255)                   NULL,
@@ -270,8 +270,8 @@ CREATE TABLE "REVIEW"
     "MEMBER_NO"      NUMBER                  NOT NULL,
     "RES_NO"         VARCHAR(255)            NOT NULL,
     "STAR_RATING"    NUMBER                  NOT NULL,
-    "REVIEW_CONTENT" TIMESTAMP          NOT NULL,
-    "CREATE_DATE"    VARCHAR2(255)           NOT NULL,
+    "REVIEW_CONTENT" VARCHAR(2056)          NOT NULL,
+    "CREATE_DATE"    TIMESTAMP           NOT NULL,
     "STATUS"         VARCHAR(20) DEFAULT 'Y' NOT NULL
 );
 

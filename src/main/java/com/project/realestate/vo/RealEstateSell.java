@@ -1,15 +1,13 @@
 package com.project.realestate.vo;
 
 import com.project.client.seoulApi.dto.RealEstateSellDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
 public class RealEstateSell {
 
     private String accYear;
@@ -25,6 +23,9 @@ public class RealEstateSell {
     private String bldgArea;
     private String buildYear;
     private String houseType;
+
+    private String address;
+
 
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {

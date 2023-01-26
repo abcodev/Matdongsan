@@ -21,26 +21,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data" name="restaurantEnroll">
 <div id="content">
     <div class="res name">
         <h3>맛집이름</h3>
-        <input type="text" name="resName">
+        <input type="text" name="resName" required>
     </div>
     <div class="res address">
         <h3>주소</h3>
-        <input type="text" name="address">
+        <input type="text" name="address" required>
     </div>
     <div class="res phone">
         <h3>전화번호</h3>
-        <input type="text" name="resPhone">
+        <input type="text" name="resPhone" required>
     </div>
     <div class="res menu">
         <h3>주요 메뉴</h3>
-        <input type="text" name="resFood">
+        <input type="text" name="resFood" required>
     </div>
         <h3>지역</h3>
-        <input type="text" name="state">
+        <input type="text" name="state" required>
     </div>
     <div class="place hashtag">
         <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
@@ -49,15 +49,16 @@
         </c:forEach>
     </div>
     <div class="res img">
-        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file">
+        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file"  onchange="readURL(this);" required>
+        <img id="preview"/>
     </div>
     <div class="btn_box">
         <button>취소</button>
-        <button type="submit">등록</button>
+        <input type="submit" onclick="return gopage();" value="등록" />
     </div>
 </div>
 <script>
-    $('input:checkbox[name=chk_hashtag]').click(function(){
+    $('input:checkbox[name=hashtagId]').click(function(){
 
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
@@ -65,6 +66,29 @@
             $(this).prop('checked', false);
         }
     });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+    }
+
+    function gopage(){
+        let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
+        if(cntEPT==2){
+            return true;
+        }else{
+            alert("해쉬태그 두개 선택해라 장현정")
+            return false;
+        }
+    }
+
 </script>
 </form>
 </body>

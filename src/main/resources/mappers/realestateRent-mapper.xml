@@ -31,20 +31,20 @@
     </resultMap>
 
     <resultMap type="RealEstateSell" id="realEstateSellResultSet">
-        <result column="ACC_YEAR" property="accYear" />
-        <result column="SGG_CD" property="sggCd" />
-        <result column="SGG_NM" property="sggNM" />
-        <result column="BJDONG_CD" property="bjdongCd" />
-        <result column="BJDONG_NM" property="bjdongNm" />
-        <result column="BONBEON" property="bonbeon" />
-        <result column="BUBEON" property="bubeon" />
-        <result column="BLDG_NM" property="bldgNm" />
-        <result column="DEAL_NM" property="dealNm" />
-        <result column="DEAL_YMD" property="dealYmd" />
-        <result column="OBJ_AMT" property="objAmt" />
-        <result column="BLDG_AREA" property="bldgArea" />
-        <result column="BUILD_YEAR" property="buildYear" />
-        <result column="HOUSE_TYPE" property="houseType" />
+        <result column="ACC_YEAR" property="accYear"/>
+        <result column="SGG_CD" property="sggCd"/>
+        <result column="SGG_NM" property="sggNm"/>
+        <result column="BJDONG_CD" property="bjdongCd"/>
+        <result column="BJDONG_NM" property="bjdongNm"/>
+        <result column="BONBEON" property="bonbeon"/>
+        <result column="BUBEON" property="bubeon"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="DEAL_NM" property="dealNm"/>
+        <result column="DEAL_YMD" property="dealYmd"/>
+        <result column="OBJ_AMT" property="objAmt"/>
+        <result column="BLDG_AREA" property="bldgArea"/>
+        <result column="BUILD_YEAR" property="buildYear"/>
+        <result column="HOUSE_TYPE" property="houseType"/>
     </resultMap>
 
     <delete id="deleteAll">
@@ -55,7 +55,7 @@
         INSERT INTO REALESTATE_RENT
         (RENT_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BOBN, BUBN, DEAL_YMD, RENT_GBN,
         RENT_AREA, RENT_GTN, RENT_FEE, BLDG_NM, HOUSE_GBN_NM)
-        SELECT  SEQ_RENT_NO.NEXTVAL, rentHouse.* FROM (
+        SELECT SEQ_RENT_NO.NEXTVAL, rentHouse.* FROM (
         <foreach collection="list" item="rH" separator="UNION ALL ">
             <![CDATA[
 				    SELECT
@@ -80,46 +80,89 @@
     </insert>
 
     <select id="selectListCount" resultType="int">
-        SELECT COUNT(*)
-        FROM REALESTATE_RENT
+        Select count(*)
+        From (SELECT SGG_NM,
+                     BLDG_NM,
+                     DEAL_YMD,
+                     RENT_GTN,
+                     RENT_AREA
+              FROM REALESTATE_RENT
+              UNION ALL
+              SELECT SGG_NM,
+                     BLDG_NM,
+                     DEAL_YMD,
+                     OBJ_AMT,
+                     BLDG_AREA
+              FROM REALESTATE_SELL
+              ORDER BY SGG_NM)
+    </select>
+
+    <select id="selectListCountByFilter" resultType="int">
+        SELECT count(*)
+        FROM (SELECT SGG_NM,
+                     BLDG_NM,
+                     DEAL_YMD,
+                     RENT_GTN,
+                     RENT_AREA
+              FROM REALESTATE_RENT
+              WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
+                AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
+                AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
+              UNION ALL
+              SELECT SGG_NM,
+                     BLDG_NM,
+                     DEAL_YMD,
+                     OBJ_AMT,
+                     BLDG_AREA
+              FROM REALESTATE_SELL
+              WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
+                AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
+                AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
+              ORDER BY SGG_NM)
+
     </select>
 
     <!-- 부동산 리스트 -->
-    <select id="selectList" resultMap="realEstateRentListResultSet">
-        SELECT
-            SGG_NM,
-            BLDG_NM,
-            DEAL_YMD,
-            RENT_GTN,
-            RENT_AREA
+    <select id="selectListByFilter" resultMap="realEstateRentListResultSet">
+        SELECT SGG_NM,
+               BLDG_NM,
+               DEAL_YMD,
+               RENT_GTN,
+               RENT_AREA
         FROM REALESTATE_RENT
-        UNION  ALL
-        SELECT
-            SGG_NM,
-            BLDG_NM,
-            DEAL_YMD,
-            OBJ_AMT,
-            BLDG_AREA
+        WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
+          AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
+          AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'
+        UNION ALL
+        SELECT SGG_NM,
+               BLDG_NM,
+               DEAL_YMD,
+               OBJ_AMT,
+               BLDG_AREA
         FROM REALESTATE_SELL
+        WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
+          AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
+          AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'
         ORDER BY SGG_NM
     </select>
 
     <!-- 자치구 이름   -->
     <select id="searchLocalList" resultMap="realEstateRentListResultSet">
-        SELECT
-            DISTINCT SGG_NM
+        SELECT DISTINCT SGG_NM
         FROM REALESTATE_RENT
         ORDER BY SGG_NM
     </select>
 
     <!-- 동 이름 -->
     <select id="searchDongList" resultMap="realEstateRentListResultSet">
-        SELECT
-            DISTINCT RR.BJDONG_NM
-        FROM REALESTATE_RENT RR
-                 LEFT JOIN REALESTATE_SELL RS ON RS.ACC_YEAR = RR.ACC_YEAR
-        WHERE RR.SGG_NM = '${state}'
-        ORDER BY RR.BJDONG_NM
+        SELECT DISTINCT BJDONG_NM
+        FROM REALESTATE_RENT
+        WHERE SGG_NM = '${sggNm}'
+        UNION
+        SELECT DISTINCT BJDONG_NM
+        FROM REALESTATE_SELL
+        WHERE SGG_NM = '${sggNm}'
+        ORDER BY BJDONG_NM
     </select>
 
 </mapper>
