@@ -39,6 +39,14 @@
   </div>
 </div>
 
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>
+<!-- STOMP -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <script>
   $(function () {
     var INDEX = 0;
@@ -143,7 +151,18 @@
 
     $("#chat-circle").click(function () {
       $("#chat-circle").toggle("scale");
-      $(".chat-box").toggle("scale");
+
+      $.ajax({
+        url: '${pageContext.request.contextPath}/createChatRoom',
+        type: "POST"
+      })
+              .then(function (){
+                $(".chat-box").toggle("scale");
+
+              })
+              .fail(function (){
+                alert("로그인후 이용가능합니다")
+              })
     });
 
     $(".chat-box-toggle").click(function () {

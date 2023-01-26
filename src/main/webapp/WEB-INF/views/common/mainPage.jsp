@@ -65,7 +65,7 @@
                         <table>
                             <tr>
                                 <td rowspan="2">
-                                    <img src="${loginUser.profileImage}" class="user_img">
+                                    <img src="${loginUser.profileImage}" class="user_img" height="50px;" width="50px;">
                                 </td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>

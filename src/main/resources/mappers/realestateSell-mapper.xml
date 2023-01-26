@@ -74,9 +74,4 @@
 <!--        FROM REALESTATE_SELL-->
 <!--        ORDER BY BJDONG_NM-->
 <!--    </select>-->
-
-
-
-
-
 </mapper>

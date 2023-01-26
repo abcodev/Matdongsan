@@ -336,7 +336,7 @@ COMMENT
 CREATE TABLE "CHAT_MESSAGE"
 (
     "CM_NO"        NUMBER                      NOT NULL,
-    "CHAT_ROOM_NO" NUMBER                      NOT NULL,
+    "CHAT_ROOM_NO" VARCHAR(255)                NOT NULL,
     "RECEIVER_NO"  NUMBER                      NOT NULL,
     "SEND_NO"      NUMBER                      NOT NULL,
     "CREATE_DATE"  DATE        DEFAULT SYSDATE NOT NULL,
@@ -367,7 +367,7 @@ COMMENT
 
 CREATE TABLE "CHAT_ROOM"
 (
-    "CHAT_ROOM_NO" NUMBER                       NOT NULL,
+    "CHAT_ROOM_NO" VARCHAR(255)                 NOT NULL,
     "MEMBER_NO"    NUMBER                       NOT NULL,
     "STATUS"       VARCHAR(255) DEFAULT 'Y'     NULL,
     "CREATE_DATE"  DATE         DEFAULT SYSDATE NULL
@@ -390,7 +390,7 @@ COMMENT
 
 CREATE TABLE "CHAT_ROOM_JOIN"
 (
-    "CHAT_ROOM_NO" NUMBER NOT NULL,
+    "CHAT_ROOM_NO" VARCHAR(255) NOT NULL,
     "MEMBER_NO"    NUMBER NOT NULL
 );
 
