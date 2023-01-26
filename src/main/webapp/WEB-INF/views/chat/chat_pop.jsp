@@ -120,10 +120,10 @@
       $(".chat-box").toggle("scale");
     });
 
-    function connection(room){
+    function connection(room) {
       let socket = new SockJS("http://localhost:8070/Matdongsan/mainPage");
       stompClient = Stomp.over(socket);
-      stompClient.connect({}, onConnected(room), onError);
+      stompClient.connect({}, onConnected, onError);
     }
     function onConnected() {
       alert("연결 성공!");
@@ -131,14 +131,13 @@
         showMessage(JSON.parse(e .body));
       });
     }
-    function onError(error) {
+    function onError() {
       alert("연결 실패");
     }
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
       if(e.keyCode===13) send();
     });
-
 
     function showMessage(data){
       if(data.sender==='${loginUser.memberNo}'){
@@ -152,17 +151,12 @@
     function send(){
       data = {
         'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-submit").val()
+        'contents': $("#chat-input").val()
       };
       // send(destination,헤더,페이로드)
       stompClient.send("/app/chat/send", {}, JSON.stringify(data));
-      $("#chat-submit").val('');
+      $("#chat-input").val('');
     }
-
-
-
-
-
 </script>
 </body>
 </html>

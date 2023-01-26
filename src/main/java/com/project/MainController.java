@@ -78,6 +78,11 @@ public class MainController {
         return "common/mainPage";
     }
 
+    @RequestMapping("/Testing")
+    public String Testing(){
+        return "chat/TestChatting";
+    }
+
 
 }
 
