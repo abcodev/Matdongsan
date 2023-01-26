@@ -143,7 +143,7 @@
 
     <insert id="insertAnswer" parameterType="QBoard">
         INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT, P_BNO, QNA_DEPTH)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{parentBno} = #{qnaBno}, ${depth}+1)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, ${parentBno} + 1, ${depth} + 1)
     </insert>
 
 
