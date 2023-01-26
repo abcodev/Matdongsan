@@ -39,7 +39,8 @@
             success(data) {
                 const html = jQuery('<div>').html(data);
                 const contents = html.find('div#estate_rent_list_ajax').html()
-                $('.place_body').html(contents)
+                $('.place_body').html(contents);
+                getMap();
             }
         });
     }
@@ -84,7 +85,7 @@
         </div>
     </div>
     <div id="content_right">
-        <div class="place_body">
+        <div class="place_body" >
 
         </div>
     </div>
@@ -119,26 +120,94 @@
 
     function optionType(e) {
 
-        const type1 = ['200000', '1000000', '2000000', '3000000'];
-        const type2 = ['1000', '5000', '10000', '20000'];
-        const target = document.getElementById("rentGtn");
-
-        if (e.value === "매매") {
-            add = type1;
-        } else {
-            add = type2;
-        }
         console.log(e.value);
-        target.options.length = 1;
 
-        for (x in add) {
-            let opt = document.createElement("option");
-            opt.value = add[x];
-            opt.innerHTML = add[x];
-            target.appendChild(opt);
+        if(e.value != "매매"){
+            $("#rentGtn option").remove();
+            $("#rentGtn").html("<option value=''>보증금(만원)</option>" +
+                "<option value='range1'>1000이하</option>" +
+                "<option value='range2'>1000~5000</option>" +
+                "<option value='range3'>5000~10000</option>" +
+                "<option value='range4'>10000~15000</option>" +
+                "<option value='range5'>15000이상</option>");
+        }else {
+            $("#rentGtn option").remove();
+            $("#rentGtn").html("<option>매매가(만원)</option>" +
+                "<option value='range1'>50000이하</option>" +
+                "<option value='range2'>50000~100000</option>" +
+                "<option value='range3'>100000~150000</option>" +
+                "<option value='range4'>150000~200000</option>" +
+                "<option value='range5'>200000이상</option>");
+        }
+
+    }
+</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
+<script>
+    function getMap(){
+        var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표
+                level: 6 // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        var geocoder = new kakao.maps.services.Geocoder();
+        var listData = [
+            <c:forEach items="${estateRentList}" var="list">
+            '${list.buildName}',
+            </c:forEach>
+        ];
+
+        listData.forEach(function (addr, index) {
+            geocoder.addressSearch(addr, function (result, status) {
+                if (status === daum.maps.services.Status.OK) {
+                    var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+                    var marker = new daum.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    var infowindow = new daum.maps.InfoWindow({
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',
+                        disableAutoPan: true
+                    });
+                    infowindow.open(map, marker);
+
+                    if (index == 0) {
+                        map.setCenter(coords);
+                    }
+                }
+            });
+        });
+
+        if (navigator.geolocation) {
+
+            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+            navigator.geolocation.getCurrentPosition(function (position) {
+
+                var lat = position.coords.latitude, // 위도
+                    lon = position.coords.longitude; // 경도
+
+                var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+                    message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
+
+                // 마커와 인포윈도우를 표시
+                displayMarker(locPosition, message);
+
+            });
+
+        } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
+
+            var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
+                message = 'geolocation을 사용할수 없어요..'
+
+            displayMarker(locPosition, message);
         }
     }
 </script>
-
 </body>
 </html>

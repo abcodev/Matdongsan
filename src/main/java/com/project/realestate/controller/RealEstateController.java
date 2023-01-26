@@ -27,10 +27,10 @@ public class RealEstateController {
 
     private final RealEstateService realEstateService;
 
-    @RequestMapping
-    public String realEstatePage(Model model) {
-        List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
-        model.addAttribute("localList", localList);
+        @RequestMapping
+        public String realEstatePage(Model model) {
+            List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
+            model.addAttribute("localList", localList);
         return "realestate/realestateList";
     }
 

@@ -35,29 +35,10 @@ public class RealEstateDao {
         return sqlSession.selectList("rentMapper.selectListByFilter", filter, rowBounds);
     }
 
-    public List<RealEstateRent> searchResult(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter){
-        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-
-        return sqlSession.selectList("rentMapper.searchSellResult", filter, rowBounds);
-    }
-
-
-//    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
-//
+//    public List<RealEstateRent> searchResult(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter){
 //        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-//        return (ArrayList) sqlSession.selectList("rentMapper.selectList", filter, rowBounds);
 //
-//    }
-
-
-//    public ArrayList<RealEstateRent> selectList(SqlSession sqlSession, Map<String, Object> paramMap) {
-//
-//        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() - 1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
-//        int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
-//
-//        RowBounds rowBounds = new RowBounds(offset, limit);
-//
-//        return (ArrayList) sqlSession.selectList("rentMapper.searchList", paramMap, rowBounds);
+//        return sqlSession.selectList("rentMapper.searchSellResult", filter, rowBounds);
 //    }
 
     // 자치구 리스트
@@ -70,10 +51,6 @@ public class RealEstateDao {
         return  (ArrayList) sqlSession.selectList("rentMapper.searchDongList", state);
     }
 
-//    public ArrayList<String> getSellList(SqlSession sqlSession){
-//        return (ArrayList) sqlSession.selectList("sellMapper.getSellList");
-//
-//    }
 
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
         return sqlSession.selectList("sellMapper.getSellList");
