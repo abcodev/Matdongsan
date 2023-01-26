@@ -16,6 +16,7 @@
 </head>
 <body>
 <%@ include file ="../template/header.jsp" %>
+
 <script>
     window.onload = () => {
         retrieveRestaurants(1)
