@@ -35,7 +35,7 @@
       <form>
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
         <button type="submit" class="chat-submit" id="chat-submit"><i
-                class="fa-regular fa-paper-plane"></i></button>
+                class="fa-regular fa-paper-plane" onclick="send();"></i></button>
       </form>
     </div>
   </div>
@@ -112,6 +112,7 @@
           alert("사용 실패")
           $("#chat-circle").toggle("scale");
               }
+
       })
     });
 
@@ -127,7 +128,7 @@
     }
     function onConnected() {
       alert("연결 성공!");
-      stompClient.subscribe('/topic/test', function (e){
+      stompClient.subscribe('/topic/1', function (e){
         showMessage(JSON.parse(e .body));
       });
     }
