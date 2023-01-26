@@ -21,13 +21,15 @@
 
   답글 내용
   <textarea id="content" name="qnaContent"></textarea>
-  <input type="hidden" name="parentBno" value="${qb.parentBno}"/>
-  <input type="hidden" name="depth" value="${qb.depth}"/>
-  <input type="hidden" name="qnaBno" value="${qb.qnaBno}"/>
+
   <br>
   <button type="submit" class="btn btn-primary">등록하기</button>
 
   <button type="reset"  class="btn btn-danger">취소하기</button>
+
+  <input type="hidden" id="depth" value="${qb.depth}">
+  <input type="hidden" id="parentBno" value="${qb.parentBno}">
+  <input type="hidden" id="qBno" value="${qBno}">
 </form>
 </body>
 </html>

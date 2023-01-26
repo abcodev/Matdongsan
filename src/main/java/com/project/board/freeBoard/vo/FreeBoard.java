@@ -14,4 +14,5 @@ public class FreeBoard {
     private Date boardDate;
     private String boardArea;
     private String status;
+    private String boardCd;
 }

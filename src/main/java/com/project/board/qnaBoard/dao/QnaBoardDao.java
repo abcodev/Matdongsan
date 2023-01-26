@@ -62,5 +62,8 @@ public class QnaBoardDao {
     public int insertAnswer(SqlSession sqlSession, QnaBoard qb){
         return sqlSession.insert("boardMapper.insertAnswer",qb);
     }
+    public QnaBoard selectAnswer(SqlSession sqlSession, int qBno) {
+        return sqlSession.selectOne("boardMapper.selectAnswer",qBno);
+    }
 
 }

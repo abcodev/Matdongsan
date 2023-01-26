@@ -22,4 +22,6 @@ public interface QnaBoardService {
 
     public int insertAnswer(QnaBoard qb);
 
+    public QnaBoard selectAnswer(int qBno);
+
 }
