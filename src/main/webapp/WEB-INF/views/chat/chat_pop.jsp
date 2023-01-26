@@ -110,7 +110,7 @@
 
               })
               .fail(function (){
-                alert("로그인후 이용가능합니다")
+                alert("사용 실패")
                 $("#chat-circle").toggle("scale");
               })
     });
