@@ -576,7 +576,7 @@ CREATE TABLE "QNA_BOARD"
     "P_BNO"       NUMBER                       NULL,
     "QNA_TITLE"   VARCHAR(255)                 NOT NULL,
     "QNA_CONTENT" VARCHAR(2056)                NOT NULL,
-    "QNA_DATE"    DATE         DEFAULT SYSDATE NULL,
+    "QNA_DATE"    TIMESTAMP    DEFAULT localtimestamp NULL,
     "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NULL,

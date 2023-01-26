@@ -96,17 +96,13 @@ public class QnaBoardController {
             @PathVariable("boardCode")String boardCode,
             @RequestParam(value = "depth",required = false, defaultValue = "1")int depth,
             @RequestParam(value = "qnaBno") int qnaBno,
-            Model model, QnaBoard qb
+            Model model,
+            QnaBoard qb
     ){
 
-            qb.setDepth(qb.getDepth() + 1);
-
-
+        qb.setDepth(qb.getDepth());
         int answer = boardService.insertAnswer(qb);
-
-
         model.addAttribute("qb",qb);
-
 
         return "board/qnaBoardList";
 
