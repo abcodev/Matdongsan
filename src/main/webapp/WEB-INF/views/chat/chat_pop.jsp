@@ -123,13 +123,13 @@
     function connection(){
       let socket = new SockJS("/chatting");
       stompClient = Stomp.over(socket);
-      stompClient.connect({},function(){
-        sub = stompClient.subscribe('/topic/1',function(e){
-          showMessage(JSON.parse(e.body));
-        });
-      },function(e){
-          alert('에러 발생!');
-      });
+      stompClient.connect({}, onConnected, onError);
+    }
+    function onConnected() {
+      alert("연결 성공!");
+    }
+    function onError(error) {
+      alert("연결 실패");
     }
 
 
