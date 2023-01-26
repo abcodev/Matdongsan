@@ -167,9 +167,9 @@ a{
 .news{
     position: absolute;
     left: 30px;
-    top: 130px;
+    top: 120px;
     width: 280px;
-    height: 315px;
+    height: 310px;
     display: table;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
@@ -206,7 +206,7 @@ a{
 .lookList{
     position: absolute;
     left: 30px;
-    top: 480px;
+    top: 490px;
     width: 250px;
     height: 280px;
     display: table;
@@ -231,3 +231,25 @@ a{
     padding-top: 10px;
 }
 
+
+/***********실시간 알림**************/
+.alert_box{
+    display:none;
+    background: white;
+    position:fixed;
+    right: 30px;
+    top: 110px;
+    width: 300px;
+    height: 250px;
+    border-radius:5px;
+    box-shadow: 0px 0px 7px 1px #666;
+    z-index: 999;
+}
+
+.alert_box_header{
+    display: flex;
+}
+
+.alert_box_header :first-child{
+    font-size: 20px;
+}

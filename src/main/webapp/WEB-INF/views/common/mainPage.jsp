@@ -15,6 +15,7 @@
     <title>맛동산</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"></jsp:include>
     <jsp:include page="../chat/chat_pop.jsp"></jsp:include>
 </head>
@@ -70,8 +71,35 @@
                     </div>
                 </c:otherwise>
             </c:choose>
+<%--      실시간 알림    --%>
+                <div class="alert_box">
+                    <div class="alert_box_header">
+                        <span>전체알림</span>
+                        <span>읽은 알림 삭제</span>
+                        <span><i class="fa-solid fa-xmark"></i></span>
+                    </div>
+                    <div class="alert_box_body">
+                        <div class="alert_box_overlay">
+                        </div>
+                        <div class="alert_list">
+                        </div>
+                    </div>
+                    <div class="alert_box_foot">
+
+                    </div>
+            </div>
         </div>
     </div>
+    <script>
+        <%-- 실시간 알림 --%>
+        $(".fa-bell").click(function () {
+            $(".alert_box").toggle("scale");
+        });
+
+        $(".fa-xmark").click(function () {
+            $(".alert_box").toggle("scale");
+        });
+    </script>
 </header>
 <div class="map">
     <div class="map_img">
