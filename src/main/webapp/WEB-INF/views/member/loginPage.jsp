@@ -11,7 +11,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/loginPage.css"/>">
 
-    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
 <body id="content">

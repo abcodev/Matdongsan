@@ -100,11 +100,7 @@ public class QnaBoardController {
     ){
         qb.setDepth(qb.getDepth() + 1);
         qb.setParentBno(qb.getParentBno() + 1);
-
-
         int answer = boardService.insertAnswer(qb);
-
-
         model.addAttribute("qb",qb);
 
 

@@ -159,7 +159,7 @@
                         if (status === kakao.maps.services.Status.OK) {
                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                            var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
+                            var imageSrc = 'https://cdn-icons-png.flaticon.com/512/3710/3710276.png', // 마커이미지의 주소입니다
                                 imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
                                 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -195,7 +195,7 @@
                             });
 
                             // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
-                            kakao.maps.event.addListener(marker, 'mouseover', function() {
+                            kakao.maps.event.addListener(marker, 'click', function() {
                                 overlay.setMap(map);
                                 overlay.setContent(content);
                                 document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
@@ -205,8 +205,6 @@
 
 
                             // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-
-
 
 
                             if (index == 0) {
@@ -260,15 +258,24 @@
                 <a href="${news.newsUrl}">${news.newsTitle}</a><br>
             </c:forEach>
             <hr>
-            <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>
+<%--            <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>--%>
 
         </div>
         <span><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></span>
     </div>
 
+
+
+
+
     <div class="side lookList">
         <h3>최근 본 부동산 목록</h3>
     </div>
+
+
+
+
+
 </div>
 </div>
 </body>

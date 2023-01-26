@@ -11,11 +11,10 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/realeatate/realestateList.css"/>">
 <jsp:include page="../template/font.jsp"/>
 
+
 <div id="estate_rent_list_ajax">
     <div id="search_map">
 
-    </div>
-    <div id="search_list">
         <table class="table">
             <tr>
                 <th>자치구명</th>
@@ -24,11 +23,11 @@
                 <th>금액</th>
                 <th>임대면적</th>
             </tr>
-<%--            <c:if test="${estateRentList} == null">--%>
-<%--                <tr>--%>
-<%--                    <td colspan="5">검색결과가 없습니다.</td>--%>
-<%--                </tr>--%>
-<%--            </c:if>--%>
+            <c:if test="${empty estateRentList}">
+                <tr>
+                    <td colspan="5">검색결과가 없습니다.</td>
+                </tr>
+            </c:if>
             <c:forEach var="estateRent" items="${ estateRentList }">
                 <tr>
                     <td class="rno">${ estateRent.sggNm }</td>
@@ -40,6 +39,10 @@
             </c:forEach>
 
         </table>
+
+    </div>
+    <div id="search_list">
+
     </div>
 
     <div id="paging">
@@ -95,73 +98,63 @@
 </script>
 
 <%--지도 관련 스크립트--%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
-<script>
-        function getMap(){
+<%--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>--%>
+<%--<script>--%>
+<%--        function getMap(){--%>
+<%--            var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div--%>
+<%--                mapOption = {--%>
+<%--                    center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표--%>
+<%--                    level: 6 // 지도의 확대 레벨--%>
+<%--                };--%>
+<%--            // 지도를 생성합니다--%>
+<%--            var map = new kakao.maps.Map(mapContainer, mapOption);--%>
 
-            var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
-                mapOption = {
-                    center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표
-                    level: 6 // 지도의 확대 레벨
-                };
+<%--            var geocoder = new kakao.maps.services.Geocoder();--%>
+<%--            var listData = [--%>
+<%--                <c:forEach items="${estateRentList}" var="list">--%>
+<%--                '${list.buildName}',--%>
+<%--                </c:forEach>--%>
+<%--            ];--%>
 
-            // 지도를 생성합니다
-            var map = new kakao.maps.Map(mapContainer, mapOption);
+<%--            listData.forEach(function (addr, index) {--%>
+<%--                geocoder.addressSearch(addr, function (result, status) {--%>
+<%--                    if (status === daum.maps.services.Status.OK) {--%>
+<%--                        var coords = new daum.maps.LatLng(result[0].y, result[0].x);--%>
 
-            var geocoder = new kakao.maps.services.Geocoder();
-            var listData = [
-                <c:forEach items="${estateRentList}" var="list">
-                '${list.buildName}',
-                </c:forEach>
-            ];
+<%--                        var marker = new daum.maps.Marker({--%>
+<%--                            map: map,--%>
+<%--                            position: coords--%>
+<%--                        });--%>
 
-            listData.forEach(function (addr, index) {
-                geocoder.addressSearch(addr, function (result, status) {
-                    if (status === daum.maps.services.Status.OK) {
-                        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+<%--                        var infowindow = new daum.maps.InfoWindow({--%>
+<%--                            content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',--%>
+<%--                            disableAutoPan: true--%>
+<%--                        });--%>
+<%--                        infowindow.open(map, marker);--%>
 
-                        var marker = new daum.maps.Marker({
-                            map: map,
-                            position: coords
-                        });
+<%--                        if (index == 0) {--%>
+<%--                            map.setCenter(coords);--%>
+<%--                        }--%>
+<%--                    }--%>
+<%--                });--%>
+<%--            });--%>
 
-                        var infowindow = new daum.maps.InfoWindow({
-                            content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',
-                            disableAutoPan: true
-                        });
-                        infowindow.open(map, marker);
+<%--            if (navigator.geolocation) {--%>
 
-                        if (index == 0) {
-                            map.setCenter(coords);
-                        }
-                    }
-                });
-            });
+<%--                // GeoLocation을 이용해서 접속 위치를 얻어옵니다--%>
+<%--                navigator.geolocation.getCurrentPosition(function (position) {--%>
 
-            if (navigator.geolocation) {
-
-                // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-                navigator.geolocation.getCurrentPosition(function (position) {
-
-                    var lat = position.coords.latitude, // 위도
-                        lon = position.coords.longitude; // 경도
-
-                    var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
-                        message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
-
-                    // 마커와 인포윈도우를 표시
-                    displayMarker(locPosition, message);
-
-                });
-
-            } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
-
-                var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
-                    message = 'geolocation을 사용할수 없어요..'
-
-                displayMarker(locPosition, message);
-                }
-        }
-
-
-</script>
+<%--                    var lat = position.coords.latitude, // 위도--%>
+<%--                        lon = position.coords.longitude; // 경도--%>
+<%--                    var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성--%>
+<%--                        message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용--%>
+<%--                    // 마커와 인포윈도우를 표시--%>
+<%--                    displayMarker(locPosition, message);--%>
+<%--                });--%>
+<%--            } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정--%>
+<%--                var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),--%>
+<%--                    message = 'geolocation을 사용할수 없어요..'--%>
+<%--                displayMarker(locPosition, message);--%>
+<%--                }--%>
+<%--        }--%>
+<%--</script>--%>
