@@ -66,7 +66,10 @@ public class QnaBoardController {
     /*게시글 작성페이지*/
     @RequestMapping(value = "/insert/{boardCode}",method = RequestMethod.GET)
     public String insertBoard(
+            ModelAndView mv,
             @PathVariable("boardCode") String boardCode
+
+
     ) {
         return "board/qnaInsertBoard";
     }
@@ -75,12 +78,11 @@ public class QnaBoardController {
     @RequestMapping("/insert/{boardCode}")
     public String insertQboard(
             @PathVariable("boardCode") String boardCode,
+
             Model model, QnaBoard qb,HttpSession session){
 
-
+        qb.setQnaArea(qb.getQnaArea());
         int result = boardService.insertQboard(qb);
-
-
         return "redirect:/board/list/C";
         }
 
@@ -104,12 +106,10 @@ public class QnaBoardController {
     /*답글 등록*/
     @RequestMapping("insertAnswer")
     public String insertAnswer(
-
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
             Model model, QnaBoard qb
-
     ){
         qb.setDepth(qb.getDepth() + 1);
         qb.setParentBno(Integer.parseInt(qBno));
@@ -129,8 +129,9 @@ public class QnaBoardController {
             @PathVariable("boardCode") String boardCode,
             @PathVariable("qBno") int qBno,
             ModelAndView mv
-
     ) {
+
+
         QnaBoard qb = boardService.selectQboard(qBno);
 
         List<QnaBoard> ab = boardService.selectAnswer(qBno);

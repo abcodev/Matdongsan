@@ -56,7 +56,7 @@
         </div>
         <div class="boardlist">
             <div class="boardlist_head">
-                <select>구를 선택해주세요</select>
+
                 <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
             </div>
             <div id="boardlist_main">
