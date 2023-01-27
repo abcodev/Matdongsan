@@ -78,12 +78,6 @@ public class QnaBoardServiceImpl implements QnaBoardService {
         return boardDao.insertQboard(sqlSession, qb);
     }
 
-
-    @Override
-    public List<BoardType> selectBoardTypeList() {
-        return boardDao.selectBoardTypeList(sqlSession);
-
-    }
     @Override
     public QnaBoard selectQboard(int qBno){
         return boardDao.selectQboard(sqlSession,qBno);

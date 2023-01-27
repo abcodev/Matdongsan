@@ -37,7 +37,5 @@ public class FreeBoardDao {
 
         return (ArrayList) sqlSession.selectList("boardMapper.searchFlist", paramMap ,rowBounds);
     }
-    public List<BoardType> selectBoardTypeList(SqlSession sqlSession) {
-        return sqlSession.selectList("boardMapper.selectBoardTypeList");
-    }
+
 }

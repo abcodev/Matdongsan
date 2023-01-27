@@ -10,7 +10,7 @@ public interface QnaBoardService {
 
     public int selectListCount();
     public int selectListCount(Map<String, Object> paramMap);
-    public List<BoardType> selectBoardTypeList();
+
     public Map<String, Object> selectList(int currentPage);
     Map<String, Object> selectList(Map<String, Object> paramMap);
     public int insertQboard(QnaBoard qb);

@@ -41,10 +41,6 @@ public class QnaBoardDao {
     public int insertQboard(SqlSession sqlSession, QnaBoard qb){
         return sqlSession.insert("boardMapper.insertQboard",qb);
     }
-    public List<BoardType> selectBoardTypeList(SqlSession sqlSession) {
-        return sqlSession.selectList("boardMapper.selectBoardTypeList");
-    }
-
     public QnaBoard selectQboard(SqlSession sqlSession, int qBno) {
         return sqlSession.selectOne("boardMapper.selectQboard",qBno);
     }

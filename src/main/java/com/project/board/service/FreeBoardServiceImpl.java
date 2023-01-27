@@ -74,9 +74,5 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return map;
     }
 
-    @Override
-    public List<BoardType> selectBoardTypeList() {
-        return boardDao.selectBoardTypeList(sqlSession);
 
-    }
 }
