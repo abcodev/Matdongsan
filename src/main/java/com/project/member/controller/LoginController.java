@@ -7,8 +7,10 @@ import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,4 +67,35 @@ public class LoginController {
         mav.setViewName("redirect:/");
         return mav;
     }
+
+    @RequestMapping(value = "/myPage")
+    public String myPage(){return "member/myPage";}
+
+    @RequestMapping(value = "/memberModify")
+    public String memberModify(){return "member/memberModify";}
+
+    // 회원정보를 수정하면 회원등급 변경
+    @RequestMapping(value = "/updateMember")
+    public String updateMember(@RequestParam("code") String code,
+                               @RequestParam(value = "state", defaultValue = "") String state,
+                               @PathVariable String provider,
+                               HttpSession session,
+                               Model model){
+
+        int result = memberService.updateMember(session, provider, code, state);
+
+        System.out.println(result);
+
+        if(result > 0 ){
+            int updateMember = memberService.updateMember(session, provider, code, state);
+            session.setAttribute("loginUser", updateMember);
+            session.setAttribute("alertMsg", "회원정보 수정 완료");
+            return "member/myPage";
+        }
+        else{
+            model.addAttribute("errorMsg","회원정보 수정 실패");
+            return "common/errorPage";
+        }
+    }
+
 }

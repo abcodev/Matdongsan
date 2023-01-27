@@ -31,4 +31,14 @@
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}
     </select>
+
+    <update id="update" parameterType="member">
+        UPDATE MEMBER
+        SET MEMBER_NAME = #{memberName},
+            NICKNAME = #{nickname},
+            EMAIL = #{email},
+            PHONE = #{phone},
+            ADDRESS = #{address}
+        WHERE PROVIDER_ID = #{providerId}
+    </update>
 </mapper>
