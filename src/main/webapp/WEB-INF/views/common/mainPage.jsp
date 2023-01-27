@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <c:set var="s" value="com.project.common.vo.RealEstateSell"/>
 
 <!DOCTYPE html>
@@ -33,8 +33,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <jsp:include page="../template/font.jsp"/>
-    <jsp:include page="../chat/chat_pop.jsp"/>
+    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../chat/chat_pop.jsp"></jsp:include>
 </head>
 
 <body>
@@ -88,24 +88,38 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-<%--      실시간 알림    --%>
-                <div class="alert_box">
-                    <div class="alert_box_header">
-                        <span>전체알림</span>
-                        <span>읽은 알림 삭제</span>
-                        <span><i class="fa-regular fa-rectangle-xmark"></i></span>
-                    </div>
-                    <div class="alert_box_body">
-                        <div class="alert_list">
-                            <div class="new_alert">
-                                <span><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
-                                <span>1월 27일 </span>
-                                <span><i class="fa-solid fa-xmark"></i></span>
+            <%--      실시간 알림    --%>
+            <div class="alert_box">
+                <div class="alert_box_header">
+                    <span>전체알림</span>
+                    <span>읽은 알림 삭제</span>
+                    <span><i class="fa-solid fa-x"></i></span>
+                </div>
+                <div class="alert_box_body">
+                    <div class="alert_list">
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
+                                <i class="fa-regular fa-trash-can"></i>
                             </div>
-                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</div>
-                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</div>
+                            <span class="alert_date">1월 27일 </span>
+                        </div>
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</span>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+                            <span class="alert_date">1월 27일 </span>
+                        </div>
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</span>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+                            <span class="alert_date">1월 27일 </span>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -115,7 +129,7 @@
             $(".alert_box").toggle("scale");
         });
 
-        $(".fa-rectangle-xmark").click(function () {
+        $(".fa-x").click(function () {
             $(".alert_box").toggle("scale");
         });
     </script>
