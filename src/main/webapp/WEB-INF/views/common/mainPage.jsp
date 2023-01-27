@@ -76,16 +76,18 @@
                     <div class="alert_box_header">
                         <span>전체알림</span>
                         <span>읽은 알림 삭제</span>
-                        <span><i class="fa-solid fa-xmark"></i></span>
+                        <span><i class="fa-regular fa-rectangle-xmark"></i></span>
                     </div>
                     <div class="alert_box_body">
-                        <div class="alert_box_overlay">
-                        </div>
                         <div class="alert_list">
+                            <div class="new_alert">
+                                <span><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
+                                <span>1월 27일 </span>
+                                <span><i class="fa-solid fa-xmark"></i></span>
+                            </div>
+                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</div>
+                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</div>
                         </div>
-                    </div>
-                    <div class="alert_box_foot">
-
                     </div>
             </div>
         </div>
@@ -96,7 +98,7 @@
             $(".alert_box").toggle("scale");
         });
 
-        $(".fa-xmark").click(function () {
+        $(".fa-rectangle-xmark").click(function () {
             $(".alert_box").toggle("scale");
         });
     </script>
