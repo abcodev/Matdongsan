@@ -4,6 +4,7 @@ import com.project.client.oauth.OAuthClient;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.dao.MemberDao;
+import com.project.member.dto.MemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -30,20 +31,18 @@ public class MemberService {
         return memberDao.select(member.getProvider(), member.getProviderId());
 
 
-        }
-
-    public int updateMember(HttpSession session, String provider, String code, String state){
-        OAuthClient oAuthClient = oAuthClientService.getClient(provider);
-        OAuthUser oAuthUser = oAuthClient.getUserProfile(session, code, state);
-
-        Member member = Member.of(oAuthUser);
-//        if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
-//            memberDao.insertMember(member);
-//        }
-        return memberDao.updateMember(sqlSession, member);
     }
 
+    public MemberDto loginMember(MemberDto m){
 
+        MemberDto loginMem = memberDao.loginMember(sqlSession, m);
+
+        return loginMem;
+    }
+
+    public int updateMember(MemberDto m) {
+        return memberDao.updateMember(sqlSession, m);
+    }
 }
 
 

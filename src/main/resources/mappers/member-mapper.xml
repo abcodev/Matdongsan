@@ -32,10 +32,18 @@
           AND PROVIDER_ID = #{providerId}
     </select>
 
+    <select id="loginMember" resultMap="memberResultSet">
+        SELECT *
+        FROM MEMBER
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
+            AND STATUS = 'Y'
+    </select>
+
     <update id="update" parameterType="member">
         UPDATE MEMBER
-        SET MEMBER_NAME = #{memberName},
-            NICKNAME = #{nickname},
+        SET
+            NICKNAME = #{nickName},
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address}
