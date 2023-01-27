@@ -11,11 +11,7 @@
 <c:if test="${!empty param.condition }">
     <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
 </c:if>
-<c:forEach items="${boardTypeList }" var="bt">
-<c:if test="${boardCode == bt.boardCd }">
-    <c:set var="boardNM" value="${bt.boardName }"/>
-</c:if>
-</c:forEach>
+
 
 
 <html lang="en">
@@ -32,7 +28,7 @@
 <body>
 <main>
     <div class="content head">
-        <form id="searchForm" action="${boardCode}" method="get">
+        <form id="searchForm" action="search?" method="get">
         <div class="select">
             <select class="custom-select" name="condition">
                 <option value="title">제목</option>
@@ -51,8 +47,8 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="${pageContext.request.contextPath}/board/fList/${boardCode}">자유게시판</a>
-                <a href="${pageContext.request.contextPath}/board/list/${boardCode}">질문과 답변</a>
+                <a href="${pageContext.request.contextPath}/board/flist">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/list">질문과 답변</a>
             </div>
         </div>
         <div class="boardlist">
@@ -72,15 +68,16 @@
                             <c:if test="${qb.depth ne 1 }">
                                 └->
                             </c:if>
-                            <span>(${qb.qnaArea})</span>${qb.qnaTitle}</td>
-                            <td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+                            <c:if test="${qb.qnaArea != null}">
+                            (${qb.qnaArea})</c:if>
+                                ${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
 
                     </c:forEach>
                 </table>
             </div>
         </div>
     </div>
-    <c:set var="url" value="${boardCode}?cpage="/>
+    <c:set var="url" value="?cpage="/>
         <div id="paging">
             <ul class="pagination">
                 <c:choose>
@@ -111,11 +108,11 @@
     <script>
 
         function movePage(qBno){
-            location.href = '${pageContext.request.contextPath}/board/detail/${boardCode}/'+qBno;
+            location.href = '${pageContext.request.contextPath}/board/detail/'+qBno;
         }
 
         function movePage2(){
-            location.href = '${pageContext.request.contextPath}/board/insert/${boardCode}/';
+            location.href = '${pageContext.request.contextPath}/board/insert';
         }
     </script>
 </main>

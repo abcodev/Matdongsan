@@ -1,6 +1,5 @@
 package com.project.board.dao;
 
-import com.project.board.vo.BoardType;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
 import org.apache.ibatis.session.RowBounds;
@@ -14,21 +13,21 @@ import java.util.Map;
 @Repository
 public class QnaBoardDao {
 
-    public int selectListCount(SqlSession sqlSession,String boardCode) {
-        return sqlSession.selectOne("boardMapper.selectListCount",boardCode);
+    public int selectListCount(SqlSession sqlSession) {
+        return sqlSession.selectOne("boardMapper.selectListCount");
     }
 
     public int selectListCount(SqlSession sqlSession , Map<String, Object> paramMap) {
         return sqlSession.selectOne("boardMapper.searchListCount", paramMap);
     }
 
-    public ArrayList<QnaBoard> selectList(SqlSession sqlSession, PageInfo pi,String boardCode){
+    public ArrayList<QnaBoard> selectList(SqlSession sqlSession, PageInfo pi){
         int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
 
         RowBounds rowBounds = new RowBounds(offset,limit);
 
-        return (ArrayList) sqlSession.selectList("boardMapper.selectList",boardCode,rowBounds);
+        return (ArrayList) sqlSession.selectList("boardMapper.selectList",null,rowBounds);
     }
     public ArrayList<QnaBoard> selectList(SqlSession sqlSession, Map<String,Object> paramMap){
         int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() -1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
@@ -61,6 +60,10 @@ public class QnaBoardDao {
     }
     public List<QnaBoard> selectAnswer(SqlSession sqlSession, int qBno) {
         return sqlSession.selectList("boardMapper.selectAnswer",qBno);
+    }
+
+    public int deleteBoard(SqlSession sqlSession, int qBno){
+        return sqlSession.update("boardMapper.deleteBoard",qBno);
     }
 
 }

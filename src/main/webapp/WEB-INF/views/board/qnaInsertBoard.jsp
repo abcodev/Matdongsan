@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert/${boardCode }">
+<form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert">
       게시글 제목
 <input type="text" id="title" name="qnaTitle">
 <br><br>

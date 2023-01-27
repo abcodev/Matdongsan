@@ -1,7 +1,6 @@
 package com.project.board.service;
 
 import com.project.board.dao.QnaBoardDao;
-import com.project.board.vo.BoardType;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.Pagination;
@@ -24,8 +23,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     @Autowired
     private Pagination pagination;
     @Override
-    public int selectListCount(String boardCode) {
-        return boardDao.selectListCount(sqlSession,boardCode);
+    public int selectListCount() {
+        return boardDao.selectListCount(sqlSession);
     }
     @Override
     public int selectListCount(Map<String,Object> paramMap) {
@@ -33,12 +32,12 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
 
     @Override
-    public Map<String , Object> selectList(int currentPage,String boardCode){
+    public Map<String , Object> selectList(int currentPage){
 
         Map<String , Object> map = new HashMap();
 
 
-        int listCount = selectListCount(boardCode);
+        int listCount = selectListCount();
 
         int pageLimit = 10;
         int boardLimit = 15;
@@ -46,7 +45,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 
         map.put("pi",pi);
 
-        ArrayList<QnaBoard> list = boardDao.selectList(sqlSession, pi,boardCode);
+        ArrayList<QnaBoard> list = boardDao.selectList(sqlSession,pi);
 
         map.put("list", list);
         return map;
@@ -106,5 +105,10 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     @Override
     public List<QnaBoard> selectAnswer(int qBno){
         return boardDao.selectAnswer(sqlSession,qBno);
+    }
+
+    @Override
+    public int deleteBoard(int qBno){
+    return boardDao.deleteBoard(sqlSession,qBno);
     }
 }

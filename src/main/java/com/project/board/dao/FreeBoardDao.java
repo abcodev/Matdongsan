@@ -1,6 +1,5 @@
 package com.project.board.dao;
 
-import com.project.board.vo.BoardType;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfo;
 import org.apache.ibatis.session.RowBounds;
@@ -14,21 +13,21 @@ import java.util.Map;
 @Repository
 public class FreeBoardDao {
 
-    public int selectFlistCount(SqlSession sqlSession, String boardCode) {
-        return sqlSession.selectOne("boardMapper.selectFlistCount",boardCode);
+    public int selectFlistCount(SqlSession sqlSession) {
+        return sqlSession.selectOne("boardMapper.selectFlistCount");
     }
 
     public int selectFlistCount(SqlSession sqlSession , Map<String, Object> paramMap) {
         return sqlSession.selectOne("boardMapper.searchFlistCount", paramMap);
     }
 
-    public ArrayList<QnaBoard> selectFlist(SqlSession sqlSession, PageInfo pi, String boardCode){
+    public ArrayList<QnaBoard> selectFlist(SqlSession sqlSession, PageInfo pi ){
         int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
         int limit = pi.getBoardLimit();
 
         RowBounds rowBounds = new RowBounds(offset,limit);
 
-        return (ArrayList) sqlSession.selectList("boardMapper.selectFlist",boardCode,rowBounds);
+        return (ArrayList) sqlSession.selectList("boardMapper.selectFlist",null,rowBounds);
     }
     public ArrayList<QnaBoard> selectFlist(SqlSession sqlSession, Map<String,Object> paramMap){
         int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() -1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();

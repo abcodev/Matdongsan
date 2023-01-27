@@ -36,11 +36,18 @@
       <th>내용</th>
       <td colspan="3">${qb.qnaContent}</td>
     </tr>
+    <tr>
+      <th>지역</th>
+      <td colspan="3">${qb.qnaArea}</td>
+    </tr>
   <input type="hidden" id="depth" value="${qb.depth}"/>
     <input type="hidden" id="parentBno" value="${qb.parentBno}"/>
     <input type="hidden" id="qBno" value="${qb.qnaBno}"/>
 
     <button id="writebtn1" onclick="movePage()"><i class="fa-solid fa-pencil"></i>답글달기</button>
+    <%--<c:if test="${ not empty loginUser }">--%>
+    <a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제하기</a>
+   <%-- </c:if>--%>
   </table>
   <br><br><br><br><br><br>
 
@@ -55,6 +62,7 @@
       <span>작성자 : ${list.qnaWriter}</span><br><br><br>
       <span>내용 :${list.qnaContent}</span>
 
+
     </Div>
   </c:forEach>
   <script>
@@ -63,7 +71,7 @@
       let pBno = document.getElementById("parentBno").value;
       let qBno = document.getElementById("qBno").value;
 
-      location.href = '${pageContext.request.contextPath}/board/insertAnswer?boardCode=${boardCode}&depth='+depth+"&pBno="+pBno+"&qBno="+qBno;
+      location.href = '${pageContext.request.contextPath}/board/insertAnswer?&depth='+depth+"&pBno="+pBno+"&qBno="+qBno;
     }
   </script>
 
