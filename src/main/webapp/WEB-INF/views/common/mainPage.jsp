@@ -317,6 +317,11 @@
 
     //채팅//
 
+    // window.addEventListener('beforeunload', (event)=>{
+    //     event.preventDefault();
+    //     event.returnValue = '';
+    // })
+
 </script>
 
 </html>

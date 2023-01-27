@@ -83,7 +83,7 @@ public class RealEstateController {
 //
 //        Restaurant restaurant = realEstateService.realEstateDetail(rentNo);
 //
-//        modelAndView.setViewName("restaurant/realEstateDetail");
+//        modelAndView.setViewName("realestate/realEstateDetail");
 //
 //        return modelAndView;
 //    }

@@ -147,7 +147,7 @@ public class ChatController {
         ChatingRoom room = ChatingRoom.create(loginUser.getMemberNo());
         chatService.createRoom(room);
         chatService.enterChatRoom(room,loginUser.getMemberNo());
-        return new ResponseEntity<>(room, HttpStatus.OK);
+        return ResponseEntity.ok(room);
     }
 
 

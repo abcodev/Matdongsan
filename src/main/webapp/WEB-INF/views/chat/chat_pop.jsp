@@ -35,7 +35,7 @@
       <form>
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
         <button type="submit" class="chat-submit" id="chat-submit"><i
-                class="fa-regular fa-paper-plane" onclick="send();"></i></button>
+                class="fa-regular fa-paper-plane" onclick="send();" ></i></button>
       </form>
     </div>
   </div>
@@ -44,9 +44,15 @@
 
 
 <script>
+
+
+
+
     // var INDEX = 0;
-    // $("#chat-submit").click(function (e) {
-    //   e.preventDefault();
+
+
+
+
     //   var msg = $("#chat-input").val();
     //   if (msg.trim() == "") {
     //     return false;
@@ -158,6 +164,17 @@
       stompClient.send("/app/chat/send", {}, JSON.stringify(data));
       $("#chat-input").val('');
     }
+
+
+
+    $("#chat-submit").click(function (e) {
+      e.preventDefault();
+    })
+
+
+
+
+
 </script>
 </body>
 </html>
