@@ -9,6 +9,7 @@
 <html lang="en">
 
 <style>
+    /*지도*/
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -33,8 +34,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <jsp:include page="../template/font.jsp"></jsp:include>
-    <jsp:include page="../chat/chat_pop.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
+    <jsp:include page="../chat/chat_pop.jsp"/>
 </head>
 
 <body>
@@ -152,7 +153,6 @@
 
                 // 지도를 생성합니다
                 var map = new kakao.maps.Map(mapContainer, mapOption);
-
 
                 var geocoder = new kakao.maps.services.Geocoder();
 
