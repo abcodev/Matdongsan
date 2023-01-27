@@ -1,5 +1,7 @@
 package com.project.board.qnaBoard.controller;
 
+import com.project.board.freeBoard.service.FreeBoardService;
+import com.project.board.freeBoard.vo.FreeBoard;
 import com.project.board.qnaBoard.service.QnaBoardService;
 import com.project.board.qnaBoard.service.QnaBoardServiceImpl;
 import com.project.board.qnaBoard.vo.BoardType;
@@ -32,6 +34,9 @@ public class QnaBoardController {
 
     @Autowired
     private QnaBoardService boardService;
+
+//    @Autowired
+//    private FreeBoardService freeBoardService;
 
 
     @RequestMapping("/list/{boardCode}")
@@ -75,14 +80,17 @@ public class QnaBoardController {
     @RequestMapping("/insert/{boardCode}")
     public String insertQboard(
             @PathVariable("boardCode") String boardCode,
-            Model model, QnaBoard qb,HttpSession session){
+            Model model, QnaBoard qb, FreeBoard freeBoard, HttpSession session){
+
+        int result = 0;
 
 
-        int result = boardService.insertQboard(qb);
+            result = boardService.insertQboard(qb);
 
 
         return "redirect:/board/list/C";
-        }
+
+    }
 
 
     /*답글달기 페이지*/

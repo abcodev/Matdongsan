@@ -40,7 +40,7 @@
             <div id="boardlist_top">
                 <div id="listset">
                     <c:forEach var="fb" items="${flist}">
-                        <Div>${fb.}</Div>
+                        <Div>${fb.boardTitle}</Div>
                     </c:forEach>
                 </div>
                 <div id="writebtn">

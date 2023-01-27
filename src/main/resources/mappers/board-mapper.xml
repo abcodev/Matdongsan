@@ -222,7 +222,6 @@
         WHERE Q.STATUS = 'Y'
           AND P_BNO = #{qBno}
 
-
     </select>
 </mapper>
 

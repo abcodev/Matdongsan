@@ -470,7 +470,7 @@ CREATE TABLE "FREE_BOARD"
     "BOARD_CONTENT" VARCHAR(2056)                NULL,
     "BOARD_DATE"    DATE         DEFAULT SYSDATE NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL,
+    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 
 );
 
