@@ -42,6 +42,7 @@ public class LoginController {
         // Upcasting , 다형성
         OAuthClient oAuthClient = oAuthClientService.getClient(provider);
         String redirectUrl = oAuthClient.generateRedirectUrl(session);
+        System.out.println("url : " + redirectUrl);
         // redirectUrl 로 리다이렉션
         return "redirect:" + redirectUrl;
     }
