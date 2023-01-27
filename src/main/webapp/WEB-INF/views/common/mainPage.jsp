@@ -1,5 +1,4 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -39,8 +38,6 @@
 </head>
 
 <body>
-
-
 <header id="header">
     <div class="inner">
         <div class="logo">
@@ -61,15 +58,11 @@
 
                 <div class="dropdown">
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
-<%--                    <div class="dropdown-submenu">--%>
-<%--                        <c:forEach items="${boardTypeList }" var="boardType">--%>
-<%--                            <a href="${pageContext.request.contextPath}/board/list/${boardType.boardCd}">${boardType.boardName }</a>--%>
-<%--                        </c:forEach>--%>
-<%--                    </div>--%>
-
                     <div class="dropdown-submenu">
                         <a href="${pageContext.request.contextPath}/board/list/Q">자유게시판</a>
+
                         <a href="${pageContext.request.contextPath}/board/list/C">질문&답변</a>
+
                     </div>
                 </div>
                 <div class="dropdown">
@@ -78,7 +71,6 @@
                 </div>
             </div>
         </nav>
-
         <div class="login">
 
             <c:choose>
@@ -89,29 +81,44 @@
                 </c:when>
                 <c:otherwise>
                     <div class="login_after">
-                        <table>
-                            <tr>
-                                <td rowspan="2">
-                                    <img src="${loginUser.profileImage}" class="user_img" width="50px">
-                                </td>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
-                                </td>
-                            </tr>
-                        </table>
+                        <img src="${loginUser.profileImage}" class="user_img">
+                        <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+                        <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
                         <i class="fa-regular fa-bell"></i>
                     </div>
                 </c:otherwise>
             </c:choose>
-
+<%--      실시간 알림    --%>
+                <div class="alert_box">
+                    <div class="alert_box_header">
+                        <span>전체알림</span>
+                        <span>읽은 알림 삭제</span>
+                        <span><i class="fa-regular fa-rectangle-xmark"></i></span>
+                    </div>
+                    <div class="alert_box_body">
+                        <div class="alert_list">
+                            <div class="new_alert">
+                                <span><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
+                                <span>1월 27일 </span>
+                                <span><i class="fa-solid fa-xmark"></i></span>
+                            </div>
+                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</div>
+                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</div>
+                        </div>
+                    </div>
+            </div>
         </div>
-
     </div>
+    <script>
+        <%-- 실시간 알림 --%>
+        $(".fa-bell").click(function () {
+            $(".alert_box").toggle("scale");
+        });
+
+        $(".fa-rectangle-xmark").click(function () {
+            $(".alert_box").toggle("scale");
+        });
+    </script>
 </header>
 <div class="map">
     <div class="mapImg">
@@ -257,71 +264,14 @@
             <c:forEach var="news" items="${newsList}">
                 <a href="${news.newsUrl}">${news.newsTitle}</a><br>
             </c:forEach>
-            <hr>
-<%--            <p><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></p>--%>
-
         </div>
         <span><a href="https://land.naver.com/news/">부동산 관련 뉴스 더보기</a></span>
     </div>
 
-
-
-
-
     <div class="side lookList">
         <h3>최근 본 부동산 목록</h3>
     </div>
-
-
-
-
-
 </div>
 </div>
 </body>
-
-
-<script>
-    // const header = document.querySelector('#header');
-    //
-    // function scrollFunc() {
-    //     if (pageYOffset >= 1) {
-    //         header.classList.add('on');
-    //     } else {
-    //         header.classList.remove('on');
-    //     }
-    // }
-    // window.addEventListener('scroll', scrollFunc);
-    //
-    //
-    // var backToTop = () => {
-    //     // Scroll | button show/hide
-    //     window.addEventListener('scroll', () => {
-    //         if (document.querySelector('html').scrollTop > 100) {
-    //             document.getElementById('go-top').style.display = "block";
-    //         } else {
-    //             document.getElementById('go-top').style.display = "none";
-    //         }
-    //     });
-    //     // back to top
-    //     document.getElementById('go-top').addEventListener('click', () => {
-    //         window.scrollTo({
-    //             top: 0,
-    //             left: 0,
-    //             behavior: 'smooth'
-    //         });
-    //     })
-    // };
-    // backToTop();
-
-
-    //채팅//
-
-    // window.addEventListener('beforeunload', (event)=>{
-    //     event.preventDefault();
-    //     event.returnValue = '';
-    // })
-
-</script>
-
 </html>

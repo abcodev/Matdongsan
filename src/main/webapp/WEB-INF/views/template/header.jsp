@@ -8,8 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+  <title>Title</title>
   <link rel="stylesheet" href="<c:url value="/resources/css/common/header.css"/>">
+  <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header id="header">
@@ -20,7 +21,8 @@
     <nav class="navbar">
       <div class="navbar_menu">
         <div class="dropdown">
-          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a></button>
+          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
+          </button>
         </div>
 
         <div class="dropdown">
@@ -37,40 +39,29 @@
           </div>
         </div>
         <div class="dropdown">
-          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/admin/chat">1:1문의</a></button>
+          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/admin/chat">1:1문의</a>
+          </button>
         </div>
       </div>
     </nav>
-
     <div class="login">
-
       <c:choose>
         <c:when test="${ empty loginUser}">
-          <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+          <div class="login_before">
+            <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+          </div>
         </c:when>
         <c:otherwise>
-          <label>
-            <img src="${loginUser.profileImage}" width="50px">
-              ${loginUser.memberName} 님 환영합니다.
-          </label> &nbsp;&nbsp;
-          <%--                    <a href="${pageContext.request.contextPath}/myPage">마이페이지</a>--%>
-          <a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+          <div class="login_after">
+            <img src="${loginUser.profileImage}" class="user_img">
+            <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+            <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+            <i class="fa-regular fa-bell"></i>
+          </div>
         </c:otherwise>
       </c:choose>
     </div>
   </div>
 </header>
-  <script>
-    const header = document.querySelector('#header');
-
-    function scrollFunc() {
-      if (pageYOffset >= 1) {
-        header.classList.add('on');
-      } else {
-        header.classList.remove('on');
-      }
-    }
-    window.addEventListener('scroll', scrollFunc);
-  </script>
 </body>
 </html>

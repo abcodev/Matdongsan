@@ -14,32 +14,27 @@
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<body id="content">
+<div id="content">
     <div id="login_head">
         <h2>소셜로그인</h2>
     </div>
     <div id="login_body">
-
-        <a href="<c:url value="/login/kakao"/>">
-            <img src="<c:url value="/resources/images/oauth/kakao_login.png"/>">
-        </a>
-        <br>
-        <br>
-        <a href="<c:url value="/login/naver"/> ">
-            <img src="<c:url value="/resources/images/oauth/naver_login.png"/>" width="300px;" height="50px;">
-        </a>
-        <br>
-        <br>
-        <a href="<c:url value="/login/google"/> ">
-            <img src="<c:url value="/resources/images/oauth/google_login.png"/>" width="300px;" height="50px;">
-        </a>
-
-
-
-
+        <div class="login kakao">
+            <a href="<c:url value="/login/kakao"/>">
+                <img src="<c:url value="/resources/images/oauth/kakao_login.png"/>">
+            </a>
+        </div>
+        <div class="login naver">
+            <a href="<c:url value="/login/naver"/> ">
+                <img src="<c:url value="/resources/images/oauth/naver_login.png"/>">
+            </a>
+        </div>
+        <div class=" login google">
+            <a href="<c:url value="/login/google"/> ">
+                <img src="<c:url value="/resources/images/oauth/google_login.png"/>">
+            </a>
+        </div>
+    </div>
 </div>
-
-
-</body>
 </body>
 </html>

@@ -16,6 +16,7 @@ div{
 #place_head{
     height: 40%;
     width: 100%;
+    display: flex;
 }
 
 #place_body{
@@ -23,8 +24,12 @@ div{
     width: 100%;
 }
 
+#enroll_btn > button{
+    width: 200px;
+}
+
 .city{
-    padding-left: 900px;
+    padding-left: 700px;
 }
 
 .hashtag{

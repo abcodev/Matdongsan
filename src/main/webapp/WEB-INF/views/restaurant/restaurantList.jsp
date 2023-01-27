@@ -24,11 +24,9 @@
 </script>
 <div id="content">
     <div id="place_head">
-
-        <div>
+        <div id="enroll_btn">
             <button onclick="location.href='${pageContext.request.contextPath}/admin/resEnroll'">새로운 맛집 등록하기</button>
         </div>
-
         <div class="place city">
             <select id="select_state" onchange="retrieveRestaurants(1)">
                 <option value="">선택</option>
@@ -37,6 +35,7 @@
                 </c:forEach>
             </select>
         </div>
+    </div>
 
         <div class="place hashtag">
             <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
@@ -45,7 +44,7 @@
             </c:forEach>
         </div>
 
-    </div>
+
 
     <div class="place_body">
 
