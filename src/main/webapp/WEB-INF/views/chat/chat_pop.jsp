@@ -99,30 +99,33 @@
 
     $("#chat-circle").click(function () {
       $("#chat-circle").toggle("scale");
+      $(".chat-box").toggle("scale");
 
-      $.ajax({
-        url: '${pageContext.request.contextPath}/createChatRoom',
-        type: "POST",
+      <%--$.ajax({--%>
+      <%--  url: '${pageContext.request.contextPath}/createChatRoom',--%>
+      <%--  type: "POST",--%>
 
-        success :function (room){
-          $(".chat-box").toggle("scale");
-          connection(room);
-              },
-        fail : function (){
-          alert("사용 실패")
-          $("#chat-circle").toggle("scale");
-              }
+      <%--  success :function (room){--%>
+      <%--    $(".chat-box").toggle("scale");--%>
+      <%--        connection();--%>
+      <%--        },--%>
+      <%--  fail : function (){--%>
+      <%--    alert("사용 실패")--%>
+      <%--    $("#chat-circle").toggle("scale");--%>
+      <%--        }--%>
 
-      })
+      <%--})--%>
     });
 
     $(".chat-box-toggle").click(function () {
       $("#chat-circle").toggle("scale");
       $(".chat-box").toggle("scale");
     });
+    connection();
 
-    function connection(room) {
-      let socket = new SockJS("http://localhost:8070/Matdongsan/mainPage");
+
+    function connection() {
+      let socket = new SockJS("/Matdongsan/mainPage");
       stompClient = Stomp.over(socket);
       stompClient.connect({}, onConnected, onError);
     }
@@ -137,7 +140,10 @@
     }
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
-      if(e.keyCode===13) send();
+
+      if(e.keyCode===13){
+        send();
+      }
     });
 
     function showMessage(data){
@@ -158,6 +164,10 @@
       stompClient.send("/app/chat/send", {}, JSON.stringify(data));
       $("#chat-input").val('');
     }
+    $("#chat-submit").click(function (e) {
+      e.preventDefault();
+    })
+
 </script>
 </body>
 </html>

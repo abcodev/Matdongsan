@@ -71,6 +71,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 <script>
 
+
   var userId = window.prompt("사용자 닉네임?");
 
   function connect() {
