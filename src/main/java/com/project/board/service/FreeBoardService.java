@@ -1,6 +1,6 @@
-package com.project.board.freeBoard.service;
+package com.project.board.service;
 
-import com.project.board.qnaBoard.vo.BoardType;
+import com.project.board.vo.BoardType;
 
 import java.util.List;
 import java.util.Map;

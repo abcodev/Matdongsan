@@ -6,8 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.project.board.qnaBoard.service.QnaBoardService;
-import com.project.board.qnaBoard.vo.BoardType;
+import com.project.board.service.QnaBoardService;
+import com.project.board.vo.BoardType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 

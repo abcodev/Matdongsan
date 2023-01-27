@@ -1,9 +1,9 @@
-package com.project.board.qnaBoard.service;
+package com.project.board.service;
 
-import com.project.board.qnaBoard.dao.QnaBoardDao;
-import com.project.board.qnaBoard.vo.BoardType;
+import com.project.board.dao.QnaBoardDao;
+import com.project.board.vo.BoardType;
 import com.project.common.template.PageInfo;
-import com.project.board.qnaBoard.vo.QnaBoard;
+import com.project.board.vo.QnaBoard;
 import com.project.common.template.Pagination;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class QnaBoardServiceImpl implements QnaBoardService{
+public class QnaBoardServiceImpl implements QnaBoardService {
 
     @Autowired
     private QnaBoardDao boardDao;

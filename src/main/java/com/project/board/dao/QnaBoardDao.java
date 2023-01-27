@@ -1,13 +1,10 @@
-package com.project.board.qnaBoard.dao;
+package com.project.board.dao;
 
-import com.project.board.qnaBoard.service.QnaBoardService;
-import com.project.board.qnaBoard.service.QnaBoardServiceImpl;
-import com.project.board.qnaBoard.vo.BoardType;
+import com.project.board.vo.BoardType;
 import com.project.common.template.PageInfo;
-import com.project.board.qnaBoard.vo.QnaBoard;
+import com.project.board.vo.QnaBoard;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

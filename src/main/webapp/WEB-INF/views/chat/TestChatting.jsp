@@ -76,7 +76,7 @@
 
   function connect() {
     //StompConfig.java에 설정된 endpoint로 SockJS 객체, StompClient 객체 생성
-    var socket = new SockJS("http://localhost:8070/Matdongsan/mainPage");
+    var socket = new SockJS("/Matdongsan/mainPage");
     //do Handshake
     stompClient = Stomp.over(socket);
 

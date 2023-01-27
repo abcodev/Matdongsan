@@ -1,8 +1,7 @@
-package com.project.board.qnaBoard.service;
+package com.project.board.service;
 
-import com.project.board.qnaBoard.controller.QnaBoardController;
-import com.project.board.qnaBoard.vo.BoardType;
-import com.project.board.qnaBoard.vo.QnaBoard;
+import com.project.board.vo.BoardType;
+import com.project.board.vo.QnaBoard;
 
 import java.util.List;
 import java.util.Map;

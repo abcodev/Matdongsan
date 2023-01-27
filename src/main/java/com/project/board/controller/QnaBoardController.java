@@ -1,22 +1,15 @@
-package com.project.board.qnaBoard.controller;
+package com.project.board.controller;
 
-import com.project.board.qnaBoard.service.QnaBoardService;
-import com.project.board.qnaBoard.service.QnaBoardServiceImpl;
-import com.project.board.qnaBoard.vo.BoardType;
-import com.project.board.qnaBoard.vo.QnaBoard;
-import com.project.common.template.Pagination;
+import com.project.board.service.QnaBoardService;
+import com.project.board.vo.QnaBoard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;

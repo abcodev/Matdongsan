@@ -1,6 +1,5 @@
 package com.project.restaurant.dto;
 
-import com.project.restaurant.type.SearchState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

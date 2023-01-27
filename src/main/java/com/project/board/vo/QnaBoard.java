@@ -1,4 +1,4 @@
-package com.project.board.qnaBoard.vo;
+package com.project.board.vo;
 
 import lombok.Data;
 

@@ -1,9 +1,8 @@
-package com.project.board.freeBoard.service;
+package com.project.board.service;
 
-import com.project.board.freeBoard.dao.FreeBoardDao;
-import com.project.board.qnaBoard.dao.QnaBoardDao;
-import com.project.board.qnaBoard.vo.BoardType;
-import com.project.board.qnaBoard.vo.QnaBoard;
+import com.project.board.dao.FreeBoardDao;
+import com.project.board.vo.BoardType;
+import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfo;
 import com.project.common.template.Pagination;
 import org.apache.ibatis.session.SqlSession;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class FreeBoardServiceImpl implements FreeBoardService{
+public class FreeBoardServiceImpl implements FreeBoardService {
 
     @Autowired
     private FreeBoardDao boardDao;

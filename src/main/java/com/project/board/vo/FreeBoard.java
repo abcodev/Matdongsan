@@ -1,4 +1,4 @@
-package com.project.board.freeBoard.vo;
+package com.project.board.vo;
 
 import lombok.Data;
 
