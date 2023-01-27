@@ -71,8 +71,8 @@
     </select>
 
     <insert id="insertQboard" parameterType="QBoard">
-        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent})
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{qnaArea})
     </insert>
 
     <select id="searchList" resultMap="qBoardResultSet">
