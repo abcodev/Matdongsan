@@ -16,6 +16,7 @@
 게시글 내용
 <textarea id="content" name="qnaContent"></textarea>
 <br>
+
   <select id="area" onchange="qnaArea(this);">
 
     <option value="강남구">강남구</option>

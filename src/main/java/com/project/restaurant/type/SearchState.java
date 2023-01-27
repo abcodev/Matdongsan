@@ -1,8 +1,5 @@
 package com.project.restaurant.type;
 
-import lombok.Getter;
-
-@Getter
 public enum SearchState {
 
     강남구, 강동구, 강북구, 강서구, 관악구, 광진구, 구로구, 금천구, 노원구, 도봉구, 동대문구, 동작구,
