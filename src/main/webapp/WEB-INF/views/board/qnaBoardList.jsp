@@ -11,11 +11,7 @@
 <c:if test="${!empty param.condition }">
     <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
 </c:if>
-<c:forEach items="${boardTypeList }" var="bt">
-<c:if test="${boardCode == bt.boardCd }">
-    <c:set var="boardNM" value="${bt.boardName }"/>
-</c:if>
-</c:forEach>
+
 
 
 <html lang="en">
@@ -26,17 +22,18 @@
     <title>커뮤니티</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
     <link rel="stylesheet" href="community_2.css">
-    <jsp:include page="../template/font.jsp"/>
+    <jsp:include page="../template/font.jsp"></jsp:include>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <main>
     <div class="content head">
-        <form id="searchForm" action="${boardCode}" method="get">
+        <form id="searchForm" action="search?" method="get">
         <div class="select">
             <select class="custom-select" name="condition">
                 <option value="title">제목</option>
                 <option value="content">내용</option>
+                <option value="area">지역</option>
             </select>
         </div>
         <div class="search_input">
@@ -50,8 +47,8 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="${pageContext.request.contextPath}/board/list/${boardCode}">자유게시판</a>
-                <a href="${pageContext.request.contextPath}/board/list/${boardCode}">질문과 답변</a>
+                <a href="${pageContext.request.contextPath}/board/flist">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/list">질문과 답변</a>
             </div>
         </div>
         <div class="boardlist">
@@ -64,20 +61,6 @@
                 <table class="table">
                     <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
                     <c:forEach var="qb" items="${list}">
-                        <%--원본글--%>
-                        <%--<c:if test="${qb.depth == 1 }">
-                    <tr><td onclick="movePage(${qb.qnaBno})">${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>
-                        <c:if test="${qb.depth == 2}">
-                            <tr><td onclick="movePage(${qb.qnaBno})">└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>
-                        <c:if test="${qb.depth == 3}">
-                            <tr><td onclick="movePage(${qb.qnaBno})">&nbsp;&nbsp;&nbsp;└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>
-                        <c:if test="${qb.depth == 4}">
-                            <tr><td onclick="movePage(${qb.qnaBno})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>--%>
-
                         <tr><td onclick="movePage(${qb.qnaBno})">
                             <c:forEach step="1" begin="2" end ="${qb.depth}">
                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -85,17 +68,16 @@
                             <c:if test="${qb.depth ne 1 }">
                                 └->
                             </c:if>
-                                ${qb.qnaTitle}</td>
-                            <td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-
-
+                            <c:if test="${qb.qnaArea != null}">
+                            (${qb.qnaArea})</c:if>
+                                ${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
 
                     </c:forEach>
                 </table>
             </div>
         </div>
     </div>
-    <c:set var="url" value="${boardCode}?cpage="/>
+    <c:set var="url" value="?cpage="/>
         <div id="paging">
             <ul class="pagination">
                 <c:choose>
@@ -126,11 +108,11 @@
     <script>
 
         function movePage(qBno){
-            location.href = '${pageContext.request.contextPath}/board/detail/${boardCode}/'+qBno;
+            location.href = '${pageContext.request.contextPath}/board/detail/'+qBno;
         }
 
         function movePage2(){
-            location.href = '${pageContext.request.contextPath}/board/insert/${boardCode}/';
+            location.href = '${pageContext.request.contextPath}/board/insert';
         }
     </script>
 </main>
