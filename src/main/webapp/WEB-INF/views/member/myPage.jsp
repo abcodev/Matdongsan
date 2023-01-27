@@ -1,25 +1,31 @@
+<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
   <title>마이페이지</title>
-  <link rel="stylesheet" href="마이페이지.css">
+  <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
   <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
+<%@ include file ="../template/header.jsp" %>
+
 <div id="content">
   <div id="info_box">
     <div id="userimg">
-      <img src="../../resources/images/common/맛동산%20로고.png">
+      <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
     </div>
     <div id="userInfo">
       <table></table>
     </div>
     <div id="btn_box">
       <button>회원탈퇴</button>
-      <button>정보수정</button>
+<%--      <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>--%>
     </div>
   </div>
   <div id="like">
@@ -35,6 +41,7 @@
   <div id="myBoard">
     <h4>내 게시글 보기</h4>
     <div id="myBoardList">
+      <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
       <table></table>
     </div>
   </div>

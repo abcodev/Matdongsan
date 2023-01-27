@@ -2,6 +2,7 @@ package com.project.member.dao;
 
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +31,9 @@ public class MemberDao {
         params.put("provider", provider);
         params.put("providerId", providerId);
         return sqlSession.selectOne("memberMapper.select", params);
+    }
+
+    public int updateMember(SqlSession sqlSession, Member member){
+        return sqlSession.update("memberMapper.update", member);
     }
 }
