@@ -14,7 +14,9 @@
 <div id="estate_rent_list_ajax">
     <div id="search_map">
 
+
     </div>
+
     <div id="search_list">
         <table class="table">
             <tr>
@@ -95,7 +97,7 @@
 </script>
 
 <%--지도 관련 스크립트--%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
 <script>
     function getMap(){
 

@@ -26,7 +26,7 @@
     <title>커뮤니티</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
     <link rel="stylesheet" href="community_2.css">
-    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -50,7 +50,7 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="${pageContext.request.contextPath}/board/fList/${boardCode}">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/list/${boardCode}">자유게시판</a>
                 <a href="${pageContext.request.contextPath}/board/list/${boardCode}">질문과 답변</a>
             </div>
         </div>

@@ -580,7 +580,6 @@ CREATE TABLE "QNA_BOARD"
     "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NULL,
-    "BOARD_CD"    CHAR(1)      DEFAULT 'C'     NULL,
     "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL
 );
 
@@ -612,23 +611,11 @@ COMMENT
     ON COLUMN "QNA_BOARD"."QNA_AREA" IS '지역';
 
 COMMENT
-    ON COLUMN "QNA_BOARD"."BOARD_CD" IS '보드타입';
-
-COMMENT
     ON COLUMN "QNA_BOARD"."QNA_DEPTH" IS '글깊이';
 
 
-CREATE TABLE "BOARD_TYPE"
-(
-    "BOARD_CD"   CHAR(1)      NOT NULL,
-    "BOARD_NAME" VARCHAR2(20) NOT NULL
-);
 
-COMMENT
-    ON COLUMN "BOARD_TYPE"."BOARD_CD" IS '게시판 타입 C: 질문 게시판 , F:자유 게시판';
 
-COMMENT
-    ON COLUMN "BOARD_TYPE"."BOARD_NAME" IS '게시판 이름';
 
 
 

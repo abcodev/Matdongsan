@@ -119,7 +119,6 @@
 
 </script>
 <script>
-
     function optionType(e) {
 
         console.log(e.value);
