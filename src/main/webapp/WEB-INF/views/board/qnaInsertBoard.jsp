@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,13 +9,16 @@
 
 </head>
 <body>
-<form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert/${boardCode }">
+<form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert/${boardCode}">
       게시글 제목
-<input type="text" id="title" name="qnaTitle">
+    <input type="text" id="title" name="qnaTitle">
+
 <br><br>
 
 게시글 내용
-<textarea id="content" name="qnaContent"></textarea>
+
+    <textarea id="content" name="qnaContent"></textarea>
+
 <br>
   <select id="area" onchange="qnaArea(this);">
 

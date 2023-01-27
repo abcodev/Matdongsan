@@ -2,6 +2,7 @@ package com.project.board.service;
 
 import com.project.board.dao.FreeBoardDao;
 import com.project.board.vo.BoardType;
+import com.project.board.vo.FreeBoard;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfo;
 import com.project.common.template.Pagination;
@@ -79,5 +80,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public List<BoardType> selectBoardTypeList() {
         return boardDao.selectBoardTypeList(sqlSession);
 
+    }
+
+
+    // 게시글 등록
+    public int insertFboard(FreeBoard fb){
+        return boardDao.insertFboard(sqlSession, fb);
     }
 }

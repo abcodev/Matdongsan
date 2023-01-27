@@ -1,6 +1,7 @@
 package com.project.board.dao;
 
 import com.project.board.vo.BoardType;
+import com.project.board.vo.FreeBoard;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfo;
 import org.apache.ibatis.session.RowBounds;
@@ -40,5 +41,9 @@ public class FreeBoardDao {
     }
     public List<BoardType> selectBoardTypeList(SqlSession sqlSession) {
         return sqlSession.selectList("boardMapper.selectBoardTypeList");
+    }
+
+    public int insertFboard(SqlSession sqlSession, FreeBoard fb){
+        return sqlSession.insert("boardMapper.insertFboard", fb);
     }
 }

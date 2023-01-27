@@ -223,5 +223,10 @@
           AND P_BNO = #{qBno}
 
     </select>
+
+    <insert id="insertFboard" parameterType="FBoard">
+        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA)
+        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
+    </insert>
 </mapper>
 

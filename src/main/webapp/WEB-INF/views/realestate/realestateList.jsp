@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<c:set var="list" value="${map.list}"/>--%>
-<%--<c:set var="pi" value="${map.pi}"/>--%>
-<%--<c:set var="l" value="${localList}"/>--%>
-<%--<c:set var="s" value="${sellList}"/>--%>
 <c:set var="r" value="com.project.common.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">

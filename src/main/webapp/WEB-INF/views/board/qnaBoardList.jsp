@@ -50,7 +50,7 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="${pageContext.request.contextPath}/board/fList/${boardCode}">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/list/${boardCode}">자유게시판</a>
                 <a href="${pageContext.request.contextPath}/board/list/${boardCode}">질문과 답변</a>
             </div>
         </div>
