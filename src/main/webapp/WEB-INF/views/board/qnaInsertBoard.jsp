@@ -1,5 +1,3 @@
-
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +9,7 @@
 </head>
 <body>
 <form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert/${boardCode }">
-      게식글 제목
+      게시글 제목
 <input type="text" id="title" name="qnaTitle">
 <br><br>
 

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class FreeBoardContoller {
     @Autowired
     private FreeBoardService boardService;
 
-    @RequestMapping("/flist/{boardCode}")
+    @RequestMapping("/list/{boardCode}")
     public String selectFlist(
             @PathVariable("boardCode") String boardCode,
             @RequestParam(value = "fpage", required = false, defaultValue = "1") int currentPage,
@@ -46,4 +47,11 @@ public class FreeBoardContoller {
 
 
     }
+
+//    // 게시글 등록
+//    @RequestMapping("/enroll/{boardCode}")
+//    public String enrollFormFboard(@PathVariable("boardCode") String boardCode, Model model){
+//
+//
+//    }
 }
