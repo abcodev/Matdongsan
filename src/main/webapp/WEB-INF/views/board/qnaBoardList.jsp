@@ -37,6 +37,7 @@
             <select class="custom-select" name="condition">
                 <option value="title">제목</option>
                 <option value="content">내용</option>
+                <option value="area">지역</option>
             </select>
         </div>
         <div class="search_input">
@@ -64,20 +65,6 @@
                 <table class="table">
                     <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
                     <c:forEach var="qb" items="${list}">
-                        <%--원본글--%>
-                        <%--<c:if test="${qb.depth == 1 }">
-                    <tr><td onclick="movePage(${qb.qnaBno})">${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>
-                        <c:if test="${qb.depth == 2}">
-                            <tr><td onclick="movePage(${qb.qnaBno})">└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>
-                        <c:if test="${qb.depth == 3}">
-                            <tr><td onclick="movePage(${qb.qnaBno})">&nbsp;&nbsp;&nbsp;└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>
-                        <c:if test="${qb.depth == 4}">
-                            <tr><td onclick="movePage(${qb.qnaBno})">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└->${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-                        </c:if>--%>
-
                         <tr><td onclick="movePage(${qb.qnaBno})">
                             <c:forEach step="1" begin="2" end ="${qb.depth}">
                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -85,10 +72,8 @@
                             <c:if test="${qb.depth ne 1 }">
                                 └->
                             </c:if>
-                                ${qb.qnaTitle}</td>
+                            <span>(${qb.qnaArea})</span>${qb.qnaTitle}</td>
                             <td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-
-
 
                     </c:forEach>
                 </table>

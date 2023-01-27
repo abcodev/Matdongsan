@@ -47,6 +47,7 @@
                QNA_TITLE,
                QNA_DATE,
                QNA_DEPTH,
+               QNA_AREA,
                COUNT
         FROM QNA_BOARD B
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
@@ -81,6 +82,7 @@
         Q.MEMBER_NO,
         P_BNO,
         QNA_TITLE,
+        QNA_AREA,
         QNA_CONTENT,
         M.NICKNAME,
         QNA_DATE
@@ -95,6 +97,9 @@
                 </when>
                 <when test="condition == 'content'">
                     QNA_CONTENT LIKE '%${keyword}%'
+                </when>
+                <when test="condition == 'area'">
+                    QNA_AREA LIKE '%${keyword}%'
                 </when>
             </choose>
         </if>
@@ -116,6 +121,9 @@
                 <when test="condition == 'content'">
                     QNA_CONTENT LIKE '%${keyword}%'
                 </when>
+                <when test="condition == 'area'">
+                    QNA_AREA LIKE '%${keyword}%'
+                </when>
             </choose>
         </if>
     </select>
@@ -127,6 +135,7 @@
                QNA_TITLE,
                QNA_CONTENT,
                M.NICKNAME,
+               QNA_AREA,
                QNA_DEPTH,
                P_BNO,
                QNA_DATE
