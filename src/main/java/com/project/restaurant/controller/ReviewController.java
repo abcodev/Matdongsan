@@ -1,6 +1,5 @@
 package com.project.restaurant.controller;
 
-import com.google.gson.Gson;
 import com.project.member.vo.Member;
 import com.project.restaurant.dto.InsertReviewRequest;
 import com.project.restaurant.dto.ReviewResponse;
@@ -26,10 +25,8 @@ public class ReviewController {
 
     @RequestMapping(value = "/restaurant/insertReview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
-    public ResponseEntity<Void> insertReview(
-            @ModelAttribute InsertReviewRequest req,
-            HttpSession session
-    ) {
+    public ResponseEntity<Void> insertReview(@ModelAttribute InsertReviewRequest req,
+                                             HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
         reviewService.create(loginUser, req);
         return ResponseEntity.ok().build();

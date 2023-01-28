@@ -14,7 +14,7 @@
 </head>
 <body>
 <title></title>
-<form id="insertAnswer" method="post" action="${pageContext.request.contextPath}/board/insertAnswer/${boardCode }">
+<form id="insertAnswer" method="post" action="${pageContext.request.contextPath}/board/insertAnswer">
   답글 제목
   <input type="text" id="title" name="qnaTitle">
   <br><br>

@@ -1,8 +1,6 @@
 package com.project.board.controller;
 
-import com.project.board.service.FreeBoardService;
 import com.project.board.service.QnaBoardService;
-import com.project.board.vo.FreeBoard;
 import com.project.board.vo.QnaBoard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,27 +26,21 @@ public class QnaBoardController {
     @Autowired
     private QnaBoardService boardService;
 
-    @Autowired
-    private FreeBoardService freeBoardService;
 
-
-    @RequestMapping("/list/{boardCode}")
-    public String selectList(
-            @PathVariable("boardCode") String boardCode,
-            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            Model model,
-            @RequestParam Map<String, Object> paramMap,
-            HttpSession session) {
+    @RequestMapping("/qnaList")
+    public String selectList(@RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+                             @RequestParam Map<String, Object> paramMap,
+                             Model model,
+                             HttpSession session) {
         Map<String, Object> map = new HashMap();
 
 
         if (paramMap.get("condition") == null) {
 
-            map = boardService.selectList(currentPage,boardCode);
+            map = boardService.selectList(currentPage);
 
         } else {
             paramMap.put("cpage", currentPage);
-            paramMap.put("boardCode", boardCode);
 
             map = boardService.selectList(paramMap);
 
@@ -62,31 +54,28 @@ public class QnaBoardController {
     }
 
     /*게시글 작성페이지*/
-    @RequestMapping(value = "/insert/{boardCode}", method = RequestMethod.GET)
+    @RequestMapping(value = "/insert",method = RequestMethod.GET)
     public String insertBoard(
-            ModelAndView mv,
-            @PathVariable("boardCode") String boardCode
+            ModelAndView mv
+
     ) {
         return "board/qnaInsertBoard";
     }
 
     /*게시글 등록*/
-    @RequestMapping("/insert/{boardCode}")
+    @RequestMapping("/insert")
     public String insertQboard(
-            @PathVariable("boardCode") String boardCode,
-
             Model model, QnaBoard qb,HttpSession session){
 
         qb.setQnaArea(qb.getQnaArea());
         int result = boardService.insertQboard(qb);
-        return "redirect:/board/list/C";
-    }
+        return "redirect:/board/list";
+        }
 
 
     /*답글달기 페이지*/
     @RequestMapping(value = "/insertAnswer",method = RequestMethod.GET)
     public ModelAndView insertBoard2(
-            @RequestParam("boardCode") String boardCode,
             @RequestParam(value = "depth")String depth,
             @RequestParam(value = "pBno")String parentBno,
             @RequestParam(value = "qBno") String qBno,
@@ -114,15 +103,15 @@ public class QnaBoardController {
 
         model.addAttribute("qb",qb);
 
-        //response.sendRedirect("/list/C");
-        return "redirect:/board/list/C";
+
+        return "redirect:/board/list";
 
     }
 
     // 상세페이지
-    @RequestMapping("/detail/{boardCode}/{qBno}")
+    @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(
-            @PathVariable("boardCode") String boardCode,
+
             @PathVariable("qBno") int qBno,
             ModelAndView mv
     ) {
@@ -140,6 +129,18 @@ public class QnaBoardController {
             mv.setViewName("board/qnaDetailList");
 
         return mv;
+
+    }
+
+    @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)
+    public String deleteBoard(
+            @PathVariable("qBno") int qBno
+    ){
+
+        int result = boardService.deleteBoard(qBno);
+
+
+            return "redirect:/board/list";
 
     }
 }

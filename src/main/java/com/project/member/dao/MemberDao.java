@@ -1,5 +1,6 @@
 package com.project.member.dao;
 
+import com.project.member.dto.MemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
@@ -33,7 +34,14 @@ public class MemberDao {
         return sqlSession.selectOne("memberMapper.select", params);
     }
 
-    public int updateMember(SqlSession sqlSession, Member member){
-        return sqlSession.update("memberMapper.update", member);
+    public int updateMember(SqlSession sqlSession, MemberDto m){
+        return sqlSession.update("memberMapper.update", m);
     }
+
+    public MemberDto loginMember(SqlSession sqlSession, MemberDto m){
+        return sqlSession.selectOne("memberMapper.loginMember", m);
+    }
+
+
+
 }

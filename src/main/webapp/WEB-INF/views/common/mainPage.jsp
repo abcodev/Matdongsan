@@ -2,13 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <c:set var="s" value="com.project.common.vo.RealEstateSell"/>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <style>
+    /*지도*/
 .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
 .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -59,10 +60,8 @@
                 <div class="dropdown">
                     <button class="dropdown-btn"><a href="">커뮤니티</a></button>
                     <div class="dropdown-submenu">
-                        <a href="${pageContext.request.contextPath}/board/fList">자유게시판</a>
-
-                        <a href="${pageContext.request.contextPath}/board/list/C">질문&답변</a>
-
+                        <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                        <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -88,24 +87,38 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-<%--      실시간 알림    --%>
-                <div class="alert_box">
-                    <div class="alert_box_header">
-                        <span>전체알림</span>
-                        <span>읽은 알림 삭제</span>
-                        <span><i class="fa-regular fa-rectangle-xmark"></i></span>
-                    </div>
-                    <div class="alert_box_body">
-                        <div class="alert_list">
-                            <div class="new_alert">
-                                <span><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
-                                <span>1월 27일 </span>
-                                <span><i class="fa-solid fa-xmark"></i></span>
+            <%--      실시간 알림    --%>
+            <div class="alert_box">
+                <div class="alert_box_header">
+                    <span>전체알림</span>
+                    <span>읽은 알림 삭제</span>
+                    <span><i class="fa-solid fa-x"></i></span>
+                </div>
+                <div class="alert_box_body">
+                    <div class="alert_list">
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
+                                <i class="fa-regular fa-trash-can"></i>
                             </div>
-                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</div>
-                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</div>
+                            <span class="alert_date">1월 27일 </span>
+                        </div>
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</span>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+                            <span class="alert_date">1월 27일 </span>
+                        </div>
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</span>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+                            <span class="alert_date">1월 27일 </span>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -115,7 +128,7 @@
             $(".alert_box").toggle("scale");
         });
 
-        $(".fa-rectangle-xmark").click(function () {
+        $(".fa-x").click(function () {
             $(".alert_box").toggle("scale");
         });
     </script>
@@ -138,8 +151,6 @@
 
                 // 지도를 생성합니다
                 var map = new kakao.maps.Map(mapContainer, mapOption);
-
-
                 var geocoder = new kakao.maps.services.Geocoder();
 
                 var listData1 = [

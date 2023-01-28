@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class RealEstateApiServiceImpl implements RealEstateApiService{
         List<RealEstateSell> sellList = seoulApiClient.getRealEstateSellList()
                 .stream()
                 .filter(realEstateSellDto -> realEstateSellDto.getHouseType().equals("아파트"))
+                .filter(realEstateSellDto -> realEstateSellDto.isAfter(LocalDate.now()))
                 .map(RealEstateSell::of)
                 .collect(Collectors.toList());
 

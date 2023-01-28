@@ -3,6 +3,9 @@ package com.project.realestate.vo;
 import com.project.client.seoulApi.dto.RealEstateSellDto;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,14 +21,13 @@ public class RealEstateSell {
     private String bonbeon;
     private String bubeon;
     private String bldgNm;
-    private String dealYmd;
+    private String dealYmd; // 20230120
     private String objAmt;
     private String bldgArea;
     private String buildYear;
     private String houseType;
 
     private String address;
-
 
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {

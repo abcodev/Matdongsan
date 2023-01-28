@@ -1,9 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<!DOCTYPE html>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}" />
-
-<%--&lt;%&ndash;<jsp:include page="common/header.jsp" />&ndash;%&gt;--%>
 
 <!DOCTYPE html>
 <html lang="en">
