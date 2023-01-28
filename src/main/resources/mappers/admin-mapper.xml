@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="adminMapper">
+
+    <resultMap id="AdminResultSet" type="admin">
+        <result column="REPORT_NO" property="reportNo"/>
+        <result column="FREE_BNO" property="freeBno"/>
+        <result column="PROVIDER_ID" property="providerId"/>
+        <result column="EMAIL" property="email"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="STATUS" property="status"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="REPORT_REASON" property="reportReason"/>
+        <result column="REPORT_USER_NO" property="reportUserNo"/>
+        <result column="REPORT_CONTENT" property="reportContent"/>
+
+    </resultMap>
+
+    <select id="userList" resultMap="AdminResultSet">
+        select
+            MEMBER_NO,
+            MEMBER_NAME,
+            PROVIDER_ID,
+            EMAIL,
+            STATUS
+        FROM MEMBER
+
+    </select>
+
+
+
+
+
+</mapper>

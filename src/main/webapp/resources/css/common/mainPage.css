@@ -241,7 +241,7 @@ a{
     top: 110px;
     width: 320px;
     height: 250px;
-    border-radius:5px;
+    border-radius:3px;
     box-shadow: 0px 0px 7px 1px #666;
     z-index: 999;
 }
@@ -253,30 +253,44 @@ a{
 }
 
 .alert_box_header :first-child{
-    font-size: 18px;
+    font-size: 15px;
     padding: 0 5px 0 10px;
+    font-weight: bold;
 }
 .alert_box_header :nth-child(2){
     font-size: 12px;
     color: #566392;
-    padding: 3px 15px 0 100px;
+    padding: 3px 20px 0 120px;
     cursor: pointer;
 }
+
+.fa-x{
+    cursor: pointer;
+}
+
 .alert_list {
     overflow-y:scroll;
-    height: 220px;
+    height: 215px;
     text-align: left;
 }
 
 .new_alert {
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 500;
     background: #f8f8f8;
-    height: 35px;
-    line-height: 2.3;
-    cursor: pointer;
     border-bottom: 1px solid #E0E0E0;
+    height: 58px;
+    padding-top: 7px;
 }
+
+.alert_list :hover{
+    background: #f0f0fa;
+    cursor: pointer;
+}
+
+.new_alert > div {
+     display: flex;
+ }
 
 .fa-circle-dot {
     color: #989de1;
@@ -284,6 +298,20 @@ a{
     margin:0 10px 0 10px;
 }
 
-.alert_list > div :hover{
-    background-color: #E0E0E0;
+.alert_content{
+    width: 92%;
 }
+
+.fa-trash-can{
+    font-size: 16px;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+.alert_date{
+    font-size: 11px;
+    margin-left: 30px;
+    color: #515151;
+    font-weight: 500;
+}
+
