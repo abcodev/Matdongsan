@@ -8,13 +8,11 @@ import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -22,8 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class LoginController {
 
+    @Autowired
     /* NaverLoginBO */
     private final MemberService memberService;
+
     private final OAuthClientService oAuthClientService;
 
 
@@ -97,6 +97,16 @@ public class LoginController {
             model.addAttribute("errorMsg","회원정보 수정 실패");
             return "common/errorPage";
         }
+    }
+
+    @RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
+    @ResponseBody
+    public String sendSMS(@RequestParam("phone") String userPhoneNumber) { // 휴대폰 문자보내기
+        int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
+
+        memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
+
+        return Integer.toString(randomNumber);
     }
 
 }
