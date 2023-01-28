@@ -34,10 +34,12 @@ div{
 
 .hashtag{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .hashtag > label{
     margin: 5px;
+    width: auto;
 }
 
 .city > select{
