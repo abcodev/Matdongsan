@@ -14,7 +14,7 @@
   <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="header.jsp" />
+<jsp:include page="../template/header.jsp" />
 
 <br>
 <div align="center">

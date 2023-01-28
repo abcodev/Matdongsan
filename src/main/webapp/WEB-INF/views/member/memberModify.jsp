@@ -21,18 +21,19 @@
     </div>
     <form action="${pageContext.request.contextPath}/updateMember" method="post">
         <div class="form">
+            <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">
                 <h3>닉네임</h3>
-                <input type="text" id="nickName" name="nickName" value="${loginUser1.nickName}">
+                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}">
                 <button>중복검사</button>
             </div>
             <div class="userinfo email">
                 <h3>이메일</h3>
-                <input type="text" id="email" name="email" value="${loginUser1.email}">
+                <input type="text" id="email" name="email" value="${loginUser.email}">
             </div>
             <div class="userinfo phone">
                 <h3>휴대폰번호</h3>
-                <input type="text" id="phone" name="phone" value="${loginUser1.phone}">
+                <input type="text" id="phone" name="phone" value="${loginUser.phone}">
                 <button>인증</button>
             </div>
             <div class="userinfo adressNum">
@@ -42,7 +43,7 @@
             </div>
             <div class="userinfo address">
                 <h3>주소</h3>
-                <input type="text" id="address" name="address" value="${loginUser1.address}">
+                <input type="text" id="address" name="address" value="${loginUser.address}">
             </div>
             <div class="btn_box">
                 <button>취소</button>

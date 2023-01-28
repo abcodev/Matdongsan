@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--<c:set var="list" value="${map.list}"/>--%>
-<%--<c:set var="pi" value="${map.pi}"/>--%>
-<%--<c:set var="l" value="${localList}"/>--%>
-<%--<c:set var="s" value="${sellList}"/>--%>
 <c:set var="r" value="com.project.common.vo.RealEstateRent"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +14,7 @@
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>부동산</title>
+
 </head>
 <body>
 
@@ -54,7 +51,7 @@
                 <select name="selectOption1" id="selectOption1" onchange="get_option2(this.value)">
                     <option value="">전체</option>
                     <c:forEach var="localList" items="${localList}">
-                        <option value="${localList.sggNm}">${localList.sggNm}</option>
+                        <option value="${localList}">${localList}</option>
                     </c:forEach>
                 </select>
                 <select name="selectOption2" id="selectOption2">
@@ -143,7 +140,7 @@
 
     }
 </script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
 <script>
     function getMap(){
         var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div

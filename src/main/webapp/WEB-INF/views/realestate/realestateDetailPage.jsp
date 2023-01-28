@@ -8,6 +8,7 @@
     <title>부동산상세페이지</title>
     <link rel="stylesheet" href="../css/realEstate/realestateDetailPage.css">
     <jsp:include page="../template/font.jsp"/>
+    <jsp:include page="../template/header.jsp" />
 </head>
 <body>
 <div id="content">

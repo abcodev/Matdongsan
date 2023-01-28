@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class LoginController {
 
-    /* NaverLoginBO */
     private final MemberService memberService;
     private final OAuthClientService oAuthClientService;
 
@@ -48,12 +47,10 @@ public class LoginController {
     }
 
     @RequestMapping(value="/{provider}/callback")
-    public ModelAndView oauthLoginCallback(
-            @RequestParam("code") String code,
-            @RequestParam(value = "state", defaultValue = "") String state,
-            @PathVariable String provider,
-            HttpSession session
-    ) {
+    public ModelAndView oauthLoginCallback(@RequestParam("code") String code,
+                                           @RequestParam(value = "state", defaultValue = "") String state,
+                                           @PathVariable String provider,
+                                           HttpSession session) {
         ModelAndView mav = new ModelAndView();
         Member loginUser = memberService.login(session, provider, code, state);
         session.setAttribute("loginUser", loginUser);

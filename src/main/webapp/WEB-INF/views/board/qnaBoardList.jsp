@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -21,8 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>커뮤니티</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
-    <link rel="stylesheet" href="community_2.css">
-    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -47,8 +45,8 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="${pageContext.request.contextPath}/board/flist">자유게시판</a>
-                <a href="${pageContext.request.contextPath}/board/list">질문과 답변</a>
+                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
             </div>
         </div>
         <div class="boardlist">

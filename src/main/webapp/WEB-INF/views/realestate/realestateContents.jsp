@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/realeatate/realestateList.css"/>">
 <jsp:include page="../template/font.jsp"/>
@@ -97,7 +98,8 @@
 </script>
 
 <%--지도 관련 스크립트--%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
 <script>
     function getMap(){
 
@@ -109,7 +111,6 @@
 
         // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
-
         var geocoder = new kakao.maps.services.Geocoder();
         var listData = [
             <c:forEach items="${estateRentList}" var="list">

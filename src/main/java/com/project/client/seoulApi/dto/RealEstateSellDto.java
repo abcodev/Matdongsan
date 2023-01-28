@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor
@@ -33,7 +37,7 @@ public class RealEstateSellDto {
     @JsonProperty("BLDG_NM")
     private String bldgNm;
     @JsonProperty("DEAL_YMD")
-    private String dealYmd;
+    private String dealYmd;  // 20230123
     @JsonProperty("OBJ_AMT")
     private String objAmt;
     @JsonProperty("BLDG_AREA")
@@ -55,5 +59,11 @@ public class RealEstateSellDto {
     @JsonProperty("RDEALER_LAWDNM")
     private String rdealerLawdnm;
 
+    // 도메인 로직
+    public boolean isAfter(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate parsedDealYmd = LocalDate.parse(this.dealYmd, formatter);
+        return parsedDealYmd.isAfter(date);
+    }
 
 }

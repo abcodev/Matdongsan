@@ -47,6 +47,6 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address}
-        WHERE PROVIDER_ID = #{providerId}
+        WHERE MEMBER_NO = #{memberNo}
     </update>
 </mapper>
