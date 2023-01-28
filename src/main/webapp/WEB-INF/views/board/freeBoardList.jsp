@@ -24,30 +24,34 @@
 <%@ include file ="../template/header.jsp" %>
 <main>
     <div class="content head">
-        <div class="search_input">
-            <input type="text">
-
-        </div>
-        <div class="search_icon">
-
-        </div>
-    </div>
+        <form id="searchForm">
+            <div class="select">
+                <select class="custom-select" name="condition">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="area">지역</option>
+                </select>
+            </div>
+            <div class="search_input">
+                <input type="text" name="keyword">
+            </div>
+            <div class="search_icon">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
     <div class="content body">
         <div class="side submenu">
-
-
-
+            <div>
+                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
+            </div>
         </div>
         <div class="boardlist">
             <div id="boardlist_top">
                 <div id="listset">
 
-
-
                 </div>
-                <div id="writebtn">
-
-                </div>
+                <button id="writebtn" onclick=""><i class="fa-solid fa-pencil"></i>글작성하기</button>
             </div>
             <div id="boardlist_main">
 
