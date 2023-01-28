@@ -4,16 +4,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
-<c:set var="flist" value="${map.flist}"/>
+<c:set var="list" value="${map.list}"/>
 <c:set var="pi" value="${map.pi}"/>
 <c:if test="${!empty param.condition }">
     <c:set var="sUrl" value="&condition=${param.condition}&keyword=${param.keyword }"/>
 </c:if>
-<c:forEach items="${boardTypeList }" var="bt">
-    <c:if test="${boardCode == bt.boardCd }">
-        <c:set var="boardNM" value="${bt.boardName }"/>
-    </c:if>
-</c:forEach>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,6 +26,7 @@
     <div class="content head">
         <div class="search_input">
             <input type="text">
+
         </div>
         <div class="search_icon">
 
@@ -38,13 +35,15 @@
     <div class="content body">
         <div class="side submenu">
 
+
+
         </div>
         <div class="boardlist">
             <div id="boardlist_top">
                 <div id="listset">
-                    <c:forEach var="fb" items="${flist}">
-                        <Div>${fb.boardTitle}</Div>
-                    </c:forEach>
+
+
+
                 </div>
                 <div id="writebtn">
 

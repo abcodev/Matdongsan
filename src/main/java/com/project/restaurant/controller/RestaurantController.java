@@ -6,9 +6,7 @@ import com.project.restaurant.service.RestaurantCrawlingService;
 import com.project.restaurant.service.RestaurantService;
 import com.project.restaurant.service.ReviewService;
 import com.project.restaurant.vo.Hashtag;
-import com.project.restaurant.vo.ResHashtag;
 import com.project.restaurant.vo.Restaurant;
-import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Controller;
@@ -52,11 +50,9 @@ public class RestaurantController {
      * 동네맛집 리스트
      */
     @RequestMapping("/restaurants")
-    public ModelAndView selectResList(
-            @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-            @RequestParam(value = "state", defaultValue = "") String state,
-            @RequestParam(value = "hashtag", defaultValue = "") List<String> hashtags
-    ) {
+    public ModelAndView selectResList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+                                      @RequestParam(value = "state", defaultValue = "") String state,
+                                      @RequestParam(value = "hashtag", defaultValue = "") List<String> hashtags) {
         RestaurantListRequest req = new RestaurantListRequest(currentPage, state, hashtags);
         RestaurantListResponse resp = restaurantService.selectList(req);
 
@@ -81,9 +77,8 @@ public class RestaurantController {
      * 동네맛집 상세보기
      */
     @RequestMapping("/restaurantDetail")
-    public ModelAndView restaurantDetail(
-            @RequestParam("resNo") String resNo,
-            ModelAndView modelAndView) {
+    public ModelAndView restaurantDetail(@RequestParam("resNo") String resNo,
+                                         ModelAndView modelAndView) {
 
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
 
@@ -121,11 +116,10 @@ public class RestaurantController {
                                    @RequestParam("hashtagId") List<String> hashtagId,
                                    RedirectAttributes redirectAttributes,
                                    HttpServletRequest req) {
-//        System.out.println("해쉬태그"+hashtagId.get(0)+"/" + hashtagId.get(1));
+
         List arr = Arrays.asList(req.getParameterValues("hashtagId"));
         String resNo = restaurantService.restaurantInsert(file, restaurant, session, hashtagId);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + restaurant.getResName() + "!");
+        redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + restaurant.getResName() + "!");
         return "redirect:/restaurantDetail?resNo=" + resNo;
     }
 
@@ -138,10 +132,9 @@ public class RestaurantController {
      * 관리자 - 맛집 수정
      */
     @RequestMapping("/admin/resModify")
-    public ModelAndView restaurantModify(
-            @RequestParam("resNo") String resNo,
-            ModelAndView modelAndView
-    ) {
+    public ModelAndView restaurantModify(@RequestParam("resNo") String resNo,
+                                         ModelAndView modelAndView) {
+
         Restaurant restaurant = restaurantService.restaurantDetail(resNo);
         List<Hashtag> hashtagList = restaurantService.selectHashtagList();
 
@@ -154,13 +147,12 @@ public class RestaurantController {
 
 
     @PostMapping("/admin/resUpdate")
-    public String restaurantModify(
-            @RequestParam("file") MultipartFile file,
-            Restaurant restaurant,
-            HttpSession session,
-            @RequestParam(value = "hashtagId", defaultValue = "") List<String> hashtagId,
-            HttpServletRequest req
-    ) {
+    public String restaurantModify(@RequestParam("file") MultipartFile file,
+                                   @RequestParam(value = "hashtagId", defaultValue = "") List<String> hashtagId,
+                                   HttpServletRequest req,
+                                   Restaurant restaurant,
+                                   HttpSession session) {
+
         restaurantService.restaurantModify(file, restaurant, session, hashtagId);
         return "redirect:/restaurantDetail?resNo=" + restaurant.getResNo(); // 성공하면 해당하는 resNo url로 보내야함
     }
@@ -170,10 +162,9 @@ public class RestaurantController {
      */
     @RequestMapping("/admin/resDelete")
     // @ResponseBody // AJAX 호출 -> success()
-    public ModelAndView restaurantDelete(
-            @RequestParam("resNo") String resNo,
-            ModelAndView modelAndView
-    ) {
+    public ModelAndView restaurantDelete(@RequestParam("resNo") String resNo,
+                                         ModelAndView modelAndView) {
+
         restaurantService.deleteRes(resNo);
         modelAndView.setViewName("redirect:/selectResList");
         return modelAndView;

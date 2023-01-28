@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert/${boardCode }">
+<form id="insert" method="post" action="${pageContext.request.contextPath}/board/insert">
       게시글 제목
 <input type="text" id="title" name="qnaTitle">
 <br><br>
@@ -16,9 +16,7 @@
 게시글 내용
 <textarea id="content" name="qnaContent"></textarea>
 <br>
-
-  <select id="area" onchange="qnaArea(this);">
-
+  <select id="qnaArea" name="qnaArea">
     <option value="강남구">강남구</option>
     <option value="서초구">서초구</option>
     <option value="은평구">은평구</option>
@@ -50,9 +48,8 @@
 <button type="reset"  class="btn btn-danger">취소하기</button>
 </form>
 <script>
-function qnaArea(){
+   let qnaArea = document.getElementById("qnaArea");
 
-}
 </script>
 </body>
 </html>

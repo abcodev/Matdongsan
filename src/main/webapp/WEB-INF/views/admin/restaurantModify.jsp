@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<jsp:include page="../common/header.jsp" />
+<jsp:include page="../template/header.jsp" />
 
 <form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
     <div id="content">
