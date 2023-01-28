@@ -11,7 +11,7 @@
 
     <h2>자유게시판</h2>
 
-    <form id="enrollForm" method="post" action="${pageContext.request.contextPath}/board/fInsert/F">
+    <form id="enrollForm" method="post" action="${pageContext.request.contextPath}/board/freeList/insert">
         title : <input type="text" name="boardTitle">
         <br>
         <input type="hidden" name="boardWriter" value="${loginUser.memberName}">

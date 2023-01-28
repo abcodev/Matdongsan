@@ -2,10 +2,6 @@ package com.project.realestate.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Map;
 
 @Data
 @AllArgsConstructor
