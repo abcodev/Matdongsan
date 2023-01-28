@@ -15,6 +15,13 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * 실시간 알림 구독하는 flow -> 로그인 시점
+ *
+ * 사용자 -> RealtimAlarmController -> (subscribe) -> AlarmEventProducer
+ *          (session -> memberNo)
+ */
+
 @Controller
 @RequiredArgsConstructor
 public class RealtimeAlarmController {

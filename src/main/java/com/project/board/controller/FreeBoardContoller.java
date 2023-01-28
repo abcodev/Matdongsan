@@ -27,24 +27,4 @@ public class FreeBoardContoller {
 
 
 
-
-//        @RequestMapping("/flist")
-//        public String selectFlist(
-//            @RequestParam(value = "fpage", required = false, defaultValue = "1") int currentPage,
-//            Model model,
-//            @RequestParam Map<String, Object> paramMap) {
-//            Map<String, Object> map = new HashMap();
-//            map = boardService.selectFlist(currentPage);
-//            paramMap.put("fpage", currentPage);
-//            map = boardService.selectFlist(paramMap);
-//        model.addAttribute("map", map);
-//        return "board/freeBoardList";
-//   }
-
-//    // 게시글 등록
-//    @RequestMapping("/enroll/{boardCode}")
-//    public String enrollFormFboard(@PathVariable("boardCode") String boardCode, Model model){
-//
-//
-//    }
 }

@@ -1,12 +1,12 @@
 package com.project.realestate.controller;
 
+import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListRequest;
 import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
-import com.project.realestate.vo.RealEstateSell;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -57,28 +57,25 @@ public class RealEstateController {
 
 
     @RequestMapping("/list/state")
-    @ResponseBody
+    @ResponseBody // 데이터를 HttpMessageConverter를 사용해 응답 본문 메시지로 보낼 때
     public ResponseEntity<List<String>> realEstateDong(@RequestParam String state) {
-        return ResponseEntity.ok(
+        // ResponseEntity : HttpRequest에 대한 응답 데이터가 담겨있음
+        // 목적: 결과값, 상태코드, 헤더값 등을 클라이언트단에 넘겨주기 위함, 응답 상태코드를 직접 담고싶을떄 사용
+        return ResponseEntity.ok( // HTTP OK(200) 응답을 bjdName 목록을 반환
                 realEstateService.searchDongList(state).stream()
                         .map(RealEstateRent::getBjdName)
                         .collect(Collectors.toList())
         );
     }
-    // state를 매개변수로 전달하여 realEstateService 오브젝트에서 searchDongList 메소드를 호출하고
-    // 반환된 RealEstateRent 목록은 bjdName에 맵핑되고 새 목록으로 수집함
-    // HTTP OK(200) 응답을 bjdName 목록을 반환
 
 
+    @RequestMapping("/detail")
+    public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
+                                         ModelAndView modelAndView) {
 
-//    @RequestMapping("/detail")
-//    public ModelAndView realEstateDetail(
-//            @RequestParam("rentNo") String rentNo,
-//            ModelAndView modelAndView) {
-//        RealEstateSell realEstateDetail = realEstateService.realEstateDetail(rentNo);
-//        modelAndView.setViewName("realestate/realEstateDetail");
-//        return modelAndView;
-//    }
-
+        RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
+        modelAndView.setViewName("realestate/realEstateDetailPage");
+        return modelAndView;
+    }
 
 }

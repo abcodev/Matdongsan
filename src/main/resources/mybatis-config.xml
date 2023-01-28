@@ -20,7 +20,6 @@
         <typeAlias type="com.project.restaurant.vo.ResImg" alias="resImg"/>
         <typeAlias type="com.project.board.vo.FreeBoard" alias="FBoard"/>
         <typeAlias type="com.project.board.vo.QnaBoard" alias="QBoard"/>
-<!--        <typeAlias type="com.project.board.vo.BoardType" alias="boardType"/>-->
         <typeAlias type="com.project.chat.dto.ChatingRoom" alias="chatingRoom"/>
     </typeAliases>
 
