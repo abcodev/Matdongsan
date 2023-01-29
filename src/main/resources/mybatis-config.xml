@@ -18,7 +18,7 @@
         <typeAlias type="com.project.restaurant.vo.ResHashtag" alias="resHashtag"/>
         <typeAlias type="com.project.restaurant.vo.Review" alias="review"/>
         <typeAlias type="com.project.restaurant.vo.ResImg" alias="resImg"/>
-        <typeAlias type="com.project.board.vo.FreeBoard" alias="FBoard"/>
+        <typeAlias type="com.project.board.vo.FreeBoard" alias="freeBoard"/>
         <typeAlias type="com.project.board.vo.QnaBoard" alias="QBoard"/>
         <typeAlias type="com.project.chat.dto.ChatingRoom" alias="chatingRoom"/>
     </typeAliases>
@@ -31,9 +31,9 @@
         <mapper resource="/mappers/hashtag-mapper.xml"/>
         <mapper resource="/mappers/resHashtag-mapper.xml"/>
         <mapper resource="/mappers/board-mapper.xml"/>
+        <mapper resource="/mappers/freeBoard-mapper.xml"/>
         <mapper resource="/mappers/chat-mapper.xml"/>
         <mapper resource="/mappers/alarm-mapper.xml"/>
-        <mapper resource="/mappers/freeBoard-mapper.xml"/>
     </mappers>
 
 </configuration>

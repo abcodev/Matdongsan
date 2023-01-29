@@ -5,7 +5,29 @@
 
 <mapper namespace="freeBoardMapper">
 
+    <resultMap type="freeBoard" id="fBoardResultSet">
+        <result column="FREE_BNO" property="boardNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_WRITER" property="boardWriter"/>
+        <result column="BOARD_CONTENT" property="boardContent"/>
+        <result column="BOARD_DATE" property="boardDate"/>
+        <result column="BOARD_AREA" property="boardArea"/>
+        <result column="STATUS" property="status"/>
+        <result column="BOARD_CD" property="boardCd"/>
+        <result column="COUNT" property="count"/>
+    </resultMap>
 
 
 
+    <insert id="insertFboard" parameterType="freeBoard">
+        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA)
+        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
+    </insert>
 </mapper>
+
+
+
+
+
+
