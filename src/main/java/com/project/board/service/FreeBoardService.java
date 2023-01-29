@@ -11,5 +11,5 @@ public interface FreeBoardService {
 
     public int insertFboard(FreeBoard fb);
 
-    List<FreeBoard> selectFreeList();
+    List<FreeBoard> selectFreeList(Map<String,String> option);
 }
