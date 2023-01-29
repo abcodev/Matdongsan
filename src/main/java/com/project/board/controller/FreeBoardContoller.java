@@ -24,12 +24,11 @@ import java.util.Map;
 public class FreeBoardContoller {
 
     private final FreeBoardService freeBoardService;
-    @Autowired
-    private FreeBoardService boardService;
 
     @RequestMapping("/freeList")
     public String selectFreeList(ModelAndView modelAndView) {
-        List<FreeBoard> freeBoardList = freeBoardService.selectFreeList();
+        modelAndView.addObject(freeBoardService.selectFreeList());
+        modelAndView.addObject(StateList.values());
         return "board/freeBoardList";
     }
 
@@ -48,7 +47,7 @@ public class FreeBoardContoller {
                                   Model model, FreeBoard fb){
         model.addAttribute("boardWrtier", boardWriter);
 
-        boardService.insertFboard(fb);
+        freeBoardService.insertFboard(fb);
 
         //int fno = boardService.selectFno(fb);
 
