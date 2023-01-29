@@ -33,6 +33,7 @@
         <mapper resource="/mappers/board-mapper.xml"/>
         <mapper resource="/mappers/chat-mapper.xml"/>
         <mapper resource="/mappers/alarm-mapper.xml"/>
+        <mapper resource="/mappers/freeBoard-mapper.xml"/>
     </mappers>
 
 </configuration>
