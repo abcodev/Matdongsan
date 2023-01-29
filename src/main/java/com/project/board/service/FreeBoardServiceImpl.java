@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public List<FreeBoard> selectFreeList(Map<String,String> option) {
         return freeBoardDao.selectFreeList(sqlSession,option);
     }
+
+
+
 
 }

@@ -167,6 +167,8 @@ public class RestaurantController {
         modelAndView.setViewName("redirect:/selectResList");
         return modelAndView;
     }
+
+
 }
 
 

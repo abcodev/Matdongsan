@@ -24,7 +24,6 @@ public class FreeBoardController {
     private final FreeBoardService freeBoardService;
 
     @RequestMapping("/freeList")
-    @ResponseBody
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "state", defaultValue = "" ) String state,
                                        @RequestParam(value = "search", defaultValue = "") String search
@@ -40,16 +39,6 @@ public class FreeBoardController {
         System.out.println("모델값"+modelAndView);
         return modelAndView;
     }
-
-//    @RequestMapping("searchList")
-//    public ResponseEntity<?> searchList(ModelAndView modelAndView,
-//             @RequestParam(value = "state", defaultValue = "" ) String state,
-//             @RequestParam(value = "search", defaultValue = "") String search){
-//
-//
-//
-//        return ResponseEntity();
-//    }
 
 
     // 게시글 작성폼
