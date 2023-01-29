@@ -22,10 +22,17 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class KakaoOAuthClient implements OAuthClient {
 
+    /*
+        클래스 & 객체
+        클래스 : 클래스에 있는 공간(변수)
+        클래스 1개당 객체는 n개 나올 수 있다.
+        인스턴스 변수 : 객체마다 따로따로 있는것.
+     */
+
     // final static 은 상수, 고정된 값 표현하기위해 주로 씀
+    // 객체생성을 위한 메서드에는 static 을 붙여야 함
     private final static String AUTH_BASE_URL = "https://kauth.kakao.com";
     private final static String API_BASE_URL = "https://kapi.kakao.com";
-
     private final RestTemplate restTemplate;
 
     @Override

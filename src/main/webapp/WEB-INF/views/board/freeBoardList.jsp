@@ -23,7 +23,6 @@
     <div class="content head">
         <div class="search_input">
             <input type="text">
-
         </div>
         <div class="search_icon">
 

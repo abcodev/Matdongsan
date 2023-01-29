@@ -19,12 +19,8 @@ public class FreeBoardContoller {
     @Autowired
     private FreeBoardService boardService;
 
-
     @RequestMapping("/freeList")
     public String selectFreeList() {
         return "board/freeBoardList";
     }
-
-
-
 }

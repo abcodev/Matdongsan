@@ -34,11 +34,10 @@ public class RestaurantController {
      * 동네맛집 리스트
      */
     @RequestMapping("/selectResList")
-    public ModelAndView restaurantList() {
+    public ModelAndView restaurantList(ModelAndView modelAndView) {
         List<String> stateList = restaurantService.selectStateList();
         List<Hashtag> hashtagList = restaurantService.selectHashtagList();
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("stateList", stateList);
         modelAndView.addObject("hashtagList", hashtagList);
 
@@ -52,11 +51,12 @@ public class RestaurantController {
     @RequestMapping("/restaurants")
     public ModelAndView selectResList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                       @RequestParam(value = "state", defaultValue = "") String state,
-                                      @RequestParam(value = "hashtag", defaultValue = "") List<String> hashtags) {
+                                      @RequestParam(value = "hashtag", defaultValue = "") List<String> hashtags,
+                                      ModelAndView modelAndView) {
+
         RestaurantListRequest req = new RestaurantListRequest(currentPage, state, hashtags);
         RestaurantListResponse resp = restaurantService.selectList(req);
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectResList", resp.getRestaurantList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("restaurant/restaurantContents");
@@ -111,9 +111,9 @@ public class RestaurantController {
 
     @PostMapping("/admin/resInsert")
     public String restaurantInsert(@RequestParam("file") MultipartFile file,
+                                   @RequestParam("hashtagId") List<String> hashtagId,
                                    Restaurant restaurant,
                                    HttpSession session,
-                                   @RequestParam("hashtagId") List<String> hashtagId,
                                    RedirectAttributes redirectAttributes,
                                    HttpServletRequest req) {
 
