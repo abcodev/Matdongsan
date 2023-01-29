@@ -118,7 +118,6 @@ public class QnaBoardController {
             mv.setViewName("board/qnaDetailList");
 
         return mv;
-
     }
 
     @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)
