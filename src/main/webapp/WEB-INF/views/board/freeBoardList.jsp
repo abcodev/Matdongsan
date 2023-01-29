@@ -42,7 +42,7 @@
 
                 </div>
                 <div id="writebtn">
-
+                    <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
                 </div>
             </div>
             <div id="boardlist_main">
@@ -58,6 +58,11 @@
     </div>
 </main>
 
+<script>
+    function movePage(){
+        location.href = '${pageContext.request.contextPath}/board/freeList/enrollForm';
+    }
+</script>
 
 </body>
 </html>
