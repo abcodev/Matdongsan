@@ -4,33 +4,37 @@ import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
 import com.project.common.type.StateList;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
-public class FreeBoardContoller {
+public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
-    @Autowired
-    private FreeBoardService boardService;
 
     @RequestMapping("/freeList")
-    public String selectFreeList(ModelAndView modelAndView) {
-        List<FreeBoard> freeBoardList = freeBoardService.selectFreeList();
-        return "board/freeBoardList";
+    public ModelAndView selectFreeList(ModelAndView modelAndView,
+                                       @RequestParam(value = "state", defaultValue = "" ) String state,
+                                       @RequestParam(value = "search", defaultValue = "") String search
+    ){
+        Map<String,String> option = new HashMap<>();
+        option.put("state",state);
+        option.put("search",search);
+        System.out.println("map값" + option.get("state"));
+        modelAndView.addObject("freeBoardList", freeBoardService.selectFreeList(option));
+        modelAndView.addObject("stateList", StateList.values());
+        modelAndView.setViewName("board/freeBoardList");
+        System.out.println("zzz"+StateList.values());
+        return modelAndView;
     }
 
 
@@ -48,7 +52,7 @@ public class FreeBoardContoller {
                                   Model model, FreeBoard fb){
         model.addAttribute("boardWrtier", boardWriter);
 
-        boardService.insertFboard(fb);
+        freeBoardService.insertFboard(fb);
 
         //int fno = boardService.selectFno(fb);
 
