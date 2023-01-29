@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,10 +16,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     private final FreeBoardDao freeBoardDao;
     private final SqlSession sqlSession;
-    private final PageInfoCombine pageInfoCombine;
-
-
-
 
 
     // 게시글 등록

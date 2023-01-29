@@ -15,7 +15,7 @@
     <div id="content_left">
         <div class="info_table head">
             <div id="name">건물명</div>
-            <div id="heart"></div>
+            <div id="heart">관심목록 저장</div>
         </div>
 
 
