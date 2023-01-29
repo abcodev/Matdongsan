@@ -137,7 +137,6 @@ public class QnaBoardController {
             mv.setViewName("board/qnaDetailList");
 
         return mv;
-
     }
 }
 
