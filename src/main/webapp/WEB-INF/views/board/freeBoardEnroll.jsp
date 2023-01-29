@@ -12,7 +12,7 @@
     <h2>자유게시판</h2>
 
     <form id="enrollForm" method="post" action="${pageContext.request.contextPath}/board/freeList/insert">
-        title : <input type="text" name="boardTitle">
+        title : <input type="text" name="boardTitle" required>
         <br>
         <input type="hidden" name="boardWriter" value="${loginUser.memberName}">
 
@@ -47,7 +47,7 @@
 
         <br><br>
 
-        content : <textarea name="boardContent" id="boardContent"></textarea>
+        content : <textarea name="boardContent" id="boardContent" required></textarea>
 
         <br><br>
         <button type="submit" class="btn btn-primary">등록하기</button>

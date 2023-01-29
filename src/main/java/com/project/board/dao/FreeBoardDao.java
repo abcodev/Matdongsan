@@ -16,11 +16,15 @@ import java.util.Map;
 @Repository
 public class FreeBoardDao {
 
+    public List<FreeBoard> selectFreeList(SqlSession sqlSession) {
+        return sqlSession.selectList("freeBoardMapper.selectFreeList");
+    }
+
     public int insertFboard(SqlSession sqlSession, FreeBoard fb){
         return sqlSession.insert("freeBoardMapper.insertFboard", fb);
     }
 
-    public List<FreeBoard> selectFreeList(SqlSession sqlSession) {
-        return sqlSession.selectList("freeBoardMapper.selectFreeList");
+    public FreeBoard selectFboard (SqlSession sqlSession, int fno){
+        return sqlSession.selectOne("freeBoardMapper.selectFboard", fno);
     }
 }

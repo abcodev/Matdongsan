@@ -24,6 +24,20 @@
         INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA)
         VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
     </insert>
+
+    <select id="selectFboard" parameterType="int" resultMap="fBoardResultSet">
+        SELECT
+            FREE_BNO,
+            BOARD_TITLE,
+            BOARD_WRITER,
+            BOARD_AREA,
+            BOARD_CONTENT,
+            BOARD_DATE
+        FROM FREE_BOARD F
+        LEFT JOIN MEMBER M ON F.MEMBER_NO = M.MEMBER_NO
+        WHERE F.STATUS = 'Y'
+          AND FREE_BNO = #{fno}
+    </select>
 </mapper>
 
 

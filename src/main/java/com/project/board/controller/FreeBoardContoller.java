@@ -57,10 +57,11 @@ public class FreeBoardContoller {
     }
 
     // 게시글 상세보기
-    @RequestMapping("freeList/detail")
-    public ModelAndView detailFreeBoard(ModelAndView mv, int fno){
-        //FreeBoard fb = boardService.selectFboard(fno);
+    @RequestMapping("freeList/detail/{fno}")
+    public ModelAndView detailFreeBoard(ModelAndView mv, @PathVariable("fno") int fno){
+        FreeBoard fb = boardService.selectFboard(fno);
 
+        mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;
     }
