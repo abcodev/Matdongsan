@@ -38,7 +38,7 @@
              <mvc:interceptor> <!-- 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.-->
                  <mvc:mapping path="/admin/**"/>
 <!--                 <mvc:exclude-mapping path="/"/>-->
-                 <beans:bean class="com.project.common.aop.AccessInterceptor"/>
+                 <beans:bean class="com.project.common.aop.AdminAccessInterceptor"/>
              </mvc:interceptor>
 
        </mvc:interceptors>
