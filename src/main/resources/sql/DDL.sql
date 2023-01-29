@@ -516,7 +516,6 @@ CREATE TABLE "FREE_BOARD"
     "BOARD_DATE"    TIMESTAMP    DEFAULT localtimestamp NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
-
 );
 
 COMMENT
