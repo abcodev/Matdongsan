@@ -1,10 +1,13 @@
 package com.project.chat.controller;
 
+import com.project.chat.dto.MessageDto;
+import com.project.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Map;
 
@@ -12,11 +15,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class StompController {
 
+    private final ChatService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/chat/271ee544-6a30-425f-9e8e-dcee975627a0")
-    public void sendMsg(@Payload Map<String,Object> data){
-//        simpMessagingTemplate.convertAndSend("/topic/271ee544-6a30-425f-9e8e-dcee975627a0",data);
-        simpMessagingTemplate.convertAndSend("/topic/271ee544-6a30-425f-9e8e-dcee975627a0",data);
+    @MessageMapping("/chat/send")
+    public void sendMsg(MessageDto data){
+        System.out.println("data"+data);
+        chatService.sendMessage(data);
+
+        simpMessagingTemplate.convertAndSend("/topic/"+data.getRoomNo(),data);
     }
 }

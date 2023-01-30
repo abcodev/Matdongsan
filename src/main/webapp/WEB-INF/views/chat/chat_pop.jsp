@@ -45,136 +45,135 @@
 
 
 <script>
-  // var INDEX = 0;
-  //   var msg = $("#chat-input").val();
-  //   if (msg.trim() == "") {
-  //     return false;
-  //   }
-  //   generate_message(msg, "self");
-  //   var buttons = [
-  //     {
-  //       name: "Existing User",
-  //       value: "existing"
-  //     },
-  //     {
-  //       name: "New User",
-  //       value: "new"
-  //     }
-  //   ];
-  //   setTimeout(function () {
-  //     generate_message(msg, "user");
-  //   }, 1000);
-  // });
+    // var INDEX = 0;
+    //   var msg = $("#chat-input").val();
+    //   if (msg.trim() == "") {
+    //     return false;
+    //   }
+    //   generate_message(msg, "self");
+    //   var buttons = [
+    //     {
+    //       name: "Existing User",
+    //       value: "existing"
+    //     },
+    //     {
+    //       name: "New User",
+    //       value: "new"
+    //     }
+    //   ];
+    //   setTimeout(function () {
+    //     generate_message(msg, "user");
+    //   }, 1000);
+    // });
 
-  // function generate_message(msg, type) {
-  //   INDEX++;
-  //   var str = "";
-  //   str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
-  //   str += '          <span class="msg-avatar">';
-  //   str += "          </span>";
-  //   str += '          <div class="cm-msg-text">';
-  //   str += msg;
-  //   str += "          </div>";
-  //   str += "        </div>";
-  //   $(".chat-logs").append(str);
-  //   $("#cm-msg-" + INDEX)
-  //           .hide()
-  //           .fadeIn(300);
-  //   if (type == "self") {
-  //     $("#chat-input").val("");
-  //   }
-  //   $(".chat-logs")
-  //           .stop()
-  //           .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-  // }
+    // function generate_message(msg, type) {
+    //   INDEX++;
+    //   var str = "";
+    //   str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
+    //   str += '          <span class="msg-avatar">';
+    //   str += "          </span>";
+    //   str += '          <div class="cm-msg-text">';
+    //   str += msg;
+    //   str += "          </div>";
+    //   str += "        </div>";
+    //   $(".chat-logs").append(str);
+    //   $("#cm-msg-" + INDEX)
+    //           .hide()
+    //           .fadeIn(300);
+    //   if (type == "self") {
+    //     $("#chat-input").val("");
+    //   }
+    //   $(".chat-logs")
+    //           .stop()
+    //           .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+    // }
 
-  // $(document).delegate(".chat-btn", "click", function () {
-  //   var value = $(this).attr("chat-value");
-  //   var name = $(this).html();
-  //   $("#chat-input").attr("disabled", false);
-  //   generate_message(name, "self");
-  // });
-
-
+    // $(document).delegate(".chat-btn", "click", function () {
+    //   var value = $(this).attr("chat-value");
+    //   var name = $(this).html();
+    //   $("#chat-input").attr("disabled", false);
+    //   generate_message(name, "self");
+    // });
 
 
 
 
 
-  $("#chat-circle").click(function () {
-    $.ajax({
-      url: '${pageContext.request.contextPath}/createChatRoom',
-      type: "POST",
-      success :function (room){
-        $("#chat-circle").toggle("scale");
-        $(".chat-box").toggle("scale");
-        console.log(room);
-        let roomNo = room.roomNo
-        $("#roomNo").val(roomNo);
-        connection(roomNo);
-      },
-      fail : function (){
-        alert("사용 실패")
-        $("#chat-circle").toggle("scale");
-      }
-
-    })
-
-  });
-
-  $(".chat-box-toggle").click(function () {
-    $("#chat-circle").toggle("scale");
-    $(".chat-box").toggle("scale");
-  });
 
 
-  function connection(roomNo) {
-    let socket = new SockJS("/Matdongsan/mainPage");
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, onConnected(roomNo));
-  }
-  function onConnected(roomNo) {
-    alert("연결 성공!");
-    // console.log('Connected: ' + frame);
-    setTimeout(function() {
-      stompClient.subscribe('/topic/'+ roomNo, function (e){
-        showMessage(JSON.parse(e .body));
+    $("#chat-circle").click(function () {
+      $.ajax({
+        url: '${pageContext.request.contextPath}/createChatRoom',
+        type: "POST",
+        success :function (room){
+          $("#chat-circle").toggle("scale");
+          $(".chat-box").toggle("scale");
+          console.log(room);
+          let roomNo = room.roomNo
+          $("#roomNo").val(roomNo);
+          connection(roomNo);
+              },
+        fail : function (){
+          alert("사용 실패")
+          $("#chat-circle").toggle("scale");
+              }
+      })
+
+    });
+
+    $(".chat-box-toggle").click(function () {
+      $("#chat-circle").toggle("scale");
+      $(".chat-box").toggle("scale");
+    });
+
+
+    function connection(roomNo) {
+      let socket = new SockJS("/Matdongsan/mainPage");
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, onConnected(roomNo));
+    }
+    function onConnected(roomNo) {
+      alert("연결 성공!");
+      // console.log('Connected: ' + frame);
+      setTimeout(function() {
+        stompClient.subscribe('/topic/'+ roomNo, function (e){
+          showMessage(JSON.parse(e .body));
       });
     }, 500);};
 
 
-  //엔터 눌렀을때 전송
-  $('#chat-submit').keypress(function(e){
+    //엔터 눌렀을때 전송
+    $('#chat-submit').keypress(function(e){
 
-    if(e.keyCode===13){
-      send();
+      if(e.keyCode===13){
+        send();
+      }
+    });
+
+    function showMessage(data){
+      if(data.sender==='${loginUser.memberNo}'){
+        $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>");
+      } else {
+        $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>");
+      }
     }
-  });
 
-  function showMessage(data){
-    if(data.sender==='${loginUser.memberNo}'){
-      $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>");
-    } else {
-      $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>");
+
+    //메시지 브로커로 메시지 전송
+    function send(){
+      const roomNo = $("#roomNo").val();
+      const data = {
+        'sender' : ${loginUser.memberNo},
+        'contents': $("#chat-input").val(),
+        'roomNo' : roomNo
+      };
+      // send(destination,헤더,페이로드)
+      stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+      $("#chat-input").val('');
     }
-  }
-
-
-  //메시지 브로커로 메시지 전송
-  function send(){
-    const data = {
-      'sender' : ${loginUser.memberNo},
-      'contents': $("#chat-input").val(),
-      'roomId' : $("#chat-input").val('')
-    };
-    const roomNo = $("#roomNo").val();
-    // send(destination,헤더,페이로드)
-    stompClient.send("/app/chat/"+roomNo, {}, JSON.stringify(data));
-    $("#chat-input").val('');
-  }
-  $("#chat-submit").click(function (e) {
-    e.preventDefault();
-  })
+    $("#chat-submit").click(function (e) {
+      e.preventDefault();
+    })
 
 </script>
 </body>

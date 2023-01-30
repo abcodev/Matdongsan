@@ -124,6 +124,7 @@ import com.project.chat.dto.ChatingRoom;
 import com.project.chat.dto.RoomCheckDto;
 import com.project.chat.service.ChatService;
 import com.project.member.vo.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -136,10 +137,11 @@ import java.util.UUID;
 
 @Controller
 @SessionAttributes("loginUser")
+@RequiredArgsConstructor
 public class ChatController {
 
-    @Autowired
-    ChatService chatService;
+
+    private final ChatService chatService;
 
 
     @PostMapping("/createChatRoom")
@@ -152,6 +154,7 @@ public class ChatController {
         // 나가기 버튼을 누르면 소켓 통신 연결 끊기
         // 그후 다시 문의하면 db에서 roomId에 따른 채팅 내용을 불러온다.
         // 불러올때도 보낸이와 회원 아이디 비교해서 내가 보낸건지 상대방이 보낸건지 구분하기.
+
         ChatingRoom find = chatService.findRoom(loginUser.getMemberNo());
         if(ObjectUtils.isEmpty(find)) {
             ChatingRoom room = ChatingRoom.create(loginUser.getMemberNo());
@@ -159,10 +162,8 @@ public class ChatController {
             chatService.enterChatRoom(room,loginUser.getMemberNo());
             return ResponseEntity.ok(room);
         }else{
+            System.out.println("확인"+find.getRoomNo());
             return ResponseEntity.ok(find);
         }
     }
-
-
-
 }
