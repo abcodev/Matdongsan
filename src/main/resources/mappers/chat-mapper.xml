@@ -9,6 +9,15 @@
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 
+    <resultMap id="chatMessage" type="chatMessageResultSet">
+        <result column="CM_NO" property=""/>
+        <result column="CHAT_ROOM_NO" property=""/>
+        <result column="SEND_NO" property=""/>
+        <result column="CREATE_DATE" property=""/>
+        <result column="READ" property=""/>
+        <result column="MS_CONTENT" property=""/>
+    </resultMap>
+
 
     <insert id="chatRoomInsert">
         INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
