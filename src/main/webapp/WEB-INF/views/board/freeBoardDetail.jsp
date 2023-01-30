@@ -7,6 +7,7 @@
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
 
@@ -41,7 +42,7 @@
         <div class="reply_head">
             <i class="fa-regular fa-comments"></i>
             <p>댓글</p>
-            <p>댓글수</p>
+            <p>댓글수 (<span id="rcount"></span>) </p>
         </div>
         <div class="reply_body">
             <table>
@@ -54,8 +55,8 @@
         <div class="reply_foot">
             <div>
                 <div class="my_img"><img src="<c:url value="/resources/images/common/맛동산메인로고.png"/>"></div>
-                <input type="text">
-                <button onclick="insertReply();">등록</button>
+                <input name="replyContent" type="text">
+                <button onclick="insertReply();">댓글 등록</button>
             </div>
         </div>
     </div>
@@ -64,9 +65,47 @@
 
 <!-- 댓글 등록 -->
 <script>
-    function insertReply(){
-        $.ajax({
-            url : "${pageContext.request.contextPath}/board/insertReply",
+
+
+        $(function(){
+            selectReplyList();
+        });
+
+        function selectReplyList(){
+            $.ajax({
+                url : '${pageContext.request.contextPath}/board/replyList',
+                data : {fno : '${fb.boardNo}'},
+                dataType : 'json',
+                success : function(result){
+                    console.log(result);
+                    let html = ""
+                    for(let reply of result){
+                        html += "<tr>"
+                            + "<td>" + reply.nickName + "</td>"
+                            + "<td>" +reply.replyContent + "</td>"
+                            + "<td>" +reply.replyDate + "</td>"
+                            + "</tr>";
+                    }
+                    $("#replyArea tbody").html(html);
+                    $("#rcount").html(result.length);
+                }
+            })
+        }
+
+        function insertReply(){
+            $.ajax({
+                url : "${pageContext.request.contextPath}/board/insertReply",
+                data: {freeBno : '${fb.boardNo}',
+                        replyContent : $('textarea[name="replyContent"]:visible').val()},
+                success : function(result){
+                            if(result == "1"){
+								alertify.alert("서비스 요청 성공", '댓글등록 성공');
+							}
+							selectReplyList();
+                        },
+                complete : function(){
+							$('textarea[name="replyContent"]').val("");
+						}
 
         })
     }
@@ -75,4 +114,3 @@
 
 </body>
 </html>
-
