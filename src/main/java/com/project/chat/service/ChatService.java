@@ -33,6 +33,8 @@ public class ChatService {
      * 채팅방 만들기
      */
     public void createRoom(ChatingRoom room) {
+
+
         chatRepository.createRoom(room);
     }
 

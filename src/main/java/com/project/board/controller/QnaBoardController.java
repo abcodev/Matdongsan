@@ -26,31 +26,20 @@ public class QnaBoardController {
     @Autowired
     private QnaBoardService boardService;
 
-
     @RequestMapping("/qnaList")
     public String selectList(@RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
                              @RequestParam Map<String, Object> paramMap,
                              Model model,
                              HttpSession session) {
         Map<String, Object> map = new HashMap();
-
-
         if (paramMap.get("condition") == null) {
-
             map = boardService.selectList(currentPage);
-
         } else {
             paramMap.put("cpage", currentPage);
-
             map = boardService.selectList(paramMap);
-
         }
-
         model.addAttribute("map", map);
-
         return "board/qnaBoardList";
-
-
     }
 
     /*게시글 작성페이지*/
@@ -129,7 +118,6 @@ public class QnaBoardController {
             mv.setViewName("board/qnaDetailList");
 
         return mv;
-
     }
 
     @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)

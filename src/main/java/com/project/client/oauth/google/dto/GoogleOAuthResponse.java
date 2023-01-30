@@ -25,7 +25,6 @@ public class GoogleOAuthResponse {
     private String profileImage;
 
 
-
     public OAuthUser toOAuth2USer(){
         return new OAuthUser("GOOGLE", id, name, email, profileImage);
     }

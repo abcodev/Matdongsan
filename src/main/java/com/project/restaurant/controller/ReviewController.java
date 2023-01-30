@@ -38,4 +38,7 @@ public class ReviewController {
         List<ReviewResponse> list = reviewService.selectReviewList(resNo);
         return ResponseEntity.ok(list);
     }
+
+//    @RequestMapping("/restaurant/deleteReview")
+
 }
