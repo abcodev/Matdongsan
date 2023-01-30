@@ -52,7 +52,7 @@ public class RealEstateSell {
                 .build();
     }
 
-//    public static RealEstateSell of2(RealEstateDetailDto realEstateDetailDto) {
+//    public static RealEstateSell of(RealEstateDetailDto realEstateDetailDto) {
 //        return RealEstateSell.builder()
 //                .estateNo(realEstateDetailDto.getEstateNo())
 //                .accYear(realEstateDetailDto.getAccYear())

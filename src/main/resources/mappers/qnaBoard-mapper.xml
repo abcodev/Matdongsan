@@ -155,7 +155,6 @@
             START WITH QNA_BNO = #{qBno}
             CONNECT BY PRIOR QNA_BNO = P_BNO
         )
-
     </update>
 
 

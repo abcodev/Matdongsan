@@ -8,7 +8,8 @@ import java.util.Map;
 
 public interface FreeBoardService {
 
-    List<FreeBoard> selectFreeList();
+
+    List<FreeBoard> selectFreeList(Map<String,String> option);
 
     public int insertFboard(FreeBoard fb);
 

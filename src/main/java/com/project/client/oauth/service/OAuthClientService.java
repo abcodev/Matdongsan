@@ -22,8 +22,7 @@ public class OAuthClientService {
         같은 요청인데도 처리하는 방식이 달라질 수 있음
 
         다형성이 가능하게 하는 원천 -> Upcasting
-        OauthClient 자리에 kakao~ 가 들어오게됨
-        KakaoOauthClient 안에서 재정의 해주는 것
+        OauthClient 자리에 kakao~~ 가 들어오게됨 -> KakaoOauthClient 안에서 재정의 해주는 것
         컴파일 시점에는 OAuthClient 였던 자리가 KakaoOauthClient 로 바뀌니까 -> 이게 되면 업캐스팅이 자동으로 될 수 있음
      */
 

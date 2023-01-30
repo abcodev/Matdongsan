@@ -19,8 +19,6 @@
             <div id="heart"><input type="checkbox"> 관심목록 </div>
         </div>
 
-
-
         <div class="info_table body">
             <table>
                 <tr>
@@ -30,7 +28,6 @@
                     <td>금액 : ${realEstateDetail.objAmt}</td>
                     <td>건축년도</td>
                 </tr>
-
             </table>
         </div>
 
@@ -144,12 +141,7 @@
 
                     }
                 });
-
-
             </script>
-
-
-
         </div>
     </div>
 </div>
