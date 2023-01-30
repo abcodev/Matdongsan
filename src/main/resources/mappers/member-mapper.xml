@@ -46,7 +46,13 @@
             NICKNAME = #{nickName},
             EMAIL = #{email},
             PHONE = #{phone},
-            ADDRESS = #{address}
+            ADDRESS = #{address},
+            GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
     </update>
+<!--    <update id="grade" parameterType="member">-->
+<!--        UPDATE MEMBER-->
+<!--        SET GRADE = 'GENERAL2'-->
+<!--        WHERE PROVIDER_ID = #{providerId}-->
+<!--    </update>-->
 </mapper>

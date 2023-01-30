@@ -35,9 +35,9 @@ public class MemberService {
 
     public MemberDto loginMember(MemberDto m){
 
-        MemberDto loginMem = memberDao.loginMember(sqlSession, m);
+        MemberDto loginMember = memberDao.loginMember(sqlSession, m);
 
-        return loginMem;
+        return loginMember;
     }
 
     public int updateMember(MemberDto m) {

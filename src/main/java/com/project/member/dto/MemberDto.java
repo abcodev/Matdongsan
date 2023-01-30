@@ -4,6 +4,7 @@ import lombok.*;
 
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 public class MemberDto {
 
@@ -12,4 +13,6 @@ public class MemberDto {
     private String email;
     private String phone;
     private String address;
+    private String provider;
+    private String providerId;
 }

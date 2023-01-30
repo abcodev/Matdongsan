@@ -18,18 +18,12 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/myPage")
-    public String myPage() {
-        return "member/myPage";
-    }
+    public String myPage(){return "member/myPage";}
 
     @RequestMapping(value = "/memberModify")
-    public String memberModify() {
-        return "member/memberModify";
-    }
+    public String memberModify(){return "member/memberModify";}
 
-    /**
-     * 회원정보를 수정하면 회원등급 변경
-     */
+    // 회원정보를 수정하면 회원등급 변경
     @RequestMapping(value = "/updateMember")
     public String updateMember(HttpSession session, Model model, MemberDto m) {
         int result = memberService.updateMember(m);
@@ -44,4 +38,13 @@ public class MemberController {
             return "common/errorPage";
         }
     }
+
+//    @ResponseBody
+//    public String updateGrade(HttpSession session, Model model, MemberDto m){
+//
+//        int result = memberService.updateGrade();
+//        if(result == 1){
+//            session.setAttribute("","");
+//        }
+//    }
 }
