@@ -15,6 +15,13 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/*
+    실시간 알림 구독 flow -> 로그인 시점
+
+    사용자 -> RealtimeAlarmController -> (subscribe) -> AlarmEventProducer
+             (session -> memberNo)
+ */
+
 @Controller
 @RequiredArgsConstructor
 public class RealtimeAlarmController {
@@ -40,5 +47,6 @@ public class RealtimeAlarmController {
         }
         return alarmEventProducer.subscribe(loginUser.getMemberNo());
     }
+
 
 }

@@ -1,6 +1,7 @@
 package com.project.realestate.vo;
 
 import com.project.client.seoulApi.dto.RealEstateSellDto;
+import com.project.realestate.dto.RealEstateDetailDto;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,7 +28,9 @@ public class RealEstateSell {
     private String buildYear;
     private String houseType;
 
+    private String estateNo;
     private String address;
+    private String gbn;
 
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {
@@ -48,4 +51,16 @@ public class RealEstateSell {
                 .houseType(realEstateSellDto.getHouseType())
                 .build();
     }
+
+//    public static RealEstateSell of(RealEstateDetailDto realEstateDetailDto) {
+//        return RealEstateSell.builder()
+//                .estateNo(realEstateDetailDto.getEstateNo())
+//                .accYear(realEstateDetailDto.getAccYear())
+//                .address(realEstateDetailDto.getAddress())
+//                .bldgNm(realEstateDetailDto.getBldgNm())
+//                .objAmt(realEstateDetailDto.getObjAmt())
+//                .bldgArea(realEstateDetailDto.getBldgArea())
+//                .gbn(realEstateDetailDto.getGbn())
+//                .build();
+//    }
 }

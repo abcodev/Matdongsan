@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="freeBoardMapper">
+
+    <resultMap type="freeBoard" id="fBoardResultSet">
+        <result column="FREE_BNO" property="boardNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_WRITER" property="boardWriter"/>
+        <result column="BOARD_CONTENT" property="boardContent"/>
+        <result column="BOARD_DATE" property="boardDate"/>
+        <result column="BOARD_AREA" property="boardArea"/>
+        <result column="STATUS" property="status"/>
+        <result column="COUNT" property="count"/>
+    </resultMap>
+
+
+    <insert id="insertFboard" parameterType="freeBoard">
+        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA)
+        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
+    </insert>
+
+    <select id="selectFreeList" parameterType="Map" resultMap="fBoardResultSet">
+        SELECT *
+        FROM FREE_BOARD
+        WHERE STATUS='Y'
+            <if test="!state.isBlank()">
+                AND BOARD_AREA = #{state}
+            </if>
+            <if test="!search.isBlank()">
+                AND (
+                    BOARD_TITLE like '%' || #{search} || '%'
+                    OR
+                    BOARD_WRITER like '%' || #{search} || '%'
+                    OR
+                    BOARD_CONTENT like '%' || #{search} || '%'
+                )
+            </if>
+    </select>
+</mapper>
+
+
+
+
+
+

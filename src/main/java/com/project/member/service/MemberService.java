@@ -43,6 +43,7 @@ public class MemberService {
     public int updateMember(MemberDto m) {
         return memberDao.updateMember(sqlSession, m);
     }
+
 }
 
 

@@ -45,9 +45,19 @@
                 <h3>주소</h3>
                 <input type="text" id="address" name="address" value="${loginUser.address}">
             </div>
+            <div class="userinfo interest">
+                <h3>관심구</h3>
+                    <select name="selectState" id="selectState" >
+                        <option value="">전체</option>
+                        <c:forEach var="stateList" items="${stateList}">
+                            <option value="${stateList}">${stateList}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
             <div class="btn_box">
                 <button>취소</button>
-                <button>수정</button>ㅓㅓㅓㅓㅓ
+                <button>수정</button>
             </div>
         </div>
     </form>

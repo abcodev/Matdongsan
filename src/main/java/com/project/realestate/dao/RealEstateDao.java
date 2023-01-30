@@ -1,9 +1,11 @@
 package com.project.realestate.dao;
 
 import com.project.common.template.PageInfoCombine;
+import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
 import com.project.realestate.vo.RealEstateRent;
+import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -57,4 +59,9 @@ public class RealEstateDao {
     }
 
 
+    public RealEstateDetailDto realEstateDetail(String estateNo) {
+        return sqlSession.selectOne("sellMapper.selectEstateDetail", estateNo);
+    }
+
 }
+

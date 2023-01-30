@@ -15,4 +15,6 @@ public class MemberDto {
     private String address;
     private String provider;
     private String providerId;
+    private String profileImage;
+    private String interestState;
 }
