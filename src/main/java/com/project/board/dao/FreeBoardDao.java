@@ -24,7 +24,4 @@ public class FreeBoardDao {
         return sqlSession.selectOne("freeBoardMapper.detailFreeBoard", fno);
     }
 
-    public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){
-        return sqlSession.selectOne("freeBoardMapper.detailFreeBoard", fno);
-    }
 }

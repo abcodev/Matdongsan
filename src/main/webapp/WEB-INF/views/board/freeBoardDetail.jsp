@@ -47,7 +47,6 @@
             <table>
                 <tr>
                     <td>
-                        <input type="text">
                     </td>
                 </tr>
             </table>
@@ -76,3 +75,4 @@
 
 </body>
 </html>
+
