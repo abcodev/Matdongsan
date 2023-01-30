@@ -10,6 +10,7 @@
 
     <typeAliases>
         <typeAlias type="com.project.member.vo.Member" alias="member"/>
+        <typeAlias type="com.project.member.dto.MemberDto" alias="memberDto"/>
         <typeAlias type="com.project.alarm.vo.Alarm" alias="alarm" />
         <typeAlias type="com.project.realestate.vo.RealEstateSell" alias="realEstateSell"/>
         <typeAlias type="com.project.realestate.vo.RealEstateRent" alias="realEstateRent"/>

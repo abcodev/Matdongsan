@@ -36,6 +36,7 @@ public class Member {
     private String status;
     private MemberGrade grade = MemberGrade.GENERAL;
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
+    private String interestState;
 
     public static Member of(OAuthUser oAuthUser) {
         return Member.builder()
