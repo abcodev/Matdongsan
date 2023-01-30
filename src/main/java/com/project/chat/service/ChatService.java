@@ -4,6 +4,7 @@ package com.project.chat.service;
 //import com.project.chat.repository.ChatRepository;
 import com.project.chat.dto.ChatRoomJoin;
 import com.project.chat.dto.ChatingRoom;
+import com.project.chat.dto.MessageDto;
 import com.project.chat.dto.RoomCheckDto;
 import com.project.chat.repository.ChatRepository;
 import com.project.member.vo.Member;
@@ -52,6 +53,9 @@ public class ChatService {
         return chatRepository.findRoom(memberNo);
     }
 
+    public void sendMessage(MessageDto data) {
+        chatRepository.sendMessage(data);
+    }
 
 
 //

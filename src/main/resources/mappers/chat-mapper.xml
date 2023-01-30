@@ -26,4 +26,11 @@
         INSERT INTO CHAT_ROOM_JOIN(CHAT_ROOM_NO, MEMBER_NO)
         VALUES (#{chatRoomNo},#{memberNo})
     </insert>
+
+    <insert id="sendMessage">
+        INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, CREATE_DATE, READ, MS_CONTENT)
+        VALUES (SEQ_CM_NO.nextval,#{roomNo},#{sender},default,default,#{contents})
+    </insert>
+
+
 </mapper>

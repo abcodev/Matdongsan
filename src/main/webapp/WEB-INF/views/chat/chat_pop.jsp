@@ -33,6 +33,7 @@
     </div>
     <div class="chat-input">
       <form>
+        <input type="hidden" id="roomNo">
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
         <button type="submit" class="chat-submit" id="chat-submit"><i
                 class="fa-regular fa-paper-plane" onclick="send();"></i></button>
@@ -109,13 +110,13 @@
           $(".chat-box").toggle("scale");
           console.log(room);
           let roomNo = room.roomNo
+          $("#roomNo").val(roomNo);
           connection(roomNo);
               },
         fail : function (){
           alert("사용 실패")
           $("#chat-circle").toggle("scale");
               }
-
       })
 
     });
@@ -129,17 +130,18 @@
     function connection(roomNo) {
       let socket = new SockJS("/Matdongsan/mainPage");
       stompClient = Stomp.over(socket);
-      stompClient.connect({}, onConnected(roomNo), onError);
+      stompClient.connect({}, onConnected(roomNo));
     }
     function onConnected(roomNo) {
       alert("연결 성공!");
-      stompClient.subscribe('/topic/'+ roomNo, function (e){
-        showMessage(JSON.parse(e .body));
+      // console.log('Connected: ' + frame);
+      setTimeout(function() {
+        stompClient.subscribe('/topic/'+ roomNo, function (e){
+          showMessage(JSON.parse(e .body));
       });
-    }
-    function onError() {
-      alert("연결 실패");
-    }
+    }, 500);};
+
+
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
 
@@ -156,14 +158,17 @@
       }
     }
 
+
     //메시지 브로커로 메시지 전송
     function send(){
-      data = {
+      const roomNo = $("#roomNo").val();
+      const data = {
         'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-input").val()
+        'contents': $("#chat-input").val(),
+        'roomNo' : roomNo
       };
       // send(destination,헤더,페이로드)
-      stompClient.send("/app/chat/271ee544-6a30-425f-9e8e-dcee975627a0", {}, JSON.stringify(data));
+      stompClient.send("/app/chat/send", {}, JSON.stringify(data));
       $("#chat-input").val('');
     }
     $("#chat-submit").click(function (e) {
