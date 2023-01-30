@@ -1,9 +1,11 @@
 package com.project.board.dao;
 
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.Reply;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,5 +24,13 @@ public class FreeBoardDao {
 
     public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){
         return sqlSession.selectOne("freeBoardMapper.detailFreeBoard", fno);
+    }
+
+    public int insertReply(SqlSession sqlSession, Reply r){
+        return sqlSession.insert("freeBoardMapper.insertReply", r);
+    }
+
+    public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int fno){
+        return (ArrayList) sqlSession.selectList("freeBoardMapper.selectReplyList", fno);
     }
 }

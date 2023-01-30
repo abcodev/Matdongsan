@@ -17,6 +17,15 @@
         <result column="COUNT" property="count"/>
     </resultMap>
 
+    <resultMap id="replyResultSet" type="reply">
+        <result column="REPLY_NO" property="replyNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="FREE_BNO" property="freeBno"/>
+        <result column="REPLY_CONTENT" property="replyContent"/>
+        <result column="REPLY_DATE" property="replyDate"/>
+        <result column="STATUS" property="status"/>
+    </resultMap>
+
 
     <insert id="insertFboard" parameterType="freeBoard">
         INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA)
@@ -46,6 +55,7 @@
             FREE_BNO,
             BOARD_TITLE,
             BOARD_WRITER,
+            M.PROFILE_IMAGE,
             BOARD_AREA,
             BOARD_CONTENT,
             BOARD_DATE
@@ -53,6 +63,24 @@
         LEFT JOIN MEMBER M ON F.MEMBER_NO = M.MEMBER_NO
         WHERE F.STATUS = 'Y'
           AND FREE_BNO = #{fno}
+    </select>
+
+    <insert id="insertReply" parameterType="Reply">
+        INSERT INTO REPLY (REPLY_NO, MEMBER_NO, FREE_BNO, REPLY_CONTENT)
+        VALUES (SEQ_REP_NO.nextval, #{memberNo}, #{freeBno}, #{replyContent})
+    </insert>
+
+    <select id="selectReplyList" parameterType="int" resultMap="replyResultSet">
+        SELECT
+            REPLY_NO,
+            FREE_BNO,
+            NICKNAME,
+            REPLY_CONTENT,
+            REPLY_DATE
+        FROM REPLY R
+        LEFT JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
+        WHERE STATUS = 'Y'
+            AND FREE_BNO = ${freeBno}
     </select>
 </mapper>
 
