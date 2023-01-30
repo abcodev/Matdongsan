@@ -75,15 +75,16 @@ public class ReviewService {
     }
 
     public List<String> retrieveTop2Hashtag(String resNo, List<String> excludeHashtags) {
+
         List<ResHashtagDto> resHashtagList = resHashtagDao.selectByResNo(resNo);
 
         Map<String, Long> hashtagCount = resHashtagList.stream() // List -> Stream
-                .map(ResHashtagDto::getHashtag) // ResHashtagDto -> HashTag
+                .map(ResHashtagDto::getHashtag) // ResHashtagDto -> HashTag 맵핑
                 .filter(hashtag -> !excludeHashtags.contains(hashtag)) // HashTag 중에 exclude 에 포함 안된거 필터
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
                     // HashTag 기준으로 Grouping -> [Key, Value] -> [HashTag, Counting] (Group By)
 
-        return hashtagCount.entrySet()
+        return hashtagCount.entrySet() // entrySet() : Map에 값을 전체 출력하기 위해, key와 value의 값이 모두 필요한 경우 사용
                 .stream() // Map<String, Long> -> Stream
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) // Value(Counting) 을 기준으로 내림차순 정렬
                 .map(Map.Entry::getKey) // Entry<String, Long> -> [Key, Value] -> [HashTag, Counting] -> HashTag

@@ -144,6 +144,13 @@ public class ChatController {
     public ResponseEntity<?> adminChatting(
             @ModelAttribute("loginUser") Member loginUser
     ){
+        // CHAT_ROOM 테이블에 회원 아이디 있으면 방을 생성하지 않음
+        // 그 roomId를 가져와서 거기 방으로 들어가기
+        // 채팅을 보냄과 동시에 디비에 저장.
+        // 나가기 버튼을 누르면 소켓 통신 연결 끊기
+        // 그후 다시 문의하면 db에서 roomId에 따른 채팅 내용을 불러온다.
+        // 불러올때도 보낸이와 회원 아이디 비교해서 내가 보낸건지 상대방이 보낸건지 구분하기.
+
         ChatingRoom room = ChatingRoom.create(loginUser.getMemberNo());
         chatService.createRoom(room);
         chatService.enterChatRoom(room,loginUser.getMemberNo());

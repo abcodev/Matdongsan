@@ -1,12 +1,10 @@
 package com.project.realestate.service;
 
 import com.project.common.template.PageInfoCombine;
-import com.project.realestate.dto.RealEstateMainListDto;
-import com.project.realestate.dto.RealEstateRentListFilter;
-import com.project.realestate.dto.RealEstateRentListRequest;
-import com.project.realestate.dto.RealEstateRentListResponse;
+import com.project.realestate.dto.*;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
+import com.project.restaurant.vo.Restaurant;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,14 +34,11 @@ public class RealEstateServiceImpl implements RealEstateService{
      */
     @Override
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
+
         RealEstateRentListFilter filter = RealEstateRentListFilter.from(req);
-
         int count = realEstateDao.selectListCountByFilter(filter);
-
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_BOARD_SIZE);
-
         List<RealEstateRent> result = realEstateDao.selectListByFilter(pageInfoCombine, filter);
-
         return new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
@@ -65,5 +60,10 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.getSellList(sqlSession);
     }
 
+
+    @Override
+    public RealEstateDetailDto realEstateDetail(String estateNo) {
+        return realEstateDao.realEstateDetail(estateNo);
+    }
 
 }
