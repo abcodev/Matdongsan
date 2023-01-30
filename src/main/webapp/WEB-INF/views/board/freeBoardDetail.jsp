@@ -47,7 +47,7 @@
             <table>
                 <tr>
                     <td>
-
+                        <input type="text">
                     </td>
                 </tr>
             </table>
@@ -56,10 +56,23 @@
             <div>
                 <div class="my_img"><img src="<c:url value="/resources/images/common/맛동산메인로고.png"/>"></div>
                 <input type="text">
-                <button type="submit">등록</button>
+                <button onclick="insertReply();">등록</button>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- 댓글 등록 -->
+<script>
+    function insertReply(){
+        $.ajax({
+            url : "${pageContext.request.contextPath}/board/insertReply",
+
+        })
+    }
+</script>
+
+
 </body>
 </html>
