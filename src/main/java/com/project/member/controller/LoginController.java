@@ -66,6 +66,12 @@ public class LoginController {
         return mav;
     }
 
-
-
 }
+
+
+/**
+ *  기본적으로 Tomcat 은 Thread 1개당 요청 1개를 처리하는 구조
+ *   -> 기본으로 200개의 Thread 를 가짐
+ *   -> 201명이 들어오면 한명은 놀아야
+ *   -> 비동기 (Asynchronized) 로 Tomcat 의 Thread 를 점유하지 않고 스케줄링을 처리하기 위함
+ */

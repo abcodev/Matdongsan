@@ -31,7 +31,7 @@ public class RealtimeAlarmController {
 
     @GetMapping("/alarm/test")
     public void test() {
-        alarmService.send(AlarmTemplate.generateTestTemplate(1, "1000"));
+        alarmService.send(AlarmTemplate.generateTestTemplate(1, "2000"));
     }
 
     @GetMapping("/alarm/test2")

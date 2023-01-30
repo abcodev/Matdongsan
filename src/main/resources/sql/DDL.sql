@@ -201,7 +201,7 @@ CREATE TABLE "MEMBER"
     "ADDRESS"       VARCHAR(255)                   NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'       NULL,
     "GRADE"         VARCHAR(255) DEFAULT 'GENERAL' NULL,
-    "RECENT_ACCESS" DATE                           NULL
+    "RECENT_ACCESS" TIMESTAMP                      NULL
 );
 
 COMMENT

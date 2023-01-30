@@ -20,9 +20,9 @@
 
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
-        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS)
+        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS)
         VALUES (SEQ_MEMBER_NO.NEXTVAL, #{provider}, #{providerId}, #{memberName}, #{profileImage}, #{email},
-                #{nickName}, #{phone}, #{address})
+                #{nickName}, #{phone}, #{address}, #{recentAccess})
     </insert>
 
     <select id="select" parameterType="Map" resultMap="memberResultSet">
@@ -48,5 +48,13 @@
             PHONE = #{phone},
             ADDRESS = #{address}
         WHERE MEMBER_NO = #{memberNo}
+    </update>
+
+    <update id="updateRecentAccess" parameterType="Map">
+        UPDATE MEMBER
+        SET
+            RECENT_ACCESS = CURRENT_TIMESTAMP
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
     </update>
 </mapper>

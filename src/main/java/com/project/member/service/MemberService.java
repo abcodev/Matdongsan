@@ -42,6 +42,7 @@ public class MemberService {
         if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
             memberDao.insertMember(member);
         }
+        memberDao.updateRecentAccess(member.getProvider(), member.getProviderId());
         return memberDao.select(member.getProvider(), member.getProviderId());
     }
 

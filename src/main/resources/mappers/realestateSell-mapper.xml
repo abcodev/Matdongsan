@@ -4,6 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sellMapper">
 
+    <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
+        <result column="ESTATE_NO" property="estateNo" />
+        <result column="ACC_YEAR" property="accYear" />
+        <result column="ADDRESS" property="address" />
+        <result column="BLDG_NM" property="bldgNm" />
+        <result column="OBJ_AMT" property="objAmt" />
+        <result column="BLDG_AREA" property="bldgArea" />
+        <result column="GBN" property="gbn"/>
+    </resultMap>
+
     <resultMap type="RealEstateSell" id="realEstateSellResultSet">
         <result column="ACC_YEAR" property="accYear" />
         <result column="SGG_CD" property="sggCd" />
@@ -20,7 +30,6 @@
         <result column="BUILD_YEAR" property="buildYear" />
         <result column="HOUSE_TYPE" property="houseType" />
         <result column="ADDRESS" property="address" />
-        <result column="ESTATE_NO" property="estateNo"/>
     </resultMap>
 
     <delete id="deleteAll">
@@ -55,6 +64,8 @@
     </insert>
 
 
+
+
     <select id="getSellList" resultMap="realEstateSellResultSet">
         SELECT
             SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
@@ -68,7 +79,7 @@
 
 
     <!-- 부동산 상세페이지 -->
-    <select id="selectEstateDetail" resultMap="realEstateSellResultSet">
+    <select id="selectEstateDetail" resultMap="realEstateDtoResultSet">
         SELECT
             ESTATE_NO,
             ACC_YEAR,

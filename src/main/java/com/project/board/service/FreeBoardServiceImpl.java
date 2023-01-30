@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-
 @Service
 @RequiredArgsConstructor
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -19,13 +18,14 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 
     // 게시글 등록
-    public int insertFboard(FreeBoard fb){
+    public int insertFboard(FreeBoard fb) {
         return freeBoardDao.insertFboard(sqlSession, fb);
     }
 
     @Override
-    public List<FreeBoard> selectFreeList(Map<String,String> option) {
-        return freeBoardDao.selectFreeList(sqlSession,option);
+    public List<FreeBoard> selectFreeList(Map<String, String> option) {
+        // PageInfoCombine
+        return freeBoardDao.selectFreeList(sqlSession, option);
     }
 
 }

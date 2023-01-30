@@ -1,13 +1,11 @@
 package com.project.alarm.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /*
     SseEmitter(Spring)
@@ -24,6 +22,28 @@ import java.util.Map;
     3. sse 를 통해 알림을 받는면 사용자는 본인의 MEMBER_NO와 비교 -> 같으면 ajax 로 ALARM 을 읽어와 갱신
  */
 
+ /*
+  * 최근 본 : Redis (날라가도 그만인 데이터) -> DB 만든다 하면은 History 저장하는 누적테이블
+  */
+
+/**
+ *  멱등성이 보장된다 -> 그냥 비동기로 실행
+ *   |     |
+ *       |     |
+ *           |     |
+ *   Lock 을 둬서 동시에 실행되지 못하게 막아야 할 것 같아요.
+ *   Redis(Single Thread, 외부에 있는 인스턴스), DB Lock, Spring Lock(Scale-out 문제)
+ *
+ *   대용량 트래픽 -> Scale-out -> OOOOOOOO -> Lock
+ *   https://wiz-banmincho.tistory.com/7
+ *
+ *   O ->
+ *   O ->
+ *   O ->   ㅁ
+ *   O ->
+ *   O ->
+ */
+
 @Slf4j
 @Service
 public class AlarmEventProducer {
@@ -37,18 +57,44 @@ public class AlarmEventProducer {
 
     // send는 떠넘기기
     public void produce(long memberNo) {
-        log.info("프로듀싱 정보 : " + memberNo);
+        List<SseEmitter> emitters = subscribers.getOrDefault(memberNo, List.of());
+        List<Integer> removeIndex = new ArrayList<>();
+
+        for (int i = 0; i < emitters.size(); ++i) {
+            try {
+                emitters.get(i).send(SseEmitter.event()
+                        .name("realtime_alarm")
+                        .data(memberNo));
+            } catch (Exception ignored) {
+                removeIndex.add(i);
+            }
+        }
+
+        List<SseEmitter> alive = new ArrayList<>();
+        for (int i = 0; i < emitters.size(); ++i) {
+            if (!removeIndex.contains(i)) {
+                alive.add(emitters.get(i));
+            }
+        }
+        subscribers.put(memberNo, alive);
     }
 
     public SseEmitter subscribe(long memberNo) {
         SseEmitter subscriber = new SseEmitter();
-        subscriber.onCompletion(() -> subscribers.remove(memberNo));
-        subscriber.onTimeout(() -> subscribers.remove(memberNo));
+        try {
+            subscriber.send(SseEmitter.event()
+                    .name("connect_message")
+                    .data(memberNo));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (subscribers.containsKey(memberNo)) {
             subscribers.get(memberNo).add(subscriber);
         } else {
-            subscribers.put(memberNo, List.of(subscriber));
+            List<SseEmitter> emitters = new ArrayList<>();
+            emitters.add(subscriber);
+            subscribers.put(memberNo, emitters);
         }
         return subscriber;
     }

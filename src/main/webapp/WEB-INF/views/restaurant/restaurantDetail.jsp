@@ -222,6 +222,10 @@
                     for (let hashtag of i.hashtags) {
                         hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
                     }
+                    let imgList = '';
+                    for (let img of i.changeNames) {
+                        imgList += '<img src="' + img + '" />'
+                    }
 
                     // str += '<tr>'
                     //     + "<td>" + i.memberName + "</td>"
@@ -239,7 +243,7 @@
                         + "<div>" + i.reviewContent + "</div>"
                         + "<div>" + hashtagList + "</div>"
                         + "<div>" + i.starRating + "</div>"
-                        + "<div> <img src=\"" + i.changeNames[0] + "\" /> </div>"
+                        + "<div>" + imgList + "</div>"
                         + "</div>";
 
 

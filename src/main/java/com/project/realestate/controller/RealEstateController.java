@@ -76,7 +76,7 @@ public class RealEstateController {
                                          ModelAndView modelAndView) {
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
-        modelAndView.setViewName("realestate/realEstateDetailPage");
+        modelAndView.setViewName("realestate/realestateDetailPage");
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
         return modelAndView;
     }

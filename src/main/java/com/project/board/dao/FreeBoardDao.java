@@ -12,11 +12,12 @@ import java.util.Map;
 @Repository
 public class FreeBoardDao {
 
-    public int insertFboard(SqlSession sqlSession, FreeBoard fb){
+    public int insertFboard(SqlSession sqlSession, FreeBoard fb) {
         return sqlSession.insert("freeBoardMapper.insertFboard", fb);
     }
 
-    public List<FreeBoard> selectFreeList(SqlSession sqlSession,Map<String,String> option) {
-            return sqlSession.selectList("freeBoardMapper.selectFreeList",option);
+    public List<FreeBoard> selectFreeList(SqlSession sqlSession, Map<String, String> option) {
+        // RowBounds 만들고
+        return sqlSession.selectList("freeBoardMapper.selectFreeList", option);
     }
 }
