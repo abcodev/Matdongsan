@@ -27,13 +27,11 @@ public class QnaBoardController {
     private QnaBoardService boardService;
 
 
-    @RequestMapping("/list")
-    public String selectList(
-
-            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            Model model,
-            @RequestParam Map<String, Object> paramMap,
-            HttpSession session) {
+    @RequestMapping("/qnaList")
+    public String selectList(@RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+                             @RequestParam Map<String, Object> paramMap,
+                             Model model,
+                             HttpSession session) {
         Map<String, Object> map = new HashMap();
 
 

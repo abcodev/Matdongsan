@@ -64,7 +64,7 @@
     //     generate_message(msg, "user");
     //   }, 1000);
     // });
-    //
+
     // function generate_message(msg, type) {
     //   INDEX++;
     //   var str = "";
@@ -86,14 +86,19 @@
     //           .stop()
     //           .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
     // }
-    //
-    //
+
     // $(document).delegate(".chat-btn", "click", function () {
     //   var value = $(this).attr("chat-value");
     //   var name = $(this).html();
     //   $("#chat-input").attr("disabled", false);
     //   generate_message(name, "self");
     // });
+
+
+
+
+
+
 
     $("#chat-circle").click(function () {
       $("#chat-circle").toggle("scale");

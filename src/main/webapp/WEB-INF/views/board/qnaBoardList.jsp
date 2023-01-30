@@ -1,5 +1,5 @@
 
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -47,8 +47,8 @@
     <div class="content body">
         <div class="sidebar">
             <div>
-                <a href="${pageContext.request.contextPath}/board/flist">자유게시판</a>
-                <a href="${pageContext.request.contextPath}/board/list">질문과 답변</a>
+                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
             </div>
         </div>
         <div class="boardlist">

@@ -13,7 +13,7 @@
   <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
+<jsp:include page="../template/header.jsp" />
 
 <div id="content">
   <div id="info_box">
