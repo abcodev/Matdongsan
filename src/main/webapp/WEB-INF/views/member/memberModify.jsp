@@ -10,6 +10,7 @@
     <title>회원정보수정</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/memberModify.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
