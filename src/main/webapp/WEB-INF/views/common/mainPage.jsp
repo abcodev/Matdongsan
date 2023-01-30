@@ -10,15 +10,15 @@
 
 <style>
     /*지도*/
-.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+.wrap {position: absolute;left: 0;bottom: 40px;width: 150px;height: 100px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
-.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.wrap .info {width: 150px;height: 100px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 12px;font-weight: bold; text-align: left;}
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
-.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+.info .desc {position: relative;margin: 5px; height: 75px; font-size:12px;}
 .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
 .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
@@ -178,7 +178,7 @@
                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
                             var imageSrc = 'https://cdn-user-icons.flaticon.com/91329/91329620/1675081081257.svg?token=exp=1675082973~hmac=93911fdb995d76bb29dd10a006f551e2', // 마커이미지의 주소입니다
-                                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                                imageSize = new kakao.maps.Size(50, 55), // 마커이미지의 크기입니다
                                 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
                             // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -198,8 +198,8 @@
                                 '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
                                 '           </div>' +
                                 '            <div class="desc">' +
-                                '               <div style="width:150px;text-align:center;padding:6px 0;">' +'주소  : 서울특별시 '+ listData1[index] + '</div>'+
-                                '               <div style="width:150px;text-align:center;padding:6px 0;">' +'실거래가  : '+ listData3[index] + '</div>'+
+                                '               <div style="width:100px;padding:3px;">' +'주소  : 서울특별시 '+ listData1[index] + '</div>'+
+                                '               <div style="width:100px;padding:3px;">' +'실거래가  : '+ listData3[index] + '</div>'+
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>';
