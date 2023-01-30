@@ -52,7 +52,7 @@
                     let html = ""
                     for(let reply of result){
                         html += "<tr>"
-                            + "<td>" + m.nickName + "</td>"
+                            + "<td>" + reply.nickName + "</td>"
                             + "<td>" +reply.replyContent + "</td>"
                             + "<td>" +reply.replyDate + "</td>"
                             + "</tr>";
@@ -66,14 +66,11 @@
         function insertReply(){
             $.ajax({
                 url : "${pageContext.request.contextPath}/board/insertReply",
-                type: post,
                 data: {freeBno : '${fb.boardNo}',
                         replyContent : $('textarea[name="replyContent"]:visible').val()},
                 success : function(result){
                             if(result == "1"){
 								alertify.alert("서비스 요청 성공", '댓글등록 성공');
-							}else{
-								alertify.alert("서비스 요청 성공", '댓글등록 실패');
 							}
 							selectReplyList();
                         },

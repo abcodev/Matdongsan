@@ -79,7 +79,7 @@
             REPLY_DATE
         FROM REPLY R
         LEFT JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
-        WHERE STATUS = 'Y'
+        WHERE R.STATUS = 'Y'
             AND FREE_BNO = ${freeBno}
     </select>
 </mapper>
