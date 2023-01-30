@@ -5,7 +5,7 @@
 <mapper namespace="chatMapper">
 
     <resultMap type="chatingRoom" id="chatroomResultSet">
-        <id column="CHAT_ROOM_NO" property="chatRoomNo"/>
+        <id column="CHAT_ROOM_NO" property="roomNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 
@@ -16,9 +16,10 @@
     </insert>
 
     <select id="findRoom" resultMap="chatroomResultSet">
-        SELECT CHAT_ROOM_NO
+        SELECT CHAT_ROOM_NO,
+                MEMBER_NO
         FROM CHAT_ROOM
-        WHERE CHAT_ROOM_NO = #{roomNo}
+        WHERE MEMBER_NO = #{memberNo}
     </select>
 
     <insert id="enterRoom">

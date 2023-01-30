@@ -101,40 +101,39 @@
 
 
     $("#chat-circle").click(function () {
-      $("#chat-circle").toggle("scale");
-      $(".chat-box").toggle("scale");
+      $.ajax({
+        url: '${pageContext.request.contextPath}/createChatRoom',
+        type: "POST",
+        success :function (room){
+          $("#chat-circle").toggle("scale");
+          $(".chat-box").toggle("scale");
+          console.log(room);
+          let roomNo = room.roomNo
+          connection(roomNo);
+              },
+        fail : function (){
+          alert("사용 실패")
+          $("#chat-circle").toggle("scale");
+              }
 
-      <%--$.ajax({--%>
-      <%--  url: '${pageContext.request.contextPath}/createChatRoom',--%>
-      <%--  type: "POST",--%>
+      })
 
-      <%--  success :function (room){--%>
-      <%--    $(".chat-box").toggle("scale");--%>
-      <%--        connection();--%>
-      <%--        },--%>
-      <%--  fail : function (){--%>
-      <%--    alert("사용 실패")--%>
-      <%--    $("#chat-circle").toggle("scale");--%>
-      <%--        }--%>
-
-      <%--})--%>
     });
 
     $(".chat-box-toggle").click(function () {
       $("#chat-circle").toggle("scale");
       $(".chat-box").toggle("scale");
     });
-    connection();
 
 
-    function connection() {
+    function connection(roomNo) {
       let socket = new SockJS("/Matdongsan/mainPage");
       stompClient = Stomp.over(socket);
-      stompClient.connect({}, onConnected, onError);
+      stompClient.connect({}, onConnected(roomNo), onError);
     }
-    function onConnected() {
+    function onConnected(roomNo) {
       alert("연결 성공!");
-      stompClient.subscribe('/topic/1', function (e){
+      stompClient.subscribe('/topic/'+ roomNo, function (e){
         showMessage(JSON.parse(e .body));
       });
     }
@@ -164,7 +163,7 @@
         'contents': $("#chat-input").val()
       };
       // send(destination,헤더,페이로드)
-      stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+      stompClient.send("/app/chat/271ee544-6a30-425f-9e8e-dcee975627a0", {}, JSON.stringify(data));
       $("#chat-input").val('');
     }
     $("#chat-submit").click(function (e) {

@@ -14,8 +14,9 @@ public class StompController {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/chat/send")
+    @MessageMapping("/chat/271ee544-6a30-425f-9e8e-dcee975627a0")
     public void sendMsg(@Payload Map<String,Object> data){
-        simpMessagingTemplate.convertAndSend("/topic/1",data);
+//        simpMessagingTemplate.convertAndSend("/topic/271ee544-6a30-425f-9e8e-dcee975627a0",data);
+        simpMessagingTemplate.convertAndSend("/topic/271ee544-6a30-425f-9e8e-dcee975627a0",data);
     }
 }
