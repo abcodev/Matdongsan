@@ -15,6 +15,8 @@ public class Admin {
     private String reportStatus;
     private String email;
     private String status;
-
     private String memberName;
+    private String reportedEmail;
+
+    private int count;
 }

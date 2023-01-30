@@ -5,6 +5,7 @@ import com.project.board.vo.QnaBoard;
 import java.util.List;
 import java.util.Map;
 
+
 public interface QnaBoardService {
 
 
@@ -23,5 +24,7 @@ public interface QnaBoardService {
     public List<QnaBoard> selectAnswer(int qBno);
 
     public int deleteBoard(int qBno);
+
+    public int reportBoard(int qBno);
 
 }

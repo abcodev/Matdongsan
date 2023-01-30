@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<c:set var="list" value="${map.list}"/>
+<c:set var="pi" value="${map.pi}"/>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +47,12 @@
             <th>${ul.email}</th>
             <th>${ul.email}</th>
             <th>${ul.memberName}</th>
-            <th>${ul.status}</th>
+            <c:if test="${ul.status = 'N'}">
+            <th>정지</th>
+            </c:if>
+            <c:if test="${ul.status = 'Y'}">
+                <th>일반</th>
+            </c:if>
 
         </tr>
         </c:forEach>

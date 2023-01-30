@@ -19,6 +19,15 @@
         <result column="QNA_DEPTH" property="depth"/>
     </resultMap>
 
+    <resultMap id="AdminResultSet" type="admin">
+        <result column="REPORT_NO" property="reportNo"/>
+        <result column="EMAIL" property="email"/>
+        <result column="REPORTED_EMAIL" property="reportedEmail"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="REPORT_REASON" property="reportReason"/>
+        <result column="REPORT_USER_NO" property="reportUserNo"/>
+    </resultMap>
+
 
 
 
@@ -156,6 +165,16 @@
             CONNECT BY PRIOR QNA_BNO = P_BNO
         )
     </update>
+    <insert id="reportBoard" parameterType="int">
+        INSERT INTO REPORT(
+            REPORT_NO, MEMBER_NO, REPORT_REASON, REPORT_USER_NO)
+        VALUES (SEQ_REPORT_NO.NEXTVAL,
+                MEMBER_NO=#{memberNo},
+                REPORT_REASON= #{reportReason},
+                REPORT_USER_NO = #{reportUserNo}R
+               )
+
+    </insert>
 
 
 </mapper>
