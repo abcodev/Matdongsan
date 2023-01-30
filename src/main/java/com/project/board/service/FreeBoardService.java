@@ -9,7 +9,10 @@ import java.util.Map;
 public interface FreeBoardService {
 
 
+    List<FreeBoard> selectFreeList(Map<String,String> option);
+
     public int insertFboard(FreeBoard fb);
 
-    List<FreeBoard> selectFreeList(Map<String,String> option);
+    public FreeBoard detailFreeBoard(int fno);
+
 }

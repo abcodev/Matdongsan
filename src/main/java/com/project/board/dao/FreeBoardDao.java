@@ -17,6 +17,10 @@ public class FreeBoardDao {
     }
 
     public List<FreeBoard> selectFreeList(SqlSession sqlSession,Map<String,String> option) {
-            return sqlSession.selectList("freeBoardMapper.selectFreeList",option);
+        return sqlSession.selectList("freeBoardMapper.selectFreeList",option);
+    }
+
+    public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){
+        return sqlSession.selectOne("freeBoardMapper.detailFreeBoard", fno);
     }
 }

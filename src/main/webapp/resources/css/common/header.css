@@ -68,7 +68,7 @@ a{
 .dropdown-submenu {
     display: none;
     position: absolute;
-    min-width: 200px;
+    min-width: 210px;
     z-index: 1;
     background:none;
 }

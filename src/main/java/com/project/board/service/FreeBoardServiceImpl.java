@@ -18,18 +18,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     private final FreeBoardDao freeBoardDao;
     private final SqlSession sqlSession;
 
+    @Override
+    public List<FreeBoard> selectFreeList(Map<String,String> option) {
+        return freeBoardDao.selectFreeList(sqlSession,option);
+    }
 
     // 게시글 등록
     public int insertFboard(FreeBoard fb){
         return freeBoardDao.insertFboard(sqlSession, fb);
     }
 
-    @Override
-    public List<FreeBoard> selectFreeList(Map<String,String> option) {
-        return freeBoardDao.selectFreeList(sqlSession,option);
+    // 게시글 상세조회
+    public FreeBoard detailFreeBoard(int fno){
+        return freeBoardDao.detailFreeBoard(sqlSession, fno);
     }
-
-
-
-
 }

@@ -1,0 +1,159 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+
+#content{
+    padding: 60px 300px 30px 300px;
+}
+
+.freeBoard_Detail{
+    margin-top: 30px;
+}
+
+.detail_top{
+    display: flex;
+    border-top: #beb0d0 4px solid;
+}
+
+.detail_top > p{
+    font-size: 23px;
+    color: #beb0d0;
+    font-weight: 800;
+}
+
+.board_area{
+    padding-left: 750px;
+    font-size: 20px;
+    color: #b0a3c4;
+    line-height: 1.6;
+    font-weight: bold;
+}
+
+.detail_head {
+    margin-top: 30px;
+}
+
+.board_title > input{
+    font-size: 30px;
+    border: none;
+    font-weight: 400;
+}
+
+.board_info{
+    display: flex;
+    height: 50px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.writer_img{
+    width: 60px;
+}
+
+.writer_img > img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.board_writer{
+    font-size: 15px;
+    font-weight: 450;
+    line-height: 2.5;
+}
+
+.board_date{
+    font-size: 13px;
+    padding-left: 30px;
+    font-weight: 450;
+    line-height: 2.8;
+}
+
+.detail_body > div{
+    border: none;
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+    margin-top: 25px;
+    resize: none;
+}
+
+.btn_box{
+    padding-left: 86%;
+    margin-top: 10px;
+}
+
+.btn_box > button{
+    margin-left: 10px;
+    border: none;
+    width: 50px;
+    height: 30px;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.reply_area{
+    margin-top: 20px;
+}
+
+.reply_head{
+    display: flex;
+}
+
+.fa-comments{
+    font-size: 25px;
+    color: #beb0d0;
+    margin-right: 20px;
+}
+
+.reply_head > p{
+    font-size: 17px;
+    font-weight: 450;
+    margin-right: 20px;
+    line-height: 1.2;
+}
+
+.reply_foot{
+    border-top: #beb0d0 2px solid;
+    margin-top: 20px;
+}
+
+.reply_foot > div{
+    display: flex;
+    margin-top: 20px;
+}
+
+.my_img > img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+
+.reply_foot > div > input{
+    width: 75%;
+    border: 1px solid #E0E0E0;
+    font-size: 20px;
+    margin: 0 65px 0 40px;
+    border-radius: 2px;
+}
+
+.reply_foot > div > button{
+    border: none;
+    width: 60px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+}

@@ -14,7 +14,6 @@
         <result column="BOARD_DATE" property="boardDate"/>
         <result column="BOARD_AREA" property="boardArea"/>
         <result column="STATUS" property="status"/>
-        <result column="BOARD_CD" property="boardCd"/>
         <result column="COUNT" property="count"/>
     </resultMap>
 
@@ -28,23 +27,31 @@
         SELECT *
         FROM FREE_BOARD
         WHERE STATUS='Y'
-            <if test="!state.isBlank()">
-                AND BOARD_AREA = #{state}
-            </if>
-            <if test="!search.isBlank()">
-                AND (
-                    BOARD_TITLE like '%' || #{search} || '%'
-                    OR
-                    BOARD_WRITER like '%' || #{search} || '%'
-                    OR
-                    BOARD_CONTENT like '%' || #{search} || '%'
-                )
-            </if>
+        <if test="!state.isBlank()">
+            AND BOARD_AREA = #{state}
+        </if>
+        <if test="!search.isBlank()">
+            AND (
+            BOARD_TITLE like '%' || #{search} || '%'
+            OR
+            BOARD_WRITER like '%' || #{search} || '%'
+            OR
+            BOARD_CONTENT like '%' || #{search} || '%'
+            )
+        </if>
+    </select>
+
+    <select id="detailFreeBoard" parameterType="int" resultMap="fBoardResultSet">
+        SELECT
+            FREE_BNO,
+            BOARD_TITLE,
+            BOARD_WRITER,
+            BOARD_AREA,
+            BOARD_CONTENT,
+            BOARD_DATE
+        FROM FREE_BOARD F
+                 LEFT JOIN MEMBER M ON F.MEMBER_NO = M.MEMBER_NO
+        WHERE F.STATUS = 'Y'
+          AND FREE_BNO = #{fno}
     </select>
 </mapper>
-
-
-
-
-
-

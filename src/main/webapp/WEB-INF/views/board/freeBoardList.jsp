@@ -11,9 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>커뮤니티 자유게시판</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <title>커뮤니티 자유게시판</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardList.css"/>">
     <jsp:include page="../template/font.jsp"/>
 </head>
+<body>
+<%@ include file ="../template/header.jsp" %>
 <body>
 <main id="main">
     <div class="content head">
