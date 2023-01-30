@@ -101,23 +101,20 @@
 
 
     $("#chat-circle").click(function () {
-      $("#chat-circle").toggle("scale");
-      $(".chat-box").toggle("scale");
+      $.ajax({
+        url: '${pageContext.request.contextPath}/createChatRoom',
+        type: "POST",
+        success :function (room){
+          $("#chat-circle").toggle("scale");
+          $(".chat-box").toggle("scale");
+              },
+        fail : function (){
+          alert("사용 실패")
+          $("#chat-circle").toggle("scale");
+              }
 
-      <%--$.ajax({--%>
-      <%--  url: '${pageContext.request.contextPath}/createChatRoom',--%>
-      <%--  type: "POST",--%>
+      })
 
-      <%--  success :function (room){--%>
-      <%--    $(".chat-box").toggle("scale");--%>
-      <%--        connection();--%>
-      <%--        },--%>
-      <%--  fail : function (){--%>
-      <%--    alert("사용 실패")--%>
-      <%--    $("#chat-circle").toggle("scale");--%>
-      <%--        }--%>
-
-      <%--})--%>
     });
 
     $(".chat-box-toggle").click(function () {

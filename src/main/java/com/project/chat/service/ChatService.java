@@ -4,6 +4,7 @@ package com.project.chat.service;
 //import com.project.chat.repository.ChatRepository;
 import com.project.chat.dto.ChatRoomJoin;
 import com.project.chat.dto.ChatingRoom;
+import com.project.chat.dto.RoomCheckDto;
 import com.project.chat.repository.ChatRepository;
 import com.project.member.vo.Member;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +48,8 @@ public class ChatService {
         }
     }
 
-    public ChatingRoom findRoom(String roomNo){
-        return chatRepository.findRoom(roomNo);
+    public int findRoom(RoomCheckDto checkDto){
+        return chatRepository.findRoom(checkDto);
     }
 
 

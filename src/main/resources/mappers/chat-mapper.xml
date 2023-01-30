@@ -15,10 +15,10 @@
             VALUES (#{roomNo},#{memberNo})
     </insert>
 
-    <select id="findRoom" resultMap="chatroomResultSet">
-        SELECT CHAT_ROOM_NO
+    <select id="findRoom" resultType="int">
+        SELECT COUNT(*)
         FROM CHAT_ROOM
-        WHERE CHAT_ROOM_NO = #{roomNo}
+        WHERE MEMBER_NO = #{memberNo}
     </select>
 
     <insert id="enterRoom">

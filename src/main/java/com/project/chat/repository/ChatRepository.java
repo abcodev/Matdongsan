@@ -3,6 +3,8 @@ package com.project.chat.repository;
 //import com.project.chat.dto.ChatingRoom;
 import com.project.chat.dto.ChatRoomJoin;
 import com.project.chat.dto.ChatingRoom;
+import com.project.chat.dto.RoomCheckDto;
+import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -26,8 +28,8 @@ public class ChatRepository {
         sqlSession.insert("chatMapper.chatRoomInsert",room);
     }
 
-    public ChatingRoom findRoom(String roomNo) {
-        return sqlSession.selectOne("chatMapper.findRoom",roomNo);
+    public int findRoom(RoomCheckDto roomCheck) {
+        return sqlSession.selectOne("chatMapper.findRoom",roomCheck);
     }
 
     public void enterRoom(ChatRoomJoin join) {
