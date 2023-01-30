@@ -553,7 +553,6 @@ CREATE TABLE "REPLY"
     "MEMBER_NO"     NUMBER                       NOT NULL,
     "FREE_BNO"      NUMBER                       NOT NULL,
     "REPLY_CONTENT" VARCHAR(2056)                NULL,
-    "REF_BNO"       NUMBER                       NULL,
     "REPLY_DATE"    DATE         DEFAULT SYSDATE NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
@@ -569,9 +568,6 @@ COMMENT
 
 COMMENT
     ON COLUMN "REPLY"."REPLY_CONTENT" IS '댓글내용';
-
-COMMENT
-    ON COLUMN "REPLY"."REF_BNO" IS '참조번호';
 
 COMMENT
     ON COLUMN "REPLY"."REPLY_DATE" IS '댓글작성일';
