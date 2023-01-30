@@ -8,6 +8,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!DOCTYPE html>
 
+
 <html>
 <head>
 
@@ -25,11 +26,18 @@
   <br>
   <button type="submit" class="btn btn-primary">등록하기</button>
 
-  <button type="reset"  class="btn btn-danger">취소하기</button>
+  <button type="reset"  class="btn btn-danger" onclick="movePage()">취소하기</button>
 
   <input type="hidden" id="depth" name="depth" value="${depth}">
   <input type="hidden" id="pBno" name="pBno" value="${pBno}">
   <input type="hidden" id="qBno" name="qBno" value="${qBno}">
 </form>
+
+<script>
+  function movePage(){
+
+    history.back()
+  }
+</script>
 </body>
 </html>

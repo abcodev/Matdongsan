@@ -24,6 +24,7 @@
         <typeAlias type="com.project.board.vo.QnaBoard" alias="QBoard"/>
         <typeAlias type="com.project.chat.dto.ChatingRoom" alias="chatingRoom"/>
         <typeAlias type="com.project.board.vo.Reply" alias="reply"/>
+        <typeAlias type="com.project.admin.vo.Admin" alias="admin"/>
     </typeAliases>
 
     <mappers>
@@ -38,6 +39,7 @@
         <mapper resource="/mappers/freeBoard-mapper.xml"/>
         <mapper resource="/mappers/chat-mapper.xml"/>
         <mapper resource="/mappers/alarm-mapper.xml"/>
+        <mapper resource="/mappers/admin-mapper.xml"/>
     </mappers>
 
 </configuration>
