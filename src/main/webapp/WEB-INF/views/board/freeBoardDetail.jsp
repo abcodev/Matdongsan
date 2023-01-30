@@ -20,8 +20,28 @@
     <button type="submit">삭제하기</button>
 
     <br><br>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    댓글 : <input type="text">
+                    <button onclick="insertReply();">댓글 등록</button>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
 
-    댓글 : <input type="text">
-    <button type="submit">댓글 등록</button>
+        </tbody>
+    </table>
+
+    <!-- 댓글 등록 -->
+    <script>
+        function insertReply(){
+            $.ajax({
+                url : "${pageContext.request.contextPath}/board/insertReply",
+
+            })
+        }
+    </script>
 </body>
 </html>

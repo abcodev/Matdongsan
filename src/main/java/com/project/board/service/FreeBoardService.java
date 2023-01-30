@@ -13,6 +13,6 @@ public interface FreeBoardService {
 
     public int insertFboard(FreeBoard fb);
 
-    public FreeBoard selectFboard(int fno);
+    public FreeBoard detailFreeBoard(int fno);
 
 }

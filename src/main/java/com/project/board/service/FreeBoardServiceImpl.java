@@ -29,7 +29,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     // 게시글 상세조회
-    public FreeBoard selectFboard(int fno){
-        return freeBoardDao.selectFboard(sqlSession, fno);
+    public FreeBoard detailFreeBoard(int fno){
+        return freeBoardDao.detailFreeBoard(sqlSession, fno);
     }
 }

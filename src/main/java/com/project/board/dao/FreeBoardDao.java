@@ -20,7 +20,7 @@ public class FreeBoardDao {
             return sqlSession.selectList("freeBoardMapper.selectFreeList",option);
     }
 
-    public FreeBoard selectFboard (SqlSession sqlSession, int fno){
-        return sqlSession.selectOne("freeBoardMapper.selectFboard", fno);
+    public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){
+        return sqlSession.selectOne("freeBoardMapper.detailFreeBoard", fno);
     }
 }

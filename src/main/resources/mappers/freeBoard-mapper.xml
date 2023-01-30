@@ -14,7 +14,6 @@
         <result column="BOARD_DATE" property="boardDate"/>
         <result column="BOARD_AREA" property="boardArea"/>
         <result column="STATUS" property="status"/>
-        <result column="BOARD_CD" property="boardCd"/>
         <result column="COUNT" property="count"/>
     </resultMap>
 
@@ -42,7 +41,7 @@
             </if>
     </select>
 
-    <select id="selectFboard" parameterType="int" resultMap="fBoardResultSet">
+    <select id="detailFreeBoard" parameterType="int" resultMap="fBoardResultSet">
         SELECT
             FREE_BNO,
             BOARD_TITLE,

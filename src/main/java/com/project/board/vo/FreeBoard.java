@@ -2,7 +2,7 @@ package com.project.board.vo;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 public class FreeBoard {
