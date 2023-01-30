@@ -47,7 +47,7 @@
             </div>
             <div class="btn_box">
                 <button>취소</button>
-                <button>수정</button>
+                <button>수정</button>ㅓㅓㅓㅓㅓ
             </div>
         </div>
     </form>
