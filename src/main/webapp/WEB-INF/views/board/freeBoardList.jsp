@@ -16,56 +16,54 @@
 </head>
 <body>
 <%@ include file ="../template/header.jsp" %>
+<body>
 <main id="main">
     <div class="content head">
-        <form id="searchForm">
-
-            <div class="select">
-                <select class="custom-select" name="condition">
-                    <option value="title">제목</option>
-                    <option value="content">내용</option>
-                    <option value="area">지역</option>
-                </select>
-            </div>
-            <div class="search_input">
-                <select name="selectState" id="selectState" >
-                    <option value="title">전체</option>
-                    <c:forEach var="stateList" items="${stateList}">
-                        <option value="${stateList}">${stateList}</option>
-                    </c:forEach>
-                </select>
-                <input id="freeBoardSearch" type="text">
-            </div>
-            <div class="search_icon">
-                <button onclick="searchState();"><i class="fa-solid fa-magnifying-glass">조회</i></button>
-            </div>
-        </form>
-        <div class="content body">
-            <div class="side submenu">
-                <div>
-                    <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
-                    <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
-                </div>
-            </div>
-            <div class="boardlist">
-                <div id="boardlist_top">
-                    <div id="listset">
-
-                    </div>
-
-                    <button id="writebtn" onclick=""><i class="fa-solid fa-pencil"></i>글작성하기</button>
-                </div>
-                <div id="boardlist_main">
-
-                </div>
-            </div>
-            <div class="side best3">
-
-            </div>
+        <div class="search_input">
+            <select name="selectState" id="selectState" >
+                <option value="">전체</option>
+                <c:forEach var="stateList" items="${stateList}">
+                    <option value="${stateList}">${stateList}</option>
+                </c:forEach>
+            </select>
+            <input id="freeBoardSearch" type="text">
+            <button onclick="searchState();">조회</button>
         </div>
-        <div class="paging">
+        <div class="search_icon">
 
         </div>
+    </div>
+    <div class="content body">
+        <div class="side submenu">
+
+
+
+        </div>
+        <div class="boardlist">
+            <div id="boardlist_top">
+                <div id="listset">
+
+
+
+                </div>
+                <div id="writebtn">
+                    <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                </div>
+            </div>
+            <div id="boardlist_main">
+                <c:forEach items="${freeBoardList}" var="freeBoardList">
+                    <tr>
+                        <td>${freeBoardList.boardTitle}</td>
+                    </tr>
+                </c:forEach>
+            </div>
+        </div>
+        <div class="side best3">
+
+        </div>
+    </div>
+    <div class="paging">
+
     </div>
 </main>
 
@@ -91,15 +89,5 @@
     }
 </script>
 
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-

@@ -25,12 +25,12 @@
 
         <div>
 <%--            관리자--%>
-<%--            <c:choose>--%>
-<%--                <c:when test="${ loginUser}">--%>
+            <c:choose>
+                <c:when test="${ loginUser.memberNo == 1}">
                     <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
                     <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
-<%--                </c:when>--%>
-<%--            </c:choose>--%>
+                </c:when>
+            </c:choose>
         </div>
 
         <div class="head name">
@@ -39,8 +39,6 @@
         <div class="head star">
                 <i class="fa-solid fa-star"></i>
                 <span id="star_rating"></span>
-
-
 
         </div>
         <div class="head tag">
@@ -245,8 +243,6 @@
                         + "<div>" + i.starRating + "</div>"
                         + "<div>" + imgList + "</div>"
                         + "</div>";
-
-
                 }
                 $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
@@ -283,7 +279,7 @@
         formData.set("hashtags", hashtags.join(","));
         formData.set("contents", contents);
         for (let i = 0; i < files.length; ++i) {
-            formData.append("files", files[i]) // 이미지 없을때 null 을 보내는데, 빈 리스트를 보내야할듯
+            formData.append("files", files[i])
         }
 
         $.ajax({
@@ -296,8 +292,7 @@
                 selectReviewList();
             },
             error: function () {
-                console.log("ajax통신 실패");
-                // alert("리뷰 등록에 실패했습니다.");
+                console.log("리뷰 등록 실패");
             }
         });
     }

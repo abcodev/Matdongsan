@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +25,6 @@ public class FreeBoardController {
     private final FreeBoardService freeBoardService;
 
     @RequestMapping("/freeList")
-    @ResponseBody
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "state", defaultValue = "" ) String state,
                                        @RequestParam(value = "search", defaultValue = "") String search
@@ -40,16 +40,6 @@ public class FreeBoardController {
         System.out.println("모델값"+modelAndView);
         return modelAndView;
     }
-
-//    @RequestMapping("searchList")
-//    public ResponseEntity<?> searchList(ModelAndView modelAndView,
-//             @RequestParam(value = "state", defaultValue = "" ) String state,
-//             @RequestParam(value = "search", defaultValue = "") String search){
-//
-//
-//
-//        return ResponseEntity();
-//    }
 
 
     // 게시글 작성폼
@@ -75,10 +65,11 @@ public class FreeBoardController {
     }
 
     // 게시글 상세보기
-    @RequestMapping("freeList/detail")
-    public ModelAndView detailFreeBoard(ModelAndView mv, int fno){
-        //FreeBoard fb = boardService.selectFboard(fno);
+    @RequestMapping("freeList/detail/{fno}")
+    public ModelAndView detailFreeBoard(ModelAndView mv, @PathVariable("fno") int fno){
+        FreeBoard fb = freeBoardService.detailFreeBoard(fno);
 
+        mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;
     }
