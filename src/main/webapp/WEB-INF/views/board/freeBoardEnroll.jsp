@@ -5,13 +5,23 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>자유게시판 작성</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardEnroll.css"/>">
+    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
+
+<%@ include file="../template/header.jsp" %>
+
+<div id="content">
+    <div class="enroll_form">
 
     <h2>자유게시판</h2>
 
     <form id="enrollForm" method="post" action="${pageContext.request.contextPath}/board/freeList/insert">
+        <div class="form_head">
         title : <input type="text" name="boardTitle">
         <br>
         <input type="hidden" name="boardWriter" value="${loginUser.memberName}">
@@ -44,16 +54,16 @@
             <option value="중구">중구</option>
             <option value="중랑구">중랑구</option>
         </select>
-
-        <br><br>
-
+        </div>
+        <div class="form_body">
         content : <textarea name="boardContent" id="boardContent"></textarea>
-
+        </div>
         <br><br>
         <button type="submit" class="btn btn-primary">등록하기</button>
 
         <button type="reset"  class="btn btn-danger">취소하기</button>
     </form>
-
+    </div>
+</div>
 </body>
 </html>
