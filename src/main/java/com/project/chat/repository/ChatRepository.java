@@ -28,8 +28,8 @@ public class ChatRepository {
         sqlSession.insert("chatMapper.chatRoomInsert",room);
     }
 
-    public int findRoom(RoomCheckDto roomCheck) {
-        return sqlSession.selectOne("chatMapper.findRoom",roomCheck);
+    public ChatingRoom findRoom(long memberNo) {
+        return sqlSession.selectOne("chatMapper.findRoom",memberNo);
     }
 
     public void enterRoom(ChatRoomJoin join) {

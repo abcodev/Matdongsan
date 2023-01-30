@@ -48,8 +48,8 @@ public class ChatService {
         }
     }
 
-    public int findRoom(RoomCheckDto checkDto){
-        return chatRepository.findRoom(checkDto);
+    public ChatingRoom findRoom(long memberNo) {
+        return chatRepository.findRoom(memberNo);
     }
 
 
