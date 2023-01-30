@@ -13,6 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 </head>
 <body>
 <div class="floating-chat">
@@ -132,6 +133,7 @@
       stompClient = Stomp.over(socket);
       stompClient.connect({}, onConnected(roomNo));
     }
+
     function onConnected(roomNo) {
       alert("연결 성공!");
       // console.log('Connected: ' + frame);
@@ -139,8 +141,9 @@
         stompClient.subscribe('/topic/'+ roomNo, function (e){
           showMessage(JSON.parse(e .body));
       });
-    }, 500);};
-
+    }, 500);}
+    // setTimeout : 몇초뒤에 특정 함수 호출
+    // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
 
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
@@ -157,7 +160,6 @@
         $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>");
       }
     }
-
 
     //메시지 브로커로 메시지 전송
     function send(){

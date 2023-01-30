@@ -66,4 +66,9 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.realEstateDetail(estateNo);
     }
 
+    @Override
+    public List<String> selectPastList(String bldgNm) {
+        return realEstateDao.selectPastList(bldgNm);
+    }
+
 }

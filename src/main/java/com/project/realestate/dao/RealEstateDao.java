@@ -63,5 +63,8 @@ public class RealEstateDao {
         return sqlSession.selectOne("sellMapper.selectEstateDetail", estateNo);
     }
 
+    public List<String> selectPastList(String bldgNm) {
+        return sqlSession.selectList("sellMapper.selectPastList", bldgNm);
+    }
 }
 

@@ -26,7 +26,7 @@ public class LoginController {
     /**
      * 로그인 페이지 이동
      */
-    @RequestMapping(value = "/loginPage", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/loginPage", method = {RequestMethod.GET, RequestMethod.POST})
     public String login() {
         return "member/loginPage";
     }
@@ -43,7 +43,7 @@ public class LoginController {
         return "redirect:" + redirectUrl;
     }
 
-    @RequestMapping(value="/{provider}/callback")
+    @RequestMapping(value = "/{provider}/callback")
     public ModelAndView oauthLoginCallback(@RequestParam("code") String code,
                                            @RequestParam(value = "state", defaultValue = "") String state,
                                            @PathVariable String provider,
@@ -55,19 +55,13 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping(value="/logout")
+    @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         session.removeAttribute("loginUser");
         mav.setViewName("redirect:/");
         return mav;
     }
+}
 
 
-
-/**
- *  기본적으로 Tomcat 은 Thread 1개당 요청 1개를 처리하는 구조
- *   -> 기본으로 200개의 Thread 를 가짐
- *   -> 201명이 들어오면 한명은 놀아야
- *   -> 비동기 (Asynchronized) 로 Tomcat 의 Thread 를 점유하지 않고 스케줄링을 처리하기 위함
- */

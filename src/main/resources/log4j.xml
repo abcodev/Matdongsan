@@ -9,9 +9,9 @@
         </layout>
     </appender>
 
-<!--    <logger name="org.springframework.core">-->
-<!--        <level value="info" />-->
-<!--    </logger>-->
+    <logger name="org.springframework.core">
+        <level value="info" />
+    </logger>
 
     <logger name="org.springframework.beans">
         <level value="info" />
@@ -26,9 +26,9 @@
     </logger>
 
     <!-- Root Logger -->
-<!--    <root>-->
-<!--        <priority value="info" />-->
-<!--        <appender-ref ref="console" />-->
-<!--    </root>-->
+    <root>
+        <priority value="warn" />
+        <appender-ref ref="console" />
+    </root>
 
 </log4j:configuration>

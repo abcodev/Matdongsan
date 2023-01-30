@@ -5,31 +5,31 @@
 <mapper namespace="sellMapper">
 
     <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
-        <result column="ESTATE_NO" property="estateNo" />
-        <result column="ACC_YEAR" property="accYear" />
-        <result column="ADDRESS" property="address" />
-        <result column="BLDG_NM" property="bldgNm" />
-        <result column="OBJ_AMT" property="objAmt" />
-        <result column="BLDG_AREA" property="bldgArea" />
+        <result column="ESTATE_NO" property="estateNo"/>
+        <result column="ACC_YEAR" property="accYear"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="OBJ_AMT" property="objAmt"/>
+        <result column="BLDG_AREA" property="bldgArea"/>
         <result column="GBN" property="gbn"/>
     </resultMap>
 
     <resultMap type="RealEstateSell" id="realEstateSellResultSet">
-        <result column="ACC_YEAR" property="accYear" />
-        <result column="SGG_CD" property="sggCd" />
-        <result column="SGG_NM" property="sggNm" />
-        <result column="BJDONG_CD" property="bjdongCd" />
-        <result column="BJDONG_NM" property="bjdongNm" />
-        <result column="BONBEON" property="bonbeon" />
-        <result column="BUBEON" property="bubeon" />
-        <result column="BLDG_NM" property="bldgNm" />
-        <result column="DEAL_NM" property="dealNm" />
-        <result column="DEAL_YMD" property="dealYmd" />
-        <result column="OBJ_AMT" property="objAmt" />
-        <result column="BLDG_AREA" property="bldgArea" />
-        <result column="BUILD_YEAR" property="buildYear" />
-        <result column="HOUSE_TYPE" property="houseType" />
-        <result column="ADDRESS" property="address" />
+        <result column="ACC_YEAR" property="accYear"/>
+        <result column="SGG_CD" property="sggCd"/>
+        <result column="SGG_NM" property="sggNm"/>
+        <result column="BJDONG_CD" property="bjdongCd"/>
+        <result column="BJDONG_NM" property="bjdongNm"/>
+        <result column="BONBEON" property="bonbeon"/>
+        <result column="BUBEON" property="bubeon"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="DEAL_NM" property="dealNm"/>
+        <result column="DEAL_YMD" property="dealYmd"/>
+        <result column="OBJ_AMT" property="objAmt"/>
+        <result column="BLDG_AREA" property="bldgArea"/>
+        <result column="BUILD_YEAR" property="buildYear"/>
+        <result column="HOUSE_TYPE" property="houseType"/>
+        <result column="ADDRESS" property="address"/>
     </resultMap>
 
     <delete id="deleteAll">
@@ -63,60 +63,68 @@
         ) realEstateSell
     </insert>
 
-
+    <select id="selectLatestDealYmd" resultType="String">
+        SELECT DEAL_YMD
+        FROM (SELECT * FROM REALESTATE_SELL ORDER BY DEAL_YMD DESC)
+        WHERE ROWNUM = 1
+    </select>
 
 
     <select id="getSellList" resultMap="realEstateSellResultSet">
-        SELECT
-            SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
-            OBJ_AMT,
-            BLDG_NM
+        SELECT SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
+               OBJ_AMT,
+               BLDG_NM
         FROM REALESTATE_SELL
         ORDER BY BJDONG_NM
     </select>
 
 
-
-
     <!-- 부동산 상세페이지 -->
     <select id="selectEstateDetail" resultMap="realEstateDtoResultSet">
-        SELECT
-            ESTATE_NO,
-            ACC_YEAR,
-            SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
-            BLDG_NM,
-            DEAL_YMD,
-            OBJ_AMT || '(만원)' AS OBJ_AMT,
-            BLDG_AREA,
-            GBN
+        SELECT ESTATE_NO,
+               ACC_YEAR,
+               SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON AS ADDRESS,
+               BLDG_NM,
+               DEAL_YMD,
+               OBJ_AMT,
+               BLDG_AREA,
+               GBN
         FROM REALESTATE_SELL
         WHERE ESTATE_NO = #{estateNo}
         UNION ALL
-        SELECT
-            ESTATE_NO,
-            ACC_YEAR,
-            SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN as ADDRESS,
-            BLDG_NM,
-            DEAL_YMD,
-            '보증금 : '|| RENT_GTN || '(만원) / 월세 :' || RENT_FEE || '(만원)' AS OBJ_AMT,
-            RENT_AREA AS BLDGAREA,
-            RENT_GBN AS GBN
+        SELECT ESTATE_NO,
+               ACC_YEAR,
+               SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN AS ADDRESS,
+               BLDG_NM,
+               DEAL_YMD,
+               '보증금 : ' || RENT_GTN || '(만원) / 월세 :' || RENT_FEE AS OBJ_AMT,
+               RENT_AREA                                            AS BLDGAREA,
+               RENT_GBN                                             AS GBN
         FROM REALESTATE_RENT
         WHERE ESTATE_NO = #{estateNo}
         ORDER BY DEAL_YMD DESC
     </select>
 
-
-
-
-
-
-
-
-
-
-
-
+    <select id="selectPastList" resultMap="realEstateDtoResultSet">
+        SELECT
+            ESTATE_NO,
+            BLDG_NM,
+            DEAL_YMD,
+            OBJ_AMT,
+            GBN
+        FROM REALESTATE_SELL
+        WHERE BLDG_NM = #{bldgNm}
+            UNION ALL
+        SELECT
+            ESTATE_NO,
+            BLDG_NM,
+            DEAL_YMD,
+            RENT_FEE AS OBJ_AMT,
+            RENT_GBN AS GBN
+        FROM REALESTATE_RENT
+        WHERE BLDG_NM = #{bldgNm}
+        ORDER BY DEAL_YMD DESC
+    </select>
 
 
 </mapper>
