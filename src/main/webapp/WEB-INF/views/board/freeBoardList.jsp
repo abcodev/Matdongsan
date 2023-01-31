@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -15,35 +15,30 @@
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
+<%@ include file="../template/header.jsp" %>
 <body>
 <div id="content">
     <div class="content head">
+        <select name="selectState" id="selectState">
+            <option value="">전체</option>
+            <c:forEach var="stateList" items="${stateList}">
+                <option value="${stateList}">${stateList}</option>
+            </c:forEach>
+        </select>
         <div class="search_input">
-            <select name="selectState" id="selectState" >
-                <option value="">전체</option>
-                <c:forEach var="stateList" items="${stateList}">
-                    <option value="${stateList}">${stateList}</option>
-                </c:forEach>
-            </select>
-            <input id="freeBoardSearch" type="text">
-            <button onclick="searchState();">조회</button>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="freeBoardSearch" type="text" placeholder="검색내용을 입력해주세요">
         </div>
-        <div class="search_icon">
-
-        </div>
+        <button onclick="searchState();">조회</button>
     </div>
     <div class="content body">
         <div class="side submenu">
-
-
-
+            <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+            <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
         </div>
-        <div class="boardlist">
+        <div class="boardlist_area">
             <div id="boardlist_top">
                 <div id="listset">
-
-
 
                 </div>
                 <div id="writebtn">
@@ -52,20 +47,32 @@
             </div>
             <div id="boardlist_main">
                 <c:forEach items="${freeBoardList}" var="freeBoardList">
-                    <tr>
-                        <td>${freeBoardList.boardNo}</td>
-                        <td>${freeBoardList.boardTitle}</td>
-                        <td>${freeBoardList.memberNo}</td>
-                        <td>${freeBoardList.boardWriter}</td>
-                        <td>${freeBoardList.boardContent}</td>
-                        <td>${freeBoardList.boardDate}</td>
-                        <td>${freeBoardList.boardArea}</td>
-                    </tr>
+                    <div class="boardlist">
+                        <p style="display: none">${freeBoardList.boardNo}</p>
+                        <p style="display: none">${freeBoardList.memberNo}</p>
+                        <div class="list title">
+                            <p>${freeBoardList.boardTitle}</p>
+                        </div>
+                        <div class="list content">
+                            <p>${freeBoardList.boardContent}</p>
+                        </div>
+                        <div class="list info">
+                            <p>${freeBoardList.boardWriter}</p>
+                            <p>${freeBoardList.boardArea}</p>
+                            <p>${freeBoardList.boardDate}</p>
+                            <p><i class="fa-regular fa-eye"></i>조회수</p>
+                            <p><i class="fa-regular fa-comment"></i>댓글수</p>
+                        </div>
+                    </div>
                 </c:forEach>
             </div>
         </div>
-        <div class="side best3">
-
+        <div class="side best">
+            <div>
+                <a href="">1번 인기게시글</a>
+                <a href="">2번 인기게시글</a>
+                <a href="">3번 인기게시글</a>
+            </div>
         </div>
     </div>
     <div class="paging">
@@ -74,21 +81,21 @@
 </div>
 
 <script>
-    function movePage(){
+    function movePage() {
         location.href = '${pageContext.request.contextPath}/board/freeList/enrollForm';
     }
 
-    function searchState(){
+    function searchState() {
         $.ajax({
-            type:'GET',
+            type: 'GET',
             url: '${pageContext.request.contextPath}/board/freeList',
             contentType: "application/json; charset=UTF-8",
             data: {
                 'state': $("#selectState").val(),
-                'search' : $("#freeBoardSearch").val()
+                'search': $("#freeBoardSearch").val()
             },
             dataType: 'html',
-            success : function (data){
+            success: function (data) {
                 $('#main').html(data)
             }
         })
