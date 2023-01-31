@@ -104,8 +104,7 @@
                         </div>
                         <div class="new_alert">
                             <div>
-                                <span class="alert_content"><i
-                                        class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</span>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</span>
                                 <i class="fa-regular fa-trash-can"></i>
                             </div>
                             <span class="alert_date">1월 27일 </span>
@@ -161,19 +160,19 @@
 
                 var listData1 = [
                     <c:forEach items="${sellList}" var="list">
-                    '${list.address}',
+                        '${list.address}',
                     </c:forEach>
                 ];
 
                 var listData2 = [
                     <c:forEach items="${sellList}" var="list2">
-                    '${list2.bldgNm}',
+                        '${list2.bldgNm}',
                     </c:forEach>
                 ];
 
                 var listData3 = [
                     <c:forEach items="${sellList}" var="list3">
-                    '${list3.objAmt}',
+                        '${list3.objAmt}',
                     </c:forEach>
                 ];
 
@@ -183,8 +182,8 @@
                         if (status === kakao.maps.services.Status.OK) {
                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                            var imageSrc = 'https://cdn-user-icons.flaticon.com/91329/91329620/1675081081257.svg?token=exp=1675082973~hmac=93911fdb995d76bb29dd10a006f551e2', // 마커이미지의 주소입니다
-                                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+                            var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
+                                imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
                                 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
                             // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -194,18 +193,18 @@
                             var marker = new kakao.maps.Marker({
                                 map: map,
                                 position: coords,
-                                image: markerImage
+                                image : markerImage
                             });
 
                             var content = '<div class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
-                                '               <div class="bldgNm">' + '건물명  : ' + listData2[index] + '</div>' +
-                                '                <div class="close" id="overlay-btn' + index + '" title="닫기"></div>' +
+                                '               <div class="bldgNm">'+'건물명  : '+ listData2[index]+ '</div>'+
+                                '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
                                 '           </div>' +
                                 '            <div class="desc">' +
-                                '               <div style="width:150px;text-align:center;padding:6px 0;">' + '주소  : 서울특별시 ' + listData1[index] + '</div>' +
-                                '               <div style="width:150px;text-align:center;padding:6px 0;">' + '실거래가  : ' + listData3[index] + '</div>' +
+                                '               <div style="width:100px;padding:3px;">' +'주소  : 서울특별시 '+ listData1[index] + '</div>'+
+                                '               <div style="width:100px;padding:3px;">' +'실거래가  : '+ listData3[index] + '</div>'+
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>';
@@ -219,17 +218,19 @@
                             });
 
                             // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
-                            kakao.maps.event.addListener(marker, 'click', function () {
+                            kakao.maps.event.addListener(marker, 'mouseover', function() {
                                 overlay.setMap(map);
                                 overlay.setContent(content);
-                                document.querySelector("#overlay-btn" + index).addEventListener('click', function () {
-                                    overlay.setMap(null);
-                                })
+                                // document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
+                                //     overlay.setMap(null);
+                                // })
                             });
 
-
                             // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-
+                            kakao.maps.event.addListener(marker, 'mouseout', function() {
+                                // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+                                overlay.setMap(null);
+                            });
 
                             if (index == 0) {
                                 map.setCenter(coords);
