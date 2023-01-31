@@ -46,6 +46,20 @@ public class Member {
                 .build();
     }
 
+    public static Member of(Member member) {
+        return Member.builder()
+                .provider(member.getProvider())
+                .providerId(member.getProviderId())
+                .email(member.getEmail())
+                .memberName(member.getMemberName())
+                .profileImage(member.getProfileImage())
+                .address(member.getAddress())
+                .nickName(member.getNickName())
+                .phone(member.getPhone())
+                .interestState(member.getInterestState())
+                .build();
+    }
+
 
 
 

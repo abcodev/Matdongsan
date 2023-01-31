@@ -45,15 +45,17 @@
           AND PROVIDER_ID = #{providerId}
     </select>
 
-    <select id="loginMember" parameterType="memberDto" resultMap="memberResultSet1">
+
+
+    <select id="loginMember" parameterType="member" resultMap="memberResultSet">
         SELECT
             MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, INTEREST_STATE, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
-            AND STATUS = 'Y'
+          AND STATUS = 'Y'
     </select>
 
-    <update id="update" parameterType="memberDto">
+    <update id="update" parameterType="member">
         UPDATE MEMBER
         SET
             MEMBER_NO = #{memberNo},
@@ -67,6 +69,13 @@
             GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
     </update>
+
+
+
+
+
+
+
 
     <update id="updateRecentAccess" parameterType="Map">
         UPDATE MEMBER

@@ -40,10 +40,10 @@ public class MemberController {
      * 회원정보를 수정하면 회원등급 변경
      */
     @RequestMapping(value = "/updateMember")
-    public String updateMember(HttpSession session, Model model, MemberDto m) {
+    public String updateMember(HttpSession session, Model model, Member m) {
         int result = memberService.updateMember(m);
         if (result != 0) {
-            MemberDto updateMember = memberService.loginMember(m);
+            Member updateMember = memberService.loginMember(m);
 
             session.setAttribute("loginUser", updateMember);
             model.addAttribute("alertMsg","회원정보 수정 성공");
@@ -53,6 +53,12 @@ public class MemberController {
             return "common/errorPage";
         }
     }
+
+
+
+
+
+
 
     /**
      * 휴대폰 인증

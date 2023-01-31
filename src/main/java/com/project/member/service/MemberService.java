@@ -58,16 +58,20 @@ public class MemberService {
 
     }
 
-    public MemberDto loginMember(MemberDto m){
 
-        MemberDto loginMember = memberDao.loginMember(sqlSession, m);
 
+    public Member loginMember(Member m){
+        Member loginMember = memberDao.loginMember(sqlSession, m);
         return loginMember;
     }
 
-    public int updateMember(MemberDto m) {
+
+    public int updateMember(Member m) {
         return memberDao.updateMember(sqlSession, m);
     }
+
+
+
 
     public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
         String api_key = "NCSOBLGT3XKTGRQB";
