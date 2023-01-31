@@ -53,7 +53,7 @@
             </div>
             <div class="userinfo interest">
                 <h3>관심구</h3>
-                    <select name="selectState" id="selectState" >
+                    <select name="interestState" id="interestState" >
                         <option value="">전체</option>
                         <c:forEach var="stateList" items="${stateList}">
                             <option value="${stateList}">${stateList}</option>

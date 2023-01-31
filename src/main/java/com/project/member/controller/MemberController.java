@@ -1,5 +1,7 @@
 package com.project.member.controller;
 
+import com.project.board.service.FreeBoardService;
+import com.project.common.type.StateList;
 import com.project.member.dto.MemberDto;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
@@ -27,7 +29,12 @@ public class MemberController {
     public String myPage(){return "member/myPage";}
 
     @RequestMapping(value = "/memberModify")
-    public String memberModify(){return "member/memberModify";}
+    public String memberModify(Model model){
+
+        model.addAttribute("stateList", StateList.values());
+
+        return "member/memberModify";
+    }
 
     /**
      * 회원정보를 수정하면 회원등급 변경

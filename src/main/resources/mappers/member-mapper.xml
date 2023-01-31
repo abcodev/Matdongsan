@@ -61,7 +61,8 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            GRADE = 'GENERAL2'
+            GRADE = 'GENERAL2',
+            INTEREST_STATE = #{interestState}
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
