@@ -133,6 +133,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -141,7 +142,6 @@ import java.util.UUID;
 public class ChatController {
 
     private final ChatService chatService;
-
 
     @PostMapping("/createChatRoom")
     public ResponseEntity<?> adminChatting(
@@ -153,17 +153,13 @@ public class ChatController {
         // 나가기 버튼을 누르면 소켓 통신 연결 끊기
         // 그후 다시 문의하면 db에서 roomId에 따른 채팅 내용을 불러온다.
         // 불러올때도 보낸이와 회원 아이디 비교해서 내가 보낸건지 상대방이 보낸건지 구분하기.
-
-
-
-        ChatingRoom find = chatService.findRoom(loginUser.getMemberNo());
+        List<ChatingRoom> find = chatService.findRoom(loginUser.getMemberNo());
         if(ObjectUtils.isEmpty(find)) {
             ChatingRoom room = ChatingRoom.create(loginUser.getMemberNo());
             chatService.createRoom(room);
             chatService.enterChatRoom(room,loginUser.getMemberNo());
             return ResponseEntity.ok(room);
         }else{
-            System.out.println("확인"+find.getRoomNo());
             return ResponseEntity.ok(find);
         }
     }

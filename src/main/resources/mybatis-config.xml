@@ -21,6 +21,7 @@
         <typeAlias type="com.project.board.vo.FreeBoard" alias="freeBoard"/>
         <typeAlias type="com.project.board.vo.QnaBoard" alias="QBoard"/>
         <typeAlias type="com.project.chat.dto.ChatingRoom" alias="chatingRoom"/>
+        <typeAlias type="com.project.chat.dto.MessageListDto" alias="chatMessage"/>
     </typeAliases>
 
     <mappers>

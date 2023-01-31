@@ -11,5 +11,6 @@ public class MessageListDto {
     private String roomNo;
     private String sendNo;
     private Date createDate;
-    private
+    private String read;
+    private String content;
 }

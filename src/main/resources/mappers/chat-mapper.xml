@@ -9,13 +9,13 @@
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 
-    <resultMap id="chatMessage" type="chatMessageResultSet">
-        <result column="CM_NO" property=""/>
-        <result column="CHAT_ROOM_NO" property=""/>
-        <result column="SEND_NO" property=""/>
-        <result column="CREATE_DATE" property=""/>
-        <result column="READ" property=""/>
-        <result column="MS_CONTENT" property=""/>
+    <resultMap id="chatMessageResultSet" type="chatMessage">
+        <result column="CM_NO" property="cmNo"/>
+        <result column="CHAT_ROOM_NO" property="roomNo"/>
+        <result column="SEND_NO" property="sendNo"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="READ" property="read"/>
+        <result column="MS_CONTENT" property="content"/>
     </resultMap>
 
 
@@ -24,11 +24,16 @@
             VALUES (#{roomNo},#{memberNo})
     </insert>
 
-    <select id="findRoom" resultMap="chatroomResultSet">
-        SELECT CHAT_ROOM_NO,
-                MEMBER_NO
-        FROM CHAT_ROOM
-        WHERE MEMBER_NO = #{memberNo}
+    <select id="findRoom" resultMap="chatMessageResultSet">
+        SELECT CM_NO,
+               CHAT_ROOM_NO,
+               SEND_NO,
+               CREATE_DATE,
+               READ,
+               MS_CONTENT
+        FROM CHAT_MESSAGE
+        WHERE CM_NO = #{memberNo}
+        ORDER BY CREATE_DATE DESC
     </select>
 
     <insert id="enterRoom">
