@@ -95,13 +95,6 @@
     //   $("#chat-input").attr("disabled", false);
     //   generate_message(name, "self");
     // });
-
-
-
-
-
-
-
     $("#chat-circle").click(function () {
       $.ajax({
         url: '${pageContext.request.contextPath}/createChatRoom',
@@ -147,7 +140,6 @@
 
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
-
       if(e.keyCode===13){
         send();
       }

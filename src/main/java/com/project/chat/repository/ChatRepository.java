@@ -29,8 +29,8 @@ public class ChatRepository {
         sqlSession.insert("chatMapper.chatRoomInsert",room);
     }
 
-    public ChatingRoom findRoom(long memberNo) {
-        return sqlSession.selectOne("chatMapper.findRoom",memberNo);
+    public List<ChatingRoom> findRoom(long memberNo) {
+        return sqlSession.selectList("chatMapper.findRoom",memberNo);
     }
 
     public void enterRoom(ChatRoomJoin join) {
