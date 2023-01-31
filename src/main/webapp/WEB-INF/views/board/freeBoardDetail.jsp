@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="w" value="${fb.boardWriter}"/>
 <html>
 <head>
     <title>자유게시판 상세보기</title>
@@ -22,7 +23,12 @@
         </div>
         <div class="detail_head">
             <div class="board_title">
-                <input type="text" name="boardTitle" value="${fb.boardTitle}">
+                    <c:if test="${w eq loginUser.nickName}">
+                        <input type="text" name="boardTitle" value="${fb.boardTitle}">
+                    </c:if>
+                    <c:if test="${w ne loginUser.nickName}">
+                        <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
+                    </c:if>
             </div>
             <div class="board_info">
                 <div class="writer_img">
@@ -36,16 +42,15 @@
             <div name="boardContent">${fb.boardContent}</div>
         </div>
         <div class="btn_box">
-            <c:if test="not empty ${loginUser}">
-                <c:set var="w" value="${fb.boardWriter}"/>
-                <c:if test="${w eq loginUser.nickName}">
-                    <button type="submit">수정</button>
-                    <button onclick="deletePost();">삭제</button>
+                <c:if test="${not empty loginUser}">
+                    <c:if test="${w eq loginUser.nickName}">
+                        <button type="submit">수정</button>
+                        <button onclick="deletePost();">삭제</button>
+                    </c:if>
+                    <c:if test="${w ne loginUser.nickName}">
+                        <button type="submit">신고하기</button>
+                    </c:if>
                 </c:if>
-                <c:if test="${w ne loginUser.nickName}">
-                    <button type="submit">신고하기</button>
-                </c:if>
-            </c:if>
         </div>
     </div>
     <div class="reply_area">
