@@ -112,7 +112,6 @@
           $("#chat-circle").toggle("scale");
               }
       })
-
     });
 
     $(".chat-box-toggle").click(function () {

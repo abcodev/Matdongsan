@@ -53,9 +53,7 @@ public class MemberController {
     @ResponseBody
     public String sendSMS(@RequestParam("phone") String userPhoneNumber) {
         int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);
-
         memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
-
         return Integer.toString(randomNumber);
     }
 

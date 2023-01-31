@@ -38,7 +38,7 @@
                 <input  class="signin_pass" id="phoneNumber" type="text" name="phoneNumber" title="전화번호 입력" placeholder="전화번호 입력해주세요">
                 <input  class="signin_pass" type="button" value="입력" id="phoneChk">
 
-                <input  class="signin_pass" id="phone2" type="text" name="phone" title="전화번호 입력" placeholder="인증번호 입력해주세요">
+                <input  class="signin_pass" id="phone2" type="text" name="phone2" title="전화번호 입력" placeholder="인증번호 입력해주세요">
                 <input  class="signin_pass" type="button" value="인증확인" id="phoneChk2">
                 <button>인증</button>
             </div>

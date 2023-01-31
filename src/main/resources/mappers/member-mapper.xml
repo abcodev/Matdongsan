@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper">
 
-    <resultMap type="Member" id="memberResultSet">
+    <resultMap type="member" id="memberResultSet">
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="PROVIDER" property="provider"/>
         <result column="PROVIDER_ID" property="providerId"/>
@@ -19,13 +19,16 @@
         <result column="INTEREST_STATE" property="interestState"/>
     </resultMap>
 
-    <resultMap type="MemberDto" id="memberResultSet1">
+    <resultMap type="memberDto" id="memberResultSet1">
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
+
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="PROFILE_IMAGE" property="profileImage"/>
         <result column="EMAIL" property="email"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="PHONE" property="phone"/>
-        <result column="ADDRESS" property="address"/>
+        <result column="ADDRESS" property="address" />
         <result column="INTEREST_STATE" property="interestState"/>
     </resultMap>
 
@@ -44,13 +47,14 @@
     </select>
 
     <select id="loginMember" parameterType="memberDto" resultMap="memberResultSet1">
-        SELECT *
+        SELECT
+            MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, INTEREST_STATE, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
             AND STATUS = 'Y'
     </select>
 
-    <update id="update" parameterType="member">
+    <update id="update" parameterType="memberDto">
         UPDATE MEMBER
         SET
             NICKNAME = #{nickName},

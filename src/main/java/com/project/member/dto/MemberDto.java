@@ -4,7 +4,6 @@ import lombok.*;
 
 @Setter
 @Getter
-@Builder
 @AllArgsConstructor
 public class MemberDto {
 

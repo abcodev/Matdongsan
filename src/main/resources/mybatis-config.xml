@@ -40,7 +40,6 @@
         <mapper resource="/mappers/freeBoard-mapper.xml"/>
         <mapper resource="/mappers/chat-mapper.xml"/>
         <mapper resource="/mappers/alarm-mapper.xml"/>
-        <mapper resource="/mappers/admin-mapper.xml"/>
     </mappers>
 
 </configuration>
