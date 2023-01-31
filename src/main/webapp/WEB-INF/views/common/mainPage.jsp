@@ -12,7 +12,7 @@
     /*지도*/
 .wrap {position: absolute;left: 0;bottom: 40px;width: 150px;height: 100px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
-.wrap .info {width: 150px;height: 100px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.wrap .info {width: 160px;height: 100px;border-radius: 3px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 12px;font-weight: bold; text-align: left;}
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
@@ -177,8 +177,8 @@
                         if (status === kakao.maps.services.Status.OK) {
                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                            var imageSrc = 'https://cdn-user-icons.flaticon.com/91329/91329620/1675081081257.svg?token=exp=1675082973~hmac=93911fdb995d76bb29dd10a006f551e2', // 마커이미지의 주소입니다
-                                imageSize = new kakao.maps.Size(50, 55), // 마커이미지의 크기입니다
+                            var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
+                                imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
                                 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
                             // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -213,17 +213,19 @@
                             });
 
                             // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
-                            kakao.maps.event.addListener(marker, 'click', function() {
+                            kakao.maps.event.addListener(marker, 'mouseover', function() {
                                 overlay.setMap(map);
                                 overlay.setContent(content);
-                                document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
-                                    overlay.setMap(null);
-                                })
+                                // document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
+                                //     overlay.setMap(null);
+                                // })
                             });
 
-
                             // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-
+                            kakao.maps.event.addListener(marker, 'mouseout', function() {
+                                // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+                                overlay.setMap(null);
+                            });
 
                             if (index == 0) {
                                 map.setCenter(coords);
