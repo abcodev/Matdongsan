@@ -17,7 +17,7 @@
 <body>
 <%@ include file ="../template/header.jsp" %>
 <body>
-<main id="main">
+<div id="content">
     <div class="content head">
         <div class="search_input">
             <select name="selectState" id="selectState" >
@@ -53,7 +53,13 @@
             <div id="boardlist_main">
                 <c:forEach items="${freeBoardList}" var="freeBoardList">
                     <tr>
+                        <td>${freeBoardList.boardNo}</td>
                         <td>${freeBoardList.boardTitle}</td>
+                        <td>${freeBoardList.memberNo}</td>
+                        <td>${freeBoardList.boardWriter}</td>
+                        <td>${freeBoardList.boardContent}</td>
+                        <td>${freeBoardList.boardDate}</td>
+                        <td>${freeBoardList.boardArea}</td>
                     </tr>
                 </c:forEach>
             </div>
@@ -65,7 +71,7 @@
     <div class="paging">
 
     </div>
-</main>
+</div>
 
 <script>
     function movePage(){
