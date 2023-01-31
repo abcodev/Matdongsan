@@ -42,26 +42,29 @@
             </div>
         </div>
         <div class="detail_body">
-            <div name="boardContent">${fb.boardContent}</div>
+            <c:if test="${w eq loginUser.nickName}">
+                <textarea name="boardContent">${fb.boardContent}</textarea>
+            </c:if>
+            <c:if test="${w ne loginUser.nickName}">
+                <div name="boardContent">${fb.boardContent}</div>
+            </c:if>
         </div>
         <div class="btn_box">
                 <c:if test="${not empty loginUser}">
                     <c:if test="${w eq loginUser.nickName}">
-                        <button type="submit">수정</button>
+                        <button onclick="updatePost();">수정</button>
                         <button onclick="deletePost();">삭제</button>
                     </c:if>
                     <c:if test="${w ne loginUser.nickName}">
-                        <button type="submit">신고하기</button>
+                        <div class="alert_btn_box">
+                            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                신고하기
+                            </button>
+                        </div>
                     </c:if>
                 </c:if>
         </div>
 
-        <!-- 신고 -->
-        <div class="alert_btn_box">
-            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                신고하기
-            </button>
-        </div>
         <!-- 신고 모달 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -72,8 +75,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select>
-                                <option value="">부적절한 게시글</option>
+                        <select name="declaration">
+                            <option value="reason1">지나친 욕설과 비방 내용이 포함되어 있습니다.</option>
+                            <option value="reason2">게시글에 유해하고 선정적인 내용이 포함되어 있습니다.</option>
+                            <option value="reason3">게시글을 도배하고 있습니다.</option>
+                            <option value="reason4">불법적인 광고를 하고있습니다.</option>
                         </select>
                     </div>
                     <div class="modal-footer">
@@ -108,6 +114,43 @@
     </div>
 </div>
 
+<!-- 게시글 수정 -->
+<script>
+    function updatePost(){
+        let boardTitle = $('input[name="boardTitle"]').val();
+        let boardContent = $('textarea[name="boardContent"]').val();
+        let boardNo = $('input[name="fno"]').val();
+
+        console.log(boardTitle);
+        console.log(boardContent);
+        console.log(boardNo);
+
+        let formData = new FormData();
+        formData.append("boardTitle", boardTitle);
+        formData.append("boardContent", boardContent);
+        formData.append("boardNo", boardNo);
+
+        formData.has("boardTitle");
+        formData.has("boardContent");
+        formData.has("boardNo");
+
+        $.ajax({
+            url : '${pageContext.request.contextPath}/board/update',
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            data : formData,
+            type : "post",
+            success : function (result){
+                        console.log(result);
+                        location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
+                        alert("수정성공!");
+                    }
+        });
+    }
+
+</script>
+
 
 <!-- 게시글 삭제 -->
 <script>
@@ -120,8 +163,6 @@
 
 <!-- 댓글 등록 -->
 <script>
-
-
         $(function(){
             selectReplyList();
         });

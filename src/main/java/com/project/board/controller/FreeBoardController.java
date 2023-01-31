@@ -81,6 +81,17 @@ public class FreeBoardController {
         return mv;
     }
 
+    // 게시글 수정
+    @RequestMapping(value = "/update" , produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<FreeBoard> updatePost(FreeBoard freeBoard) throws Exception{
+        freeBoardService.updatePost(freeBoard);
+
+        freeBoard = freeBoardService.detailFreeBoard(freeBoard.getBoardNo());
+
+        return ResponseEntity.ok(freeBoard);
+    }
+
     // 게시글 삭제
     @RequestMapping("freeList/deletePost={fno}")
     public String deletePost(@PathVariable("fno") int fno){

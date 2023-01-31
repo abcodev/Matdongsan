@@ -38,4 +38,8 @@ public class FreeBoardDao {
     public int deletePost(SqlSession sqlSession, int fno){
         return sqlSession.update("freeBoardMapper.deletePost", fno);
     }
+
+    public int updatePost(SqlSession sqlSession, FreeBoard freeBoard){
+        return  sqlSession.update("freeBoardMapper.updatePost", freeBoard);
+    }
 }

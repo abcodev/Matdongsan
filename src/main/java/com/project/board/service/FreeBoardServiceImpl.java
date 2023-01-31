@@ -46,4 +46,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public int deletePost(int fno){
         return freeBoardDao.deletePost(sqlSession, fno);
     }
+
+    public int updatePost(FreeBoard freeBoard){
+        return freeBoardDao.updatePost(sqlSession, freeBoard);
+    }
 }
