@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,13 +29,15 @@ public class RealEstateRentAPIServiceImpl implements RealEstateRentApiService {
 
 
     public int getAndSave() {
+        LocalDate latestDealYmd = realEatateRentApiDao.latestDealYmd();
         List<RealEstateRent> houseList = seoulRentApiClient.getRentHouseList()
                 .stream()
                 .filter(rentHouseDto -> rentHouseDto.getHouseType().equals("아파트"))
+//                .filter(realEstateRentDto -> realEstateRentDto.isAfter(latestDealYmd))
                 .map(RealEstateRent::of)
                 .collect(Collectors.toList());
 
-        realEatateRentApiDao.truncateData();
+//        realEatateRentApiDao.truncateData();
         realEatateRentApiDao.packageInsert(houseList);
         return houseList.size();
     }

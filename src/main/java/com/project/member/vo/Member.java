@@ -2,10 +2,7 @@ package com.project.member.vo;
 
 import com.project.client.oauth.OAuthUser;
 import com.project.member.type.MemberGrade;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -19,6 +16,7 @@ import java.time.LocalDateTime;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -47,6 +45,8 @@ public class Member {
                 .email(oAuthUser.getEmail())
                 .build();
     }
+
+
 
 
 }
