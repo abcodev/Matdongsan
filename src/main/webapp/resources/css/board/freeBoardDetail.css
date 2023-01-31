@@ -5,9 +5,13 @@
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-
 #content{
     padding: 60px 300px 30px 300px;
+}
+
+textarea:focus , input:focus {
+    outline: #dedcf1 2px solid;
+    border-radius: 2px;
 }
 
 .freeBoard_Detail{
@@ -41,6 +45,7 @@
     font-size: 30px;
     border: none;
     font-weight: 400;
+    width: 100%;
 }
 
 .board_info{
@@ -100,6 +105,83 @@
     border-radius: 2px;
 }
 
+.btn_box > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
+
+/* 신고하기 */
+
+.alert_btn_box {
+    padding-left: 86%;
+    margin-top: 10px;
+}
+
+.alert_btn_box > button{
+    margin-left: 10px;
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 5px 10px 5px 10px;
+}
+
+.alert_btn_box > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
+
+.modal-content{
+    width: 80%;
+}
+
+.fa-person-circle-exclamation{
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.modal-header > span{
+    font-size: 20px;
+    font-weight: 450;
+}
+
+.modal-body > select{
+    width: 100%;
+    height: 35px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #515151;
+    cursor: pointer;
+}
+
+.modal-footer > button{
+    margin-left: 10px;
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 5px 10px 5px 10px;
+}
+
+.modal-footer > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
+
+/**********/
+
 .reply_area{
     margin-top: 20px;
 }
@@ -141,19 +223,24 @@
 .reply_foot > div > input{
     width: 75%;
     border: 1px solid #E0E0E0;
-    font-size: 20px;
-    margin: 0 65px 0 40px;
+    font-size: 16px;
+    margin: 0 50px 0 40px;
     border-radius: 2px;
+}
+
+.reply_foot > div > input::placeholder{
+    color: #a4a4a4;
 }
 
 .reply_foot > div > button{
     border: none;
-    width: 60px;
+    width: 80px;
     height: 40px;
     font-size: 16px;
-    background-color: #f3f1f5;
-    color: #213048;
+    background-color: #213048;
+    color: #f3f1f5;
     font-weight: 450;
     cursor: pointer;
     border-radius: 2px;
 }
+
