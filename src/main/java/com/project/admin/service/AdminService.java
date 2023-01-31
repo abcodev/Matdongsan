@@ -15,4 +15,6 @@ public interface AdminService {
     public int uListCount();
 
     public int rListCount();
+
+    public int deleteBoard(int freeBno);
 }

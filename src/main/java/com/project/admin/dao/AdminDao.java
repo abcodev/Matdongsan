@@ -37,5 +37,9 @@ public class AdminDao {
         return sqlSession.selectOne("adminMapper.rListCount");
     }
 
+    public int deleteBoard(SqlSession sqlSession,int freeBno) {
+        return  sqlSession.update("adminMapper.deleteBaord",freeBno);
+    }
+
 
 }

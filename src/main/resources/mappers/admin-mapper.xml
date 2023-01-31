@@ -65,6 +65,11 @@
         SELECT COUNT(*)
         FROM REPORT
     </select>
+    <update id="deleteBoard" parameterType="int">
+        UPDATE FREE_BOARD
+        SET STATUS = 'N'
+        WHERE FREE_BNO = #{freeBno}
+    </update>
 
 
 

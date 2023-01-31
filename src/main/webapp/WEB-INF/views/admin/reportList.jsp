@@ -45,11 +45,12 @@
 
 <c:forEach var="rl" items="${list2}">
             <tr>
+                <input type="hidden" value="${rl.freeBno}"/>
                 <th>${rl.reportNo}</th>
                 <th>${rl.email}</th>
                 <th>${rl.reportedEmail}</th>
                 <th>${rl.reportReason}</th>
-                <th><button onclick="movePage(qBno)">상세보기</button></th>
+                <th><button onclick="movePage(${rl.freeBno})">상세보기</button></th>
                 <th><button id="deleteBoard">처리중</button></th>
                 <th><select id="stop" onchange="changeSelect()">
                     <option>3일정지</option>
@@ -58,6 +59,7 @@
                 </select></th>
 
             </tr>
+
 </c:forEach>
 
     </table>
@@ -107,8 +109,8 @@
 
     };
 
-    function movePage(qBno){
-        location.href = '${pageContext.request.contextPath}/board/detail/'+qBno;
+    function movePage(){
+        location.href = '${pageContext.request.contextPath}/freeList/detail/'+${list.freeBno};
     }
     $(function(){
         $("#deleteBoard").click(function() {
