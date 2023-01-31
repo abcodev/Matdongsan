@@ -2,7 +2,8 @@ package com.project.board.vo;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 @Data
 public class FreeBoard {
@@ -11,7 +12,7 @@ public class FreeBoard {
     private String boardTitle;
     private String boardWriter;
     private String boardContent;
-    private Date boardDate;
+    private Timestamp boardDate;
     private String boardArea;
     private String status;
 
