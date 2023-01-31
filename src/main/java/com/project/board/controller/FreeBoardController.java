@@ -49,7 +49,7 @@ public class FreeBoardController {
 
     // 게시글 작성폼
     @RequestMapping("/freeList/enrollForm")
-    public String enrollForm(HttpSession session, Model model){
+    public String enrollForm(Model model){
         model.addAttribute("localList", StateList.values());
 
         return "board/freeBoardEnroll";
@@ -81,6 +81,21 @@ public class FreeBoardController {
         return mv;
     }
 
+    // 게시글 삭제
+    @RequestMapping("freeList/deletePost={fno}")
+    public String deletePost(@PathVariable("fno") int fno){
+        int result = freeBoardService.deletePost(fno);
+
+        System.out.println("삭제 : " + result);
+
+        if(result == 0){
+            return "common/errorPage";
+        }else {
+            return "redirect:/board/freeList";
+        }
+
+    }
+
     // 댓글 작성
     @RequestMapping("/insertReply")
     @ResponseBody
@@ -109,7 +124,7 @@ public class FreeBoardController {
         ArrayList<Reply> replyList = freeBoardService.selectReplyList(fno);
 
         Gson gson = new GsonBuilder().create();
-        // [reply, reply, reply]
+
         String result = gson.toJson(replyList);
 
         return result;

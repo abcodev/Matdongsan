@@ -25,7 +25,7 @@
             title : <input type="text" name="boardTitle" required>
         <br>
         <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
-
+        <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
         <br>
         <select id="boardArea" name="boardArea">
             <c:forEach var="localList" items="${localList}">

@@ -4,6 +4,7 @@ import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,5 +33,9 @@ public class FreeBoardDao {
 
     public ArrayList<Reply> selectReplyList(SqlSession sqlSession, int fno){
         return (ArrayList) sqlSession.selectList("freeBoardMapper.selectReplyList", fno);
+    }
+
+    public int deletePost(SqlSession sqlSession, int fno){
+        return sqlSession.update("freeBoardMapper.deletePost", fno);
     }
 }
