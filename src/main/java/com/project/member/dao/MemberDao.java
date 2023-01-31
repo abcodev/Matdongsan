@@ -1,6 +1,5 @@
 package com.project.member.dao;
 
-import com.project.member.dto.MemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;

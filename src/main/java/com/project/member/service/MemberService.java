@@ -4,7 +4,6 @@ import com.project.client.oauth.OAuthClient;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.dao.MemberDao;
-import com.project.member.dto.MemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 //import net.nurigo.java_sdk.api.Message;

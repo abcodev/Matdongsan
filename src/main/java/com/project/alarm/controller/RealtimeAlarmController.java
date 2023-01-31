@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpSession;
@@ -35,6 +36,7 @@ public class RealtimeAlarmController {
     }
 
     @GetMapping("/alarm/test2")
+    @ResponseBody
     public ResponseEntity<List<Alarm>> test2() {
         return ResponseEntity.ok(alarmService.retrieveAlarmList(1));
     }

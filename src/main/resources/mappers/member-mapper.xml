@@ -19,18 +19,6 @@
         <result column="INTEREST_STATE" property="interestState"/>
     </resultMap>
 
-    <resultMap type="memberDto" id="memberResultSet1">
-        <result column="PROVIDER" property="provider"/>
-        <result column="PROVIDER_ID" property="providerId"/>
-        <result column="MEMBER_NO" property="memberNo"/>
-        <result column="PROFILE_IMAGE" property="profileImage"/>
-        <result column="EMAIL" property="email"/>
-        <result column="NICKNAME" property="nickName"/>
-        <result column="PHONE" property="phone"/>
-        <result column="ADDRESS" property="address" />
-        <result column="INTEREST_STATE" property="interestState"/>
-    </resultMap>
-
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
         (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS)
@@ -69,9 +57,6 @@
             GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
     </update>
-
-
-
 
 
 
