@@ -41,7 +41,7 @@
                MS_CONTENT
         FROM CHAT_MESSAGE
         WHERE CHAT_ROOM_NO = #{roomNo}
-        ORDER BY CREATE_DATE DESC
+        ORDER BY CREATE_DATE
     </select>
 
     <insert id="enterRoom">
