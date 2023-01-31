@@ -13,19 +13,37 @@
   <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<jsp:include page="../template/header.jsp" />
+<%@ include file ="../template/header.jsp" %>
 
 <div id="content">
   <div id="info_box">
     <div id="userimg">
-      <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
+      <img src="${loginUser.profileImage}">
     </div>
+
     <div id="userInfo">
-      <table></table>
+      <table>
+        <tr>
+          <td>아이디 : ${loginUser.providerId}</td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;닉네임 : ${loginUser.nickName}</td>
+        </tr>
+        <tr>
+          <td>핸드폰 : ${loginUser.phone}</td>
+        </tr>
+        <tr>
+          <td>이메일 : ${loginUser.email}</td>
+        </tr>
+        <tr>
+          <td>주소 : ${loginUser.address}</td>
+        </tr>
+        <tr>
+          <td>관심구 : </td>
+        </tr>
+      </table>
     </div>
     <div id="btn_box">
       <button>회원탈퇴</button>
-<%--      <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>--%>
+      <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
     </div>
   </div>
   <div id="like">
@@ -41,7 +59,6 @@
   <div id="myBoard">
     <h4>내 게시글 보기</h4>
     <div id="myBoardList">
-      <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
       <table></table>
     </div>
   </div>

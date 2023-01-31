@@ -11,10 +11,7 @@ import org.imgscalr.Scalr;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -29,7 +26,7 @@ public class LoginController {
     /**
      * 로그인 페이지 이동
      */
-    @RequestMapping(value = "/loginPage", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/loginPage", method = {RequestMethod.GET, RequestMethod.POST})
     public String login() {
         return "member/loginPage";
     }
@@ -46,7 +43,7 @@ public class LoginController {
         return "redirect:" + redirectUrl;
     }
 
-    @RequestMapping(value="/{provider}/callback")
+    @RequestMapping(value = "/{provider}/callback")
     public ModelAndView oauthLoginCallback(@RequestParam("code") String code,
                                            @RequestParam(value = "state", defaultValue = "") String state,
                                            @PathVariable String provider,
@@ -58,14 +55,13 @@ public class LoginController {
         return mav;
     }
 
-    @RequestMapping(value="/logout")
+    @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpSession session) {
         ModelAndView mav = new ModelAndView();
         session.removeAttribute("loginUser");
         mav.setViewName("redirect:/");
         return mav;
     }
-
-
-
 }
+
+

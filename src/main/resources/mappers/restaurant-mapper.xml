@@ -158,8 +158,6 @@
 
 
 
-
-
     <!-- 관리자 - 맛집 등록 -->
     <insert id="resInsert" parameterType="restaurant">
         <selectKey keyProperty="resNo" resultType="string" order="BEFORE">
@@ -202,20 +200,6 @@
     <delete id="deleteResImg" parameterType="string">
         DELETE FROM RES_IMG WHERE RES_NO = #{resNo}
     </delete>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

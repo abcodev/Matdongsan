@@ -7,6 +7,7 @@ import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
+import com.project.restaurant.vo.Hashtag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -62,9 +63,9 @@ public class RealEstateController {
     public ResponseEntity<List<String>> realEstateDong(@RequestParam String state) {
         // ResponseEntity : HttpRequest에 대한 응답 데이터가 담겨있음, gson -> object를 json 으로 바꾸는 것, 부가적인 로직을 줄일 수 있음
         // 목적: 결과값, 상태코드, 헤더값 등을 클라이언트단에 넘겨주기 위함, 응답 상태코드를 직접 담고싶을 때
-        return ResponseEntity.ok( // HTTP OK(200) 응답을 bjdName 목록을 반환
+        return ResponseEntity.ok( // HTTP OK(200) 응답을 bjdName 목록을 반환함
                 realEstateService.searchDongList(state).stream()
-                        // 메서드 참조형태
+                        // :: 메서드 참조형태
                         .map(RealEstateRent::getBjdName)
                         .collect(Collectors.toList())
         );
@@ -75,9 +76,19 @@ public class RealEstateController {
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
                                          ModelAndView modelAndView) {
 
+        List<String> pastList = realEstateService.selectPastList(estateNo);
+
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
-        modelAndView.setViewName("realestate/realEstateDetailPage");
+        modelAndView.setViewName("realestate/realestateDetailPage");
+        modelAndView.addObject("realEstateDetail", realEstateDetailDto);
+        modelAndView.addObject("pastList", pastList);
         return modelAndView;
     }
+
+    @RequestMapping("detail/interest")
+    public String saveInterest() {
+        return null;
+    }
+
 
 }

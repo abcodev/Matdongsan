@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,12 +18,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>커뮤니티</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
-    <jsp:include page="../template/font.jsp"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <title>커뮤니티 질문게시판</title>
+    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
+    <jsp:include page="../template/font.jsp"></jsp:include>
 </head>
 <body>
+<%@ include file ="../template/header.jsp" %>
 <main>
     <div class="content head">
         <form id="searchForm" action="search?" method="get">

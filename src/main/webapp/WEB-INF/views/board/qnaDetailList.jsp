@@ -44,7 +44,9 @@
 
     <button id="writebtn1" onclick="movePage()"><i class="fa-solid fa-pencil"></i>답글달기</button>
     <%--<c:if test="${ not empty loginUser }">--%>
+    <button id="delete">
     <a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제하기</a>
+    </button>
    <%-- </c:if>--%>
   </table>
   <br><br><br><br><br><br>
@@ -71,6 +73,7 @@
 
       location.href = '${pageContext.request.contextPath}/board/insertAnswer?&depth='+depth+"&pBno="+pBno+"&qBno="+qBno;
     }
+
   </script>
 
 

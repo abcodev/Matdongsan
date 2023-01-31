@@ -30,7 +30,6 @@ public class ChatService {
         return chatRepository.chatRoomList();
     }
 
-
     /**
      * 채팅방 만들기
      */

@@ -105,4 +105,9 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     public int deleteBoard(int qBno){
     return boardDao.deleteBoard(sqlSession,qBno);
     }
+
+    @Override
+    public int reportBoard(int qBno){
+        return boardDao.reportBoard(sqlSession,qBno);
+    }
 }

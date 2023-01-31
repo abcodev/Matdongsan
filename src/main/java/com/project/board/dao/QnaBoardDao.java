@@ -5,6 +5,7 @@ import com.project.board.vo.QnaBoard;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,10 @@ import java.util.Map;
 public class QnaBoardDao {
 
     public int selectListCount(SqlSession sqlSession) {
+
         return sqlSession.selectOne("boardMapper.selectListCount");
     }
+
 
     public int selectListCount(SqlSession sqlSession , Map<String, Object> paramMap) {
         return sqlSession.selectOne("boardMapper.searchListCount", paramMap);
@@ -60,6 +63,10 @@ public class QnaBoardDao {
 
     public int deleteBoard(SqlSession sqlSession, int qBno){
         return sqlSession.update("boardMapper.deleteBoard",qBno);
+    }
+
+    public int reportBoard(SqlSession sqlSession, int qBno){
+        return sqlSession.insert("boardMapper.reportBoard",qBno);
     }
 
 }

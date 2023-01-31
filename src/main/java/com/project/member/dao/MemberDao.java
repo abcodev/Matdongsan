@@ -43,5 +43,10 @@ public class MemberDao {
     }
 
 
-
+    public void updateRecentAccess(String provider, String providerId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("provider", provider);
+        params.put("providerId", providerId);
+        sqlSession.update("memberMapper.updateRecentAccess", params);
+    }
 }
