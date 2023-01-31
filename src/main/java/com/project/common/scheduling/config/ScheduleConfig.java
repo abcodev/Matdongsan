@@ -15,7 +15,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
         ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
 
         threadPoolTaskScheduler.setPoolSize(POOL_SIZE);
-        threadPoolTaskScheduler.setThreadNamePrefix("frmm-scheduled-task-pool-");
+        threadPoolTaskScheduler.setThreadNamePrefix("현재 쓰레드-");
         threadPoolTaskScheduler.initialize();
 
         scheduledTaskRegistrar.setTaskScheduler(threadPoolTaskScheduler);
