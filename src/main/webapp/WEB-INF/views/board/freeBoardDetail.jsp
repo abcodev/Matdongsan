@@ -130,10 +130,10 @@
         formData.append("boardContent", boardContent);
         formData.append("boardNo", boardNo);
 
-        formData.has("boardTitle");
-        formData.has("boardContent");
-        formData.has("boardNo");
+        console.log(formData);
 
+        //ajax로 파일전송 폼데이터를 보내기위해
+        //enctype, processData, contentType 이 세가지를 반드시 세팅해야한다.
         $.ajax({
             url : '${pageContext.request.contextPath}/board/update',
             enctype: 'multipart/form-data',
@@ -143,9 +143,14 @@
             type : "post",
             success : function (result){
                         console.log(result);
-                        location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
                         alert("수정성공!");
-                    }
+                    },
+            error : function (){
+                        alert("수정실패");
+                    },
+            complete : function (){
+                            location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
+                        }
         });
     }
 
