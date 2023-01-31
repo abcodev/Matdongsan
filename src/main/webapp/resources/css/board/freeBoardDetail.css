@@ -5,9 +5,13 @@
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-
 #content{
     padding: 60px 300px 30px 300px;
+}
+
+textarea:focus , input:focus {
+    outline: #dedcf1 2px solid;
+    border-radius: 2px;
 }
 
 .freeBoard_Detail{
@@ -41,6 +45,7 @@
     font-size: 30px;
     border: none;
     font-weight: 400;
+    width: 100%;
 }
 
 .board_info{
@@ -218,9 +223,13 @@
 .reply_foot > div > input{
     width: 75%;
     border: 1px solid #E0E0E0;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0 50px 0 40px;
     border-radius: 2px;
+}
+
+.reply_foot > div > input::placeholder{
+    color: #a4a4a4;
 }
 
 .reply_foot > div > button{

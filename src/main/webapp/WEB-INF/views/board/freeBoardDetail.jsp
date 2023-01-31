@@ -87,7 +87,7 @@
         <div class="reply_foot">
             <div>
                 <div class="my_img"><img src="<c:url value="/resources/images/common/맛동산메인로고.png"/>"></div>
-                <input name="replyContent" type="text">
+                <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
                 <button onclick="insertReply();">댓글 등록</button>
             </div>
         </div>
