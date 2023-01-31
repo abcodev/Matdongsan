@@ -99,11 +99,13 @@
       $.ajax({
         url: '${pageContext.request.contextPath}/createChatRoom',
         type: "POST",
-        success :function (room){
+        success :function (result){
+          console.log(result)
           $("#chat-circle").toggle("scale");
           $(".chat-box").toggle("scale");
-          console.log(room);
-          let roomNo = room.roomNo
+          let roomNo = result.room.roomNo;
+          let messageList = result.messageList;
+          console.log(messageList[0].content);
           $("#roomNo").val(roomNo);
           connection(roomNo);
               },

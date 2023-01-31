@@ -121,6 +121,7 @@
 package com.project.chat.controller;
 
 import com.project.chat.dto.ChatingRoom;
+import com.project.chat.dto.MessageListDto;
 import com.project.chat.dto.RoomCheckDto;
 import com.project.chat.service.ChatService;
 import com.project.member.vo.Member;
@@ -134,6 +135,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -144,7 +146,7 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping("/createChatRoom")
-    public ResponseEntity<?> adminChatting(
+    public ResponseEntity<Map<String ,Object>> adminChatting(
             @ModelAttribute("loginUser") Member loginUser
     ){
         // CHAT_ROOM 테이블에 회원 아이디 있으면 방을 생성하지 않음
@@ -153,14 +155,11 @@ public class ChatController {
         // 나가기 버튼을 누르면 소켓 통신 연결 끊기
         // 그후 다시 문의하면 db에서 roomId에 따른 채팅 내용을 불러온다.
         // 불러올때도 보낸이와 회원 아이디 비교해서 내가 보낸건지 상대방이 보낸건지 구분하기.
-        List<ChatingRoom> find = chatService.findRoom(loginUser.getMemberNo());
-        if(ObjectUtils.isEmpty(find)) {
-            ChatingRoom room = ChatingRoom.create(loginUser.getMemberNo());
-            chatService.createRoom(room);
-            chatService.enterChatRoom(room,loginUser.getMemberNo());
-            return ResponseEntity.ok(room);
-        }else{
-            return ResponseEntity.ok(find);
-        }
+
+        Map<String ,Object> chat = chatService.findRoom(loginUser.getMemberNo());
+        System.out.println("방번호는 ?"+chat.get("room"));
+        return ResponseEntity.ok().body(chat);
+
+
     }
 }
