@@ -99,11 +99,15 @@
       $.ajax({
         url: '${pageContext.request.contextPath}/createChatRoom',
         type: "POST",
-        success :function (room){
+        success :function (result){
+          console.log(result)
           $("#chat-circle").toggle("scale");
           $(".chat-box").toggle("scale");
-          console.log(room);
-          let roomNo = room.roomNo
+          let roomNo = result.room.roomNo;
+          let messageList = result.messageList;
+          console.log(messageList);
+          loadChat(messageList);
+
           $("#roomNo").val(roomNo);
           connection(roomNo);
               },
@@ -144,13 +148,31 @@
       }
     });
 
+
+    // 실시간 채팅 내용
     function showMessage(data){
       if(data.sender==='${loginUser.memberNo}'){
-        $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>");
+        $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>"); // 내가 보낸 메세지
       } else {
-        $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>");
+        $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>"); // 남이 보낸 메세지
       }
     }
+    // 이전 채팅 내용 불러오는 함수
+    function loadChat(messageList){
+      if(messageList != null) {
+        for(let i in messageList) {
+          console.log(messageList[i].sendNo);
+          if(messageList[i].sendNo ==='${loginUser.memberNo}'){
+            $('.chat-logs').append("<p class='me'>"+messageList[i].sendNo+" : "+messageList[i].content+"</p>");// 내가 보낸 메세지
+          } else {
+            $('.chat-logs').append("<p class='other'>"+messageList[i].sendNo+" : "+messageList[i].content+"</p>");// 남이 보낸 메세지
+          }
+        }
+      }
+    }
+
+
+
 
     //메시지 브로커로 메시지 전송
     function send(){

@@ -2,19 +2,20 @@ package com.project.chat.service;
 //
 //import com.project.chat.dto.ChatingRoom;
 //import com.project.chat.repository.ChatRepository;
-import com.project.chat.dto.ChatRoomJoin;
-import com.project.chat.dto.ChatingRoom;
-import com.project.chat.dto.MessageDto;
-import com.project.chat.dto.RoomCheckDto;
+import com.project.chat.dto.*;
 import com.project.chat.repository.ChatRepository;
+import com.project.common.template.Utils;
 import com.project.member.vo.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //import java.util.Collections;
 //import java.util.List;
@@ -25,36 +26,48 @@ public class ChatService {
     @Autowired
     private ChatRepository chatRepository;
 
-    public List<ChatingRoom> chatRoomList() {
-
-        return chatRepository.chatRoomList();
-    }
 
     /**
      * 채팅방 만들기
      */
-    public void createRoom(ChatingRoom room) {
 
 
-        chatRepository.createRoom(room);
+    public Map<String,Object> findRoom(long memberNo) {
+
+        Map<String,Object> map = new HashMap<>();
+
+         RoomCheckDto roomCheckDto = RoomCheckDto.checkDto(memberNo);
+         ChatingRoom chatingRoom = chatRepository.roomCheck(roomCheckDto);
+
+         if(ObjectUtils.isEmpty(chatingRoom)){
+             ChatingRoom room = ChatingRoom.create(memberNo);
+             chatRepository.createRoom(room);
+             chatRepository.enterRoom(ChatRoomJoin.join(room.getRoomNo(),memberNo));
+             map.put("room",room);
+
+         }else{
+             List<MessageListDto> messageList = chatRepository.messageList(chatingRoom.getRoomNo());
+             map.put("room",chatingRoom);
+             map.put("messageList",messageList);
+
+         }
+         return map;
     }
 
-    public boolean enterChatRoom(ChatingRoom room, long memberNo) {
-        if(room == null){
-            return false;
-        }else{
-            chatRepository.enterRoom(ChatRoomJoin.join(room.getRoomNo(),memberNo));
-            return true;
-        }
-    }
 
-    public List<ChatingRoom> findRoom(long memberNo) {
-        return chatRepository.findRoom(memberNo);
-    }
+
+
+
+
+
+
+
+
 
     public void sendMessage(MessageDto data) {
         chatRepository.sendMessage(data);
     }
+
 
 
 //

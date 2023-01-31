@@ -18,13 +18,21 @@
         <result column="MS_CONTENT" property="content"/>
     </resultMap>
 
+    <select id="roomCheck" resultMap="chatroomResultSet">
+        SELECT
+            CHAT_ROOM_NO,
+            MEMBER_NO
+        FROM CHAT_ROOM
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
+
 
     <insert id="chatRoomInsert">
         INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
             VALUES (#{roomNo},#{memberNo})
     </insert>
 
-    <select id="findRoom" resultMap="chatMessageResultSet">
+    <select id="messageList" resultMap="chatMessageResultSet">
         SELECT CM_NO,
                CHAT_ROOM_NO,
                SEND_NO,
@@ -32,8 +40,8 @@
                READ,
                MS_CONTENT
         FROM CHAT_MESSAGE
-        WHERE CM_NO = #{memberNo}
-        ORDER BY CREATE_DATE DESC
+        WHERE CHAT_ROOM_NO = #{roomNo}
+        ORDER BY CREATE_DATE
     </select>
 
     <insert id="enterRoom">
