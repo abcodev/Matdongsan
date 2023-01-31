@@ -39,7 +39,7 @@ public class QnaBoardController {
             map = boardService.selectList(paramMap);
         }
         model.addAttribute("map", map);
-        return "board/qnaBoardList";
+        return "board/qnaList";
     }
 
     /*게시글 작성페이지*/
@@ -58,7 +58,7 @@ public class QnaBoardController {
 
         qb.setQnaArea(qb.getQnaArea());
         int result = boardService.insertQboard(qb);
-        return "redirect:/board/list";
+        return "redirect:/board/qnaList";
         }
 
 
@@ -93,7 +93,7 @@ public class QnaBoardController {
         model.addAttribute("qb",qb);
 
 
-        return "redirect:/board/list";
+        return "redirect:/board/qnaList";
 
     }
 
@@ -120,16 +120,25 @@ public class QnaBoardController {
         return mv;
     }
 
+    /*게시글 삭제*/
     @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)
     public String deleteBoard(
             @PathVariable("qBno") int qBno
     ){
-
         int result = boardService.deleteBoard(qBno);
 
 
-            return "redirect:/board/list";
+            return "redirect:/board/qnaList";
 
+    }
+
+    @RequestMapping(value = "reportBoard")
+    public String reportBoard(
+            @PathVariable("qBno") int qBno
+    ){
+        int result = boardService.reportBoard(qBno);
+
+        return "board/reportBoard";
     }
 }
 

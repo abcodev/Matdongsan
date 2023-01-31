@@ -16,5 +16,6 @@ public class RealEstateDetailDto {
     private String objAmt;
     private String bldgArea;
     private String gbn;
+    private String dealYmd;
 
 }

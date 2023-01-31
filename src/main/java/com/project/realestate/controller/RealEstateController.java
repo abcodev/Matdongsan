@@ -7,6 +7,7 @@ import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
+import com.project.restaurant.vo.Hashtag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -75,9 +76,12 @@ public class RealEstateController {
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
                                          ModelAndView modelAndView) {
 
+        List<String> pastList = realEstateService.selectPastList(estateNo);
+
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
-        modelAndView.setViewName("realestate/realEstateDetailPage");
+        modelAndView.setViewName("realestate/realestateDetailPage");
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
+        modelAndView.addObject("pastList", pastList);
         return modelAndView;
     }
 

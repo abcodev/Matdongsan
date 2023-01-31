@@ -12,21 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GoogleOAuthResponse {
-    private String accessToken;
-    private String expiresIn;
-    private String refreshToken;
-    private String scope;
-    private String tokenType;
-    private String idToken;
-    private String id;
+    private String sub;
     private String name;
     private String email;
-
-    private String profileImage;
+    private String picture;
 
 
     public OAuthUser toOAuth2USer(){
-        return new OAuthUser("GOOGLE", id, name, email, profileImage);
+        return new OAuthUser("GOOGLE", sub, name, email, picture);
     }
 
 }

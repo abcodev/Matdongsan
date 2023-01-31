@@ -43,6 +43,13 @@
           <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/admin/chat">1:1문의</a>
           </button>
         </div>
+        <script>
+          // TODO : 로그인 된 후에만되도록 분기문 필요
+          const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+          sse.addEventListener('realtime_alarm', (event) => {
+            console.log(event);
+          })
+        </script>
       </div>
     </nav>
     <div class="login">

@@ -1,4 +1,4 @@
-package com.project.alarm.dao;
+package com.project.alarm.repository;
 
 import com.project.alarm.vo.Alarm;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class AlarmDao {
+public class AlarmRepository {
 
     private final SqlSessionTemplate sqlSession;
 

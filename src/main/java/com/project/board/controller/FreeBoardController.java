@@ -2,7 +2,9 @@ package com.project.board.controller;
 
 import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.Reply;
 import com.project.common.type.StateList;
+import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,7 +49,8 @@ public class FreeBoardController {
 
     // 게시글 작성폼
     @RequestMapping("/freeList/enrollForm")
-    public String enrollForm(HttpSession session){
+    public String enrollForm(HttpSession session, Model model){
+        model.addAttribute("localList", StateList.values());
 
         return "board/freeBoardEnroll";
     }
@@ -54,6 +60,7 @@ public class FreeBoardController {
     public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "테스트")String boardWriter,
                                   @RequestParam(value = "boardArea") String boardArea,
                                   Model model, FreeBoard fb){
+
         model.addAttribute("boardWrtier", boardWriter);
 
         freeBoardService.insertFboard(fb);
@@ -72,6 +79,40 @@ public class FreeBoardController {
         mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;
+    }
+
+    // 댓글 작성
+    @RequestMapping("/insertReply")
+    @ResponseBody
+    public String insertReply(Reply r, HttpSession session) {
+        // 댓글 목록 조회
+        Member m = (Member)session.getAttribute("loginUser");
+        if(m != null) {
+            r.setMemberNo(m.getMemberNo());
+        }
+
+        int result = freeBoardService.insertReply(r);
+
+        // gson으로 파싱
+        if(result > 0) {
+            return "1";
+        }else {
+            return "0";
+        }
+
+    }
+
+    // 댓글 보기
+    @RequestMapping("/replyList")
+    @ResponseBody
+    public String selectReplyList (int fno){
+        ArrayList<Reply> replyList = freeBoardService.selectReplyList(fno);
+
+        Gson gson = new GsonBuilder().create();
+        // [reply, reply, reply]
+        String result = gson.toJson(replyList);
+
+        return result;
     }
 
 }

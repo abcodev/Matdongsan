@@ -13,6 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 </head>
 <body>
 <div class="floating-chat">
@@ -33,6 +34,7 @@
     </div>
     <div class="chat-input">
       <form>
+        <input type="hidden" id="roomNo">
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
         <button type="submit" class="chat-submit" id="chat-submit"><i
                 class="fa-regular fa-paper-plane" onclick="send();"></i></button>
@@ -101,46 +103,48 @@
 
 
     $("#chat-circle").click(function () {
-      $("#chat-circle").toggle("scale");
-      $(".chat-box").toggle("scale");
+      $.ajax({
+        url: '${pageContext.request.contextPath}/createChatRoom',
+        type: "POST",
+        success :function (room){
+          $("#chat-circle").toggle("scale");
+          $(".chat-box").toggle("scale");
+          console.log(room);
+          let roomNo = room.roomNo
+          $("#roomNo").val(roomNo);
+          connection(roomNo);
+              },
+        fail : function (){
+          alert("사용 실패")
+          $("#chat-circle").toggle("scale");
+              }
+      })
 
-      <%--$.ajax({--%>
-      <%--  url: '${pageContext.request.contextPath}/createChatRoom',--%>
-      <%--  type: "POST",--%>
-
-      <%--  success :function (room){--%>
-      <%--    $(".chat-box").toggle("scale");--%>
-      <%--        connection();--%>
-      <%--        },--%>
-      <%--  fail : function (){--%>
-      <%--    alert("사용 실패")--%>
-      <%--    $("#chat-circle").toggle("scale");--%>
-      <%--        }--%>
-
-      <%--})--%>
     });
 
     $(".chat-box-toggle").click(function () {
       $("#chat-circle").toggle("scale");
       $(".chat-box").toggle("scale");
     });
-    connection();
 
 
-    function connection() {
+    function connection(roomNo) {
       let socket = new SockJS("/Matdongsan/mainPage");
       stompClient = Stomp.over(socket);
-      stompClient.connect({}, onConnected, onError);
+      stompClient.connect({}, onConnected(roomNo));
     }
-    function onConnected() {
+
+    function onConnected(roomNo) {
       alert("연결 성공!");
-      stompClient.subscribe('/topic/1', function (e){
-        showMessage(JSON.parse(e .body));
+      // console.log('Connected: ' + frame);
+      setTimeout(function() {
+        stompClient.subscribe('/topic/'+ roomNo, function (e){
+          showMessage(JSON.parse(e .body));
       });
-    }
-    function onError() {
-      alert("연결 실패");
-    }
+    }, 500);}
+    // setTimeout : 몇초뒤에 특정 함수 호출
+    // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
+
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
 
@@ -159,9 +163,11 @@
 
     //메시지 브로커로 메시지 전송
     function send(){
-      data = {
+      const roomNo = $("#roomNo").val();
+      const data = {
         'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-input").val()
+        'contents': $("#chat-input").val(),
+        'roomNo' : roomNo
       };
       // send(destination,헤더,페이로드)
       stompClient.send("/app/chat/send", {}, JSON.stringify(data));

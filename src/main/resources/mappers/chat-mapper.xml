@@ -5,24 +5,37 @@
 <mapper namespace="chatMapper">
 
     <resultMap type="chatingRoom" id="chatroomResultSet">
-        <id column="CHAT_ROOM_NO" property="chatRoomNo"/>
+        <id column="CHAT_ROOM_NO" property="roomNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 
 
     <insert id="chatRoomInsert">
         INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
-            VALUES (#{roomNo},#{memberNo})
+        VALUES (#{roomNo}, #{memberNo})
     </insert>
 
     <select id="findRoom" resultMap="chatroomResultSet">
-        SELECT CHAT_ROOM_NO
+        SELECT CHAT_ROOM_NO,
+               MEMBER_NO
         FROM CHAT_ROOM
-        WHERE CHAT_ROOM_NO = #{roomNo}
+        WHERE MEMBER_NO = #{memberNo}
     </select>
 
     <insert id="enterRoom">
         INSERT INTO CHAT_ROOM_JOIN(CHAT_ROOM_NO, MEMBER_NO)
-        VALUES (#{chatRoomNo},#{memberNo})
+        VALUES (#{chatRoomNo}, #{memberNo})
     </insert>
+
+<!--    <insert id="sendMessage" parameterType="com.project.chat.dto.MessageDto">-->
+<!--        INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, RECEIVER_NO, CREATE_DATE, READ, MS_CONTENT)-->
+<!--        VALUES (SEQ_CM_NO.nextval, #{roomNo}, #{sender}, #{sender}, default, default, #{contents})-->
+<!--    </insert>-->
+
+    <insert id="sendMessage">
+        INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, CREATE_DATE, READ, MS_CONTENT)
+        VALUES (SEQ_CM_NO.nextval,#{roomNo},#{sender},default,default,#{contents})
+    </insert>
+
+
 </mapper>

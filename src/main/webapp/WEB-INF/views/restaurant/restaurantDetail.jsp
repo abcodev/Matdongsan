@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -20,6 +19,7 @@
           rel="stylesheet">
 </head>
 <body>
+<%@ include file ="../template/header.jsp" %>
 <div id="content">
     <div class="detail head">
 
@@ -220,6 +220,10 @@
                     for (let hashtag of i.hashtags) {
                         hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
                     }
+                    let imgList = '';
+                    for (let img of i.changeNames) {
+                        imgList += '<img src="' + img + '" />'
+                    }
 
                     // str += '<tr>'
                     //     + "<td>" + i.memberName + "</td>"
@@ -237,7 +241,7 @@
                         + "<div>" + i.reviewContent + "</div>"
                         + "<div>" + hashtagList + "</div>"
                         + "<div>" + i.starRating + "</div>"
-                        + "<div> <img src=\"" + i.changeNames[0] + "\" /> </div>"
+                        + "<div>" + imgList + "</div>"
                         + "</div>";
                 }
                 $("#reviewArea tbody").html(str);

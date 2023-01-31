@@ -1,13 +1,11 @@
 package com.project.alarm.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /*
     SseEmitter(Spring)
@@ -37,18 +35,44 @@ public class AlarmEventProducer {
 
     // send는 떠넘기기
     public void produce(long memberNo) {
-        log.info("프로듀싱 정보 : " + memberNo);
+        List<SseEmitter> emitters = subscribers.getOrDefault(memberNo, List.of());
+        List<Integer> removeIndex = new ArrayList<>();
+
+        for (int i = 0; i < emitters.size(); ++i) {
+            try {
+                emitters.get(i).send(SseEmitter.event()
+                        .name("realtime_alarm")
+                        .data(memberNo));
+            } catch (Exception ignored) {
+                removeIndex.add(i);
+            }
+        }
+
+        List<SseEmitter> alive = new ArrayList<>();
+        for (int i = 0; i < emitters.size(); ++i) {
+            if (!removeIndex.contains(i)) {
+                alive.add(emitters.get(i));
+            }
+        }
+        subscribers.put(memberNo, alive);
     }
 
     public SseEmitter subscribe(long memberNo) {
         SseEmitter subscriber = new SseEmitter();
-        subscriber.onCompletion(() -> subscribers.remove(memberNo));
-        subscriber.onTimeout(() -> subscribers.remove(memberNo));
+        try {
+            subscriber.send(SseEmitter.event()
+                    .name("connect_message")
+                    .data(memberNo));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (subscribers.containsKey(memberNo)) {
             subscribers.get(memberNo).add(subscriber);
         } else {
-            subscribers.put(memberNo, List.of(subscriber));
+            List<SseEmitter> emitters = new ArrayList<>();
+            emitters.add(subscriber);
+            subscribers.put(memberNo, emitters);
         }
         return subscriber;
     }
