@@ -39,7 +39,7 @@ public class QnaBoardController {
             map = boardService.selectList(paramMap);
         }
         model.addAttribute("map", map);
-        return "board/qnaList";
+        return "board/qnaBoardList";
     }
 
     /*게시글 작성페이지*/

@@ -22,7 +22,6 @@
     <resultMap type="memberDto" id="memberResultSet1">
         <result column="PROVIDER" property="provider"/>
         <result column="PROVIDER_ID" property="providerId"/>
-
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="PROFILE_IMAGE" property="profileImage"/>
         <result column="EMAIL" property="email"/>
@@ -57,12 +56,15 @@
     <update id="update" parameterType="memberDto">
         UPDATE MEMBER
         SET
+            MEMBER_NO = #{memberNo},
             NICKNAME = #{nickName},
+            PROFILE_IMAGE = #{profileImage},
+            PROVIDER_ID = #{providerId},
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            GRADE = 'GENERAL2',
-            INTEREST_STATE = #{interestState}
+            INTEREST_STATE = #{interestState},
+            GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
     </update>
 

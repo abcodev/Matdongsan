@@ -44,7 +44,7 @@
             </div>
             <div class="userinfo adressNum">
                 <h3>우편번호</h3>
-                <input type="text">
+                <input type="text" id="postCode">
                 <button>검색</button>
             </div>
             <div class="userinfo address">
@@ -63,7 +63,7 @@
             </div>
             <div class="btn_box">
                 <button>취소</button>
-                <button>수정</button>
+                <button type="submit">수정</button>
             </div>
     </form>
 </div>

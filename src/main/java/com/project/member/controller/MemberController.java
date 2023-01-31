@@ -44,8 +44,9 @@ public class MemberController {
         int result = memberService.updateMember(m);
         if (result != 0) {
             MemberDto updateMember = memberService.loginMember(m);
+
             session.setAttribute("loginUser", updateMember);
-            session.setAttribute("alertMsg","회원정보 수정 성공");
+            model.addAttribute("alertMsg","회원정보 수정 성공");
             return "redirect:/myPage";
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
