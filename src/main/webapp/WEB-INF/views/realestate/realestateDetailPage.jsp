@@ -107,18 +107,16 @@
 
     <div id="content_right">
         <div id="map_roadView">
-
-
             <div class="wrap_content">
                 <div class="wrap_map">
-                    <div id="map" style="width:100%;height:300px;"></div> <!-- 지도를 표시할 div 입니다 -->
+                    <div id="map" style="width:80%;height:300px;"></div> <!-- 지도를 표시할 div 입니다 -->
 <%--                    <div class="wrap_button">--%>
 <%--                        <a href="javascript:;" class="btn_comm btn_linkMap" target="_blank" onclick="moveKakaoMap(this)"><span class="screen_out">지도 크게보기</span></a> <!-- 지도 크게보기 버튼입니다 -->--%>
 <%--                        <a href="javascript:;" class="btn_comm btn_resetMap" onclick="resetKakaoMap()"><span class="screen_out">지도 초기화</span></a> <!-- 지도 크게보기 버튼입니다 -->--%>
 <%--                    </div>--%>
                 </div>
 
-                <div id="roadview" class="image-container" style="width:100%;height:300px;">
+                <div id="roadview" class="image-container" style="width:80%;height:300px;">
 
                 </div>
 

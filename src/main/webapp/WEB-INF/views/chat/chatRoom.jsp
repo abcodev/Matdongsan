@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -20,10 +19,19 @@
 
 </head>
 
+<%@ include file ="../template/header.jsp" %>
+
+<script>
+    window.onload = () => {
+        // ForEach ${chatRoomList} 에 있는 RoomNo 를 모두 꺼내고,
+        // 그 RoomNo 에 대해서 모두 WebSocket Subscribe.
+    }
+</script>
+
 <body>
 <div class="container">
     <div id="chat_left">
-        <button onclick="createRoom();">1:1채팅 문의하</button>
+<%--        <button onclick="createRoom();">1:1채팅 문의하기</button>--%>
         <div class="chatSelect">
             <ul class="nav nav-tabs">
                 <li class="nav-item">

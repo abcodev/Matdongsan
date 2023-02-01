@@ -1,17 +1,13 @@
 package com.project.member.controller;
 
-import com.project.board.service.FreeBoardService;
 import com.project.common.type.StateList;
-import com.project.member.dto.MemberDto;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -40,10 +36,10 @@ public class MemberController {
      * 회원정보를 수정하면 회원등급 변경
      */
     @RequestMapping(value = "/updateMember")
-    public String updateMember(HttpSession session, Model model, MemberDto m) {
+    public String updateMember(HttpSession session, Model model, Member m) {
         int result = memberService.updateMember(m);
         if (result != 0) {
-            MemberDto updateMember = memberService.loginMember(m);
+            Member updateMember = memberService.loginMember(m);
 
             session.setAttribute("loginUser", updateMember);
             model.addAttribute("alertMsg","회원정보 수정 성공");
@@ -53,6 +49,12 @@ public class MemberController {
             return "common/errorPage";
         }
     }
+
+
+
+
+
+
 
     /**
      * 휴대폰 인증

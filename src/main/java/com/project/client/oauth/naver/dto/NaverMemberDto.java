@@ -1,4 +1,4 @@
-package com.project.member.dto;
+package com.project.client.oauth.naver.dto;
 
 
 import lombok.AllArgsConstructor;

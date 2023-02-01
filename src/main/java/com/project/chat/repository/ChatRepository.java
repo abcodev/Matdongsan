@@ -1,10 +1,7 @@
 package com.project.chat.repository;
 //
 //import com.project.chat.dto.ChatingRoom;
-import com.project.chat.dto.ChatRoomJoin;
-import com.project.chat.dto.ChatingRoom;
-import com.project.chat.dto.MessageDto;
-import com.project.chat.dto.RoomCheckDto;
+import com.project.chat.dto.*;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,36 +18,41 @@ public class ChatRepository {
 //
     private final SqlSessionTemplate sqlSession;
 
-    public List<ChatingRoom> chatRoomList() {
-        return  sqlSession.selectList("chatMapper.chatRoomList");
-    }
 
+
+    /**
+     * 채팅방 생성
+     */
     public void createRoom(ChatingRoom room) {
         sqlSession.insert("chatMapper.chatRoomInsert",room);
     }
 
-    public List<ChatingRoom> findRoom(long memberNo) {
-        return sqlSession.selectList("chatMapper.findRoom",memberNo);
-    }
-
+    /**
+     * chat_room_join 테이블에 주입
+     */
     public void enterRoom(ChatRoomJoin join) {
         sqlSession.insert("chatMapper.enterRoom",join);
     }
 
+    /**
+     * 보낸 메세지 DB에 저장
+     */
     public void sendMessage(MessageDto data) {
         sqlSession.insert("chatMapper.sendMessage",data);
     }
-//
-//
-//    public List findAllRoom() {
-//        return sqlSession.selectList("chatMapper.findAllRoom");
-//    }
-//
-//    public ChatingRoom findRoomById(String roomId) {
-//        return sqlSession.selectOne("chatMapper.findRoomById",roomId);
-//    }
-//
-//    public ChatingRoom createRoom(String roomId) {
-//        return sqlSession.insert("chatMapper.createRoom",roomId);
-//    }
+
+    /**
+     * 채팅방 유무 확인
+     */
+    public ChatingRoom roomCheck(RoomCheckDto roomCheckDto) {
+        return  sqlSession.selectOne("chatMapper.roomCheck",roomCheckDto);
+    }
+
+    /**
+     * 메세지 리스트 가져오기
+     */
+    public List<MessageListDto> messageList(String roomNo) {
+        return sqlSession.selectList("chatMapper.messageList",roomNo);
+    }
+
 }

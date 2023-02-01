@@ -13,8 +13,8 @@
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
-<%--    <%@ include file ="../template/header.jsp" %>--%>
     <title>부동산</title>
+    <%@ include file ="../template/header.jsp" %>
 
 </head>
 <body>
