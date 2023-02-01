@@ -37,7 +37,7 @@
         <input type="hidden" id="roomNo">
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
         <button type="submit" class="chat-submit" id="chat-submit"><i
-                class="fa-regular fa-paper-plane" onclick="send();"></i></button>
+                class="fa-regular fa-paper-plane"  onclick="send();"></i></button>
       </form>
     </div>
   </div>
@@ -145,6 +145,7 @@
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
       if(e.keyCode===13){
+        e.preventDefault();
         send();
       }
     });
@@ -171,10 +172,6 @@
         }
       }
     }
-
-
-
-
     //메시지 브로커로 메시지 전송
     function send(){
       const roomNo = $("#roomNo").val();

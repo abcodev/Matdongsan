@@ -117,6 +117,7 @@
 //}
 
 
+
 package com.project.chat.controller;
 
 import com.project.chat.dto.AdminChatRoom;
@@ -148,10 +149,9 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping("/createChatRoom")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> adminChatting(
+    public ResponseEntity<Map<String ,Object>> adminChatting(
             @ModelAttribute("loginUser") Member loginUser
-    ) {
+    ){
         // CHAT_ROOM 테이블에 회원 아이디 있으면 방을 생성하지 않음
         // 그 roomId를 가져와서 거기 방으로 들어가기
         // 채팅을 보냄과 동시에 디비에 저장.
@@ -159,8 +159,8 @@ public class ChatController {
         // 그후 다시 문의하면 db에서 roomId에 따른 채팅 내용을 불러온다.
         // 불러올때도 보낸이와 회원 아이디 비교해서 내가 보낸건지 상대방이 보낸건지 구분하기.
 
-        Map<String, Object> chat = chatService.findRoom(loginUser.getMemberNo());
-        System.out.println("방번호는 ?" + chat.get("room"));
+        Map<String ,Object> chat = chatService.findRoom(loginUser.getMemberNo());
+        System.out.println("방번호는 ?"+chat.get("room"));
         return ResponseEntity.ok().body(chat);
     }
 
@@ -229,5 +229,17 @@ public class ChatController {
         - 관리자 페이지 new 는 웹소켓으로 띄운다,,, (visible 값 변경)
 
      */
+
+    /**
+     * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
+     * - 미리보기
+     */
+    @PostMapping("/chat/admin")
+    public ModelAndView adminChatting(ModelAndView modelAndView,
+                                      @ModelAttribute("loginUser") Member loginUser
+    ){
+        //
+        return modelAndView;
+    }
 
 }
