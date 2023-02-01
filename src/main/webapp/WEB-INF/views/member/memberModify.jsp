@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="btn_box">
-                <button>취소</button>
+                <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
                 <button type="submit">수정</button>
             </div>
     </form>
