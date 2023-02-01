@@ -48,6 +48,13 @@
   <div id="like">
     <h4>내가 찜한 목록</h4>
     <div id="likeList">
+      <table>
+      <c:forEach items="${interestList}" var="interestList">
+        <tr onclick="location.href='realEstate/detail?estateNo=${interestList.estateNo}'">
+          <td>${interestList.estateNo}</td>
+        </tr>
+      </c:forEach>
+      </table>
       <div class="likeInfo"></div>
       <div class="likeInfo"></div>
       <div class="likeInfo"></div>
@@ -59,9 +66,26 @@
     <h4>내 게시글 보기</h4>
     <div id="myBoardList">
       <table>
+        <tr>
+          <th>게시글 번호</th>
+          <th>게시글 제목</th>
+          <th>게시일</th>
+        </tr>
         <c:forEach items="${freeBoardList}" var="freeBoardList">
-          <tr>
+          <tr onclick="location.href='board/freeList/detail/${freeBoardList.boardNo}'">
+            <td>${freeBoardList.boardNo}</td>
             <td>${freeBoardList.boardTitle}</td>
+            <td>${freeBoardList.boardDate}</td>
+          </tr>
+        </c:forEach>
+      </table>
+
+      <table>
+        <c:forEach items="${qnaBoardList}" var="qnaBoardList">
+          <tr onclick="location.href='board/detail/${qnaBoardList.qnaBno}'">
+            <td>${qnaBoardList.qnaBno}</td>
+            <td>${qnaBoardList.qnaTitle}</td>
+            <td>${qnaBoardList.qnaDate}</td>
           </tr>
         </c:forEach>
       </table>
