@@ -18,6 +18,16 @@
 <%@ include file="../template/header.jsp" %>
 <body>
 <div id="content">
+    <div class="side submenu">
+        <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+        <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
+    </div>
+    <div class="side best">
+        <p><i class="fa-solid fa-crown"></i>주간인기글 BEST 3</p>
+        <a href="">1번 인기게시글</a>
+        <a href="">2번 인기게시글</a>
+        <a href="">3번 인기게시글</a>
+    </div>
     <div class="content head">
         <select name="selectState" id="selectState">
             <option value="">전체</option>
@@ -32,14 +42,12 @@
         <button onclick="searchState();">조회</button>
     </div>
     <div class="content body">
-        <div class="side submenu">
-            <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
-            <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
-        </div>
         <div class="boardlist_area">
             <div id="boardlist_top">
                 <div id="listset">
-
+                    <input type="radio" id="view"><label for="view">조회수 많은 순</label>
+                    <input type="radio" id="reply"><label for="reply">댓글 많은 순</label>
+                    <input type="radio" id="recent"><label for="recent">최신순</label>
                 </div>
                 <div id="writebtn">
                     <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
@@ -65,13 +73,6 @@
                         </div>
                     </div>
                 </c:forEach>
-            </div>
-        </div>
-        <div class="side best">
-            <div>
-                <a href="">1번 인기게시글</a>
-                <a href="">2번 인기게시글</a>
-                <a href="">3번 인기게시글</a>
             </div>
         </div>
     </div>
