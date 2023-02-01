@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class AdminController {
     public String userList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             @RequestParam Map<String, Object> paramMap,
+
             Model model){
         Map<String, Object> map = new HashMap();
 
@@ -38,15 +40,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/reportList")
-    public String reportList(Model model){
+    public String reportList(
+            Model model
+            ){
 
-        List<Admin> list2 = adminService.reportList();
+        ArrayList<Admin> list2 = adminService.reportList();
 
         int listCount = adminService.rListCount();
 
         model.addAttribute("list2",list2);
-
-
 
         return "/admin/reportList";
     }

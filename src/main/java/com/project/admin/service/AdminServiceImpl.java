@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Admin> reportList(){
+    public ArrayList<Admin> reportList(){
         return adminDao.reportList(sqlSession);
     }
 
