@@ -51,6 +51,7 @@
 
     $(function(){
         $("#movePage").click(function(){
+            let freeBno = document.getElementById("freeBno")
             $.ajax({
                 type:"POST",
                 url:"/Matdongsan/admin/reportList",
@@ -63,6 +64,8 @@
             });
         });
     });
+
+
 
     $(function(){
         $("#movePage").click(function(){
@@ -81,6 +84,9 @@
             });
         });
     });
+
+
+
 
 
 
