@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
-
 public class QnaBoard {
     private int qnaBno;
     private long memberNo;

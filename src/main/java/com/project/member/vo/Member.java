@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 /*
     빌더패턴 : 객체 생성을 위한 디자인 패턴
     사용한 이유 : 인자가 너무 많을 때 생성자를 만들지 않아도 필요한 인자들만 객체를 생성할 수 있음
@@ -32,6 +35,8 @@ public class Member {
     private String address;
     private String status;
     private MemberGrade grade = MemberGrade.GENERAL;
+    private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
+    private String interestState;
 
     public static Member of(OAuthUser oAuthUser) {
         return Member.builder()

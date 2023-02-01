@@ -10,20 +10,111 @@
 
 <style>
     /*지도*/
-.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-.wrap * {padding: 0;margin: 0;}
-.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-.wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-.info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-.info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-.info .close:hover {cursor: pointer;}
-.info .body {position: relative;overflow: hidden;}
-.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-.info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-.info .link {color: #5085BB;}
+    .wrap {
+        position: absolute;
+        left: 0;
+        bottom: 40px;
+        width: 288px;
+        height: 132px;
+        margin-left: -144px;
+        text-align: left;
+        overflow: hidden;
+        font-size: 12px;
+        font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
+        line-height: 1.5;
+    }
+
+    .wrap * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .wrap .info {
+        width: 286px;
+        height: 120px;
+        border-radius: 5px;
+        border-bottom: 2px solid #ccc;
+        border-right: 1px solid #ccc;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .wrap .info:nth-child(1) {
+        border: 0;
+        box-shadow: 0px 1px 2px #888;
+    }
+
+    .info .title {
+        padding: 5px 0 0 10px;
+        height: 30px;
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .info .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #888;
+        width: 17px;
+        height: 17px;
+        background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    }
+
+    .info .close:hover {
+        cursor: pointer;
+    }
+
+    .info .body {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .info .desc {
+        position: relative;
+        margin: 13px 0 0 90px;
+        height: 75px;
+    }
+
+    .desc .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .desc .jibun {
+        font-size: 11px;
+        color: #888;
+        margin-top: -2px;
+    }
+
+    .info .img {
+        position: absolute;
+        top: 6px;
+        left: 5px;
+        width: 73px;
+        height: 71px;
+        border: 1px solid #ddd;
+        color: #888;
+        overflow: hidden;
+    }
+
+    .info:after {
+        content: '';
+        position: absolute;
+        margin-left: -12px;
+        left: 50%;
+        bottom: 0;
+        width: 22px;
+        height: 12px;
+        background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+    }
+
+    .info .link {
+        color: #5085BB;
+    }
 </style>
 
 <head>
@@ -87,34 +178,55 @@
                     </div>
                 </c:otherwise>
             </c:choose>
-<%--      실시간 알림    --%>
-                <div class="alert_box">
-                    <div class="alert_box_header">
-                        <span>전체알림</span>
-                        <span>읽은 알림 삭제</span>
-                        <span><i class="fa-regular fa-rectangle-xmark"></i></span>
-                    </div>
-                    <div class="alert_box_body">
-                        <div class="alert_list">
-                            <div class="new_alert">
-                                <span><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
-                                <span>1월 27일 </span>
-                                <span><i class="fa-solid fa-xmark"></i></span>
+            <%--      실시간 알림    --%>
+            <div class="alert_box">
+                <div class="alert_box_header">
+                    <span>전체알림</span>
+                    <span>읽은 알림 삭제</span>
+                    <span><i class="fa-solid fa-x"></i></span>
+                </div>
+                <div class="alert_box_body">
+                    <div class="alert_list">
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
+                                <i class="fa-regular fa-trash-can"></i>
                             </div>
-                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</div>
-                            <div class="new_alert"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</div>
+                            <span class="alert_date">1월 27일 </span>
+                        </div>
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i
+                                        class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</span>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+                            <span class="alert_date">1월 27일 </span>
+                        </div>
+                        <div class="new_alert">
+                            <div>
+                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</span>
+                                <i class="fa-regular fa-trash-can"></i>
+                            </div>
+                            <span class="alert_date">1월 27일 </span>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
     <script>
+        // TODO : 로그인 된 후에만되도록 분기문 필요
+        const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+        sse.addEventListener('realtime_alarm', (event) => {
+            console.log(event);
+        })
+
         <%-- 실시간 알림 --%>
         $(".fa-bell").click(function () {
             $(".alert_box").toggle("scale");
         });
 
-        $(".fa-rectangle-xmark").click(function () {
+        $(".fa-x").click(function () {
             $(".alert_box").toggle("scale");
         });
     </script>
@@ -141,19 +253,19 @@
 
                 var listData1 = [
                     <c:forEach items="${sellList}" var="list">
-                        '${list.address}',
+                    '${list.address}',
                     </c:forEach>
                 ];
 
                 var listData2 = [
                     <c:forEach items="${sellList}" var="list2">
-                        '${list2.bldgNm}',
+                    '${list2.bldgNm}',
                     </c:forEach>
                 ];
 
                 var listData3 = [
                     <c:forEach items="${sellList}" var="list3">
-                        '${list3.objAmt}',
+                    '${list3.objAmt}',
                     </c:forEach>
                 ];
 
@@ -163,7 +275,7 @@
                         if (status === kakao.maps.services.Status.OK) {
                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                            var imageSrc = 'https://cdn-icons-png.flaticon.com/512/3710/3710276.png', // 마커이미지의 주소입니다
+                            var imageSrc = 'https://cdn-user-icons.flaticon.com/91329/91329620/1675081081257.svg?token=exp=1675082973~hmac=93911fdb995d76bb29dd10a006f551e2', // 마커이미지의 주소입니다
                                 imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
                                 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
@@ -174,18 +286,18 @@
                             var marker = new kakao.maps.Marker({
                                 map: map,
                                 position: coords,
-                                image : markerImage
+                                image: markerImage
                             });
 
                             var content = '<div class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
-                                '               <div class="bldgNm">'+'건물명  : '+ listData2[index]+ '</div>'+
-                                '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
+                                '               <div class="bldgNm">' + '건물명  : ' + listData2[index] + '</div>' +
+                                '                <div class="close" id="overlay-btn' + index + '" title="닫기"></div>' +
                                 '           </div>' +
                                 '            <div class="desc">' +
-                                '               <div style="width:150px;text-align:center;padding:6px 0;">' +'주소  : 서울특별시 '+ listData1[index] + '</div>'+
-                                '               <div style="width:150px;text-align:center;padding:6px 0;">' +'실거래가  : '+ listData3[index] + '</div>'+
+                                '               <div style="width:150px;text-align:center;padding:6px 0;">' + '주소  : 서울특별시 ' + listData1[index] + '</div>' +
+                                '               <div style="width:150px;text-align:center;padding:6px 0;">' + '실거래가  : ' + listData3[index] + '</div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>';
@@ -199,10 +311,10 @@
                             });
 
                             // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
-                            kakao.maps.event.addListener(marker, 'click', function() {
+                            kakao.maps.event.addListener(marker, 'click', function () {
                                 overlay.setMap(map);
                                 overlay.setContent(content);
-                                document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
+                                document.querySelector("#overlay-btn" + index).addEventListener('click', function () {
                                     overlay.setMap(null);
                                 })
                             });
@@ -216,10 +328,7 @@
                             }
                         }
                     })
-
                 });
-
-
 
 
                 if (navigator.geolocation) {

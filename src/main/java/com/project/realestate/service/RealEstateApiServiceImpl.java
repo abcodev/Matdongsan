@@ -25,20 +25,20 @@ public class RealEstateApiServiceImpl implements RealEstateApiService{
     }
 
     public int retrieveAndSave() {
+        LocalDate latestDealYmd = realEstateSellApiDao.latestDealYmd();
         List<RealEstateSell> sellList = seoulApiClient.getRealEstateSellList()
                 .stream()
                 .filter(realEstateSellDto -> realEstateSellDto.getHouseType().equals("아파트"))
-                .filter(realEstateSellDto -> realEstateSellDto.isAfter(LocalDate.now()))
+                //.filter(realEstateSellDto -> realEstateSellDto.isAfter(latestDealYmd))
                 .map(RealEstateSell::of)
                 .collect(Collectors.toList());
 
-        realEstateSellApiDao.truncate();
+        if (sellList.isEmpty()) {
+            return 0;
+        }
         realEstateSellApiDao.batchInsert(sellList);
         return sellList.size();
     }
-
-
-
 
 
 

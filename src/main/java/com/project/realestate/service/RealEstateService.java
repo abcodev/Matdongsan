@@ -25,4 +25,6 @@ public interface RealEstateService {
 
 
     RealEstateDetailDto realEstateDetail(String estateNo);
+
+    List<String> selectPastList(String bldgNm);
 }

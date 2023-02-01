@@ -1,6 +1,6 @@
 package com.project.alarm.service;
 
-import com.project.alarm.dao.AlarmDao;
+import com.project.alarm.repository.AlarmRepository;
 import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.vo.Alarm;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AlarmService {
 
-    private final AlarmDao alarmDao;
+    private final AlarmRepository alarmRepository;
     private final AlarmEventProducer alarmEventProducer;
 
     public List<Alarm> retrieveAlarmList(long memberNo) {
-        return alarmDao.selectList(memberNo);
+        return alarmRepository.selectList(memberNo);
     }
 
     public void send(AlarmTemplate template) {
         // 1. template -> Alarm Entity 생성 -> alarmDao.save(entity)
         Alarm alarm = Alarm.of(template);
-        alarmDao.save(alarm);
+        alarmRepository.save(alarm);
 
         // 2. alarmEventProducer.produce(memberNo)
         alarmEventProducer.produce(template.getMemberNo());

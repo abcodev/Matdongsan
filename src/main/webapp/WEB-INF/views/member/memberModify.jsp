@@ -20,38 +20,51 @@
     <div id="userimg">
         <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
     </div>
-    <form action="/updateMember" method="post">
-        <div class="userinfo nickName">
-            <h3>닉네임</h3>
-            <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}">
-            <button>중복검사</button>
-        </div>
-        <div class="userinfo email">
-            <h3>이메일</h3>
-            <input type="text" id="email" name="email" value="${loginUser.email}">
-        </div>
-        <div class="userinfo phone">
-            <h3>휴대폰번호</h3>
-            <input id="phoneNumber" type="text" name="phoneNumber" title="전화번호 입력" placeholder="전화번호 입력해주세요">
-            <input id="phoneChk" type="button" value="입력">
-            <input id="phone2" type="text" name="phone" title="전화번호 입력" placeholder="인증번호 입력해주세요">
-            <input type="button" value="인증확인" id="phoneChk2">
-        </div>
-        <div class="userinfo adressNum">
-            <h3>우편번호</h3>
-            <input type="text">
-            <button>검색</button>
-        </div>
-        <div class="userinfo address">
-            <h3>주소</h3>
-            <input type="text" id="address" name="address" value="${loginUser.address}">
-        </div>
-        <div class="btn_box">
-            <button>취소</button>
-            <button>수정</button>
-
+    <form action="${pageContext.request.contextPath}/updateMember" method="post">
+        <div class="form">
+            <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
+            <div class="userinfo nickName">
+                <h3>닉네임</h3>
+                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}">
+                <button>중복검사</button>
             </div>
+            <div class="userinfo email">
+                <h3>이메일</h3>
+                <input type="text" id="email" name="email" value="${loginUser.email}">
+            </div>
+            <div class="userinfo phone">
+                <h3>휴대폰번호</h3>
+                <input type="text" id="phone" name="phone" value="${loginUser.phone}">
+                <input  class="signin_pass" id="phoneNumber" type="text" name="phoneNumber" title="전화번호 입력" placeholder="전화번호 입력해주세요">
+                <input  class="signin_pass" type="button" value="입력" id="phoneChk">
 
+                <input  class="signin_pass" id="phone2" type="text" name="phone" title="전화번호 입력" placeholder="인증번호 입력해주세요">
+                <input  class="signin_pass" type="button" value="인증확인" id="phoneChk2">
+                <button>인증</button>
+            </div>
+            <div class="userinfo adressNum">
+                <h3>우편번호</h3>
+                <input type="text">
+                <button>검색</button>
+            </div>
+            <div class="userinfo address">
+                <h3>주소</h3>
+                <input type="text" id="address" name="address" value="${loginUser.address}">
+            </div>
+            <div class="userinfo interest">
+                <h3>관심구</h3>
+                    <select name="selectState" id="selectState" >
+                        <option value="">전체</option>
+                        <c:forEach var="stateList" items="${stateList}">
+                            <option value="${stateList}">${stateList}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="btn_box">
+                <button>취소</button>
+                <button>수정</button>
+            </div>
     </form>
 </div>
 

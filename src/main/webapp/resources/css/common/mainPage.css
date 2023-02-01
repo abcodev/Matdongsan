@@ -25,16 +25,12 @@ a{
     height: 100px;
     width: 160px;
     cursor: pointer;
-    margin: 5px 20px 5px 100px;
-}
-
-.logo{
-    width: auto;
+    margin: 0 20px 0 100px;
 }
 
 .navbar{
     width: auto;
-    padding: 25px 0 0 80px;
+    padding: 25px 0 0 100px;
     height: 100px;
 }
 
@@ -61,12 +57,16 @@ a{
     font-weight: bold;
 }
 
+.dropdown-btn > a{
+    color: #213048;
+}
+
 .dropdown-submenu {
     display: none;
     position: absolute;
     min-width: 200px;
     z-index: 1;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
 }
 
 .dropdown-submenu a {
@@ -75,6 +75,7 @@ a{
     text-align: center;
     font-size: 16px;
     font-weight: bold;
+    color: #213048;
 }
 
 .dropdown-btn a:hover {
@@ -102,7 +103,7 @@ a{
 .login_before{
     width: 100%;
     height: 100%;
-    padding: 30px 0 0 160px;
+    padding: 30px 0 0 220px;
 }
 
 .login_before > a{
@@ -122,7 +123,7 @@ a{
 }
 
 .login_after{
-    padding-left:70px;
+    padding-left:75px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -148,9 +149,10 @@ a{
 
 .fa-bell{
     font-size: 25px;
-    margin-left: 20px;
+    margin-left: 10px;
     padding-top: 13px;
     cursor: pointer;
+    color: #213048;
 }
 
 .fa-bell:hover {
@@ -191,6 +193,14 @@ a{
     line-height: 1.2;
     color: #213048;
     display: block;
+}
+
+.news_list :hover{
+    background-color: rgba(255, 255, 255, 0.95);;
+}
+
+.news_list > a:hover{
+    color: #566392;
 }
 
 .news > span > a{

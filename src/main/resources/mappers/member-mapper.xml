@@ -16,13 +16,24 @@
         <result column="ADDRESS" property="address"/>
         <result column="STATUS" property="status"/>
         <result column="GRADE" property="grade"/>
+        <result column="INTEREST_STATE" property="interestState"/>
+    </resultMap>
+
+    <resultMap type="MemberDto" id="memberResultSet1">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="PROFILE_IMAGE" property="profileImage"/>
+        <result column="EMAIL" property="email"/>
+        <result column="NICKNAME" property="nickName"/>
+        <result column="PHONE" property="phone"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="INTEREST_STATE" property="interestState"/>
     </resultMap>
 
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
-        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS)
+        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS)
         VALUES (SEQ_MEMBER_NO.NEXTVAL, #{provider}, #{providerId}, #{memberName}, #{profileImage}, #{email},
-                #{nickName}, #{phone}, #{address})
+                #{nickName}, #{phone}, #{address}, #{recentAccess})
     </insert>
 
     <select id="select" parameterType="Map" resultMap="memberResultSet">
@@ -32,11 +43,10 @@
           AND PROVIDER_ID = #{providerId}
     </select>
 
-    <select id="loginMember" resultMap="memberResultSet">
+    <select id="loginMember" parameterType="memberDto" resultMap="memberResultSet1">
         SELECT *
         FROM MEMBER
-        WHERE PROVIDER = #{provider}
-          AND PROVIDER_ID = #{providerId}
+        WHERE MEMBER_NO = #{memberNo}
             AND STATUS = 'Y'
     </select>
 
@@ -46,7 +56,16 @@
             NICKNAME = #{nickName},
             EMAIL = #{email},
             PHONE = #{phone},
-            ADDRESS = #{address}
+            ADDRESS = #{address},
+            GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
+    </update>
+
+    <update id="updateRecentAccess" parameterType="Map">
+        UPDATE MEMBER
+        SET
+            RECENT_ACCESS = CURRENT_TIMESTAMP
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
     </update>
 </mapper>

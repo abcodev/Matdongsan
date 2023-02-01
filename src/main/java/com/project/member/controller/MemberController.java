@@ -2,9 +2,12 @@ package com.project.member.controller;
 
 import com.project.member.dto.MemberDto;
 import com.project.member.service.MemberService;
+import com.project.member.vo.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,21 +29,26 @@ public class MemberController {
     @RequestMapping(value = "/memberModify")
     public String memberModify(){return "member/memberModify";}
 
-    // 회원정보를 수정하면 회원등급 변경
+    /**
+     * 회원정보를 수정하면 회원등급 변경
+     */
     @RequestMapping(value = "/updateMember")
     public String updateMember(HttpSession session, Model model, MemberDto m) {
         int result = memberService.updateMember(m);
-
         if (result != 0) {
             MemberDto updateMember = memberService.loginMember(m);
             session.setAttribute("loginUser", updateMember);
-            model.addAttribute("alertMsg", "회원정보 수정 완료");
-            return "member/myPage";
+            session.setAttribute("alertMsg","회원정보 수정 성공");
+            return "redirect:/myPage";
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
             return "common/errorPage";
         }
     }
+
+    /**
+     * 휴대폰 인증
+     */
     @RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
     @ResponseBody
     public String sendSMS(@RequestParam("phone") String userPhoneNumber) {
@@ -50,4 +58,5 @@ public class MemberController {
 
         return Integer.toString(randomNumber);
     }
+
 }
