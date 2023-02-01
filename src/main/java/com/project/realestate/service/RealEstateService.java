@@ -1,5 +1,6 @@
 package com.project.realestate.service;
 
+import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.vo.RealEstateSell;
@@ -27,4 +28,8 @@ public interface RealEstateService {
     RealEstateDetailDto realEstateDetail(String estateNo);
 
     List<String> selectPastList(String bldgNm);
+
+    boolean checkInterest(String estateNo, Member loginUser);
+
+    void saveInterest(RealEstateInterestRequest req, Member loginUser);
 }

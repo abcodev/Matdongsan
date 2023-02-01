@@ -24,8 +24,7 @@
     <div id="userInfo">
       <table>
         <tr>
-          <td>아이디 : ${loginUser.providerId}</td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;닉네임 : ${loginUser.nickName}</td>
+          <td>닉네임 : ${loginUser.nickName}</td>
         </tr>
         <tr>
           <td>핸드폰 : ${loginUser.phone}</td>
@@ -37,7 +36,7 @@
           <td>주소 : ${loginUser.address}</td>
         </tr>
         <tr>
-          <td>관심구 : </td>
+          <td>관심구 : ${loginUser.interestState}</td>
         </tr>
       </table>
     </div>
@@ -59,7 +58,13 @@
   <div id="myBoard">
     <h4>내 게시글 보기</h4>
     <div id="myBoardList">
-      <table></table>
+      <table>
+        <c:forEach items="${freeBoardList}" var="freeBoardList">
+          <tr>
+            <td>${freeBoardList.boardTitle}</td>
+          </tr>
+        </c:forEach>
+      </table>
     </div>
   </div>
   <div id="paging">

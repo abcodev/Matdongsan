@@ -10,8 +10,7 @@
 
     <typeAliases>
         <typeAlias type="com.project.member.vo.Member" alias="member"/>
-        <typeAlias type="com.project.member.dto.MemberDto" alias="memberDto"/>
-        <typeAlias type="com.project.alarm.vo.Alarm" alias="alarm" />
+        <typeAlias type="com.project.alarm.vo.Alarm" alias="alarm"/>
         <typeAlias type="com.project.realestate.vo.RealEstateSell" alias="realEstateSell"/>
         <typeAlias type="com.project.realestate.vo.RealEstateRent" alias="realEstateRent"/>
         <typeAlias type="com.project.realestate.vo.Interest" alias="interest"/>
@@ -32,7 +31,7 @@
         <mapper resource="/mappers/member-mapper.xml"/>
         <mapper resource="/mappers/realestateSell-mapper.xml"/>
         <mapper resource="/mappers/realestateRent-mapper.xml"/>
-        <mapper resource="/mappers/interest-mapper.xml"/>
+        <mapper resource="/mappers/interestEstate-mapper.xml"/>
         <mapper resource="/mappers/restaurant-mapper.xml"/>
         <mapper resource="/mappers/hashtag-mapper.xml"/>
         <mapper resource="/mappers/resHashtag-mapper.xml"/>

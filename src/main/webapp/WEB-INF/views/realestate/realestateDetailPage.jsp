@@ -28,15 +28,13 @@
 <script>
     window.onload = () => {
         $.ajax({
-            url: '${pageContext.request.contextPath}/realEstateDetail/like', // TODO : 변경 필요
+            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
             method: 'GET',
             data: {
-                'estateNo': 11835 // TODO : 변경 필요
+                'estateNo': ${realEstateDetail.estateNo}
             },
             success(data) {
-                if (data === true) {
-                    $('#checkbox_heart').checked = true
-                }
+                $('#checkbox_heart').prop("checked", data);
             }
         });
     }
@@ -49,12 +47,13 @@
             <script>
                 function changeHeart() {
                     $.ajax({
-                        url: '${pageContext.request.contextPath}/realEstateDetail/like', // TODO : 변경 필요
-                        method: 'POST',
-                        data: {
-                            'estateNo': 11835, // TODO : 변경 필요
-                            'like':  $('#checkbox_heart option:checked').val()
-                        }
+                        url: '${pageContext.request.contextPath}/realEstate/detail/interest',
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({
+                            'estateNo': ${realEstateDetail.estateNo},
+                            'isInterest': $('#checkbox_heart').is(':checked')
+                        })
                     });
                 }
             </script>
@@ -87,7 +86,7 @@
 
 
         <div class="info_table foot">
-<%--            이름이 같은 아파트 or 주소가 같은 아파트 뽑아와야함--%>
+<%--            이름이 같은 아파트 or 주소가 같은 아파트 뽑아와야함,, 여기 이전 가격이랑 비교해서 얼마나 바뀐건지 보여줄 수 있을까, --%>
                 <table>
                     <tr>
                         <th>거래일자</th>
@@ -107,18 +106,16 @@
 
     <div id="content_right">
         <div id="map_roadView">
-
-
             <div class="wrap_content">
                 <div class="wrap_map">
-                    <div id="map" style="width:100%;height:300px;"></div> <!-- 지도를 표시할 div 입니다 -->
+                    <div id="map" style="width:80%;height:300px;"></div> <!-- 지도를 표시할 div 입니다 -->
 <%--                    <div class="wrap_button">--%>
 <%--                        <a href="javascript:;" class="btn_comm btn_linkMap" target="_blank" onclick="moveKakaoMap(this)"><span class="screen_out">지도 크게보기</span></a> <!-- 지도 크게보기 버튼입니다 -->--%>
 <%--                        <a href="javascript:;" class="btn_comm btn_resetMap" onclick="resetKakaoMap()"><span class="screen_out">지도 초기화</span></a> <!-- 지도 크게보기 버튼입니다 -->--%>
 <%--                    </div>--%>
                 </div>
 
-                <div id="roadview" class="image-container" style="width:100%;height:300px;">
+                <div id="roadview" class="image-container" style="width:80%;height:300px;">
 
                 </div>
 
@@ -160,7 +157,6 @@
                         map.setCenter(coords);
                     }
                 });
-
 
 
 

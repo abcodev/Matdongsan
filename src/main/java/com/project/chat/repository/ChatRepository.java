@@ -48,6 +48,10 @@ public class ChatRepository {
         return  sqlSession.selectOne("chatMapper.roomCheck",roomCheckDto);
     }
 
+    public List<ChatJoinMember> selectJoinMemberList(String roomNo) {
+        return sqlSession.selectList("chatMapper.selectJoinMemberList", roomNo);
+    }
+
     /**
      * 메세지 리스트 가져오기
      */

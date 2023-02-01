@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 public class Reply {
     private int replyNo;
     private long memberNo;
+    private String profileImage;
+    private String nickName;
     private int freeBno;
     private String replyContent;
     private Timestamp replyDate;

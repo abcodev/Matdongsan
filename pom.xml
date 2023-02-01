@@ -128,6 +128,9 @@
 
 
 
+
+
+
     <!-- DB관련 라이브러리 -->
     <!-- 1) ojdbc6 라이브러리 -->
     <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc6 -->
@@ -318,6 +321,17 @@
       <artifactId>javaSDK</artifactId>
       <version>2.2</version>
     </dependency>
+
+
+
+
+
+
+
+
+
+
+
 
   </dependencies>
 

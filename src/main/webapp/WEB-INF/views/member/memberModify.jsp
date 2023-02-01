@@ -38,13 +38,13 @@
                 <input  class="signin_pass" id="phoneNumber" type="text" name="phoneNumber" title="전화번호 입력" placeholder="전화번호 입력해주세요">
                 <input  class="signin_pass" type="button" value="입력" id="phoneChk">
 
-                <input  class="signin_pass" id="phone2" type="text" name="phone" title="전화번호 입력" placeholder="인증번호 입력해주세요">
+                <input  class="signin_pass" id="phone2" type="text" name="phone2" title="전화번호 입력" placeholder="인증번호 입력해주세요">
                 <input  class="signin_pass" type="button" value="인증확인" id="phoneChk2">
                 <button>인증</button>
             </div>
             <div class="userinfo adressNum">
                 <h3>우편번호</h3>
-                <input type="text">
+                <input type="text" id="postCode">
                 <button>검색</button>
             </div>
             <div class="userinfo address">
@@ -53,7 +53,7 @@
             </div>
             <div class="userinfo interest">
                 <h3>관심구</h3>
-                    <select name="selectState" id="selectState" >
+                    <select name="interestState" id="interestState" >
                         <option value="">전체</option>
                         <c:forEach var="stateList" items="${stateList}">
                             <option value="${stateList}">${stateList}</option>
@@ -63,7 +63,7 @@
             </div>
             <div class="btn_box">
                 <button>취소</button>
-                <button>수정</button>
+                <button type="submit">수정</button>
             </div>
     </form>
 </div>

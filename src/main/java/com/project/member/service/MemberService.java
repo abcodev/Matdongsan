@@ -4,12 +4,12 @@ import com.project.client.oauth.OAuthClient;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.dao.MemberDao;
-import com.project.member.dto.MemberDto;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 //import net.nurigo.java_sdk.api.Message;
 //import net.nurigo.java_sdk.exceptions.CoolsmsException;
 //import org.json.simple.JSONObject;
+import lombok.extern.log4j.Log4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
@@ -22,6 +22,7 @@ import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
+@Log4j
 public class MemberService {
 
     private final OAuthClientService oAuthClientService;
@@ -56,16 +57,20 @@ public class MemberService {
 
     }
 
-    public MemberDto loginMember(MemberDto m){
 
-        MemberDto loginMember = memberDao.loginMember(sqlSession, m);
 
+    public Member loginMember(Member m){
+        Member loginMember = memberDao.loginMember(sqlSession, m);
         return loginMember;
     }
 
-    public int updateMember(MemberDto m) {
+
+    public int updateMember(Member m) {
         return memberDao.updateMember(sqlSession, m);
     }
+
+
+
 
     public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
         String api_key = "NCSOBLGT3XKTGRQB";

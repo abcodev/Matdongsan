@@ -42,4 +42,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public ArrayList<Reply> selectReplyList(int fno){
         return  freeBoardDao.selectReplyList(sqlSession, fno);
     }
+
+    public int deletePost(int fno){
+        return freeBoardDao.deletePost(sqlSession, fno);
+    }
+
+    public int updatePost(FreeBoard freeBoard){
+        return freeBoardDao.updatePost(sqlSession, freeBoard);
+    }
 }

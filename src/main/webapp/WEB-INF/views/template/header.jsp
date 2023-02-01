@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2023-01-19
-  Time: 오후 9:11
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,9 +9,11 @@
 <body>
 <header id="header">
   <div class="inner">
-    <div class="logo">
-      <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
-    </div>
+    <a href="${pageContext.request.contextPath}/mainPage">
+      <div class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
+      </div>
+    </a>
     <nav class="navbar">
       <div class="navbar_menu">
         <div class="dropdown">
@@ -43,6 +38,7 @@
           <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
           </button>
         </div>
+
         <script>
           // TODO : 로그인 된 후에만되도록 분기문 필요
           const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
@@ -50,6 +46,7 @@
             console.log(event);
           })
         </script>
+
       </div>
     </nav>
     <div class="login">

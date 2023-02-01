@@ -1,28 +1,25 @@
 package com.project.realestate.service;
 
 import com.project.common.template.PageInfoCombine;
+import com.project.member.vo.Member;
+import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
-import com.project.restaurant.vo.Restaurant;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class RealEstateServiceImpl implements RealEstateService{
 
     private static final int DEFAULT_BOARD_SIZE = 10;
     private final RealEstateDao realEstateDao;
+    private final InterestEstateDao interestEstateDao;
     private final SqlSession sqlSession;
-
-    @Autowired
-    public RealEstateServiceImpl(RealEstateDao realEstateDao, SqlSession sqlSession){
-        this.realEstateDao = realEstateDao;
-        this.sqlSession = sqlSession;
-    }
 
     @Override
     public int selectListCount(){
@@ -69,6 +66,20 @@ public class RealEstateServiceImpl implements RealEstateService{
     @Override
     public List<String> selectPastList(String bldgNm) {
         return realEstateDao.selectPastList(bldgNm);
+    }
+
+    @Override
+    public boolean checkInterest(String estateNo, Member loginUser) {
+        return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
+    }
+
+    @Override
+    public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
+        if (req.getIsInterest()) {
+            interestEstateDao.insert(req.getEstateNo(), loginUser.getMemberNo());
+        } else {
+            interestEstateDao.delete(req.getEstateNo(), loginUser.getMemberNo());
+        }
     }
 
 }

@@ -9,6 +9,7 @@
         <result column="FREE_BNO" property="boardNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="PROFILE_IMAGE" property="profileImage"/>
         <result column="BOARD_WRITER" property="boardWriter"/>
         <result column="BOARD_CONTENT" property="boardContent"/>
         <result column="BOARD_DATE" property="boardDate"/>
@@ -20,6 +21,7 @@
     <resultMap id="replyResultSet" type="reply">
         <result column="REPLY_NO" property="replyNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
+        <result column="PROFILE_IMAGE" property="profileImage"/>
         <result column="FREE_BNO" property="freeBno"/>
         <result column="REPLY_CONTENT" property="replyContent"/>
         <result column="REPLY_DATE" property="replyDate"/>
@@ -55,7 +57,7 @@
             FREE_BNO,
             BOARD_TITLE,
             BOARD_WRITER,
-            M.PROFILE_IMAGE,
+            PROFILE_IMAGE,
             BOARD_AREA,
             BOARD_CONTENT,
             BOARD_DATE
@@ -74,6 +76,7 @@
         SELECT
             REPLY_NO,
             FREE_BNO,
+            PROFILE_IMAGE,
             NICKNAME,
             REPLY_CONTENT,
             REPLY_DATE
@@ -82,6 +85,19 @@
         WHERE R.STATUS = 'Y'
             AND FREE_BNO = ${freeBno}
     </select>
+
+    <update id="deletePost" parameterType="int">
+        UPDATE FREE_BOARD
+        SET STATUS = 'N'
+        WHERE FREE_BNO = #{fno}
+    </update>
+
+    <update id="updatePost" parameterType="freeBoard">
+        UPDATE FREE_BOARD
+        SET BOARD_TITLE = ${boardTitle},
+            BOARD_CONTENT = ${boardContent}
+        WHERE FREE_BNO = ${boardNo}
+    </update>
 </mapper>
 
 
