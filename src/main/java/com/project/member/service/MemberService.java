@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 //import net.nurigo.java_sdk.api.Message;
 //import net.nurigo.java_sdk.exceptions.CoolsmsException;
 //import org.json.simple.JSONObject;
+import lombok.extern.log4j.Log4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
+@Log4j
 public class MemberService {
 
     private final OAuthClientService oAuthClientService;

@@ -1,5 +1,7 @@
 package com.project.member.controller;
 
+import com.project.board.service.FreeBoardService;
+import com.project.common.type.StateList;
 import com.project.member.dto.MemberDto;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
@@ -27,7 +29,12 @@ public class MemberController {
     public String myPage(){return "member/myPage";}
 
     @RequestMapping(value = "/memberModify")
-    public String memberModify(){return "member/memberModify";}
+    public String memberModify(Model model){
+
+        model.addAttribute("stateList", StateList.values());
+
+        return "member/memberModify";
+    }
 
     /**
      * 회원정보를 수정하면 회원등급 변경
@@ -37,8 +44,9 @@ public class MemberController {
         int result = memberService.updateMember(m);
         if (result != 0) {
             MemberDto updateMember = memberService.loginMember(m);
+
             session.setAttribute("loginUser", updateMember);
-            session.setAttribute("alertMsg","회원정보 수정 성공");
+            model.addAttribute("alertMsg","회원정보 수정 성공");
             return "redirect:/myPage";
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
@@ -53,9 +61,7 @@ public class MemberController {
     @ResponseBody
     public String sendSMS(@RequestParam("phone") String userPhoneNumber) {
         int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);
-
         memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
-
         return Integer.toString(randomNumber);
     }
 

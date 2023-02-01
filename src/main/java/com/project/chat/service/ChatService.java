@@ -48,7 +48,7 @@ public class ChatService {
         }
     }
 
-    public ChatingRoom findRoom(long memberNo) {
+    public List<ChatingRoom> findRoom(long memberNo) {
         return chatRepository.findRoom(memberNo);
     }
 

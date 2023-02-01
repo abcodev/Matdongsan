@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 
 @Controller
-//@Log4j
+@Log4j
 public class MainController {
 
     private final RealEstateService realEstateService;
