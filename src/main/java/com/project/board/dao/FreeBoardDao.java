@@ -2,6 +2,7 @@ package com.project.board.dao;
 
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
+import com.project.board.vo.Report;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.jdbc.Sql;
@@ -41,5 +42,9 @@ public class FreeBoardDao {
 
     public int updatePost(SqlSession sqlSession, FreeBoard freeBoard){
         return  sqlSession.update("freeBoardMapper.updatePost", freeBoard);
+    }
+
+    public int insertReport(SqlSession sqlSession, Report report){
+        return  sqlSession.insert("freeBoardMapper.insertReport", report);
     }
 }

@@ -75,16 +75,19 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select name="declaration">
-                            <option value="reason1">지나친 욕설과 비방 내용이 포함되어 있습니다.</option>
-                            <option value="reason2">게시글에 유해하고 선정적인 내용이 포함되어 있습니다.</option>
-                            <option value="reason3">게시글을 도배하고 있습니다.</option>
-                            <option value="reason4">불법적인 광고를 하고있습니다.</option>
+                        <select name="reportContent" id="reportContent">
+                            <option value="욕설">지나친 욕설과 비방 내용이 포함되어 있습니다.</option>
+                            <option value="부적절">게시글에 유해하고 부적절한 내용이 포함되어 있습니다.</option>
+                            <option value="도배">게시글을 도배하고 있습니다.</option>
+                            <option value="광고">불법적인 광고를 하고있습니다.</option>
                         </select>
+                        <input type="hidden" name="reporter" value="${loginUser.memberNo}">
+                        <input type="hidden" name="reportFno" value="${fb.boardNo}">
+                        <input type="hidden" name="reportedPerson" value="${fb.memberNo}">
                     </div>
                     <div class="modal-footer">
                         <button type="button" data-bs-dismiss="modal">취소</button>
-                        <button type="button" >신고하기</button>
+                        <button onclick="declaration();" >신고하기</button>
                     </div>
                 </div>
             </div>
@@ -104,11 +107,13 @@
         </div>
         <div class="reply_foot">
             <div>
-                <div class="my_img">
-                    <img src="${loginUser.profileImage}">
-                </div>
-                <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
-                <button onclick="insertReply();">댓글 등록</button>
+                <c:if test="${not empty loginUser}">
+                    <div class="my_img">
+                        <img src="${loginUser.profileImage}">
+                    </div>
+                    <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
+                    <button onclick="insertReply();">댓글 등록</button>
+                </c:if>
             </div>
         </div>
     </div>
@@ -166,6 +171,7 @@
     }
 </script>
 
+
 <!-- 댓글 등록 -->
 <script>
         $(function(){
@@ -213,6 +219,32 @@
     }
 </script>
 
+<!-- 게시글 신고하기 -->
+<script>
+    function declaration(){
+        let reporter = $('input[name="reporter"]').val();
+        let reportContent = $('#reportContent option:selected').val();
+        let reportedPerson = $('input[name="reportedPerson"]').val();
+        let reportFno = $('input[name="reportFno"]').val();
+
+        $.ajax({
+            url : "${pageContext.request.contextPath}/board/report",
+            type : "post",
+            data : {"reporter" : reporter,
+                    "reportContent" : reportContent,
+                    "reportedPerson" : reportedPerson,
+                    "reportFno" : reportFno},
+            success : function (result){
+                        console.log(result);
+                        alert("신고 완료");
+                        $('#exampleModal').modal('hide');
+                      },
+            error : function (){
+                alert("신고 실패");
+            }
+        })
+    }
+</script>
 
 </body>
 </html>
