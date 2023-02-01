@@ -133,6 +133,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -146,7 +147,7 @@ public class ChatController {
     private final ChatService chatService;
 
     @PostMapping("/createChatRoom")
-    public ResponseEntity<Map<String ,Object>> adminChatting(
+    public ResponseEntity<Map<String ,Object>> clientChatting(
             @ModelAttribute("loginUser") Member loginUser
     ){
         // CHAT_ROOM 테이블에 회원 아이디 있으면 방을 생성하지 않음
@@ -159,7 +160,18 @@ public class ChatController {
         Map<String ,Object> chat = chatService.findRoom(loginUser.getMemberNo());
         System.out.println("방번호는 ?"+chat.get("room"));
         return ResponseEntity.ok().body(chat);
+    }
 
 
+    /**
+     * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
+     * - 미리보기
+     */
+    @PostMapping("/chat/admin")
+    public ModelAndView adminChatting(ModelAndView modelAndView,
+                                      @ModelAttribute("loginUser") Member loginUser
+                                      ){
+        //
+        return modelAndView;
     }
 }
