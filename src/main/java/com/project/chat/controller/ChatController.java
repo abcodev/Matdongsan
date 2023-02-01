@@ -121,6 +121,7 @@
 package com.project.chat.controller;
 
 import com.github.scribejava.core.model.Response;
+import com.project.chat.dto.AdminChatMessage;
 import com.project.chat.dto.AdminChatRoom;
 
 import com.project.chat.service.ChatService;
@@ -160,10 +161,11 @@ public class ChatController {
         return ResponseEntity.ok().body(chat);
     }
 
-    @PostMapping("/admin/enterChat")
-    public ResponseEntity<?> enterChat(@RequestParam String roomNo){
+    @PostMapping("/chat/admin/enterChat")
+    @ResponseBody
+    public ResponseEntity<List<AdminChatMessage>> enterChat(@ModelAttribute("roomNo") String roomNo){
 
-        List<?> chattingList = chatService.adminMessageList(roomNo);
+        List<AdminChatMessage> chattingList = chatService.adminMessageList(roomNo);
 
         return ResponseEntity.ok().body(chattingList);
     }

@@ -99,23 +99,21 @@
         <result column="CHAT_ROOM_NO" property="roomNo"></result>
         <result column="SEND_NO" property="memberNo"></result>
         <result column="MEMBER_NAME" property="memberName"></result>
-        <result column="MS_CONTENT" property="Message"></result>
+        <result column="MS_CONTENT" property="message"></result>
         <result column="CREATE_DATE" property="createDate"></result>
         <result column="READ" property="read"></result>
     </resultMap>
 
-    <select id="adminMessageList" resultMap="adminChatMessageResultSet">
+    <select id="adminMessageList" parameterType="string" resultMap="adminChatMessageResultSet">
         SELECT
-            CHAT_ROOM_NO,
-            SEND_NO,
-            MEMBER_NAME,
-            MS_CONTENT,
-            CREATE_DATE,
-            READ
-        FROM CHAT_MESSAGE
-                 JOIN MEMBER ON (MEMBER_NO=SEND_NO)
-        WHERE CHAT_ROOM_NO = #{roomNo}
-        ORDER BY CREATE_DATE
+            C.CHAT_ROOM_NO,
+            C.SEND_NO,
+            M.MEMBER_NAME,
+            C.MS_CONTENT
+        FROM CHAT_MESSAGE C
+                 JOIN MEMBER M ON (M.MEMBER_NO=C.SEND_NO)
+        WHERE C.CHAT_ROOM_NO = #{roomNo}
+        ORDER BY C.CREATE_DATE
     </select>
 
 
