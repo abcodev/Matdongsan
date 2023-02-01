@@ -80,19 +80,19 @@
             console.log(roomNo)
 
             $.ajax({
-                url : '${pageContext.request.contextPath}/admin/enterChat',
+                url : '${pageContext.request.contextPath}/chat/admin/enterChat',
                 type: "POST",
                 data : {'roomNo' : roomNo},
-                dataType : 'JSON',
                 success : function (result){
+                    console.log(result);
 
+
+                },
+                fail:function (){
+                    console.log("ㅋㅋㅋ");
                 }
             })
-
-
         })
-
-
 
     </script>
 

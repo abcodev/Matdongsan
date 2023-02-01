@@ -75,7 +75,7 @@ public class ChatService {
         return chatRepository.adminChattingList();
     }
 
-    public List<?> adminMessageList(String roomNo) {
+    public List<AdminChatMessage> adminMessageList(String roomNo) {
         return chatRepository.adminMessageList(roomNo);
     }
 
