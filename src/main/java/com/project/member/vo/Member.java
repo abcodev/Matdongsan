@@ -2,10 +2,7 @@ package com.project.member.vo;
 
 import com.project.client.oauth.OAuthUser;
 import com.project.member.type.MemberGrade;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -19,6 +16,7 @@ import java.time.LocalDateTime;
  */
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -45,6 +43,20 @@ public class Member {
                 .memberName(oAuthUser.getNickname())
                 .profileImage(oAuthUser.getProfileImage())
                 .email(oAuthUser.getEmail())
+                .build();
+    }
+
+    public static Member of(Member member) {
+        return Member.builder()
+                .provider(member.getProvider())
+                .providerId(member.getProviderId())
+                .email(member.getEmail())
+                .memberName(member.getMemberName())
+                .profileImage(member.getProfileImage())
+                .address(member.getAddress())
+                .nickName(member.getNickName())
+                .phone(member.getPhone())
+                .interestState(member.getInterestState())
                 .build();
     }
 

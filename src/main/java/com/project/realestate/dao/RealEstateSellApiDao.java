@@ -15,9 +15,9 @@ public class RealEstateSellApiDao {
 
     private final SqlSessionTemplate sqlSession;
 
-    public void truncate() {
-        sqlSession.delete("sellMapper.deleteAll");
-    }
+//    public void truncate() {
+//        sqlSession.delete("sellMapper.deleteAll");
+//    }
 
     public void batchInsert(List<RealEstateSell> sellList) {
         sqlSession.insert("sellMapper.batchInsert", sellList);

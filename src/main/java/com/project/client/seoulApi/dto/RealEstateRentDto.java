@@ -3,6 +3,9 @@ package com.project.client.seoulApi.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -55,4 +58,10 @@ public class RealEstateRentDto {
     private String preSecurityDeposit;
     @JsonProperty("BEFORE_MT_RENT_CHRGE")
     private String previousRent;
+
+    public boolean isAfter(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate parsedDealYmd = LocalDate.parse(this.dealYmd, formatter);
+        return parsedDealYmd.isAfter(date);
+    }
 }

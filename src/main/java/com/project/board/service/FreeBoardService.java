@@ -21,4 +21,7 @@ public interface FreeBoardService {
 
     public ArrayList<Reply> selectReplyList(int fno);
 
+    public int deletePost(int fno);
+
+    public int updatePost(FreeBoard freeBoard);
 }

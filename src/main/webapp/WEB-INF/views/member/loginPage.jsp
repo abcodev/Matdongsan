@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/member/loginPage.css"/>">
 
     <jsp:include page="../template/font.jsp"/>
+    <%@ include file ="../template/header.jsp" %>
+
 </head>
 <body>
 <div id="content">

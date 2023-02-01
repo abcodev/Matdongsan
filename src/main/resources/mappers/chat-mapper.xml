@@ -9,28 +9,45 @@
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 
+    <resultMap id="chatMessageResultSet" type="chatMessage">
+        <result column="CM_NO" property="cmNo"/>
+        <result column="CHAT_ROOM_NO" property="roomNo"/>
+        <result column="SEND_NO" property="sendNo"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="READ" property="read"/>
+        <result column="MS_CONTENT" property="content"/>
+    </resultMap>
 
-    <insert id="chatRoomInsert">
-        INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
-        VALUES (#{roomNo}, #{memberNo})
-    </insert>
-
-    <select id="findRoom" resultMap="chatroomResultSet">
-        SELECT CHAT_ROOM_NO,
-               MEMBER_NO
+    <select id="roomCheck" resultMap="chatroomResultSet">
+        SELECT
+            CHAT_ROOM_NO,
+            MEMBER_NO
         FROM CHAT_ROOM
         WHERE MEMBER_NO = #{memberNo}
     </select>
 
-    <insert id="enterRoom">
-        INSERT INTO CHAT_ROOM_JOIN(CHAT_ROOM_NO, MEMBER_NO)
-        VALUES (#{chatRoomNo}, #{memberNo})
+
+    <insert id="chatRoomInsert">
+        INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
+            VALUES (#{roomNo},#{memberNo})
     </insert>
 
-<!--    <insert id="sendMessage" parameterType="com.project.chat.dto.MessageDto">-->
-<!--        INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, RECEIVER_NO, CREATE_DATE, READ, MS_CONTENT)-->
-<!--        VALUES (SEQ_CM_NO.nextval, #{roomNo}, #{sender}, #{sender}, default, default, #{contents})-->
-<!--    </insert>-->
+    <select id="messageList" resultMap="chatMessageResultSet">
+        SELECT CM_NO,
+               CHAT_ROOM_NO,
+               SEND_NO,
+               CREATE_DATE,
+               READ,
+               MS_CONTENT
+        FROM CHAT_MESSAGE
+        WHERE CHAT_ROOM_NO = #{roomNo}
+        ORDER BY CREATE_DATE
+    </select>
+
+    <insert id="enterRoom">
+        INSERT INTO CHAT_ROOM_JOIN(CHAT_ROOM_NO, MEMBER_NO)
+        VALUES (#{chatRoomNo},#{memberNo})
+    </insert>
 
     <insert id="sendMessage">
         INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, CREATE_DATE, READ, MS_CONTENT)
