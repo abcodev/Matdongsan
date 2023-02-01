@@ -26,6 +26,11 @@
                 #{nickName}, #{phone}, #{address}, #{recentAccess})
     </insert>
 
+    <select id="selectByMemberNo" resultMap="memberResultSet">
+        SELECT *
+        FROM MEMBER
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
     <select id="select" parameterType="Map" resultMap="memberResultSet">
         SELECT *
         FROM MEMBER

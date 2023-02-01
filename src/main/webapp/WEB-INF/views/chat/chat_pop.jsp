@@ -95,6 +95,7 @@
     //   $("#chat-input").attr("disabled", false);
     //   generate_message(name, "self");
     // });
+
     $("#chat-circle").click(function () {
       $.ajax({
         url: '${pageContext.request.contextPath}/createChatRoom',
@@ -177,9 +178,10 @@
     //메시지 브로커로 메시지 전송
     function send(){
       const roomNo = $("#roomNo").val();
+      // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
       const data = {
         'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-input").val(),
+        //'contents': $("#chat-input").val(),
         'roomNo' : roomNo
       };
       // send(destination,헤더,페이로드)

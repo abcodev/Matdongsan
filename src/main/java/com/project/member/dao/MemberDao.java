@@ -51,4 +51,8 @@ public class MemberDao {
         params.put("providerId", providerId);
         sqlSession.update("memberMapper.updateRecentAccess", params);
     }
+
+    public Member select(long memberNo) {
+        return sqlSession.selectOne("memberMapper.selectByMemberNo", memberNo);
+    }
 }

@@ -4,6 +4,8 @@ import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.alarm.vo.Alarm;
+import com.project.chat.dto.MessageDto;
+import com.project.chat.service.ChatService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -29,10 +31,12 @@ public class RealtimeAlarmController {
 
     private final AlarmEventProducer alarmEventProducer;
     private final AlarmService alarmService;
+    private final ChatService chatService;
 
     @GetMapping("/alarm/test")
     public void test() {
-        alarmService.send(AlarmTemplate.generateTestTemplate(1, "2000"));
+        MessageDto message = new MessageDto(1, "안녕하세요.", "123");
+        chatService.sendMessage(message);
     }
 
     @GetMapping("/alarm/test2")
