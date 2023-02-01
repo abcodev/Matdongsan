@@ -172,7 +172,7 @@
 </script>
 
 
-<!-- 댓글 등록 -->
+<!-- 댓글 등록 & 리스트 보여주기 -->
 <script>
         $(function(){
             selectReplyList();
@@ -189,9 +189,12 @@
                     for(let reply of result){
                         html += "<tr>"
                             + "<td><img src=" + reply.profileImage + "></td>"
-                            + "<td>" + reply.nickName + "</td>"
+                            + "<td>" + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + "></td>"
                             + "<td>" + reply.replyContent + "</td>"
-                            + "<td>" + reply.replyDate + "</td>"
+                            + "<td>" + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +"></td>"
+                            + "<td>"
+                            + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>삭제</button>":""))
+                            +"</td>"
                             + "</tr>";
                     }
                     $("#replyResult").html(html);
@@ -216,6 +219,30 @@
 						}
 
         })
+    }
+</script>
+
+<!-- 댓글 삭제 -->
+<script>
+    function deleteReply(button){
+
+        let replyNo = $(button).parent().parent().find("[name='replyNo']").val();
+
+        $.ajax({
+            url : "${pageContext.request.contextPath}/board/deleteReply",
+            type : "post",
+            data : {freeBno : ${fb.boardNo},
+                    replyNo : replyNo,
+                    memberNo : '${loginUser.memberNo}'},
+            success : function (result){
+                console.log(result);
+                alert("댓글 삭제 성공");
+                location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
+            },
+            error : function (){
+                alert("댓글 삭제 실패");
+            }
+        });
     }
 </script>
 

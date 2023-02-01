@@ -85,6 +85,7 @@
         SELECT
             REPLY_NO,
             FREE_BNO,
+            R.MEMBER_NO,
             PROFILE_IMAGE,
             NICKNAME,
             REPLY_CONTENT,
@@ -93,6 +94,7 @@
         LEFT JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
         WHERE R.STATUS = 'Y'
             AND FREE_BNO = ${freeBno}
+        ORDER BY R.REPLY_DATE
     </select>
 
     <update id="deletePost" parameterType="int">
@@ -112,10 +114,13 @@
         INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT)
         VALUES (SEQ_REP_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}')
     </insert>
+
+    <update id="deleteReply" parameterType="reply">
+        UPDATE REPLY
+        SET STATUS = 'N'
+        WHERE FREE_BNO = ${freeBno}
+            AND REPLY_NO = ${replyNo}
+            AND MEMBER_NO = ${memberNo}
+    </update>
 </mapper>
-
-
-
-
-
 
