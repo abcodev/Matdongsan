@@ -29,11 +29,11 @@ public class RealEstateRentAPIServiceImpl implements RealEstateRentApiService {
 
 
     public int getAndSave() {
-        LocalDate latestDealYmd = realEatateRentApiDao.latestDealYmd();
+//        LocalDate latestDealYmd = realEatateRentApiDao.latestDealYmd();
         List<RealEstateRent> houseList = seoulRentApiClient.getRentHouseList()
                 .stream()
                 .filter(rentHouseDto -> rentHouseDto.getHouseType().equals("아파트"))
-                .filter(realEstateRentDto -> realEstateRentDto.isAfter(latestDealYmd))
+//                .filter(realEstateRentDto -> realEstateRentDto.isAfter(latestDealYmd))
                 .map(RealEstateRent::of)
                 .collect(Collectors.toList());
 

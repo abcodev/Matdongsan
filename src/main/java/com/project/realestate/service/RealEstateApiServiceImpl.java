@@ -29,7 +29,7 @@ public class RealEstateApiServiceImpl implements RealEstateApiService{
         List<RealEstateSell> sellList = seoulApiClient.getRealEstateSellList()
                 .stream()
                 .filter(realEstateSellDto -> realEstateSellDto.getHouseType().equals("아파트"))
-//                .filter(realEstateSellDto -> realEstateSellDto.isAfter(latestDealYmd))
+                .filter(realEstateSellDto -> realEstateSellDto.isAfter(latestDealYmd))
                 .map(RealEstateSell::of)
                 .collect(Collectors.toList());
 

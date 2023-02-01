@@ -166,35 +166,47 @@ public class ChatController {
 
 
 
-
-
-//    @RequestMapping("admin/chat")
-//    public ModelAndView adminChatPage() {
-//        ModelAndView modelAndView = new ModelAndView();
+    /**
+     * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
+     * - 미리보기
+     */
+//    @PostMapping("/chat/admin")
+//    public ModelAndView adminChatting(ModelAndView modelAndView,
+//                                      @ModelAttribute("loginUser") Member loginUser
+//    ){
 //
-////        List<AdminChatRoom> chatRoomList = chatService.findAdminRoomList(); // 관리자는 모든 채팅룸 리스트 가져오기
-//        AdminChatRoom adminChatRoom1 = new AdminChatRoom(
-//                "Jang",
-//                "1",
-//                true,
-//                "마지막 메시지1",
-//                LocalDateTime.of(2023, 1, 31, 11, 50));
-//        AdminChatRoom adminChatRoom2 = new AdminChatRoom(
-//                "Jang2",
-//                "2",
-//                false,
-//                "마지막 메시지2",
-//                LocalDateTime.of(2023, 2, 1, 11, 50));
-//        modelAndView.addObject("chatRoomList", List.of(adminChatRoom1, adminChatRoom2));
-////        modelAndView.addObject("chatRoomList", chatRoomList);
 //        modelAndView.setViewName("chat/chatRoom");
 //        return modelAndView;
 //    }
 
 
-    /*
-        우리 1:1 채팅 메인에서만 띄우는게 맞지?
 
+
+    @RequestMapping("chat/admin")
+    public ModelAndView adminChatPage() {
+        ModelAndView modelAndView = new ModelAndView();
+
+//        List<AdminChatRoom> chatRoomList = chatService.findAdminRoomList(); // 관리자는 모든 채팅룸 리스트 가져오기
+        AdminChatRoom adminChatRoom1 = new AdminChatRoom(
+                "Jang",
+                "1",
+                true,
+                "마지막 메시지1",
+                LocalDateTime.of(2023, 1, 31, 11, 50));
+        AdminChatRoom adminChatRoom2 = new AdminChatRoom(
+                "Jang2",
+                "2",
+                false,
+                "마지막 메시지2",
+                LocalDateTime.of(2023, 2, 1, 11, 50));
+        modelAndView.addObject("chatRoomList", List.of(adminChatRoom1, adminChatRoom2));
+//        modelAndView.addObject("chatRoomList", chatRoomList);
+        modelAndView.setViewName("chat/chatRoom");
+        return modelAndView;
+    }
+
+
+    /*
         >> 관리자가 채팅방에 참여하려면 -> 관리자는 채팅에 참여자 개념이 아니고 채팅 리시버 개념
 
             보내는 사람은 무조건 디비에 메세지를 넣고 웹소켓으로 메세지를 보낸다
@@ -203,14 +215,14 @@ public class ChatController {
 
         테이블
         CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO, STATUS, CREATE_DATE)
-        CHAT_MESSAGE(CHAT_ROOM_NO, TYPE[QUESTION, ANSWER], SENDER, MS_CONTENTS)
+        CHAT_MESSAGE(CHAT_ROOM_NO, SEND_NO로 (관리자랑 사용자 나눌 수 있으니까), SENDER, MS_CONTENTS)
 
-        1. CHAT_ROOM_JOIN 테이블은 필요 없지 않을것 같음(우린 리시버가 관리자로 정해져있으니까)
+        1. CHAT_ROOM_JOIN 테이블은 필요 없을것 같음(우린 리시버가 관리자로 정해져있으니까)
         2. CHAT_MESSAGE 테이블 구조 변경 - TYPE 은 MessageType(QUESTION, ANSWER) 이라는 이름의 Enum Class 를 만들어서 사용
             (샌드메세지가 question 일때 받는사람이 관리자 answer 면 채팅 방 주인(사용자) )
         3. MessageDto 구조 변경 -> 메세지 보내는 부분을 바꿔주기(jsp send 함수부분)
 
-        + 관리자를 찾아내는 쿼리 (SELECT * FROM MEMBER WHERE MEMBERGRADE = "ADMIN" or 관리자 회원 번호 1로?
+        + 관리자를 찾아내는 쿼리 (SELECT * FROM MEMBER WHERE MEMBERGRADE = "ADMIN" or 관리자 회원 번호 1로?)
 
 
         >> 웹소켓 시점 - jsp - 관리자가 구독하는 시점 : jsp 페이지에서 전체 채팅 목록이 보이고 방에 들어갔을 때 구독하게됨
@@ -230,16 +242,6 @@ public class ChatController {
 
      */
 
-    /**
-     * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
-     * - 미리보기
-     */
-    @PostMapping("/chat/admin")
-    public ModelAndView adminChatting(ModelAndView modelAndView,
-                                      @ModelAttribute("loginUser") Member loginUser
-    ){
-        //
-        return modelAndView;
-    }
+
 
 }

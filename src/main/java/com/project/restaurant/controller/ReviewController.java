@@ -26,7 +26,8 @@ public class ReviewController {
     @RequestMapping(value = "/restaurant/insertReview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     public ResponseEntity<Void> insertReview(@ModelAttribute InsertReviewRequest req,
-                                             HttpSession session) {
+                                             HttpSession session
+    ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
         reviewService.create(loginUser, req);
         return ResponseEntity.ok().build();
