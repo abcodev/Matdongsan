@@ -120,14 +120,12 @@
 
 package com.project.chat.controller;
 
-import com.project.chat.dto.ChatingRoom;
-import com.project.chat.dto.MessageListDto;
-import com.project.chat.dto.RoomCheckDto;
+import com.github.scribejava.core.model.Response;
+import com.project.chat.dto.AdminChatRoom;
+
 import com.project.chat.service.ChatService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -162,8 +160,28 @@ public class ChatController {
         return ResponseEntity.ok().body(chat);
     }
 
+    @PostMapping("/admin/enterChat")
+    public ResponseEntity<?> enterChat(@RequestParam String roomNo){
+
+        List<?> chattingList = chatService.adminMessageList(roomNo);
+
+        return ResponseEntity.ok().body(chattingList);
+    }
 
 
+    /**
+     * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
+     * - 미리보기
+     */
+    @RequestMapping("/chat/admin")
+    public ModelAndView adminChatting(ModelAndView modelAndView
+                                      ){
+        // 채팅 목록 가져오기
+        List<AdminChatRoom> chattingList = chatService.adminChattingList();
+        modelAndView.addObject("chattingList",chattingList);
+        modelAndView.setViewName("chat/chatRoom");
+        return modelAndView;
+    }
 
 
 
@@ -189,19 +207,6 @@ public class ChatController {
 //        modelAndView.setViewName("chat/chatRoom");
 //        return modelAndView;
 //    }
-
-
-    /**
-     * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
-     * - 미리보기
-     */
-    @PostMapping("/chat/admin")
-    public ModelAndView adminChatting(ModelAndView modelAndView,
-                                      @ModelAttribute("loginUser") Member loginUser
-                                      ){
-        //
-        return modelAndView;
-    }
     /*
         우리 1:1 채팅 메인에서만 띄우는게 맞지?
 

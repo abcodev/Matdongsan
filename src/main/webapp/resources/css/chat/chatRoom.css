@@ -210,3 +210,8 @@
   margin-left: 20px;
   padding: 10px;
 }
+.photo > img {
+  height:50px;
+  width:50px;
+  border-radius:50%;
+}

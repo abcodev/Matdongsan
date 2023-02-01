@@ -71,6 +71,14 @@ public class ChatService {
         return List.of();
     }
 
+    public List<AdminChatRoom> adminChattingList() {
+        return chatRepository.adminChattingList();
+    }
+
+    public List<?> adminMessageList(String roomNo) {
+        return chatRepository.adminMessageList(roomNo);
+    }
+
 
 //
 //    /**
@@ -92,9 +100,7 @@ public class ChatService {
 //     * room 만들기
 //     */
 //    public ChatingRoom createChatRoom(String roomId){
-//        ChatingRoom chatRoom = chatRepository.createRoom(roomId);
-//        return chatRoom;
-//    }
+//        Chae
 //
 //    /**
 //     * 채팅방 인원

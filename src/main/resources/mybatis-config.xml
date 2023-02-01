@@ -25,6 +25,8 @@
         <typeAlias type="com.project.chat.dto.MessageListDto" alias="chatMessage"/>
         <typeAlias type="com.project.board.vo.Reply" alias="reply"/>
         <typeAlias type="com.project.admin.vo.Admin" alias="admin"/>
+        <typeAlias type="com.project.chat.dto.AdminChatRoom" alias="adminChatRoom"/>
+        <typeAlias type="com.project.chat.dto.AdminChatMessage" alias="adminChatMessage"/>
     </typeAliases>
 
     <mappers>

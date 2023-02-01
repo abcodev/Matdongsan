@@ -48,10 +48,6 @@ public class ChatRepository {
         return  sqlSession.selectOne("chatMapper.roomCheck",roomCheckDto);
     }
 
-    public List<ChatJoinMember> selectJoinMemberList(String roomNo) {
-        return sqlSession.selectList("chatMapper.selectJoinMemberList", roomNo);
-    }
-
     /**
      * 메세지 리스트 가져오기
      */
@@ -59,4 +55,11 @@ public class ChatRepository {
         return sqlSession.selectList("chatMapper.messageList",roomNo);
     }
 
+    public List<AdminChatRoom> adminChattingList() {
+        return sqlSession.selectList("chatMapper.chattingList");
+    }
+
+    public List<?> adminMessageList(String roomNo) {
+        return sqlSession.selectList("chatMapper.adminMessageList",roomNo);
+    }
 }
