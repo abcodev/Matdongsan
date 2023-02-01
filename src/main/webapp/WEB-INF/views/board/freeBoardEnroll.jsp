@@ -32,6 +32,7 @@
             </div>
             <input type="text" name="boardTitle" required placeholder="제목을 입력해주세요" class="board_title">
             <input type="hidden" name="boardWriter" value="${loginUser.nickName}">
+            <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
         </div>
         <div class="form_body">
 <%--            <textarea id="summernote" name="editordata"></textarea>--%>

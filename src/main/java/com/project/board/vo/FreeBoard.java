@@ -10,6 +10,7 @@ public class FreeBoard {
     private int boardNo;
     private long memberNo;
     private String boardTitle;
+    private String profileImage;
     private String boardWriter;
     private String boardContent;
     private Timestamp boardDate;

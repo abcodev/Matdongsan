@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="w" value="${fb.boardWriter}"/>
 <html>
 <head>
     <title>자유게시판 상세보기</title>
@@ -25,28 +26,45 @@
         </div>
         <div class="detail_head">
             <div class="board_title">
-                <input type="text" name="boardTitle" value="${fb.boardTitle}">
+                    <c:if test="${w eq loginUser.nickName}">
+                        <input type="text" name="boardTitle" value="${fb.boardTitle}">
+                    </c:if>
+                    <c:if test="${w ne loginUser.nickName}">
+                        <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
+                    </c:if>
             </div>
             <div class="board_info">
-                <div class="writer_img"><img src="<c:url value="/resources/images/common/맛동산메인로고.png"/>"></div>
+                <div class="writer_img">
+                    <img src="${fb.profileImage}">
+                </div>
                 <div class="board_writer" name="boardWriter">${fb.boardWriter}</div>
                 <div class="board_date" name="boardDate">${fb.boardDate}</div>
             </div>
         </div>
         <div class="detail_body">
-            <div name="boardContent">${fb.boardContent}</div>
+            <c:if test="${w eq loginUser.nickName}">
+                <textarea name="boardContent">${fb.boardContent}</textarea>
+            </c:if>
+            <c:if test="${w ne loginUser.nickName}">
+                <div name="boardContent">${fb.boardContent}</div>
+            </c:if>
         </div>
         <div class="btn_box">
-            <button type="submit">수정</button>
-            <button type="submit">삭제</button>
+                <c:if test="${not empty loginUser}">
+                    <c:if test="${w eq loginUser.nickName}">
+                        <button onclick="updatePost();">수정</button>
+                        <button onclick="deletePost();">삭제</button>
+                    </c:if>
+                    <c:if test="${w ne loginUser.nickName}">
+                        <div class="alert_btn_box">
+                            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                신고하기
+                            </button>
+                        </div>
+                    </c:if>
+                </c:if>
         </div>
 
-        <!-- 신고 -->
-        <div class="alert_btn_box">
-            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                신고하기
-            </button>
-        </div>
         <!-- 신고 모달 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -57,8 +75,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <select>
-                                <option value="">부적절한 게시글</option>
+                        <select name="declaration">
+                            <option value="reason1">지나친 욕설과 비방 내용이 포함되어 있습니다.</option>
+                            <option value="reason2">게시글에 유해하고 선정적인 내용이 포함되어 있습니다.</option>
+                            <option value="reason3">게시글을 도배하고 있습니다.</option>
+                            <option value="reason4">불법적인 광고를 하고있습니다.</option>
                         </select>
                     </div>
                     <div class="modal-footer">
@@ -77,16 +98,15 @@
             <p>(<span id="rcount"></span>)</p>
         </div>
         <div class="reply_body">
-            <table>
-                <tr>
-                    <td>
-                    </td>
-                </tr>
+            <table id="replyResult">
+
             </table>
         </div>
         <div class="reply_foot">
             <div>
-                <div class="my_img"><img src="<c:url value="/resources/images/common/맛동산메인로고.png"/>"></div>
+                <div class="my_img">
+                    <img src="${loginUser.profileImage}">
+                </div>
                 <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
                 <button onclick="insertReply();">댓글 등록</button>
             </div>
@@ -94,11 +114,55 @@
     </div>
 </div>
 
+<!-- 게시글 수정 -->
+<script>
+    function updatePost(){
+        let boardTitle = $('input[name="boardTitle"]').val();
+        let boardContent = $('textarea[name="boardContent"]').val();
+        let boardNo = $('input[name="fno"]').val();
+
+        console.log(boardTitle);
+        console.log(boardContent);
+        console.log(boardNo);
+
+        let formData = new FormData();
+        formData.append("boardTitle", boardTitle);
+        formData.append("boardContent", boardContent);
+        formData.append("boardNo", boardNo);
+
+        formData.has("boardTitle");
+        formData.has("boardContent");
+        formData.has("boardNo");
+
+        $.ajax({
+            url : '${pageContext.request.contextPath}/board/update',
+            enctype: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            data : formData,
+            type : "post",
+            success : function (result){
+                        console.log(result);
+                        location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
+                        alert("수정성공!");
+                    }
+        });
+    }
+
+</script>
+
+
+<!-- 게시글 삭제 -->
+<script>
+    function deletePost(){
+        let fno = $('input[name=fno]').val();
+
+        location.href = "${pageContext.request.contextPath}/board/freeList/deletePost=" + fno;
+    }
+</script>
 
 <!-- 댓글 등록 -->
 <script>
-
-
         $(function(){
             selectReplyList();
         });
@@ -113,12 +177,13 @@
                     let html = ""
                     for(let reply of result){
                         html += "<tr>"
+                            + "<td><img src=" + reply.profileImage + "></td>"
                             + "<td>" + reply.nickName + "</td>"
-                            + "<td>" +reply.replyContent + "</td>"
-                            + "<td>" +reply.replyDate + "</td>"
+                            + "<td>" + reply.replyContent + "</td>"
+                            + "<td>" + reply.replyDate + "</td>"
                             + "</tr>";
                     }
-                    $("#replyArea tbody").html(html);
+                    $("#replyResult").html(html);
                     $("#rcount").html(result.length);
                 }
             })
@@ -128,7 +193,7 @@
             $.ajax({
                 url : "${pageContext.request.contextPath}/board/insertReply",
                 data: {freeBno : '${fb.boardNo}',
-                        replyContent : $('textarea[name="replyContent"]:visible').val()},
+                        replyContent : $('input[name="replyContent"]:visible').val()},
                 success : function(result){
                             if(result == "1"){
 								alertify.alert("서비스 요청 성공", '댓글등록 성공');
@@ -136,7 +201,7 @@
 							selectReplyList();
                         },
                 complete : function(){
-							$('textarea[name="replyContent"]').val("");
+							$('input[name="replyContent"]').val("");
 						}
 
         })

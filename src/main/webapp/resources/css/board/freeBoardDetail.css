@@ -112,12 +112,12 @@ textarea:focus , input:focus {
 
 /* 신고하기 */
 
-.alert_btn_box {
+.btn_box > .alert_btn_box {
     padding-left: 86%;
     margin-top: 10px;
 }
 
-.alert_btn_box > button{
+.btn_box > .alert_btn_box > button{
     margin-left: 10px;
     border: none;
     width: auto;
@@ -131,7 +131,7 @@ textarea:focus , input:focus {
     padding: 5px 10px 5px 10px;
 }
 
-.alert_btn_box > button:hover{
+.btn_box > .alert_btn_box > button:hover{
     background-color: #566392;
     color: #f3f1f5;
 }
