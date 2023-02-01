@@ -8,27 +8,28 @@
     <resultMap id="AdminResultSet" type="admin">
         <result column="REPORT_NO" property="reportNo"/>
         <result column="FREE_BNO" property="freeBno"/>
-        <result column="PROVIDER_ID" property="providerId"/>
+        <result column="NICKNAME" property="nickName"/>
         <result column="EMAIL" property="email"/>
-        <result column="REPORTED_EMAIL" property="reportedEmail"/>
+        <result column="BOARD_WRITER" property="boardWriter"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="STATUS" property="status"/>
         <result column="MEMBER_NAME" property="memberName"/>
-        <result column="REPORT_REASON" property="reportReason"/>
         <result column="REPORT_USER_NO" property="reportUserNo"/>
         <result column="REPORT_CONTENT" property="reportContent"/>
+        <result column="REPORT_TYPE" property="reportType"/>
 
     </resultMap>
 
     <select id="userList" resultMap="AdminResultSet">
         select
-            MEMBER_NO,
-            MEMBER_NAME,
-            PROVIDER_ID,
+            M.MEMBER_NO,
+            NICKNAME,
             EMAIL,
-            STATUS
-        FROM MEMBER
-        WHERE STATUS = 'Y'
+            M.STATUS,
+            F.FREE_BNO
+        FROM MEMBER M
+        JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
+        ORDER BY MEMBER_NO
 
     </select>
 
@@ -47,12 +48,14 @@
     <select id="reportList" resultMap="AdminResultSet">
         SELECT
             REPORT_NO,
-            REPORT_REASON,
             REPORT_CONTENT,
+            REPORT_TYPE,
+            F.FREE_BNO,
             M.EMAIL,
-            M.EMAIL AS REPORTED_EMAIL
+            F.BOARD_WRITER
         FROM REPORT R
         JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+        JOIN FREE_BOARD F ON(F.FREE_BNO = R.FREE_BNO)
 
     </select>
 
@@ -65,6 +68,11 @@
         SELECT COUNT(*)
         FROM REPORT
     </select>
+    <update id="deleteBoard" parameterType="int">
+        UPDATE FREE_BOARD
+        SET STATUS = 'N'
+        WHERE FREE_BNO = #{freeBno}
+    </update>
 
 
 

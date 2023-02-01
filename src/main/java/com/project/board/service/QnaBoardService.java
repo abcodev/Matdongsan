@@ -1,6 +1,7 @@
 package com.project.board.service;
 
 import com.project.board.vo.QnaBoard;
+import com.project.board.vo.Report;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,5 @@ public interface QnaBoardService {
 
     public int deleteBoard(int qBno);
 
-    public int reportBoard(int qBno);
-
+    public int insertReport(Report report);
 }

@@ -9,4 +9,6 @@ public class Report {
     private int reportedPerson; // 피신고자
     private int reporter; // 신고자
     private String reportContent; // 신고 사유
+
+
 }

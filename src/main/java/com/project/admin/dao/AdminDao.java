@@ -27,14 +27,18 @@ public class AdminDao {
 
         return (ArrayList)sqlSession.selectList("adminMapper.userList",null,rowBounds);
     }
-    public List<Admin> reportList(SqlSession sqlSession){
-        return sqlSession.selectList("adminMapper.reportList");
+    public ArrayList<Admin> reportList(SqlSession sqlSession){
+        return (ArrayList) sqlSession.selectList("adminMapper.reportList");
     }
 
 
 
     public int rListCount(SqlSession sqlSession){
         return sqlSession.selectOne("adminMapper.rListCount");
+    }
+
+    public int deleteBoard(SqlSession sqlSession,int freeBno) {
+        return  sqlSession.update("adminMapper.deleteBaord",freeBno);
     }
 
 
