@@ -55,4 +55,8 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     public int insertReport(Report report){
         return freeBoardDao.insertReport(sqlSession, report);
     }
+
+    public int deleteReply(Reply reply){
+        return freeBoardDao.deleteReply(sqlSession, reply);
+    }
 }

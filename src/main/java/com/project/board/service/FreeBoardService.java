@@ -27,4 +27,6 @@ public interface FreeBoardService {
     public int updatePost(FreeBoard freeBoard);
 
     public int insertReport(Report report);
+
+    public int deleteReply(Reply reply);
 }

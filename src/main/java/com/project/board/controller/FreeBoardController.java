@@ -142,6 +142,13 @@ public class FreeBoardController {
     }
 
     // 댓글 삭제
+    @RequestMapping("/deleteReply")
+    @ResponseBody
+    public int deleteReply(Reply reply){
+        int result = freeBoardService.deleteReply(reply);
+
+        return result;
+    }
 
 
     // 게시글 신고하기
