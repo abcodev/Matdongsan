@@ -111,8 +111,8 @@
     </update>
 
     <insert id="insertReport" parameterType="report">
-        INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT)
-        VALUES (SEQ_REP_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}')
+        INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT, REPORT_TYPE)
+        VALUES (SEQ_REP_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}', '자유게시판')
     </insert>
 
     <update id="deleteReply" parameterType="reply">
