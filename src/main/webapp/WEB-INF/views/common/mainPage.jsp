@@ -38,6 +38,7 @@
 </head>
 
 <body>
+
 <header id="header">
     <div class="inner">
         <div class="logo">
@@ -63,10 +64,14 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-                <div class="dropdown">
-                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
-                    </button>
-                </div>
+
+<%--                <c:if test="${loginUser.memberNo == 1}">--%>
+                    <div class="dropdown">
+                        <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
+                        </button>
+                    </div>
+<%--                </c:if>--%>
+
             </div>
         </nav>
         <div class="login">
@@ -121,6 +126,8 @@
             </div>
         </div>
     </div>
+
+
     <script>
         // TODO : 로그인 된 후에만되도록 분기문 필요
         const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
@@ -137,7 +144,10 @@
             $(".alert_box").toggle("scale");
         });
     </script>
+
 </header>
+
+
 <div class="map">
     <div class="mapImg">
         <div id="map">
@@ -160,19 +170,19 @@
 
                 var listData1 = [
                     <c:forEach items="${sellList}" var="list">
-                        '${list.address}',
+                    '${list.address}',
                     </c:forEach>
                 ];
 
                 var listData2 = [
                     <c:forEach items="${sellList}" var="list2">
-                        '${list2.bldgNm}',
+                    '${list2.bldgNm}',
                     </c:forEach>
                 ];
 
                 var listData3 = [
                     <c:forEach items="${sellList}" var="list3">
-                        '${list3.objAmt}',
+                    '${list3.objAmt}',
                     </c:forEach>
                 ];
 
@@ -204,7 +214,7 @@
                                 '           </div>' +
                                 '            <div class="desc">' +
                                 '               <div style="width:100px;padding:3px;">' +'주소  : 서울특별시 '+ listData1[index] + '</div>'+
-                                '               <div style="width:100px;padding:3px;">' +'실거래가  : '+ listData3[index] + '</div>'+
+                                '               <div style="width:100px;padding:3px;">' +'실거래가  : '+ listData3[index] + '(만원)' +'</div>'+
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>';
