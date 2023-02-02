@@ -33,18 +33,6 @@
 
     </select>
 
-
- <!--   <insert id="insertReport" parameterType="admin">
-        INSERT INTO REPORT(
-            REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_REASON, REPORT_USER_NO, REPORT_CONTENT)
-    VALUES (SEQ_REPORT_NO.NEXTVAL,
-            FREE_BNO = #{freeBno},
-            MEMBER_NO=#{memberNo},
-            REPORT_REASON= #{reportReason},
-            REPORT_USER_NO = #{reportUserNo},
-            REPORT_CONTENT = #{reportContent}
-            )
-    </insert>-->
     <select id="reportList" resultMap="AdminResultSet">
         SELECT
             REPORT_NO,

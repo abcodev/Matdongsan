@@ -70,5 +70,6 @@ public class AdminController {
         int result = adminService.deleteBoard(freeBno);
 
         return "redirect:/admin/userList";
+
     }
 }

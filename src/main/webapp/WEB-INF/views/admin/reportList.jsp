@@ -44,7 +44,7 @@
                 <td>${rl.boardWriter}</td>
                 <td>${rl.reportContent}</td>
                 <td><button type="button" onclick="movePage(freeBno)">상세보기</button></td>
-                <td><button type="button" id="modal_btn">처리중</button></td>
+                <td><button type="button" class="btn" id="add-btn">처리중</button></td>
                 <td><select id="stop" onchange="changeSelect()">
                     <option>3일정지</option>
                     <option>7일정지</option>
@@ -52,23 +52,31 @@
                 </select></td>
             </tr>
 </c:forEach>
+</tbody>
+
+    </table>
 
 
-<div class="modal">
-    <div class="modal_head"><h2>게시글을 삭제하시겠습니까?</h2></div>
-    <div>
-        <button type="button"><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="deleteBoard">예</a></button>
-        <br>
-        <button type="button">아니요</button>
+
+
+<div class="modal" id="modal">
+    <div class="modal_body">
+        <div class="m_head">
+            <div class="modal_title">게시글을 삭제처리하시겠습니까?</div>
+            <div class="close_btn" id="close_btn">X</div>
+        </div>
+        <div class="m_body">
+
+            <button type="button"><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="deleteBoard">예</a></button>
+            <div class="modal_label">Description</div>
+            <button type="button" class="close_btn">아니요</button>
+        </div>
+
     </div>
 </div>
 
 
 
-
-</tbody>
-
-    </table>
 
 
 
@@ -98,13 +106,28 @@
     };
 
     function movePage(freeBno){
-        location.href = '${pageContext.request.contextPath}/freeBoard/detail/' +freeBno;
+        location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+freeBno;
     }
 
 
     $(function(){
         $("#deleteBoard2").disabled();
-        })
+        });
+
+   /* 모달*/
+    $(document).on('click', '#add-btn', function (e) {
+        console.log("click event");
+        $('#modal').addClass('show');
+
+    });
+
+    // 모달 닫기
+    $(document).on('click', '#close_btn', function (e) {
+        console.log("click event");
+        $('#modal').removeClass('show');
+
+    });
+
 
 
     /*페이징처리*/
