@@ -22,16 +22,15 @@
 <%@ include file ="../template/header.jsp" %>
 
 <script>
-    window.onload = () => {
-        // ForEach ${chatRoomList} 에 있는 RoomNo 를 모두 꺼내고,
-        // 그 RoomNo 에 대해서 모두 WebSocket Subscribe.
-    }
+    <%--window.onload = () => {--%>
+    <%--    // ForEach ${chatRoomList} 에 있는 RoomNo 를 모두 꺼내고,--%>
+    <%--    // 그 RoomNo 에 대해서 모두 WebSocket Subscribe.--%>
+    <%--}--%>
 </script>
 
 <body>
 <div class="container">
     <div id="chat_left">
-<%--        <button onclick="createRoom();">1:1채팅 문의하기</button>--%>
         <div class="chatSelect">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -42,17 +41,23 @@
                 </li>
             </ul>
         </div>
-        <div class="preChatList">
-            <c:forEach items="${room}" var="room">
+        <div class="preChatList" >
+            <c:forEach items="${chattingList}" var="chattingList">
             <div class="preChat">
-                <div class="photo"></div>
+                <div class="photo"><img src="${chattingList.profileImage}"/></div>
                 <div class="desc-contact">
-                    <p class="name">${room.chatRoomNo}</p>
-                    <p class="message">${room.memberNo}</p>
+                    <input type="hidden" class="roomNo" value="${chattingList.roomNo}">
+                    <p class="name">${chattingList.memberName}</p>
+                    <p class="message">${chattingList.latestMessage}</p>
                 </div>
                 <div class="chat_alert">
-                    <div class="date">날짜</div>
+                    <div class="date">${chattingList.latestMessageTime}</div>
+                    <c:if test="${chattingList.read eq 'N'}">
                     <div class="new">NEW</div>
+                    </c:if>
+                    <c:if test="${list.read eq 'Y'}">
+                        <div class="new"></div>
+                    </c:if>
                 </div>
             </div>
             </c:forEach>
@@ -68,9 +73,27 @@
 <%--        })--%>
 <%--    </script>--%>
     <script>
-        // function createRoom(){
-        //     let
-        // }
+
+        $('.preChat').on('click',function(){
+            let target = this
+            let roomNo = target.querySelector('.roomNo').value
+            console.log(roomNo)
+
+            $.ajax({
+                url : '${pageContext.request.contextPath}/chat/admin/enterChat',
+                type: "POST",
+                data : {'roomNo' : roomNo},
+                success : function (result){
+                    console.log(result);
+
+
+                },
+                fail:function (){
+                    console.log("ㅋㅋㅋ");
+                }
+            })
+        })
+
     </script>
 
 

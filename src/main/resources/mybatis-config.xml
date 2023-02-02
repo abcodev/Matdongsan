@@ -25,13 +25,16 @@
         <typeAlias type="com.project.chat.dto.MessageListDto" alias="chatMessage"/>
         <typeAlias type="com.project.board.vo.Reply" alias="reply"/>
         <typeAlias type="com.project.admin.vo.Admin" alias="admin"/>
+        <typeAlias type="com.project.board.vo.Report" alias="report"/>
+        <typeAlias type="com.project.chat.dto.AdminChatRoom" alias="adminChatRoom"/>
+        <typeAlias type="com.project.chat.dto.AdminChatMessage" alias="adminChatMessage"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
         <mapper resource="/mappers/realestateSell-mapper.xml"/>
         <mapper resource="/mappers/realestateRent-mapper.xml"/>
-        <mapper resource="/mappers/interest-mapper.xml"/>
+        <mapper resource="/mappers/interestEstate-mapper.xml"/>
         <mapper resource="/mappers/restaurant-mapper.xml"/>
         <mapper resource="/mappers/hashtag-mapper.xml"/>
         <mapper resource="/mappers/resHashtag-mapper.xml"/>

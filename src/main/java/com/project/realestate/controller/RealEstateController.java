@@ -1,13 +1,10 @@
 package com.project.realestate.controller;
 
-import com.project.realestate.dto.RealEstateDetailDto;
-import com.project.realestate.dto.RealEstateMainListDto;
-import com.project.realestate.dto.RealEstateRentListRequest;
-import com.project.realestate.dto.RealEstateRentListResponse;
+import com.project.member.vo.Member;
+import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
-import com.project.restaurant.vo.Hashtag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,8 +43,8 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType) {
-
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+    ) {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
@@ -71,11 +69,10 @@ public class RealEstateController {
         );
     }
 
-
     @RequestMapping("/detail")
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
-                                         ModelAndView modelAndView) {
-
+                                         ModelAndView modelAndView
+    ) {
         List<String> pastList = realEstateService.selectPastList(estateNo);
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
@@ -85,10 +82,25 @@ public class RealEstateController {
         return modelAndView;
     }
 
-    @RequestMapping("detail/interest")
-    public String saveInterest() {
-        return null;
+    @GetMapping("/detail/interest")
+    @ResponseBody
+    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            throw new RuntimeException("로그인 하고 오세용");
+        }
+        boolean isInterest = realEstateService.checkInterest(estateNo, loginUser);
+        return ResponseEntity.ok(isInterest);
     }
 
-
+    @PostMapping("/detail/interest")
+    @ResponseBody
+    public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            throw new RuntimeException("로그인 하고 오세용");
+        }
+        realEstateService.saveInterest(req, loginUser);
+        return ResponseEntity.ok().build();
+    }
 }

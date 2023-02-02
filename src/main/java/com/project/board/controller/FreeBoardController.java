@@ -3,6 +3,7 @@ package com.project.board.controller;
 import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
+import com.project.board.vo.Report;
 import com.project.common.type.StateList;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
@@ -111,7 +112,7 @@ public class FreeBoardController {
     @RequestMapping("/insertReply")
     @ResponseBody
     public String insertReply(Reply r, HttpSession session) {
-        // 댓글 목록 조회
+
         Member m = (Member)session.getAttribute("loginUser");
         if(m != null) {
             r.setMemberNo(m.getMemberNo());
@@ -119,7 +120,6 @@ public class FreeBoardController {
 
         int result = freeBoardService.insertReply(r);
 
-        // gson으로 파싱
         if(result > 0) {
             return "1";
         }else {
@@ -139,6 +139,30 @@ public class FreeBoardController {
         String result = gson.toJson(replyList);
 
         return result;
+    }
+
+    // 댓글 삭제
+    @RequestMapping("/deleteReply")
+    @ResponseBody
+    public int deleteReply(Reply reply){
+        int result = freeBoardService.deleteReply(reply);
+
+        return result;
+    }
+
+
+    // 게시글 신고하기
+    @RequestMapping("/report")
+    @ResponseBody
+    public String reportPost(Report report){
+
+        int result = freeBoardService.insertReport(report);
+
+        if(result > 0){
+            return "1";
+        }else {
+            return "0";
+        }
     }
 
 }

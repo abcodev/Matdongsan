@@ -37,7 +37,7 @@
         <input type="hidden" id="roomNo">
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
         <button type="submit" class="chat-submit" id="chat-submit"><i
-                class="fa-regular fa-paper-plane" onclick="send();"></i></button>
+                class="fa-regular fa-paper-plane"  onclick="send();"></i></button>
       </form>
     </div>
   </div>
@@ -95,6 +95,7 @@
     //   $("#chat-input").attr("disabled", false);
     //   generate_message(name, "self");
     // });
+
     $("#chat-circle").click(function () {
       $.ajax({
         url: '${pageContext.request.contextPath}/createChatRoom',
@@ -144,6 +145,7 @@
     //엔터 눌렀을때 전송
     $('#chat-submit').keypress(function(e){
       if(e.keyCode===13){
+        e.preventDefault();
         send();
       }
     });
@@ -170,16 +172,13 @@
         }
       }
     }
-
-
-
-
     //메시지 브로커로 메시지 전송
     function send(){
       const roomNo = $("#roomNo").val();
+      // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
       const data = {
         'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-input").val(),
+        //'contents': $("#chat-input").val(),
         'roomNo' : roomNo
       };
       // send(destination,헤더,페이로드)

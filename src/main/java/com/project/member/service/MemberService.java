@@ -1,10 +1,15 @@
 package com.project.member.service;
 
+import com.project.board.dto.FreeBoardResponse;
+import com.project.board.dto.QnaBoardResponse;
+import com.project.board.vo.FreeBoard;
+import com.project.board.vo.QnaBoard;
 import com.project.client.oauth.OAuthClient;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
 import com.project.member.dao.MemberDao;
 import com.project.member.vo.Member;
+import com.project.realestate.vo.Interest;
 import lombok.RequiredArgsConstructor;
 //import net.nurigo.java_sdk.api.Message;
 //import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -18,6 +23,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
@@ -94,6 +100,20 @@ public class MemberService {
         }
 
     }
+
+    public ArrayList<FreeBoardResponse> getFreeBoardList(Member m){
+        return memberDao.getFreeBoardList(sqlSession, m);
+    }
+
+    public ArrayList<QnaBoardResponse> getQnaBoardList(Member m){
+        return memberDao.getQnaBoardList(sqlSession, m);
+    }
+
+    public ArrayList<Interest> getInterestList(Member m){
+        return memberDao.getInterestList(sqlSession, m);
+    }
+
+
 
 }
 

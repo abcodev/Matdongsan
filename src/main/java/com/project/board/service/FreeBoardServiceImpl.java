@@ -3,6 +3,7 @@ package com.project.board.service;
 import com.project.board.dao.FreeBoardDao;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
+import com.project.board.vo.Report;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     public int updatePost(FreeBoard freeBoard){
         return freeBoardDao.updatePost(sqlSession, freeBoard);
+    }
+
+    public int insertReport(Report report){
+        return freeBoardDao.insertReport(sqlSession, report);
+    }
+
+    public int deleteReply(Reply reply){
+        return freeBoardDao.deleteReply(sqlSession, reply);
     }
 }

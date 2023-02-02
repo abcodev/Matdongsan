@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
         int listCount = uListCount();
 
         int pageLimit = 10;
-        int boardLimit = 15;
+        int boardLimit = 10;
         PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 
         map.put("pi",pi);
@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Admin> reportList(){
+    public ArrayList<Admin> reportList(){
         return adminDao.reportList(sqlSession);
     }
 
@@ -60,6 +60,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int rListCount(){
         return adminDao.rListCount(sqlSession);
+    }
+
+    @Override
+    public int deleteBoard(int freeBno){
+        return adminDao.deleteBoard(sqlSession, freeBno);
     }
 
 }

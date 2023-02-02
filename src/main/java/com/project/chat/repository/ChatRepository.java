@@ -55,4 +55,11 @@ public class ChatRepository {
         return sqlSession.selectList("chatMapper.messageList",roomNo);
     }
 
+    public List<AdminChatRoom> adminChattingList() {
+        return sqlSession.selectList("chatMapper.chattingList");
+    }
+
+    public List<AdminChatMessage> adminMessageList(String roomNo) {
+        return sqlSession.selectList("chatMapper.adminMessageList",roomNo);
+    }
 }

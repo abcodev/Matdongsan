@@ -34,10 +34,13 @@
             <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
           </div>
         </div>
-        <div class="dropdown">
-          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/admin/chat">1:1문의</a>
-          </button>
-        </div>
+
+        <c:if test="${loginUser.memberNo == 1}">
+          <div class="dropdown">
+            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
+            </button>
+          </div>
+        </c:if>
 
         <script>
           // TODO : 로그인 된 후에만되도록 분기문 필요

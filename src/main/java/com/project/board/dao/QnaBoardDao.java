@@ -1,5 +1,6 @@
 package com.project.board.dao;
 
+import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
 import org.apache.ibatis.session.RowBounds;
@@ -65,8 +66,8 @@ public class QnaBoardDao {
         return sqlSession.update("boardMapper.deleteBoard",qBno);
     }
 
-    public int reportBoard(SqlSession sqlSession, int qBno){
-        return sqlSession.insert("boardMapper.reportBoard",qBno);
+    public int insertReport(SqlSession sqlSession, Report report){
+        return  sqlSession.insert("boardMapper.insertReport", report);
     }
 
 }

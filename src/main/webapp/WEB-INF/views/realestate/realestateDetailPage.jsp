@@ -28,15 +28,13 @@
 <script>
     window.onload = () => {
         $.ajax({
-            url: '${pageContext.request.contextPath}/realEstateDetail/like', // TODO : 변경 필요
+            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
             method: 'GET',
             data: {
-                'estateNo': 11835 // TODO : 변경 필요
+                'estateNo': ${realEstateDetail.estateNo}
             },
             success(data) {
-                if (data === true) {
-                    $('#checkbox_heart').checked = true
-                }
+                $('#checkbox_heart').prop("checked", data);
             }
         });
     }
@@ -49,12 +47,13 @@
             <script>
                 function changeHeart() {
                     $.ajax({
-                        url: '${pageContext.request.contextPath}/realEstateDetail/like', // TODO : 변경 필요
-                        method: 'POST',
-                        data: {
-                            'estateNo': 11835, // TODO : 변경 필요
-                            'like':  $('#checkbox_heart option:checked').val()
-                        }
+                        url: '${pageContext.request.contextPath}/realEstate/detail/interest',
+                        type: 'POST',
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({
+                            'estateNo': ${realEstateDetail.estateNo},
+                            'isInterest': $('#checkbox_heart').is(':checked')
+                        })
                     });
                 }
             </script>
@@ -87,18 +86,18 @@
 
 
         <div class="info_table foot">
-<%--            이름이 같은 아파트 or 주소가 같은 아파트 뽑아와야함--%>
+<%--            이름이 같은 아파트 or 주소가 같은 아파트 뽑아와야함,, 여기 이전 가격이랑 비교해서 얼마나 바뀐건지 보여줄 수 있을까, --%>
                 <table>
                     <tr>
                         <th>거래일자</th>
                         <th>구분</th>
                         <th>면적</th>
                         <th>금액</th>
-<%--                        <c:forEach var="" items="">--%>
-<%--                            <td></td>--%>
-<%--                            <td></td>--%>
-<%--                            <td></td>--%>
-<%--                            <td></td>--%>
+<%--                        <c:forEach var="pastList" items="pastList">--%>
+<%--                            <td>${pastList.dealYmd}</td>--%>
+<%--                            <td>${pastList.gbn}</td>--%>
+<%--                            <td>${pastList.bldgArea}</td>--%>
+<%--                            <td>${pastList.objAmt}</td>--%>
 <%--                        </c:forEach>--%>
                     </tr>
                 </table>
@@ -158,7 +157,6 @@
                         map.setCenter(coords);
                     }
                 });
-
 
 
 

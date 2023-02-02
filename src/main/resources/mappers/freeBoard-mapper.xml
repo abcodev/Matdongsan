@@ -28,6 +28,14 @@
         <result column="STATUS" property="status"/>
     </resultMap>
 
+    <resultMap id="reportResultSet" type="report">
+        <result column="REPORT_NO" property="reportNo"/>
+        <result column="FREE_BNO" property="reportFno"/>
+        <result column="MEMBER_NO" property="reportedPerson"/>
+        <result column="REPORT_USER_NO" property="reporter"/>
+        <result column="REPORT_CONTENT" property="reportContent"/>
+    </resultMap>
+
 
     <insert id="insertFboard" parameterType="freeBoard">
         INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA)
@@ -56,6 +64,7 @@
         SELECT
             FREE_BNO,
             BOARD_TITLE,
+            F.MEMBER_NO,
             BOARD_WRITER,
             PROFILE_IMAGE,
             BOARD_AREA,
@@ -76,6 +85,7 @@
         SELECT
             REPLY_NO,
             FREE_BNO,
+            R.MEMBER_NO,
             PROFILE_IMAGE,
             NICKNAME,
             REPLY_CONTENT,
@@ -84,6 +94,7 @@
         LEFT JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
         WHERE R.STATUS = 'Y'
             AND FREE_BNO = ${freeBno}
+        ORDER BY R.REPLY_DATE
     </select>
 
     <update id="deletePost" parameterType="int">
@@ -94,14 +105,22 @@
 
     <update id="updatePost" parameterType="freeBoard">
         UPDATE FREE_BOARD
-        SET BOARD_TITLE = ${boardTitle},
-            BOARD_CONTENT = ${boardContent}
-        WHERE FREE_BNO = ${boardNo}
+        SET BOARD_TITLE = '${boardTitle}',
+            BOARD_CONTENT = '${boardContent}'
+        WHERE FREE_BNO = '${boardNo}'
+    </update>
+
+    <insert id="insertReport" parameterType="report">
+        INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT, REPORT_TYPE)
+        VALUES (SEQ_REP_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}', '자유게시판')
+    </insert>
+
+    <update id="deleteReply" parameterType="reply">
+        UPDATE REPLY
+        SET STATUS = 'N'
+        WHERE FREE_BNO = ${freeBno}
+            AND REPLY_NO = ${replyNo}
+            AND MEMBER_NO = ${memberNo}
     </update>
 </mapper>
-
-
-
-
-
 
