@@ -75,9 +75,6 @@
 
 
 
-
-
-
 </div>
 
 <script>
@@ -96,6 +93,7 @@
             });
         });
     });
+
     function changeSelect(){
         const stop = document.getElementById("stop");
         const value = (stop.options[stop.selectedIndex].value);

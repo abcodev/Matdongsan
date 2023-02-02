@@ -159,11 +159,13 @@ public class RestaurantController {
      * 관리자 - 맛집 삭제
      */
     @RequestMapping("/admin/resDelete")
-    // @ResponseBody // AJAX 호출 -> success()
+    @ResponseBody // AJAX 호출 -> success()
     public ModelAndView restaurantDelete(@RequestParam("resNo") String resNo,
                                          ModelAndView modelAndView
     ) {
         restaurantService.deleteRes(resNo);
+
+        modelAndView.addObject("message", "삭제 성공");
         modelAndView.setViewName("redirect:/selectResList");
         return modelAndView;
     }

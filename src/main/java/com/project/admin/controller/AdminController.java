@@ -49,18 +49,10 @@ public class AdminController {
     @RequestMapping(value = "/reportList")
     public String reportList(
             Model model
-
-            ){
-
+    ){
         ArrayList<Admin> list2 = adminService.reportList();
-
         int listCount = adminService.rListCount();
-
         model.addAttribute("list2",list2);
-
-
-
-
 
         return "/admin/reportList";
     }
@@ -70,7 +62,6 @@ public class AdminController {
             @PathVariable("freeBno") int freeBno
     ){
         int result = adminService.deleteBoard(freeBno);
-
         return "redirect:/admin/userList";
 
     }

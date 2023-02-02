@@ -11,7 +11,18 @@ public interface AdminService {
 
     public Map<String, Object> userList(int currentPage);
 
+
+
+
+
+
+
     public ArrayList<Admin> reportList();
+
+
+
+
+
 
     public int uListCount();
 

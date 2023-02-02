@@ -151,6 +151,8 @@
         });
     </script>
 
+
+
 </header>
 
 
@@ -300,7 +302,14 @@
     </div>
 
     <div class="side lookList">
-        <h3>최근 본 부동산 목록</h3>
+        <c:choose>
+            <c:when test="${loginUser == null}">
+                <h3>인기 부동산 단지</h3>
+            </c:when>
+            <c:otherwise>
+                <h3>최근 본 부동산 목록</h3>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </div>

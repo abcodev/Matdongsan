@@ -158,7 +158,7 @@
                 <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
             </div>
 
-            <button class="" id="review_insert" onclick="insertReply()">등록하기</button>
+            <button class="" id="review_insert" onclick="insertReview()">등록하기</button>
 
 
         </div>
@@ -264,7 +264,7 @@
     }
 
 
-    function insertReply() {
+    function insertReview() {
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function() {
@@ -298,6 +298,7 @@
     }
 
 </script>
+
 
 
 </body>

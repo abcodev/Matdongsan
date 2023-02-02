@@ -3,7 +3,7 @@
 }
 
 .container {
-  background-color: white; 
+  background-color: white;
   height: auto;
   width: 1200px;
   display: flex;
@@ -22,7 +22,7 @@
   width: 100%;
 }
 .nav {
-  height: 80px; 
+  height: 80px;
   width: 100%;
   background-color: #566392;
   padding-top: 40px;
@@ -58,15 +58,15 @@
 }
 
 .preChatList .preChat .photo {
-    margin-left:20px;
-    display: block;
-    width: 40px;
-    height: 40px;
-    background: #E6E7ED;
-    border-radius: 50px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  margin-left:20px;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background: #E6E7ED;
+  border-radius: 50px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .desc-contact {
