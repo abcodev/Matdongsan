@@ -48,14 +48,16 @@ public class AdminController {
 
     @RequestMapping(value = "/reportList")
     public String reportList(
-            Model model
+            Model model,
+//            @RequestParam(value = "freeBno",defaultValue = "") int freeBno
             ){
 
-        ArrayList<Admin> list2 = adminService.reportList();
+        ArrayList<Admin> list2 = adminService.reportList(freeBno);
 
         int listCount = adminService.rListCount();
 
         model.addAttribute("list2",list2);
+        model.addAttribute("freeBno",freeBno);
 
 
 

@@ -27,8 +27,8 @@ public class AdminDao {
 
         return (ArrayList)sqlSession.selectList("adminMapper.userList",null,rowBounds);
     }
-    public ArrayList<Admin> reportList(SqlSession sqlSession){
-        return (ArrayList) sqlSession.selectList("adminMapper.reportList");
+    public ArrayList<Admin> reportList(SqlSession sqlSession,int freeBno){
+        return (ArrayList) sqlSession.selectList("adminMapper.reportList",freeBno);
     }
 
 

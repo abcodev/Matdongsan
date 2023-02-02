@@ -52,8 +52,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ArrayList<Admin> reportList(){
-        return adminDao.reportList(sqlSession);
+    public ArrayList<Admin> reportList(int freeBno){
+        return adminDao.reportList(sqlSession,freeBno);
     }
 
 

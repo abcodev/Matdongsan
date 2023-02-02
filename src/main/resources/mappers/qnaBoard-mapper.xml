@@ -167,7 +167,7 @@
 
         <insert id="insertReport" parameterType="report">
             INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT,REPORT_TYPE)
-            VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportQno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
+            VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
         </insert>
 
 
