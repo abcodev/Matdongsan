@@ -43,8 +43,8 @@
                 <td>${rl.email}</td>
                 <td>${rl.boardWriter}</td>
                 <td>${rl.reportContent}</td>
-                <td><button type="button" onclick="movePage(freeBno)">상세보기</button></td>
-                <td><button type="button" class="btn" id="add-btn">처리중</button></td>
+                <td><button type="button" onclick="movePage(freeBno, '${rl.reportType}')">상세보기</button></td>
+                <td><button type="button" class="btn22" id="add-btn">처리중</button></td>
                 <td><select id="stop" onchange="changeSelect()">
                     <option>3일정지</option>
                     <option>7일정지</option>
@@ -66,10 +66,8 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-
-            <button type="button"><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="deleteBoard">예</a></button>
-            <div class="modal_label">Description</div>
-            <button type="button" class="close_btn">아니요</button>
+            <button type="button" class="btn" onclick="movePage2(freeBno)">예</button>
+            <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
         </div>
 
     </div>
@@ -90,7 +88,7 @@
             $.ajax({
                 type:"POST",
                 url:"/Matdongsan/admin/userList",
-                data: {freeBno : '${freeBno}'},
+                data: {},
                 dataType: "html",
                 cache : false,
                 success(data){
@@ -106,8 +104,20 @@
     };
 
     function movePage(freeBno){
+        <c:if test="${rl.reportType} = '자유게시판'">
         location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+freeBno;
+        </c:if>
+        <c:if test="${rl.reportType} = '질문게시판'">
+        location.href = '${pageContext.request.contextPath}/board/detail/'+freeBno;
+        </c:if>
     }
+    function movePage2(freeBno) {
+        location.href = '${pageContext.request.contextPath}/admin/deleteBoard/'+freeBno;
+    }
+
+
+
+
 
 
     $(function(){

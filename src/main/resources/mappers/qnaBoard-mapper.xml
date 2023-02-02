@@ -19,16 +19,13 @@
         <result column="QNA_DEPTH" property="depth"/>
     </resultMap>
 
-    <resultMap id="AdminResultSet" type="admin">
+    <resultMap id="reportResultSet" type="report">
         <result column="REPORT_NO" property="reportNo"/>
-        <result column="EMAIL" property="email"/>
-        <result column="REPORTED_EMAIL" property="reportedEmail"/>
-        <result column="MEMBER_NO" property="memberNo"/>
-        <result column="REPORT_REASON" property="reportReason"/>
-        <result column="REPORT_USER_NO" property="reportUserNo"/>
+        <result column="QNA_BNO" property="reportQno"/>
+        <result column="MEMBER_NO" property="reportedPerson"/>
+        <result column="REPORT_USER_NO" property="reporter"/>
+        <result column="REPORT_CONTENT" property="reportContent"/>
     </resultMap>
-
-
 
 
     <select id="selectList" resultMap="qBoardResultSet">
@@ -42,7 +39,7 @@
                QNA_AREA,
                COUNT
         FROM QNA_BOARD B
-                 LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+                LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
         WHERE B.STATUS = 'Y'
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
@@ -121,6 +118,7 @@
                QNA_TITLE,
                QNA_CONTENT,
                M.NICKNAME,
+               M.MEMBER_NO,
                QNA_AREA,
                QNA_DEPTH,
                P_BNO,
@@ -141,6 +139,7 @@
     <select id="selectAnswer" parameterType="int" resultMap="qBoardResultSet">
         SELECT QNA_BNO,
                QNA_TITLE,
+               M.MEMBER_NO,
                QNA_CONTENT,
                M.NICKNAME
         FROM QNA_BOARD Q
@@ -168,7 +167,7 @@
 
         <insert id="insertReport" parameterType="report">
             INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT,REPORT_TYPE)
-            VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
+            VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportQno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
         </insert>
 
 
