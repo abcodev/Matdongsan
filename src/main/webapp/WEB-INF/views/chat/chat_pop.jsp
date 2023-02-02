@@ -101,14 +101,11 @@
         url: '${pageContext.request.contextPath}/createChatRoom',
         type: "POST",
         success :function (result){
-          console.log(result)
           $("#chat-circle").toggle("scale");
           $(".chat-box").toggle("scale");
           let roomNo = result.room.roomNo;
           let messageList = result.messageList;
-          console.log(messageList);
           loadChat(messageList);
-
           $("#roomNo").val(roomNo);
           connection(roomNo);
               },
@@ -153,10 +150,10 @@
 
     // 실시간 채팅 내용
     function showMessage(data){
-      if(data.sender==='${loginUser.memberNo}'){
-        $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>"); // 내가 보낸 메세지
+      if(data.memberNo==='${loginUser.memberNo}'){
+        $('.chat-logs').append("<p class='me'>"+data.memberNo+" : "+data.message+"</p>"); // 내가 보낸 메세지
       } else {
-        $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>"); // 남이 보낸 메세지
+        $('.chat-logs').append("<p class='other'>"+data.memberNo+" : "+data.message+"</p>"); // 남이 보낸 메세지
       }
     }
     // 이전 채팅 내용 불러오는 함수
@@ -174,11 +171,14 @@
     }
     //메시지 브로커로 메시지 전송
     function send(){
+      if($("#chat-input").val() == ''){
+        return false;
+      }
       const roomNo = $("#roomNo").val();
       // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
       const data = {
-        'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-input").val(),
+        'memberNo' : ${loginUser.memberNo},
+        'message': $("#chat-input").val(),
         'roomNo' : roomNo
       };
       // send(destination,헤더,페이로드)

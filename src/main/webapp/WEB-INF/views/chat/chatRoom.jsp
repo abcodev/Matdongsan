@@ -110,54 +110,51 @@
 
     function showMessage(data){
         console.log(data);
-        let alert = data;
-        $('.' + alert.roomNo + '_new').css('display', 'block');
-        $('.' + alert.roomNo + '_message').text(alert.contents);
+        let content = data;
+        $('.' + content.roomNo + '_new').css('display', 'block');
+        $('.' + content.roomNo + '_message').text(content.message);
 
-        if(alert.sender == '${loginUser.memberNo}'){
-            $('.response').append("<p class='text'>"+alert.contents+"</p>");
+        if(content.memberNo == '${loginUser.memberNo}'){
+            $('.response').append("<p class='text'>"+content.message+"</p>");
         }else{
-            $('.request').append("<p class='text'>"+alert.contents+"</p>");
+            $('.request').append("<p class='text'>"+content.message+"</p>");
         }
-        if(currentChatRoom === alert.roomNo){
-            clickPreChat(alert.roomNo)
+        if(currentChatRoom === content.roomNo){
+            clickPreChat(content.roomNo)
         }
 
     }
-    function clickPreChat(roomNo) {
-        $('.' + roomNo + '_new').css('display', 'none');
-    }
+
 
     $('.preChat').on('click',function(){
         let target = this
-        let roomNo = target.querySelector('.roomNo').value
+        let ClickRoomNo = target.querySelector('.roomNo').value
 
-        currentChatRoom = roomNo;
-        $('.' + roomNo + '_new').css('display', 'none');
-        console.log(roomNo)
-
-
-
+        currentChatRoom = ClickRoomNo;
+        $('.' + ClickRoomNo + '_new').css('display', 'none');
 
         $.ajax({
             url : '${pageContext.request.contextPath}/chat/admin/enterChat',
             type: "POST",
-            data : {'roomNo' : roomNo},
+            data : {'roomNo' : ClickRoomNo},
             success : function (res){
-
-
                 $('#roomNo-send').remove();
                 $('.text').remove();
                 let result = res;
                 $('#roomNo-send').val(result.roomNo)
                 chatList(result)
-
             },
             fail:function (){
-                console.log("ㅋㅋㅋ");
+                console.log("메세지 불러오기에 실패하였습니다. 새로고침해주세요.");
             }
         })
     })
+
+    function clickPreChat(roomNo) {
+        $('.' + roomNo + '_new').css('display', 'none');
+    }
+
+
     function chatList(result){
         if(result != null) {
             for(let i in result) {
@@ -173,15 +170,13 @@
 
 
     function send(){
-
+        if($("#chat-input").val() == ''){
+            return false;
+        }
         const roomNo = currentChatRoom;
-        console.log('--------')
-        console.log(roomNo)
-        console.log('--------')
-
         const data = {
-            'sender' : ${loginUser.memberNo},
-            'contents': $("#chat-input").val(),
+            'memberNo' : ${loginUser.memberNo},
+            'message': $("#chat-input").val(),
             'roomNo' : roomNo
         };
         // send(destination,헤더,페이로드)
@@ -191,7 +186,6 @@
     $("#chat-submit").click(function (e) {
         e.preventDefault();
     })
-
 </script>
 </body>
 
