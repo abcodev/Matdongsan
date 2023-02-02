@@ -23,17 +23,17 @@
     <div id="login_body">
         <div class="login kakao">
             <a href="<c:url value="/login/kakao"/>">
-                <img src="<c:url value="/resources/images/oauth/kakao_login.png"/>">
+                <img src="<c:url value="/resources/images/oauth/카카오이미지.png"/>">
             </a>
         </div>
         <div class="login naver">
             <a href="<c:url value="/login/naver"/> ">
-                <img src="<c:url value="/resources/images/oauth/naver_login.png"/>">
+                <img src="<c:url value="/resources/images/oauth/네이버로그인.png"/>">
             </a>
         </div>
         <div class=" login google">
             <a href="<c:url value="/login/google"/> ">
-                <img src="<c:url value="/resources/images/oauth/google_login.png"/>">
+                <img src="<c:url value="/resources/images/oauth/구글로그인.png"/>">
             </a>
         </div>
     </div>
