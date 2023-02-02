@@ -85,10 +85,10 @@ tr:last-child td:last-child {
 
 .modal_body {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     width: 500px;
-    height: 230px;
+    height: 220px;
 
     background-color: rgb(255, 255, 255);
     border-radius: 10px;

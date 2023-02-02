@@ -33,7 +33,7 @@
 
     </select>
 
-    <select id="reportList" resultMap="AdminResultSet" parameterType="int">
+    <select id="reportList" resultMap="AdminResultSet">
         SELECT
             REPORT_NO,
             REPORT_CONTENT,

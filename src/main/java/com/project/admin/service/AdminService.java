@@ -11,7 +11,7 @@ public interface AdminService {
 
     public Map<String, Object> userList(int currentPage);
 
-    public ArrayList<Admin> reportList(int freeBno);
+    public ArrayList<Admin> reportList();
 
     public int uListCount();
 

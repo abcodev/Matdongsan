@@ -81,8 +81,7 @@
 </div>
 
 <script>
-
-
+    /*페이지 이동*/
     $(function(){
         $("#movePage").click(function(){
             $.ajax({
@@ -114,11 +113,6 @@
     function movePage2(freeBno) {
         location.href = '${pageContext.request.contextPath}/admin/deleteBoard/'+freeBno;
     }
-
-
-
-
-
 
     $(function(){
         $("#deleteBoard2").disabled();
