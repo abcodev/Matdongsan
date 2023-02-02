@@ -19,6 +19,54 @@
         <result column="INTEREST_STATE" property="interestState"/>
     </resultMap>
 
+    <resultMap type="member" id="freeBoardList">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
+        <result column="NICKNAME" property="nickName"/>
+        <result column="FREE_BNO" property="boardNo"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_DATE" property="boardDate"/>
+        <collection resultMap="freeBoardList1" property="freeBoardList"/>
+    </resultMap>
+
+    <resultMap type="FreeBoard" id="freeBoardList1">
+        <result column="FREE_BNO" property="boardNo"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_DATE" property="boardDate"/>
+    </resultMap>
+
+    <resultMap type="member" id="qnaBoardList">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
+        <result column="NICKNAME" property="nickName"/>
+        <result column="QNA_BNO" property="qnaBno"/>
+        <result column="QNA_TITLE" property="qnaTitle"/>
+        <result column="QNA_DATE" property="qnaDate"/>
+        <collection resultMap="qnaBoardList1" property="qnaBoardList"/>
+    </resultMap>
+
+    <resultMap type="QBoard" id="qnaBoardList1">
+        <result column="QNA_BNO" property="qnaBno"/>
+        <result column="QNA_TITLE" property="qnaTitle"/>
+        <result column="QNA_DATE" property="qnaDate"/>
+    </resultMap>
+
+    <resultMap type="member" id="interestList">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
+        <result column="NICKNAME" property="nickName"/>
+        <result column="ESTATE_NO" property="estateNo"/>
+        <collection resultMap="interestList1" property="interestList"/>
+    </resultMap>
+
+    <resultMap type="interest" id="interestList1">
+        <result column="ESTATE_NO" property="estateNo"/>
+    </resultMap>
+
+
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
         (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS)
@@ -53,8 +101,6 @@
         SET
             MEMBER_NO = #{memberNo},
             NICKNAME = #{nickName},
-            PROFILE_IMAGE = #{profileImage},
-            PROVIDER_ID = #{providerId},
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
@@ -74,4 +120,51 @@
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}
     </update>
+
+    <select id="getFreeBoardList" resultMap="freeBoardList">
+        SELECT
+            M.MEMBER_NO,
+            M.PROVIDER,
+            M.PROVIDER_ID,
+            M.NICKNAME,
+            F.FREE_BNO,
+            F.BOARD_TITLE,
+            F.BOARD_DATE
+        FROM MEMBER M
+                 LEFT OUTER JOIN FREE_BOARD F
+                                 ON M.MEMBER_NO = F.MEMBER_NO
+        WHERE M.MEMBER_NO = #{memberNo}
+
+    </select>
+
+    <select id="getQnaBoardList" resultMap="qnaBoardList">
+        SELECT
+            M.MEMBER_NO,
+            M.PROVIDER,
+            M.PROVIDER_ID,
+            M.NICKNAME,
+            Q.QNA_BNO,
+            Q.QNA_TITLE,
+            Q.QNA_DATE
+        FROM MEMBER M
+                 LEFT OUTER JOIN QNA_BOARD Q
+                                 ON M.MEMBER_NO = Q.MEMBER_NO
+        WHERE M.MEMBER_NO = #{memberNo}
+
+    </select>
+
+    <select id="getInterestList" resultMap="interestList">
+        SELECT
+            M.MEMBER_NO,
+            M.PROVIDER,
+            M.PROVIDER_ID,
+            M.NICKNAME,
+            I.ESTATE_NO
+        FROM MEMBER M
+                LEFT OUTER JOIN INTEREST I
+        ON M.MEMBER_NO = I.MEMBER_NO
+        WHERE M.MEMBER_NO = #{memberNo}
+
+
+    </select>
 </mapper>

@@ -1,11 +1,16 @@
 package com.project.member.vo;
 
+import com.project.board.vo.FreeBoard;
+import com.project.board.vo.QnaBoard;
 import com.project.client.oauth.OAuthUser;
 import com.project.member.type.MemberGrade;
+import com.project.realestate.vo.Interest;
 import lombok.*;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /*
     빌더패턴 : 객체 생성을 위한 디자인 패턴
@@ -35,6 +40,13 @@ public class Member {
     private MemberGrade grade = MemberGrade.GENERAL;
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
     private String interestState;
+    private int boardNo;
+    private String boardTitle;
+    private Date boardDate;
+    private int qnaBno;
+    private String qnaTitle;
+    private Timestamp qnaDate;
+    private String estateNo;
 
     public static Member of(OAuthUser oAuthUser) {
         return Member.builder()
@@ -59,6 +71,14 @@ public class Member {
                 .interestState(member.getInterestState())
                 .build();
     }
+
+    private List<FreeBoard> freeBoardList;
+    private List<QnaBoard> qnaBoardList;
+
+    private List<Interest> interestList;
+
+
+
 
 
 }

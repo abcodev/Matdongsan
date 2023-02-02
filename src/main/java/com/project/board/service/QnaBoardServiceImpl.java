@@ -1,6 +1,7 @@
 package com.project.board.service;
 
 import com.project.board.dao.QnaBoardDao;
+import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.Pagination;
@@ -107,7 +108,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
 
     @Override
-    public int reportBoard(int qBno){
-        return boardDao.reportBoard(sqlSession,qBno);
+    public int insertReport(Report report){
+        return boardDao.insertReport(sqlSession, report);
     }
 }

@@ -6,7 +6,7 @@
   Time: 5:37 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -20,8 +20,7 @@
 </head>
 <body>
 
-<jsp:include page="../template/header.jsp" />
-
+<%@ include file="../template/header.jsp" %>
 <form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
     <div id="content">
         <div class="res name">

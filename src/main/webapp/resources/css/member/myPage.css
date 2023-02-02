@@ -9,7 +9,7 @@ div{
 #info_box{
     display: flex;
     height: 200px;
-    padding: 60px 300px 5px 300px;
+    padding: 5px 300px 5px 300px;
 }
 
 #userimg{

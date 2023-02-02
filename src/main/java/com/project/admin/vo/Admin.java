@@ -8,7 +8,6 @@ public class Admin {
     private int reportNo;
     private int freeBno;
     private int memberNo;
-    private String reportReason;
     private int reportUserNo;
     private String reportContent;
     private String providerId;
@@ -16,7 +15,9 @@ public class Admin {
     private String email;
     private String status;
     private String memberName;
-    private String reportedEmail;
+    private String reportEmail;
+    private String boardWriter;
+    private String reportType;
 
-    private int count;
+
 }

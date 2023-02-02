@@ -2,6 +2,7 @@ package com.project.board.service;
 
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
+import com.project.board.vo.Report;
 import com.project.member.vo.Member;
 
 import java.util.ArrayList;
@@ -24,4 +25,8 @@ public interface FreeBoardService {
     public int deletePost(int fno);
 
     public int updatePost(FreeBoard freeBoard);
+
+    public int insertReport(Report report);
+
+    public int deleteReply(Reply reply);
 }

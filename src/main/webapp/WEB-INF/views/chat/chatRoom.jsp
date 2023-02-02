@@ -38,24 +38,24 @@
         </div>
         <div class="preChatList" >
             <c:forEach items="${chattingList}" var="chattingList">
-            <div class="preChat">
-                <div class="photo"><img src="${chattingList.profileImage}"/></div>
-                <div class="desc-contact">
-                    <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
-                    <p class="name">${chattingList.memberName}</p>
-                    <p class="${chattingList.roomNo}_message message">${chattingList.latestMessage}</p>
-                </div>
-                <div class="chat_alert">
-                    <div class="${chattingList.roomNo}_date date date">${chattingList.latestMessageTime}</div>
+                <div class="preChat">
+                    <div class="photo"><img src="${chattingList.profileImage}"/></div>
+                    <div class="desc-contact">
+                        <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
+                        <p class="name">${chattingList.memberName}</p>
+                        <p class="${chattingList.roomNo}_message message">${chattingList.latestMessage}</p>
+                    </div>
+                    <div class="chat_alert">
+                        <div class="${chattingList.roomNo}_date date date">${chattingList.latestMessageTime}</div>
 
-                    <c:if test="${chattingList.read eq 'N'}">
-                        <div class="${chattingList.roomNo}_new new" style="display: block">NEW</div>
-                    </c:if>
-                    <c:if test="${chattingList.read eq 'Y'}">
-                        <div class="${chattingList.roomNo}_new new" style="display: none">NEW</div>
-                    </c:if>
+                        <c:if test="${chattingList.read eq 'N'}">
+                            <div class="${chattingList.roomNo}_new new" style="display: block">NEW</div>
+                        </c:if>
+                        <c:if test="${chattingList.read eq 'Y'}">
+                            <div class="${chattingList.roomNo}_new new" style="display: none">NEW</div>
+                        </c:if>
+                    </div>
                 </div>
-            </div>
             </c:forEach>
         </div>
     </div>
@@ -65,15 +65,15 @@
         </div>
         <div class="chat">
             <div class="messages-chat">
-<%--                <div class="request">받기</div>--%>
-<%--                <div class="response">보내기</div>--%>
+                <%--                <div class="request">받기</div>--%>
+                <%--                <div class="response">보내기</div>--%>
             </div>
         </div>
-    <div class="footer-chat">
-        <input id="chat-input" type="text"/>
-        <input id="roomNo-send" type="hidden">
-        <div class="bi bi-send" id="sendMessage" onclick="send();"/>
-    </div>
+        <div class="footer-chat">
+            <input id="chat-input" type="text"/>
+            <input id="roomNo-send" type="hidden">
+            <div class="bi bi-send" id="sendMessage" onclick="send();"/>
+        </div>
     </div>
 </div>
 <script>
@@ -91,11 +91,11 @@
 
     function onConnected(){
         <c:forEach items="${chattingList}" var="chattingList">
-            setTimeout(function(){
-                stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
-                    showMessage(JSON.parse(e .body));
-                });
-            }, 500);
+        setTimeout(function(){
+            stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
+                showMessage(JSON.parse(e .body));
+            });
+        }, 500);
         </c:forEach>
     }
 

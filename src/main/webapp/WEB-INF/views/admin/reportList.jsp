@@ -7,32 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ page language="java" pageEncoding="UTF-8"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>Document</title>
-    <style>
-        th {
-            width: 100px;
-        }
-        table{
-            border: 1px solid black;
-        }
-    </style>
+
 </head>
 <body>
 
-<head>
-    <title>관리자 화원관리 페이지</title>
-</head>
-
 <%@ include file ="../template/header.jsp" %>
-<div>
-    <br><br><br><br><br><br><br>
-    <button type="button" id="movePage">회원관리</button>
-    <button type="button">신고관리</button>
-
-
-    <br><br><br><br><br>
+<div id="headeer"></div>
+<div id="button2">
+    <button class="b2" id="movePage">회원관리</button>
+    <button type="button" id="b1">신고관리</button>
+</div>
+<br><br><br><br>
     <table>
+        <thead>
         <tr>
+            <th>신고게시판</th>
             <th>신고번호</th>
             <th>신고받은사람</th>
             <th>한사람</th>
@@ -42,48 +33,52 @@
             <th>활동 정지</th>
 
         </tr>
-
+        </thead>
+<tbody>
 <c:forEach var="rl" items="${list2}">
             <tr>
-                <th>${rl.reportNo}</th>
-                <th>${rl.email}</th>
-                <th>${rl.reportedEmail}</th>
-                <th>${rl.reportReason}</th>
-                <th><button onclick="movePage(qBno)">상세보기</button></th>
-                <th><button id="deleteBoard">처리중</button></th>
-                <th><select id="stop" onchange="changeSelect()">
+
+                <td>${rl.reportType}</td>
+                <td>${rl.reportNo}</td>
+                <td>${rl.email}</td>
+                <td>${rl.boardWriter}</td>
+                <td>${rl.reportContent}</td>
+                <td><button type="button" onclick="movePage(freeBno, '${rl.reportType}')">상세보기</button></td>
+                <td><button type="button" class="btn22" id="add-btn">처리중</button></td>
+                <td><select id="stop" onchange="changeSelect()">
                     <option>3일정지</option>
                     <option>7일정지</option>
                     <option>영구정지</option>
-                </select></th>
-
+                </select></td>
             </tr>
 </c:forEach>
+</tbody>
 
     </table>
 
-    <br><br><br><br><br><br><br>
 
-    <ul class="pagination">
 
-        <li class="disabled"><a><<</a></li>
 
-        <li class="disabled"><a><</a></li>
+<div class="modal" id="modal">
+    <div class="modal_body">
+        <div class="m_head">
+            <div class="modal_title">게시글을 삭제처리하시겠습니까?</div>
+            <div class="close_btn" id="close_btn">X</div>
+        </div>
+        <div class="m_body">
+            <button type="button" class="btn" onclick="movePage2(freeBno)">예</button>
+            <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
+        </div>
 
-        <li class="disabled active"><a>1</a></li>
+    </div>
+</div>
 
-        <li class="goPage" data-page="2"><a>2</a></li>
 
-        <li class="goPage" data-page="3"><a>3</a></li>
 
-        <li class="disabled"><a>></a></li>
-
-        <li class="goLastPage"><a>>></a></li>
-
-    </ul>
 </div>
 
 <script>
+    /*페이지 이동*/
     $(function(){
         $("#movePage").click(function(){
             $.ajax({
@@ -99,27 +94,43 @@
         });
     });
 
-
     function changeSelect(){
-        var stop  = document.getElementById("stop");
-        var value = (stop.options[stop.selectedIndex].value);
+        const stop = document.getElementById("stop");
+        const value = (stop.options[stop.selectedIndex].value);
         alert(value +" 처리하시겠습니까?");
-
     };
 
-    function movePage(qBno){
-        location.href = '${pageContext.request.contextPath}/board/detail/'+qBno;
+    function movePage(freeBno){
+        <c:if test="${rl.reportType} = '자유게시판'">
+        location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+freeBno;
+        </c:if>
+        <c:if test="${rl.reportType} = '질문게시판'">
+        location.href = '${pageContext.request.contextPath}/board/detail/'+freeBno;
+        </c:if>
     }
-    $(function(){
-        $("#deleteBoard").click(function() {
-            alert("게시글 삭제처리하시겠습니까?")
-        })
-    });
+    function movePage2(freeBno) {
+        location.href = '${pageContext.request.contextPath}/admin/deleteBoard/'+freeBno;
+    }
 
     $(function(){
         $("#deleteBoard2").disabled();
+        });
 
-        })
+   /* 모달*/
+    $(document).on('click', '#add-btn', function (e) {
+        console.log("click event");
+        $('#modal').addClass('show');
+
+    });
+
+    // 모달 닫기
+    $(document).on('click', '#close_btn', function (e) {
+        console.log("click event");
+        $('#modal').removeClass('show');
+
+    });
+
+
 
     /*페이징처리*/
 

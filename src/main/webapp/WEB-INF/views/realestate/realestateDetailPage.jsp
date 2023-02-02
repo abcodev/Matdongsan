@@ -93,11 +93,11 @@
                         <th>구분</th>
                         <th>면적</th>
                         <th>금액</th>
-<%--                        <c:forEach var="" items="">--%>
-<%--                            <td></td>--%>
-<%--                            <td></td>--%>
-<%--                            <td></td>--%>
-<%--                            <td></td>--%>
+<%--                        <c:forEach var="pastList" items="pastList">--%>
+<%--                            <td>${pastList.dealYmd}</td>--%>
+<%--                            <td>${pastList.gbn}</td>--%>
+<%--                            <td>${pastList.bldgArea}</td>--%>
+<%--                            <td>${pastList.objAmt}</td>--%>
 <%--                        </c:forEach>--%>
                     </tr>
                 </table>

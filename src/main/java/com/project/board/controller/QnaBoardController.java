@@ -2,6 +2,8 @@ package com.project.board.controller;
 
 import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
+import com.project.board.vo.Report;
+import com.project.member.vo.Member;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,10 @@ public class QnaBoardController {
     public String selectList(@RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
                              @RequestParam Map<String, Object> paramMap,
                              Model model,
-                             HttpSession session) {
+                             HttpSession session
+                             ) {
+
+
         Map<String, Object> map = new HashMap();
         if (paramMap.get("condition") == null) {
             map = boardService.selectList(currentPage);
@@ -56,7 +61,13 @@ public class QnaBoardController {
     public String insertQboard(
             Model model, QnaBoard qb,HttpSession session){
 
+        Member m = (Member)session.getAttribute("loginUser");
+        if(m != null) {
+            m.setMemberNo(m.getMemberNo());
+        }
         qb.setQnaArea(qb.getQnaArea());
+
+
         int result = boardService.insertQboard(qb);
         return "redirect:/board/qnaList";
         }
@@ -100,12 +111,15 @@ public class QnaBoardController {
     // 상세페이지
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(
-
             @PathVariable("qBno") int qBno,
+            HttpSession session,
             ModelAndView mv
     ) {
 
-
+        Member m = (Member)session.getAttribute("loginUser");
+        if(m != null) {
+            m.setMemberNo(m.getMemberNo());
+        }
         QnaBoard qb = boardService.selectQboard(qBno);
 
         List<QnaBoard> ab = boardService.selectAnswer(qBno);
@@ -132,13 +146,17 @@ public class QnaBoardController {
 
     }
 
-    @RequestMapping(value = "reportBoard")
-    public String reportBoard(
-            @PathVariable("qBno") int qBno
-    ){
-        int result = boardService.reportBoard(qBno);
+    @RequestMapping("/qnaReport")
+    @ResponseBody
+    public String reportPost(Report report){
 
-        return "board/reportBoard";
+        int result = boardService.insertReport(report);
+
+        if(result > 0){
+            return "1";
+        }else {
+            return "0";
+        }
     }
 }
 

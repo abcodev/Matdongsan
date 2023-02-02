@@ -64,14 +64,20 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-
-<%--                <c:if test="${loginUser.memberNo == 1}">--%>
+                <c:choose>
+                <c:when test="${loginUser.memberNo == 1}">
                     <div class="dropdown">
                         <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
                         </button>
                     </div>
-<%--                </c:if>--%>
-
+                </c:when>
+                    <c:otherwise>
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}">FAQ</a>
+                            </button>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </nav>
         <div class="login">
@@ -144,6 +150,8 @@
             $(".alert_box").toggle("scale");
         });
     </script>
+
+
 
 </header>
 
@@ -294,7 +302,14 @@
     </div>
 
     <div class="side lookList">
-        <h3>최근 본 부동산 목록</h3>
+        <c:choose>
+            <c:when test="${loginUser == null}">
+                <h3>인기 부동산 단지</h3>
+            </c:when>
+            <c:otherwise>
+                <h3>최근 본 부동산 목록</h3>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </div>

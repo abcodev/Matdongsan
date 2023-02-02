@@ -43,8 +43,8 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType) {
-
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+    ) {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
@@ -69,11 +69,10 @@ public class RealEstateController {
         );
     }
 
-
     @RequestMapping("/detail")
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
-                                         ModelAndView modelAndView) {
-
+                                         ModelAndView modelAndView
+    ) {
         List<String> pastList = realEstateService.selectPastList(estateNo);
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
@@ -104,6 +103,4 @@ public class RealEstateController {
         realEstateService.saveInterest(req, loginUser);
         return ResponseEntity.ok().build();
     }
-
-
 }
