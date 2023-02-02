@@ -16,17 +16,12 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
 </head>
 
 <%@ include file ="../template/header.jsp" %>
-
-<script>
-    <%--window.onload = () => {--%>
-    <%--    // ForEach ${chatRoomList} 에 있는 RoomNo 를 모두 꺼내고,--%>
-    <%--    // 그 RoomNo 에 대해서 모두 WebSocket Subscribe.--%>
-    <%--}--%>
-</script>
 
 <body>
 <div class="container">
@@ -46,57 +41,24 @@
             <div class="preChat">
                 <div class="photo"><img src="${chattingList.profileImage}"/></div>
                 <div class="desc-contact">
-                    <input type="hidden" class="roomNo" value="${chattingList.roomNo}">
+                    <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
                     <p class="name">${chattingList.memberName}</p>
-                    <p class="message">${chattingList.latestMessage}</p>
+                    <p class="${chattingList.roomNo}_message message">${chattingList.latestMessage}</p>
                 </div>
                 <div class="chat_alert">
-                    <div class="date">${chattingList.latestMessageTime}</div>
+                    <div class="${chattingList.roomNo}_date date date">${chattingList.latestMessageTime}</div>
+
                     <c:if test="${chattingList.read eq 'N'}">
-                    <div class="new">NEW</div>
+                        <div class="${chattingList.roomNo}_new new" style="display: block">NEW</div>
                     </c:if>
-                    <c:if test="${list.read eq 'Y'}">
-                        <div class="new"></div>
+                    <c:if test="${chattingList.read eq 'Y'}">
+                        <div class="${chattingList.roomNo}_new new" style="display: none">NEW</div>
                     </c:if>
                 </div>
             </div>
             </c:forEach>
         </div>
     </div>
-<%--    <!-- JavaScript -->--%>
-<%--    <script src="/webjars/vue/2.5.16/dist/vue.min.js"></script>--%>
-<%--    <script src="/webjars/axios/0.17.1/dist/axios.min.js"></script>--%>
-<%--    <script>--%>
-<%--        var vm = new Vue({--%>
-<%--            el : '#chat_left'--%>
-
-<%--        })--%>
-<%--    </script>--%>
-    <script>
-
-        $('.preChat').on('click',function(){
-            let target = this
-            let roomNo = target.querySelector('.roomNo').value
-            console.log(roomNo)
-
-            $.ajax({
-                url : '${pageContext.request.contextPath}/chat/admin/enterChat',
-                type: "POST",
-                data : {'roomNo' : roomNo},
-                success : function (result){
-                    console.log(result);
-
-
-                },
-                fail:function (){
-                    console.log("ㅋㅋㅋ");
-                }
-            })
-        })
-
-    </script>
-
-
     <div id="chat_right">
         <div class="header-chat">
             <div class="name">이름</div>
@@ -104,30 +66,133 @@
         <div class="chat">
             <div class="messages-chat">
                 <div class="message text-only">
-                <p class=" text">안녕하세요</p>
+                    <div class="request">
+                        <p class="text">받기</p>
+                    </div>
                 </div>
             <div class="message text-only">
-            <p class=" text">안녕하세요</p>
-        </div>
-
-        <div class="message text-only">
-            <div class="response">
-                <p class="text"> 안녕하세요 맛동산입니다</p>
+                <div class="response">
+                    <p class="text">보내기</p>
+                </div>
+            </div>
             </div>
         </div>
-        <div class="message text-only">
-            <div class="response">
-                <p class="text"> 문의내용 말씀해주세요.</p>
-            </div>
-        </div>
+    <div class="footer-chat">
+        <input id="chat-input" type="text"/>
+        <input id="roomNo-send" type="hidden">
+        <div class="bi bi-send" onclick="send();"></div>
+    </div>
     </div>
 </div>
-<div class="footer-chat">
-    <input type="text"/>
-    <div class="bi bi-send"></div>
-</div>
-</div>
-</div>
+<script>
+    let currentChatRoom = '';
+
+    window.onload = function(){
+        connection();
+    }
+
+    function connection(){
+        let socket = new SockJS("/Matdongsan/mainPage");
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, onConnected());
+    }
+
+    function onConnected(){
+        <c:forEach items="${chattingList}" var="chattingList">
+            setTimeout(function(){
+                stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
+                    showMessage(JSON.parse(e .body));
+                });
+            }, 500);
+        </c:forEach>
+    }
+
+
+    function showMessage(data){
+        console.log(data);
+        let alert = data;
+        $('.' + alert.roomNo + '_new').css('display', 'block');
+        $('.' + alert.roomNo + '_message').text(alert.contents);
+
+        if(alert.sender == '${loginUser.memberNo}'){
+            $('.response').append("<p class='text'>"+alert.contents+"</p>");
+        }else{
+            $('.request').append("<p class='text'>"+alert.contents+"</p>");
+        }
+        if(currentChatRoom === alert.roomNo){
+            clickPreChat(alert.roomNo)
+        }
+
+    }
+    function clickPreChat(roomNo) {
+        $('.' + roomNo + '_new').css('display', 'none');
+    }
+
+    $('.preChat').on('click',function(){
+        let target = this
+        let roomNo = target.querySelector('.roomNo').value
+
+        currentChatRoom = roomNo;
+        $('.' + roomNo + '_new').css('display', 'none');
+        console.log(roomNo)
+
+
+
+
+        $.ajax({
+            url : '${pageContext.request.contextPath}/chat/admin/enterChat',
+            type: "POST",
+            data : {'roomNo' : roomNo},
+            success : function (res){
+
+
+                $('#roomNo-send').remove();
+                $('.text').remove();
+                let result = res;
+                $('#roomNo-send').val(result.roomNo)
+                chatList(result)
+
+            },
+            fail:function (){
+                console.log("ㅋㅋㅋ");
+            }
+        })
+    })
+    function chatList(result){
+        if(result != null) {
+            for(let i in result) {
+                console.log(result[i].memberNo);
+                if(result[i].memberNo == '${loginUser.memberNo}'){
+                    $('.response').append("<p class='text'>"+result[i].message+"</p>");
+                }else{
+                    $('.request').append("<p class='text'>"+result[i].message+"</p>");
+                }
+            }
+        }
+    }
+
+
+    function send(){
+
+        const roomNo = currentChatRoom;
+        console.log('--------')
+        console.log(roomNo)
+        console.log('--------')
+
+        const data = {
+            'sender' : ${loginUser.memberNo},
+            'contents': $("#chat-input").val(),
+            'roomNo' : roomNo
+        };
+        // send(destination,헤더,페이로드)
+        stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+        $("#chat-input").val('');
+    }
+    $("#chat-submit").click(function (e) {
+        e.preventDefault();
+    })
+
+</script>
 </body>
 
 </html>

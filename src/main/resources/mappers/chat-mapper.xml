@@ -89,10 +89,10 @@
             MS_CONTENT
         FROM CHAT_MESSAGE
                  JOIN MEMBER ON(MEMBER_NO = SEND_NO)
-        WHERE CREATE_DATE = (select max(CREATE_DATE) as CREATE_TIME
-                             from CHAT_MESSAGE
-                             group by CHAT_ROOM_NO) AND READ = 'Y'
-        ORDER BY CHAT_ROOM_NO
+        WHERE CREATE_DATE IN (SELECT MAX(CREATE_DATE)
+                              FROM CHAT_MESSAGE
+                              GROUP BY CHAT_ROOM_NO)
+
     </select>
 
     <resultMap id="adminChatMessageResultSet" type="adminChatMessage">
