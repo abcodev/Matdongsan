@@ -66,13 +66,20 @@
 }
 
 .head > button{
-    background-color: #213048;
-    color: #f3f1f5;
+    background-color: #E0E0E0;
+    color: #515151;
     font-size: 20px;
     font-weight: 450;
     width: 80px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+}
+
+.head > button:hover{
+    background-color: #566392;
+    color: #E0E0E0;
 }
 .side{
     position: fixed;
@@ -128,11 +135,107 @@
     color: #213048;
 }
 
-
-
-.info{
+#boardlist_top{
     display: flex;
-    width: 100%;
-    border-bottom: #a4a4a4 2px solid;
+    margin-top: 20px;
 }
 
+#listset input[type=radio]{
+    display: none;
+}
+#listset input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: auto;
+    width: auto;
+    border: 1px solid #E0E0E0;
+    line-height: 24px;
+    text-align: center;
+    font-weight:450;
+    font-size:12px;
+    border-radius: 2px;
+    padding: 0 5px;
+    margin-right: 5px;
+}
+#listset input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+
+#listset input[type=radio]:checked+label{
+    background-color: #beb0d0;
+    color: #515151;
+}
+
+#writebtn > button{
+    width: 140px;
+    height: auto;
+    border-radius: 3px;
+    background-color: #213048;
+    color: #E0E0E0;
+    margin-left: 420px;
+    cursor: pointer;
+    padding: 5px 10px 5px 10px;
+    font-size: 14px;
+    font-weight: 450;
+}
+
+
+.fa-pencil{
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+#boardlist_main{
+    margin-top: 30px;
+}
+
+.boardlist{
+    padding: 10px 5px ;
+    border-bottom: #E0E0E0 2px solid;
+}
+
+.board_title > p{
+    font-weight: 450;
+    font-size: 20px;
+}
+
+.board_content > p{
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.board_info{
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.board_info >p{
+    font-size: 13px;
+    font-weight: 420;
+}
+
+.board_info > .writer ,
+.board_info > .area{
+    width: 8%;
+    font-size: 13.5px;
+}
+
+.board_info > .date{
+    width: 15%;
+}
+
+.board_info > .view{
+    margin-left: 400px;
+}
+
+.board_info > .info > .fa-eye,
+.board_info > .info > .fa-comment{
+    font-size: 16px;
+    margin-right: 3px;
+}
+
+.board_info > .reply{
+    margin-left: 10px;
+}

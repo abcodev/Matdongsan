@@ -64,14 +64,20 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-
-                <c:if test="${loginUser.memberNo == 1}">
+                <c:choose>
+                <c:when test="${loginUser.memberNo == 1}">
                     <div class="dropdown">
                         <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
                         </button>
                     </div>
-                </c:if>
-
+                </c:when>
+                    <c:otherwise>
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}">FAQ</a>
+                            </button>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </nav>
         <div class="login">

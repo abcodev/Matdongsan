@@ -58,18 +58,18 @@
                     <div class="boardlist">
                         <p style="display: none">${freeBoardList.boardNo}</p>
                         <p style="display: none">${freeBoardList.memberNo}</p>
-                        <div class="list title">
+                        <div class="board_title">
                             <p>${freeBoardList.boardTitle}</p>
                         </div>
-                        <div class="list content">
+                        <div class="board_content">
                             <p>${freeBoardList.boardContent}</p>
                         </div>
-                        <div class="list info">
-                            <p>${freeBoardList.boardWriter}</p>
-                            <p>${freeBoardList.boardArea}</p>
-                            <p>${freeBoardList.boardDate}</p>
-                            <p><i class="fa-regular fa-eye"></i>조회수</p>
-                            <p><i class="fa-regular fa-comment"></i>댓글수</p>
+                        <div class="board_info">
+                            <p class="info writer">${freeBoardList.boardWriter}</p>
+                            <p class="info area">${freeBoardList.boardArea}</p>
+                            <p class="info date">${freeBoardList.boardDate}</p>
+                            <p class="info view"><i class="fa-regular fa-eye"></i>조회수</p>
+                            <p class="info reply"><i class="fa-regular fa-comment"></i>댓글수</p>
                         </div>
                     </div>
                 </c:forEach>
