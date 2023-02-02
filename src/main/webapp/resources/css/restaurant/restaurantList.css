@@ -34,6 +34,7 @@
 #place_body{
     height: 60%;
     width: 100%;
+    margin-top: 50px;
 }
 
 .city{
@@ -52,6 +53,7 @@
 .hashtag{
     display: flex;
     flex-wrap: wrap;
+    margin-top: 40px;
 }
 
 .hashtag > label{
@@ -63,22 +65,26 @@
 .place_list{
     float: left;
     display: flex;
-    margin-top: 50px;
 }
 
 .info{
-    width: 33.3%;
-    text-align: center;
+    width: 100%;
 }
 
-.info > img{
-    width: 80%;
-    height: 80%;
+.info > tr:first-child{
+    overflow: hidden;
 }
-.info > div{
-    height: 10%;
+.res_img{
+    width: 250px;
+    height: 250px;
+    margin: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s linear;
 }
 
+.res_img:hover{
+    transform: scale(1.05);
+}
 
 .info :nth-child(2){
     font-size: 20px;
