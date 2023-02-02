@@ -16,6 +16,6 @@ public class ChatRoomJoin {
                 chatRoomNo(roomNo).
                 memberNo(memberNo).
                 build();
-
     }
+
 }

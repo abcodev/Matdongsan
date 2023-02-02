@@ -18,6 +18,7 @@ public class StompController {
     private final ChatService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
+    // 관리자가 -> 사용자
     @MessageMapping("/chat/send")
     public void sendMsg(MessageDto data){
         System.out.println("data"+data);

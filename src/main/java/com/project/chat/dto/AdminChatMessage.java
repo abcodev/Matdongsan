@@ -6,16 +6,16 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class AdminChatRoom {
+@NoArgsConstructor
+public class AdminChatMessage {
 
     private String roomNo;
+    private String memberNo;
     private String memberName;
-    private String profileImage;
-    private String latestMessage;
-    private Date latestMessageTime;
+    private String message;
+    private Date createDate;
     private String read;
+
 }

@@ -1,16 +1,30 @@
 package com.project.member.controller;
 
+import com.project.board.dto.FreeBoardResponse;
+import com.project.board.dto.QnaBoardResponse;
+import com.project.board.service.FreeBoardService;
+import com.project.board.vo.FreeBoard;
+import com.project.board.vo.QnaBoard;
 import com.project.common.type.StateList;
+import com.project.member.dto.MemberResponseDto;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
+import com.project.realestate.vo.Interest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MemberController {
@@ -22,7 +36,32 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/myPage")
-    public String myPage(){return "member/myPage";}
+    public String myPage(HttpSession session, Model model){
+
+        Member m = (Member) session.getAttribute("loginUser");
+
+        ArrayList<FreeBoardResponse> freeBoardList = memberService.getFreeBoardList(m);
+        if(freeBoardList != null){
+            model.addAttribute("freeBoardList", freeBoardList);
+        }
+
+        ArrayList<QnaBoardResponse> qnaBoardList = memberService.getQnaBoardList(m);
+        if(qnaBoardList != null){
+            model.addAttribute("qnaBoardList", qnaBoardList);
+        }
+
+        ArrayList<Interest> interestList = memberService.getInterestList(m);
+        if(interestList != null){
+            model.addAttribute("interestList", interestList);
+        }
+
+        System.out.println(freeBoardList);
+        System.out.println(qnaBoardList);
+        System.out.println(interestList);
+
+
+        return "member/myPage";
+    }
 
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){

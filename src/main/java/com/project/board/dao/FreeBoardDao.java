@@ -47,4 +47,8 @@ public class FreeBoardDao {
     public int insertReport(SqlSession sqlSession, Report report){
         return  sqlSession.insert("freeBoardMapper.insertReport", report);
     }
+
+    public int deleteReply(SqlSession sqlSession, Reply reply){
+        return sqlSession.update("freeBoardMapper.deleteReply", reply);
+    }
 }
