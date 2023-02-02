@@ -178,7 +178,7 @@
       // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
       const data = {
         'sender' : ${loginUser.memberNo},
-        //'contents': $("#chat-input").val(),
+        'contents': $("#chat-input").val(),
         'roomNo' : roomNo
       };
       // send(destination,헤더,페이로드)
