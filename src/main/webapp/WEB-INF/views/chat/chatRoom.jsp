@@ -65,22 +65,14 @@
         </div>
         <div class="chat">
             <div class="messages-chat">
-                <div class="message text-only">
-                    <div class="request">
-                        <p class="text">받기</p>
-                    </div>
-                </div>
-            <div class="message text-only">
-                <div class="response">
-                    <p class="text">보내기</p>
-                </div>
-            </div>
+<%--                <div class="request">받기</div>--%>
+<%--                <div class="response">보내기</div>--%>
             </div>
         </div>
     <div class="footer-chat">
         <input id="chat-input" type="text"/>
         <input id="roomNo-send" type="hidden">
-        <div class="bi bi-send" onclick="send();"></div>
+        <div class="bi bi-send" id="sendMessage" onclick="send();"/>
     </div>
     </div>
 </div>
@@ -115,9 +107,9 @@
         $('.' + content.roomNo + '_message').text(content.message);
 
         if(content.memberNo == '${loginUser.memberNo}'){
-            $('.response').append("<p class='text'>"+content.message+"</p>");
+            $('.messages-chat').append("<div class='response'><span class='text'>"+content.message+"</span></div>");
         }else{
-            $('.request').append("<p class='text'>"+content.message+"</p>");
+            $('.messages-chat').append("<div class='request'><span class='text'>"+content.message+"</span></div>");
         }
         if(currentChatRoom === content.roomNo){
             clickPreChat(content.roomNo)
@@ -139,7 +131,8 @@
             data : {'roomNo' : ClickRoomNo},
             success : function (res){
                 $('#roomNo-send').remove();
-                $('.text').remove();
+                $('.request').remove();
+                $('.response').remove();
                 let result = res;
                 $('#roomNo-send').val(result.roomNo)
                 chatList(result)
@@ -160,13 +153,20 @@
             for(let i in result) {
                 console.log(result[i].memberNo);
                 if(result[i].memberNo == '${loginUser.memberNo}'){
-                    $('.response').append("<p class='text'>"+result[i].message+"</p>");
+                    $('.messages-chat').append("<div class='response'> <p class='text'>"+result[i].message+"</p></div>");
                 }else{
-                    $('.request').append("<p class='text'>"+result[i].message+"</p>");
+                    $('.messages-chat').append("<div class='request'><p class='text'>"+result[i].message+"</p></div>");
                 }
             }
         }
     }
+
+    //엔터 눌렀을때 전송
+    $('#chat-input').keypress(function(e){
+        if(e.keyCode===13){
+            send();
+        }
+    });
 
 
     function send(){
@@ -183,9 +183,9 @@
         stompClient.send("/app/chat/send", {}, JSON.stringify(data));
         $("#chat-input").val('');
     }
-    $("#chat-submit").click(function (e) {
-        e.preventDefault();
-    })
+    // $("#chat-submit").click(function (e) {
+    //     e.preventDefault();
+    // })
 </script>
 </body>
 

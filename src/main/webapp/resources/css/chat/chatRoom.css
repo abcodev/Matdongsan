@@ -138,17 +138,34 @@
   padding: 25px 35px;
 }
 
+.messages-chat > span{
+  display: block;
+}
+
+
 .chat .messages-chat .message {
-  display:flex;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.chat .messages-chat .text {
-  margin: 0 35px;
+.chat .messages-chat .request{
+  margin: 5px 35px;
   background-color: #f6f6f6;
   padding: 15px;
   border-radius: 12px;
+  width: auto;
+  text-align: left;
+
+}
+
+.chat .messages-chat .response{
+  background-color: #e3effd !important;
+  padding: 15px;
+  border-radius: 12px;
+  display: block;
+  width: auto;
+  margin: 5px 35px;
+  text-align: right;
 }
 
 .text-only {
@@ -168,7 +185,7 @@
 }
 
 .response {
-  float: right;
+  /*float: right;*/
   margin-right: 0px !important;
   margin-left:auto; /* flexbox alignment rule */
 }
