@@ -45,9 +45,9 @@
         <div class="boardlist_area">
             <div id="boardlist_top">
                 <div id="listset">
-                    <input type="radio" id="view"><label for="view">조회수 많은 순</label>
-                    <input type="radio" id="reply"><label for="reply">댓글 많은 순</label>
-                    <input type="radio" id="recent"><label for="recent">최신순</label>
+                    <input type="checkbox" id="view"><label for="view">조회수 많은 순</label>
+                    <input type="checkbox" id="reply"><label for="reply">댓글 많은 순</label>
+                    <input type="checkbox" id="recent"><label for="recent">최신순</label>
                 </div>
                 <div id="writebtn">
                     <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
