@@ -1,9 +1,15 @@
 package com.project.board.service;
 
 import com.project.board.dao.FreeBoardDao;
+import com.project.board.dto.FreeBoardCountDto;
+import com.project.board.dto.FreeBoardListFilter;
+import com.project.board.dto.FreeBoardListRequest;
+import com.project.board.dto.FreeBoardListResponse;
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
+import com.project.common.template.PageInfoCombine;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -21,9 +27,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     private final FreeBoardDao freeBoardDao;
     private final SqlSession sqlSession;
 
+    private static final int DEFAULT_RES_SIZE = 7;
+
     @Override
-    public List<FreeBoard> selectFreeList(Map<String,String> option) {
-        return freeBoardDao.selectFreeList(sqlSession,option);
+    public FreeBoardListResponse selectFreeList(FreeBoardListRequest req) {
+        FreeBoardListFilter filter = FreeBoardListFilter.from(req);
+        int count = freeBoardDao.selectFreeListCount(sqlSession,filter);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_RES_SIZE);
+        List<FreeBoard> result =freeBoardDao.selectFreeList(sqlSession, pageInfoCombine, filter);
+        return new FreeBoardListResponse(result,pageInfoCombine);
     }
 
     // 게시글 등록
@@ -58,5 +70,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     public int deleteReply(Reply reply){
         return freeBoardDao.deleteReply(sqlSession, reply);
+    }
+
+    @Override
+    public void freeBoardCount(FreeBoardCountDto count) {
+        freeBoardDao.freeBoardCount(sqlSession,count);
+    }
+
+    @Override
+    public List<HotWeek> hotWeekList() {
+        return freeBoardDao.hotWeekList(sqlSession);
     }
 }

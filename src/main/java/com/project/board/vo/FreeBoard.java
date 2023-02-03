@@ -16,6 +16,8 @@ public class FreeBoard {
     private Timestamp boardDate;
     private String boardArea;
     private String status;
+    private int count;
+    private int replyCount;
 
 
 

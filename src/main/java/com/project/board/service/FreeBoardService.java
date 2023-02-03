@@ -1,6 +1,10 @@
 package com.project.board.service;
 
+import com.project.board.dto.FreeBoardCountDto;
+import com.project.board.dto.FreeBoardListRequest;
+import com.project.board.dto.FreeBoardListResponse;
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
 import com.project.member.vo.Member;
@@ -11,8 +15,7 @@ import java.util.Map;
 
 public interface FreeBoardService {
 
-
-    List<FreeBoard> selectFreeList(Map<String,String> option);
+    FreeBoardListResponse selectFreeList(FreeBoardListRequest req);
 
     public int insertFboard(FreeBoard fb);
 
@@ -29,4 +32,8 @@ public interface FreeBoardService {
     public int insertReport(Report report);
 
     public int deleteReply(Reply reply);
+
+    void freeBoardCount(FreeBoardCountDto count);
+
+    List<HotWeek> hotWeekList();
 }

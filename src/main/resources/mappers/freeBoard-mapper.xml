@@ -16,6 +16,7 @@
         <result column="BOARD_AREA" property="boardArea"/>
         <result column="STATUS" property="status"/>
         <result column="COUNT" property="count"/>
+        <result column="REPLY_COUNT" property="replyCount"/>
     </resultMap>
 
     <resultMap id="replyResultSet" type="reply">
@@ -42,9 +43,30 @@
         VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
     </insert>
 
-    <select id="selectFreeList" parameterType="Map" resultMap="fBoardResultSet">
-        SELECT *
+
+    <select id="selectFreeListCount" resultType="int">
+        SELECT COUNT(*)
         FROM FREE_BOARD
+        WHERE STATUS='Y'
+        <if test="!state.isBlank()">
+            AND BOARD_AREA = #{state}
+        </if>
+        <if test="!search.isBlank()">
+            AND (
+            BOARD_TITLE like '%' || #{search} || '%'
+            OR
+            BOARD_WRITER like '%' || #{search} || '%'
+            OR
+            BOARD_CONTENT like '%' || #{search} || '%'
+            )
+        </if>
+    </select>
+
+
+    <select id="selectFreeList" parameterType="Map" resultMap="fBoardResultSet">
+        SELECT  FB.*,(SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT",
+        (SELECT COUNT(*) FROM REPLY R WHERE R.FREE_BNO = FB.FREE_BNO) AS "REPLY_COUNT"
+        FROM FREE_BOARD FB
         WHERE STATUS='Y'
             <if test="!state.isBlank()">
                 AND BOARD_AREA = #{state}
@@ -59,6 +81,26 @@
                 )
             </if>
     </select>
+
+    <resultMap id="hotWeekResultSet" type="hotWeek">
+        <result column="FREE_BNO" property="freeBno"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+    </resultMap>
+
+    <select id="hotWeekList" resultMap="hotWeekResultSet">
+        <![CDATA[
+            SELECT
+            ROWNUM,
+            FREE_BNO,
+            BOARD_TITLE
+            FROM (SELECT FREE_BNO,BOARD_TITLE, (SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT"
+            FROM FREE_BOARD FB
+            ORDER BY COUNT DESC)
+            WHERE ROWNUM <4
+        ]]>
+    </select>
+
+
 
     <select id="detailFreeBoard" parameterType="int" resultMap="fBoardResultSet">
         SELECT
@@ -122,5 +164,11 @@
             AND REPLY_NO = ${replyNo}
             AND MEMBER_NO = ${memberNo}
     </update>
+
+
+    <insert id="freeBoardCount">
+        INSERT INTO HOTWEEK(FREE_BNO, MEMBER_NO, COUNT_DATE)
+        VALUES (#{freeBoardNo},#{memberNo},SYSDATE)
+    </insert>
 </mapper>
 
