@@ -40,7 +40,7 @@
         </div>
         <div class="btn_box">
             <button type="submit">게시글 등록</button>
-            <button type="reset">취소</button>
+            <button type="reset" onclick="history.back()">취소</button>
         </div>
     </form>
     </div>

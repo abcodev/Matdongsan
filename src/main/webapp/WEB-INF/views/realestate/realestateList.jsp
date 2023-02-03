@@ -22,6 +22,7 @@
 <script>
     window.onload = () => {
         retrieveRealEstate(1)
+        getMap()
     }
 
     function retrieveRealEstate(current_page) {
@@ -39,10 +40,31 @@
             success(data) {
                 const html = jQuery('<div>').html(data);
                 const contents = html.find('div#estate_rent_list_ajax').html()
-                $('.place_body').html(contents);
-                getMap();
+                $('#search_list').html(contents);
             }
         });
+    }
+
+    function searchList(current_page){
+        $.ajax({
+            url : '${pageContext.request.contextPath}/realEstate/map',
+            method : 'GET',
+            contentType: "application/json; charset=UTF-8",
+            dataType: 'json',
+            data :{
+                'cpage': current_page,
+                'state': $('#selectOption1 option:checked').val(),
+                'dong': $('#selectOption2 option:checked').val(),
+                'rentType': $('#rentType option:checked').val(),
+                'rentGtn': $('#rentGtn option:checked').val(),
+                'chooseType': $('#chooseType option:checked').val() },
+            success : function (result){
+                let listData = JSON.stringify(result)
+                console.log(listData);
+                searchResultMap()
+            }
+
+        })
     }
 </script>
 <div id="content">
@@ -80,13 +102,19 @@
                 </select>
             </div>
             <div class="btn_box">
-                <button onclick="retrieveRealEstate(1)">조회</button>
+                <button onclick="retrieveRealEstate(1); searchList();">조회</button>
             </div>
         </div>
     </div>
     <div id="content_right">
         <div class="place_body" >
+            <div id="search_map">
 
+
+            </div>
+            <div id="search_list">
+
+            </div>
         </div>
     </div>
 </div>
@@ -141,9 +169,13 @@
 
     }
 </script>
+
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
 <script>
+    // 초기 지도 불러오는 함수
     function getMap(){
+
         var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표
@@ -152,36 +184,32 @@
 
         // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
-
         var geocoder = new kakao.maps.services.Geocoder();
-        var listData = [
-            <c:forEach items="${sellList}" var="list">
-            '${list.address}',
-            </c:forEach>
-        ];
 
-        listData.forEach(function (addr, index) {
-            geocoder.addressSearch(addr, function (result, status) {
-                if (status === daum.maps.services.Status.OK) {
-                    var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+        function displayMarker(locPosition, message) {
 
-                    var marker = new daum.maps.Marker({
-                        map: map,
-                        position: coords
-                    });
-
-                    var infowindow = new daum.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',
-                        disableAutoPan: true
-                    });
-                    infowindow.open(map, marker);
-
-                    if (index == 0) {
-                        map.setCenter(coords);
-                    }
-                }
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: locPosition
             });
-        });
+
+            var iwContent = message, // 인포윈도우에 표시할 내용
+                iwRemoveable = true;
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
+
+            // 인포윈도우를 마커위에 표시합니다
+            infowindow.open(map, marker);
+
+            // 지도 중심좌표를 접속위치로 변경합니다
+            map.setCenter(locPosition);
+        }
 
         if (navigator.geolocation) {
 
@@ -207,6 +235,105 @@
             displayMarker(locPosition, message);
         }
     }
+
+    // 검색 결과 나타내 주는 지도
+    function searchResultMap(){
+        var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표
+                level: 6 // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        var listData1 = [
+            <c:forEach items="${result}" var="list">
+            '${list.subAddress}',
+            </c:forEach>
+        ];
+
+        var listData2 = [
+            <c:forEach items="${result}" var="list2">
+            '${list2.address}',
+            </c:forEach>
+        ];
+
+        var listData3 = [
+            <c:forEach items="${result}" var="list2">
+            '${list2.buildName}',
+            </c:forEach>
+        ];
+
+        // 주소로 좌표를 검색합니다
+        listData2.forEach(function (listData1, index) {
+            let overlay;
+            geocoder.addressSearch(listData1, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
+                        imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
+                        imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+                    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
+                    // 마커 생성
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords,
+                        image : markerImage
+                    });
+
+                    var content = '<div class="wrap">' +
+                        '    <div class="info">' +
+                        '           <div class="title">' +
+                        '               <div class="bldgNm">'+'건물명  : '+ listData3[index]+ '</div>'+
+                        '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
+                        '           </div>' +
+                        '            <div class="desc">' +
+                        '            </div>' +
+                        '        </div>' +
+                        '    </div>';
+
+                    // 마커 위에 커스텀오버레이를 표시합니다
+                    // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+                    overlay = new kakao.maps.CustomOverlay({
+                        content: null,
+                        map: map,
+                        position: marker.getPosition()
+                    });
+
+                    // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
+                    kakao.maps.event.addListener(marker, 'mouseover', function() {
+                        overlay.setMap(map);
+                        overlay.setContent(content);
+                        // document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
+                        //     overlay.setMap(null);
+                        // })
+                    });
+
+                    // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+                    kakao.maps.event.addListener(marker, 'mouseout', function() {
+                        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+                        overlay.setMap(null);
+                    });
+
+                    if (index == 0) {
+                        map.setCenter(coords);
+                    }
+                }
+            })
+        });
+
+
+    }
+
 </script>
+
 </body>
 </html>

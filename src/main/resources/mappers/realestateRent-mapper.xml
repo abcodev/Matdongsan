@@ -12,24 +12,27 @@
         <result column="BJDONG_NM" property="bjdName"/>
         <result column="BOBN" property="boBn"/>
         <result column="BUBN" property="buBn"/>
+        <result column="FLR_NO" property="floorNo"/>
         <result column="DEAL_YMD" property="dealYmd"/>
         <result column="RENT_GBN" property="rentGbn"/>
         <result column="RENT_AREA" property="rentArea"/>
         <result column="RENT_GTN" property="rentGtn"/>
         <result column="RENT_FEE" property="rentFee"/>
         <result column="BLDG_NM" property="buildName"/>
+        <result column="BUILD_YEAR" property="buildYear"/>
         <result column="HOUSE_GBN_NM" property="houseType"/>
     </resultMap>
 
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="ESTATE_NO" property="estateNo"/>
-
         <result column="SGG_NM" property="sggNm"/>
         <result column="BJDONG_NM" property="bjdName"/>
         <result column="BLDG_NM" property="buildName"/>
         <result column="RENT_GBN" property="rentGbn"/>
         <result column="RENT_GTN" property="rentGtn"/>
         <result column="RENT_AREA" property="rentArea"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="SUB_ADDRESS" property="subAddress"/>
     </resultMap>
 
     <resultMap id="realEstateSellResultSet" type="RealEstateSell">
@@ -57,8 +60,8 @@
 
     <insert id="packageInsert" parameterType="list">
         INSERT INTO REALESTATE_RENT
-        (ESTATE_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BOBN, BUBN, DEAL_YMD, RENT_GBN,
-        RENT_AREA, RENT_GTN, RENT_FEE, BLDG_NM, HOUSE_GBN_NM)
+        (ESTATE_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BOBN, BUBN, FLR_NO, DEAL_YMD, RENT_GBN,
+        RENT_AREA, RENT_GTN, RENT_FEE, BLDG_NM, BUILD_YEAR, HOUSE_GBN_NM)
         SELECT SEQ_RENT_NO.NEXTVAL, rentHouse.* FROM (
         <foreach collection="list" item="rH" separator="UNION ALL ">
             <![CDATA[
@@ -70,12 +73,14 @@
                         #{rH.bjdName},
                         #{rH.boBn},
                         #{rH.buBn},
+                        #{rH.floorNo},
                         #{rH.dealYmd},
                         #{rH.rentGbn},
                         #{rH.rentArea},
                         #{rH.rentGtn},
                         #{rH.rentFee},
                         #{rH.buildName},
+                        #{rH.buildYear},
                         #{rH.houseType}
                     FROM dual
                 ]]>
@@ -197,16 +202,6 @@
     </select>
 
 
-
-
-
-
-
-
-
-
-
-
     <!-- 부동산 리스트 -->
     <select id="selectListByFilter" resultMap="realEstateRentListResultSet">
         SELECT
@@ -215,7 +210,9 @@
         BLDG_NM,
         RENT_GBN,
         RENT_GTN,
-        RENT_AREA
+        RENT_AREA,
+        SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN AS ADDRESS,
+        SGG_NM || ' ' || BJDONG_NM AS SUB_ADDRESS
         FROM REALESTATE_RENT
         WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
         AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
@@ -262,7 +259,9 @@
         BLDG_NM,
         GBN,
         OBJ_AMT,
-        BLDG_AREA
+        BLDG_AREA,
+        SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON AS ADDRESS,
+        SGG_NM || ' ' || BJDONG_NM AS SUB_ADDRESS
         FROM REALESTATE_SELL
         WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
         AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'
@@ -306,131 +305,6 @@
     </select>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- 부동산 리스트 -->
-<!--    <select id="selectListByFilter" resultMap="realEstateRentListResultSet">-->
-<!--        SELECT SGG_NM,-->
-<!--        BLDG_NM,-->
-<!--        RENT_GBN,-->
-<!--        RENT_GTN,-->
-<!--        RENT_AREA-->
-<!--        FROM REALESTATE_RENT-->
-<!--        WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'-->
-<!--        AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'-->
-<!--        AND REALESTATE_RENT.RENT_GBN like '%' || #{rentType} || '%'-->
-<!--        <if test="rentGtn != null">-->
-<!--            <choose>-->
-<!--                <when test="rentGtn == 'range1'">-->
-<!--                    <![CDATA[AND TO_NUMBER(RENT_GTN) <= 1000]]>-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range2'">-->
-<!--                    AND TO_NUMBER(RENT_GTN) BETWEEN 1000 AND 5000-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range3'">-->
-<!--                    AND TO_NUMBER(RENT_GTN) BETWEEN 5000 AND 10000-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range4'">-->
-<!--                    AND TO_NUMBER(RENT_GTN) BETWEEN 10000 AND 15000-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range5'">-->
-<!--                    AND TO_NUMBER(RENT_GTN) >= 15000-->
-<!--                </when>-->
-<!--            </choose>-->
-<!--        </if>-->
-<!--        <if test="chooseType != null">-->
-<!--            <choose>-->
-<!--                <when test="chooseType == 'area1'">-->
-<!--                    <![CDATA[AND TO_NUMBER(RENT_AREA) <= 30]]>-->
-<!--                </when>-->
-<!--                <when test="chooseType == 'area2'">-->
-<!--                    AND TO_NUMBER(RENT_AREA) BETWEEN 30 AND 60-->
-<!--                </when>-->
-<!--                <when test="chooseType == 'area3'">-->
-<!--                    AND TO_NUMBER(RENT_AREA) BETWEEN 60 AND 120-->
-<!--                </when>-->
-<!--                <when test="chooseType == 'area4'">-->
-<!--                    AND TO_NUMBER(RENT_AREA) >= 120-->
-<!--                </when>-->
-<!--            </choose>-->
-<!--        </if>-->
-<!--        UNION ALL-->
-<!--        SELECT SGG_NM,-->
-<!--        BLDG_NM,-->
-<!--        GBN,-->
-<!--        OBJ_AMT,-->
-<!--        BLDG_AREA-->
-<!--        FROM REALESTATE_SELL-->
-<!--        WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'-->
-<!--        AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'-->
-<!--        AND REALESTATE_SELL.GBN like '%' || #{rentType} || '%'-->
-<!--        <if test="rentGtn != null">-->
-<!--            <choose>-->
-<!--                <when test="rentGtn == 'range1'">-->
-<!--                    <![CDATA[AND TO_NUMBER(OBJ_AMT) <= 50000]]>-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range2'">-->
-<!--                    AND TO_NUMBER(OBJ_AMT) BETWEEN 50000 AND 100000-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range3'">-->
-<!--                    AND TO_NUMBER(OBJ_AMT) BETWEEN 100000 AND 150000-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range4'">-->
-<!--                    AND TO_NUMBER(OBJ_AMT) BETWEEN 150000 AND 200000-->
-<!--                </when>-->
-<!--                <when test="rentGtn == 'range5'">-->
-<!--                    AND TO_NUMBER(OBJ_AMT) >= 200000-->
-<!--                </when>-->
-<!--            </choose>-->
-<!--        </if>-->
-<!--        <if test="chooseType != null">-->
-<!--            <choose>-->
-<!--                <when test="chooseType == 'area1'">-->
-<!--                    <![CDATA[AND TO_NUMBER(BLDG_AREA) <= 30]]>-->
-<!--                </when>-->
-<!--                <when test="chooseType == 'area2'">-->
-<!--                    AND TO_NUMBER(BLDG_AREA) BETWEEN 30 AND 60-->
-<!--                </when>-->
-<!--                <when test="chooseType == 'area3'">-->
-<!--                    AND TO_NUMBER(BLDG_AREA) BETWEEN 60 AND 120-->
-<!--                </when>-->
-<!--                <when test="chooseType == 'area4'">-->
-<!--                    AND TO_NUMBER(BLDG_AREA) >= 120-->
-<!--                </when>-->
-<!--            </choose>-->
-<!--        </if>-->
-<!--        ORDER BY SGG_NM-->
-<!--    </select>-->
 
     <!-- 자치구 이름   -->
     <select id="searchLocalList" resultMap="realEstateRentListResultSet">
