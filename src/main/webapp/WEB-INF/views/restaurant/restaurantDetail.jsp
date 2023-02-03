@@ -83,6 +83,12 @@
                 <span>오시는 길</span>
                 <span>${restaurantDetail.transport}</span>
             </div>
+            <div class="info way">
+            <i class="fa-solid fa-train-subway"></i>
+            <span>오시는 길</span>
+                <span>${restaurantDetail.website}</span>
+            <span><a href="${restaurantDetail.website}">${restaurantDetail.website}</a></span>
+        </div>
         </div>
     </div>
     <div class="detail review">
@@ -102,12 +108,6 @@
                 </tbody>
             </table>
         </div>
-
-
-        <%--        <div class="review tag"></div>--%>
-
-
-
 
 
 
@@ -225,16 +225,6 @@
                         imgList += '<img src="' + img + '" />'
                     }
 
-                    // str += '<tr>'
-                    //     + "<td>" + i.memberName + "</td>"
-                    //     + "<td><img src=\"" + i.profileImage + "\" /></td>"
-                    //     + "<td>" + i.reviewContent + "</td>"
-                    //     + "<td>" + hashtagList + "</td>"
-                    //     + "<td>" + i.starRating + "</td>"
-                    //     + "<td><img src=\"" + i.changeName + "\" /></td>"
-                    //     + "</tr>";
-
-
                     str += '<div>'
                         + "<div>" + i.memberName + "</div>"
                         + "<div> <img src=\"" + i.profileImage + "\"/> </div>"
@@ -299,6 +289,10 @@
 
 
 </script>
+
+<%--<script>--%>
+<%--    $(":radio[name='rating'][value='" + r.revScore + "']").attr('checked', true);--%>
+<%--</script>--%>
 
 
 

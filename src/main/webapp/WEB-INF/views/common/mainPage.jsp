@@ -319,7 +319,7 @@
                 <h3>인기 부동산 목록</h3>
 
                 <c:forEach var="mostInterest" items="${mostInterest}">
-                    ${mostInterest.bldgNm}<br>
+                    <a href="">${mostInterest.bldgNm}</a><br>
                 </c:forEach>
 
             </c:when>

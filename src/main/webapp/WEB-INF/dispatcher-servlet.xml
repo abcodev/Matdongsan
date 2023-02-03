@@ -37,7 +37,6 @@
 <!--            &lt;!&ndash;                 <mvc:exclude-mapping path="/"/>&ndash;&gt;-->
 <!--&lt;!&ndash;            <beans:bean class="com.project.common.aop.AdminAccessInterceptor"/>&ndash;&gt;-->
 <!--        </mvc:interceptor>-->
-
 <!--       </mvc:interceptors>-->
 
 

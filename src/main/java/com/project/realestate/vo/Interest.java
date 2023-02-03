@@ -13,4 +13,5 @@ public class Interest {
 
     private String bldgNm;
     private String most;
+
 }

@@ -28,6 +28,8 @@ public class RealEstateSell {
     private String buildYear;
     private String houseType;
 
+    private String floor;
+
     private String estateNo;
     private String address;
     private String gbn;
@@ -49,18 +51,8 @@ public class RealEstateSell {
                 .bldgArea(realEstateSellDto.getBldgArea())
                 .buildYear(realEstateSellDto.getBuildYear())
                 .houseType(realEstateSellDto.getHouseType())
+                .floor(realEstateSellDto.getFloor())
                 .build();
     }
 
-//    public static RealEstateSell of(RealEstateDetailDto realEstateDetailDto) {
-//        return RealEstateSell.builder()
-//                .estateNo(realEstateDetailDto.getEstateNo())
-//                .accYear(realEstateDetailDto.getAccYear())
-//                .address(realEstateDetailDto.getAddress())
-//                .bldgNm(realEstateDetailDto.getBldgNm())
-//                .objAmt(realEstateDetailDto.getObjAmt())
-//                .bldgArea(realEstateDetailDto.getBldgArea())
-//                .gbn(realEstateDetailDto.getGbn())
-//                .build();
-//    }
 }
