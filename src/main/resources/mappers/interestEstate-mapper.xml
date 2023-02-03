@@ -8,7 +8,10 @@
     <resultMap id="interestResultSet" type="Interest">
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="ESTATE_NO" property="estateNo"/>
+        <result column="BLDGNM" property="bldgNm"/>
+        <result column="MOST" property="most"/>
     </resultMap>
+
 
 
     <select id="checkInterest" parameterType="Map" resultMap="interestResultSet">
@@ -23,5 +26,15 @@
     <delete id="delete" parameterType="Map">
         DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </delete>
+
+    <select id="mostInterest" parameterType="string" resultMap="interestResultSet">
+        SELECT i.ESTATE_NO,
+               COUNT(i.ESTATE_NO) as most,
+               (SELECT BLDG_NM FROM REALESTATE_RENT where i.ESTATE_NO = REALESTATE_RENT.ESTATE_NO) as bldgNm,
+               (SELECT BLDG_NM FROM REALESTATE_SELL where i.ESTATE_NO = REALESTATE_SELL.ESTATE_NO) as bldgNm
+        FROM INTEREST i
+        GROUP BY i.ESTATE_NO HAVING COUNT(*) >= 1
+        ORDER BY most DESC
+    </select>
 
 </mapper>

@@ -37,18 +37,16 @@ public class AdminController {
 
         map = adminService.userList(currentPage);
         paramMap.put("cpage", currentPage);
-
-
         model.addAttribute("map",map);
-
 
         return "admin/userList";
 
     }
 
-    @RequestMapping(value = "/reportList")
+    @RequestMapping(value = "/reportList/{freeBno}")
     public String reportList(
-            Model model
+            Model model,
+            @PathVariable("freeBno") int freeBno
     ){
         ArrayList<Admin> list2 = adminService.reportList();
         int listCount = adminService.rListCount();

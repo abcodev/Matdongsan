@@ -75,8 +75,6 @@
 
 
 
-</div>
-
 <script>
     /*페이지 이동*/
     $(function(){
@@ -98,11 +96,11 @@
         const stop = document.getElementById("stop");
         const value = (stop.options[stop.selectedIndex].value);
         alert(value +" 처리하시겠습니까?");
-    };
+    }
 
     function movePage(freeBno){
         <c:if test="${rl.reportType} = '자유게시판'">
-        location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+freeBno;
+        location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+ freeBno;
         </c:if>
         <c:if test="${rl.reportType} = '질문게시판'">
         location.href = '${pageContext.request.contextPath}/board/detail/'+freeBno;
@@ -133,10 +131,6 @@
 
 
     /*페이징처리*/
-
-
-
-
 
 
 
