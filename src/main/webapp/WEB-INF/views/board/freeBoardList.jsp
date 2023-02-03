@@ -45,34 +45,36 @@
         <div class="boardlist_area">
             <div id="boardlist_top">
                 <div id="listset">
-                    <input type="radio" id="view"><label for="view">조회수 많은 순</label>
-                    <input type="radio" id="reply"><label for="reply">댓글 많은 순</label>
-                    <input type="radio" id="recent"><label for="recent">최신순</label>
+                    <input type="checkbox" id="view"><label for="view">조회수 많은 순</label>
+                    <input type="checkbox" id="reply"><label for="reply">댓글 많은 순</label>
+                    <input type="checkbox" id="recent"><label for="recent">최신순</label>
                 </div>
                 <div id="writebtn">
                     <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
                 </div>
             </div>
             <div id="boardlist_main">
-                <c:forEach items="${freeBoardList}" var="freeBoardList">
-                    <div class="boardlist">
-                        <p style="display: none">${freeBoardList.boardNo}</p>
-                        <p style="display: none">${freeBoardList.memberNo}</p>
-                        <div class="board_title">
-                            <p>${freeBoardList.boardTitle}</p>
+                <c:if test="${not empty freeBoardList}">
+                    <c:forEach items="${freeBoardList}" var="freeBoardList">
+                        <div class="boardlist">
+                            <p style="display: none">${freeBoardList.boardNo}</p>
+                            <p style="display: none">${freeBoardList.memberNo}</p>
+                            <div class="board_title">
+                                <p>${freeBoardList.boardTitle}</p>
+                            </div>
+                            <div class="board_content">
+                                <p>${freeBoardList.boardContent}</p>
+                            </div>
+                            <div class="board_info">
+                                <p class="info writer">${freeBoardList.boardWriter}</p>
+                                <p class="info area">${freeBoardList.boardArea}</p>
+                                <p class="info date">${freeBoardList.boardDate}</p>
+                                <p class="info view"><i class="fa-regular fa-eye"></i>조회수</p>
+                                <p class="info reply"><i class="fa-regular fa-comment"></i>댓글수</p>
+                            </div>
                         </div>
-                        <div class="board_content">
-                            <p>${freeBoardList.boardContent}</p>
-                        </div>
-                        <div class="board_info">
-                            <p class="info writer">${freeBoardList.boardWriter}</p>
-                            <p class="info area">${freeBoardList.boardArea}</p>
-                            <p class="info date">${freeBoardList.boardDate}</p>
-                            <p class="info view"><i class="fa-regular fa-eye"></i>조회수</p>
-                            <p class="info reply"><i class="fa-regular fa-comment"></i>댓글수</p>
-                        </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>
@@ -97,7 +99,15 @@
             },
             dataType: 'html',
             success: function (data) {
-                $('#main').html(data)
+                $('#boardlist_main').empty();
+                console.log($(data).find("#boardlist_main"));
+                console.log($(data).find(".board_info").length);
+                if($(data).find(".board_info").length >0) {
+                    $('#boardlist_main').html($(data).find("#boardlist_main"))
+                }else{
+                    $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
+                }
+
             }
         })
     }

@@ -136,12 +136,17 @@
 }
 .chat .messages-chat {
   padding: 25px 35px;
+  width: 100%;
+  height: 100%;
 }
 
 .messages-chat > span{
   display: block;
 }
 
+.chat{
+  overflow-y: scroll;
+}
 
 .chat .messages-chat .message {
   align-items: center;
