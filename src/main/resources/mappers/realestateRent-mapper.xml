@@ -19,11 +19,11 @@
         <result column="RENT_FEE" property="rentFee"/>
         <result column="BLDG_NM" property="buildName"/>
         <result column="HOUSE_GBN_NM" property="houseType"/>
-
     </resultMap>
 
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="ESTATE_NO" property="estateNo"/>
+
         <result column="SGG_NM" property="sggNm"/>
         <result column="BJDONG_NM" property="bjdName"/>
         <result column="BLDG_NM" property="buildName"/>
@@ -199,6 +199,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
     <!-- 부동산 리스트 -->
     <select id="selectListByFilter" resultMap="realEstateRentListResultSet">
         SELECT
@@ -207,8 +216,7 @@
         BLDG_NM,
         RENT_GBN,
         RENT_GTN,
-        RENT_AREA,
-        SGG_NM || ' ' || BJDONG_NM || ' ' ||  BOBN || '-' || BUBN AS ADDRESS
+        RENT_AREA
         FROM REALESTATE_RENT
         WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
         AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
@@ -255,8 +263,7 @@
         BLDG_NM,
         GBN,
         OBJ_AMT,
-        BLDG_AREA,
-        SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON AS ADDRESS
+        BLDG_AREA
         FROM REALESTATE_SELL
         WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
         AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'

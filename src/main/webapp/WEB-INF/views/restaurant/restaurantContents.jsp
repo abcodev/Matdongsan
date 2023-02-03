@@ -13,10 +13,8 @@
 <div id="restaurant_list_ajax">
     <div class="place_list">
         <div class="place info">
-
             <c:set var="i" value="0"/>
             <c:set var="j" value="3"/>
-
             <table>
                 <c:choose>
                     <c:when test="${selectResList != null && fn:length(selectResList) > 0 }">
@@ -24,11 +22,10 @@
                             <c:if test="{i%j == 0}">
                                 <tr>
                             </c:if>
-
-                            <td align="center" onclick="location.href='restaurantDetail?resNo=${selectResList.resNo}'" style="cursor:pointer;">
-                                <img src="<c:out value="${selectResList.resImgUrl}" />" width="300px" height="250px">
-                                <c:out value="${selectResList.state}"/><br>
-                                <c:out value="${selectResList.resName}"/> <br>
+                            <td onclick="location.href='restaurantDetail?resNo=${selectResList.resNo}'">
+                                <img src="<c:out value="${selectResList.resImgUrl}" />" class="res_img">
+                                <span><c:out value="${selectResList.state}"/></span>
+                                <span><c:out value="${selectResList.resName}"/></span>
                             </td>
                             <c:if test="${i%j == j-1}">
                                 </tr>
@@ -43,35 +40,35 @@
                     </c:otherwise>
                 </c:choose>
             </table>
+            <div id="paging">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${ pi.currentPage eq 1 }">
+                            <li class="page-item disabled">Previous</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage - 1})">Previous</li>
+                        </c:otherwise>
+                    </c:choose>
 
+                    <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                        <li class="page-item" onclick="retrieveRestaurants(${item})">${item }</li>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${ pi.currentPage eq pi.maxPage }">
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage + 1})">Next</li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div id="paging">
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${ pi.currentPage eq 1 }">
-                    <li class="page-item disabled">Previous</li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage - 1})">Previous</li>
-                </c:otherwise>
-            </c:choose>
 
-            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item" onclick="retrieveRestaurants(${item})">${item }</li>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage + 1})">Next</li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
-    </div>
 </div>
 
 <script>

@@ -40,6 +40,11 @@ public class Member {
     private MemberGrade grade = MemberGrade.GENERAL;
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
     private String interestState;
+
+
+
+
+    // 이건 여기에 들어가면 안되는....
     private int boardNo;
     private String boardTitle;
     private Date boardDate;
@@ -47,6 +52,11 @@ public class Member {
     private String qnaTitle;
     private Timestamp qnaDate;
     private String estateNo;
+
+    private List<FreeBoard> freeBoardList;
+    private List<QnaBoard> qnaBoardList;
+    private List<Interest> interestList;
+
 
     public static Member of(OAuthUser oAuthUser) {
         return Member.builder()
@@ -71,14 +81,4 @@ public class Member {
                 .interestState(member.getInterestState())
                 .build();
     }
-
-    private List<FreeBoard> freeBoardList;
-    private List<QnaBoard> qnaBoardList;
-
-    private List<Interest> interestList;
-
-
-
-
-
 }

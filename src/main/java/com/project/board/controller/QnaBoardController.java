@@ -34,7 +34,7 @@ public class QnaBoardController {
                              Model model,
                              HttpSession session
                              ) {
-        Member m = (Member)session.getAttribute("loginUser");
+
 
         Map<String, Object> map = new HashMap();
         if (paramMap.get("condition") == null) {
@@ -61,9 +61,11 @@ public class QnaBoardController {
     public String insertQboard(
             Model model, QnaBoard qb,HttpSession session){
 
-        qb.setQnaArea(qb.getQnaArea());
         Member m = (Member)session.getAttribute("loginUser");
-        m.setMemberNo(m.getMemberNo());
+        if(m != null) {
+            m.setMemberNo(m.getMemberNo());
+        }
+        qb.setQnaArea(qb.getQnaArea());
 
 
         int result = boardService.insertQboard(qb);
@@ -115,6 +117,9 @@ public class QnaBoardController {
     ) {
 
         Member m = (Member)session.getAttribute("loginUser");
+        if(m != null) {
+            m.setMemberNo(m.getMemberNo());
+        }
         QnaBoard qb = boardService.selectQboard(qBno);
 
         List<QnaBoard> ab = boardService.selectAnswer(qBno);

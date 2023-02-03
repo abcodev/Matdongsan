@@ -37,28 +37,20 @@ public class AdminController {
 
         map = adminService.userList(currentPage);
         paramMap.put("cpage", currentPage);
-
-
         model.addAttribute("map",map);
-
 
         return "admin/userList";
 
     }
 
-    @RequestMapping(value = "/reportList")
+    @RequestMapping(value = "/reportList/{freeBno}")
     public String reportList(
-            Model model
-            ){
-
+            Model model,
+            @PathVariable("freeBno") int freeBno
+    ){
         ArrayList<Admin> list2 = adminService.reportList();
-
         int listCount = adminService.rListCount();
-
         model.addAttribute("list2",list2);
-
-
-
 
         return "/admin/reportList";
     }
@@ -68,7 +60,7 @@ public class AdminController {
             @PathVariable("freeBno") int freeBno
     ){
         int result = adminService.deleteBoard(freeBno);
-
         return "redirect:/admin/userList";
+
     }
 }

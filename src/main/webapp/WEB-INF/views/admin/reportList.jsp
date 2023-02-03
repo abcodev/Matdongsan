@@ -43,8 +43,8 @@
                 <td>${rl.email}</td>
                 <td>${rl.boardWriter}</td>
                 <td>${rl.reportContent}</td>
-                <td><button type="button" onclick="movePage(freeBno)">상세보기</button></td>
-                <td><button type="button" id="modal_btn">처리중</button></td>
+                <td><button type="button" onclick="movePage(freeBno, '${rl.reportType}')">상세보기</button></td>
+                <td><button type="button" class="btn22" id="add-btn">처리중</button></td>
                 <td><select id="stop" onchange="changeSelect()">
                     <option>3일정지</option>
                     <option>7일정지</option>
@@ -52,37 +52,37 @@
                 </select></td>
             </tr>
 </c:forEach>
-
-
-<div class="modal">
-    <div class="modal_head"><h2>게시글을 삭제하시겠습니까?</h2></div>
-    <div>
-        <button type="button"><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="deleteBoard">예</a></button>
-        <br>
-        <button type="button">아니요</button>
-    </div>
-</div>
-
-
-
-
 </tbody>
 
     </table>
 
 
 
+
+<div class="modal" id="modal">
+    <div class="modal_body">
+        <div class="m_head">
+            <div class="modal_title">게시글을 삭제처리하시겠습니까?</div>
+            <div class="close_btn" id="close_btn">X</div>
+        </div>
+        <div class="m_body">
+            <button type="button" class="btn" onclick="movePage2(freeBno)">예</button>
+            <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
+        </div>
+
+    </div>
 </div>
 
+
+
 <script>
-
-
+    /*페이지 이동*/
     $(function(){
         $("#movePage").click(function(){
             $.ajax({
                 type:"POST",
                 url:"/Matdongsan/admin/userList",
-                data: {freeBno : '${freeBno}'},
+                data: {},
                 dataType: "html",
                 cache : false,
                 success(data){
@@ -91,27 +91,46 @@
             });
         });
     });
+
     function changeSelect(){
         const stop = document.getElementById("stop");
         const value = (stop.options[stop.selectedIndex].value);
         alert(value +" 처리하시겠습니까?");
-    };
-
-    function movePage(freeBno){
-        location.href = '${pageContext.request.contextPath}/freeBoard/detail/' +freeBno;
     }
 
+    function movePage(freeBno){
+        <c:if test="${rl.reportType} = '자유게시판'">
+        location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+ freeBno;
+        </c:if>
+        <c:if test="${rl.reportType} = '질문게시판'">
+        location.href = '${pageContext.request.contextPath}/board/detail/'+freeBno;
+        </c:if>
+    }
+    function movePage2(freeBno) {
+        location.href = '${pageContext.request.contextPath}/admin/deleteBoard/'+freeBno;
+    }
 
     $(function(){
         $("#deleteBoard2").disabled();
-        })
+        });
+
+   /* 모달*/
+    $(document).on('click', '#add-btn', function (e) {
+        console.log("click event");
+        $('#modal').addClass('show');
+
+    });
+
+    // 모달 닫기
+    $(document).on('click', '#close_btn', function (e) {
+        console.log("click event");
+        $('#modal').removeClass('show');
+
+    });
+
 
 
     /*페이징처리*/
-
-
-
-
 
 
 

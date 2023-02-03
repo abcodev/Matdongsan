@@ -28,17 +28,17 @@
        <!-- 추가 -->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
-       <mvc:interceptors>
+<!--       <mvc:interceptors>-->
 
-        <!--               사용자 로그인체크 & 사용자 권한 체크 -->
-        <mvc:interceptor> <!-- 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.-->
-            <mvc:mapping path="/admin/**"/>
-            <!--                 <mvc:mapping path="/board/**"/>-->
-            <!--                 <mvc:exclude-mapping path="/"/>-->
-            <beans:bean class="com.project.common.aop.AdminAccessInterceptor"/>
-        </mvc:interceptor>
+<!--        &lt;!&ndash;               사용자 로그인체크 & 사용자 권한 체크 &ndash;&gt;-->
+<!--        <mvc:interceptor> &lt;!&ndash; 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.&ndash;&gt;-->
+<!--            <mvc:mapping path="/admin/**"/>-->
+<!--            &lt;!&ndash;                 <mvc:mapping path="/board/**"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;                 <mvc:exclude-mapping path="/"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <beans:bean class="com.project.common.aop.AdminAccessInterceptor"/>&ndash;&gt;-->
+<!--        </mvc:interceptor>-->
 
-       </mvc:interceptors>
+<!--       </mvc:interceptors>-->
 
 
 

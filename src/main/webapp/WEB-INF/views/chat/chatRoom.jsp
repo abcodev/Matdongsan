@@ -38,24 +38,24 @@
         </div>
         <div class="preChatList" >
             <c:forEach items="${chattingList}" var="chattingList">
-            <div class="preChat">
-                <div class="photo"><img src="${chattingList.profileImage}"/></div>
-                <div class="desc-contact">
-                    <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
-                    <p class="name">${chattingList.memberName}</p>
-                    <p class="${chattingList.roomNo}_message message">${chattingList.latestMessage}</p>
-                </div>
-                <div class="chat_alert">
-                    <div class="${chattingList.roomNo}_date date date">${chattingList.latestMessageTime}</div>
+                <div class="preChat">
+                    <div class="photo"><img src="${chattingList.profileImage}"/></div>
+                    <div class="desc-contact">
+                        <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
+                        <p class="name">${chattingList.memberName}</p>
+                        <p class="${chattingList.roomNo}_message message">${chattingList.latestMessage}</p>
+                    </div>
+                    <div class="chat_alert">
+                        <div class="${chattingList.roomNo}_date date date">${chattingList.latestMessageTime}</div>
 
-                    <c:if test="${chattingList.read eq 'N'}">
-                        <div class="${chattingList.roomNo}_new new" style="display: block">NEW</div>
-                    </c:if>
-                    <c:if test="${chattingList.read eq 'Y'}">
-                        <div class="${chattingList.roomNo}_new new" style="display: none">NEW</div>
-                    </c:if>
+                        <c:if test="${chattingList.read eq 'N'}">
+                            <div class="${chattingList.roomNo}_new new" style="display: block">NEW</div>
+                        </c:if>
+                        <c:if test="${chattingList.read eq 'Y'}">
+                            <div class="${chattingList.roomNo}_new new" style="display: none">NEW</div>
+                        </c:if>
+                    </div>
                 </div>
-            </div>
             </c:forEach>
         </div>
     </div>
@@ -65,23 +65,15 @@
         </div>
         <div class="chat">
             <div class="messages-chat">
-                <div class="message text-only">
-                    <div class="request">
-                        <p class="text">받기</p>
-                    </div>
-                </div>
-            <div class="message text-only">
-                <div class="response">
-                    <p class="text">보내기</p>
-                </div>
-            </div>
+                <%--                <div class="request">받기</div>--%>
+                <%--                <div class="response">보내기</div>--%>
             </div>
         </div>
-    <div class="footer-chat">
-        <input id="chat-input" type="text"/>
-        <input id="roomNo-send" type="hidden">
-        <div class="bi bi-send" onclick="send();"></div>
-    </div>
+        <div class="footer-chat">
+            <input id="chat-input" type="text"/>
+            <input id="roomNo-send" type="hidden">
+            <div class="bi bi-send" id="sendMessage" onclick="send();"/>
+        </div>
     </div>
 </div>
 <script>
@@ -99,99 +91,101 @@
 
     function onConnected(){
         <c:forEach items="${chattingList}" var="chattingList">
-            setTimeout(function(){
-                stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
-                    showMessage(JSON.parse(e .body));
-                });
-            }, 500);
+        setTimeout(function(){
+            stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
+                showMessage(JSON.parse(e .body));
+            });
+        }, 500);
         </c:forEach>
     }
 
 
     function showMessage(data){
         console.log(data);
-        let alert = data;
-        $('.' + alert.roomNo + '_new').css('display', 'block');
-        $('.' + alert.roomNo + '_message').text(alert.contents);
+        let content = data;
+        $('.' + content.roomNo + '_new').css('display', 'block');
+        $('.' + content.roomNo + '_message').text(content.message);
 
-        if(alert.sender == '${loginUser.memberNo}'){
-            $('.response').append("<p class='text'>"+alert.contents+"</p>");
+        if(content.memberNo == '${loginUser.memberNo}'){
+            $('.messages-chat').append("<div class='response'><span class='text'>"+content.message+"</span></div>");
         }else{
-            $('.request').append("<p class='text'>"+alert.contents+"</p>");
+            $('.messages-chat').append("<div class='request'><span class='text'>"+content.message+"</span></div>");
         }
-        if(currentChatRoom === alert.roomNo){
-            clickPreChat(alert.roomNo)
+        if(currentChatRoom === content.roomNo){
+            clickPreChat(content.roomNo)
         }
 
     }
-    function clickPreChat(roomNo) {
-        $('.' + roomNo + '_new').css('display', 'none');
-    }
+
 
     $('.preChat').on('click',function(){
         let target = this
-        let roomNo = target.querySelector('.roomNo').value
+        let ClickRoomNo = target.querySelector('.roomNo').value
 
-        currentChatRoom = roomNo;
-        $('.' + roomNo + '_new').css('display', 'none');
-        console.log(roomNo)
-
-
-
+        currentChatRoom = ClickRoomNo;
+        $('.' + ClickRoomNo + '_new').css('display', 'none');
 
         $.ajax({
             url : '${pageContext.request.contextPath}/chat/admin/enterChat',
             type: "POST",
-            data : {'roomNo' : roomNo},
+            data : {'roomNo' : ClickRoomNo},
             success : function (res){
-
-
                 $('#roomNo-send').remove();
-                $('.text').remove();
+                $('.request').remove();
+                $('.response').remove();
                 let result = res;
                 $('#roomNo-send').val(result.roomNo)
                 chatList(result)
-
             },
             fail:function (){
-                console.log("ㅋㅋㅋ");
+                console.log("메세지 불러오기에 실패하였습니다. 새로고침해주세요.");
             }
         })
     })
+
+    function clickPreChat(roomNo) {
+        $('.' + roomNo + '_new').css('display', 'none');
+    }
+
+
     function chatList(result){
         if(result != null) {
             for(let i in result) {
                 console.log(result[i].memberNo);
                 if(result[i].memberNo == '${loginUser.memberNo}'){
-                    $('.response').append("<p class='text'>"+result[i].message+"</p>");
+                    $('.messages-chat').append("<div class='response'> <p class='text'>"+result[i].message+"</p></div>");
                 }else{
-                    $('.request').append("<p class='text'>"+result[i].message+"</p>");
+                    $('.messages-chat').append("<div class='request'><p class='text'>"+result[i].message+"</p></div>");
                 }
             }
         }
     }
 
+    //엔터 눌렀을때 전송
+    $('#chat-input').keypress(function(e){
+        if(e.keyCode===13){
+            send();
+        }
+    });
+
 
     function send(){
-
+        if($("#chat-input").val() == ''){
+            return false;
+        }
         const roomNo = currentChatRoom;
-        console.log('--------')
-        console.log(roomNo)
-        console.log('--------')
-
         const data = {
-            'sender' : ${loginUser.memberNo},
-            'contents': $("#chat-input").val(),
+            'memberNo' : ${loginUser.memberNo},
+            'message': $("#chat-input").val(),
             'roomNo' : roomNo
         };
         // send(destination,헤더,페이로드)
         stompClient.send("/app/chat/send", {}, JSON.stringify(data));
         $("#chat-input").val('');
     }
-    $("#chat-submit").click(function (e) {
-        e.preventDefault();
-    })
-
+    // $("#chat-submit").click(function (e) {
+    //     e.preventDefault();
+    // })
 </script>
 </body>
 

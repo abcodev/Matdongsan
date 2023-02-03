@@ -64,14 +64,20 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-
-                <c:if test="${loginUser.memberNo == 1}">
+                <c:choose>
+                <c:when test="${loginUser.memberNo == 1}">
                     <div class="dropdown">
                         <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
                         </button>
                     </div>
-                </c:if>
-
+                </c:when>
+                    <c:otherwise>
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}">FAQ</a>
+                            </button>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </nav>
         <div class="login">
@@ -83,12 +89,25 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="login_after">
-                        <img src="${loginUser.profileImage}" class="user_img">
-                        <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
-                        <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
-                        <i class="fa-regular fa-bell"></i>
-                    </div>
+
+                    <c:if test="${loginUser.memberNo == 1}">
+                        <div class="login_after">
+                            <img src="${loginUser.profileImage}" class="user_img">
+                            <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
+                            <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                        </div>
+                    </c:if>
+
+                    <c:if test="${loginUser.memberNo != 1}">
+                        <div class="login_after">
+                            <img src="${loginUser.profileImage}" class="user_img">
+                            <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                            <i class="fa-regular fa-bell"></i>
+                        </div>
+                    </c:if>
+
                 </c:otherwise>
             </c:choose>
             <%--      실시간 알림    --%>
@@ -145,6 +164,8 @@
         });
     </script>
 
+
+
 </header>
 
 
@@ -155,6 +176,8 @@
 
             <script type="text/javascript"
                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+<%--            671b81703e84eaa09879d3693a30a73e--%>
+
             <script>
 
 
@@ -274,12 +297,9 @@
                     displayMarker(locPosition, message);
                 }
 
-
             </script>
 
-
         </div>
-
 
     </div>
     <div class="side news">
@@ -294,9 +314,21 @@
     </div>
 
     <div class="side lookList">
-        <h3>최근 본 부동산 목록</h3>
+        <c:choose>
+            <c:when test="${loginUser == null}">
+                <h3>인기 부동산 목록</h3>
+
+                <c:forEach var="mostInterest" items="${mostInterest}">
+                    ${mostInterest.bldgNm}<br>
+                </c:forEach>
+
+            </c:when>
+            <c:otherwise>
+                <h3>최근 본 부동산 목록</h3>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
-</div>
+
 </body>
 </html>

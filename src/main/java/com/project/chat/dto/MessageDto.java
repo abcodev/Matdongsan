@@ -21,8 +21,8 @@ public class MessageDto {
 //    private String message;
 //    private String time;
 
-    private long sender;
-    private String contents;
+    private long memberNo;
+    private String message;
     private String roomNo;
 
 }
