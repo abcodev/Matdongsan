@@ -31,6 +31,7 @@ public class RealEstateSell {
     private String estateNo;
     private String address;
     private String gbn;
+    private String subAddress;
 
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {

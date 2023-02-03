@@ -23,9 +23,9 @@ public class RealEstateSellApiDao {
         sqlSession.insert("sellMapper.batchInsert", sellList);
     }
 
-    public LocalDate latestDealYmd() {
-        String latestDealYmd = sqlSession.selectOne("sellMapper.selectLatestDealYmd");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        return LocalDate.parse(latestDealYmd, formatter);
-    }
+//    public LocalDate latestDealYmd() {
+//        String latestDealYmd = sqlSession.selectOne("sellMapper.selectLatestDealYmd");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+//        return LocalDate.parse(latestDealYmd, formatter);
+//    }
 }

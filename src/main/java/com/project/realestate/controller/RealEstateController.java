@@ -6,6 +6,7 @@ import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.JSONParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,32 +26,52 @@ public class RealEstateController {
     // final 키워드 붙이면 컴파일 오류 찾기 쉬워짐 (생성자에서만 값을 생성할 수 있음)
     private final RealEstateService realEstateService;
 
-//    @RequestMapping
-//    public String realEstatePage(Model model) {
-//
-//        model.addAttribute("localList", StateList.values());
-//
-//        return "realestate/realestateList";
-//    }
-
     @RequestMapping
-    public ModelAndView realEstatePage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+    public String realEstatePage(Model model) {
+
+        model.addAttribute("localList", StateList.values());
+
+        return "realestate/realestateList";
+    }
+
+    @RequestMapping("/map")
+    @ResponseBody
+    public List<RealEstateRent> realEstateDong(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                        @RequestParam(value = "state", defaultValue = "") String state,
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType){
-
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("localList", StateList.values());
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model) {
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        mv.addObject("estateRentList", resp.getRealEstateRentList());
-        mv.setViewName("realestate/realestateList");
-        return mv;
+        List<RealEstateRent> result = resp.getRealEstateRentList();
+        model.addAttribute("result", result);
+
+        return result;
+
     }
+
+//    @RequestMapping
+//    @ResponseBody
+//    public ModelAndView realEstatePage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+//                                       @RequestParam(value = "state", defaultValue = "") String state,
+//                                       @RequestParam(value = "dong", defaultValue = "") String dong,
+//                                       @RequestParam(value = "rentType", defaultValue = "") String rentType,
+//                                       @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
+//                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType){
+//
+//        ModelAndView mv = new ModelAndView();
+//        mv.addObject("localList", StateList.values());
+//
+//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
+//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
+//
+//        mv.addObject("estateRentList", resp.getRealEstateRentList());
+//        mv.setViewName("realestate/realestateList");
+//        return mv;
+//    }
 
     @RequestMapping("/list")
     @ResponseBody

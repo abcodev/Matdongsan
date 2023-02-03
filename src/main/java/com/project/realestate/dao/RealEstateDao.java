@@ -37,6 +37,7 @@ public class RealEstateDao {
         return sqlSession.selectList("rentMapper.selectListByFilter", filter, rowBounds);
     }
 
+
 //    public List<RealEstateRent> searchResult(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter){
 //        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
 //

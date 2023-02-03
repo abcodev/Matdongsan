@@ -19,14 +19,18 @@ public class RealEstateRent {
     private String bjdName;
     private String boBn; //본번
     private String buBn; //부번
+    private String floorNo; // 층
     private String dealYmd;
     private String rentGbn;
     private String rentArea;
     private String rentGtn;
     private String rentFee;
     private String buildName;
+    private String buildYear; // 건축년도
     private String houseType;
+
     private String address;
+    private String subAddress;
 
     public static RealEstateRent of(RealEstateRentDto realEstateRentDto){
         return RealEstateRent.builder()
@@ -37,12 +41,14 @@ public class RealEstateRent {
                 .bjdName(realEstateRentDto.getBjdName())
                 .boBn(realEstateRentDto.getBoBn())
                 .buBn(realEstateRentDto.getBuBn())
+                .floorNo(realEstateRentDto.getFloorNo())
                 .dealYmd(realEstateRentDto.getDealYmd())
                 .rentGbn(realEstateRentDto.getRentGbn())
                 .rentArea(realEstateRentDto.getRentArea())
                 .rentGtn(realEstateRentDto.getRentGtn())
                 .rentFee(realEstateRentDto.getRentFee())
                 .buildName(realEstateRentDto.getBuildName())
+                .buildYear(realEstateRentDto.getBuildYear())
                 .houseType(realEstateRentDto.getHouseType()).build();
     }
 
