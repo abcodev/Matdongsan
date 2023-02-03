@@ -2,6 +2,8 @@ package com.project;
 
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.service.RealEstateService;
+import com.project.realestate.vo.Interest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,26 +18,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @Controller
+@RequiredArgsConstructor
 @Log4j
 public class MainController {
 
     private final RealEstateService realEstateService;
-
-    public MainController(RealEstateService realEstateService) {
-        this.realEstateService = realEstateService;
-    }
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv){
         mv.setViewName("index");
         return mv;
     }
-
 
     @RequestMapping(value = "/mainPage")
     public String getNews(Model model) throws IOException {
@@ -51,6 +47,8 @@ public class MainController {
 
         ArrayList<HashMap> newsList = new ArrayList();
         List<RealEstateMainListDto> sellList = realEstateService.getSellList();
+
+        List<Interest> mostInterest = realEstateService.getMostInterest();
 
         for (int i = 0; i < 4; i++) {
             Element articleElement = photoElements.get(i);
@@ -71,18 +69,10 @@ public class MainController {
 
         model.addAttribute("newsList", newsList);
         model.addAttribute("sellList", sellList);
-
-        System.out.println(sellList.size());
-
+        model.addAttribute("mostInterest", mostInterest);
 
         return "common/mainPage";
     }
-
-    @RequestMapping("/Testing")
-    public String Testing(){
-        return "chat/TestChatting";
-    }
-
 
 }
 

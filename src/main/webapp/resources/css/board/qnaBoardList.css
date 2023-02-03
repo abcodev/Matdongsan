@@ -1,11 +1,13 @@
 * {
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-/* div {
-    border: 2px solid black;
-} */
+#content{
+    padding: 60px 200px 30px 200px;
+}
 
 .content {
     display: flex;
@@ -13,7 +15,6 @@
 
 .head {
     height: 60px;
-    padding: 5px 250px 5px 250px;
 }
 
 .search_input {
@@ -54,10 +55,19 @@
 }
 
 .sidebar {
-    width: 15%;
+    left: 30px;
+    top: 120px;
+    width: 280px;
+    height: 310px;
+    display: table;
+    background: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 10px 5px 10px 5px;
+    z-index: 100;
 }
 
-.sidebar > div > a{
+.sidebar > a{
     text-decoration: none;
     font-size: 20px;
     display: block;
@@ -66,8 +76,8 @@
     color: #213048;
 }
 
-.sidebar > div {
-    position: fixed;
+.sidebar > a:hover{
+    color: #989de1;
 }
 
 .boardlist {

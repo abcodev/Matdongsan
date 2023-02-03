@@ -4,6 +4,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.member.vo.Member;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.*;
+import com.project.realestate.vo.Interest;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
 import lombok.RequiredArgsConstructor;
@@ -39,24 +40,29 @@ public class RealEstateServiceImpl implements RealEstateService{
         return new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
-
-    // 자치구 리스트
+    /**
+     * 자치 구 리스트
+     */
     @Override
     public List<RealEstateRent> searchLocalList(){
         return realEstateDao.searchLocalList(sqlSession);
     }
 
-    // 동 리스트
+    /**
+     * 동 리스트
+     */
     @Override
     public List<RealEstateRent> searchDongList(String state){
         return realEstateDao.searchDongList(sqlSession, state);
     }
 
+    /**
+     * 메인페이지 지도 부동산 매매 리스트
+     */
     @Override
     public List<RealEstateMainListDto> getSellList() {
         return realEstateDao.getSellList(sqlSession);
     }
-
 
     @Override
     public RealEstateDetailDto realEstateDetail(String estateNo) {
@@ -81,5 +87,13 @@ public class RealEstateServiceImpl implements RealEstateService{
             interestEstateDao.delete(req.getEstateNo(), loginUser.getMemberNo());
         }
     }
+
+
+    @Override
+    public List<Interest> getMostInterest() {
+        return interestEstateDao.getMostInterest();
+    }
+
+
 
 }

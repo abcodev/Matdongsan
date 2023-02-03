@@ -24,10 +24,6 @@
     <resultMap id="realEstateRentListResultSet" type="RealEstateRent">
         <result column="ESTATE_NO" property="estateNo"/>
 
-
-
-
-
         <result column="SGG_NM" property="sggNm"/>
         <result column="BJDONG_NM" property="bjdName"/>
         <result column="BLDG_NM" property="buildName"/>

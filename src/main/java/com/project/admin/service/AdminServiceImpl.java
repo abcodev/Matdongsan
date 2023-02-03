@@ -21,7 +21,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao adminDao;
-
     @Autowired
     private SqlSession sqlSession;
     @Autowired

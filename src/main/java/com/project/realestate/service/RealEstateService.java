@@ -2,6 +2,7 @@ package com.project.realestate.service;
 
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
+import com.project.realestate.vo.Interest;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.vo.RealEstateSell;
 import com.project.restaurant.vo.Restaurant;
@@ -32,4 +33,6 @@ public interface RealEstateService {
     boolean checkInterest(String estateNo, Member loginUser);
 
     void saveInterest(RealEstateInterestRequest req, Member loginUser);
+
+    List<Interest> getMostInterest();
 }

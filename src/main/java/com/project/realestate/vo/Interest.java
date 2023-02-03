@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class Interest {
     private long memberNo;
     private String estateNo;
+
+    private String bldgNm;
+    private String most;
 }

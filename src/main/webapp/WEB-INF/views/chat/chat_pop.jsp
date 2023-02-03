@@ -46,148 +46,148 @@
 
 
 <script>
-    // var INDEX = 0;
-    //   var msg = $("#chat-input").val();
-    //   if (msg.trim() == "") {
-    //     return false;
-    //   }
-    //   generate_message(msg, "self");
-    //   var buttons = [
-    //     {
-    //       name: "Existing User",
-    //       value: "existing"
-    //     },
-    //     {
-    //       name: "New User",
-    //       value: "new"
-    //     }
-    //   ];
-    //   setTimeout(function () {
-    //     generate_message(msg, "user");
-    //   }, 1000);
-    // });
+  // var INDEX = 0;
+  //   var msg = $("#chat-input").val();
+  //   if (msg.trim() == "") {
+  //     return false;
+  //   }
+  //   generate_message(msg, "self");
+  //   var buttons = [
+  //     {
+  //       name: "Existing User",
+  //       value: "existing"
+  //     },
+  //     {
+  //       name: "New User",
+  //       value: "new"
+  //     }
+  //   ];
+  //   setTimeout(function () {
+  //     generate_message(msg, "user");
+  //   }, 1000);
+  // });
 
-    // function generate_message(msg, type) {
-    //   INDEX++;
-    //   var str = "";
-    //   str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
-    //   str += '          <span class="msg-avatar">';
-    //   str += "          </span>";
-    //   str += '          <div class="cm-msg-text">';
-    //   str += msg;
-    //   str += "          </div>";
-    //   str += "        </div>";
-    //   $(".chat-logs").append(str);
-    //   $("#cm-msg-" + INDEX)
-    //           .hide()
-    //           .fadeIn(300);
-    //   if (type == "self") {
-    //     $("#chat-input").val("");
-    //   }
-    //   $(".chat-logs")
-    //           .stop()
-    //           .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-    // }
+  // function generate_message(msg, type) {
+  //   INDEX++;
+  //   var str = "";
+  //   str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
+  //   str += '          <span class="msg-avatar">';
+  //   str += "          </span>";
+  //   str += '          <div class="cm-msg-text">';
+  //   str += msg;
+  //   str += "          </div>";
+  //   str += "        </div>";
+  //   $(".chat-logs").append(str);
+  //   $("#cm-msg-" + INDEX)
+  //           .hide()
+  //           .fadeIn(300);
+  //   if (type == "self") {
+  //     $("#chat-input").val("");
+  //   }
+  //   $(".chat-logs")
+  //           .stop()
+  //           .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+  // }
 
-    // $(document).delegate(".chat-btn", "click", function () {
-    //   var value = $(this).attr("chat-value");
-    //   var name = $(this).html();
-    //   $("#chat-input").attr("disabled", false);
-    //   generate_message(name, "self");
-    // });
+  // $(document).delegate(".chat-btn", "click", function () {
+  //   var value = $(this).attr("chat-value");
+  //   var name = $(this).html();
+  //   $("#chat-input").attr("disabled", false);
+  //   generate_message(name, "self");
+  // });
 
-    $("#chat-circle").click(function () {
-      $.ajax({
-        url: '${pageContext.request.contextPath}/createChatRoom',
-        type: "POST",
-        success :function (result){
-          console.log(result)
-          $("#chat-circle").toggle("scale");
-          $(".chat-box").toggle("scale");
-          let roomNo = result.room.roomNo;
-          let messageList = result.messageList;
-          console.log(messageList);
-          loadChat(messageList);
+  $("#chat-circle").click(function () {
+    $.ajax({
+      url: '${pageContext.request.contextPath}/createChatRoom',
+      type: "POST",
+      success :function (result){
+        $("#chat-circle").toggle("scale");
+        $(".chat-box").toggle("scale");
+        let roomNo = result.room.roomNo;
+        let messageList = result.messageList;
+        loadChat(messageList);
+        $("#roomNo").val(roomNo);
+        connection(roomNo);
+      },
+      fail : function (){
+        alert("사용 실패")
+        $("#chat-circle").toggle("scale");
+      }
+    })
+  });
 
-          $("#roomNo").val(roomNo);
-          connection(roomNo);
-              },
-        fail : function (){
-          alert("사용 실패")
-          $("#chat-circle").toggle("scale");
-              }
-      })
-    });
-
-    $(".chat-box-toggle").click(function () {
-      $("#chat-circle").toggle("scale");
-      $(".chat-box").toggle("scale");
-    });
+  $(".chat-box-toggle").click(function () {
+    $("#chat-circle").toggle("scale");
+    $(".chat-box").toggle("scale");
+  });
 
 
-    function connection(roomNo) {
-      let socket = new SockJS("/Matdongsan/mainPage");
-      stompClient = Stomp.over(socket);
-      stompClient.connect({}, onConnected(roomNo));
-    }
+  function connection(roomNo) {
+    let socket = new SockJS("/Matdongsan/mainPage");
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, onConnected(roomNo));
+  }
 
-    function onConnected(roomNo) {
-      alert("연결 성공!");
-      // console.log('Connected: ' + frame);
-      setTimeout(function() {
-        stompClient.subscribe('/topic/'+ roomNo, function (e){
-          showMessage(JSON.parse(e .body));
+  // setTimeout : 몇초뒤에 특정 함수 호출
+  // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
+  function onConnected(roomNo) {
+    alert("연결 성공!");
+    // console.log('Connected: ' + frame);
+    setTimeout(function() {
+      stompClient.subscribe('/topic/'+ roomNo, function (e){
+        showMessage(JSON.parse(e .body));
       });
     }, 500);}
-    // setTimeout : 몇초뒤에 특정 함수 호출
-    // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
 
-    //엔터 눌렀을때 전송
-    $('#chat-submit').keypress(function(e){
-      if(e.keyCode===13){
-        e.preventDefault();
-        send();
-      }
-    });
-
-
-    // 실시간 채팅 내용
-    function showMessage(data){
-      if(data.sender==='${loginUser.memberNo}'){
-        $('.chat-logs').append("<p class='me'>"+data.sender+" : "+data.contents+"</p>"); // 내가 보낸 메세지
-      } else {
-        $('.chat-logs').append("<p class='other'>"+data.sender+" : "+data.contents+"</p>"); // 남이 보낸 메세지
-      }
+  //엔터 눌렀을때 전송
+  $('#chat-input').keypress(function(e){
+    if(e.keyCode===13){
+      e.preventDefault();
+      send();
     }
-    // 이전 채팅 내용 불러오는 함수
-    function loadChat(messageList){
-      if(messageList != null) {
-        for(let i in messageList) {
-          console.log(messageList[i].sendNo);
-          if(messageList[i].sendNo ==='${loginUser.memberNo}'){
-            $('.chat-logs').append("<p class='me'>"+messageList[i].sendNo+" : "+messageList[i].content+"</p>");// 내가 보낸 메세지
-          } else {
-            $('.chat-logs').append("<p class='other'>"+messageList[i].sendNo+" : "+messageList[i].content+"</p>");// 남이 보낸 메세지
-          }
+  });
+
+
+  // 실시간 채팅 내용
+  function showMessage(data){
+    if(data.memberNo==='${loginUser.memberNo}'){
+      $('.chat-logs').append("<p class='me'>"+data.memberNo+" : "+data.message+"</p>"); // 내가 보낸 메세지
+    } else {
+      $('.chat-logs').append("<p class='other'>"+data.memberNo+" : "+data.message+"</p>"); // 남이 보낸 메세지
+    }
+  }
+  // 이전 채팅 내용 불러오는 함수
+  function loadChat(messageList){
+    if(messageList != null) {
+      for(let i in messageList) {
+        console.log(messageList[i].sendNo);
+        if(messageList[i].sendNo ==='${loginUser.memberNo}'){
+          $('.chat-logs').append("<p class='me'>"+messageList[i].sendNo+" : "+messageList[i].content+"</p>");// 내가 보낸 메세지
+        } else {
+          $('.chat-logs').append("<p class='other'>"+messageList[i].sendNo+" : "+messageList[i].content+"</p>");// 남이 보낸 메세지
         }
       }
     }
-    //메시지 브로커로 메시지 전송
-    function send(){
-      const roomNo = $("#roomNo").val();
-      // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
-      const data = {
-        'sender' : ${loginUser.memberNo},
-        'contents': $("#chat-input").val(),
-        'roomNo' : roomNo
-      };
-      // send(destination,헤더,페이로드)
-      stompClient.send("/app/chat/send", {}, JSON.stringify(data));
-      $("#chat-input").val('');
+  }
+  //메시지 브로커로 메시지 전송
+  function send(){
+    if($("#chat-input").val() == ''){
+      return false;
     }
-    $("#chat-submit").click(function (e) {
-      e.preventDefault();
-    })
+    const roomNo = $("#roomNo").val();
+    // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
+    const data = {
+      'memberNo' : ${loginUser.memberNo},
+      'message': $("#chat-input").val(),
+      'roomNo' : roomNo
+    };
+    // send(destination,헤더,페이로드)
+    stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+    $("#chat-input").val('');
+  }
+  $("#chat-submit").click(function (e) {
+    e.preventDefault();
+  })
 
 </script>
 </body>
