@@ -96,9 +96,9 @@
                             <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                             <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                            <i class="fa-regular fa-bell"></i>
                         </div>
                     </c:if>
-
                     <c:if test="${loginUser.memberNo != 1}">
                         <div class="login_after">
                             <img src="${loginUser.profileImage}" class="user_img">
@@ -107,7 +107,6 @@
                             <i class="fa-regular fa-bell"></i>
                         </div>
                     </c:if>
-
                 </c:otherwise>
             </c:choose>
             <%--      실시간 알림    --%>

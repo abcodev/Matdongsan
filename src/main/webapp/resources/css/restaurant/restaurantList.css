@@ -19,7 +19,7 @@
     height: 45px;
     border: none;
     background-color: #213048;
-    color: #E0E0E0;
+    color: #f3f1f5;
     font-size: 20px;
     font-weight: 450;
     border-radius: 3px;
@@ -42,7 +42,7 @@
 }
 
 .city > select{
-    width: 100%;
+    width: 150px;
     height: 35px;
     border: 1px solid #E0E0E0;
     border-radius: 3px;
@@ -62,32 +62,46 @@
     border-radius: 15px;
 }
 
-.place_list{
-    float: left;
+.res_list{
     display: flex;
-}
-
-.info{
+    flex-wrap: wrap;
     width: 100%;
+    margin-top: 30px;
 }
 
-.info > tr:first-child{
-    overflow: hidden;
-}
-.res_img{
-    width: 250px;
-    height: 250px;
-    margin: 5px 10px;
-    cursor: pointer;
+.res_info{
+    width: 295px;
+    text-align: center;
+    height: 340px;
     transition: all 0.3s linear;
+    box-shadow: 0px 0px 12px 0px #a4a4a459;
+    margin: 20px 22px;
+    padding-top: 10px;
+    border-radius: 3px;
 }
 
-.res_img:hover{
+.res_img{
+    width: 260px;
+    height: 260px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.res_info:hover{
     transform: scale(1.05);
 }
 
-.info :nth-child(2){
-    font-size: 20px;
-    font-weight: bold;
-    padding-top: 5px;
+.res_info > span{
+    display: block;
+}
+
+#res_info_state{
+    font-size: 12.5px;
+}
+
+#res_info_name{
+    margin-top: 3px;
+    font-weight: 420;
+    font-size: 18px;
 }
