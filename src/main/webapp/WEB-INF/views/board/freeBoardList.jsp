@@ -45,10 +45,35 @@
         <div class="boardlist_area">
             <div id="boardlist_top">
                 <div id="listset">
-                    <input type="checkbox" id="view"><label for="view">조회수 많은 순</label>
-                    <input type="checkbox" id="reply"><label for="reply">댓글 많은 순</label>
-                    <input type="checkbox" id="recent"><label for="recent">최신순</label>
+                    <input type="checkbox" name="arrayList" id="view" value="view"><label for="view">조회수 많은 순</label>
+                    <input type="checkbox" name="arrayList" id="reply" value="reply"><label for="reply">댓글 많은 순</label>
+                    <input type="checkbox" name="arrayList" id="recent" value="recent"><label for="recent">최신순</label>
                 </div>
+                <script>
+                    $('input[type="checkbox"][name="arrayList"]').click(function(){
+                        if($(this).prop('checked')){
+                            $('input[type="checkbox"][name="arrayList"]').prop('checked',false);
+                            $(this).prop('checked',true);
+                            console.log($(this).html());
+                            console.log($(this).val());
+                            let array = $(this).val();
+
+                            $.ajax({
+                                url : '${pageContext.request.contextPath}/select/arrayList',
+                                contentType: "application/json; charset=UTF-8",
+                                data: {
+                                    'select' : array
+                                },
+                                dataType: 'html',
+                                success : function (){
+
+                                }
+                            })
+
+
+                        }
+                    })
+                </script>
                 <div id="writebtn">
                     <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
                 </div>
@@ -111,6 +136,14 @@
             }
         })
     }
+
+
+    $('.boardlist').click(function (){
+        console.log($(this).children('p:eq(0)').html());
+        let fno = $(this).children('p:eq(0)').html();
+        let member = $(this).children('p:eq(1)').html();
+        location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+    })
 </script>
 
 </body>

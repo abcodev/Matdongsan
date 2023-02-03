@@ -1,5 +1,6 @@
 package com.project.board.controller;
 
+import com.project.board.dto.FreeBoardCountDto;
 import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
@@ -10,10 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -25,6 +23,7 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
+@SessionAttributes("loginUser")
 @RequestMapping("/board")
 public class FreeBoardController {
 
@@ -46,6 +45,16 @@ public class FreeBoardController {
         System.out.println("모델값"+modelAndView);
         return modelAndView;
     }
+
+
+    @GetMapping("select/arrayList")
+    @ResponseBody
+    public ResponseEntity<?> selectArryList(@RequestParam String select){
+        int a = 1;
+        return ResponseEntity.ok().body(a);
+    }
+
+
 
 
     // 게시글 작성폼
@@ -74,9 +83,11 @@ public class FreeBoardController {
 
     // 게시글 상세보기
     @RequestMapping("freeList/detail/{fno}")
-    public ModelAndView detailFreeBoard(ModelAndView mv, @PathVariable("fno") int fno){
+    public ModelAndView detailFreeBoard(ModelAndView mv, @PathVariable("fno") int fno,
+                                        @ModelAttribute("loginUser") Member loginUser){
         FreeBoard fb = freeBoardService.detailFreeBoard(fno);
-
+        long memberNo = loginUser.getMemberNo();
+        FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
         mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;
