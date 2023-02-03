@@ -32,23 +32,19 @@
     <div id="place_head">
         <div class="place city">
             <select id="select_state" onchange="retrieveRestaurants(1)">
-                <option value="">선택</option>
+                <option value="">-------전체-------</option>
                 <c:forEach items="${stateList}" var="state">
                     <option value="${state}">${state}</option>
                 </c:forEach>
             </select>
         </div>
-    </div>
-
         <div class="place hashtag">
             <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
                 <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag" autocomplete="off" value="${hashtag.hashtag}" onchange="retrieveRestaurants(1)">
                 <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
             </c:forEach>
         </div>
-
-
-
+    </div>
     <div class="place_body">
 
     </div>

@@ -24,7 +24,7 @@
     <div class="detail head">
 
         <div>
-<%--            관리자--%>
+            <%--            관리자--%>
             <c:choose>
                 <c:when test="${ loginUser.memberNo == 1}">
                     <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
@@ -37,8 +37,8 @@
             <span>${restaurantDetail.resName}</span>
         </div>
         <div class="head star">
-                <i class="fa-solid fa-star"></i>
-                <span id="star_rating"></span>
+            <i class="fa-solid fa-star"></i>
+            <span id="star_rating"></span>
 
         </div>
         <div class="head tag">
@@ -93,8 +93,8 @@
 
 
 
-<%--        <div class="review user"></div>--%>
-<%--        <div class="review img"></div>--%>
+        <%--        <div class="review user"></div>--%>
+        <%--        <div class="review img"></div>--%>
 
         <div class="review content">
             <table id="reviewArea" class="table" align="center">
@@ -104,7 +104,7 @@
         </div>
 
 
-<%--        <div class="review tag"></div>--%>
+        <%--        <div class="review tag"></div>--%>
 
 
 
