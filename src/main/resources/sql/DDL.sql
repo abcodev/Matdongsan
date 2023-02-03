@@ -555,7 +555,7 @@ COMMENT
 
 
 
--- DROP TABLE "REPLY";
+DROP TABLE "REPLY";
 
 CREATE TABLE "REPLY"
 (
@@ -563,7 +563,6 @@ CREATE TABLE "REPLY"
     "MEMBER_NO"     NUMBER                       NOT NULL,
     "FREE_BNO"      NUMBER                       NOT NULL,
     "REPLY_CONTENT" VARCHAR(2056)                NULL,
-    "REF_BNO" NUMBER NOT NULL,
     "REPLY_DATE"    DATE         DEFAULT SYSDATE NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
