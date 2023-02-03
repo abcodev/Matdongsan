@@ -81,6 +81,8 @@
 </div>
 
 <script>
+
+    let freeBno = document.getElementById("freeBno");
     /*페이지 이동*/
     $(function(){
         $("#movePage").click(function(){
@@ -102,23 +104,20 @@
         alert(value +" 처리하시겠습니까?");
     };
 
-    function movePage(freeBno){
-        <c:if test="${rl.reportType} = '자유게시판'">
+    function movePage(freeBno,${list2.reportType}){
+        if(${list2.reportType} = '자유게시판'){
         location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+freeBno;
-        </c:if>
-        <c:if test="${rl.reportType} = '질문게시판'">
+        }else{
         location.href = '${pageContext.request.contextPath}/board/detail/'+freeBno;
-        </c:if>
+    }
+
+
     }
     function movePage2(freeBno) {
         location.href = '${pageContext.request.contextPath}/admin/deleteBoard/'+freeBno;
     }
 
-    $(function(){
-        $("#deleteBoard2").disabled();
-        });
-
-   /* 모달*/
+    /* 모달*/
     $(document).on('click', '#add-btn', function (e) {
         console.log("click event");
         $('#modal').addClass('show');

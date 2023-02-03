@@ -3,6 +3,7 @@ package com.project.admin.controller;
 import com.project.admin.service.AdminService;
 import com.project.admin.vo.Admin;
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.Report;
 import com.project.member.vo.Member;
 import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class AdminController {
     public String userList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             @RequestParam Map<String, Object> paramMap,
-            Model model
+            Model model,
+            Admin ad
 
            ){
         Map<String, Object> map = new HashMap();
@@ -40,6 +42,7 @@ public class AdminController {
 
 
         model.addAttribute("map",map);
+        model.addAttribute("ad",ad);
 
 
         return "admin/userList";
@@ -47,22 +50,19 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/reportList")
-    public String reportList(
-            Model model
-
+    public ModelAndView reportList(ModelAndView mv, Admin ad
             ){
 
         ArrayList<Admin> list2 = adminService.reportList();
 
         int listCount = adminService.rListCount();
 
-        model.addAttribute("list2",list2);
+        mv.addObject("list2",list2);
+        mv.addObject("ad",ad);
 
 
-
-
-
-        return "/admin/reportList";
+        mv.setViewName("admin/reportList");
+        return mv;
     }
 
     @RequestMapping(value = "/deleteBoard/{freeBno}")
@@ -72,6 +72,8 @@ public class AdminController {
         int result = adminService.deleteBoard(freeBno);
 
         return "redirect:/admin/userList";
+
+
 
     }
 }

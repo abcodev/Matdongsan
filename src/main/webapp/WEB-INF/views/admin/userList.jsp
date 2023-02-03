@@ -51,11 +51,10 @@
 
     $(function(){
         $("#movePage").click(function(){
-            let freeBno = document.getElementById("freeBno")
             $.ajax({
                 type:"POST",
                 url:"/Matdongsan/admin/reportList",
-                data: {},
+                data: {freeBno : ${ad.freeBno}},
                 dataType: "html",
                 cache : false,
                 success(data){
