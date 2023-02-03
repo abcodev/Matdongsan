@@ -140,10 +140,10 @@
     margin-top: 20px;
 }
 
-#listset input[type=radio]{
+#listset input[type=checkbox]{
     display: none;
 }
-#listset input[type=radio]+label{
+#listset input[type=checkbox]+label{
     display: inline-block;
     cursor: pointer;
     height: auto;
@@ -157,12 +157,12 @@
     padding: 0 5px;
     margin-right: 5px;
 }
-#listset input[type=radio]+label{
+#listset input[type=checkbox]+label{
     background-color: #fff;
     color: #333;
 }
 
-#listset input[type=radio]:checked+label{
+#listset input[type=checkbox]:checked+label{
     background-color: #beb0d0;
     color: #515151;
 }
