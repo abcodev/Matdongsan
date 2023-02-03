@@ -7,7 +7,7 @@
 
     <resultMap id="AdminResultSet" type="admin">
         <result column="REPORT_NO" property="reportNo"/>
-        <result column="FREE_BNO" property="freeBno"/>
+        <result column="FREE_BNO" property="fNo"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="EMAIL" property="email"/>
         <result column="BOARD_WRITER" property="boardWriter"/>
@@ -33,11 +33,12 @@
 
     </select>
 
-    <select id="reportList" resultMap="AdminResultSet">
+    <select id="reportList" resultMap="AdminResultSet" parameterType="int">
         SELECT
             REPORT_NO,
             REPORT_CONTENT,
             REPORT_TYPE,
+            R.FREE_BNO,
             F.FREE_BNO,
             M.EMAIL,
             F.BOARD_WRITER
@@ -56,10 +57,20 @@
         SELECT COUNT(*)
         FROM REPORT
     </select>
-    <update id="deleteBoard" parameterType="int">
+    <update id="deleteQna" parameterType="int">
+        UPDATE QNA_BOARD
+        SET STATUS = 'N'
+        WHERE QNA_BNO in (
+            SELECT QNA_BNO FROM qna_board
+            START WITH QNA_BNO = #{fNo}
+            CONNECT BY PRIOR QNA_BNO = P_BNO
+        )
+    </update>
+
+    <update id="deleteFree" parameterType="int">
         UPDATE FREE_BOARD
         SET STATUS = 'N'
-        WHERE FREE_BNO = #{freeBno}
+        WHERE FREE_BNO = #{fNo}
     </update>
 
 

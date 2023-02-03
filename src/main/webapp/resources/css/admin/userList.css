@@ -164,6 +164,24 @@ tr:last-child td:last-child {
 .btn:hover{
     background-color: #566392;
     color: #f3f1f5;
-
 }
+.btn22{
+    background: #585c9c;
+    font-weight: bold;
+    color:white;
+    border: 1px solid #585c9c;
+    border-radius: 5px;
+    width:72px;
+    height: 30px;
+}
+.btn22:hover{
+    background: white;
+    font-weight: bold;
+    color:#585c9c;
+    border: 1px solid #585c9c;
+    border-radius: 5px;
+    width:72px;
+    height: 30px;
+}
+
 

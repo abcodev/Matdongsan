@@ -41,21 +41,27 @@
         <td>${ul.email}</td>
         <td>${ul.memberName}</td>
         <td>영구정지</td>
-        <input type="hidden" value="${ul.freeBno}"/>
+
     </tr>
     </c:forEach>
+
+<input type="hidden" name="fNo" value="${fNo}"/>
 
     </tbody>
 </table>
 </div>
 <script>
 
+
+
     $(function(){
         $("#movePage").click(function(){
+
             $.ajax({
                 type:"POST",
-                url:"/Matdongsan/admin/reportList",
-                data: {freeBno : ${ad.freeBno}},
+                url:"/Matdongsan/admin/reportList/" +${fNo},
+                data: {} ,
+
                 dataType: "html",
                 cache : false,
                 success(data){
