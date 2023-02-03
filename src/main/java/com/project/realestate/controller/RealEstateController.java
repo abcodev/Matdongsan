@@ -25,15 +25,31 @@ public class RealEstateController {
     // final 키워드 붙이면 컴파일 오류 찾기 쉬워짐 (생성자에서만 값을 생성할 수 있음)
     private final RealEstateService realEstateService;
 
+//    @RequestMapping
+//    public String realEstatePage(Model model) {
+//
+//        model.addAttribute("localList", StateList.values());
+//
+//        return "realestate/realestateList";
+//    }
+
     @RequestMapping
-    public String realEstatePage(Model model) {
-        // List<RealEstateRent> localList = realEstateService.searchLocalList(); // 자치구 리스트
-        List<RealEstateMainListDto> sellList = realEstateService.getSellList(); // 실거래가 주소
+    public ModelAndView realEstatePage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+                                       @RequestParam(value = "state", defaultValue = "") String state,
+                                       @RequestParam(value = "dong", defaultValue = "") String dong,
+                                       @RequestParam(value = "rentType", defaultValue = "") String rentType,
+                                       @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType){
 
-        model.addAttribute("localList", StateList.values());
-        model.addAttribute("sellList", sellList);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("localList", StateList.values());
 
-        return "realestate/realestateList";
+        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
+        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
+
+        mv.addObject("estateRentList", resp.getRealEstateRentList());
+        mv.setViewName("realestate/realestateList");
+        return mv;
     }
 
     @RequestMapping("/list")
@@ -45,10 +61,11 @@ public class RealEstateController {
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
                                        @RequestParam(value = "chooseType", defaultValue = "") String chooseType
     ) {
+        ModelAndView modelAndView = new ModelAndView();
+
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("estateRentList", resp.getRealEstateRentList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("realestate/realestateContents");

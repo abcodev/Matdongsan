@@ -26,6 +26,7 @@ public class RealEstateRent {
     private String rentFee;
     private String buildName;
     private String houseType;
+    private String address;
 
     public static RealEstateRent of(RealEstateRentDto realEstateRentDto){
         return RealEstateRent.builder()

@@ -39,10 +39,28 @@
             success(data) {
                 const html = jQuery('<div>').html(data);
                 const contents = html.find('div#estate_rent_list_ajax').html()
-                $('.place_body').html(contents);
+                $('#search_list').html(contents);
                 getMap();
             }
         });
+    }
+
+    function searchList(){
+        $.ajax({
+            url : '${pageContext.request.contextPath}/realEstate',
+            method : 'GET',
+            data :{
+               // 'cpage': current_page,
+                'state': $('#selectOption1 option:checked').val(),
+                'dong': $('#selectOption2 option:checked').val(),
+                'rentType': $('#rentType option:checked').val(),
+                'rentGtn': $('#rentGtn option:checked').val(),
+                'chooseType': $('#chooseType option:checked').val() },
+            success : function (data){
+                console.log(data);
+            }
+
+        })
     }
 </script>
 <div id="content">
@@ -80,13 +98,19 @@
                 </select>
             </div>
             <div class="btn_box">
-                <button onclick="retrieveRealEstate(1)">조회</button>
+                <button onclick="retrieveRealEstate(1); searchList();">조회</button>
             </div>
         </div>
     </div>
     <div id="content_right">
         <div class="place_body" >
+            <div id="search_map">
 
+
+            </div>
+            <div id="search_list">
+
+            </div>
         </div>
     </div>
 </div>
@@ -144,6 +168,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
 <script>
     function getMap(){
+
         var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표
@@ -152,36 +177,104 @@
 
         // 지도를 생성합니다
         var map = new kakao.maps.Map(mapContainer, mapOption);
-
         var geocoder = new kakao.maps.services.Geocoder();
-        var listData = [
-            <c:forEach items="${sellList}" var="list">
+
+        var listData1 = [
+            <c:forEach items="${estateRentList}" var="list">
             '${list.address}',
             </c:forEach>
         ];
 
-        listData.forEach(function (addr, index) {
+        var listData2 = [
+            <c:forEach items="${estateRentList}" var="list2">
+            '${list2.buildName}',
+            </c:forEach>
+        ];
+
+
+        listData1.forEach(function (addr, index) {
+            let overlay;
             geocoder.addressSearch(addr, function (result, status) {
-                if (status === daum.maps.services.Status.OK) {
-                    var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                    var marker = new daum.maps.Marker({
+                    var imageSrc = '   https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
+                        imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
+                        imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+                    // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+
+                    // 마커 생성
+                    var marker = new kakao.maps.Marker({
                         map: map,
-                        position: coords
+                        position: coords,
+                        image : markerImage
                     });
 
-                    var infowindow = new daum.maps.InfoWindow({
-                        content: '<div style="width:150px;text-align:center;padding:6px 0;">' + listData[index] + '</div>',
-                        disableAutoPan: true
+                    var content = '<div class="wrap">' +
+                        '    <div class="info">' +
+                        '           <div class="title">' +
+                        '               <div class="bldgNm">'+ listData2[index]+ '</div>'+
+                        '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
+                        '           </div>' +
+                        '        </div>' +
+                        '    </div>';
+
+                    // 마커 위에 커스텀오버레이를 표시합니다
+                    // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+                    overlay = new kakao.maps.CustomOverlay({
+                        content: null,
+                        map: map,
+                        position: marker.getPosition()
                     });
-                    infowindow.open(map, marker);
+
+                    // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
+                    kakao.maps.event.addListener(marker, 'mouseover', function() {
+                        overlay.setMap(map);
+                        overlay.setContent(content);
+                        // document.querySelector("#overlay-btn"+index).addEventListener('click',function(){
+                        //     overlay.setMap(null);
+                        // })
+                    });
+
+                    // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+                    kakao.maps.event.addListener(marker, 'mouseout', function() {
+                        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+                        overlay.setMap(null);
+                    });
 
                     if (index == 0) {
                         map.setCenter(coords);
                     }
                 }
-            });
+            })
         });
+
+        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+        function displayMarker(locPosition, message) {
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map,
+                position: locPosition
+            });
+
+            var iwContent = message, // 인포윈도우에 표시할 내용
+                iwRemoveable = true;
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
+
+            // 인포윈도우를 마커위에 표시합니다
+            infowindow.open(map, marker);
+
+            // 지도 중심좌표를 접속위치로 변경합니다
+            map.setCenter(locPosition);
+        }
 
         if (navigator.geolocation) {
 
@@ -207,6 +300,7 @@
             displayMarker(locPosition, message);
         }
     }
+
 </script>
 </body>
 </html>
