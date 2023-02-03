@@ -21,9 +21,8 @@
 <body>
 <%@ include file ="../template/header.jsp" %>
 <div id="content">
-    <div class="detail head">
-
-        <div>
+    <div class="detail_head">
+        <div class="detail_head_admin">
             <%--            관리자--%>
             <c:choose>
                 <c:when test="${ loginUser.memberNo == 1}">
@@ -39,10 +38,9 @@
         <div class="head star">
             <i class="fa-solid fa-star"></i>
             <span id="star_rating"></span>
-
         </div>
-        <div class="head tag">
 
+        <div class="head tag">
             <c:forEach items="${resHashtagByAdmin}" var="hashtag">
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
@@ -53,66 +51,55 @@
             </c:forEach>
         </div>
     </div>
-    <div class="detail main">
+    <div class="detail_main">
         <div class="main img">
             <img src="${restaurantDetail.resImgUrl}">
         </div>
-        <div class="main infolist">
+        <div class="main info_list">
             <div class="info menu">
                 <i class="fa-solid fa-utensils"></i>
-                <span>주메뉴</span>
+                <span class="detail">주메뉴</span>
                 <span>${restaurantDetail.resFood}</span>
             </div>
             <div class="info address">
                 <i class="fa-solid fa-map-location-dot"></i>
-                <span>주소</span>
+                <span class="detail">주소</span>
                 <span>${restaurantDetail.address}</span>
             </div>
             <div class="info number">
                 <i class="fa-solid fa-phone"></i>
-                <span>전화번호</span>
+                <span class="detail">전화번호</span>
                 <span>${restaurantDetail.resPhone}</span>
             </div>
             <div class="info time">
                 <i class="fa-regular fa-clock"></i>
-                <span>영업시간</span>
+                <span class="detail">영업시간</span>
                 <span>${restaurantDetail.resTime}</span>
             </div>
             <div class="info way">
                 <i class="fa-solid fa-train-subway"></i>
-                <span>오시는 길</span>
+                <span class="detail">오시는 길</span>
                 <span>${restaurantDetail.transport}</span>
+            </div>
+            <div class="info web">
+                <i class="fa-solid fa-globe"></i>
+                <span class="detail">홈페이지</span>
+                <span><a href="${restaurantDetail.website}">${restaurantDetail.website}</a></span>
             </div>
         </div>
     </div>
+<%--    *****************************************리뷰*********************************************--%>
     <div class="detail review">
         <div class="review_btn_box">
-            <span>리뷰</span> <span id="rCount"></span>
+            <span>리뷰</span><span id="rCount"></span>
             <button id="review_btn"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
         </div>
-
-
-
-        <%--        <div class="review user"></div>--%>
-        <%--        <div class="review img"></div>--%>
-
         <div class="review content">
-            <table id="reviewArea" class="table" align="center">
+            <table id="reviewArea">
                 <tbody>
                 </tbody>
             </table>
         </div>
-
-
-        <%--        <div class="review tag"></div>--%>
-
-
-
-
-
-
-
-
     </div>
 
 
@@ -158,8 +145,7 @@
                 <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
             </div>
 
-            <button class="" id="review_insert" onclick="insertReview()">등록하기</button>
-
+            <button id="review_insert" onclick="insertReview()">등록하기</button>
 
         </div>
     </div>
@@ -225,24 +211,17 @@
                         imgList += '<img src="' + img + '" />'
                     }
 
-                    // str += '<tr>'
-                    //     + "<td>" + i.memberName + "</td>"
-                    //     + "<td><img src=\"" + i.profileImage + "\" /></td>"
-                    //     + "<td>" + i.reviewContent + "</td>"
-                    //     + "<td>" + hashtagList + "</td>"
-                    //     + "<td>" + i.starRating + "</td>"
-                    //     + "<td><img src=\"" + i.changeName + "\" /></td>"
-                    //     + "</tr>";
-
-
                     str += '<div>'
-                        + "<div>" + i.memberName + "</div>"
-                        + "<div> <img src=\"" + i.profileImage + "\"/> </div>"
-                        + "<div>" + i.reviewContent + "</div>"
-                        + "<div>" + hashtagList + "</div>"
-                        + "<div>" + i.starRating + "</div>"
-                        + "<div>" + imgList + "</div>"
-                        + "</div>";
+                        + '<div class="reply_header">'
+                        + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
+                        + '<div class="reply_user_name">' + i.memberName + '</div>'
+                        + '<div>' + i.starRating + '</div>'
+                        + '<div>' + i.createDate + '</div>'
+                        + '</div>'
+                        + '<div>' + i.reviewContent + '</div>'
+                        + '<div class="reply_img_list">' + imgList + '</div>'
+                        + '<div>' + hashtagList + '</div>'
+                        + '</div>';
                 }
                 $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
@@ -253,7 +232,7 @@
                 } else {
                     star_rating = Math.round(list.map(obj => obj['starRating'])
                         .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10
-                    star_rating += '/5'
+                    star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
             },
