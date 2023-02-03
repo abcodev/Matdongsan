@@ -1,8 +1,15 @@
 package com.project.board.dao;
 
+import com.project.board.dto.FreeBoardCountDto;
+import com.project.board.dto.FreeBoardListFilter;
+import com.project.board.dto.FreeBoardListRequest;
+import com.project.board.dto.FreeBoardListResponse;
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
+import com.project.common.template.PageInfoCombine;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.jdbc.Sql;
@@ -20,8 +27,12 @@ public class FreeBoardDao {
         return sqlSession.insert("freeBoardMapper.insertFboard", fb);
     }
 
-    public List<FreeBoard> selectFreeList(SqlSession sqlSession,Map<String,String> option) {
-            return sqlSession.selectList("freeBoardMapper.selectFreeList",option);
+    public List<FreeBoard> selectFreeList(SqlSession sqlSession,
+                                       PageInfoCombine pageInfoCombine,
+                                       FreeBoardListFilter filter) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+
+        return sqlSession.selectList("freeBoardMapper.selectFreeList",filter,rowBounds);
     }
 
     public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){
@@ -50,5 +61,17 @@ public class FreeBoardDao {
 
     public int deleteReply(SqlSession sqlSession, Reply reply){
         return sqlSession.update("freeBoardMapper.deleteReply", reply);
+    }
+
+    public void freeBoardCount(SqlSession sqlSession, FreeBoardCountDto count) {
+        sqlSession.insert("freeBoardMapper.freeBoardCount",count);
+    }
+
+    public List<HotWeek> hotWeekList(SqlSession sqlSession) {
+        return sqlSession.selectList("freeBoardMapper.hotWeekList");
+    }
+
+    public int selectFreeListCount(SqlSession sqlSession, FreeBoardListFilter filter) {
+        return sqlSession.selectOne("freeBoardMapper.selectFreeListCount",filter);
     }
 }

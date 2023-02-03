@@ -28,6 +28,7 @@
         <typeAlias type="com.project.board.vo.Report" alias="report"/>
         <typeAlias type="com.project.chat.dto.AdminChatRoom" alias="adminChatRoom"/>
         <typeAlias type="com.project.chat.dto.AdminChatMessage" alias="adminChatMessage"/>
+        <typeAlias type="com.project.board.vo.HotWeek" alias="hotWeek"/>
     </typeAliases>
 
     <mappers>

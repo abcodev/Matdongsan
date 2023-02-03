@@ -1,6 +1,8 @@
 package com.project.board.controller;
 
 import com.project.board.dto.FreeBoardCountDto;
+import com.project.board.dto.FreeBoardListRequest;
+import com.project.board.dto.FreeBoardListResponse;
 import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
@@ -19,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,18 +34,19 @@ public class FreeBoardController {
 
     @RequestMapping("/freeList")
     public ModelAndView selectFreeList(ModelAndView modelAndView,
+                                       @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                        @RequestParam(value = "state", defaultValue = "" ) String state,
                                        @RequestParam(value = "search", defaultValue = "") String search
     ){
-        Map<String,String> option = new HashMap<>();
-        option.put("state",state);
-        option.put("search",search);
-        System.out.println("map값" + option.get("state"));
-        modelAndView.addObject("freeBoardList", freeBoardService.selectFreeList(option));
+
+        FreeBoardListRequest req = new FreeBoardListRequest(currentPage,state,search);
+        FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
+
+        modelAndView.addObject("freeBoardList",resp.getFreeBoardList());
+        modelAndView.addObject("pi",resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
-        System.out.println("zzz"+StateList.values());
+        modelAndView.addObject("hotWeekList",freeBoardService.hotWeekList());
         modelAndView.setViewName("board/freeBoardList");
-        System.out.println("모델값"+modelAndView);
         return modelAndView;
     }
 
@@ -88,6 +92,7 @@ public class FreeBoardController {
         FreeBoard fb = freeBoardService.detailFreeBoard(fno);
         long memberNo = loginUser.getMemberNo();
         FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
+        freeBoardService.freeBoardCount(count);
         mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;
