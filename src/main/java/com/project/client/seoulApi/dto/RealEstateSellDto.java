@@ -59,7 +59,10 @@ public class RealEstateSellDto {
     @JsonProperty("RDEALER_LAWDNM")
     private String rdealerLawdnm;
 
-    // 도메인 로직
+    /**
+     * 도메인 로직
+     * 거래날짜 db 값 이후로 받아오기
+     */
     public boolean isAfter(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         LocalDate parsedDealYmd = LocalDate.parse(this.dealYmd, formatter);

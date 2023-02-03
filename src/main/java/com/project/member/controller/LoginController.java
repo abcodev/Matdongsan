@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
@@ -22,32 +21,31 @@ public class LoginController {
     private final MemberService memberService;
     private final OAuthClientService oAuthClientService;
 
-
-    /**
-     * 로그인 페이지 이동
-     */
     @RequestMapping(value = "/loginPage", method = {RequestMethod.GET, RequestMethod.POST})
     public String login() {
         return "member/loginPage";
     }
 
+    /*
+        LoginController ->(의존) OAuthClient(인터페이스) : 컴파일시점의 의존성
+        LoginController ->(의존) NAVER_OAuthClient(구체적클래스) : 런타임시점의 의존성
+        Upcasting , 다형성
+     */
     @RequestMapping(value = "/login/{provider}")
     public String redirectLoginPage(HttpSession session, @PathVariable String provider) {
-        // LoginController ->(의존) OAuthClient(인터페이스) : 컴파일시점의 의존성
-        // LoginController ->(의존) NAVER_OAuthClient(구체적클래스) : 런타임시점의 의존성
-        // Upcasting , 다형성
+
         OAuthClient oAuthClient = oAuthClientService.getClient(provider);
         String redirectUrl = oAuthClient.generateRedirectUrl(session);
         System.out.println("url : " + redirectUrl);
-        // redirectUrl 로 리다이렉션
-        return "redirect:" + redirectUrl;
+        return "redirect:" + redirectUrl; // redirectUrl 로 리다이렉션
     }
 
     @RequestMapping(value = "/{provider}/callback")
     public ModelAndView oauthLoginCallback(@RequestParam("code") String code,
                                            @RequestParam(value = "state", defaultValue = "") String state,
                                            @PathVariable String provider,
-                                           HttpSession session) {
+                                           HttpSession session
+    ) {
         ModelAndView mav = new ModelAndView();
         Member loginUser = memberService.login(session, provider, code, state);
         session.setAttribute("loginUser", loginUser);

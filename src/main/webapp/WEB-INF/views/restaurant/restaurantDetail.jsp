@@ -105,7 +105,6 @@
 
 
 
-
 </div>
 
 <!-- 리뷰 모달 -->
@@ -174,22 +173,8 @@
         selectReviewList();
     };
 
-</script>
 
-<script>
-    // 해시태그 최대 선택 개수 제한
-    $('input:checkbox[name=chk_hashtag]').click(function(){
-        // let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
 
-        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
-        if(cntEPT>3){
-            alert('해시태그는 최대 3개까지 선택 가능합니다.')
-            $(this).prop('checked', false);
-        }
-    });
-</script>
-
-<script>
     function selectReviewList() {
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/selectReview',
@@ -216,8 +201,10 @@
                         + '<div class="reply_header">'
                         + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
                         + '<div class="reply_user_name">' + i.memberName + '</div>'
-                        + '<div>' + i.starRating + '</div>'
+                        // + '<div>' + i.starRating + '</div>'
+                        + '<div>' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
                         + '<div>' + i.createDate + '</div>'
+                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
                         + '</div>'
                         + '<div>' + i.reviewContent + '</div>'
                         + '<div class="reply_img_list">' + imgList + '</div>'
@@ -276,6 +263,15 @@
             }
         });
     }
+
+    // 해시태그 최대 선택 개수 제한
+    $('input:checkbox[name=chk_hashtag]').click(function(){
+        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+        if(cntEPT>3){
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            $(this).prop('checked', false);
+        }
+    });
 
 
 </script>

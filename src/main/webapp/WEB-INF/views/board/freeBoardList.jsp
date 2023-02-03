@@ -189,11 +189,8 @@
                 },
                 dataType: 'html',
                 success : function (){
-
                 }
             })
-
-
         }
     })
 </script>

@@ -50,7 +50,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     /**
-     * 이미지 크롤링
+     * 맛집 이미지 크롤링
      */
     private void updateImageIfEmpty(Restaurant restaurant) {
         if (Objects.isNull(restaurant.getResImgUrl()) || restaurant.getResImgUrl().isEmpty()) {

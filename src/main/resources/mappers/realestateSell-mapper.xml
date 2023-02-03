@@ -4,16 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sellMapper">
 
-    <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
-        <result column="ESTATE_NO" property="estateNo"/>
-        <result column="ACC_YEAR" property="accYear"/>
-        <result column="ADDRESS" property="address"/>
-        <result column="BLDG_NM" property="bldgNm"/>
-        <result column="OBJ_AMT" property="objAmt"/>
-        <result column="BLDG_AREA" property="bldgArea"/>
-        <result column="GBN" property="gbn"/>
-    </resultMap>
-
     <resultMap type="RealEstateSell" id="realEstateSellResultSet">
         <result column="ACC_YEAR" property="accYear"/>
         <result column="SGG_CD" property="sggCd"/>
@@ -29,7 +19,20 @@
         <result column="BLDG_AREA" property="bldgArea"/>
         <result column="BUILD_YEAR" property="buildYear"/>
         <result column="HOUSE_TYPE" property="houseType"/>
+        <result column="FLOOR" property="floor"/>
         <result column="ADDRESS" property="address"/>
+    </resultMap>
+
+    <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
+        <result column="ESTATE_NO" property="estateNo"/>
+        <result column="ACC_YEAR" property="accYear"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="OBJ_AMT" property="objAmt"/>
+        <result column="BLDG_AREA" property="bldgArea"/>
+        <result column="GBN" property="gbn"/>
+        <result column="FLOOR" property="floor"/>
+        <result column="BUILD_YEAR" property="buildYear"/>
     </resultMap>
 
     <delete id="deleteAll">
@@ -39,7 +42,7 @@
     <insert id="batchInsert" parameterType="list">
         INSERT INTO REALESTATE_SELL
         (ESTATE_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BONBEON, BUBEON, BLDG_NM, DEAL_YMD,
-        OBJ_AMT, BLDG_AREA, BUILD_YEAR, HOUSE_TYPE)
+        OBJ_AMT, BLDG_AREA, BUILD_YEAR, HOUSE_TYPE, FLOOR)
         SELECT SEQ_SELL_NO.NEXTVAL, realEstateSell.* FROM (
         <foreach collection="list" item="r" separator="UNION ALL ">
             <![CDATA[
@@ -56,7 +59,8 @@
                         #{r.objAmt},
                         #{r.bldgArea},
                         #{r.buildYear},
-                        #{r.houseType}
+                        #{r.houseType},
+                        #{r.floor}
                     FROM dual
                 ]]>
         </foreach>
@@ -110,7 +114,9 @@
             BLDG_NM,
             DEAL_YMD,
             OBJ_AMT,
-            GBN
+            GBN,
+            FLOOR,
+            BUILD_YEAR
         FROM REALESTATE_SELL
         WHERE BLDG_NM = #{bldgNm}
             UNION ALL
@@ -119,7 +125,9 @@
             BLDG_NM,
             DEAL_YMD,
             RENT_FEE AS OBJ_AMT,
-            RENT_GBN AS GBN
+            RENT_GBN AS GBN,
+            FLR_NO AS FLOOR,
+            BUILD_YEAR
         FROM REALESTATE_RENT
         WHERE BLDG_NM = #{bldgNm}
         ORDER BY DEAL_YMD DESC

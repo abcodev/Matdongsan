@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">
-<jsp:include page="../template/font.jsp"></jsp:include>
+<jsp:include page="../template/font.jsp"/>
 
 <div id="restaurant_list_ajax">
     <div class="ajax_list_main">

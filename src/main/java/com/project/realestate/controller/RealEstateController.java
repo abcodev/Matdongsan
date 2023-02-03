@@ -111,12 +111,10 @@ public class RealEstateController {
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
                                          ModelAndView modelAndView
     ) {
-        List<String> pastList = realEstateService.selectPastList(estateNo);
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         modelAndView.setViewName("realestate/realestateDetailPage");
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
-        modelAndView.addObject("pastList", pastList);
         return modelAndView;
     }
 

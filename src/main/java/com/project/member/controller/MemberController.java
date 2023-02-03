@@ -10,14 +10,12 @@ import com.project.member.dto.MemberResponseDto;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.vo.Interest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
@@ -27,13 +25,10 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
-
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     @RequestMapping(value = "/myPage")
     public String myPage(HttpSession session, Model model){
@@ -65,9 +60,7 @@ public class MemberController {
 
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){
-
         model.addAttribute("stateList", StateList.values());
-
         return "member/memberModify";
     }
 
@@ -89,14 +82,8 @@ public class MemberController {
         }
     }
 
-
-
-
-
-
-
     /**
-     * 휴대폰 인증
+     * 정보수정 - 휴대폰 인증
      */
     @RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
     @ResponseBody
@@ -106,4 +93,13 @@ public class MemberController {
         return Integer.toString(randomNumber);
     }
 
+    /**
+     * 회원 탈퇴
+     */
+    @RequestMapping(value = "/member/delete")
+    @ResponseBody
+    public String deleteMember(){
+
+        return null;
+    }
 }

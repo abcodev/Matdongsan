@@ -28,7 +28,7 @@
         </div>
 
         <div class="dropdown">
-          <button class="dropdown-btn"><a href="">커뮤니티</a></button>
+          <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a></button>
           <div class="dropdown-submenu">
             <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
             <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
@@ -59,6 +59,7 @@
       </div>
     </nav>
     <div class="login">
+
       <c:choose>
         <c:when test="${ empty loginUser}">
           <div class="login_before">
@@ -66,12 +67,24 @@
           </div>
         </c:when>
         <c:otherwise>
-          <div class="login_after">
-            <img src="${loginUser.profileImage}" class="user_img">
-            <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
-            <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
-            <i class="fa-regular fa-bell"></i>
-          </div>
+
+          <c:if test="${loginUser.memberNo == 1}">
+            <div class="login_after">
+              <img src="${loginUser.profileImage}" class="user_img">
+              <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
+              <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+              <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+              <i class="fa-regular fa-bell"></i>
+            </div>
+          </c:if>
+          <c:if test="${loginUser.memberNo != 1}">
+            <div class="login_after">
+              <img src="${loginUser.profileImage}" class="user_img">
+              <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+              <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+              <i class="fa-regular fa-bell"></i>
+            </div>
+          </c:if>
         </c:otherwise>
       </c:choose>
 <%--      ******실시간 알림*******--%>

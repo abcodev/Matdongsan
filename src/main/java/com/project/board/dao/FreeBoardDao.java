@@ -31,7 +31,6 @@ public class FreeBoardDao {
                                        PageInfoCombine pageInfoCombine,
                                        FreeBoardListFilter filter) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-
         return sqlSession.selectList("freeBoardMapper.selectFreeList",filter,rowBounds);
     }
 

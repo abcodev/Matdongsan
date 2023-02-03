@@ -18,4 +18,7 @@ public class RealEstateDetailDto {
     private String gbn;
     private String dealYmd;
 
+    private String buildYear;
+    private String floor;
+
 }
