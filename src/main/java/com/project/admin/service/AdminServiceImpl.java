@@ -51,8 +51,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ArrayList<Admin> reportList(){
-        return adminDao.reportList(sqlSession);
+    public ArrayList<Admin> reportList(int fNo){
+        return adminDao.reportList(sqlSession,fNo);
     }
 
 
@@ -62,8 +62,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int deleteBoard(int freeBno){
-        return adminDao.deleteBoard(sqlSession, freeBno);
+    public int deleteQna(int fNo){
+        return adminDao.deleteQna(sqlSession, fNo);
+    }
+
+    @Override
+    public int deleteFree(int fNo){
+        return adminDao.deleteFree(sqlSession, fNo);
     }
 
 }

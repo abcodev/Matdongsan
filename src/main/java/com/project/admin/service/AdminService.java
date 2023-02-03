@@ -17,7 +17,7 @@ public interface AdminService {
 
 
 
-    public ArrayList<Admin> reportList();
+    public ArrayList<Admin> reportList(int fNo);
 
 
 
@@ -28,5 +28,7 @@ public interface AdminService {
 
     public int rListCount();
 
-    public int deleteBoard(int freeBno);
+    public int deleteQna(int fNo);
+
+    public int deleteFree(int fNo);
 }
