@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <th>건축년도</th>
-                    <td>${realEstateDetail.buildYear}</td>
+                    <td>${realEstateDetail.buildYear} 년</td>
                 </tr>
                 <tr>
                     <th>면적</th>
@@ -62,7 +62,7 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td>${realEstateDetail.floor}</td>
+                    <td>${realEstateDetail.floor} 층</td>
                 </tr>
                 <tr>
                     <th>거래일자</th>

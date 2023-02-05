@@ -125,31 +125,6 @@
         WHERE ESTATE_NO = #{estateNo}
     </select>
 
-<!--    <select id="selectPastList" resultMap="realEstateDtoResultSet">-->
-<!--        SELECT-->
-<!--            ESTATE_NO,-->
-<!--            BLDG_NM,-->
-<!--            DEAL_YMD,-->
-<!--            OBJ_AMT,-->
-<!--            GBN,-->
-<!--            FLOOR,-->
-<!--            BUILD_YEAR-->
-<!--        FROM REALESTATE_SELL-->
-<!--        WHERE BLDG_NM = #{bldgNm}-->
-<!--            UNION ALL-->
-<!--        SELECT-->
-<!--            ESTATE_NO,-->
-<!--            BLDG_NM,-->
-<!--            DEAL_YMD,-->
-<!--            RENT_FEE AS OBJ_AMT,-->
-<!--            RENT_GBN AS GBN,-->
-<!--            FLR_NO AS FLOOR,-->
-<!--            BUILD_YEAR-->
-<!--        FROM REALESTATE_RENT-->
-<!--        WHERE BLDG_NM = #{bldgNm}-->
-<!--        ORDER BY DEAL_YMD DESC-->
-<!--    </select>-->
-
 
     <select id="selectAgent" resultMap="agentResultSet">
         SELECT
@@ -164,6 +139,16 @@
         WHERE RA.BJDONG_NM = #{bjdongNm}
     </select>
 
+    <select id="avgSell" resultMap="realEstateSellResultSet">
+        SELECT AVG(OBJ_AMT),
+               SGG_NM
+        FROM REALESTATE_SELL
+        GROUP BY SGG_NM
+<!--        SELECT AVG(RENT_GTN),-->
+<!--               SGG_NM-->
+<!--        FROM REALESTATE_RENT-->
+<!--        GROUP BY SGG_NM-->
+    </select>
 
 
 </mapper>

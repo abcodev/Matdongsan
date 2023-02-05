@@ -11,10 +11,8 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -44,11 +42,11 @@ public class ReviewController {
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping("/restaurant/deleteReview")
+    @DeleteMapping ("/restaurant/deleteReview")
     @ResponseBody
-    public int deleteReview(Review review){
-        int result = reviewService.deleteReview(review);
-        return result;
+    public ModelAndView deleteReview(Review review, ModelAndView modelAndView){
+        reviewService.deleteReview(review);
+        return modelAndView;
     }
 
 }

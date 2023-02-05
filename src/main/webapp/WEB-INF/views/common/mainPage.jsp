@@ -49,8 +49,8 @@
                 <c:choose>
                     <c:when test="${loginUser.memberNo == 1}">
                         <div class="dropdown">
-                            <button class="dropdown-btn"><a
-                                    href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
+                            <button class="dropdown-btn">
+                                <a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
                             </button>
                         </div>
                     </c:when>
@@ -269,10 +269,10 @@
     <div class="side lookList">
         <c:choose>
             <c:when test="${loginUser == null}">
-                <h3>인기 부동산 목록</h3>
+                <h3>인기 아파트 단지</h3>
 
-                <c:forEach var="mostInterest" items="${mostInterest}">
-                    <a href="">${mostInterest.bldgNm}</a><br>
+                <c:forEach var="mostInterest" end="4" items="${mostInterest}" varStatus="status">
+                    <a href="">${status.count}. ${mostInterest.bldgNm}</a><br>
                 </c:forEach>
 
             </c:when>

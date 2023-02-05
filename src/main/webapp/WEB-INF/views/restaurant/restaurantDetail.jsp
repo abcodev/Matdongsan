@@ -319,11 +319,12 @@
         let revNo = $(button).parent().parent().find("[name='revNo']").val();
         $.ajax({
             url : "${pageContext.request.contextPath}/restaurant/deleteReview",
-            type : "post",
+            type : "delete",
             data : {
                 resNo : ${restaurantDetail.resNo},
                 revNo : revNo,
-                memberNo : '${loginUser.memberNo}'},
+                memberNo : '${loginUser.memberNo}'
+            },
             success : function (result) {
                 console.log(result);
                 alert("리뷰 삭제 성공");

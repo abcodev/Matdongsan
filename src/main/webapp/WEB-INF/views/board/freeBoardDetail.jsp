@@ -107,13 +107,22 @@
         </div>
         <div class="reply_foot">
             <div>
-                <c:if test="${not empty loginUser}">
-                    <div class="my_img">
-                        <img src="${loginUser.profileImage}">
-                    </div>
-                    <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
-                    <button onclick="insertReply();">댓글 등록</button>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not empty loginUser}">
+                        <div class="my_img">
+                            <img src="${loginUser.profileImage}">
+                        </div>
+                        <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
+                        <button onclick="insertReply();">댓글 등록</button>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="my_img">
+                            <img src="">
+                        </div>
+                        <input name="replyContent" type="text" disabled placeholder="로그인 후 이용이 가능합니다.">
+                        <button onclick="insertReply();" disabled>댓글 등록</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

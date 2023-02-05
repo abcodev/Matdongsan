@@ -40,7 +40,8 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model) {
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model
+    ) {
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
