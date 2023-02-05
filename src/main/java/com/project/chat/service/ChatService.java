@@ -63,6 +63,12 @@ public class ChatService {
 
 
     public void sendMessage(MessageDto data) {
+        ChatingRoom chatingRoom = chatRepository.selectByRoomNo(data.getRoomNo());
+        Member sender = memberDao.select(data.getMemberNo());
+        long receiverNo = (data.getMemberNo() == 1) ? chatingRoom.getMemberNo() : 1;
+
+        AlarmTemplate template = AlarmTemplate.generateNewChatMessageTemplate(data.getRoomNo(), receiverNo, sender.getMemberName());
+        alarmService.send(template);
         chatRepository.sendMessage(data);
     }
 

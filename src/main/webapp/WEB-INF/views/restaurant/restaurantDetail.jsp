@@ -22,8 +22,9 @@
 <%@ include file ="../template/header.jsp" %>
 <div id="content">
     <div class="detail_head">
+
+        <%--관리자 모드--%>
         <div class="detail_head_admin">
-            <%--            관리자--%>
             <c:choose>
                 <c:when test="${ loginUser.memberNo == 1}">
                     <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
@@ -38,7 +39,6 @@
         <div class="head star">
             <i class="fa-solid fa-star"></i>
             <span id="star_rating"></span>
-
         </div>
         <div class="head tag">
 
@@ -46,10 +46,12 @@
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
             </c:forEach>
-            <c:forEach items="${resHashtagByReview}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-            </c:forEach>
+            <span id = "hashtag_by_review">
+                <c:forEach items="${resHashtagByReview}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+                </c:forEach>
+            </span>
         </div>
     </div>
     <div class="detail_main">
@@ -107,7 +109,7 @@
 
 </div>
 
-<!-- 리뷰 모달 -->
+<%--리뷰모달--%>
 <div class="black_bg"></div>
 <div class="modal_wrap">
     <div id="modal_content">
@@ -201,10 +203,10 @@
                         + '<div class="reply_header">'
                         + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
                         + '<div class="reply_user_name">' + i.memberName + '</div>'
-                        // + '<div>' + i.starRating + '</div>'
-                        + '<div>' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
+                        + '<div class="reply_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
                         + '<div>' + i.createDate + '</div>'
                         + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
+                        + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
                         + '</div>'
                         + '<div>' + i.reviewContent + '</div>'
                         + '<div class="reply_img_list">' + imgList + '</div>'
@@ -223,6 +225,27 @@
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
+
+                const hashtag_list = list.flatMap(obj => obj['hashtags'])
+                const hashtag_count = {}
+                hashtag_list.forEach(hashtag => {
+                    if (hashtag_count[hashtag] === undefined) {
+                        hashtag_count[hashtag] = 1
+                    } else {
+                        hashtag_count[hashtag] += 1
+                    }
+                });
+                const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
+                items.sort((first, second) => second[1] - first[1]);
+                const keys = items.map((e) => e[0]);
+                let review_hashtag_contents = '';
+
+                keys.slice(0, 2).forEach(hashtag => {
+                    review_hashtag_contents +=
+                        '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
+                        '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
+                });
+                $('#hashtag_by_review').html(review_hashtag_contents);
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -231,7 +254,69 @@
     }
 
 
+
+
+    <%--function selectReviewList() {--%>
+    <%--    $.ajax({--%>
+    <%--        url: '${pageContext.request.contextPath}/restaurant/selectReview',--%>
+    <%--        type: 'GET',--%>
+    <%--        data: {--%>
+    <%--            resNo: ${restaurantDetail.resNo}--%>
+    <%--        },--%>
+    <%--        dataType: "json",--%>
+    <%--        success: function (list) {--%>
+    <%--            console.log(list);--%>
+    <%--            let str = "";--%>
+    <%--            for (let i of list) {--%>
+    <%--                console.log(i)--%>
+    <%--                let hashtagList = '';--%>
+    <%--                for (let hashtag of i.hashtags) {--%>
+    <%--                    hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';--%>
+    <%--                }--%>
+    <%--                let imgList = '';--%>
+    <%--                for (let img of i.changeNames) {--%>
+    <%--                    imgList += '<img src="' + img + '" />'--%>
+    <%--                }--%>
+
+    <%--                str += '<div>'--%>
+    <%--                    + '<div class="reply_header">'--%>
+    <%--                    + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'--%>
+    <%--                    + '<div class="reply_user_name">' + i.memberName + "<input type='hidden' name='revNo' value=" + i.revNo + "> '</div>"--%>
+    <%--                    // + '<div>' + i.starRating + '</div>'--%>
+    <%--                    + '<div>' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'--%>
+    <%--                    + '<div>' + i.createDate + '</div>'--%>
+    <%--                    + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))--%>
+    <%--                    + '</div>'--%>
+    <%--                    + '<div>' + i.reviewContent + '</div>'--%>
+    <%--                    + '<div class="reply_img_list">' + imgList + '</div>'--%>
+    <%--                    + '<div>' + hashtagList + '</div>'--%>
+    <%--                    + '</div>';--%>
+    <%--            }--%>
+    <%--            $("#reviewArea tbody").html(str);--%>
+    <%--            $("#rCount").html(list.length);--%>
+
+    <%--            let star_rating;--%>
+    <%--            if (list.length === 0) {--%>
+    <%--                star_rating = '별점을 남겨주세요!'--%>
+    <%--            } else {--%>
+    <%--                star_rating = Math.round(list.map(obj => obj['starRating'])--%>
+    <%--                    .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10--%>
+    <%--                star_rating += ' / 5'--%>
+    <%--            }--%>
+    <%--            $('#star_rating').html(star_rating)--%>
+    <%--        },--%>
+    <%--        error: function () {--%>
+    <%--            console.log("리뷰조회 ajax통신 실패");--%>
+    <%--        }--%>
+    <%--    });--%>
+    <%--}--%>
+
+
+
+
     function insertReview() {
+
+
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function() {
@@ -274,7 +359,32 @@
     });
 
 
+
+    // 관리자 - 리뷰삭제
+    <%--function deleteReply(button){--%>
+
+    <%--    let revNo = $(button).parent().parent().find("[name='revNo']").val();--%>
+
+    <%--    $.ajax({--%>
+    <%--        url : "${pageContext.request.contextPath}/restaurant/deleteReview",--%>
+    <%--        type : "post",--%>
+    <%--        data : {resNo : ${restaurantDetail.resNo},--%>
+    <%--            revNo : revNo,--%>
+    <%--            memberNo : '${loginUser.memberNo}'},--%>
+    <%--        success : function (result){--%>
+    <%--            console.log(result);--%>
+    <%--            alert("리뷰 삭제 성공");--%>
+    <%--            location.href = "${pageContext.request.contextPath}/restaurant/selectReview" + ${restaurantDetail.resNo};--%>
+    <%--        },--%>
+    <%--        error : function (){--%>
+    <%--            alert("리뷰 삭제 실패");--%>
+    <%--        }--%>
+    <%--    });--%>
+    <%--}--%>
 </script>
+
+
+
 
 <%--<script>--%>
 <%--    $(":radio[name='rating'][value='" + r.revScore + "']").attr('checked', true);--%>

@@ -6,5 +6,5 @@ package com.project.alarm.type;
     AlarmType + TargetNo -> 이동시킬 리소스 찾기
  */
 public enum AlarmType {
-    NEW_CHAT_MESSAGE, TEST
+    NEW_QUESTION, NEW_ANSWER;
 }

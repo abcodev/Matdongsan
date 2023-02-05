@@ -17,6 +17,20 @@
         <result column="CREATED_DATE" property="createdDate"/>
     </resultMap>
 
+    <update id="read" parameterType="_long">
+        UPDATE ALARM SET IS_READ = 1 WHERE ALARM_NO = #{alarmNo}
+    </update>
+
+    <update id="readAll" parameterType="_long">
+        UPDATE ALARM SET IS_READ = 1 WHERE MEMBER_NO = #{memberNo}
+    </update>
+
+    <select id="selectByAlarmNo" parameterType="_long" resultMap="alarmResultSet">
+        SELECT *
+        FROM ALARM
+        WHERE ALARM_NO = #{alarmNo}
+    </select>
+
     <select id="selectList" parameterType="_long" resultMap="alarmResultSet">
         SELECT *
         FROM ALARM
@@ -28,4 +42,16 @@
         VALUES (SEQ_ALARM_NO.NEXTVAL, #{memberNo}, #{alarmType}, #{targetNo}, #{isRead}, #{isDeleted}, #{title}, #{contents}, #{createdDate})
     </insert>
 
+    <update id="delete" parameterType="_long">
+        UPDATE ALARM
+        SET IS_DELETED = 1
+        WHERE ALARM_NO = #{alarmNo}
+    </update>
+
+    <update id="deleteIfRead" parameterType="_long">
+        UPDATE ALARM
+        SET IS_DELETED = 1
+        WHERE MEMBER_NO = #{memberNo}
+            AND IS_READ = 1
+    </update>
 </mapper>

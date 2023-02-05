@@ -62,4 +62,8 @@ public class ChatRepository {
     public List<AdminChatMessage> adminMessageList(String roomNo) {
         return sqlSession.selectList("chatMapper.adminMessageList",roomNo);
     }
+
+    public ChatingRoom selectByRoomNo(String roomNo) {
+        return sqlSession.selectOne("chatMapper.selectByRoomNo", roomNo);
+    }
 }

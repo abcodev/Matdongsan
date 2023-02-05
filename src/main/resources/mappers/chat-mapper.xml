@@ -26,6 +26,12 @@
         <result column="GRADE" property="grade"/>
     </resultMap>
 
+    <select id="selectByRoomNo" parameterType="String" resultMap="chatroomResultSet">
+            SELECT *
+            FROM CHAT_ROOM
+            WHERE CHAT_ROOM_NO = #{roomNo}
+    </select>
+
     <select id="roomCheck" resultMap="chatroomResultSet">
         SELECT
             CHAT_ROOM_NO,
