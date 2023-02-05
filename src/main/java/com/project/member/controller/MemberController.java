@@ -96,8 +96,7 @@ public class MemberController {
     /**
      * 회원 탈퇴
      */
-    @RequestMapping(value = "/member/delete")
-    @ResponseBody
+    @DeleteMapping(value = "/member/delete")
     public String deleteMember(){
 
         return null;

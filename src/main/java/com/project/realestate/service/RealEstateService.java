@@ -3,6 +3,7 @@ package com.project.realestate.service;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
+import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.vo.RealEstateSell;
 import com.project.restaurant.vo.Restaurant;
@@ -36,4 +37,6 @@ public interface RealEstateService {
     void saveInterest(RealEstateInterestRequest req, Member loginUser);
 
     List<Interest> getMostInterest();
+
+    List<RealEstateAgent> selectAgentList();
 }

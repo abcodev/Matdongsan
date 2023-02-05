@@ -5,6 +5,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
+import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.dao.RealEstateDao;
 import lombok.RequiredArgsConstructor;
@@ -92,6 +93,11 @@ public class RealEstateServiceImpl implements RealEstateService{
     @Override
     public List<Interest> getMostInterest() {
         return interestEstateDao.getMostInterest();
+    }
+
+    @Override
+    public List<RealEstateAgent> selectAgentList() {
+        return realEstateDao.selectAgentList();
     }
 
 

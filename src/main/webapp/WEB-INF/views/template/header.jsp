@@ -50,16 +50,9 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-                <script>
-                    // TODO : 로그인 된 후에만되도록 분기문 필요
-                    const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-                    sse.addEventListener('realtime_alarm', (event) => {
-                        console.log(event);
-                    })
-                </script>
-
             </div>
         </nav>
+
         <div class="login">
 
             <c:choose>
@@ -69,72 +62,58 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-
-                    <c:if test="${loginUser.memberNo == 1}">
-                        <div class="login_after">
-                            <img src="${loginUser.profileImage}" class="user_img">
+                    <div class="login_after">
+                        <img src="${loginUser.profileImage}" class="user_img">
+                        <c:if test="${loginUser.memberNo == 1}">
                             <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
-                            <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
-                            <i class="fa-regular fa-bell"></i>
-                        </div>
-                    </c:if>
-                    <c:if test="${loginUser.memberNo != 1}">
-                        <div class="login_after">
-                            <img src="${loginUser.profileImage}" class="user_img">
+                        </c:if>
+                        <c:if test="${loginUser.memberNo != 1}">
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
-                            <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
-                            <i class="fa-regular fa-bell"></i>
-                        </div>
-                    </c:if>
-                </c:otherwise>
-            </c:choose>
-            <%--      ******실시간 알림*******--%>
-            <div class="alert_box">
-                <div class="alert_box_header">
-                    <span>전체알림</span>
-                    <span>읽은 알림 삭제</span>
-                    <span><i class="fa-solid fa-x"></i></span>
-                </div>
-                <div class="alert_box_body">
-                    <div class="alert_list">
-                        <div class="new_alert">
-                            <div>
-                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>내 글에 댓글 작성됨</span>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </div>
-                            <span class="alert_date">1월 27일 </span>
-                        </div>
-                        <div class="new_alert">
-                            <div>
-                                <span class="alert_content"><i
-                                        class="fa-solid fa-circle-dot"></i>내가 찜한 부동산의 정보 업데이트</span>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </div>
-                            <span class="alert_date">1월 27일 </span>
-                        </div>
-                        <div class="new_alert">
-                            <div>
-                                <span class="alert_content"><i class="fa-solid fa-circle-dot"></i>1:1 채팅 문의 답변</span>
-                                <i class="fa-regular fa-trash-can"></i>
-                            </div>
-                            <span class="alert_date">1월 27일 </span>
+                        </c:if>
+                        <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                        <div id="alarm_place">
+
                         </div>
                     </div>
-                </div>
-            </div>
+                </c:otherwise>
+            </c:choose>
         </div>
+
+        <script>
+
+
+            let alarmIsOpen = false;
+            window.onload = () => {
+                retrieveAlarmList();
+            }
+
+            const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+            sse.addEventListener('realtime_alarm', (event) => {
+                retrieveAlarmList();
+                console.log(event);
+            });
+
+            function retrieveAlarmList() {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/alarmList',
+                    method: 'GET',
+                    success(data) {
+                        const html = jQuery('<div>').html(data);
+                        const contents = html.find('div#alarm_list_ajax').html()
+                        $('#alarm_place').html(contents)
+                        if (alarmIsOpen) {
+                            $(".alert_box").toggle("scale");
+                        }
+                    }
+                });
+            }
+
+
+
+        </script>
+
     </div>
 </header>
-<script>
-    <%-- 실시간 알림 --%>
-    $(".fa-bell").click(function () {
-        $(".alert_box").toggle("scale");
-    });
-
-    $(".fa-x").click(function () {
-        $(".alert_box").toggle("scale");
-    });
-</script>
 </body>
 </html>

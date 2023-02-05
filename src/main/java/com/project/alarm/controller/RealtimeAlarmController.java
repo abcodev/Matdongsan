@@ -51,7 +51,6 @@ public class RealtimeAlarmController {
      *  1. 알람 읽음처리 API
      *  2. 알람 삭제 API
      */
-
     @GetMapping("/alarm/readAll")
     public ResponseEntity<Void> readAllAlarm(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");

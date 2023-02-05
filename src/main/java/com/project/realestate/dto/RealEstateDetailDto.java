@@ -18,6 +18,8 @@ public class RealEstateDetailDto {
     private String gbn;
     private String dealYmd;
 
+    private String bjdongNm;
+
     private String buildYear;
     private String floor;
 

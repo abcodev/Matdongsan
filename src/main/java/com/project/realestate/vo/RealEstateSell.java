@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
 public class RealEstateSell {
 
+    private String estateNo;
     private String accYear;
     private String sggCd;
     private String sggNm;
@@ -27,12 +27,10 @@ public class RealEstateSell {
     private String bldgArea;
     private String buildYear;
     private String houseType;
-
     private String floor;
-
-    private String estateNo;
-    private String address;
     private String gbn;
+
+    private String address;
     private String subAddress;
 
 

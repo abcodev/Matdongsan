@@ -4,6 +4,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
+import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
@@ -66,6 +67,10 @@ public class RealEstateDao {
 
     public List<String> selectPastList(String bldgNm) {
         return sqlSession.selectList("sellMapper.selectPastList", bldgNm);
+    }
+
+    public List<RealEstateAgent> selectAgentList() {
+        return sqlSession.selectList("sellMapper.selectAgent");
     }
 }
 

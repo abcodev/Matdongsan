@@ -3,6 +3,7 @@ package com.project.realestate.controller;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
+import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +29,7 @@ public class RealEstateController {
 
     @RequestMapping
     public String realEstatePage(Model model) {
-
-        model.addAttribute("localList", StateList.values());
-
+        model.addAttribute("localList",StateList.values());
         return "realestate/realestateList";
     }
 
@@ -107,13 +106,14 @@ public class RealEstateController {
         );
     }
 
-    @RequestMapping("/detail")
+    @GetMapping("/detail")
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
                                          ModelAndView modelAndView
     ) {
-
+        List<RealEstateAgent> agentList = realEstateService.selectAgentList();
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         modelAndView.setViewName("realestate/realestateDetailPage");
+        modelAndView.addObject("agentList",agentList);
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
         return modelAndView;
     }

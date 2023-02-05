@@ -1,5 +1,7 @@
 package com.project.board.service;
 
+import com.project.alarm.dto.AlarmTemplate;
+import com.project.alarm.service.AlarmService;
 import com.project.board.dao.FreeBoardDao;
 import com.project.board.dto.FreeBoardCountDto;
 import com.project.board.dto.FreeBoardListFilter;
@@ -15,9 +17,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 @Service
@@ -26,8 +27,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     private final FreeBoardDao freeBoardDao;
     private final SqlSession sqlSession;
-
     private static final int DEFAULT_RES_SIZE = 7;
+
+    private final AlarmService alarmService;
 
     @Override
     public FreeBoardListResponse selectFreeList(FreeBoardListRequest req) {
@@ -49,8 +51,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     public int insertReply(Reply r){
+
+        // 내 글에 댓글이 달릴 때 (알림 받으려면 필요한것: 댓글이 달린 글번호의 멤버번호)
+//        FreeBoard freeBoard = new FreeBoard();
+//        long receiverNo = (freeBoard.getMemberNo());
+//        if(r.getFreeBno() == freeBoard.getBoardNo()) {
+//            AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
+//            alarmService.send(template);
+//        }
         return freeBoardDao.insertReply(sqlSession, r);
     }
+
+
 
     public ArrayList<Reply> selectReplyList(int fno){
         return  freeBoardDao.selectReplyList(sqlSession, fno);

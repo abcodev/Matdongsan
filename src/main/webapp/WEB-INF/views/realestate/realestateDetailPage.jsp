@@ -79,7 +79,13 @@
 
         <div class="info_table foot">
 
-            부동산 리스트 자리
+            <div><span>제휴 부동산</span></div>
+            <tr>
+                <th>상호명</th>
+                <c:forEach var="agentList" items="${ agentList }">
+                <td class="rno" >${ agentList.agentName } </td>
+                </c:forEach>
+            </tr>
 
         </div>
     </div>
