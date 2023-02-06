@@ -23,7 +23,7 @@
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>커뮤니티 질문게시판</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
-    <jsp:include page="../template/font.jsp"></jsp:include>
+    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
 <%@ include file ="../template/header.jsp" %>

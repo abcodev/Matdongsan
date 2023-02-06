@@ -6,7 +6,7 @@ import lombok.Data;
 public class Admin {
 
     private int reportNo;
-    private int freeBno;
+    private int fNo;
     private int memberNo;
     private int reportUserNo;
     private String reportContent;

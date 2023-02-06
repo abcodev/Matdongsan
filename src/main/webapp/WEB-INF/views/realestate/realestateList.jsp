@@ -6,16 +6,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부동산 리스트</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateList.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
-    <title>부동산</title>
     <%@ include file ="../template/header.jsp" %>
-
 </head>
 <body>
 
@@ -70,7 +70,6 @@
                 //console.log(jsonResult);
                 // 필요한  데이터별로 가공처리
                 // array.map() --> list데이터로부터 내가 원하는 형태의 데이터로 가공해서 값을 반환가능
-
                 address = result.map(function (obj){
                     return obj.address;
                 });
@@ -83,10 +82,6 @@
                     return obj.buildName;
                 });
 
-                console.log(address);
-                console.log(subAddress);
-                console.log(buildName);
-
                 searchResultMap(address, subAddress, buildName);
             }
 
@@ -98,25 +93,25 @@
         <div id="search_box">
             <div class="search city">
                 <select name="selectOption1" id="selectOption1" onchange="get_option2(this.value)">
-                    <option value="">전체</option>
+                    <option value="">자치구 선택</option>
                     <c:forEach var="localList" items="${localList}">
                         <option value="${localList}">${localList}</option>
                     </c:forEach>
                 </select>
                 <select name="selectOption2" id="selectOption2">
-                    <option value="">전체</option>
+                    <option value="">동 선택</option>
                 </select>
             </div>
             <div class="search option">
                 <select name="rentType" id="rentType" onchange="optionType(this)">
-                    <option value="">전체</option>
+                    <option value="">거래 타입</option>
                     <option value="매매">매매</option>
                     <option value="전세">전세</option>
                     <option value="월세">월세</option>
                 </select>
 
                 <select name="rentGtn" id="rentGtn">
-                    <option value="">가격(만원)</option>
+                    <option value="">거래 가격(만원)</option>
                 </select>
 
                 <select name="chooseType" id="chooseType">
@@ -129,6 +124,16 @@
             </div>
             <div class="btn_box">
                 <button onclick="retrieveRealEstate(1); searchList();">조회</button>
+            </div>
+        </div>
+        <div class="table_area">
+            <div class="estate_table">
+
+            </div>
+        </div>
+        <div class="freeBoard_area">
+            <div class="freeBoard">
+
             </div>
         </div>
     </div>
@@ -277,23 +282,6 @@
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-        <%--var listData1 = [--%>
-        <%--    <c:forEach items="${result}" var="list">--%>
-        <%--    '${list.subAddress}',--%>
-        <%--    </c:forEach>--%>
-        <%--];--%>
-
-        <%--var listData2 = [--%>
-        <%--    <c:forEach items="${result}" var="list2">--%>
-        <%--    '${list2.address}',--%>
-        <%--    </c:forEach>--%>
-        <%--];--%>
-
-        <%--var listData3 = [--%>
-        <%--    <c:forEach items="${result}" var="list2">--%>
-        <%--    '${list2.buildName}',--%>
-        <%--    </c:forEach>--%>
-        <%--];--%>
 
         // 주소로 좌표를 검색합니다
         address.forEach(function (subAddress, index) {
@@ -319,7 +307,7 @@
                     var content = '<div class="wrap">' +
                         '    <div class="info">' +
                         '           <div class="title">' +
-                        '               <div class="bldgNm">'+'건물명  : '+ buildName[index]+ '</div>'+
+                        '               <div class="bldgNm">'+ buildName[index]+ '아파트' + '</div>'+
                         '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
                         '           </div>' +
                         '            <div class="desc">' +
@@ -356,10 +344,7 @@
                 }
             })
         });
-
-
     }
-
 </script>
 
 </body>

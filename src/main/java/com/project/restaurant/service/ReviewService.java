@@ -91,5 +91,11 @@ public class ReviewService {
                 .limit(2) // 상위 2개 잘라내기
                 .collect(Collectors.toList());
     }
+
+
+    public int deleteReview(Review review) {
+        return reviewDao.deleteReview(review);
+    }
+
 }
 

@@ -24,9 +24,9 @@
     </div>
     <div class="side best">
         <p><i class="fa-solid fa-crown"></i>주간인기글 BEST 3</p>
-        <a href="">1번 인기게시글</a>
-        <a href="">2번 인기게시글</a>
-        <a href="">3번 인기게시글</a>
+        <c:forEach items="${hotWeekList}" var="hotWeekList" varStatus="status">
+            <a href="${pageContext.request.contextPath}/board/freeList/detail/${hotWeekList.freeBno}">${status.count}. ${hotWeekList.boardTitle}</a>
+        </c:forEach>
     </div>
     <div class="content head">
         <select name="selectState" id="selectState">
@@ -45,9 +45,9 @@
         <div class="boardlist_area">
             <div id="boardlist_top">
                 <div id="listset">
-                    <input type="checkbox" id="view"><label for="view">조회수 많은 순</label>
-                    <input type="checkbox" id="reply"><label for="reply">댓글 많은 순</label>
-                    <input type="checkbox" id="recent"><label for="recent">최신순</label>
+                    <input type="checkbox" name="arrayList" id="view" value="view"><label for="view">조회수 많은 순</label>
+                    <input type="checkbox" name="arrayList" id="reply" value="reply"><label for="reply">댓글 많은 순</label>
+                    <input type="checkbox" name="arrayList" id="recent" value="recent"><label for="recent">최신순</label>
                 </div>
                 <div id="writebtn">
                     <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
@@ -69,8 +69,8 @@
                                 <p class="info writer">${freeBoardList.boardWriter}</p>
                                 <p class="info area">${freeBoardList.boardArea}</p>
                                 <p class="info date">${freeBoardList.boardDate}</p>
-                                <p class="info view"><i class="fa-regular fa-eye"></i>조회수</p>
-                                <p class="info reply"><i class="fa-regular fa-comment"></i>댓글수</p>
+                                <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoardList.count}</p>
+                                <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoardList.replyCount}</p>
                             </div>
                         </div>
                     </c:forEach>
@@ -79,11 +79,61 @@
         </div>
     </div>
     <div class="paging">
+        <ul class="pagination">
+            <c:choose>
+                <c:when test="${ pi.currentPage eq 1 }">
+                    <li class="page-item disabled">Previous</li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage - 1})">Previous</li>
+                </c:otherwise>
+            </c:choose>
+
+            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                <li class="page-item" onclick="retrieveFreeBoards(${item})">${item }</li>
+            </c:forEach>
+
+            <c:choose>
+                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage + 1})">Next</li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
 
     </div>
 </div>
 
 <script>
+    function retrieveFreeBoards(current_page) {
+        console.log($("#freeBoardSearch").val());
+        $.ajax({
+            url: '${pageContext.request.contextPath}/board/freeList',
+            method: 'GET',
+            data: {
+                cpage: current_page,
+                state: $("#selectState").val(),
+                search: $("#freeBoardSearch").val()
+            },
+            success(data) {
+                $('#boardlist_main').empty();
+                console.log($(data).find("#boardlist_main"));
+                console.log($(data).find(".board_info").length);
+                if($(data).find(".board_info").length >0) {
+                    $('#boardlist_main').html($(data).find("#boardlist_main"))
+                }else{
+                    $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
+                }
+                // $('.paging').empty();
+                // $('.paging').html($(data).find('.paging'))
+
+            }
+        })
+    }
+
+
     function movePage() {
         location.href = '${pageContext.request.contextPath}/board/freeList/enrollForm';
     }
@@ -107,11 +157,44 @@
                 }else{
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
+                $('.paging').empty();
+                $('.paging').html($(data).find('.paging'))
 
             }
         })
     }
+
+
+    $('.boardlist').click(function (){
+        console.log($(this).children('p:eq(0)').html());
+        let fno = $(this).children('p:eq(0)').html();
+        let member = $(this).children('p:eq(1)').html();
+        location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+    })
+
+
+    $('input[type="checkbox"][name="arrayList"]').click(function(){
+        if($(this).prop('checked')){
+            $('input[type="checkbox"][name="arrayList"]').prop('checked',false);
+            $(this).prop('checked',true);
+            console.log($(this).html());
+            console.log($(this).val());
+            let array = $(this).val();
+
+            $.ajax({
+                url : '${pageContext.request.contextPath}/select/arrayList',
+                contentType: "application/json; charset=UTF-8",
+                data: {
+                    'select' : array
+                },
+                dataType: 'html',
+                success : function (){
+                }
+            })
+        }
+    })
 </script>
+
 
 </body>
 </html>

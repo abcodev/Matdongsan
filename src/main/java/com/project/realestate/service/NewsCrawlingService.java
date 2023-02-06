@@ -1,5 +1,5 @@
 
-package com.project.main;
+package com.project.realestate.service;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

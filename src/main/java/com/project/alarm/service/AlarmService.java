@@ -30,4 +30,20 @@ public class AlarmService {
         alarmEventProducer.produce(template.getMemberNo());
     }
 
+    public Alarm read(long alarmNo) {
+        alarmRepository.read(alarmNo);
+        return alarmRepository.selectByAlarmNo(alarmNo);
+    }
+
+    public void readAll(long memberNo) {
+        alarmRepository.readAll(memberNo);
+    }
+
+    public void delete(long alarmNo) {
+        alarmRepository.delete(alarmNo);
+    }
+
+    public void deleteIfRead(long memberNo) {
+        alarmRepository.deleteIfRead(memberNo);
+    }
 }

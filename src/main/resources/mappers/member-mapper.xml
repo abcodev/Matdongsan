@@ -79,14 +79,13 @@
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
     </select>
+
     <select id="select" parameterType="Map" resultMap="memberResultSet">
         SELECT *
         FROM MEMBER
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}
     </select>
-
-
 
     <select id="loginMember" parameterType="member" resultMap="memberResultSet">
         SELECT
@@ -109,10 +108,7 @@
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
-
-
-
-
+    <!--최근 접속일-->
     <update id="updateRecentAccess" parameterType="Map">
         UPDATE MEMBER
         SET
@@ -164,7 +160,5 @@
                 LEFT OUTER JOIN INTEREST I
         ON M.MEMBER_NO = I.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
-
-
     </select>
 </mapper>

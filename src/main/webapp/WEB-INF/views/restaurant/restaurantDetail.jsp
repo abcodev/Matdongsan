@@ -21,10 +21,10 @@
 <body>
 <%@ include file ="../template/header.jsp" %>
 <div id="content">
-    <div class="detail head">
+    <div class="detail_head">
 
-        <div>
-            <%--            관리자--%>
+        <%--관리자 모드--%>
+        <div class="detail_head_admin">
             <c:choose>
                 <c:when test="${ loginUser.memberNo == 1}">
                     <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
@@ -39,7 +39,6 @@
         <div class="head star">
             <i class="fa-solid fa-star"></i>
             <span id="star_rating"></span>
-
         </div>
         <div class="head tag">
 
@@ -51,79 +50,76 @@
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
             </c:forEach>
+
+            <%--해시태그 비동기 갱신--%>
+<%--            <span id = "hashtag_by_review">--%>
+<%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
+<%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
+<%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
+<%--                </c:forEach>--%>
+<%--            </span>--%>
         </div>
     </div>
-    <div class="detail main">
+    <div class="detail_main">
         <div class="main img">
             <img src="${restaurantDetail.resImgUrl}">
         </div>
-        <div class="main infolist">
+        <div class="main info_list">
             <div class="info menu">
                 <i class="fa-solid fa-utensils"></i>
-                <span>주메뉴</span>
+                <span class="detail">주메뉴</span>
                 <span>${restaurantDetail.resFood}</span>
             </div>
             <div class="info address">
                 <i class="fa-solid fa-map-location-dot"></i>
-                <span>주소</span>
+                <span class="detail">주소</span>
                 <span>${restaurantDetail.address}</span>
             </div>
             <div class="info number">
                 <i class="fa-solid fa-phone"></i>
-                <span>전화번호</span>
+                <span class="detail">전화번호</span>
                 <span>${restaurantDetail.resPhone}</span>
             </div>
             <div class="info time">
                 <i class="fa-regular fa-clock"></i>
-                <span>영업시간</span>
+                <span class="detail">영업시간</span>
                 <span>${restaurantDetail.resTime}</span>
             </div>
             <div class="info way">
                 <i class="fa-solid fa-train-subway"></i>
-                <span>오시는 길</span>
+                <span class="detail">오시는 길</span>
                 <span>${restaurantDetail.transport}</span>
+            </div>
+            <div class="info web">
+                <i class="fa-solid fa-globe"></i>
+                <span class="detail">홈페이지</span>
+                <span><a href="${restaurantDetail.website}">${restaurantDetail.website}</a></span>
             </div>
         </div>
     </div>
+    <%--    *****************************************리뷰*********************************************--%>
     <div class="detail review">
         <div class="review_btn_box">
-            <span>리뷰</span> <span id="rCount"></span>
+            <span>리뷰</span><span id="rCount"></span>
             <button id="review_btn"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
         </div>
-
-
-
-        <%--        <div class="review user"></div>--%>
-        <%--        <div class="review img"></div>--%>
-
         <div class="review content">
-            <table id="reviewArea" class="table" align="center">
+            <table id="reviewArea">
                 <tbody>
                 </tbody>
             </table>
         </div>
-
-
-        <%--        <div class="review tag"></div>--%>
-
-
-
-
-
-
-
-
     </div>
-
 
 
 
 </div>
 
-<!-- 리뷰 모달 -->
+<%--리뷰모달--%>
 <div class="black_bg"></div>
 <div class="modal_wrap">
     <div id="modal_content">
+
         <div id="content_head">
             <span>가게명</span>
             <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
@@ -158,11 +154,14 @@
                 <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
             </div>
 
-            <button class="" id="review_insert" onclick="insertReview()">등록하기</button>
-
+            <button id="review_insert" onclick="insertReview()">등록하기</button>
 
         </div>
+
+
     </div>
+
+
 </div>
 
 
@@ -187,22 +186,8 @@
         selectReviewList();
     };
 
-</script>
 
-<script>
-    // 해시태그 최대 선택 개수 제한
-    $('input:checkbox[name=chk_hashtag]').click(function(){
-        // let checkbox =   $('input:checkbox[name=chk_hashtag]:checked').val();
 
-        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
-        if(cntEPT>3){
-            alert('해시태그는 최대 3개까지 선택 가능합니다.')
-            $(this).prop('checked', false);
-        }
-    });
-</script>
-
-<script>
     function selectReviewList() {
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/selectReview',
@@ -225,24 +210,19 @@
                         imgList += '<img src="' + img + '" />'
                     }
 
-                    // str += '<tr>'
-                    //     + "<td>" + i.memberName + "</td>"
-                    //     + "<td><img src=\"" + i.profileImage + "\" /></td>"
-                    //     + "<td>" + i.reviewContent + "</td>"
-                    //     + "<td>" + hashtagList + "</td>"
-                    //     + "<td>" + i.starRating + "</td>"
-                    //     + "<td><img src=\"" + i.changeName + "\" /></td>"
-                    //     + "</tr>";
-
-
                     str += '<div>'
-                        + "<div>" + i.memberName + "</div>"
-                        + "<div> <img src=\"" + i.profileImage + "\"/> </div>"
-                        + "<div>" + i.reviewContent + "</div>"
-                        + "<div>" + hashtagList + "</div>"
-                        + "<div>" + i.starRating + "</div>"
-                        + "<div>" + imgList + "</div>"
-                        + "</div>";
+                        + '<div class="reply_header">'
+                        + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
+                        + '<div class="reply_user_name">' + i.memberName + '</div>'
+                        + '<div class="reply_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
+                        + '<div>' + i.createDate + '</div>'
+                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
+                        + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
+                        + '</div>'
+                        + '<div>' + i.reviewContent + '</div>'
+                        + '<div class="reply_img_list">' + imgList + '</div>'
+                        + '<div>' + hashtagList + '</div>'
+                        + '</div>';
                 }
                 $("#reviewArea tbody").html(str);
                 $("#rCount").html(list.length);
@@ -253,15 +233,42 @@
                 } else {
                     star_rating = Math.round(list.map(obj => obj['starRating'])
                         .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10
-                    star_rating += '/5'
+                    star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
+
+
+
+                // 해시태그 비동기 갱신
+                // const hashtag_list = list.flatMap(obj => obj['hashtags'])
+                // const hashtag_count = {}
+                // hashtag_list.forEach(hashtag => {
+                //     if (hashtag_count[hashtag] === undefined) {
+                //         hashtag_count[hashtag] = 1
+                //     } else {
+                //         hashtag_count[hashtag] += 1
+                //     }
+                // });
+                // const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
+                // items.sort((first, second) => second[1] - first[1]);
+                // const keys = items.map((e) => e[0]);
+                // let review_hashtag_contents = '';
+                //
+                // keys.slice(0, 2).forEach(hashtag => {
+                //     review_hashtag_contents +=
+                //         '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
+                //         '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
+                // });
+                // $('#hashtag_by_review').html(review_hashtag_contents);
+
+
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
             }
         });
     }
+
 
 
     function insertReview() {
@@ -297,13 +304,60 @@
         });
     }
 
+    // 리뷰 해시태그 최대 선택 개수 제한
+    $('input:checkbox[name=chk_hashtag]').click(function(){
+        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+        if(cntEPT>3){
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            $(this).prop('checked', false);
+        }
+    });
+
+
+    // 관리자 - 리뷰삭제
+    function deleteReview(button){
+        let revNo = $(button).parent().parent().find("[name='revNo']").val();
+        $.ajax({
+            url : "${pageContext.request.contextPath}/restaurant/deleteReview",
+            type : "delete",
+            data : {
+                resNo : ${restaurantDetail.resNo},
+                revNo : revNo,
+                memberNo : '${loginUser.memberNo}'
+            },
+            success : function (result) {
+                console.log(result);
+                alert("리뷰 삭제 성공");
+                location.href = "${pageContext.request.contextPath}/restaurant/selectReview" + ${restaurantDetail.resNo};
+            },
+            error : function (){
+                console.log(this.error);
+                alert("리뷰 삭제 실패");
+            }
+        });
+    }
+
+
+
+    // $('.modal').on('hidden.bs.modal', function (e) {
+    //     console.log('modal close');
+    //     $(this).find('form')[0].reset()
+    // });
+
 
 </script>
 
 
+
+<%--<script>--%>
+<%--    $(":radio[name='rating'][value='" + r.revScore + "']").attr('checked', true);--%>
+<%--</script>--%>
 
 
 
 
 </body>
 </html>
+
+
+

@@ -34,7 +34,8 @@ public class MainController {
     }
 
     @RequestMapping(value = "/mainPage")
-    public String getNews(Model model) throws IOException {
+    public String getNews(Model model
+    ) throws IOException {
 
         String url = "https://land.naver.com/news/region.naver?page=1";
 

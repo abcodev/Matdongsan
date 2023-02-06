@@ -4,16 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="sellMapper">
 
-    <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
-        <result column="ESTATE_NO" property="estateNo"/>
-        <result column="ACC_YEAR" property="accYear"/>
-        <result column="ADDRESS" property="address"/>
-        <result column="BLDG_NM" property="bldgNm"/>
-        <result column="OBJ_AMT" property="objAmt"/>
-        <result column="BLDG_AREA" property="bldgArea"/>
-        <result column="GBN" property="gbn"/>
-    </resultMap>
-
     <resultMap type="RealEstateSell" id="realEstateSellResultSet">
         <result column="ACC_YEAR" property="accYear"/>
         <result column="SGG_CD" property="sggCd"/>
@@ -29,7 +19,31 @@
         <result column="BLDG_AREA" property="bldgArea"/>
         <result column="BUILD_YEAR" property="buildYear"/>
         <result column="HOUSE_TYPE" property="houseType"/>
+        <result column="FLOOR" property="floor"/>
         <result column="ADDRESS" property="address"/>
+    </resultMap>
+
+    <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
+        <result column="ESTATE_NO" property="estateNo"/>
+        <result column="ACC_YEAR" property="accYear"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="OBJ_AMT" property="objAmt"/>
+        <result column="BLDG_AREA" property="bldgArea"/>
+        <result column="GBN" property="gbn"/>
+        <result column="BJDONG_NM" property="bjdongNm"/>
+        <result column="FLOOR" property="floor"/>
+        <result column="BUILD_YEAR" property="buildYear"/>
+    </resultMap>
+
+    <resultMap id="agentResultSet" type="realEstateAgent">
+        <result column="AGENT_NO" property="agentNo"/>
+        <result column="STATE" property="state"/>
+        <result column="BJDONG_NM" property="bjdongNm"/>
+        <result column="ADDRESS" property="address"/>
+        <result column="REF_NAME" property="refName"/>
+        <result column="AGENT_NAME" property="agentName"/>
+        <result column="AGENT_PHONE" property="agentPhone"/>
     </resultMap>
 
     <delete id="deleteAll">
@@ -39,7 +53,7 @@
     <insert id="batchInsert" parameterType="list">
         INSERT INTO REALESTATE_SELL
         (ESTATE_NO, ACC_YEAR, SGG_CD, SGG_NM, BJDONG_CD, BJDONG_NM, BONBEON, BUBEON, BLDG_NM, DEAL_YMD,
-        OBJ_AMT, BLDG_AREA, BUILD_YEAR, HOUSE_TYPE)
+        OBJ_AMT, BLDG_AREA, BUILD_YEAR, HOUSE_TYPE, FLOOR)
         SELECT SEQ_SELL_NO.NEXTVAL, realEstateSell.* FROM (
         <foreach collection="list" item="r" separator="UNION ALL ">
             <![CDATA[
@@ -56,7 +70,8 @@
                         #{r.objAmt},
                         #{r.bldgArea},
                         #{r.buildYear},
-                        #{r.houseType}
+                        #{r.houseType},
+                        #{r.floor}
                     FROM dual
                 ]]>
         </foreach>
@@ -88,7 +103,10 @@
                DEAL_YMD as dealYmd,
                OBJ_AMT,
                BLDG_AREA,
-               GBN
+               GBN,
+               BJDONG_NM,
+               FLOOR,
+               BUILD_YEAR
         FROM REALESTATE_SELL
         WHERE ESTATE_NO = #{estateNo}
         UNION ALL
@@ -99,30 +117,37 @@
                DEAL_YMD as dealYmd,
                '보증금 : ' || RENT_GTN || '(만원) / 월세 :' || RENT_FEE AS OBJ_AMT,
                RENT_AREA                                            AS BLDGAREA,
-               RENT_GBN                                             AS GBN
+               RENT_GBN                                             AS GBN,
+               BJDONG_NM,
+               FLR_NO,
+               BUILD_YEAR
         FROM REALESTATE_RENT
         WHERE ESTATE_NO = #{estateNo}
     </select>
 
-    <select id="selectPastList" resultMap="realEstateDtoResultSet">
+
+    <select id="selectAgent" resultMap="agentResultSet">
         SELECT
-            ESTATE_NO,
-            BLDG_NM,
-            DEAL_YMD,
-            OBJ_AMT,
-            GBN
+            AGENT_NO,
+            STATE,
+            RA.BJDONG_NM,
+            ADDRESS,
+            REF_NAME,
+            AGENT_NAME,
+            AGENT_PHONE
+        FROM REALESTATE_AGENT RA
+        WHERE RA.BJDONG_NM = #{bjdongNm}
+    </select>
+
+    <select id="avgSell" resultMap="realEstateSellResultSet">
+        SELECT AVG(OBJ_AMT),
+               SGG_NM
         FROM REALESTATE_SELL
-        WHERE BLDG_NM = #{bldgNm}
-            UNION ALL
-        SELECT
-            ESTATE_NO,
-            BLDG_NM,
-            DEAL_YMD,
-            RENT_FEE AS OBJ_AMT,
-            RENT_GBN AS GBN
-        FROM REALESTATE_RENT
-        WHERE BLDG_NM = #{bldgNm}
-        ORDER BY DEAL_YMD DESC
+        GROUP BY SGG_NM
+<!--        SELECT AVG(RENT_GTN),-->
+<!--               SGG_NM-->
+<!--        FROM REALESTATE_RENT-->
+<!--        GROUP BY SGG_NM-->
     </select>
 
 

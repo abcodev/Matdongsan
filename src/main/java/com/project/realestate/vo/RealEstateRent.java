@@ -10,8 +10,6 @@ import lombok.*;
 public class RealEstateRent {
 
     private String estateNo;
-
-
     private String accYear;
     private String sggCd; //자치구 코드
     private String sggNm;

@@ -21,7 +21,7 @@ public class MessageDto {
 //    private String message;
 //    private String time;
 
-    private long memberNo;
+    private long memberNo;  // memberNo : 1
     private String message;
     private String roomNo;
 

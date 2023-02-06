@@ -3,27 +3,43 @@
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-/* div {
-    border: 1px solid black;
-} */
-
-
 #content {
     padding: 60px 300px 20px 300px;
 }
 
-.head {
+.detail_head_admin ,
+.detail_head{
     text-align: center;
+    margin-top: 30px;
+}
+
+.detail_head_admin > button{
+    width: 250px;
+    height: 40px;
+    background-color: #213048;
+    color: #f3f1f5;
+    border: none;
+    margin: 10px 10px;
+    font-size: 22px;
+    font-weight: 420;
+    border-radius: 3px;
+}
+
+.detail_head_admin > button:hover{
+    color: #213048;
+    background-color: #f3f1f5;
 }
 
 .name {
-    font-size: 25px;
+    font-size: 28px;
     font-weight: bold;
+    margin-top: 15px;
 }
 
 .star {
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 450;
+    margin-top: 5px;
 }
 
 .star>span {
@@ -32,10 +48,22 @@
 
 .star>.fa-star {
     color: #566392;
+    font-size: 26px;
 }
 
 .tag {
-    margin: 20px 0 20px 0;
+    margin: 15px 0;
+}
+
+.tag > label{
+    margin: 5px;
+    width: auto;
+    border-radius: 15px;
+    color: #515151;
+    font-weight: 450;
+    font-size: 20px;
+    padding: 6px 15px;;
+    border: 2px solid #515151;
 }
 
 .img {
@@ -43,28 +71,92 @@
 }
 
 .img>img {
-    width: 500px;
-    height: 350px;
+    width: 650px;
+    height: 450px;
 }
 
-.infolist {
+.info_list {
     padding-left: 100px;
     margin-top: 30px;
 }
 
 .info {
-    font-size: 20px;
-    font-weight: 400;
+    margin: 20px 0;
 }
 
 .info>i {
-    font-size: 28px;
+    font-size: 24px;
     width: 30px;
-    margin-right: 15px;
+    margin-right: 10px;
+    color: #515151;
 }
 
+.info > span[class=detail]{
+    font-size: 18px;
+    font-weight: 450;
+    width: 90px;
+    display: inline-block;
+    color: #3d3d3d;
+}
+
+.info > span{
+    font-size: 16px;
+    font-weight: 410;
+    color: #515151;
+}
+
+/****************리뷰리스트페이지********************/
+#rCount{
+    margin-left: 15px;
+}
+
+.reply_header{
+    display: flex;
+}
+
+.reply_user_img >  img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.reply_img_list{
+    display: flex;
+    overflow-x: scroll;
+    width: 800px;
+    background-color: rgba(164, 164, 164, 0.35);
+}
+
+.reply_img_list > img{
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+}
+
+.reply_img_list::-webkit-scrollbar
+{
+    height: 10px;
+    width: 3px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.reply_img_list::-webkit-scrollbar-thumb
+{
+    background-color: #566392;
+    border-radius: 10px;
+    width: 50px;
+}
+
+/*.reply_star_rating {*/
+/*    color: #f3bb00;*/
+/*}*/
+
+
+/******리뷰모달*******/
+
 .review {
-    padding-left: 100px;
+    padding-left: 50px;
     margin-top: 40px;
 }
 

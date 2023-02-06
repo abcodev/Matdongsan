@@ -36,7 +36,7 @@ public class RealEstateApiServiceImpl implements RealEstateApiService{
         if (sellList.isEmpty()) {
             return 0;
         }
-//        realEstateSellApiDao.truncateData();
+        realEstateSellApiDao.truncate();
         realEstateSellApiDao.batchInsert(sellList);
         return sellList.size();
     }

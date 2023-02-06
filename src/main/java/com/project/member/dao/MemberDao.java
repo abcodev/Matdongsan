@@ -41,7 +41,6 @@ public class MemberDao {
         return sqlSession.selectOne("memberMapper.select", params);
     }
 
-
     public int updateMember(SqlSession sqlSession, Member m){
         return sqlSession.update("memberMapper.update", m);
     }
@@ -49,9 +48,6 @@ public class MemberDao {
     public Member loginMember(SqlSession sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
     }
-
-
-
 
     public void updateRecentAccess(String provider, String providerId) {
         Map<String, Object> params = new HashMap<>();

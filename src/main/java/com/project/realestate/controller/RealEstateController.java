@@ -1,9 +1,11 @@
 package com.project.realestate.controller;
 
 import com.google.gson.Gson;
+import com.project.board.vo.FreeBoard;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
+import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.common.type.StateList;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +31,7 @@ public class RealEstateController {
 
     @RequestMapping
     public String realEstatePage(Model model) {
-
-        model.addAttribute("localList", StateList.values());
-
+        model.addAttribute("localList",StateList.values());
         return "realestate/realestateList";
     }
 
@@ -42,7 +42,8 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model) {
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model
+    ) {
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
@@ -60,25 +61,6 @@ public class RealEstateController {
         return result;
     }
 
-//    @RequestMapping
-//    @ResponseBody
-//    public ModelAndView realEstatePage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//                                       @RequestParam(value = "state", defaultValue = "") String state,
-//                                       @RequestParam(value = "dong", defaultValue = "") String dong,
-//                                       @RequestParam(value = "rentType", defaultValue = "") String rentType,
-//                                       @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-//                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType){
-//
-//        ModelAndView mv = new ModelAndView();
-//        mv.addObject("localList", StateList.values());
-//
-//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
-//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
-//
-//        mv.addObject("estateRentList", resp.getRealEstateRentList());
-//        mv.setViewName("realestate/realestateList");
-//        return mv;
-//    }
 
     @RequestMapping("/list")
     @ResponseBody
@@ -94,7 +76,10 @@ public class RealEstateController {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
+        List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
+
         modelAndView.addObject("estateRentList", resp.getRealEstateRentList());
+        modelAndView.addObject("selectFboard", selectFboard);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("realestate/realestateContents");
         return modelAndView;
@@ -114,16 +99,15 @@ public class RealEstateController {
         );
     }
 
-    @RequestMapping("/detail")
+    @GetMapping("/detail")
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
                                          ModelAndView modelAndView
     ) {
-        List<String> pastList = realEstateService.selectPastList(estateNo);
-
+        List<RealEstateAgent> agentList = realEstateService.selectAgentList();
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         modelAndView.setViewName("realestate/realestateDetailPage");
+        modelAndView.addObject("agentList",agentList);
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
-        modelAndView.addObject("pastList", pastList);
         return modelAndView;
     }
 

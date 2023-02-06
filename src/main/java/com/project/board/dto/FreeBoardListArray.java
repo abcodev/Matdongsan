@@ -1,12 +1,17 @@
-package com.project.board.vo;
+package com.project.board.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
+
 @Data
-public class FreeBoard {
+@AllArgsConstructor
+@NoArgsConstructor
+public class FreeBoardListArray {
+
     private int boardNo;
     private long memberNo;
     private String boardTitle;
@@ -16,10 +21,5 @@ public class FreeBoard {
     private Timestamp boardDate;
     private String boardArea;
     private String status;
-    private int count;
-    private int replyCount;
 
-
-
-    private int currentPage;
 }

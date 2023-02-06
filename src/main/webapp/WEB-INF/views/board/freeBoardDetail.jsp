@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="w" value="${fb.boardWriter}"/>
+<c:set var="w" value="${fb.memberNo}"/>
 <html>
 <head>
     <title>자유게시판 상세보기</title>
@@ -26,10 +26,10 @@
         </div>
         <div class="detail_head">
             <div class="board_title">
-                    <c:if test="${w eq loginUser.nickName}">
+                    <c:if test="${w eq loginUser.memberNo}">
                         <input type="text" name="boardTitle" value="${fb.boardTitle}">
                     </c:if>
-                    <c:if test="${w ne loginUser.nickName}">
+                    <c:if test="${w ne loginUser.memberNo}">
                         <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
                     </c:if>
             </div>
@@ -42,20 +42,20 @@
             </div>
         </div>
         <div class="detail_body">
-            <c:if test="${w eq loginUser.nickName}">
+            <c:if test="${w eq loginUser.memberNo}">
                 <textarea name="boardContent">${fb.boardContent}</textarea>
             </c:if>
-            <c:if test="${w ne loginUser.nickName}">
+            <c:if test="${w ne loginUser.memberNo}">
                 <div name="boardContent">${fb.boardContent}</div>
             </c:if>
         </div>
         <div class="btn_box">
                 <c:if test="${not empty loginUser}">
-                    <c:if test="${w eq loginUser.nickName}">
+                    <c:if test="${w eq loginUser.memberNo}">
                         <button onclick="updatePost();">수정</button>
                         <button onclick="deletePost();">삭제</button>
                     </c:if>
-                    <c:if test="${w ne loginUser.nickName}">
+                    <c:if test="${w ne loginUser.memberNo}">
                         <div class="alert_btn_box">
                             <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 신고하기
@@ -107,13 +107,22 @@
         </div>
         <div class="reply_foot">
             <div>
-                <c:if test="${not empty loginUser}">
-                    <div class="my_img">
-                        <img src="${loginUser.profileImage}">
-                    </div>
-                    <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
-                    <button onclick="insertReply();">댓글 등록</button>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not empty loginUser}">
+                        <div class="my_img">
+                            <img src="${loginUser.profileImage}">
+                        </div>
+                        <input name="replyContent" type="text" placeholder="댓글을 작성해주세요">
+                        <button onclick="insertReply();">댓글 등록</button>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="my_img">
+                            <img src="">
+                        </div>
+                        <input name="replyContent" type="text" disabled placeholder="로그인 후 이용이 가능합니다.">
+                        <button onclick="insertReply();" disabled>댓글 등록</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

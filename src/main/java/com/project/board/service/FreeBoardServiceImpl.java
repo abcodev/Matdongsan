@@ -1,17 +1,24 @@
 package com.project.board.service;
 
+import com.project.alarm.dto.AlarmTemplate;
+import com.project.alarm.service.AlarmService;
 import com.project.board.dao.FreeBoardDao;
+import com.project.board.dto.FreeBoardCountDto;
+import com.project.board.dto.FreeBoardListFilter;
+import com.project.board.dto.FreeBoardListRequest;
+import com.project.board.dto.FreeBoardListResponse;
 import com.project.board.vo.FreeBoard;
+import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
+import com.project.common.template.PageInfoCombine;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 @Service
@@ -20,10 +27,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     private final FreeBoardDao freeBoardDao;
     private final SqlSession sqlSession;
+    private static final int DEFAULT_RES_SIZE = 7;
+
+    private final AlarmService alarmService;
 
     @Override
-    public List<FreeBoard> selectFreeList(Map<String,String> option) {
-        return freeBoardDao.selectFreeList(sqlSession,option);
+    public FreeBoardListResponse selectFreeList(FreeBoardListRequest req) {
+        FreeBoardListFilter filter = FreeBoardListFilter.from(req);
+        int count = freeBoardDao.selectFreeListCount(sqlSession,filter);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_RES_SIZE);
+        List<FreeBoard> result =freeBoardDao.selectFreeList(sqlSession, pageInfoCombine, filter);
+        return new FreeBoardListResponse(result,pageInfoCombine);
     }
 
     // 게시글 등록
@@ -37,8 +51,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     public int insertReply(Reply r){
+
+        // 내 글에 댓글이 달릴 때 (알림 받으려면 필요한것: 댓글이 달린 글번호의 멤버번호)
+//        FreeBoard freeBoard = new FreeBoard();
+//        long receiverNo = (freeBoard.getMemberNo());
+//        if(r.getFreeBno() == freeBoard.getBoardNo()) {
+//            AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
+//            alarmService.send(template);
+//        }
         return freeBoardDao.insertReply(sqlSession, r);
     }
+
+
 
     public ArrayList<Reply> selectReplyList(int fno){
         return  freeBoardDao.selectReplyList(sqlSession, fno);
@@ -58,5 +82,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     public int deleteReply(Reply reply){
         return freeBoardDao.deleteReply(sqlSession, reply);
+    }
+
+    @Override
+    public void freeBoardCount(FreeBoardCountDto count) {
+        freeBoardDao.freeBoardCount(sqlSession,count);
+    }
+
+    @Override
+    public List<HotWeek> hotWeekList() {
+        return freeBoardDao.hotWeekList(sqlSession);
     }
 }

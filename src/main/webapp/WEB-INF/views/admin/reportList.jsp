@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,8 +44,8 @@
                 <td>${rl.email}</td>
                 <td>${rl.boardWriter}</td>
                 <td>${rl.reportContent}</td>
-                <td><button type="button" onclick="movePage(freeBno, '${rl.reportType}')">상세보기</button></td>
-                <td><button type="button" class="btn22" id="add-btn">처리중</button></td>
+                <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
+                <td><button type="button" class="btn22" id="add-btn" data-no="${rl.FNo}" data-rType='${rl.reportType}'>처리중</button></td>
                 <td><select id="stop" onchange="changeSelect()">
                     <option>3일정지</option>
                     <option>7일정지</option>
@@ -66,7 +67,10 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-            <button type="button" class="btn" onclick="movePage2(freeBno)">예</button>
+                <input type="hidden" id= 'hidden_no' value="no"/>
+            <input type="hidden" id= 'hidden_rType' value="rType"/>
+                <button type="button" id="clear" class="btn" onclick="movePage2()">예</button>
+
             <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
         </div>
 
@@ -75,13 +79,17 @@
 
 
 
+
+
 <script>
+
+
     /*페이지 이동*/
     $(function(){
         $("#movePage").click(function(){
             $.ajax({
                 type:"POST",
-                url:"/Matdongsan/admin/userList",
+                url:"/Matdongsan/admin/userList/" +${fNo},
                 data: {},
                 dataType: "html",
                 cache : false,
@@ -91,32 +99,37 @@
             });
         });
     });
-
     function changeSelect(){
         const stop = document.getElementById("stop");
         const value = (stop.options[stop.selectedIndex].value);
         alert(value +" 처리하시겠습니까?");
-    }
+    };
 
-    function movePage(freeBno){
-        <c:if test="${rl.reportType} = '자유게시판'">
-        location.href = '${pageContext.request.contextPath}/freeBoard/detail/'+ freeBno;
-        </c:if>
-        <c:if test="${rl.reportType} = '질문게시판'">
-        location.href = '${pageContext.request.contextPath}/board/detail/'+freeBno;
-        </c:if>
-    }
-    function movePage2(freeBno) {
-        location.href = '${pageContext.request.contextPath}/admin/deleteBoard/'+freeBno;
-    }
 
-    $(function(){
-        $("#deleteBoard2").disabled();
-        });
 
-   /* 모달*/
+    function movePage(fNo,reportType){
+        if(reportType === '질문게시판'){
+        location.href = '${pageContext.request.contextPath}/board/detail/'+fNo;
+        }else{
+            location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fNo;
+        }
+    }
+   function movePage2(fNo,reportType){
+        if(reportType === '질문게시판'){
+            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +fNo;
+        }else{
+            location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+fNo;
+        }
+   }
+
+
+
+
+    /* 모달*/
     $(document).on('click', '#add-btn', function (e) {
         console.log("click event");
+        var fNo = $(this).data('no');
+        var rType = $(this).data('rType');// data-rType
         $('#modal').addClass('show');
 
     });
@@ -128,9 +141,27 @@
 
     });
 
+    $(function(){
+        $("#clear").click(function(){
+
+            $(".btn22").css(
+                {
+                    "color": "black",
+                    "background" : "gray",
+
+                });
+
+        });
+    });
+
+
 
 
     /*페이징처리*/
+
+
+
+
 
 
 

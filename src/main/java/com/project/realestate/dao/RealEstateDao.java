@@ -1,9 +1,11 @@
 package com.project.realestate.dao;
 
+import com.project.board.vo.FreeBoard;
 import com.project.common.template.PageInfoCombine;
 import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
+import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +29,6 @@ public class RealEstateDao {
     public int selectListCountByFilter(RealEstateRentListFilter filter) {
         return sqlSession.selectOne("rentMapper.selectListCountByFilter", filter);
     }
-//    public int selectListCount(SqlSession sqlSession, Map<String, Object> paramMap) {
-//        return sqlSession.selectOne("rentMapper.searchListCount", paramMap);
-//    }
 
 
     public List<RealEstateRent> selectListByFilter(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter) {
@@ -37,12 +36,6 @@ public class RealEstateDao {
         return sqlSession.selectList("rentMapper.selectListByFilter", filter, rowBounds);
     }
 
-
-//    public List<RealEstateRent> searchResult(PageInfoCombine pageInfoCombine, RealEstateRentListFilter filter){
-//        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-//
-//        return sqlSession.selectList("rentMapper.searchSellResult", filter, rowBounds);
-//    }
 
     // 자치구 리스트
     public ArrayList<RealEstateRent> searchLocalList(SqlSession sqlSession){
@@ -54,6 +47,10 @@ public class RealEstateDao {
         return  (ArrayList) sqlSession.selectList("rentMapper.searchDongList", state);
     }
 
+    // 해당 구 자유게시판 글
+    public ArrayList<FreeBoard> selectFboard(SqlSession sqlSession, String state){
+        return (ArrayList) sqlSession.selectList("rentMapper.selectFboard", state);
+    }
 
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
         return sqlSession.selectList("sellMapper.getSellList");
@@ -66,6 +63,10 @@ public class RealEstateDao {
 
     public List<String> selectPastList(String bldgNm) {
         return sqlSession.selectList("sellMapper.selectPastList", bldgNm);
+    }
+
+    public List<RealEstateAgent> selectAgentList() {
+        return sqlSession.selectList("sellMapper.selectAgent");
     }
 }
 

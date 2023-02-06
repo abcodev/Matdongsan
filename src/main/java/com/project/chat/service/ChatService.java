@@ -1,20 +1,13 @@
 package com.project.chat.service;
-//
-//import com.project.chat.dto.ChatingRoom;
-//import com.project.chat.repository.ChatRepository;
 
 import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmService;
 import com.project.chat.dto.*;
 import com.project.chat.repository.ChatRepository;
-import com.project.common.template.Utils;
 import com.project.member.dao.MemberDao;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -22,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import java.util.Collections;
-//import java.util.List;
-//
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -56,13 +46,18 @@ public class ChatService {
             List<MessageListDto> messageList = chatRepository.messageList(chatingRoom.getRoomNo());
             map.put("room", chatingRoom);
             map.put("messageList", messageList);
-
         }
         return map;
     }
 
 
     public void sendMessage(MessageDto data) {
+        ChatingRoom chatingRoom = chatRepository.selectByRoomNo(data.getRoomNo());
+        Member sender = memberDao.select(data.getMemberNo());
+        long receiverNo = (data.getMemberNo() == 1) ? chatingRoom.getMemberNo() : 1;
+
+        AlarmTemplate template = AlarmTemplate.generateNewChatMessageTemplate(data.getRoomNo(), receiverNo, sender.getMemberName());
+        alarmService.send(template);
         chatRepository.sendMessage(data);
     }
 

@@ -20,12 +20,11 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
         MemberGrade grade = getGrade(req.getSession());
 
         // 로그인 안한 사용자
-//        if(grade == null){
-//            req.setAttribute("errorMsg","로그인 후 이용할 수 있습니다.");
-//            req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req,res);
-//            return false;
-//        }
-//
+        if(grade == null){
+            req.setAttribute("errorMsg","로그인 후 이용할 수 있습니다.");
+            return false;
+        }
+
 //        // 등급 권한이 없는 사용자
 //        if(grade == null || requestUrl.contains("board") && grade.equals("GENERAL")) {
 //            req.setAttribute("errorMsg", "추가정보 입력 후 이용해 주세요");

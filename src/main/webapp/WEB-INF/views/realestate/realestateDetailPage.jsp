@@ -10,19 +10,6 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
     <%@ include file ="../template/header.jsp" %>
-
-
-<%--    <style>--%>
-<%--        .screen_out {display:block;overflow:hidden;position:absolute;left:-9999px;width:1px;height:1px;font-size:0;line-height:0;text-indent:-9999px}--%>
-<%--        .wrap_content {overflow:hidden;height:auto;}--%>
-<%--        .wrap_map {width:50%;height:300px;float:top;position:relative}--%>
-<%--        .wrap_button {position:absolute;left:15px;top:12px;z-index:2}--%>
-<%--        .btn_comm {float:left;display:block;width:70px;height:27px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/sample_button_control.png) no-repeat}--%>
-<%--        .btn_linkMap {background-position:0 0;}--%>
-<%--        .btn_resetMap {background-position:-69px 0;}--%>
-
-<%--    </style>--%>
-
 </head>
 <body>
 <script>
@@ -66,8 +53,16 @@
                     <td>${realEstateDetail.address}</td>
                 </tr>
                 <tr>
+                    <th>건축년도</th>
+                    <td>${realEstateDetail.buildYear} 년</td>
+                </tr>
+                <tr>
                     <th>면적</th>
                     <td> ${realEstateDetail.bldgArea} 제곱미터</td>
+                </tr>
+                <tr>
+                    <th>층</th>
+                    <td>${realEstateDetail.floor} 층</td>
                 </tr>
                 <tr>
                     <th>거래일자</th>
@@ -77,30 +72,21 @@
                     <th>금액</th>
                     <td>${realEstateDetail.gbn} / ${realEstateDetail.objAmt}</td>
                 </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                </tr>
+
             </table>
         </div>
 
 
         <div class="info_table foot">
-<%--            이름이 같은 아파트 or 주소가 같은 아파트 뽑아와야함,, 여기 이전 가격이랑 비교해서 얼마나 바뀐건지 보여줄 수 있을까, --%>
-                <table>
-                    <tr>
-                        <th>거래일자</th>
-                        <th>구분</th>
-                        <th>면적</th>
-                        <th>금액</th>
-<%--                        <c:forEach var="pastList" items="pastList">--%>
-<%--                            <td>${pastList.dealYmd}</td>--%>
-<%--                            <td>${pastList.gbn}</td>--%>
-<%--                            <td>${pastList.bldgArea}</td>--%>
-<%--                            <td>${pastList.objAmt}</td>--%>
-<%--                        </c:forEach>--%>
-                    </tr>
-                </table>
+
+            <div><span>제휴 부동산</span></div>
+            <tr>
+                <th>상호명</th>
+                <c:forEach var="agentList" items="${ agentList }">
+                <td class="rno" >${ agentList.agentName } </td>
+                </c:forEach>
+            </tr>
+
         </div>
     </div>
 
@@ -108,17 +94,13 @@
         <div id="map_roadView">
             <div class="wrap_content">
                 <div class="wrap_map">
-                    <div id="map" style="width:80%;height:300px;"></div> <!-- 지도를 표시할 div 입니다 -->
-<%--                    <div class="wrap_button">--%>
-<%--                        <a href="javascript:;" class="btn_comm btn_linkMap" target="_blank" onclick="moveKakaoMap(this)"><span class="screen_out">지도 크게보기</span></a> <!-- 지도 크게보기 버튼입니다 -->--%>
-<%--                        <a href="javascript:;" class="btn_comm btn_resetMap" onclick="resetKakaoMap()"><span class="screen_out">지도 초기화</span></a> <!-- 지도 크게보기 버튼입니다 -->--%>
-<%--                    </div>--%>
+                    <div id="map" style="width:80%;height:300px;">
+
+                    </div> <!-- 지도를 표시할 div 입니다 -->
+                    <div id="roadview" class="image-container" style="width:80%;height:300px;">
+
+                    </div>
                 </div>
-
-                <div id="roadview" class="image-container" style="width:80%;height:300px;">
-
-                </div>
-
             </div>
 
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
