@@ -13,9 +13,10 @@
     <title>커뮤니티 자유게시판</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardList.css"/>">
     <jsp:include page="../template/font.jsp"/>
+    <%@ include file="../template/header.jsp" %>
+
 </head>
 <body>
-<%@ include file="../template/header.jsp" %>
 <body>
 <div id="content">
     <div class="side submenu">
@@ -37,10 +38,18 @@
         </select>
         <div class="search_input">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input id="freeBoardSearch" type="text" placeholder="검색내용을 입력해주세요">
+            <input id="freeBoardSearch" type="text" placeholder="검색내용을 입력해주세요" value="${condition.search}">
         </div>
         <button onclick="searchState();">조회</button>
     </div>
+    <c:if test="${not empty condition.state }">
+        <script>
+            let condition = document.querySelector(".head select option[value=${state}]");
+            condition.selected = true;
+        </script>
+    </c:if>
+
+
     <div class="content body">
         <div class="boardlist_area">
             <div id="boardlist_top">
@@ -122,13 +131,12 @@
                 console.log($(data).find("#boardlist_main"));
                 console.log($(data).find(".board_info").length);
                 if($(data).find(".board_info").length >0) {
-                    $('#boardlist_main').html($(data).find("#boardlist_main"))
+                    $('#boardlist_main').html($(data).find(".boardlist"))
                 }else{
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
-                // $('.paging').empty();
-                // $('.paging').html($(data).find('.paging'))
-
+                $('.paging').empty();
+                $('.paging').html($(data).find('.paging'))
             }
         })
     }
@@ -153,19 +161,18 @@
                 console.log($(data).find("#boardlist_main"));
                 console.log($(data).find(".board_info").length);
                 if($(data).find(".board_info").length >0) {
-                    $('#boardlist_main').html($(data).find("#boardlist_main"))
+                    $('#boardlist_main').html($(data).find(".boardlist"))
                 }else{
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
                 $('.paging').empty();
                 $('.paging').html($(data).find('.paging'))
-
+                $('input[type="checkbox"][name="arrayList"]').prop("checked",false);
             }
         })
     }
 
-
-    $('.boardlist').click(function (){
+    $('#boardlist_main').on('click', '.boardlist', function(){
         console.log($(this).children('p:eq(0)').html());
         let fno = $(this).children('p:eq(0)').html();
         let member = $(this).children('p:eq(1)').html();
@@ -177,18 +184,32 @@
         if($(this).prop('checked')){
             $('input[type="checkbox"][name="arrayList"]').prop('checked',false);
             $(this).prop('checked',true);
-            console.log($(this).html());
             console.log($(this).val());
             let array = $(this).val();
-
             $.ajax({
-                url : '${pageContext.request.contextPath}/select/arrayList',
+                type: 'GET',
+                url: '${pageContext.request.contextPath}/board/freeList',
                 contentType: "application/json; charset=UTF-8",
                 data: {
-                    'select' : array
+                    'select' : array,
+                    'search' : $("#freeBoardSearch").val(),
+                    'state' : $("#selectState").val()
                 },
                 dataType: 'html',
-                success : function (){
+                success : function (data){
+                    $('#boardlist_main').empty();
+                    console.log($(data).find("#boardlist_main"));
+                    console.log($(data).find(".board_info").length);
+                    if($(data).find(".board_info").length >0) {
+                        $('#boardlist_main').html($(data).find(".boardlist"))
+                    }else{
+                        $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
+                    }
+                    $('.paging').empty();
+                    $('.paging').html($(data).find('.paging'))
+                }
+                , fail:function (){
+                    console.log("zzzzz");
                 }
             })
         }

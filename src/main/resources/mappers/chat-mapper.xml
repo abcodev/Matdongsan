@@ -5,7 +5,7 @@
 <mapper namespace="chatMapper">
 
     <resultMap type="chatingRoom" id="chatroomResultSet">
-        <id column="CHAT_ROOM_NO" property="roomNo"/>
+        <result column="CHAT_ROOM_NO" property="roomNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 

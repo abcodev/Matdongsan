@@ -80,7 +80,17 @@
                     BOARD_CONTENT like '%' || #{search} || '%'
                 )
             </if>
+            <if test="select.equals('view')">
+                ORDER BY COUNT DESC
+            </if>
+            <if test="select.equals('reply')">
+                ORDER BY REPLY_COUNT DESC
+            </if>
+            <if test="select.equals('recent')">
+                ORDER BY FB.BOARD_DATE DESC
+            </if>
     </select>
+
 
     <resultMap id="hotWeekResultSet" type="hotWeek">
         <result column="FREE_BNO" property="freeBno"/>

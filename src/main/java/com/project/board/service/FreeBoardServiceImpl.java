@@ -3,10 +3,7 @@ package com.project.board.service;
 import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmService;
 import com.project.board.dao.FreeBoardDao;
-import com.project.board.dto.FreeBoardCountDto;
-import com.project.board.dto.FreeBoardListFilter;
-import com.project.board.dto.FreeBoardListRequest;
-import com.project.board.dto.FreeBoardListResponse;
+import com.project.board.dto.*;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
@@ -92,5 +89,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     @Override
     public List<HotWeek> hotWeekList() {
         return freeBoardDao.hotWeekList(sqlSession);
+    }
+
+    @Override
+    public FreeBoardArray selectArrayList(String select) {
+        List<FreeBoard> freeBoardList = freeBoardDao.selectArrayList(sqlSession,select);
+        return new FreeBoardArray(freeBoardList);
     }
 }
