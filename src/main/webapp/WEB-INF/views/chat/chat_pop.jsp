@@ -121,6 +121,8 @@
   $(".chat-box-toggle").click(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
+    $('.chat-logs').empty();
+
   });
 
 

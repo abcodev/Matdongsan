@@ -121,8 +121,4 @@
         WHERE C.CHAT_ROOM_NO = #{roomNo}
         ORDER BY C.CREATE_DATE
     </select>
-
-
-
-
 </mapper>

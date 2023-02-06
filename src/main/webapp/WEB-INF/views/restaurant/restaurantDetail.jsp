@@ -44,18 +44,18 @@
                 <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
                 <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
             </c:forEach>
-            <c:forEach items="${resHashtagByReview}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-            </c:forEach>
+<%--            <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
+<%--                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
+<%--                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
+<%--            </c:forEach>--%>
 
-            <%--해시태그 비동기 갱신--%>
-<%--            <span id = "hashtag_by_review">--%>
-<%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
-<%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
-<%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
-<%--                </c:forEach>--%>
-<%--            </span>--%>
+<%--            해시태그 비동기 갱신--%>
+            <span id = "hashtag_by_review">
+                <c:forEach items="${resHashtagByReview}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+                </c:forEach>
+            </span>
         </div>
     </div>
     <div class="detail_main">
@@ -229,26 +229,26 @@
                 $('#star_rating').html(star_rating)
 
                 // 해시태그 비동기 갱신
-                // const hashtag_list = list.flatMap(obj => obj['hashtags'])
-                // const hashtag_count = {}
-                // hashtag_list.forEach(hashtag => {
-                //     if (hashtag_count[hashtag] === undefined) {
-                //         hashtag_count[hashtag] = 1
-                //     } else {
-                //         hashtag_count[hashtag] += 1
-                //     }
-                // });
-                // const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
-                // items.sort((first, second) => second[1] - first[1]);
-                // const keys = items.map((e) => e[0]);
-                // let review_hashtag_contents = '';
-                //
-                // keys.slice(0, 2).forEach(hashtag => {
-                //     review_hashtag_contents +=
-                //         '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
-                //         '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
-                // });
-                // $('#hashtag_by_review').html(review_hashtag_contents);
+                const hashtag_list = list.flatMap(obj => obj['hashtags'])
+                const hashtag_count = {}
+                hashtag_list.forEach(hashtag => {
+                    if (hashtag_count[hashtag] === undefined) {
+                        hashtag_count[hashtag] = 1
+                    } else {
+                        hashtag_count[hashtag] += 1
+                    }
+                });
+                const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
+                items.sort((first, second) => second[1] - first[1]);
+                const keys = items.map((e) => e[0]);
+                let review_hashtag_contents = '';
+
+                keys.slice(0, 2).forEach(hashtag => {
+                    review_hashtag_contents +=
+                        '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
+                        '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
+                });
+                $('#hashtag_by_review').html(review_hashtag_contents);
 
             },
             error: function () {
