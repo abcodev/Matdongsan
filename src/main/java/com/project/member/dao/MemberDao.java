@@ -1,13 +1,11 @@
 package com.project.member.dao;
 
-import com.project.board.dto.FreeBoardResponse;
-import com.project.board.dto.QnaBoardResponse;
-import com.project.board.vo.FreeBoard;
-import com.project.board.vo.QnaBoard;
-import com.project.member.dto.MemberResponseDto;
+import com.project.common.template.PageInfoCombine;
+import com.project.member.dto.AllBoard;
 import com.project.member.vo.Member;
 import com.project.realestate.vo.Interest;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -41,6 +39,7 @@ public class MemberDao {
         return sqlSession.selectOne("memberMapper.select", params);
     }
 
+
     public int updateMember(SqlSession sqlSession, Member m){
         return sqlSession.update("memberMapper.update", m);
     }
@@ -48,6 +47,9 @@ public class MemberDao {
     public Member loginMember(SqlSession sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
     }
+
+
+
 
     public void updateRecentAccess(String provider, String providerId) {
         Map<String, Object> params = new HashMap<>();
@@ -60,16 +62,33 @@ public class MemberDao {
         return sqlSession.selectOne("memberMapper.selectByMemberNo", memberNo);
     }
 
-    public ArrayList<FreeBoardResponse> getFreeBoardList(SqlSession sqlSession, Member m){
-        return (ArrayList)sqlSession.selectList("memberMapper.getFreeBoardList", m);
+//    public boolean checkInterest(String estateNo, long memberNo) {
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("estateNo", estateNo);
+//        params.put("memberNo", memberNo);
+//        return sqlSession.selectOne("interestEstateMapper.checkInterest", params) != null;
+//    }
+
+    public void delete(String estateNo, long memberNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("estateNo", estateNo);
+        params.put("memberNo", memberNo);
+        sqlSession.delete("memberMapper.delete", params);
     }
 
-    public ArrayList<QnaBoardResponse> getQnaBoardList(SqlSession sqlSession, Member m){
-        return (ArrayList)sqlSession.selectList("memberMapper.getQnaBoardList", m);
+
+    public List<Interest> getInterestList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("memberMapper.getInterestList", m);
     }
 
-    public ArrayList<Interest> getInterestList(SqlSession sqlSession, Member m){
-        return (ArrayList)sqlSession.selectList("memberMapper.getInterestList", m);
+
+    public int selectListCount(SqlSession sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.selectAllBoardCount", m);
+    }
+
+    public List<AllBoard> selectAllBoardList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("memberMapper.selectAllBoard",m,rowBounds);
     }
 
 }
