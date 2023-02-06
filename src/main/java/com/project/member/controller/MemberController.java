@@ -35,6 +35,7 @@ public class MemberController {
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
+
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
 
@@ -42,7 +43,6 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("member/myPage");
-
 
         return modelAndView;
     }

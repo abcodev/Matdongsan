@@ -4,6 +4,7 @@ import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
 import com.project.member.vo.Member;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,12 @@ import java.util.Map;
 
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/board")
 public class QnaBoardController {
 
     private static final Logger logger = LoggerFactory.getLogger(QnaBoardController.class);
-
-    @Autowired
-    private QnaBoardService boardService;
+    private final QnaBoardService boardService;
 
     @RequestMapping("/qnaList")
     public String selectList(@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
@@ -120,7 +120,6 @@ public class QnaBoardController {
 
         int result = boardService.increaseCount(qBno);
 
-
         mv.addObject("qb", qb);
         mv.addObject("ab", ab);
         mv.setViewName("board/qnaDetailList");
@@ -135,9 +134,7 @@ public class QnaBoardController {
     ) {
         int result = boardService.deleteBoard(qBno);
 
-
         return "redirect:/board/qnaList";
-
     }
 
     @RequestMapping("/qnaReport")

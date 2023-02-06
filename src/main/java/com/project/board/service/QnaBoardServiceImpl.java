@@ -101,6 +101,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
     @Override
     public int insertAnswer(QnaBoard qb){
+
 //        QnaBoard qnaBoard = boardDao.selectByQnaBno(sqlSession, qb.getParentBno());
 //        long receiverNo = qnaBoard.getMemberNo();
 //        AlarmTemplate template = AlarmTemplate.generateNewQnaMessageTemplate(receiverNo);
