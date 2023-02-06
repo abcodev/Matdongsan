@@ -53,22 +53,20 @@ public class AdminController {
 
     @RequestMapping(value = "/reportList/{fNo}")
     public ModelAndView reportList(
-            ModelAndView mv, Admin ad,
+            Admin ad,
+            ModelAndView mv,
             @PathVariable("fNo") int fNo
+
             ){
         ArrayList<Admin> list2 = adminService.reportList(fNo);
         ad.setReportType(ad.getReportType());
         int listCount = adminService.rListCount();
-
-
-
         mv.addObject("list2",list2);
         mv.addObject("fNo",fNo);
         mv.addObject("ad",ad);
-
-
         mv.setViewName("admin/reportList");
         return mv;
+
     }
 
     @RequestMapping(value = "/deleteQna/{fNo}")
