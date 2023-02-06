@@ -91,4 +91,12 @@ public class MemberDao {
         return sqlSession.selectList("memberMapper.selectAllBoard",m,rowBounds);
     }
 
+    public int deleteMember(SqlSession sqlSession, long memberNo){
+        return sqlSession.delete("memberMapper.deleteMember", memberNo);
+    }
+
+//    public ArrayList<Interest> selectInterestList(SqlSession sqlSession, String estateNo){
+//        return (ArrayList) sqlSession.selectList("memberMapper.selectInterestList", estateNo);
+//    }
+
 }

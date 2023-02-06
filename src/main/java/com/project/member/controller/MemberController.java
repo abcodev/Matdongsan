@@ -1,16 +1,10 @@
 package com.project.member.controller;
 
-import com.project.board.dto.FreeBoardResponse;
-import com.project.board.dto.QnaBoardResponse;
-import com.project.common.template.PageInfo;
-import com.project.common.template.Pagination;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
-import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.vo.Interest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class MemberController {
@@ -95,12 +87,18 @@ public class MemberController {
         return ResponseEntity.ok().build();
     }
 
+    @RequestMapping("/delete")
+    public String deleteMember(HttpSession session){
+        long memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
 
+        int result = memberService.deleteMember(memberNo);
+        if(result == 1){
+            session.removeAttribute("loginUser");
+            return "redirect:/";
+        }
 
-
-
-
-
+        return "redirect:/";
+    }
 
     /**
      * 휴대폰 인증
@@ -112,5 +110,16 @@ public class MemberController {
         memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
         return Integer.toString(randomNumber);
     }
+
+//    @RequestMapping("interestList")
+//    @ResponseBody
+//    public String selectInterestList(String estateNo, Model model){
+//        ArrayList<Interest> list = memberService.selectInterestList(estateNo);
+//
+//        Gson gson = new Gson();
+//
+//        String result = gson.toJson(list);
+//        return result;
+//    }
 
 }
