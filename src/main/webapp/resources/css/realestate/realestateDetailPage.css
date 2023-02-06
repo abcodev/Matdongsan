@@ -74,14 +74,14 @@
 }
 
 .body > table > tbody > tr > th{
-    width: 30%;
+    width: 20%;
     font-weight: 420;
     font-size: 18px;
 }
 
 .body > table > tbody > tr > td{
-    width: 70%;
-    padding-left: 15px;
+    width: 80%;
+    padding-left: 10px;
     font-weight: 400;
     font-size: 17px;
 }
