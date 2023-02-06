@@ -105,6 +105,16 @@
                 <button onclick="retrieveRealEstate(1); searchList();">조회</button>
             </div>
         </div>
+        <div class="table_area">
+            <div class="estate_table">
+
+            </div>
+        </div>
+        <div class="freeBoard_area">
+            <div class="freeBoard">
+
+            </div>
+        </div>
     </div>
     <div id="content_right">
         <div class="place_body" >

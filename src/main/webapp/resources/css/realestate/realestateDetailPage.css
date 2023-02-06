@@ -11,15 +11,21 @@
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 60px 200px 5px 200px;;
+    padding: 60px 180px 5px 180px;;
 }
 
 #content_left{
-    width: 35%;
+    width: 38%;
+    margin-top: 40px;
+    background-color: #f3f1f5;
+    border-radius: 5px;
+    padding: 15px 25px;
 }
 
 #content_right{
-    width: 65%;
+    width: 62%;
+    margin-top: 50px;
+    padding-left: 20px;
 }
 
 .head{
@@ -27,18 +33,65 @@
 }
 
 .head > #name{
-    width: 85%;
-    font-size: 25px;
+    width: 80%;
+    font-size: 28px;
+    font-weight: 480;
+    color: #213048;
 }
 
 .head > #heart{
-    width: 15%;
-} 
+    width: 20%;
+}
+
+#heart > label > .fa-heart{
+    font-size: 35px;
+    margin:5px 0 0 40px;
+    cursor: pointer;
+}
+
+#heart > input[type=checkbox]{
+    display: none;
+}
+
+#heart > label > .fa-heart:hover{
+    color: #e74464;
+}
+#heart > label > .fa-heart :hover ~ label{
+    color: #e74464;
+}
+#heart > input[type=checkbox]:checked ~ label{
+    color: #e74464;
+}
+
 
 .body {
-    height: 350px;
+    height: 250px;
+    margin-top: 25px;
 }
+
+.body > table > tbody > tr{
+    height: 35px;
+}
+
+.body > table > tbody > tr > th{
+    width: 30%;
+    font-weight: 420;
+    font-size: 18px;
+}
+
+.body > table > tbody > tr > td{
+    width: 70%;
+    padding-left: 15px;
+    font-weight: 400;
+    font-size: 17px;
+}
+
 
 .foot{
     height: 250px;
+}
+
+#map ,#roadview{
+    width: 95%;
+    height: 320px;
 }

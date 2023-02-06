@@ -25,12 +25,10 @@
 
         <%--관리자 모드--%>
         <div class="detail_head_admin">
-            <c:choose>
-                <c:when test="${ loginUser.memberNo == 1}">
-                    <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-                    <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
-                </c:when>
-            </c:choose>
+            <c:if test="${ loginUser.memberNo == 1}">
+                <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
+                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+            </c:if>
         </div>
 
         <div class="head name">
@@ -52,12 +50,12 @@
             </c:forEach>
 
             <%--해시태그 비동기 갱신--%>
-<%--            <span id = "hashtag_by_review">--%>
-<%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
-<%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
-<%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
-<%--                </c:forEach>--%>
-<%--            </span>--%>
+            <%--            <span id = "hashtag_by_review">--%>
+            <%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
+            <%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
+            <%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
+            <%--                </c:forEach>--%>
+            <%--            </span>--%>
         </div>
     </div>
     <div class="detail_main">
@@ -111,8 +109,6 @@
         </div>
     </div>
 
-
-
 </div>
 
 <%--리뷰모달--%>
@@ -157,11 +153,7 @@
             <button id="review_insert" onclick="insertReview()">등록하기</button>
 
         </div>
-
-
     </div>
-
-
 </div>
 
 
@@ -188,6 +180,7 @@
 
 
 
+    // 리뷰 조회
     function selectReviewList() {
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/selectReview',
@@ -211,16 +204,16 @@
                     }
 
                     str += '<div>'
-                        + '<div class="reply_header">'
-                        + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
-                        + '<div class="reply_user_name">' + i.memberName + '</div>'
-                        + '<div class="reply_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
-                        + '<div>' + i.createDate + '</div>'
-                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
+                        + '<div class="review_header">'
+                        + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
+                        + '<div class="review_user_name">' + i.memberName + '</div>'
+                        + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
+                        + '<div class="review_date">' + i.createDate.substring(0, 16) + '</div>'
+                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'> X </button>":""))
                         + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
                         + '</div>'
-                        + '<div>' + i.reviewContent + '</div>'
-                        + '<div class="reply_img_list">' + imgList + '</div>'
+                        + '<div class="review_content">' + i.reviewContent + '</div>'
+                        + '<div class="review_img_list">' + imgList + '</div>'
                         + '<div>' + hashtagList + '</div>'
                         + '</div>';
                 }
@@ -236,8 +229,6 @@
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
-
-
 
                 // 해시태그 비동기 갱신
                 // const hashtag_list = list.flatMap(obj => obj['hashtags'])
@@ -261,7 +252,6 @@
                 // });
                 // $('#hashtag_by_review').html(review_hashtag_contents);
 
-
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -269,8 +259,7 @@
         });
     }
 
-
-
+    // 리뷰 등록
     function insertReview() {
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
@@ -313,30 +302,21 @@
         }
     });
 
-
     // 관리자 - 리뷰삭제
     function deleteReview(button){
         let revNo = $(button).parent().parent().find("[name='revNo']").val();
         $.ajax({
-            url : "${pageContext.request.contextPath}/restaurant/deleteReview",
+            url : "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type : "delete",
-            data : {
-                resNo : ${restaurantDetail.resNo},
-                revNo : revNo,
-                memberNo : '${loginUser.memberNo}'
-            },
             success : function (result) {
-                console.log(result);
                 alert("리뷰 삭제 성공");
-                location.href = "${pageContext.request.contextPath}/restaurant/selectReview" + ${restaurantDetail.resNo};
+                selectReviewList();
             },
             error : function (){
-                console.log(this.error);
                 alert("리뷰 삭제 실패");
             }
         });
     }
-
 
 
     // $('.modal').on('hidden.bs.modal', function (e) {
@@ -347,13 +327,9 @@
 
 </script>
 
-
-
-<%--<script>--%>
-<%--    $(":radio[name='rating'][value='" + r.revScore + "']").attr('checked', true);--%>
-<%--</script>--%>
-
-
+<%--<%—<script>—%>--%>
+<%--<%—    $(":radio[name='rating'][value='" + r.revScore + "']").attr('checked', true);—%>--%>
+<%--<%—</script>—%>--%>
 
 
 </body>
