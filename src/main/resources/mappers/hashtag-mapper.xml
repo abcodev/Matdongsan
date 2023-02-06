@@ -16,14 +16,12 @@
         <result column="MEMBER_NO" property="memberNo"/>
     </resultMap>
 
-
     <select id="select" resultMap="hashtagResultSet">
         SELECT HASHTAG.HASHTAG_ID,
                HASHTAG.HASHTAG
         FROM HASHTAG
         WHERE HASHTAG.HASHTAG = #{hashtag}
     </select>
-
 
     <select id="selectHashtagList" resultMap="hashtagResultSet">
         SELECT

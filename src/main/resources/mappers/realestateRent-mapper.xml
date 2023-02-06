@@ -49,6 +49,7 @@
         <result column="OBJ_AMT" property="objAmt"/>
         <result column="BLDG_AREA" property="bldgArea"/>
         <result column="BUILD_YEAR" property="buildYear"/>
+        <result column="FLR_NO" property="flrNo"/>
         <result column="HOUSE_TYPE" property="houseType"/>
     </resultMap>
 

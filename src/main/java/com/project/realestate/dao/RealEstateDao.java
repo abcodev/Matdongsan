@@ -72,5 +72,9 @@ public class RealEstateDao {
     public List<RealEstateAgent> selectAgentList() {
         return sqlSession.selectList("sellMapper.selectAgent");
     }
+
+    public List<RealEstateAgent> selectAgentListByBjdongNm(String bjdongNm) {
+        return sqlSession.selectList("sellMapper.selectAllByBjdongNm", bjdongNm);
+    }
 }
 

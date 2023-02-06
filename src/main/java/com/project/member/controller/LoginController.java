@@ -22,7 +22,8 @@ public class LoginController {
     private final OAuthClientService oAuthClientService;
 
     @RequestMapping(value = "/loginPage", method = {RequestMethod.GET, RequestMethod.POST})
-    public String login() {
+    public String login(@RequestParam(defaultValue = "/mainPage") String redirectUrl, HttpSession session) {
+        session.setAttribute("redirectUrl", redirectUrl);
         return "member/loginPage";
     }
 
@@ -49,7 +50,9 @@ public class LoginController {
         ModelAndView mav = new ModelAndView();
         Member loginUser = memberService.login(session, provider, code, state);
         session.setAttribute("loginUser", loginUser);
-        mav.setViewName("redirect:/mainPage");
+
+        String redirectUrl = (String) session.getAttribute("redirectUrl");
+        mav.setViewName("redirect:" + redirectUrl);
         return mav;
     }
 

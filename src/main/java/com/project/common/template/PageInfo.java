@@ -1,5 +1,6 @@
 package com.project.common.template;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Component;
 
 import com.project.common.template.Pagination;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PageInfo {
+public class PageInfo{
     private int listCount;
     private int currentPage;
     private int pageLimit;

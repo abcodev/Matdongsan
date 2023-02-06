@@ -42,17 +42,29 @@ public class AlarmTemplate {
 
     public static AlarmTemplate generateNewReplyTemplate(long receiverNo) {
         AlarmTemplate template = new AlarmTemplate(receiverNo);
-        template.setTitle("내글 알림");
+        template.setTargetNo(String.valueOf(receiverNo));
+        template.setTitle("자유게시판 알림");
         template.setAlarmType(AlarmType.NEW_REPLY);
         template.setContents("내글에 댓글이 달렸습니다.");
         return template;
     }
 
-    public static AlarmTemplate generateNewEstateUpdate(long receiverNo) {
+    public static AlarmTemplate generateNewQnaMessageTemplate(long receiverNo) {
         AlarmTemplate template = new AlarmTemplate(receiverNo);
-        template.setTitle("부동산 정보알림");
-        template.setAlarmType(AlarmType.NEW_ESTATE);
-        template.setContents("새로운 부동산 정보가 있습니다.");
+        template.setTargetNo(String.valueOf(receiverNo));
+        template.setTitle("질문게시판 알림");
+        template.setAlarmType(AlarmType.NEW_REPLY);
+        template.setContents("내글에 답변이 달렸습니다.");
         return template;
     }
+
+//    public static AlarmTemplate generateNewEstateUpdate(long receiverNo) {
+//        AlarmTemplate template = new AlarmTemplate(receiverNo);
+//        template.setTargetNo(receiverNo);
+//        template.setTitle("부동산 정보알림");
+//        template.setAlarmType(AlarmType.NEW_ESTATE);
+//        template.setContents("새로운 부동산 정보가 있습니다.");
+//        return template;
+//    }
+
 }

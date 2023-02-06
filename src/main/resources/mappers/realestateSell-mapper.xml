@@ -139,6 +139,12 @@
         WHERE RA.BJDONG_NM = #{bjdongNm}
     </select>
 
+    <select id="selectAllByBjdongNm" parameterType="String" resultMap="agentResultSet">
+        SELECT *
+        FROM REALESTATE_AGENT
+        WHERE BJDONG_NM = #{bjdongNm}
+    </select>
+
     <select id="avgSell" resultMap="realEstateSellResultSet">
         SELECT AVG(OBJ_AMT),
                SGG_NM

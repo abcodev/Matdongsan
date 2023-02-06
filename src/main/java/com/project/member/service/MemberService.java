@@ -1,14 +1,16 @@
 package com.project.member.service;
 
-import com.project.board.dto.FreeBoardResponse;
-import com.project.board.dto.QnaBoardResponse;
-import com.project.board.vo.FreeBoard;
-import com.project.board.vo.QnaBoard;
 import com.project.client.oauth.OAuthClient;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
+import com.project.common.template.PageInfoCombine;
 import com.project.member.dao.MemberDao;
+import com.project.member.dto.*;
 import com.project.member.vo.Member;
+import com.project.realestate.dao.InterestEstateDao;
+import com.project.realestate.dao.RealEstateDao;
+import com.project.realestate.dto.RealEstateDetailDto;
+import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.vo.Interest;
 import lombok.RequiredArgsConstructor;
 //import net.nurigo.java_sdk.api.Message;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +37,9 @@ public class MemberService {
     private final OAuthClientService oAuthClientService;
     private final MemberDao memberDao;
     private final SqlSessionTemplate sqlSession;
+    private final InterestEstateDao interestEstateDao;
+    private final RealEstateDao realEstateDao;
+    private static final int DEFAULT_SIZE = 10;
     /*
         sqlsession 만들지 않아도 되는 이유 (이건 jdbc 쓸 때 사용하는 방식)
 
@@ -86,10 +92,10 @@ public class MemberService {
         // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", userPhoneNumber);    // 수신전화번호
-        params.put("from", "010-4818-2172");    // 발신전화번호
+        params.put("from", "010-4818-2172");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
-        params.put("text", "[MATDONGSAN] 인증번호는" + "["+randomNumber+"]" + "입니다.");
-        params.put("app_version", "test app 1.2");
+        params.put("text", "[TEST] 인증번호는" + "["+randomNumber+"]" + "입니다."); // 문자 내용 입력
+        params.put("app_version", "test app 1.2"); // application name and version
 
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
@@ -101,16 +107,31 @@ public class MemberService {
 
     }
 
-    public ArrayList<FreeBoardResponse> getFreeBoardList(Member m){
-        return memberDao.getFreeBoardList(sqlSession, m);
-    }
-
-    public ArrayList<QnaBoardResponse> getQnaBoardList(Member m){
-        return memberDao.getQnaBoardList(sqlSession, m);
-    }
-
-    public ArrayList<Interest> getInterestList(Member m){
+    public List<Interest> getInterestList(Member m){
         return memberDao.getInterestList(sqlSession, m);
+    }
+
+
+    public MyPageListResponse selectList(MyPageListRequest request, Member m){
+        int count = memberDao.selectListCount(sqlSession, m);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
+        List<AllBoard> result = memberDao.selectAllBoardList(sqlSession,pageInfoCombine, m);
+
+        return new MyPageListResponse(result, pageInfoCombine);
+
+    }
+
+//    public boolean checkInterest(String estateNo, Member loginUser){
+//        return memberDao.checkInterest(estateNo, loginUser.getMemberNo());
+//    }
+
+
+    public void saveInterest(RealEstateInterestRequest req, Member loginUser){
+        if(req.getIsInterest()){
+            interestEstateDao.insert(req.getEstateNo(), loginUser.getMemberNo());
+        }else{
+            interestEstateDao.delete(req.getEstateNo(), loginUser.getMemberNo());
+        }
     }
 
 
