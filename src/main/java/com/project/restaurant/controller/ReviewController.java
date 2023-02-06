@@ -4,6 +4,7 @@ import com.project.board.vo.Reply;
 import com.project.member.vo.Member;
 import com.project.restaurant.dto.InsertReviewRequest;
 import com.project.restaurant.dto.ReviewResponse;
+import com.project.restaurant.service.RestaurantService;
 import com.project.restaurant.service.ReviewService;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final RestaurantService restaurantService;
 
     // consumes : 클라이언트가 서버에게 보내는 데이터 타입을 명시
     @RequestMapping(value = "/restaurant/insertReview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -42,11 +44,12 @@ public class ReviewController {
         return ResponseEntity.ok(list);
     }
 
-    @DeleteMapping ("/restaurant/deleteReview")
+    @DeleteMapping("/restaurant/review/{reviewNo}")
     @ResponseBody
-    public ModelAndView deleteReview(Review review, ModelAndView modelAndView){
-        reviewService.deleteReview(review);
-        return modelAndView;
+    public ResponseEntity<Void> deleteReview(ModelAndView modelAndView, @PathVariable int reviewNo){
+        reviewService.deleteReview(reviewNo);
+//        restaurantService.deleteReviewImg(reviewNo);
+        return ResponseEntity.ok().build();
     }
 
 }

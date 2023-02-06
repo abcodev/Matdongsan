@@ -11,13 +11,8 @@ public interface AdminService {
 
     public Map<String, Object> userList(int currentPage);
 
-
-
-
-
-
-
     public ArrayList<Admin> reportList(int fNo);
+
 
 
 
@@ -31,4 +26,6 @@ public interface AdminService {
     public int deleteQna(int fNo);
 
     public int deleteFree(int fNo);
+
+
 }

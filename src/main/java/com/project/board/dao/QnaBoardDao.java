@@ -70,4 +70,9 @@ public class QnaBoardDao {
         return  sqlSession.insert("boardMapper.insertReport", report);
     }
 
+    public QnaBoard selectByQnaBno(SqlSession sqlSession, int parentBno) {
+        return sqlSession.selectOne("boardMapper.selectByQnaBno", parentBno);
+    }
+
+
 }

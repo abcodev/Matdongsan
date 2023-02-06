@@ -40,15 +40,23 @@
             success(data) {
                 const html = jQuery('<div>').html(data);
                 const contents = html.find('div#estate_rent_list_ajax').html()
+              //  const freeContents = html.find('div#selectFboard').html()
                 $('#search_list').html(contents);
+                // $('.freeBoard').html(freeContents);
             }
         });
     }
 
     function searchList(current_page){
+        var address = [];
+        var subAddress = [];
+        var buildName = [];
+        var sggNm = [];
+
         $.ajax({
             url : '${pageContext.request.contextPath}/realEstate/map',
             method : 'GET',
+            async: false,
             contentType: "application/json; charset=UTF-8",
             dataType: 'json',
             data :{
@@ -59,9 +67,27 @@
                 'rentGtn': $('#rentGtn option:checked').val(),
                 'chooseType': $('#chooseType option:checked').val() },
             success : function (result){
-                let listData = JSON.stringify(result)
-                console.log(listData);
-                searchResultMap()
+                console.log(result);
+
+                // 필요한  데이터별로 가공처리
+                // array.map() --> list데이터로부터 내가 원하는 형태의 데이터로 가공해서 값을 반환가능
+                address = result.map(function (obj){
+                    return obj.address;
+                });
+
+                subAddress = result.map(function (obj){
+                    return obj.subAddress;
+                });
+
+                buildName = result.map(function (obj){
+                    return obj.buildName;
+                });
+
+                // sggNm = result.map(function (obj){
+                //     return obj.sggNm;
+                // })
+
+                searchResultMap(address, subAddress, buildName);
             }
 
         })
@@ -72,25 +98,25 @@
         <div id="search_box">
             <div class="search city">
                 <select name="selectOption1" id="selectOption1" onchange="get_option2(this.value)">
-                    <option value="">전체</option>
+                    <option value="">자치구 선택</option>
                     <c:forEach var="localList" items="${localList}">
                         <option value="${localList}">${localList}</option>
                     </c:forEach>
                 </select>
                 <select name="selectOption2" id="selectOption2">
-                    <option value="">전체</option>
+                    <option value="">동 선택</option>
                 </select>
             </div>
             <div class="search option">
                 <select name="rentType" id="rentType" onchange="optionType(this)">
-                    <option value="">전체</option>
+                    <option value="">거래 타입</option>
                     <option value="매매">매매</option>
                     <option value="전세">전세</option>
                     <option value="월세">월세</option>
                 </select>
 
                 <select name="rentGtn" id="rentGtn">
-                    <option value="">가격(만원)</option>
+                    <option value="">거래 가격(만원)</option>
                 </select>
 
                 <select name="chooseType" id="chooseType">
@@ -246,8 +272,9 @@
         }
     }
 
+
     // 검색 결과 나타내 주는 지도
-    function searchResultMap(){
+    function searchResultMap(address, subAddress, buildName){
         var mapContainer = document.getElementById('search_map'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(37.50060595890094, 127.03641515171977), // 지도의 중심좌표
@@ -260,28 +287,11 @@
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
-        var listData1 = [
-            <c:forEach items="${result}" var="list">
-            '${list.subAddress}',
-            </c:forEach>
-        ];
-
-        var listData2 = [
-            <c:forEach items="${result}" var="list2">
-            '${list2.address}',
-            </c:forEach>
-        ];
-
-        var listData3 = [
-            <c:forEach items="${result}" var="list2">
-            '${list2.buildName}',
-            </c:forEach>
-        ];
 
         // 주소로 좌표를 검색합니다
-        listData2.forEach(function (listData1, index) {
+        address.forEach(function (subAddress, index) {
             let overlay;
-            geocoder.addressSearch(listData1, function (result, status) {
+            geocoder.addressSearch(subAddress, function (result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
@@ -302,7 +312,7 @@
                     var content = '<div class="wrap">' +
                         '    <div class="info">' +
                         '           <div class="title">' +
-                        '               <div class="bldgNm">'+'건물명  : '+ listData3[index]+ '</div>'+
+                        '               <div class="bldgNm">'+ buildName[index]+ '아파트' + '</div>'+
                         '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
                         '           </div>' +
                         '            <div class="desc">' +
@@ -339,10 +349,7 @@
                 }
             })
         });
-
-
     }
-
 </script>
 
 </body>

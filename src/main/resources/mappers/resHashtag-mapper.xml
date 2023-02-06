@@ -44,6 +44,10 @@
         DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo} AND REV_NO is null
     </delete>
 
+    <delete id="deleteByRevNo" parameterType="_int">
+        DELETE FROM RES_HASHTAG WHERE REV_NO = #{revNo}
+    </delete>
+
 
 
 </mapper>

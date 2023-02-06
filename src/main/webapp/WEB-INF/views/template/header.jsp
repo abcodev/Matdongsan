@@ -58,14 +58,14 @@
             <c:choose>
                 <c:when test="${ empty loginUser}">
                     <div class="login_before">
-                        <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
+                        <a href="#" onclick="redirectLoginPage()">로그인</a>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="login_after">
                         <img src="${loginUser.profileImage}" class="user_img">
                         <c:if test="${loginUser.memberNo == 1}">
-                            <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
+                            <a href="${pageContext.request.contextPath}/admin/userList/1" class="after">관리자페이지</a>
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.memberNo != 1}">
@@ -81,12 +81,16 @@
         </div>
 
         <script>
-
+            function redirectLoginPage() {
+                let loginPage = '${pageContext.request.contextPath}/loginPage?redirectUrl=';
+                let redirectUrl = location.href.substring('http://localhost:8070/${pageContext.request.contextPath}'.length - 1);
+                return location.href = loginPage + redirectUrl;
+            }
 
             let alarmIsOpen = false;
-            window.onload = () => {
+            window.addEventListener('pageshow', () => {
                 retrieveAlarmList();
-            }
+            });
 
             const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
             sse.addEventListener('realtime_alarm', (event) => {
@@ -108,8 +112,6 @@
                     }
                 });
             }
-
-
 
         </script>
 

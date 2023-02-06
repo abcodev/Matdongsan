@@ -119,7 +119,11 @@ public class RestaurantDao {
     }
 
     public int deleteResImg(String resNo) {
-        return sqlSession.delete("resMapper.deleteResImg", resNo);
+        return sqlSession.delete("resMapper.deleteResImgByResNo", resNo);
+    }
+
+    public void deleteResImgByImgNo(int imgNo) {
+        sqlSession.delete("resMapper.deleteResImgByImgNo", imgNo);
     }
 
     public int deleteResHash(String resNo) {
@@ -129,4 +133,5 @@ public class RestaurantDao {
     public void deleteResHashOnlyAdmin(String resNo) {
         sqlSession.delete("resHashtagMapper.deleteResHashOnlyAdmin",resNo);
     }
+
 }

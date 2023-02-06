@@ -1,10 +1,14 @@
 package com.project.board.service;
 
+import com.project.alarm.dto.AlarmTemplate;
+import com.project.alarm.service.AlarmService;
 import com.project.board.dao.QnaBoardDao;
+import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.Pagination;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +19,17 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class QnaBoardServiceImpl implements QnaBoardService {
 
-    @Autowired
-    private QnaBoardDao boardDao;
-    @Autowired
-    private SqlSession sqlSession;
-    @Autowired
-    private Pagination pagination;
+    private final QnaBoardDao boardDao;
+
+    private final SqlSession sqlSession;
+
+    private final Pagination pagination;
+
+    private final AlarmService alarmService;
+
     @Override
     public int selectListCount() {
         return boardDao.selectListCount(sqlSession);
@@ -94,6 +101,12 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
     @Override
     public int insertAnswer(QnaBoard qb){
+
+//        QnaBoard qnaBoard = boardDao.selectByQnaBno(sqlSession, qb.getParentBno());
+//        long receiverNo = qnaBoard.getMemberNo();
+//        AlarmTemplate template = AlarmTemplate.generateNewQnaMessageTemplate(receiverNo);
+//        alarmService.send(template);
+
         return  boardDao.insertAnswer(sqlSession,qb);
     }
 
