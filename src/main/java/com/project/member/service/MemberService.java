@@ -9,7 +9,6 @@ import com.project.member.dto.*;
 import com.project.member.vo.Member;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dao.RealEstateDao;
-import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.vo.Interest;
 import lombok.RequiredArgsConstructor;
@@ -134,6 +133,13 @@ public class MemberService {
         }
     }
 
+    public int deleteMember(long memberNo){
+        return memberDao.deleteMember(sqlSession, memberNo);
+    }
+
+//    public ArrayList<Interest> selectInterestList(String estateNo){
+//        return memberDao.selectInterestList(sqlSession, estateNo);
+//    }
 
 
 }
