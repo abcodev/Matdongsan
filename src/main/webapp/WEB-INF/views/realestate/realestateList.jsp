@@ -40,9 +40,9 @@
             success(data) {
                 const html = jQuery('<div>').html(data);
                 const contents = html.find('div#estate_rent_list_ajax').html()
-              //  const freeContents = html.find('div#selectFboard').html()
+                const freeContents = html.find('div#selectFboard').html()
                 $('#search_list').html(contents);
-                // $('.freeBoard').html(freeContents);
+                $('.freeBoard').html(freeContents);
             }
         });
     }
@@ -51,7 +51,6 @@
         var address = [];
         var subAddress = [];
         var buildName = [];
-        var sggNm = [];
 
         $.ajax({
             url : '${pageContext.request.contextPath}/realEstate/map',
@@ -82,10 +81,6 @@
                 buildName = result.map(function (obj){
                     return obj.buildName;
                 });
-
-                // sggNm = result.map(function (obj){
-                //     return obj.sggNm;
-                // })
 
                 searchResultMap(address, subAddress, buildName);
             }
