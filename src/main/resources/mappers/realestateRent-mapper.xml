@@ -332,16 +332,7 @@
         ORDER BY BJDONG_NM
     </select>
 
-    <select id="selectFboard" resultMap="selectFboardResultSet">
-        SELECT
-            FREE_BNO,
-            BOARD_AREA,
-            BOARD_TITLE
-        FROM FREE_BOARD
-        WHERE STATUS = 'Y'
-            AND BOARD_AREA = '${sggNm}'
-        ORDER BY BOARD_DATE DESC
-    </select>
+
 
 
 
