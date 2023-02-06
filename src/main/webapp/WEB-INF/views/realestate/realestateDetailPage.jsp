@@ -82,9 +82,13 @@
             <div><span>제휴 부동산</span></div>
             <tr>
                 <th>상호명</th>
+            </tr>
+            <tr>
+                <td>
                 <c:forEach var="agentList" items="${ agentList }">
-                <td class="rno" >${ agentList.agentName } </td>
+                <div class="rno" >${ agentList.agentName } </div>
                 </c:forEach>
+                </td>
             </tr>
 
         </div>

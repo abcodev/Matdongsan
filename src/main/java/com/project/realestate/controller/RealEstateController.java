@@ -111,8 +111,8 @@ public class RealEstateController {
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
                                          ModelAndView modelAndView
     ) {
-        List<RealEstateAgent> agentList = realEstateService.selectAgentList();
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
+        List<RealEstateAgent> agentList = realEstateService.selectAgentList(realEstateDetailDto.getBjdongNm());
         modelAndView.setViewName("realestate/realestateDetailPage");
         modelAndView.addObject("agentList",agentList);
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
