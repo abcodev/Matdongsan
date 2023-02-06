@@ -20,21 +20,16 @@
                 <th>금액</th>
                 <th>임대면적</th>
             </tr>
-            <%--            <c:if test="empty ${estateRentList}">--%>
-            <%--                <tr>--%>
-            <%--                    <td colspan="5">검색결과가 없습니다.</td>--%>
-            <%--                </tr>--%>
-            <%--            </c:if>--%>
 
-            <c:forEach var="estateRent" items="${ estateRentList }">
-                <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
-                    <td class="rno" >${ estateRent.sggNm } </td>
-                    <td>${estateRent.buildName }</td>
-                    <td>${estateRent.rentGbn}</td>
-                    <td>${estateRent.rentGtn}</td>
-                    <td>${estateRent.rentArea }</td>
-                </tr>
-            </c:forEach>
+                <c:forEach var="estateRent" items="${ estateRentList }">
+                    <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
+                        <td class="rno" >${ estateRent.sggNm } </td>
+                        <td>${estateRent.buildName }</td>
+                        <td>${estateRent.rentGbn}</td>
+                        <td>${estateRent.rentGtn}</td>
+                        <td>${estateRent.rentArea }</td>
+                    </tr>
+                </c:forEach>
 
         </table>
 
@@ -66,7 +61,15 @@
             </c:choose>
         </ul>
     </div>
+
+<%--    <div id="selectFboard">--%>
+<%--        <p>${selectFboard.boardArea} 이야기</p>--%>
+<%--        <c:forEach items="${selectFboard}" var="fb" begin="1" end="5" varStatus="status">--%>
+<%--            <a href="${pageContext.request.contextPath}/board/freeList/detail/${selectFboard.freeBno}">${status.count}. ${selectFboard.boardTitle}</a>--%>
+<%--        </c:forEach>--%>
+<%--    </div>--%>
 </div>
+
 
 <script>
     function retrieveRealEstate(current_page) {

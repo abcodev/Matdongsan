@@ -54,6 +54,7 @@
 
     <resultMap id="selectFboardResultSet" type="freeBoard">
         <result column="FREE_BNO" property="freeBno"/>
+        <result column="BOARD_AREA" property="boardArea"/>
         <result column="BOARD_TITLE" property="boardTitle"/>
     </resultMap>
 
@@ -333,11 +334,12 @@
     <select id="selectFboard" resultMap="selectFboardResultSet">
         SELECT
             FREE_BNO,
+            BOARD_AREA,
             BOARD_TITLE
         FROM FREE_BOARD
         WHERE STATUS = 'Y'
             AND BOARD_AREA = '${sggNm}'
-        ORDER BY BOARD_AREA DESC
+        ORDER BY BOARD_DATE DESC
     </select>
 
 

@@ -40,7 +40,9 @@
             success(data) {
                 const html = jQuery('<div>').html(data);
                 const contents = html.find('div#estate_rent_list_ajax').html()
+              //  const freeContents = html.find('div#selectFboard').html()
                 $('#search_list').html(contents);
+                // $('.freeBoard').html(freeContents);
             }
         });
     }
@@ -49,6 +51,7 @@
         var address = [];
         var subAddress = [];
         var buildName = [];
+        var sggNm = [];
 
         $.ajax({
             url : '${pageContext.request.contextPath}/realEstate/map',
@@ -64,10 +67,8 @@
                 'rentGtn': $('#rentGtn option:checked').val(),
                 'chooseType': $('#chooseType option:checked').val() },
             success : function (result){
-                //let jsonResult = JSON.stringify(result);
-
                 console.log(result);
-                //console.log(jsonResult);
+
                 // 필요한  데이터별로 가공처리
                 // array.map() --> list데이터로부터 내가 원하는 형태의 데이터로 가공해서 값을 반환가능
                 address = result.map(function (obj){
@@ -81,6 +82,10 @@
                 buildName = result.map(function (obj){
                     return obj.buildName;
                 });
+
+                // sggNm = result.map(function (obj){
+                //     return obj.sggNm;
+                // })
 
                 searchResultMap(address, subAddress, buildName);
             }
