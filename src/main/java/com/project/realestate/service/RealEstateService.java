@@ -1,5 +1,6 @@
 package com.project.realestate.service;
 
+import com.project.board.vo.FreeBoard;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
@@ -16,6 +17,8 @@ public interface RealEstateService {
     public int selectListCount();
 
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req);
+
+    public List<FreeBoard> selectFboard(String state);
 
 
     // 자치구 리스트,

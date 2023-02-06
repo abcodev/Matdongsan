@@ -53,6 +53,12 @@
         <result column="HOUSE_TYPE" property="houseType"/>
     </resultMap>
 
+    <resultMap id="selectFboardResultSet" type="freeBoard">
+        <result column="FREE_BNO" property="freeBno"/>
+        <result column="BOARD_AREA" property="boardArea"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+    </resultMap>
+
 
 
     <delete id="deleteAll">
@@ -324,6 +330,17 @@
         FROM REALESTATE_SELL
         WHERE SGG_NM = '${sggNm}'
         ORDER BY BJDONG_NM
+    </select>
+
+    <select id="selectFboard" resultMap="selectFboardResultSet">
+        SELECT
+            FREE_BNO,
+            BOARD_AREA,
+            BOARD_TITLE
+        FROM FREE_BOARD
+        WHERE STATUS = 'Y'
+            AND BOARD_AREA = '${sggNm}'
+        ORDER BY BOARD_DATE DESC
     </select>
 
 
