@@ -158,12 +158,8 @@
     <update id="deleteReview" parameterType="review">
         UPDATE REVIEW
         SET STATUS = 'N'
-        WHERE RES_NO = ${resNo}
-          AND REV_NO = ${revNo}
-          AND MEMBER_NO = ${memberNo}
+        WHERE REV_NO = ${revNo}
     </update>
-
-
 
 
     <!-- 관리자 - 맛집 등록 -->
@@ -203,15 +199,13 @@
         DELETE FROM RESTAURANT WHERE RES_NO = #{resNo}
     </delete>
 
-    <delete id="deleteResImg" parameterType="string">
+    <delete id="deleteResImgByResNo" parameterType="string">
         DELETE FROM RES_IMG WHERE RES_NO = #{resNo}
     </delete>
 
-
-
-
-
-
+    <delete id="deleteResImgByImgNo" parameterType="_int">
+        DELETE FROM RES_IMG WHERE IMG_NO = #{imgNo}
+    </delete>
 
 
 

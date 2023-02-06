@@ -48,14 +48,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     public int insertReply(Reply r){
-
         // 내 글에 댓글이 달릴 때 (알림 받으려면 필요한것: 댓글이 달린 글번호의 멤버번호)
-//        FreeBoard freeBoard = new FreeBoard();
-//        long receiverNo = (freeBoard.getMemberNo());
-//        if(r.getFreeBno() == freeBoard.getBoardNo()) {
-//            AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
-//            alarmService.send(template);
-//        }
+        FreeBoard freeBoard = freeBoardDao.selectByFreeBno(sqlSession, r.getFreeBno());
+        long receiverNo = freeBoard.getMemberNo();
+        AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
+        alarmService.send(template);
+
         return freeBoardDao.insertReply(sqlSession, r);
     }
 

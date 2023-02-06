@@ -43,6 +43,11 @@
         VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
     </insert>
 
+    <select id="selectByFreeBno" parameterType="_int" resultMap="fBoardResultSet">
+        SELECT *
+        FROM FREE_BOARD
+        WHERE FREE_BNO = #{freeBno}
+    </select>
 
     <select id="selectFreeListCount" resultType="int">
         SELECT COUNT(*)

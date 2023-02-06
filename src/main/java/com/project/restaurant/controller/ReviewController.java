@@ -42,11 +42,13 @@ public class ReviewController {
         return ResponseEntity.ok(list);
     }
 
-    @DeleteMapping ("/restaurant/deleteReview")
+    // REST API
+    @DeleteMapping("/restaurant/review/{reviewNo}")
     @ResponseBody
-    public ModelAndView deleteReview(Review review, ModelAndView modelAndView){
-        reviewService.deleteReview(review);
-        return modelAndView;
+    public ResponseEntity<Void> deleteReview(ModelAndView modelAndView, @PathVariable int reviewNo){
+        reviewService.deleteReview(reviewNo);
+//        restaurantService.deleteReviewImg(reviewNo);
+        return ResponseEntity.ok().build();
     }
 
 }
