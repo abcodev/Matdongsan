@@ -29,6 +29,10 @@
         <typeAlias type="com.project.board.vo.Report" alias="report"/>
         <typeAlias type="com.project.chat.dto.AdminChatRoom" alias="adminChatRoom"/>
         <typeAlias type="com.project.chat.dto.AdminChatMessage" alias="adminChatMessage"/>
+        <typeAlias type="com.project.member.dto.MemberFreeBoardDto" alias="memberFreeBoard"/>
+        <typeAlias type="com.project.member.dto.MemberQnaBoardDto" alias="memberQnaBoard"/>
+        <typeAlias type="com.project.member.dto.MemberInterestDto" alias="memberInterest"/>
+        <typeAlias type="com.project.member.dto.AllBoard" alias="allBoard"/>
         <typeAlias type="com.project.board.vo.HotWeek" alias="hotWeek"/>
     </typeAliases>
 

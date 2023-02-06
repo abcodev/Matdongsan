@@ -23,7 +23,7 @@ public class ReviewDao {
         return sqlSession.selectList("resMapper.selectReviewList", resNo);
     }
 
-    public int deleteReview(Review review) {
-        return sqlSession.update("resMapper.deleteReview", review);
+    public int deleteReview(int reviewNo) {
+        return sqlSession.update("resMapper.deleteReview", reviewNo);
     }
 }

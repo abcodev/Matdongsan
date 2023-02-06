@@ -84,7 +84,7 @@ public class ReviewService {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
                     // HashTag 기준으로 Grouping -> [Key, Value] -> [HashTag, Counting] (Group By)
 
-        return hashtagCount.entrySet() // entrySet() : Map에 값을 전체 출력하기 위해, key와 value의 값이 모두 필요한 경우 사용
+        return hashtagCount.entrySet() // entrySet() : Map에 값을 전체 출력하기 위해 (key 와 value 의 값이 모두 필요한 경우 사용)
                 .stream() // Map<String, Long> -> Stream
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) // Value(Counting) 을 기준으로 내림차순 정렬
                 .map(Map.Entry::getKey) // Entry<String, Long> -> [Key, Value] -> [HashTag, Counting] -> HashTag
@@ -93,8 +93,15 @@ public class ReviewService {
     }
 
 
-    public int deleteReview(Review review) {
-        return reviewDao.deleteReview(review);
+    public void deleteReview(int reviewNo) {
+        reviewDao.deleteReview(reviewNo);
+        resHashtagDao.deleteByRevNo(reviewNo);
+
+        List<ResImg> images = restaurantDao.selectImageListByRevNo(reviewNo);
+        images.forEach(image -> {
+            Utils.removeFile(image.getChangeName());
+            restaurantDao.deleteResImgByImgNo(image.getImgNo());
+        });
     }
 
 }

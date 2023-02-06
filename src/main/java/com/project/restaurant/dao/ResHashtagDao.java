@@ -24,4 +24,8 @@ public class ResHashtagDao {
     public List<ResHashtagDto> selectByRevNo(int revNo) {
         return sqlSession.selectList("resHashtagMapper.selectListByRevNo", revNo);
     }
+
+    public void deleteByRevNo(int revNo) {
+        sqlSession.delete("resHashtagMapper.deleteByRevNo", revNo);
+    }
 }

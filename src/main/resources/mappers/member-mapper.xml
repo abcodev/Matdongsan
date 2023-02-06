@@ -19,52 +19,25 @@
         <result column="INTEREST_STATE" property="interestState"/>
     </resultMap>
 
-    <resultMap type="member" id="freeBoardList">
-        <result column="MEMBER_NO" property="memberNo"/>
-        <result column="PROVIDER" property="provider"/>
-        <result column="PROVIDER_ID" property="providerId"/>
-        <result column="NICKNAME" property="nickName"/>
-        <result column="FREE_BNO" property="boardNo"/>
-        <result column="BOARD_TITLE" property="boardTitle"/>
-        <result column="BOARD_DATE" property="boardDate"/>
-        <collection resultMap="freeBoardList1" property="freeBoardList"/>
-    </resultMap>
-
-    <resultMap type="FreeBoard" id="freeBoardList1">
-        <result column="FREE_BNO" property="boardNo"/>
-        <result column="BOARD_TITLE" property="boardTitle"/>
-        <result column="BOARD_DATE" property="boardDate"/>
-    </resultMap>
-
-    <resultMap type="member" id="qnaBoardList">
-        <result column="MEMBER_NO" property="memberNo"/>
-        <result column="PROVIDER" property="provider"/>
-        <result column="PROVIDER_ID" property="providerId"/>
-        <result column="NICKNAME" property="nickName"/>
-        <result column="QNA_BNO" property="qnaBno"/>
-        <result column="QNA_TITLE" property="qnaTitle"/>
-        <result column="QNA_DATE" property="qnaDate"/>
-        <collection resultMap="qnaBoardList1" property="qnaBoardList"/>
-    </resultMap>
-
-    <resultMap type="QBoard" id="qnaBoardList1">
-        <result column="QNA_BNO" property="qnaBno"/>
-        <result column="QNA_TITLE" property="qnaTitle"/>
-        <result column="QNA_DATE" property="qnaDate"/>
-    </resultMap>
-
-    <resultMap type="member" id="interestList">
+    <resultMap type="memberInterest" id="interestList">
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="PROVIDER" property="provider"/>
         <result column="PROVIDER_ID" property="providerId"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="ESTATE_NO" property="estateNo"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="ADDRESS" property="address"/>
         <collection resultMap="interestList1" property="interestList"/>
+        <collection resultMap="interestList2" property="interestList"/>
     </resultMap>
 
     <resultMap type="interest" id="interestList1">
         <result column="ESTATE_NO" property="estateNo"/>
     </resultMap>
+    <resultMap type="realEstateSell" id="interestList2">
+        <result column="ESTATE_NO" property="estateNo"/>
+    </resultMap>
+
 
 
     <insert id="insert" parameterType="member">
@@ -79,13 +52,14 @@
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
     </select>
-
     <select id="select" parameterType="Map" resultMap="memberResultSet">
         SELECT *
         FROM MEMBER
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}
     </select>
+
+
 
     <select id="loginMember" parameterType="member" resultMap="memberResultSet">
         SELECT
@@ -108,7 +82,8 @@
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
-    <!--최근 접속일-->
+
+
     <update id="updateRecentAccess" parameterType="Map">
         UPDATE MEMBER
         SET
@@ -117,48 +92,78 @@
           AND PROVIDER_ID = #{providerId}
     </update>
 
-    <select id="getFreeBoardList" resultMap="freeBoardList">
-        SELECT
-            M.MEMBER_NO,
-            M.PROVIDER,
-            M.PROVIDER_ID,
-            M.NICKNAME,
-            F.FREE_BNO,
-            F.BOARD_TITLE,
-            F.BOARD_DATE
-        FROM MEMBER M
-                 LEFT OUTER JOIN FREE_BOARD F
-                                 ON M.MEMBER_NO = F.MEMBER_NO
-        WHERE M.MEMBER_NO = #{memberNo}
-
-    </select>
-
-    <select id="getQnaBoardList" resultMap="qnaBoardList">
-        SELECT
-            M.MEMBER_NO,
-            M.PROVIDER,
-            M.PROVIDER_ID,
-            M.NICKNAME,
-            Q.QNA_BNO,
-            Q.QNA_TITLE,
-            Q.QNA_DATE
-        FROM MEMBER M
-                 LEFT OUTER JOIN QNA_BOARD Q
-                                 ON M.MEMBER_NO = Q.MEMBER_NO
-        WHERE M.MEMBER_NO = #{memberNo}
-
-    </select>
-
     <select id="getInterestList" resultMap="interestList">
         SELECT
             M.MEMBER_NO,
             M.PROVIDER,
             M.PROVIDER_ID,
             M.NICKNAME,
-            I.ESTATE_NO
+            I.ESTATE_NO,
+            S.BLDG_NM,
+            S.SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS
+
         FROM MEMBER M
-                LEFT OUTER JOIN INTEREST I
-        ON M.MEMBER_NO = I.MEMBER_NO
+                 LEFT OUTER JOIN INTEREST I
+                                 ON M.MEMBER_NO = I.MEMBER_NO
+                 JOIN REALESTATE_SELL S
+                      ON I.ESTATE_NO = S.ESTATE_NO
+        WHERE M.MEMBER_NO = #{memberNo}
+
+
+    </select>
+
+    <resultMap id="allBoardResultSet" type="allBoard">
+        <result column="FREE_BNO" property="boardNo"/>
+        <result column="BOARD_TITLE" property="boardTitle"/>
+        <result column="BOARD_DATE" property="boardDate"/>
+        <result column="QNA_BNO" property="qnaNo"/>
+        <result column="QNA_TITLE" property="qnaTitle"/>
+        <result column="QNA_DATE" property="qnaDate"/>
+        <result column="TYPE" property="boardType"/>
+
+    </resultMap>
+    <select id="selectAllBoard" resultMap="allBoardResultSet">
+        SELECT
+            F.FREE_BNO,
+            F.BOARD_TITLE,
+            F.BOARD_DATE,
+            'F' AS TYPE
+        FROM FREE_BOARD F
+                 LEFT JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
+        WHERE M.MEMBER_NO = #{memberNo}
+
+        UNION ALL
+        SELECT
+            Q.QNA_BNO,
+            Q.QNA_TITLE,
+            Q.QNA_DATE,
+            'Q' AS TYPE
+        FROM QNA_BOARD Q
+                 LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
     </select>
+
+    <select id="selectAllBoardCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM (SELECT
+                  FREE_BNO,
+                  BOARD_TITLE,
+                  BOARD_DATE,
+                  'F' AS TYPE
+              FROM FREE_BOARD
+              WHERE MEMBER_NO = #{memberNo}
+              UNION ALL
+              SELECT
+                  QNA_BNO,
+                  QNA_TITLE,
+                  QNA_DATE,
+                  'Q' AS TYPE
+              FROM QNA_BOARD
+              WHERE MEMBER_NO = #{memberNo})
+    </select>
+
+    <delete id="delete" parameterType="Map">
+        DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
+    </delete>
 </mapper>

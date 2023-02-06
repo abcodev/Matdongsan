@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RealEstateAgent {
 
-    private String AgentNo;
+    private String agentNo;
     private String state;
     private String bjdongNm;
     private String address;

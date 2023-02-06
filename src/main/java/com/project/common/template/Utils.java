@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class Utils {
 
-    static public String saveFile(String path, MultipartFile file) {
+    public static String saveFile(String path, MultipartFile file) {
         try {
             // NPE x
             // originName = ""
@@ -27,4 +27,9 @@ public class Utils {
             throw new RuntimeException("파일 업로드 실패", ex);  // cause -> Stack
         }
     }
+
+    public static void removeFile(String changeName) {
+        // TODO : changeName 에 대한 파일 삭제
+    }
+
 }

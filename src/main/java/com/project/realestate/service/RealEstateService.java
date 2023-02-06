@@ -41,5 +41,5 @@ public interface RealEstateService {
 
     List<Interest> getMostInterest();
 
-    List<RealEstateAgent> selectAgentList();
+    List<RealEstateAgent> selectAgentList(String bjdongNm);
 }

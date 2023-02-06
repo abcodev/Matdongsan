@@ -103,8 +103,8 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     @Override
-    public List<RealEstateAgent> selectAgentList() {
-        return realEstateDao.selectAgentList();
+    public List<RealEstateAgent> selectAgentList(String bjdongNm) {
+        return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
     }
 
 
