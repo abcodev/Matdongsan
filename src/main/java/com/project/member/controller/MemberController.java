@@ -33,14 +33,10 @@ public class MemberController {
 
     @RequestMapping("/myPage")
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//                                   @RequestParam("estateNo") String estateNo,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-
-//        RealEstateDetailDto realEstateDetailDto = memberService.realEstateDetail(estateNo);
-//        modelAndView.addObject("realEstateDetail", realEstateDetailDto);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));

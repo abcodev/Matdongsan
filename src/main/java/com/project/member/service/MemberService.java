@@ -110,14 +110,10 @@ public class MemberService {
     public List<Interest> getInterestList(Member m){
         return memberDao.getInterestList(sqlSession, m);
     }
-//    public RealEstateDetailDto realEstateDetail(String estateNo){
-//        return realEstateDao.realEstateDetail(estateNo);
-//    }
 
-//    public int selectListCount(){return memberDao.selectListCount(sqlSession);}
 
     public MyPageListResponse selectList(MyPageListRequest request, Member m){
-        int count = memberDao.selectListCount(sqlSession);
+        int count = memberDao.selectListCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
         List<AllBoard> result = memberDao.selectAllBoardList(sqlSession,pageInfoCombine, m);
 

@@ -15,20 +15,20 @@
 </head>
 <body>
 <%@ include file ="../template/header.jsp" %>
-<%--<script>--%>
-<%--  window.onload = () => {--%>
-<%--    $.ajax({--%>
-<%--      url: '${pageContext.request.contextPath}/myPage',--%>
-<%--      method: 'GET',--%>
-<%--      data: {--%>
-<%--        'estateNo': ${realEstateDetail.estateNo}--%>
-<%--      },--%>
-<%--      success(data) {--%>
-<%--        $('#checkbox_heart').prop("checked", data);--%>
-<%--      }--%>
-<%--    });--%>
-<%--  }--%>
-<%--</script>--%>
+<script>
+  window.onload = () => {
+    $.ajax({
+      url: '${pageContext.request.contextPath}/myPage',
+      method: 'GET',
+      data: {
+        'estateNo': '${interestList.estateNo}'
+      },
+      success(data) {
+        $('#checkbox_heart').prop("checked", data);
+      }
+    });
+  }
+</script>
 <div id="content">
   <div id="info_box">
     <div id="userimg">

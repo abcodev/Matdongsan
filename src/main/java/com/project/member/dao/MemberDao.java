@@ -82,8 +82,8 @@ public class MemberDao {
     }
 
 
-    public int selectListCount(SqlSession sqlSession){
-        return sqlSession.selectOne("memberMapper.selectAllBoardCount");
+    public int selectListCount(SqlSession sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.selectAllBoardCount", m);
     }
 
     public List<AllBoard> selectAllBoardList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
