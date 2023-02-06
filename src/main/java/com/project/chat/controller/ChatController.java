@@ -156,6 +156,9 @@ public class ChatController {
         // 그후 다시 문의하면 db에서 roomId에 따른 채팅 내용을 불러온다.
         // 불러올때도 보낸이와 회원 아이디 비교해서 내가 보낸건지 상대방이 보낸건지 구분하기.
 
+
+
+
         Map<String ,Object> chat = chatService.findRoom(loginUser.getMemberNo());
         System.out.println("방번호는 ?"+chat.get("room"));
         return ResponseEntity.ok().body(chat);
