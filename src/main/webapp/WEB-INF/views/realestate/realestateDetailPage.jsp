@@ -29,8 +29,11 @@
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
-            <div id="name">건물명</div>
-            <div id="heart"><input id="checkbox_heart" type="checkbox" onchange="changeHeart()"> 관심목록 </div>
+            <div id="name">${realEstateDetail.bldgNm}</div>
+                <div id="heart">
+                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart()">
+                    <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
+                </div>
             <script>
                 function changeHeart() {
                     $.ajax({
@@ -45,7 +48,6 @@
                 }
             </script>
         </div>
-
         <div class="info_table body">
             <table>
                 <tr>
@@ -58,7 +60,7 @@
                 </tr>
                 <tr>
                     <th>면적</th>
-                    <td> ${realEstateDetail.bldgArea} 제곱미터</td>
+                    <td> ${realEstateDetail.bldgArea} (㎡)</td>
                 </tr>
                 <tr>
                     <th>층</th>
@@ -70,9 +72,8 @@
                 </tr>
                 <tr>
                     <th>금액</th>
-                    <td>${realEstateDetail.gbn} / ${realEstateDetail.objAmt}</td>
+                    <td>${realEstateDetail.gbn}  /  ${realEstateDetail.objAmt}</td>
                 </tr>
-
             </table>
         </div>
 
@@ -98,10 +99,10 @@
         <div id="map_roadView">
             <div class="wrap_content">
                 <div class="wrap_map">
-                    <div id="map" style="width:80%;height:300px;">
+                    <div id="map">
 
                     </div> <!-- 지도를 표시할 div 입니다 -->
-                    <div id="roadview" class="image-container" style="width:80%;height:300px;">
+                    <div id="roadview" class="image-container">
 
                     </div>
                 </div>
