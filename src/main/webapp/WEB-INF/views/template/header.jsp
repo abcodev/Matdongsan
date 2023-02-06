@@ -65,7 +65,7 @@
                     <div class="login_after">
                         <img src="${loginUser.profileImage}" class="user_img">
                         <c:if test="${loginUser.memberNo == 1}">
-                            <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
+                            <a href="${pageContext.request.contextPath}/admin/userList/1" class="after">관리자페이지</a>
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.memberNo != 1}">
