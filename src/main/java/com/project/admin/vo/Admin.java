@@ -18,7 +18,6 @@ public class Admin {
     private String reportEmail;
     private String boardWriter;
     private String reportType;
-
     private String nickName;
 
 

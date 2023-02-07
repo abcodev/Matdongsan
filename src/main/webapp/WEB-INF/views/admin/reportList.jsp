@@ -68,8 +68,8 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-                <input type="hidden" id="fNo" value="fNo"/>
-            <input type="hidden" id="rType" value="rType"/>
+            <input type="hidden" id="reType" value=""/>
+                <input type="hidden" id="no"  value=""/>
                 <button type="button" id="clear" class="btn" onclick="movePage2(fNo,rType)">예</button>
 
             <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
@@ -112,9 +112,12 @@
         console.log("click event");
         var fNo = $(this).data('no');
         var rType = $(this).data('rType');
+        $("#clear").val( fNo);
+        $("#clear").val( rType );
         $('#modal').addClass('show');
-        console.log(fNo);
-        console.log(rType);
+        $("fNo").data();
+
+
 
     });
 
@@ -134,14 +137,13 @@
             location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fNo;
         }
     }
-    function movePage2(no,rType){
+    function movePage2(fNo,rType){
         if(rType === '질문게시판'){
-            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +no;
+            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +fNo;
         }else{
-            location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+no;
+            location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+fNo;
         }
     }
-
 
 
     $(function(){
