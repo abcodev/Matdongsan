@@ -42,7 +42,7 @@
                     <div class="photo"><img src="${chattingList.profileImage}"/></div>
                     <div class="desc-contact">
                         <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
-                        <p class="name">${chattingList.memberName}</p>
+                        <p class="name" >${chattingList.memberName}</p>
                         <p class="${chattingList.roomNo}_message message">${chattingList.latestMessage}</p>
                     </div>
                     <div class="chat_alert">
@@ -61,7 +61,7 @@
     </div>
     <div id="chat_right">
         <div class="header-chat">
-            <div class="name">이름</div>
+            <div class="name" ></div>
         </div>
         <div class="chat">
             <div class="messages-chat">
@@ -81,6 +81,7 @@
 
     window.onload = function(){
         connection();
+        $('#chat_right').css('display','none');
     }
 
     function connection(){
@@ -100,27 +101,40 @@
     }
 
 
+
+
     function showMessage(data){
-        console.log(data);
         let content = data;
-        $('.' + content.roomNo + '_new').css('display', 'block');
         $('.' + content.roomNo + '_message').text(content.message);
 
         if(content.memberNo == '${loginUser.memberNo}'){
             $('.messages-chat').append("<div class='response'><span class='text'>"+content.message+"</span></div>");
         }else{
+            $('.' + content.roomNo + '_new').css('display', 'block');
             $('.messages-chat').append("<div class='request'><span class='text'>"+content.message+"</span></div>");
+        }
+        if($('#chat_right').css('display') == 'block'){
+            $.ajax({
+                url : '${pageContext.request.contextPath}/updateMessage',
+                type: "post",
+                data : data,
+                success : function (){
+                    console.log("읽음처리 성공")
+                }
+            })
         }
         if(currentChatRoom === content.roomNo){
             clickPreChat(content.roomNo)
         }
-
     }
 
 
     $('.preChat').on('click',function(){
         let target = this
         let ClickRoomNo = target.querySelector('.roomNo').value
+        let memberName = target.querySelector('.name').innerText;
+        console.log(memberName)
+
 
         currentChatRoom = ClickRoomNo;
         $('.' + ClickRoomNo + '_new').css('display', 'none');
@@ -130,6 +144,8 @@
             type: "POST",
             data : {'roomNo' : ClickRoomNo},
             success : function (res){
+                $('#chat_right').css('display','block');
+                $('.header-chat > .name').text(memberName);
                 $('#roomNo-send').remove();
                 $('.request').remove();
                 $('.response').remove();
@@ -142,7 +158,6 @@
             }
         })
     })
-
     function clickPreChat(roomNo) {
         $('.' + roomNo + '_new').css('display', 'none');
     }
@@ -183,9 +198,6 @@
         stompClient.send("/app/chat/send", {}, JSON.stringify(data));
         $("#chat-input").val('');
     }
-    // $("#chat-submit").click(function (e) {
-    //     e.preventDefault();
-    // })
 </script>
 </body>
 
