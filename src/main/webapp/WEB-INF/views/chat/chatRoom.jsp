@@ -81,6 +81,7 @@
 
     window.onload = function(){
         connection();
+        $('#chat_right').css('display','none');
     }
 
     function connection(){
@@ -103,18 +104,29 @@
     function showMessage(data){
         console.log(data);
         let content = data;
-        $('.' + content.roomNo + '_new').css('display', 'block');
         $('.' + content.roomNo + '_message').text(content.message);
 
+
+        if($('#chat_right').css('display') == 'block'){
+            $.ajax({
+                url : '${pageContext.request.contextPath}/updateMessage',
+                type: "post",
+                data : data,
+                success : function (){
+                    console.log("읽음처리 성공")
+                }
+            })
+        }
         if(content.memberNo == '${loginUser.memberNo}'){
             $('.messages-chat').append("<div class='response'><span class='text'>"+content.message+"</span></div>");
         }else{
+            $('.' + content.roomNo + '_new').css('display', 'block');
             $('.messages-chat').append("<div class='request'><span class='text'>"+content.message+"</span></div>");
         }
+
         if(currentChatRoom === content.roomNo){
             clickPreChat(content.roomNo)
         }
-
     }
 
 
@@ -130,6 +142,7 @@
             type: "POST",
             data : {'roomNo' : ClickRoomNo},
             success : function (res){
+                $('#chat_right').css('display','block');
                 $('#roomNo-send').remove();
                 $('.request').remove();
                 $('.response').remove();
@@ -142,7 +155,6 @@
             }
         })
     })
-
     function clickPreChat(roomNo) {
         $('.' + roomNo + '_new').css('display', 'none');
     }
@@ -183,9 +195,6 @@
         stompClient.send("/app/chat/send", {}, JSON.stringify(data));
         $("#chat-input").val('');
     }
-    // $("#chat-submit").click(function (e) {
-    //     e.preventDefault();
-    // })
 </script>
 </body>
 

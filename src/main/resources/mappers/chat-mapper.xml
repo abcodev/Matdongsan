@@ -121,4 +121,16 @@
         WHERE C.CHAT_ROOM_NO = #{roomNo}
         ORDER BY C.CREATE_DATE
     </select>
+
+    <update id="messageRead" parameterType="string">
+        UPDATE CHAT_MESSAGE
+        SET READ = 'Y'
+        WHERE CHAT_ROOM_NO = #{roomNo}
+    </update>
+
+    <update id="updateMessageRead">
+        UPDATE CHAT_MESSAGE
+        SET READ ='Y'
+        WHERE CHAT_ROOM_NO = #{roomNo}
+    </update>
 </mapper>
