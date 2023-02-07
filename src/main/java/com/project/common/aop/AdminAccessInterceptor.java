@@ -23,10 +23,8 @@ public class AdminAccessInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
 
-        // 요청 url 정보
         String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
-        // 권한체크
-        MemberGrade grade = getGrade(req.getSession()); // session 에 있는 member객체의 role을 가져온다
+        MemberGrade grade = getGrade(req.getSession());
 
         // admin 경로 권한이 없는 사용자
         if(grade == null || requestUrl.contains("admin") && !grade.equals(MemberGrade.ADMIN)){
@@ -35,7 +33,6 @@ public class AdminAccessInterceptor extends HandlerInterceptorAdapter {
             req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req,res);
             return  false;
         }
-
         return true;
     }
 
