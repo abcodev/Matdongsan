@@ -16,18 +16,29 @@
 <body>
 <%@ include file ="../template/header.jsp" %>
 <script>
-  window.onload = () => {
+    function changeHeart() {
     $.ajax({
       url: '${pageContext.request.contextPath}/myPage',
-      method: 'GET',
-      data: {
-        'estateNo': '${interestList.estateNo}'
-      },
-      success(data) {
-        $('#checkbox_heart').prop("checked", data);
-      }
+      type: 'POST',
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({
+        'estateNo': '${interestList[0].estateNo}',
+        'isInterest': $('#checkbox_heart').is(':checked')
+      })
     });
   }
+</script>
+
+<script>
+  $(document).ready(function(){
+    $("#checkbox_heart").change(function (){
+      if($($(this)).is(".checked")){
+        console.log("체크");
+      }else{
+        console.log("해제");
+      }
+    })
+  })
 </script>
 <div id="content">
   <div id="info_box">
@@ -55,7 +66,7 @@
       </table>
     </div>
     <div id="btn_box">
-      <button>회원탈퇴</button>
+      <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>
       <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
     </div>
   </div>
@@ -66,7 +77,7 @@
 
       <c:forEach items="${interestList}" var="interestList">
           <div id="heart" class="likeInfo">
-            <input id="checkbox_heart" type="checkbox" onchange="changeHeart()">하트
+            <input id="checkbox_heart" type="checkbox" onchange="changeHeart()" checked="checked">하트
             <div onclick="location.href='realEstate/detail?estateNo=${interestList.estateNo}'">
               ${interestList.estateNo}<br>${interestList.bldgNm}<br>${interestList.address}
             </div>

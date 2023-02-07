@@ -38,10 +38,7 @@ public class ChatService {
             ChatingRoom room = ChatingRoom.create(memberNo);
             chatRepository.createRoom(room);
             chatRepository.enterRoom(ChatRoomJoin.join(room.getRoomNo(), memberNo));
-
             map.put("room", room);
-            // 관리자는
-
         } else {
             List<MessageListDto> messageList = chatRepository.messageList(chatingRoom.getRoomNo());
             map.put("room", chatingRoom);

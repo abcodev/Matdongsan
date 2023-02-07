@@ -1,5 +1,7 @@
 package com.project.realestate.controller;
 
+import com.google.gson.Gson;
+import com.project.board.vo.FreeBoard;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
@@ -35,7 +37,7 @@ public class RealEstateController {
 
     @RequestMapping("/map")
     @ResponseBody
-    public List<RealEstateRent> realEstateDong(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+    public String realEstateDong(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                        @RequestParam(value = "state", defaultValue = "") String state,
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
@@ -46,32 +48,17 @@ public class RealEstateController {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
-        List<RealEstateRent> result = resp.getRealEstateRentList();
+        List<RealEstateRent> searchResult = resp.getRealEstateRentList();
+
+        //1. Gson으로 형변환해주기
+        Gson gson = new Gson();
+        String result = gson.toJson(searchResult);
+
         model.addAttribute("result", result);
 
         return result;
-
     }
 
-//    @RequestMapping
-//    @ResponseBody
-//    public ModelAndView realEstatePage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-//                                       @RequestParam(value = "state", defaultValue = "") String state,
-//                                       @RequestParam(value = "dong", defaultValue = "") String dong,
-//                                       @RequestParam(value = "rentType", defaultValue = "") String rentType,
-//                                       @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-//                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType){
-//
-//        ModelAndView mv = new ModelAndView();
-//        mv.addObject("localList", StateList.values());
-//
-//        RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
-//        RealEstateRentListResponse resp = realEstateService.selectAllList(req);
-//
-//        mv.addObject("estateRentList", resp.getRealEstateRentList());
-//        mv.setViewName("realestate/realestateList");
-//        return mv;
-//    }
 
     @RequestMapping("/list")
     @ResponseBody
@@ -86,8 +73,14 @@ public class RealEstateController {
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
+        List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
 
         modelAndView.addObject("estateRentList", resp.getRealEstateRentList());
+        modelAndView.addObject("selectFboard", selectFboard);
+
+        System.out.println("estateRentList : " + resp.getRealEstateRentList());
+        System.out.println("selectFboard : " + selectFboard);
+
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("realestate/realestateContents");
         return modelAndView;
