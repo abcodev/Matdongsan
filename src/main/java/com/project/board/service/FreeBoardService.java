@@ -1,5 +1,6 @@
 package com.project.board.service;
 
+import com.project.board.dto.FreeBoardArray;
 import com.project.board.dto.FreeBoardCountDto;
 import com.project.board.dto.FreeBoardListRequest;
 import com.project.board.dto.FreeBoardListResponse;
@@ -36,4 +37,6 @@ public interface FreeBoardService {
     void freeBoardCount(FreeBoardCountDto count);
 
     List<HotWeek> hotWeekList();
+
+    FreeBoardArray selectArrayList(String select);
 }

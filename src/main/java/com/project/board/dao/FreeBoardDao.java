@@ -73,4 +73,12 @@ public class FreeBoardDao {
     public int selectFreeListCount(SqlSession sqlSession, FreeBoardListFilter filter) {
         return sqlSession.selectOne("freeBoardMapper.selectFreeListCount",filter);
     }
+
+    public List<FreeBoard> selectArrayList(SqlSession sqlSession, String select) {
+        return sqlSession.selectList("freeBoardMapper.selectArrayList",select);
+    }
+
+    public FreeBoard selectByFreeBno(SqlSession sqlSession, int freeBno) {
+        return sqlSession.selectOne("freeBoardMapper.selectByFreeBno", freeBno);
+    }
 }

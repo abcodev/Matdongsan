@@ -31,7 +31,7 @@
     <select id="selectList" resultMap="qBoardResultSet">
         SELECT QNA_BNO,
                M.MEMBER_NO,
-               M.NICKNAME,
+               M.NICKNAME AS QNA_WRITER,
                P_BNO,
                QNA_TITLE,
                QNA_DATE,
@@ -56,7 +56,7 @@
 
     <insert id="insertQboard" parameterType="QBoard">
         INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{qnaArea})
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle},#{qnaContent}, #{qnaArea})
     </insert>
 
     <select id="searchList" resultMap="qBoardResultSet">
@@ -165,10 +165,19 @@
         )
     </update>
 
-        <insert id="insertReport" parameterType="report">
-            INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT,REPORT_TYPE)
-            VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
-        </insert>
+    <insert id="insertReport" parameterType="report">
+        INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT,REPORT_TYPE)
+        VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
+    </insert>
+
+    <select id="selectByQnaBno" parameterType="_int" resultMap="qBoardResultSet">
+        SELECT *
+        FROM QNA_BOARD
+        WHERE P_BNO = #{parentBno}
+    </select>
+
+
+
 
 
 

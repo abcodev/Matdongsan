@@ -45,8 +45,9 @@
                 <td>${rl.boardWriter}</td>
                 <td>${rl.reportContent}</td>
                 <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
-                <td><button type="button" class="btn22" id="add-btn" data-no="${rl.FNo}" data-rType='${rl.reportType}'>처리중</button></td>
-                <td><select id="stop" onchange="changeSelect()">
+                <td><button type="button" class="btn22" id="add-btn" data-no="${rl.FNo}" data-rType='${rl.reportType})'>처리중</button></td>
+                <td><select id="stop" name="stop" onchange="changeSelect()">
+                    <option>정지기간선택</option>
                     <option>3일정지</option>
                     <option>7일정지</option>
                     <option>영구정지</option>
@@ -67,9 +68,9 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-                <input type="hidden" id= 'hidden_no' value="no"/>
-            <input type="hidden" id= 'hidden_rType' value="rType"/>
-                <button type="button" id="clear" class="btn" onclick="movePage2()">예</button>
+                <input type="hidden" id="fNo" value="fNo"/>
+            <input type="hidden" id="rType" value="rType"/>
+                <button type="button" id="clear" class="btn" onclick="movePage2(fNo,rType)">예</button>
 
             <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
         </div>
@@ -106,33 +107,17 @@
     };
 
 
-
-    function movePage(fNo,reportType){
-        if(reportType === '질문게시판'){
-        location.href = '${pageContext.request.contextPath}/board/detail/'+fNo;
-        }else{
-            location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fNo;
-        }
-    }
-   function movePage2(fNo,reportType){
-        if(reportType === '질문게시판'){
-            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +fNo;
-        }else{
-            location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+fNo;
-        }
-   }
-
-
-
-
     /* 모달*/
     $(document).on('click', '#add-btn', function (e) {
         console.log("click event");
         var fNo = $(this).data('no');
-        var rType = $(this).data('rType');// data-rType
+        var rType = $(this).data('rType');
         $('#modal').addClass('show');
+        console.log(fNo);
+        console.log(rType);
 
     });
+
 
     // 모달 닫기
     $(document).on('click', '#close_btn', function (e) {
@@ -140,6 +125,24 @@
         $('#modal').removeClass('show');
 
     });
+
+
+    function movePage(fNo,reportType){
+        if(reportType === '질문게시판'){
+            location.href = '${pageContext.request.contextPath}/board/detail/'+fNo;
+        }else{
+            location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fNo;
+        }
+    }
+    function movePage2(no,rType){
+        if(rType === '질문게시판'){
+            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +no;
+        }else{
+            location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+no;
+        }
+    }
+
+
 
     $(function(){
         $("#clear").click(function(){

@@ -43,6 +43,11 @@
         VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
     </insert>
 
+    <select id="selectByFreeBno" parameterType="_int" resultMap="fBoardResultSet">
+        SELECT *
+        FROM FREE_BOARD
+        WHERE FREE_BNO = #{freeBno}
+    </select>
 
     <select id="selectFreeListCount" resultType="int">
         SELECT COUNT(*)
@@ -80,7 +85,17 @@
                     BOARD_CONTENT like '%' || #{search} || '%'
                 )
             </if>
+            <if test="select.equals('view')">
+                ORDER BY COUNT DESC
+            </if>
+            <if test="select.equals('reply')">
+                ORDER BY REPLY_COUNT DESC
+            </if>
+            <if test="select.equals('recent')">
+                ORDER BY FB.BOARD_DATE DESC
+            </if>
     </select>
+
 
     <resultMap id="hotWeekResultSet" type="hotWeek">
         <result column="FREE_BNO" property="freeBno"/>
@@ -170,5 +185,18 @@
         INSERT INTO HOTWEEK(FREE_BNO, MEMBER_NO, COUNT_DATE)
         VALUES (#{freeBoardNo},#{memberNo},SYSDATE)
     </insert>
+
+    <select id="selectFboard" resultMap="fBoardResultSet">
+        SELECT
+            FREE_BNO,
+            BOARD_AREA,
+            BOARD_TITLE
+        FROM FREE_BOARD
+        WHERE STATUS = 'Y'
+          <if test="state != '' ">
+          AND BOARD_AREA = '${sggNm}'
+          </if>
+        ORDER BY BOARD_DATE DESC
+    </select>
 </mapper>
 

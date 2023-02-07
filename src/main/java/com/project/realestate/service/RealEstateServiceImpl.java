@@ -1,5 +1,6 @@
 package com.project.realestate.service;
 
+import com.project.board.vo.FreeBoard;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.vo.Member;
 import com.project.realestate.dao.InterestEstateDao;
@@ -65,6 +66,12 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.getSellList(sqlSession);
     }
 
+    /**
+    * 부동산 해당 구의 자유게시판글
+    */
+    @Override
+    public List<FreeBoard> selectFboard(String state){ return realEstateDao.selectFboard(sqlSession, state); }
+
     @Override
     public RealEstateDetailDto realEstateDetail(String estateNo) {
         return realEstateDao.realEstateDetail(estateNo);
@@ -96,8 +103,8 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     @Override
-    public List<RealEstateAgent> selectAgentList() {
-        return realEstateDao.selectAgentList();
+    public List<RealEstateAgent> selectAgentList(String bjdongNm) {
+        return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
     }
 
 

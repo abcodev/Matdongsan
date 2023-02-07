@@ -3,10 +3,7 @@ package com.project.board.service;
 import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmService;
 import com.project.board.dao.FreeBoardDao;
-import com.project.board.dto.FreeBoardCountDto;
-import com.project.board.dto.FreeBoardListFilter;
-import com.project.board.dto.FreeBoardListRequest;
-import com.project.board.dto.FreeBoardListResponse;
+import com.project.board.dto.*;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
@@ -51,14 +48,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     public int insertReply(Reply r){
-
         // 내 글에 댓글이 달릴 때 (알림 받으려면 필요한것: 댓글이 달린 글번호의 멤버번호)
-//        FreeBoard freeBoard = new FreeBoard();
-//        long receiverNo = (freeBoard.getMemberNo());
-//        if(r.getFreeBno() == freeBoard.getBoardNo()) {
-//            AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
-//            alarmService.send(template);
-//        }
+        FreeBoard freeBoard = freeBoardDao.selectByFreeBno(sqlSession, r.getFreeBno());
+        long receiverNo = freeBoard.getMemberNo();
+        AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
+        alarmService.send(template);
+
         return freeBoardDao.insertReply(sqlSession, r);
     }
 
@@ -92,5 +87,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     @Override
     public List<HotWeek> hotWeekList() {
         return freeBoardDao.hotWeekList(sqlSession);
+    }
+
+    @Override
+    public FreeBoardArray selectArrayList(String select) {
+        List<FreeBoard> freeBoardList = freeBoardDao.selectArrayList(sqlSession,select);
+        return new FreeBoardArray(freeBoardList);
     }
 }

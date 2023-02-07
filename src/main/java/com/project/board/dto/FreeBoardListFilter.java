@@ -16,7 +16,9 @@ public class FreeBoardListFilter {
 
     private String search;
 
+    private String select;
+
     public static FreeBoardListFilter from(FreeBoardListRequest req) {
-        return new FreeBoardListFilter(req.getState(), req.getSearch());
+        return new FreeBoardListFilter(req.getState(), req.getSearch(), req.getSelect());
     }
 }

@@ -170,4 +170,5 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurantDao.deleteResImg(resNo);
         restaurantDao.deleteRes(resNo);
     }
+
 }

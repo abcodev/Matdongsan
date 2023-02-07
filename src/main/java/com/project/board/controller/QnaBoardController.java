@@ -4,6 +4,7 @@ import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
 import com.project.member.vo.Member;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 
-
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/board")
 public class QnaBoardController {
 
     private static final Logger logger = LoggerFactory.getLogger(QnaBoardController.class);
-
-    @Autowired
-    private QnaBoardService boardService;
+    private final QnaBoardService boardService;
 
     @RequestMapping("/qnaList")
-    public String selectList(@RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+    public String selectList(@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
                              @RequestParam Map<String, Object> paramMap,
                              Model model,
                              HttpSession session
-                             ) {
+    ) {
 
 
         Map<String, Object> map = new HashMap();
@@ -48,7 +47,7 @@ public class QnaBoardController {
     }
 
     /*게시글 작성페이지*/
-    @RequestMapping(value = "/insert",method = RequestMethod.GET)
+    @RequestMapping(value = "/insert", method = RequestMethod.GET)
     public String insertBoard(
             ModelAndView mv
 
@@ -58,26 +57,23 @@ public class QnaBoardController {
 
     /*게시글 등록*/
     @RequestMapping("/insert")
-    public String insertQboard(
-            Model model, QnaBoard qb,HttpSession session){
+    public String insertQboard(Model model, QnaBoard qb, HttpSession session
+    ,@ModelAttribute("loginUser") Member loginUser) {
 
-        Member m = (Member)session.getAttribute("loginUser");
-        if(m != null) {
-            m.setMemberNo(m.getMemberNo());
-        }
+        Member m = (Member) session.getAttribute("loginUser");
+        loginUser.getMemberNo();
         qb.setQnaArea(qb.getQnaArea());
-
 
         int result = boardService.insertQboard(qb);
         return "redirect:/board/qnaList";
-        }
+    }
 
 
     /*답글달기 페이지*/
-    @RequestMapping(value = "/insertAnswer",method = RequestMethod.GET)
+    @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
     public ModelAndView insertBoard2(
-            @RequestParam(value = "depth")String depth,
-            @RequestParam(value = "pBno")String parentBno,
+            @RequestParam(value = "depth") String depth,
+            @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
             ModelAndView mv
     ) {
@@ -85,51 +81,44 @@ public class QnaBoardController {
         mv.addObject("depth", depth);
         mv.addObject("pBno", parentBno);
         mv.addObject("qBno", qBno);
-
         return mv;
     }
-    /*답글 등록*/
+
+    /**
+     * 답글 등록
+     */
     @RequestMapping("insertAnswer")
     public String insertAnswer(
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
             Model model, QnaBoard qb
-    ){
+    ) {
         qb.setDepth(qb.getDepth() + 1);
         qb.setParentBno(Integer.parseInt(qBno));
-
         int answer = boardService.insertAnswer(qb);
-
-        model.addAttribute("qb",qb);
-
-
+        model.addAttribute("qb", qb);
         return "redirect:/board/qnaList";
-
     }
 
     // 상세페이지
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(
             @PathVariable("qBno") int qBno,
+            @ModelAttribute("loginUser") Member loginUser,
             HttpSession session,
             ModelAndView mv
     ) {
 
-        Member m = (Member)session.getAttribute("loginUser");
-        if(m != null) {
-            m.setMemberNo(m.getMemberNo());
-        }
         QnaBoard qb = boardService.selectQboard(qBno);
 
         List<QnaBoard> ab = boardService.selectAnswer(qBno);
 
         int result = boardService.increaseCount(qBno);
 
-
-            mv.addObject("qb", qb);
-            mv.addObject("ab", ab);
-            mv.setViewName("board/qnaDetailList");
+        mv.addObject("qb", qb);
+        mv.addObject("ab", ab);
+        mv.setViewName("board/qnaDetailList");
 
         return mv;
     }
@@ -138,23 +127,21 @@ public class QnaBoardController {
     @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)
     public String deleteBoard(
             @PathVariable("qBno") int qBno
-    ){
+    ) {
         int result = boardService.deleteBoard(qBno);
 
-
-            return "redirect:/board/qnaList";
-
+        return "redirect:/board/qnaList";
     }
 
     @RequestMapping("/qnaReport")
     @ResponseBody
-    public String reportPost(Report report){
+    public String reportPost(Report report) {
 
         int result = boardService.insertReport(report);
 
-        if(result > 0){
+        if (result > 0) {
             return "1";
-        }else {
+        } else {
             return "0";
         }
     }

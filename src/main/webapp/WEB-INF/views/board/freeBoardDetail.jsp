@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="w" value="${fb.boardWriter}"/>
+<c:set var="w" value="${fb.memberNo}"/>
 <html>
 <head>
     <title>자유게시판 상세보기</title>
@@ -26,10 +26,10 @@
         </div>
         <div class="detail_head">
             <div class="board_title">
-                    <c:if test="${w eq loginUser.nickName}">
+                    <c:if test="${w eq loginUser.memberNo}">
                         <input type="text" name="boardTitle" value="${fb.boardTitle}">
                     </c:if>
-                    <c:if test="${w ne loginUser.nickName}">
+                    <c:if test="${w ne loginUser.memberNo}">
                         <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
                     </c:if>
             </div>
@@ -42,20 +42,20 @@
             </div>
         </div>
         <div class="detail_body">
-            <c:if test="${w eq loginUser.nickName}">
+            <c:if test="${w eq loginUser.memberNo}">
                 <textarea name="boardContent">${fb.boardContent}</textarea>
             </c:if>
-            <c:if test="${w ne loginUser.nickName}">
+            <c:if test="${w ne loginUser.memberNo}">
                 <div name="boardContent">${fb.boardContent}</div>
             </c:if>
         </div>
         <div class="btn_box">
                 <c:if test="${not empty loginUser}">
-                    <c:if test="${w eq loginUser.nickName}">
+                    <c:if test="${w eq loginUser.memberNo}">
                         <button onclick="updatePost();">수정</button>
                         <button onclick="deletePost();">삭제</button>
                     </c:if>
-                    <c:if test="${w ne loginUser.nickName}">
+                    <c:if test="${w ne loginUser.memberNo}">
                         <div class="alert_btn_box">
                             <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 신고하기
