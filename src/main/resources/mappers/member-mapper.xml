@@ -163,7 +163,21 @@
               WHERE MEMBER_NO = #{memberNo})
     </select>
 
+    <update id="deleteMember" parameterType="long">
+        DELETE FROM MEMBER
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
+
     <delete id="delete" parameterType="Map">
         DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </delete>
+
+<!--    <select id="selectInterestList" parameterType="String" resultMap="interestList">-->
+<!--        SELECT-->
+<!--            I.ESTATE_NO,-->
+<!--            RS.BLDG_NM,-->
+<!--            RS.SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS-->
+<!--        FROM INTEREST I-->
+<!--        JOIN REALESTATE_SELL RS on I.ESTATE_NO = RS.ESTATE_NO-->
+<!--    </select>-->
 </mapper>

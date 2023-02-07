@@ -175,6 +175,10 @@
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
+        // $('.modal_wrap').on('hidden.bs.modal', function (e) {
+        //     $(offClick).find('form')[0].reset()
+        // });
+
         selectReviewList();
     };
 
@@ -248,7 +252,7 @@
                 //         '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
                 //         '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
                 // });
-                // $('#hashtag_by_review').html(review_hashtag_contents);
+                // $('.head tag').html(review_hashtag_contents);
 
             },
             error: function () {
@@ -316,18 +320,8 @@
         });
     }
 
-
-    $('.modal_wrap').on('hidden.bs.modal', function (e) {
-        console.log('modal close');
-        $(this).find('form')[0].reset()
-    });
-
-
 </script>
 
-<%--<script>--%>
-<%--    $(":radio[name='rating'][value='" + r.revScore + "']").attr('checked', true);--%>
-<%--</script>--%>
 
 
 </body>

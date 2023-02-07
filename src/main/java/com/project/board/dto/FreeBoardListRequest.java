@@ -10,4 +10,6 @@ public class FreeBoardListRequest {
     private int currentPage;
     private String state;
     private String search;
+
+    private String select;
 }

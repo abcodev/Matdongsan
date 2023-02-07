@@ -43,8 +43,24 @@
             M.EMAIL,
             F.BOARD_WRITER
         FROM REPORT R
-        LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO= M.MEMBER_NO)
-        LEFT OUTER JOIN FREE_BOARD F ON(F.FREE_BNO = R.FREE_BNO)
+                 LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO= M.MEMBER_NO)
+                 LEFT OUTER JOIN FREE_BOARD F ON(F.FREE_BNO = R.FREE_BNO)
+            <!--AND
+            <choose>
+                <when test="stop == 'three'">
+                    M.STATUS = 'A'
+                    BETWEEN TO_DATE('SYSDATE', 'YYYY-MM-DD')
+                    AND TO_DATE('SYSDATE + 3', 'YYYY-MM-DD')
+                </when>
+                <when test="stop == 'seven'">
+                    M.STATUS = 'B'
+                    BETWEEN TO_DATE('SYSDATE', 'YYYY-MM-DD')
+                    AND TO_DATE('SYSDATE + 7', 'YYYY-MM-DD')
+                </when>
+                <when test="stop == 'infinity'">
+                    M.STATUS = 'C'
+                </when>
+            </choose>-->
 
     </select>
 

@@ -1,0 +1,102 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+
+#content{
+    padding: 60px 400px 30px 400px;
+}
+
+.enroll_form{
+    margin-top: 30px;
+}
+
+textarea:focus , input:focus {
+    outline: #dedcf1 2px solid;
+    border-radius: 2px;
+}
+
+#board_submenu{
+    margin-top: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #566392;
+    border-top: 3px solid #566392;
+    padding-left: 45%;
+    letter-spacing: 1.3px;
+    line-height: 1.8;
+}
+
+.board_title{
+    border: none;
+    font-size: 30px;
+    font-weight: 450;
+    margin-top: 20px;
+    letter-spacing: 1.2px;
+    width: 100%;
+}
+
+.board_title::placeholder{
+    font-size: 30px;
+    font-weight: 450;
+    color: #a4a4a4;
+}
+
+.select_city {
+    margin-top: 10px;
+}
+
+.select_city > select{
+    width: 130px;
+    height: 32px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #515151;
+    cursor: pointer;
+}
+
+.form_body{
+    margin-top: 30px;
+}
+
+.form_body > textarea{
+    border: none;
+    font-size: 20px;
+    resize: none;
+    height: 300px;
+    width: 100%;
+}
+
+.form_body > textarea::placeholder{
+    color: #a4a4a4;
+}
+
+
+.btn_box{
+    padding-left: 75%;
+    margin-top: 10px;
+}
+
+.btn_box > button{
+    margin-left: 10px;
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 5px 10px 5px 10px;
+}
+
+.btn_box > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
