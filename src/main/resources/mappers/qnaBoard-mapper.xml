@@ -173,7 +173,7 @@
     <select id="selectByQnaBno" parameterType="_int" resultMap="qBoardResultSet">
         SELECT *
         FROM QNA_BOARD
-        WHERE P_BNO = #{parentBno}
+        WHERE QNA_BNO = #{qnaBno}
     </select>
 
 

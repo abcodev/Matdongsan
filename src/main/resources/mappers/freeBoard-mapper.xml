@@ -115,8 +115,6 @@
         ]]>
     </select>
 
-
-
     <select id="detailFreeBoard" parameterType="int" resultMap="fBoardResultSet">
         SELECT
             FREE_BNO,
@@ -179,7 +177,6 @@
             AND REPLY_NO = ${replyNo}
             AND MEMBER_NO = ${memberNo}
     </update>
-
 
     <insert id="freeBoardCount">
         INSERT INTO HOTWEEK(FREE_BNO, MEMBER_NO, COUNT_DATE)

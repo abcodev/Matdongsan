@@ -1,6 +1,7 @@
 package com.project.member.service;
 
 import com.project.client.oauth.OAuthClient;
+import com.project.client.oauth.OAuthToken;
 import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
 import com.project.common.template.PageInfoCombine;
@@ -56,16 +57,15 @@ public class MemberService {
 
     public Member login(HttpSession session, String provider, String code, String state) {
         OAuthClient oAuthClient = oAuthClientService.getClient(provider);
-        OAuthUser oAuthUser = oAuthClient.getUserProfile(session, code, state);
+        OAuthToken oAuthToken = oAuthClient.getToken(session, code, state);
+        OAuthUser oAuthUser = oAuthClient.getUserProfile(session, oAuthToken);
 
-        Member member = Member.of(oAuthUser);
+        Member member = Member.of(oAuthUser, oAuthToken);
         if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
             memberDao.insertMember(member);
         }
         memberDao.updateRecentAccess(member.getProvider(), member.getProviderId());
         return memberDao.select(member.getProvider(), member.getProviderId());
-
-
     }
 
 
@@ -133,8 +133,21 @@ public class MemberService {
         }
     }
 
-    public int deleteMember(long memberNo){
-        return memberDao.deleteMember(sqlSession, memberNo);
+    public void deleteMember(Member member) {
+        OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
+        // AccessToken 이 만료됐을 수도 있다.
+        // 1. AccessToken 이 만료되었는지 확인.
+        /** TODO :
+            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+            if (isExpired) {
+                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+                member.setToken(freshToken);
+            }
+         */
+        // 2. RefreshToken 으로 AccessToken 재발급.
+        // 3. 재발급된 AccessToken 으로 요청.
+        oAuthClient.unlink(member.toOAuthToken());
+        memberDao.deleteMember(sqlSession, member.getMemberNo());
     }
 
 //    public ArrayList<Interest> selectInterestList(String estateNo){

@@ -206,16 +206,16 @@
                     }
 
                     str += '<div>'
-                        + '<div class="review_header">'
-                        + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
-                        + '<div class="review_user_name">' + i.memberName + '</div>'
-                        + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
-                        + '<div class="review_date">' + i.createDate.substring(0, 16) + '</div>'
+                        + '<div class="reply_header">'
+                        + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
+                        + '<div class="reply_user_name">' + i.memberName + '</div>'
+                        + '<div class="reply_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
+                        + '<div>' + i.createDate.substring(0, 16) + '</div>'
                         + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
                         + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
                         + '</div>'
-                        + '<div class="review_content">' + i.reviewContent + '</div>'
-                        + '<div class="review_img_list">' + imgList + '</div>'
+                        + '<div>' + i.reviewContent + '</div>'
+                        + '<div class="reply_img_list">' + imgList + '</div>'
                         + '<div>' + hashtagList + '</div>'
                         + '</div>';
                 }

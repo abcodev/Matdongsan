@@ -7,18 +7,36 @@ import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.project.client.oauth.OAuthClient;
+import com.project.client.oauth.OAuthToken;
 import com.project.client.oauth.OAuthUser;
+import com.project.client.oauth.naver.dto.NaverUnlinkResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.archivers.sevenz.CLI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Component("NAVER_OAuthClient")
+@RequiredArgsConstructor
 public class NaverOAuthClient implements OAuthClient {
+
+    private final RestTemplate restTemplate;
 
     /* 인증 요청문을 구성하는 파라미터 */
     //client_id: 애플리케이션 등록 후 발급받은 클라이언트 아이디
@@ -31,6 +49,7 @@ public class NaverOAuthClient implements OAuthClient {
     private final static String SESSION_STATE = "oauth_state";
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
+    private final static String UNLINK_API_URL = "https://nid.naver.com/oauth2.0/token";
 
     @Override
     public String generateRedirectUrl(HttpSession session) {
@@ -50,7 +69,7 @@ public class NaverOAuthClient implements OAuthClient {
         return oauthService.getAuthorizationUrl();
     }
 
-    private OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) {
+    public OAuthToken getToken(HttpSession session, String code, String state) {
         /* Callback으로 전달받은 세선검증용 난수값과 세션에 저장되어있는 값이 일치하는지 확인 */
         String sessionState = getSession(session);
         if (StringUtils.pathEquals(sessionState, state)) {
@@ -64,7 +83,7 @@ public class NaverOAuthClient implements OAuthClient {
 
             /* Scribe에서 제공하는 AccessToken 획득 기능으로 네아로 Access Token을 획득 */
             try {
-                return oauthService.getAccessToken(code);
+                return OAuthToken.of(oauthService.getAccessToken(code));
             } catch (IOException ex) {
                 return null;
             }
@@ -73,40 +92,63 @@ public class NaverOAuthClient implements OAuthClient {
     }
 
     @Override
-    public OAuthUser getUserProfile(HttpSession session, String code, String state) {
-        OAuth2AccessToken accessToken = this.getAccessToken(session, code, state);
+    public OAuthUser getUserProfile(HttpSession session, OAuthToken oAuthToken) {
         OAuth20Service oauthService = new ServiceBuilder()
                 .apiKey(CLIENT_ID)
                 .apiSecret(CLIENT_SECRET)
                 .callback(REDIRECT_URI).build(NaverLoginApi.instance());
 
         OAuthRequest request = new OAuthRequest(Verb.GET, PROFILE_API_URL, oauthService);
-        oauthService.signRequest(accessToken, request);
+        oauthService.signRequest(new OAuth2AccessToken(oAuthToken.getAccessToken()), request);
         Response response = request.send();
         return naverJson(response);
+    }
+
+    @Override
+    public void unlink(OAuthToken token) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("client_id", CLIENT_ID);
+        params.add("client_secret", CLIENT_SECRET);
+        params.add("access_token", token.getAccessToken());
+        params.add("grant_type", "delete");
+        params.add("service_provider", "NAVER");
+        try {
+            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(UNLINK_API_URL);
+            uriComponentsBuilder.queryParams(params);
+            NaverUnlinkResponse response = restTemplate.getForObject(uriComponentsBuilder.build().toUri(), NaverUnlinkResponse.class);
+            if (response == null) {
+                throw new RuntimeException();
+            }
+        } catch (Exception ex) {
+            log.info(ex.getMessage());
+            throw new RuntimeException(ex);
         }
 
-        public OAuthUser naverJson(Response response){
-            try {
-                String body = response.getBody();
+    }
 
-                JSONParser parser = new JSONParser();
-                Object obj = parser.parse(body);
-                JSONObject jsonObj = (JSONObject) obj;
+    public OAuthUser naverJson(Response response) {
+        try {
+            String body = response.getBody();
 
-                //3. 데이터 파싱
-                //Top레벨 단계 _response 파싱
-                JSONObject response_obj = (JSONObject)jsonObj.get("response");
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(body);
+            JSONObject jsonObj = (JSONObject) obj;
 
-                // 프로필 조회
-                String providerId = (String) response_obj.get("id");
-                String email = (String) response_obj.get("email");
-                String name = (String) response_obj.get("name");
-                String profileImage = (String) response_obj.get("profile_image");
-                return new OAuthUser("NAVER", providerId, name, email, profileImage);
-            } catch (Exception ignored) { }
-            return null;
+            //3. 데이터 파싱
+            //Top레벨 단계 _response 파싱
+            JSONObject response_obj = (JSONObject) jsonObj.get("response");
+
+            // 프로필 조회
+            String providerId = (String) response_obj.get("id");
+            String email = (String) response_obj.get("email");
+            String name = (String) response_obj.get("name");
+            String profileImage = (String) response_obj.get("profile_image");
+            return new OAuthUser("NAVER", providerId, name, email, profileImage);
+        } catch (Exception ignored) {
         }
+        return null;
+    }
+
     /* 세션 유효성 검증을 위한 난수 생성기 */
     private String generateRandomString() {
         return UUID.randomUUID().toString();
