@@ -47,33 +47,30 @@
 </script>
 <div id="content">
     <div id="info_box">
-        <div id="userimg">
+        <div id="user_img">
             <img src="${loginUser.profileImage}">
         </div>
 
         <div id="userInfo">
             <table>
                 <tr>
-                    <td>닉네임 : ${loginUser.nickName}</td>
+                    <td><span>닉네임</span>${loginUser.nickName}</td>
                 </tr>
                 <tr>
-                    <td>핸드폰 : ${loginUser.phone}</td>
+                    <td><span>핸드폰</span>${loginUser.phone}</td>
                 </tr>
                 <tr>
-                    <td>이메일 : ${loginUser.email}</td>
+                    <td><span>이메일</span>${loginUser.email}</td>
                 </tr>
                 <tr>
-                    <td>주소 : ${loginUser.address}</td>
-                </tr>
-                <tr>
-                    <td>관심구 : ${loginUser.interestState}</td>
+                    <td><span>주소</span>${loginUser.address}</td>
                 </tr>
             </table>
         </div>
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
 <%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
-            <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
+            <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
         </div>
     </div>
 
