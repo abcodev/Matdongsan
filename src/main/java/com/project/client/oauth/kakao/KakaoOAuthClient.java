@@ -4,6 +4,7 @@ import com.project.client.oauth.OAuthClient;
 import com.project.client.oauth.kakao.dto.KakaoOAuthAttribute;
 import com.project.client.oauth.OAuthToken;
 import com.project.client.oauth.OAuthUser;
+import com.project.client.oauth.kakao.dto.KakaoUnlinkResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -40,7 +41,7 @@ public class KakaoOAuthClient implements OAuthClient {
         return "https://kauth.kakao.com/oauth/authorize?client_id=857210a016a83ceffadc50f61d649c7b&redirect_uri=http://localhost:8070/Matdongsan/kakao/callback&response_type=code";
     }
 
-    private String getAccessToken(String code) {
+    public OAuthToken getToken(HttpSession session, String code, String state) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", "671b81703e84eaa09879d3693a30a73e");
@@ -52,7 +53,7 @@ public class KakaoOAuthClient implements OAuthClient {
             if (response == null) {
                 throw new RuntimeException();
             }
-            return response.getAccessToken();
+            return response;
         } catch (Exception ex) {
             log.info(ex.getMessage());
             throw new RuntimeException(ex);
@@ -60,10 +61,9 @@ public class KakaoOAuthClient implements OAuthClient {
     }
 
     @Override
-    public OAuthUser getUserProfile(HttpSession session, String code, String state) {
-        String accessToken = this.getAccessToken(code);
+    public OAuthUser getUserProfile(HttpSession session, OAuthToken oAuthToken) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Authorization", "Bearer " + oAuthToken.getAccessToken());
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         try {
@@ -72,6 +72,23 @@ public class KakaoOAuthClient implements OAuthClient {
                 throw new RuntimeException();
             }
             return response.toOAuth2User();
+        } catch (Exception ex) {
+            log.info(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public void unlink(OAuthToken token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token.getAccessToken());
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+        try {
+            KakaoUnlinkResponse response = restTemplate.postForObject(API_BASE_URL + "/v1/user/unlink", entity, KakaoUnlinkResponse.class);
+            if (response == null) {
+                throw new RuntimeException();
+            }
         } catch (Exception ex) {
             log.info(ex.getMessage());
             throw new RuntimeException(ex);

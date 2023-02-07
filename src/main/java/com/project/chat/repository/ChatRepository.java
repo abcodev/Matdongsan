@@ -55,6 +55,7 @@ public class ChatRepository {
         return sqlSession.selectList("chatMapper.messageList",roomNo);
     }
 
+
     public List<AdminChatRoom> adminChattingList() {
         return sqlSession.selectList("chatMapper.chattingList");
     }
@@ -65,5 +66,13 @@ public class ChatRepository {
 
     public ChatingRoom selectByRoomNo(String roomNo) {
         return sqlSession.selectOne("chatMapper.selectByRoomNo", roomNo);
+    }
+
+    public void messageRead(String roomNo) {
+        sqlSession.update("chatMapper.messageRead",roomNo);
+    }
+
+    public void updateMessageRead(MessageDto messageDto) {
+        sqlSession.update("chatMapper.updateMessageRead",messageDto);
     }
 }

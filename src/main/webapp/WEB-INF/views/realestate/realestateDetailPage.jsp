@@ -30,10 +30,10 @@
     <div id="content_left">
         <div class="info_table head">
             <div id="name">${realEstateDetail.bldgNm}</div>
-                <div id="heart">
-                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart()">
-                    <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
-                </div>
+            <div id="heart">
+                <input id="checkbox_heart" type="checkbox" onchange="changeHeart()">
+                <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
+            </div>
             <script>
                 function changeHeart() {
                     $.ajax({
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-    <%--  *************예약 모달*************  --%>
+        <%--  *************예약 모달*************  --%>
         <div class="black_bg"></div>
         <div class="modal_wrap">
             <div id="modal_content">

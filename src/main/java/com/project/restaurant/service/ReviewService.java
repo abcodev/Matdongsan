@@ -33,7 +33,7 @@ public class ReviewService {
     private final ServletContext servletContext;
 
     /**
-     *
+     * 리뷰 등록
      */
     @Transactional
     public void create(Member member, InsertReviewRequest req) {

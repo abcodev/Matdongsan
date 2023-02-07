@@ -30,6 +30,11 @@ public class RealEstateRent {
     private String address;
     private String subAddress;
 
+    private String totalRentAvg;
+    private String totalSellAvg;
+    private String rentAvg;
+    private String sellAvg;
+
     public static RealEstateRent of(RealEstateRentDto realEstateRentDto){
         return RealEstateRent.builder()
                 .accYear(realEstateRentDto.getAccYear())

@@ -11,11 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
-
-
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -41,7 +44,7 @@ public class GoogleOAuthClient implements OAuthClient {
     }
 
 
-    private String getAccessToken(String code){
+    public OAuthToken getToken(HttpSession session, String code, String state) {
 
         //Google OAuth Access Token 요청을 위한 파라미터 세팅
         GoogleOAuthRequest googleOAuthRequestParam = GoogleOAuthRequest
@@ -56,7 +59,7 @@ public class GoogleOAuthClient implements OAuthClient {
            if (response == null) {
                throw new RuntimeException();
            }
-           return response.getAccessToken();
+           return response;
        }catch (Exception ex){
            log.info(ex.getMessage());
            throw new RuntimeException(ex);
@@ -64,10 +67,9 @@ public class GoogleOAuthClient implements OAuthClient {
     }
 
     @Override
-    public OAuthUser getUserProfile(HttpSession session, String code, String state) {
-        String accessToken = this.getAccessToken(code);
+    public OAuthUser getUserProfile(HttpSession session, OAuthToken oAuthToken) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer" + accessToken);
+        headers.add("Authorization", "Bearer" + oAuthToken.getAccessToken());
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
         try {
@@ -77,6 +79,20 @@ public class GoogleOAuthClient implements OAuthClient {
             }
             return response.toOAuth2USer();
         }catch (Exception ex){
+            log.info(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public void unlink(OAuthToken token) {
+        try {
+            MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+            params.add("token", token.getAccessToken());
+            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(GOOGLE_REVOKE_TOKEN_BASE_URL);
+            uriComponentsBuilder.queryParams(params);
+            restTemplate.postForObject(uriComponentsBuilder.toUriString(), null, Void.class);
+        } catch (Exception ex){
             log.info(ex.getMessage());
             throw new RuntimeException(ex);
         }

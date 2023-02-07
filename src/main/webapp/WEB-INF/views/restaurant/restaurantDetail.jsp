@@ -50,12 +50,12 @@
             </c:forEach>
 
             <%--해시태그 비동기 갱신--%>
-<%--            <span id = "hashtag_by_review">--%>
-<%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
-<%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
-<%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
-<%--                </c:forEach>--%>
-<%--            </span>--%>
+            <%--            <span id = "hashtag_by_review">--%>
+            <%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
+            <%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
+            <%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
+            <%--                </c:forEach>--%>
+            <%--            </span>--%>
         </div>
     </div>
     <div class="detail_main">
@@ -206,6 +206,7 @@
                     }
 
                     str += '<div>'
+                        + '<div><br></div>'
                         + '<div class="review_header">'
                         + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
                         + '<div class="review_user_name">' + i.memberName + '</div>'

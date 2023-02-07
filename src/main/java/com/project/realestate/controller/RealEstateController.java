@@ -74,13 +74,12 @@ public class RealEstateController {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
         List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
+        List<RealEstateRent> chartResult = realEstateService.chartList(state);
+
 
         modelAndView.addObject("estateRentList", resp.getRealEstateRentList());
         modelAndView.addObject("selectFboard", selectFboard);
-
-        System.out.println("estateRentList : " + resp.getRealEstateRentList());
-        System.out.println("selectFboard : " + selectFboard);
-
+        modelAndView.addObject("chartResult", chartResult);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("realestate/realestateContents");
         return modelAndView;

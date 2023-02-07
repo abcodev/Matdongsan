@@ -224,19 +224,22 @@ CREATE TABLE REALESTATE_AGENT
 
 CREATE TABLE "MEMBER"
 (
-    "MEMBER_NO"     NUMBER                         NOT NULL,
-    "PROVIDER"      VARCHAR(255)                   NOT NULL,
-    "PROVIDER_ID"   VARCHAR(255)                   NOT NULL,
-    "MEMBER_NAME"   VARCHAR(255)                   NOT NULL,
-    "PROFILE_IMAGE" VARCHAR(255)                   NULL,
-    "EMAIL"         VARCHAR(255)                   NULL,
-    "NICKNAME"      VARCHAR(255)                   NULL,
-    "PHONE"         VARCHAR(255)                   NULL,
-    "ADDRESS"       VARCHAR(255)                   NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y'       NULL,
-    "GRADE"         VARCHAR(255) DEFAULT 'GENERAL' NULL,
-    "RECENT_ACCESS" TIMESTAMP                      NULL,
-    "INTEREST_STATE" VARCHAR2(255)                 NULL
+    "MEMBER_NO"                NUMBER                         NOT NULL,
+    "PROVIDER"                 VARCHAR(255)                   NOT NULL,
+    "PROVIDER_ID"              VARCHAR(255)                   NOT NULL,
+    "MEMBER_NAME"              VARCHAR(255)                   NOT NULL,
+    "PROFILE_IMAGE"            VARCHAR(255)                   NULL,
+    "EMAIL"                    VARCHAR(255)                   NULL,
+    "NICKNAME"                 VARCHAR(255)                   NULL,
+    "PHONE"                    VARCHAR(255)                   NULL,
+    "ADDRESS"                  VARCHAR(255)                   NULL,
+    "STATUS"                   VARCHAR(255) DEFAULT 'Y'       NULL,
+    "GRADE"                    VARCHAR(255) DEFAULT 'GENERAL' NULL,
+    "RECENT_ACCESS"            TIMESTAMP                      NULL,
+    "INTEREST_STATE"           VARCHAR2(255)                  NULL,
+    "ACCESS_TOKEN"             VARCHAR2(255)                  NULL,
+    "REFRESH_TOKEN"            VARCHAR2(255)                  NULL,
+    "REFRESH_TOKEN_EXPIRED_AT" VARCHAR2(255)                  NULL
 );
 
 COMMENT
@@ -277,6 +280,15 @@ COMMENT
 
 COMMENT
     ON COLUMN "MEMBER"."INTEREST_STATE" IS '관심구';
+
+COMMENT
+    ON COLUMN "MEMBER"."ACCESS_TOKEN"  IS '로그인 토큰';
+
+COMMENT
+    ON COLUMN "MEMBER"."REFRESH_TOKEN" IS '리프레시 토큰';
+
+COMMENT
+    ON COLUMN "MEMBER"."REFRESH_TOKEN_EXPIRED_AT" IS '리프레시 토큰 제한시간';
 
 
 -- DROP TABLE "INTEREST";

@@ -17,6 +17,9 @@
         <result column="STATUS" property="status"/>
         <result column="GRADE" property="grade"/>
         <result column="INTEREST_STATE" property="interestState"/>
+        <result column="ACCESS_TOKEN" property="accessToken" />
+        <result column="REFRESH_TOKEN" property="refreshToken" />
+        <result column="REFRESH_TOKEN_EXPIRED_AT" property="refreshTokenExpiredAt" />
     </resultMap>
 
     <resultMap type="memberInterest" id="interestList">
@@ -42,9 +45,9 @@
 
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
-        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS)
+        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS, ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_TOKEN_EXPIRED_AT)
         VALUES (SEQ_MEMBER_NO.NEXTVAL, #{provider}, #{providerId}, #{memberName}, #{profileImage}, #{email},
-                #{nickName}, #{phone}, #{address}, #{recentAccess})
+                #{nickName}, #{phone}, #{address}, #{recentAccess}, #{accessToken}, #{refreshToken}, #{refreshTokenExpiredAt})
     </insert>
 
     <select id="selectByMemberNo" resultMap="memberResultSet">
@@ -107,6 +110,26 @@
                                  ON M.MEMBER_NO = I.MEMBER_NO
                  JOIN REALESTATE_SELL S
                       ON I.ESTATE_NO = S.ESTATE_NO
+
+        WHERE M.MEMBER_NO = #{memberNo}
+
+        UNION ALL
+
+        SELECT
+            M.MEMBER_NO,
+            M.PROVIDER,
+            M.PROVIDER_ID,
+            M.NICKNAME,
+            I.ESTATE_NO,
+            R.BLDG_NM,
+            R.SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN as ADDRESS
+
+        FROM MEMBER M
+                 LEFT OUTER JOIN INTEREST I
+                                 ON M.MEMBER_NO = I.MEMBER_NO
+                 JOIN REALESTATE_RENT R
+                      ON I.ESTATE_NO = R.ESTATE_NO
+
         WHERE M.MEMBER_NO = #{memberNo}
 
 

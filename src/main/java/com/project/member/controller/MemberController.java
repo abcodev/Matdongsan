@@ -41,9 +41,7 @@ public class MemberController {
 
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){
-
         model.addAttribute("stateList", StateList.values());
-
         return "member/memberModify";
     }
 
@@ -88,16 +86,12 @@ public class MemberController {
     }
 
     @RequestMapping("/delete")
-    public String deleteMember(HttpSession session){
-        long memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
-
-        int result = memberService.deleteMember(memberNo);
-        if(result == 1){
-            session.removeAttribute("loginUser");
-            return "redirect:/";
-        }
-
+    public String deleteMember(HttpSession session) {
+        Member member = (Member)session.getAttribute("loginUser");
+        memberService.deleteMember(member);
+        session.removeAttribute("loginUser");
         return "redirect:/";
+
     }
 
     /**
