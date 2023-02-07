@@ -1,5 +1,6 @@
 package com.project.board.controller;
 
+import com.project.board.dto.FreeBoardArray;
 import com.project.board.dto.FreeBoardCountDto;
 import com.project.board.dto.FreeBoardListRequest;
 import com.project.board.dto.FreeBoardListResponse;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,27 +38,24 @@ public class FreeBoardController {
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                        @RequestParam(value = "state", defaultValue = "" ) String state,
-                                       @RequestParam(value = "search", defaultValue = "") String search
+                                       @RequestParam(value = "search", defaultValue = "") String search,
+                                       @RequestParam(value = "select",defaultValue = "recent")String select
     ){
 
-        FreeBoardListRequest req = new FreeBoardListRequest(currentPage,state,search);
+        FreeBoardListRequest req = new FreeBoardListRequest(currentPage,state,search,select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
 
         modelAndView.addObject("freeBoardList",resp.getFreeBoardList());
         modelAndView.addObject("pi",resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
         modelAndView.addObject("hotWeekList",freeBoardService.hotWeekList());
+        modelAndView.addObject("condition",req);
         modelAndView.setViewName("board/freeBoardList");
+
         return modelAndView;
     }
 
 
-    @GetMapping("select/arrayList")
-    @ResponseBody
-    public ResponseEntity<?> selectArryList(@RequestParam String select){
-        int a = 1;
-        return ResponseEntity.ok().body(a);
-    }
 
 
     // 게시글 작성폼
@@ -81,10 +80,14 @@ public class FreeBoardController {
     @RequestMapping("freeList/detail/{fno}")
     public ModelAndView detailFreeBoard(ModelAndView mv,
                                         @PathVariable("fno") int fno,
-                                        @ModelAttribute("loginUser") Member loginUser
+                                        HttpSession session
     ){
+        Member loginUser = (Member) session.getAttribute("loginUser");
         FreeBoard fb = freeBoardService.detailFreeBoard(fno);
-        long memberNo = loginUser.getMemberNo();
+        long memberNo = 0;
+        if(!ObjectUtils.isEmpty(loginUser)) {
+            memberNo = loginUser.getMemberNo();
+        }
         FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
         freeBoardService.freeBoardCount(count);
         mv.addObject("fb", fb );

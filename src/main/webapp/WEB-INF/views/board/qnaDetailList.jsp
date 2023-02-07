@@ -1,11 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!DOCTYPE html>
+<%@ page language="java" pageEncoding="UTF-8"%><!DOCTYPE html>
+
+<c:set var="q" value="${qb.qnaWriter}"/>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <title>질문게시판 상세보기</title>
+  <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
   <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <jsp:include page="../template/font.jsp"/>
@@ -13,133 +17,82 @@
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <style>
-    .btn_box > .alert_btn_box {
-      padding-left: 86%;
-      margin-top: 10px;
-    }
 
-    .btn_box > .alert_btn_box > button{
-      margin-left: 10px;
-      border: none;
-      width: auto;
-      height: auto;
-      font-size: 16px;
-      background-color: #f3f1f5;
-      color: #213048;
-      font-weight: 450;
-      cursor: pointer;
-      border-radius: 2px;
-      padding: 5px 10px 5px 10px;
-    }
-
-    .btn_box > .alert_btn_box > button:hover{
-      background-color: #566392;
-      color: #f3f1f5;
-    }
-
-    .modal-content{
-      width: 80%;
-    }
-
-    .fa-person-circle-exclamation{
-      font-size: 22px;
-      margin-right: 10px;
-    }
-
-    .modal-header > span{
-      font-size: 20px;
-      font-weight: 450;
-    }
-
-    .modal-body > select{
-      width: 100%;
-      height: 35px;
-      border: 1px solid #cccccc;
-      border-radius: 3px;
-      font-size: 15px;
-      font-weight: 400;
-      color: #515151;
-      cursor: pointer;
-    }
-
-    .modal-footer > button{
-      margin-left: 10px;
-      border: none;
-      width: auto;
-      height: auto;
-      font-size: 16px;
-      background-color: #f3f1f5;
-      color: #213048;
-      font-weight: 450;
-      cursor: pointer;
-      border-radius: 2px;
-      padding: 5px 10px 5px 10px;
-    }
-
-    .modal-footer > button:hover{
-      background-color: #566392;
-      color: #f3f1f5;
-    }
-
-
-  </style>
 
 </head>
 <body>
 <main>
+  <%@ include file ="../template/header.jsp" %>
+  <div id="content">
+    <div class="freeBoard_Detail">
+      <div class="detail_top">
+        <p>질문게시판</p>
+        <input type="hidden" id="depth" value="${qb.depth}"/>
+        <input type="hidden" id="parentBno" value="${qb.parentBno}"/>
+        <input type="hidden" id="qBno" value="${qb.qnaBno}"/>
 
-  <table id="contentArea" class="table">
-    <tr>
-      <th>제목</th>
-      <td colspan="3">${qb.qnaTitle}</td>
-    </tr>
-    <tr>
-      <th>닉네임</th>
-      <td colspan="3">${qb.qnaWriter}</td>
-    </tr>
-    <tr>
-      <th width="100">날짜</th>
-      <td colspan="3">${qb.qnaDate}</td>
-    </tr>
-    <tr>
-      <th>내용</th>
-      <td colspan="3">${qb.qnaContent}</td>
-    </tr>
-    <tr>
-      <th>지역</th>
-      <td colspan="3">${qb.qnaArea}</td>
-    </tr>
-  <input type="hidden" id="depth" value="${qb.depth}"/>
-    <input type="hidden" id="parentBno" value="${qb.parentBno}"/>
-    <input type="hidden" id="qBno" value="${qb.qnaBno}"/>
+      </div>
+      <div class="detail_head">
+        <div class="board_title">
 
-    <button id="writebtn1" onclick="movePage()"><i class="fa-solid fa-pencil"></i>답글달기</button>
-    <%--<c:if test="${ not empty loginUser }">--%>
-    <button id="delete">
-    <a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제하기</a>
-    </button>
-   <%-- </c:if>--%>
-  </table>
-  <br><br><br><br><br><br>
+            <input type="text" name="boardTitle" value="${qb.qnaTitle}">
 
-  <c:if test="${empty list}">
+
+        </div>
+        <div class="board_info">
+          <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
+          <div class="board_date" name="boardDate">${qb.qnaDate}</div>
+        </div>
+      </div>
+      <div class="detail_body">
+
+          <textarea name="boardContent">${qb.qnaContent}</textarea>
+
+
+          <div name="boardContent">${qb.qnaContent}</div>
+
+      </div>
+      <div class="btn_box">
+        <c:if test="${not empty loginUser}">
+          <c:if test="${q eq loginUser.nickName}">
+            <button onclick="movePage()">답글달기</button>
+            <button>
+              <a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a>
+            </button>
+          </c:if>
+          <c:if test="${q ne loginUser.nickName}">
+            <div class="alert_btn_box">
+              <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                신고하기
+              </button>
+            </div>
+          </c:if>
+        </c:if>
+      </div>
+            <div class="alert_btn_box">
+              <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                신고하기
+              </button>
+            </div>
+      </div>
+    </div>
+
+    <c:if test="${empty list}">
     <span id="hong">작성된 답글이 없습니다</span>
-  </c:if>
+    </c:if>
   <c:forEach var="list" items="${ab}">
 
-    <Div>
+    <div id="Answer">
       <span>${qb.qnaTitle}대한 답변</span><br><br>
       <span>제목 : ${list.qnaTitle}</span><br><br>
       <span>작성자 : ${list.qnaWriter}</span><br><br><br>
       <span>내용 :${list.qnaContent}</span>
 
 
-    </Div>
+    </div>
+
   </c:forEach>
-  <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    신고하기
-  </button>
+
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

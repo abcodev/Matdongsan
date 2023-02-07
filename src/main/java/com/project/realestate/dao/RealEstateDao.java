@@ -49,7 +49,7 @@ public class RealEstateDao {
 
     // 해당 구 자유게시판 글
     public ArrayList<FreeBoard> selectFboard(SqlSession sqlSession, String state){
-        return (ArrayList) sqlSession.selectList("rentMapper.selectFboard", state);
+        return (ArrayList) sqlSession.selectList("freeBoardMapper.selectFboard", state);
     }
 
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {

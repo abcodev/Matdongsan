@@ -57,12 +57,11 @@ public class QnaBoardController {
 
     /*게시글 등록*/
     @RequestMapping("/insert")
-    public String insertQboard(Model model, QnaBoard qb, HttpSession session) {
+    public String insertQboard(Model model, QnaBoard qb, HttpSession session
+    ,@ModelAttribute("loginUser") Member loginUser) {
 
         Member m = (Member) session.getAttribute("loginUser");
-        if (m != null) {
-            m.setMemberNo(m.getMemberNo());
-        }
+        loginUser.getMemberNo();
         qb.setQnaArea(qb.getQnaArea());
 
         int result = boardService.insertQboard(qb);
@@ -106,14 +105,11 @@ public class QnaBoardController {
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(
             @PathVariable("qBno") int qBno,
+            @ModelAttribute("loginUser") Member loginUser,
             HttpSession session,
             ModelAndView mv
     ) {
 
-        Member m = (Member) session.getAttribute("loginUser");
-        if (m != null) {
-            m.setMemberNo(m.getMemberNo());
-        }
         QnaBoard qb = boardService.selectQboard(qBno);
 
         List<QnaBoard> ab = boardService.selectAnswer(qBno);

@@ -24,9 +24,9 @@
     <title>커뮤니티 질문게시판</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
     <jsp:include page="../template/font.jsp"/>
+    <%@ include file ="../template/header.jsp" %>
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
 <main>
     <div class="content head">
         <form id="searchForm" action="search?" method="get">

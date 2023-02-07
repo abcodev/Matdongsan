@@ -19,5 +19,7 @@ public class Admin {
     private String boardWriter;
     private String reportType;
 
+    private String nickName;
+
 
 }
