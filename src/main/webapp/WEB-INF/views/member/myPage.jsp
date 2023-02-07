@@ -14,27 +14,32 @@
   <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
+<%@ include file="../template/header.jsp" %>
 <script>
-    function changeHeart() {
+
+  function changeHeart(estateNo) {
     $.ajax({
       url: '${pageContext.request.contextPath}/myPage',
       type: 'POST',
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({
-        'estateNo': '${interestList[0].estateNo}',
+        'estateNo': estateNo,
         'isInterest': $('#checkbox_heart').is(':checked')
-      })
+      }),
+      success() {
+        console.log(estateNo);
+        location.reload();
+      }
     });
   }
 </script>
 
 <script>
-  $(document).ready(function(){
-    $("#checkbox_heart").change(function (){
-      if($($(this)).is(".checked")){
+  $(document).ready(function () {
+    $("#checkbox_heart").change(function () {
+      if ($($(this)).is(".checked")) {
         console.log("체크");
-      }else{
+      } else {
         console.log("해제");
       }
     })
@@ -42,7 +47,7 @@
 </script>
 <div id="content">
   <div id="info_box">
-    <div id="userimg">
+    <div id="user_img">
       <img src="${loginUser.profileImage}">
     </div>
 
@@ -66,7 +71,8 @@
       </table>
     </div>
     <div id="btn_box">
-      <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>
+      <button onclick="deleteMember()">회원탈퇴</button>
+      <%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
       <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
     </div>
   </div>
@@ -74,14 +80,13 @@
   <div id="like">
     <h4>내가 찜한 목록</h4>
     <div id="likeList">
-
-      <c:forEach items="${interestList}" var="interestList">
-          <div id="heart" class="likeInfo">
-            <input id="checkbox_heart" type="checkbox" onchange="changeHeart()" checked="checked">하트
-            <div onclick="location.href='realEstate/detail?estateNo=${interestList.estateNo}'">
-              ${interestList.estateNo}<br>${interestList.bldgNm}<br>${interestList.address}
-            </div>
+      <c:forEach items="${interestList}" var="interest">
+        <div id="heart" class="likeInfo">
+          <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">하트
+          <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
+              ${interest.estateNo}<br>${interest.bldgNm}<br>${interest.address}
           </div>
+        </div>
       </c:forEach>
     </div>
   </div>
@@ -95,7 +100,8 @@
           <th>게시일</th>
         </tr>
         <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-          <tr class="myBoard_info" onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
+          <tr class="myBoard_info"
+              onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
             <td>${selectAllBoardList.boardNo}</td>
             <td>${selectAllBoardList.boardTitle}</td>
             <td>${selectAllBoardList.boardDate}</td>
@@ -107,53 +113,67 @@
 
   <div id="paging">
     <ul class="pagination">
-        <c:choose>
-            <c:when test="${pi.currentPage eq 1}">
-                <li class="page-item disabled">Previous</li>
-            </c:when>
-            <c:otherwise>
-              <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
-            </c:otherwise>
-        </c:choose>
+      <c:choose>
+        <c:when test="${pi.currentPage eq 1}">
+          <li class="page-item disabled">Previous</li>
+        </c:when>
+        <c:otherwise>
+          <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
+        </c:otherwise>
+      </c:choose>
 
       <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
         <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
       </c:forEach>
 
-        <c:choose>
-            <c:when test="${pi.currentPage eq pi.maxPage}">
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
-            </c:otherwise>
-        </c:choose>
+      <c:choose>
+        <c:when test="${pi.currentPage eq pi.maxPage}">
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        </c:when>
+        <c:otherwise>
+          <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
+        </c:otherwise>
+      </c:choose>
 
     </ul>
   </div>
 </div>
-  <script>
-    function retrieveAllBoards(current_page){
-      $.ajax({
-        url: '${pageContext.request.contextPath}/myPage',
-        method: 'GET',
-        data: {
-          cpage: current_page
-        },
-        success(data){
-          $('#myBoardList').empty();
-          console.log($(data).find("#myBoardList"));
-          console.log($(data).find(".myBoard_info").length);
-          if($(data).find(".myBoard_info").length >0) {
-            $('#myBoardList').html($(data).find("#myBoardList"))
-          }else{
-            $('#myBoardList').html('<p>조회된 게시글이 없습니다.</p>');
-          }
-        }
-      })
-    }
+<script>
 
-  </script>
+
+  function deleteMember() {
+    var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
+    if(deleteMember == true){
+      location.href = '${pageContext.request.contextPath}/delete';
+      alert("그동안 맛동산을 이용해주셔서 감사합니다.");
+    }
+    else if(deleteMember == false){
+    }
+  }
+
+
+
+  function retrieveAllBoards(current_page) {
+    $.ajax({
+      url: '${pageContext.request.contextPath}/myPage',
+      method: 'GET',
+      data: {
+        cpage: current_page
+      },
+      success(data) {
+        $('#myBoardList').empty();
+        console.log($(data).find("#myBoardList"));
+        console.log($(data).find(".myBoard_info").length);
+        if ($(data).find(".myBoard_info").length > 0) {
+          $('#myBoardList').html($(data).find("#myBoardList"))
+        } else {
+          $('#myBoardList').html('<p>조회된 게시글이 없습니다.</p>');
+        }
+      }
+    })
+  }
+
+</script>
 
 </body>
 </html>
