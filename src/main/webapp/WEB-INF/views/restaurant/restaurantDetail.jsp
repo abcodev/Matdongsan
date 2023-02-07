@@ -50,12 +50,12 @@
             </c:forEach>
 
             <%--해시태그 비동기 갱신--%>
-<%--            <span id = "hashtag_by_review">--%>
-<%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
-<%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
-<%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
-<%--                </c:forEach>--%>
-<%--            </span>--%>
+            <%--            <span id = "hashtag_by_review">--%>
+            <%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
+            <%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
+            <%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
+            <%--                </c:forEach>--%>
+            <%--            </span>--%>
         </div>
     </div>
     <div class="detail_main">
@@ -206,16 +206,17 @@
                     }
 
                     str += '<div>'
-                        + '<div class="reply_header">'
-                        + '<div class="reply_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
-                        + '<div class="reply_user_name">' + i.memberName + '</div>'
-                        + '<div class="reply_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
-                        + '<div>' + i.createDate.substring(0, 16) + '</div>'
+                        + '<div><br></div>'
+                        + '<div class="review_header">'
+                        + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
+                        + '<div class="review_user_name">' + i.memberName + '</div>'
+                        + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
+                        + '<div class="review_date">' + i.createDate.substring(0, 16) + '</div>'
                         + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
                         + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
                         + '</div>'
-                        + '<div>' + i.reviewContent + '</div>'
-                        + '<div class="reply_img_list">' + imgList + '</div>'
+                        + '<div class="review_content">' + i.reviewContent + '</div>'
+                        + '<div class="review_img_list">' + imgList + '</div>'
                         + '<div>' + hashtagList + '</div>'
                         + '</div>';
                 }
