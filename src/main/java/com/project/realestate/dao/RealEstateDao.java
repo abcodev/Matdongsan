@@ -52,6 +52,11 @@ public class RealEstateDao {
         return (ArrayList) sqlSession.selectList("freeBoardMapper.selectFboard", state);
     }
 
+    // 매매, 전세 평균값
+    public ArrayList<RealEstateRent> chartList(SqlSession sqlSession, String state){
+        return (ArrayList) sqlSession.selectList("rentMapper.selectChartList", state);
+    }
+
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
         return sqlSession.selectList("sellMapper.getSellList");
     }

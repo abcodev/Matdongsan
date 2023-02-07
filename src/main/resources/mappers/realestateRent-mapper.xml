@@ -53,12 +53,12 @@
         <result column="HOUSE_TYPE" property="houseType"/>
     </resultMap>
 
-    <resultMap id="selectFboardResultSet" type="freeBoard">
-        <result column="FREE_BNO" property="freeBno"/>
-        <result column="BOARD_AREA" property="boardArea"/>
-        <result column="BOARD_TITLE" property="boardTitle"/>
+    <resultMap id="avgResultSet" type="RealEstateRent">
+        <result column="TOTAL_RENT_AVG" property="totalRentAvg"/>
+        <result column="TOTAL_SELL_AVG" property="totalSellAvg"/>
+        <result column="RENT_AVG" property="rentAvg"/>
+        <result column="SELL_AVG" property="sellAvg"/>
     </resultMap>
-
 
 
     <delete id="deleteAll">
@@ -333,7 +333,27 @@
     </select>
 
 
+    <!-- 매매, 전세 평균값 -->
+    <select id="selectChartList" resultMap="avgResultSet">
+        select
+            ( SELECT round(AVG(TO_NUMBER(RENT_GTN)), 1)
+              FROM REALESTATE_RENT
+              WHERE RENT_GBN = '전세') AS TOTAL_RENT_AVG,
 
+            (SELECT
+                 ROUND(AVG(TO_NUMBER(OBJ_AMT)), 1)
+             FROM REALESTATE_SELL) AS TOTAL_SELL_AVG,
+
+            ( SELECT NVL(round(AVG(TO_NUMBER(RENT_GTN)), 1), 0)
+              FROM REALESTATE_RENT
+              WHERE SGG_NM = '${sggNm}' AND RENT_GBN = '전세') AS RENT_AVG,
+
+            (SELECT
+                 NVL(ROUND(AVG(TO_NUMBER(OBJ_AMT)),1), 0)
+             FROM REALESTATE_SELL
+             WHERE SGG_NM = '${sggNm}')AS SELL_AVG
+        from dual
+    </select>
 
 
 </mapper>
