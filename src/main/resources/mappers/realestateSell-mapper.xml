@@ -145,16 +145,7 @@
         WHERE BJDONG_NM = #{bjdongNm}
     </select>
 
-    <select id="avgSell" resultMap="realEstateSellResultSet">
-        SELECT AVG(OBJ_AMT),
-               SGG_NM
-        FROM REALESTATE_SELL
-        GROUP BY SGG_NM
-<!--        SELECT AVG(RENT_GTN),-->
-<!--               SGG_NM-->
-<!--        FROM REALESTATE_RENT-->
-<!--        GROUP BY SGG_NM-->
-    </select>
+
 
 
 </mapper>

@@ -104,18 +104,15 @@
 
     <select id="hotWeekList" resultMap="hotWeekResultSet">
         <![CDATA[
-            SELECT
-            ROWNUM,
-            FREE_BNO,
-            BOARD_TITLE
-            FROM (SELECT FREE_BNO,BOARD_TITLE, (SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT"
-            FROM FREE_BOARD FB
-            ORDER BY COUNT DESC)
-            WHERE ROWNUM <4
+        SELECT ROWNUM,
+               FREE_BNO,
+               BOARD_TITLE
+        FROM (SELECT FREE_BNO, BOARD_TITLE, (SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT"
+              FROM FREE_BOARD FB
+              ORDER BY COUNT DESC)
+        WHERE ROWNUM < 4
         ]]>
     </select>
-
-
 
     <select id="detailFreeBoard" parameterType="int" resultMap="fBoardResultSet">
         SELECT
@@ -179,7 +176,6 @@
             AND REPLY_NO = ${replyNo}
             AND MEMBER_NO = ${memberNo}
     </update>
-
 
     <insert id="freeBoardCount">
         INSERT INTO HOTWEEK(FREE_BNO, MEMBER_NO, COUNT_DATE)

@@ -3,14 +3,12 @@ package com.project.board.service;
 import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmService;
 import com.project.board.dao.QnaBoardDao;
-import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,11 +21,8 @@ import java.util.Map;
 public class QnaBoardServiceImpl implements QnaBoardService {
 
     private final QnaBoardDao boardDao;
-
     private final SqlSession sqlSession;
-
     private final Pagination pagination;
-
     private final AlarmService alarmService;
 
     @Override
@@ -41,20 +36,13 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 
     @Override
     public Map<String , Object> selectList(int currentPage){
-
         Map<String , Object> map = new HashMap();
-
-
         int listCount = selectListCount();
-
         int pageLimit = 10;
         int boardLimit = 15;
         PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-
         map.put("pi",pi);
-
         ArrayList<QnaBoard> list = boardDao.selectList(sqlSession,pi);
-
         map.put("list", list);
         return map;
     }
@@ -101,8 +89,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
     @Override
     public int insertAnswer(QnaBoard qb){
-
-//        QnaBoard qnaBoard = boardDao.selectByQnaBno(sqlSession, qb.getParentBno());
+//        QnaBoard qnaBoard = boardDao.selectByQnaBno(sqlSession, qb.getQnaBno());
 //        long receiverNo = qnaBoard.getMemberNo();
 //        AlarmTemplate template = AlarmTemplate.generateNewQnaMessageTemplate(receiverNo);
 //        alarmService.send(template);

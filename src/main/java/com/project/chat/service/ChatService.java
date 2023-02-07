@@ -68,7 +68,12 @@ public class ChatService {
     }
 
     public List<AdminChatMessage> adminMessageList(String roomNo) {
+        chatRepository.messageRead(roomNo);
         return chatRepository.adminMessageList(roomNo);
+    }
+
+    public void updateMessageRead(MessageDto messageDto) {
+        chatRepository.updateMessageRead(messageDto);
     }
 
 

@@ -100,12 +100,18 @@
     background-color: #eee;
 }
 
+select:focus {
+    outline: #eee 1px solid;
+}
+
+
 .city > select{
     height: 50px;
     width: 49%;
     border: none;
     background-color: #eee;
     cursor: pointer;
+    padding-left: 15px;
 }
 
 .option > select{
@@ -136,6 +142,6 @@
 
 .freeBoard_area{
     height: 300px;
-    background-color: #566392;
+    background-color: #e2e2e2;
     margin-top: 20px;
 }
