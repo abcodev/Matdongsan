@@ -16,30 +16,33 @@
 <body>
 <%@ include file ="../template/header.jsp" %>
 <script>
-    function changeHeart() {
+  function changeHeart(estateNo) {
     $.ajax({
       url: '${pageContext.request.contextPath}/myPage',
       type: 'POST',
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({
-        'estateNo': '${interestList[0].estateNo}',
+        'estateNo': estateNo,
         'isInterest': $('#checkbox_heart').is(':checked')
-      })
+      }),
+      success() {
+        location.reload();
+      }
     });
   }
 </script>
 
-<script>
-  $(document).ready(function(){
-    $("#checkbox_heart").change(function (){
-      if($($(this)).is(".checked")){
-        console.log("체크");
-      }else{
-        console.log("해제");
-      }
-    })
-  })
-</script>
+<%--<script>--%>
+<%--  $(document).ready(function(){--%>
+<%--    $("#checkbox_heart").change(function (){--%>
+<%--      if($($(this)).is(".checked")){--%>
+<%--        console.log("체크");--%>
+<%--      }else{--%>
+<%--        console.log("해제");--%>
+<%--      }--%>
+<%--    })--%>
+<%--  })--%>
+<%--</script>--%>
 <div id="content">
   <div id="info_box">
     <div id="userimg">
@@ -75,13 +78,13 @@
     <h4>내가 찜한 목록</h4>
     <div id="likeList">
 
-      <c:forEach items="${interestList}" var="interestList">
-          <div id="heart" class="likeInfo">
-            <input id="checkbox_heart" type="checkbox" onchange="changeHeart()" checked="checked">하트
-            <div onclick="location.href='realEstate/detail?estateNo=${interestList.estateNo}'">
-              ${interestList.estateNo}<br>${interestList.bldgNm}<br>${interestList.address}
-            </div>
+      <c:forEach items="${interestList}" var="interest">
+        <div id="heart" class="likeInfo">
+          <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">하트
+          <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
+              ${interest.estateNo}<br>${interest.bldgNm}<br>${interest.address}
           </div>
+        </div>
       </c:forEach>
     </div>
   </div>
