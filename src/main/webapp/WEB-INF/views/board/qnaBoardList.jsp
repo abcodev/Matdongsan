@@ -22,63 +22,64 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>커뮤니티 질문게시판</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
     <jsp:include page="../template/font.jsp"/>
-    <%@ include file ="../template/header.jsp" %>
+    <%@ include file="../template/header.jsp" %>
+    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
+
 </head>
 <body>
 <main>
-    <div class="content head">
-        <form id="searchForm" action="search?" method="get">
-        <div class="select">
-            <select class="custom-select" name="condition">
-                <option value="title">제목</option>
-                <option value="content">내용</option>
-                <option value="area">지역</option>
-            </select>
+    <div id="content">
+        <div class="side submenu">
+            <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+            <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
         </div>
-        <div class="search_input">
-            <input type="text" name="keyword">
-        </div>
-        <div class="search_icon">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+        <form id="searchForm" action="/board/qnaList/search" method="get">
+            <div class="content head">
+                <select name="condition" id="selectState">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="area">지역</option>
+                </select>
+                <div class="search_input">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input id="freeBoardSearch" type="text" name="keyword" placeholder="검색내용을 입력해주세요">
+                </div>
+                <button type="submit">조회</button>
+
+            </div>
+
         </form>
-    </div>
-    <div class="content body">
-        <div class="sidebar">
-            <div>
-                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
-                <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
+
+        <div class="content body">
+
+            <div class="boardlist">
+                <div class="boardlist_head">
+
+                    <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                </div>
+                <div id="boardlist_main">
+
+                    <table class="table">
+                        <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
+                        <c:forEach var="qb" items="${list}">
+                            <tr><td onclick="movePage(${qb.qnaBno})">
+                                <c:forEach step="1" begin="2" end ="${qb.depth}">
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </c:forEach>
+                                <c:if test="${qb.depth ne 1 }">
+                                    └->
+                                </c:if>
+                                <c:if test="${qb.qnaArea != null}">
+                                    (${qb.qnaArea})</c:if>
+                                    ${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
+
+                        </c:forEach>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="boardlist">
-            <div class="boardlist_head">
-
-                <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
-            </div>
-            <div id="boardlist_main">
-
-                <table class="table">
-                    <tr><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr>
-                    <c:forEach var="qb" items="${list}">
-                        <tr><td onclick="movePage(${qb.qnaBno})">
-                            <c:forEach step="1" begin="2" end ="${qb.depth}">
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            </c:forEach>
-                            <c:if test="${qb.depth ne 1 }">
-                                └->
-                            </c:if>
-                            <c:if test="${qb.qnaArea != null}">
-                            (${qb.qnaArea})</c:if>
-                                ${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}</td></tr>
-
-                    </c:forEach>
-                </table>
-            </div>
-        </div>
-    </div>
-    <c:set var="url" value="?cpage="/>
+        <c:set var="url" value="?cpage="/>
         <div id="paging">
             <ul class="pagination">
                 <c:choose>
@@ -104,6 +105,7 @@
                 </c:choose>
             </ul>
         </div>
+    </div>
 
 
     <script>
@@ -119,3 +121,7 @@
 </main>
 </body>
 </html>
+
+
+
+
