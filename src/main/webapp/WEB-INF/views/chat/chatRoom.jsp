@@ -38,7 +38,7 @@
         </div>
         <div class="preChatList" >
             <c:forEach items="${chattingList}" var="chattingList">
-                <div class="preChat">
+                <div class="preChat ${chattingList.read eq 'N' ? 'new_preChat':''}" >
                     <div class="photo"><img src="${chattingList.profileImage}"/></div>
                     <div class="desc-contact">
                         <input type="hidden" class="roomNo" value="${chattingList.roomNo}" id="${chattingList.roomNo}">
@@ -110,7 +110,8 @@
         if(content.memberNo == '${loginUser.memberNo}'){
             $('.messages-chat').append("<div class='response'><span class='text'>"+content.message+"</span></div>");
         }else{
-            $('.' + content.roomNo + '_new').css('display', 'block');
+            $('.' + content.roomNo + '_new').css('display', 'block').addClass('new');
+            $('.' + content.roomNo + '_new').parent().parent().addClass('new_preChat');
             $('.messages-chat').append("<div class='request'><span class='text'>"+content.message+"</span></div>");
         }
         if($('#chat_right').css('display') == 'block'){
@@ -137,7 +138,8 @@
 
 
         currentChatRoom = ClickRoomNo;
-        $('.' + ClickRoomNo + '_new').css('display', 'none');
+        $('.' + ClickRoomNo + '_new').removeClass('new').css('display', 'none');
+        $(this).removeClass('new_preChat');
 
         $.ajax({
             url : '${pageContext.request.contextPath}/chat/admin/enterChat',
