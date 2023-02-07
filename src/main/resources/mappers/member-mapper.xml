@@ -107,6 +107,26 @@
                                  ON M.MEMBER_NO = I.MEMBER_NO
                  JOIN REALESTATE_SELL S
                       ON I.ESTATE_NO = S.ESTATE_NO
+
+        WHERE M.MEMBER_NO = #{memberNo}
+
+        UNION ALL
+
+        SELECT
+            M.MEMBER_NO,
+            M.PROVIDER,
+            M.PROVIDER_ID,
+            M.NICKNAME,
+            I.ESTATE_NO,
+            R.BLDG_NM,
+            R.SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN as ADDRESS
+
+        FROM MEMBER M
+                 LEFT OUTER JOIN INTEREST I
+                                 ON M.MEMBER_NO = I.MEMBER_NO
+                 JOIN REALESTATE_RENT R
+                      ON I.ESTATE_NO = R.ESTATE_NO
+
         WHERE M.MEMBER_NO = #{memberNo}
 
 
