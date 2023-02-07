@@ -91,6 +91,38 @@
     height: 250px;
 }
 
+.foot > .realtor_top{
+    display: flex;
+    padding-left: 10px;
+}
+
+.foot > .realtor_top > .fa-handshake{
+    font-size: 30px;
+    margin-right: 15px;
+}
+
+.foot > .realtor_top > p{
+    font-size: 22px;
+    font-weight: 420;
+}
+
+.realtor_table {
+    padding: 10px;
+}
+
+.realtor_table > .rno{
+    font-size: 17px;
+    font-weight: 420;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.realtor_table > .rno:hover{
+    color: #566392;
+    font-size: 18px;
+}
+
 #map ,#roadview{
     width: 95%;
     height: 320px;

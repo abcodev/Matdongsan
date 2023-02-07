@@ -100,12 +100,18 @@
     background-color: #eee;
 }
 
+select:focus {
+    outline: #eee 1px solid;
+}
+
+
 .city > select{
     height: 50px;
     width: 49%;
     border: none;
     background-color: #eee;
     cursor: pointer;
+    padding-left: 15px;
 }
 
 .option > select{

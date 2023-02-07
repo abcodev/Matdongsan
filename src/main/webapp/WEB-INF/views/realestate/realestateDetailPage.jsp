@@ -79,20 +79,17 @@
 
 
         <div class="info_table foot">
-
-            <div><span>제휴 부동산</span></div>
-            <tr>
-                <th>상호명</th>
-            </tr>
-            <tr>
-                <td>
+            <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
+            <div class="realtor_table">
                 <c:forEach var="agentList" items="${ agentList }">
-                <div class="rno" >${ agentList.agentName } </div>
+                    <div class="rno" >${ agentList.agentName }</div>
                 </c:forEach>
-                </td>
-            </tr>
-
+            </div>
         </div>
+
+    <%--  *************예약 모달*************  --%>
+
+
     </div>
 
     <div id="content_right">
