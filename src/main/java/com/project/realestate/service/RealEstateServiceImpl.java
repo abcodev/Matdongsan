@@ -76,7 +76,7 @@ public class RealEstateServiceImpl implements RealEstateService{
      * 전세, 매매 평균값
      */
     @Override
-    public List<RealEstateRent> chartList(String state){ return realEstateDao.chartList(sqlSession, state); }
+    public RealEstateRent chartList(String state){ return realEstateDao.chartList(sqlSession, state); }
 
     @Override
     public RealEstateDetailDto realEstateDetail(String estateNo) {

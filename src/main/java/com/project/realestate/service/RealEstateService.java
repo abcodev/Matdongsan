@@ -20,7 +20,7 @@ public interface RealEstateService {
 
     public List<FreeBoard> selectFboard(String state);
 
-    public List<RealEstateRent> chartList(String state);
+    public RealEstateRent chartList(String state);
 
 
     // 자치구 리스트,

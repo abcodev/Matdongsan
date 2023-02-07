@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateList.css"/>">
 <jsp:include page="../template/font.jsp"/>
 
@@ -72,8 +73,8 @@
         </c:forEach>
 </div>
 
-<div>
-
+<div id="chart">
+    <canvas id="myChart"></canvas>
 </div>
 
 <script>
@@ -96,5 +97,27 @@
             }
         });
     }
+</script>
+
+<script>
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    <%--let num1 = Number(${chartResult.totalRentAvg});--%>
+    <%--let num2 = Number(${chartResult.totalSellAvg});--%>
+    <%--let num3 = Number(${chartResult.rentAvg});--%>
+    <%--let num4 = Number(${chartResult.sellAvg});--%>
+
+    let massPopChart = new Chart(myChart, {
+        type : 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea;
+        data : {
+            labels : ['서울시 전세 보증금', '서울시 매매가격', ' 전세 보증금', ' 매매 가격'],
+            datasets:[{
+                label : '가격 평균값',
+                data : [1, 2, 3, 4],
+                backgroundColor : 'green'
+            }]
+        },
+        options : {}
+    });
 </script>
 

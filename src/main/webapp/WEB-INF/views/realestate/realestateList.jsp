@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateList.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <%@ include file ="../template/header.jsp" %>
 </head>
@@ -51,6 +52,7 @@
         var address = [];
         var subAddress = [];
         var buildName = [];
+        var feeAvg;
 
         $.ajax({
             url : '${pageContext.request.contextPath}/realEstate/map',
@@ -82,7 +84,10 @@
                     return obj.buildName;
                 });
 
+                feeAvg = result[result.length-1]
+
                 searchResultMap(address, subAddress, buildName);
+                showChart(feeAvg);
             }
 
         })
@@ -128,7 +133,7 @@
         </div>
         <div class="table_area">
             <div class="estate_table">
-
+                <canvas id="myChart"></canvas>
             </div>
         </div>
         <div class="freeBoard_area">
@@ -201,6 +206,27 @@
     }
 </script>
 
+<script>
+    function showChart(feeAvg){
+        var rentFee = $('#selectOption1 option:checked').val() + " 전세 가격";
+        var sellFee = $('#selectOption1 option:checked').val() + " 매매 가격";
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // type : 'bar' = 막대차트를 의미합니다.
+            type: 'bar', //
+            data: {
+                labels: ['서울시 전세가격','서울시 매매 가격', rentFee, sellFee],
+                datasets: [{
+                    label: '평균 가격',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [feeAvg.totalRentAvg, feeAvg.totalSellAvg, feeAvg.rentAvg, feeAvg.sellAvg]
+                }]
+            },
+        });
+    }
+</script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
 <script>
