@@ -61,7 +61,6 @@
                 type:"POST",
                 url:"/Matdongsan/admin/reportList/" +${fNo},
                 data: {} ,
-
                 dataType: "html",
                 cache : false,
                 success(data){
