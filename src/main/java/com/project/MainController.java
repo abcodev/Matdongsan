@@ -1,5 +1,6 @@
 package com.project;
 
+import com.google.gson.Gson;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.Interest;
@@ -69,6 +70,10 @@ public class MainController {
         }
 
         model.addAttribute("newsList", newsList);
+        Gson gson = new Gson();
+        String sellList2 = gson.toJson(sellList);
+        model.addAttribute("sellList2",sellList2);
+
         model.addAttribute("sellList", sellList);
         model.addAttribute("mostInterest", mostInterest);
 

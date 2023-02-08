@@ -24,7 +24,7 @@
             contentType: "application/json; charset=UTF-8",
             data: JSON.stringify({
                 'estateNo': estateNo,
-                'isInterest': $('#checkbox_heart').is(':checked')
+                'isInterest': $('#checkbox_heart' + estateNo).is(':checked')
             }),
             success() {
                 console.log(estateNo);
