@@ -385,29 +385,29 @@
             return false;
         }else{
 
-        const formData = new FormData();
-        formData.append("agentNo",resercationAgentNo)
-        formData.append("memberName",memberName);
-        formData.append("peopleCount",people);
-        formData.append("phone",phone);
-        formData.append("email",email);
-        formData.append("requestText",requestText);
-        formData.append("revTime",time);
-        formData.append("revDate",reservationDate);
+            const formData = new FormData();
+            formData.append("agentNo",resercationAgentNo)
+            formData.append("memberName",memberName);
+            formData.append("peopleCount",people);
+            formData.append("phone",phone);
+            formData.append("email",email);
+            formData.append("requestText",requestText);
+            formData.append("revTime",time);
+            formData.append("revDate",reservationDate);
 
-        $.ajax({
-            url : "${pageContext.request.contextPath}/reservation/enroll",
-            type: "POST",
-            data : formData,
-            processData : false,
-            contentType: false,
-            success : () => {
-                console.log("예약 성공!")
-            },
-            error : () => {
-                console.log("예약등록에 실패!")
-            }
-        })
+            $.ajax({
+                url : "${pageContext.request.contextPath}/reservation/enroll",
+                type: "POST",
+                data : formData,
+                processData : false,
+                contentType: false,
+                success : () => {
+                    console.log("예약 성공!")
+                },
+                error : () => {
+                    console.log("예약등록에 실패!")
+                }
+            })
         }
     }
 </script>
