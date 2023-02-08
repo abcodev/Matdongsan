@@ -156,6 +156,7 @@
         WHERE M.MEMBER_NO = #{memberNo}
 
         UNION ALL
+
         SELECT
             Q.QNA_BNO,
             Q.QNA_TITLE,
@@ -164,6 +165,7 @@
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
+        ORDER BY BOARD_DATE
     </select>
 
     <select id="selectAllBoardCount" resultType="int">

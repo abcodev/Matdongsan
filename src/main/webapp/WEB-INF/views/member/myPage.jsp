@@ -28,23 +28,26 @@
             }),
             success() {
                 console.log(estateNo);
+
+                var cancle = confirm("찜 해제 하시겠습니까?");
+                if(cancle == true){
+                    alert("찜 해제 되었습니다.");
+                }else if(cancle == false){
+                    alert("취소 되었습니다.");
+                }
+
                 location.reload();
             }
+
         });
+        // if(!confirm("찜 해제 하시겠습니까?")){
+        //     alert("취소되었습니다.");
+        // }else{
+        //     alert("찜 해제 되었습니다.");
+        // }
     }
 </script>
 
-<script>
-    $(document).ready(function () {
-        $("#checkbox_heart").change(function () {
-            if ($($(this)).is(".checked")) {
-                console.log("체크");
-            } else {
-                console.log("해제");
-            }
-        })
-    })
-</script>
 <div id="content">
     <div id="info_box">
         <div id="userimg">
@@ -99,14 +102,40 @@
                     <th>게시글 제목</th>
                     <th>게시일</th>
                 </tr>
-                <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                    <tr class="myBoard_info"
-                        onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
-                        <td>${selectAllBoardList.boardNo}</td>
-                        <td>${selectAllBoardList.boardTitle}</td>
-                        <td>${selectAllBoardList.boardDate}</td>
-                    </tr>
-                </c:forEach>
+
+
+                    <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
+<%--                        <c:if test="${selectAllBoardList.boardType eq 'F'}">--%>
+                        <tr class="myBoard_info"
+                            onclick="moveDetail();">
+                            <script>
+                                function moveDetail(){
+                                    if(${selectAllBoardList.boardType eq 'F'}){
+                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
+                                    }else{
+                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+                                    }
+                                }
+                            </script>
+<%--                            location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'--%>
+                            <td>${selectAllBoardList.boardNo}</td>
+                            <td>${selectAllBoardList.boardTitle}</td>
+                            <td>${selectAllBoardList.boardDate}</td>
+                            <td>${selectAllBoardList.boardType}</td>
+                        </tr>
+<%--                       </c:if>--%>
+<%--                        <c:if test="${selectAllBoardList.boardType eq 'Q'}">--%>
+<%--                            <tr class="myBoard_info"--%>
+<%--                                onclick="location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">--%>
+<%--                                <td>${selectAllBoardList.boardNo}</td>--%>
+<%--                                <td>${selectAllBoardList.boardTitle}</td>--%>
+<%--                                <td>${selectAllBoardList.boardDate}</td>--%>
+<%--                                <td>${selectAllBoardList.boardType}</td>--%>
+<%--                            </tr>--%>
+<%--                        </c:if>--%>
+                    </c:forEach>
+
+
             </table>
         </div>
     </div>

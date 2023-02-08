@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 
 @Controller
 public class MemberController {
@@ -25,15 +26,19 @@ public class MemberController {
 
     @RequestMapping("/myPage")
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                   ModelAndView modelAndView, HttpSession session){
+                                   ModelAndView modelAndView, HttpSession session
+//                                   @PathVariable("fno") int fno
+    ){
         Member m = (Member) session.getAttribute("loginUser");
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
 
+
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("pi", resp.getPageInfoCombine());
+//        modelAndView.addObject("fno", fno);
         modelAndView.setViewName("member/myPage");
 
         return modelAndView;
