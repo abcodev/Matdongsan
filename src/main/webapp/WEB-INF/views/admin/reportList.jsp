@@ -84,10 +84,6 @@
 
 
 
-
-
-
-
 <script>
 
     let reportPeriod = document.getElementById("reportPeriod");

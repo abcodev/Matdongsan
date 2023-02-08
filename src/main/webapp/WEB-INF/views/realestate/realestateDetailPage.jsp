@@ -12,20 +12,7 @@
     <%@ include file ="../template/header.jsp" %>
 </head>
 <body>
-<script>
-    window.onload = () => {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
-            method: 'GET',
-            data: {
-                'estateNo': ${realEstateDetail.estateNo}
-            },
-            success(data) {
-                $('#checkbox_heart').prop("checked", data);
-            }
-        });
-    }
-</script>
+
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -128,8 +115,10 @@
                         <div class="pCont">
                             <span>인원</span>
                             <select id="peopleCount">
-                                <option>1명</option>
-                                <option>2명</option>
+                                <option value="1">1명</option>
+                                <option value="2">2명</option>
+                                <option value="3">3명</option>
+                                <option value="4">4명</option>
                             </select>
                         </div>
                     </div>
@@ -272,8 +261,10 @@
 
 <%--*****************예약******************--%>
 <script>
+    let resercationAgentNo = null;
     function showRealtor(agentNo, agentName) {
         $('#agent_name').html(agentName);
+        resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
 
@@ -281,6 +272,17 @@
     }
 
     window.onload = function () {
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
+            method: 'GET',
+            data: {
+                'estateNo': ${realEstateDetail.estateNo}
+            },
+            success(data) {
+                $('#checkbox_heart').prop("checked", data);
+            }
+        });
 
         // function onClick() {
         //     document.querySelector('.modal_wrap').style.display = 'block';
@@ -338,7 +340,7 @@
 
     function test(year, month, day) {
         // console.log(year, month, day);
-        reservationDate = year + ','+month + ',' + day;
+        reservationDate = year + '-0'+month + '-' + day;
     }
 
     const date = new Date();
@@ -361,15 +363,17 @@
         let phone = $('#telephone').val();
         let email = $('#email').val();
         let requestText = $('#requestText').val();
-        console.log(time);
-        console.log(people);
+        console.log(resercationAgentNo)
         console.log(memberName);
         console.log(phone);
         console.log(email);
+        console.log(time);
+        console.log(people);
         console.log(requestText);
         console.log(reservationDate);
 
         const formData = new FormData();
+        formData.append("agentNo",resercationAgentNo)
         formData.append("memberName",memberName);
         formData.append("peopleCount",people);
         formData.append("phone",phone);
@@ -382,8 +386,10 @@
             url : "${pageContext.request.contextPath}/realEstate/reservation",
             type: "POST",
             data : formData,
-            success : (data) => {
-                console.log(data)
+            processData : false,
+            contentType: false,
+            success : () => {
+                console.log("예약 성공!")
             },
             error : () => {
                 console.log("예약등록에 실패!")

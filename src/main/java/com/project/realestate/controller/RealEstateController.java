@@ -36,7 +36,7 @@ public class RealEstateController {
     public String realEstatePage(Model model) {
         RealEstateRent seoulAvg = realEstateService.basicChart();
 
-        model.addAttribute("localList",StateList.values());
+        model.addAttribute("localList", StateList.values());
         model.addAttribute("seoulAvg", seoulAvg);
         return "realestate/realestateList";
     }
@@ -64,11 +64,8 @@ public class RealEstateController {
         //1. Gson으로 형변환해주기
         Gson gson = new Gson();
         String result = gson.toJson(searchResult);
-
         System.out.println("result : " + result);
-
         model.addAttribute("result", result);
-
         return result;
     }
 
@@ -80,10 +77,9 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType,
+                                       ModelAndView modelAndView
     ) {
-        ModelAndView modelAndView = new ModelAndView();
-
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
         List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
@@ -149,14 +145,11 @@ public class RealEstateController {
 
     @PostMapping("/realEstate/reservation")
     @ResponseBody
-    public ResponseEntity<?> realEstateReservation (ReservationRequest req,HttpSession session){
+    public ResponseEntity<?> realEstateReservation(ReservationRequest req, HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
         long memberNo = loginUser.getMemberNo();
         req.setMemberNo(memberNo);
-
         int result = realEstateService.reservationEnroll(req);
-
-
         return ResponseEntity.ok().body("1");
     }
 }
