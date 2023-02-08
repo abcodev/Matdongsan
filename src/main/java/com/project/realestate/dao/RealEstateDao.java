@@ -5,6 +5,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateRentListFilter;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.restaurant.vo.Restaurant;
@@ -13,6 +14,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,10 @@ public class RealEstateDao {
         return sqlSession.selectOne("rentMapper.selectChartList", state);
     }
 
+    public RealEstateRent basicChart(SqlSession sqlSession){
+        return sqlSession.selectOne("rentMapper.selectBasicList");
+    }
+
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
         return sqlSession.selectList("sellMapper.getSellList");
     }
@@ -76,6 +82,10 @@ public class RealEstateDao {
 
     public List<RealEstateAgent> selectAgentListByBjdongNm(String bjdongNm) {
         return sqlSession.selectList("sellMapper.selectAllByBjdongNm", bjdongNm);
+    }
+
+    public int reservationEnroll(ReservationRequest req) {
+        return sqlSession.insert("sellMapper.reservationEnroll",req);
     }
 }
 

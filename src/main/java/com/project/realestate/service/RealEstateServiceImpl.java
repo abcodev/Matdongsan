@@ -67,8 +67,8 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     /**
-    * 부동산 해당 구의 자유게시판글
-    */
+     * 부동산 해당 구의 자유게시판글
+     */
     @Override
     public List<FreeBoard> selectFboard(String state){ return realEstateDao.selectFboard(sqlSession, state); }
 
@@ -77,6 +77,12 @@ public class RealEstateServiceImpl implements RealEstateService{
      */
     @Override
     public RealEstateRent chartList(String state){ return realEstateDao.chartList(sqlSession, state); }
+
+    /**
+     * 서울시 전세, 매매 평균
+     */
+    @Override
+    public RealEstateRent basicChart(){ return realEstateDao.basicChart(sqlSession); }
 
     @Override
     public RealEstateDetailDto realEstateDetail(String estateNo) {
@@ -113,6 +119,11 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
     }
 
+    @Override
+    public int reservationEnroll(ReservationRequest req) {
+
+        return realEstateDao.reservationEnroll(req);
+    }
 
 
 }

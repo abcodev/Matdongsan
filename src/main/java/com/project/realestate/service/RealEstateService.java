@@ -20,14 +20,16 @@ public interface RealEstateService {
 
     public List<FreeBoard> selectFboard(String state);
 
+    public RealEstateRent basicChart();
+
     public RealEstateRent chartList(String state);
 
 
     // 자치구 리스트,
-   public List<RealEstateRent> searchLocalList();
+    public List<RealEstateRent> searchLocalList();
 
-   // 동 리스트
-   public List<RealEstateRent> searchDongList(String state);
+    // 동 리스트
+    public List<RealEstateRent> searchDongList(String state);
 
 
     public List<RealEstateMainListDto> getSellList();
@@ -44,4 +46,6 @@ public interface RealEstateService {
     List<Interest> getMostInterest();
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
+
+    int reservationEnroll(ReservationRequest req);
 }
