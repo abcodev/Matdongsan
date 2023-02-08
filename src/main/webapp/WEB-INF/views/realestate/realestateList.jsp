@@ -221,10 +221,13 @@
                 datasets: [{
                     label: '서울시 평균 가격(만원)',
                     backgroundColor: [
+                        'rgba(133,145,238,0.32)',
+                        'rgba(243,144,165,0.39)'
+                    ],
+                    borderColor: [
                         'rgb(133,145,238)',
                         'rgb(243,144,165)'
                     ],
-                    borderColor: 'white',
                     data: [rentAvg ,sellAvg],
                     borderWidth: 1
                 }]
@@ -262,24 +265,24 @@
 
         var chart = new Chart(ctx, {
             // type : 'bar' = 막대차트를 의미합니다.
-            type: 'bar', //
+            type: 'bar',
             data: {
                 labels: ['평균 전세가격','평균 매매 가격'],
                 datasets: [
                     {
                         type: 'bar',
                         label: '서울시',
-                        backgroundColor: 'rgb(133,145,238)',
+                        backgroundColor: 'rgba(133,145,238,0.32)',
                         data: [feeAvg.totalRentAvg, feeAvg.totalSellAvg],
-                        borderColor: 'white',
+                        borderColor: 'rgb(133,145,238)',
                         borderWidth: 1,
                     },
                     {
                         type: 'bar',
                         label: rentFee,
-                        backgroundColor: 'rgb(243,144,165)',
+                        backgroundColor: 'rgba(243,144,165,0.39)',
                         data: [feeAvg.rentAvg, feeAvg.sellAvg],
-                        borderColor: 'white',
+                        borderColor: 'rgb(243,144,165)',
                         borderWidth: 1
                     }]
             },
