@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +38,7 @@ public class RealEstateController {
     public String realEstatePage(Model model) {
         RealEstateRent seoulAvg = realEstateService.basicChart();
 
-        model.addAttribute("localList", StateList.values());
+        model.addAttribute("localList",StateList.values());
         model.addAttribute("seoulAvg", seoulAvg);
         return "realestate/realestateList";
     }
@@ -64,8 +66,11 @@ public class RealEstateController {
         //1. Gson으로 형변환해주기
         Gson gson = new Gson();
         String result = gson.toJson(searchResult);
+
         System.out.println("result : " + result);
+
         model.addAttribute("result", result);
+
         return result;
     }
 
@@ -143,13 +148,5 @@ public class RealEstateController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/realEstate/reservation")
-    @ResponseBody
-    public ResponseEntity<?> realEstateReservation(ReservationRequest req, HttpSession session) {
-        Member loginUser = (Member) session.getAttribute("loginUser");
-        long memberNo = loginUser.getMemberNo();
-        req.setMemberNo(memberNo);
-        int result = realEstateService.reservationEnroll(req);
-        return ResponseEntity.ok().body("1");
-    }
+
 }

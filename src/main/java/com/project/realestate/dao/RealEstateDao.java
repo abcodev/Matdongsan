@@ -2,10 +2,7 @@ package com.project.realestate.dao;
 
 import com.project.board.vo.FreeBoard;
 import com.project.common.template.PageInfoCombine;
-import com.project.realestate.dto.RealEstateDetailDto;
-import com.project.realestate.dto.RealEstateMainListDto;
-import com.project.realestate.dto.RealEstateRentListFilter;
-import com.project.realestate.dto.ReservationRequest;
+import com.project.realestate.dto.*;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.restaurant.vo.Restaurant;
@@ -82,10 +79,6 @@ public class RealEstateDao {
 
     public List<RealEstateAgent> selectAgentListByBjdongNm(String bjdongNm) {
         return sqlSession.selectList("sellMapper.selectAllByBjdongNm", bjdongNm);
-    }
-
-    public int reservationEnroll(ReservationRequest req) {
-        return sqlSession.insert("sellMapper.reservationEnroll",req);
     }
 }
 
