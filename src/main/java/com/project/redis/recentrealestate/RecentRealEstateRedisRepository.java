@@ -12,9 +12,7 @@ public class RecentRealEstateRedisRepository {
 
     private final RedisTemplate<Long, String> redisTemplate;
 
-    // memberNo estateNo 넣어주고
-    // lrem estateNo 지우고 왼쪽에 lpush 해주는 것
-
+    // memberNo estateNo 넣어주고, lrem estateNo 지우고 왼쪽에 lpush 해줌
     public void push(long memberNo, String estateNo) {
         redisTemplate.opsForList().leftPush(memberNo, estateNo);
     }
