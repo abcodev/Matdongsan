@@ -154,11 +154,7 @@
         WHERE BJDONG_NM = #{bjdongNm}
     </select>
 
-    <!-- 부동산중개 예약 -->
-    <insert id="reservationEnroll">
-        INSERT INTO REAL_RESERVATION(REV_NO, MEMBER_NO, MEMBER_NAME, REV_PEOPLE, PHONE, EMAIL, REV_ASK, REV_TIME, REV_DATE,ESTATE_NO)
-        VALUES (SEQ_ESTATE_REV_NO.nextval,#{memberNo},#{memberName},#{peopleCount},#{phone},#{email},#{requestText},#{revTime},#{revDate},#{agentNo})
-    </insert>
+
 
 
 

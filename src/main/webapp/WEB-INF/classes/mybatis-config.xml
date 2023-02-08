@@ -50,6 +50,7 @@
         <mapper resource="/mappers/chat-mapper.xml"/>
         <mapper resource="/mappers/alarm-mapper.xml"/>
         <mapper resource="/mappers/admin-mapper.xml"/>
+        <mapper resource="/mappers/reservation-mapper.xml"/>
     </mappers>
 
 </configuration>

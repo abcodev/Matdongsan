@@ -15,7 +15,7 @@ public class ReservationRequest {
     private long memberNo;
     private String memberName;
     private String agentNo;
-    private long peopleCount;
+    private String peopleCount;
     private String phone;
     private String email;
     private String requestText;

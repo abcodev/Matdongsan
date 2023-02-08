@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -148,14 +149,5 @@ public class RealEstateController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/reservation")
-    @ResponseBody
-    public ResponseEntity<Void> realEstateReservation (@ModelAttribute ReservationRequest req,HttpSession session){
-        Member loginUser = (Member) session.getAttribute("loginUser");
-        System.out.println(req.getAgentNo());
-        long memberNo = loginUser.getMemberNo();
-        req.setMemberNo(memberNo);
-        realEstateService.reservationEnroll(req);
-        return ResponseEntity.ok().build();
-    }
+
 }
