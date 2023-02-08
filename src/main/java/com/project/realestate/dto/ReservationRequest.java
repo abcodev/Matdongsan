@@ -14,12 +14,13 @@ public class ReservationRequest {
 
     private long memberNo;
     private String memberName;
+    private String agentNo;
     private long peopleCount;
     private String phone;
     private String email;
     private String requestText;
     private String revTime;
-    private Date revDate;
+    private String revDate;
 
 }
 

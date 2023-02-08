@@ -272,8 +272,10 @@
 
 <%--*****************예약******************--%>
 <script>
+    let resercationAgentNo = null;
     function showRealtor(agentNo, agentName) {
         $('#agent_name').html(agentName);
+        resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
 
@@ -370,6 +372,7 @@
         console.log(reservationDate);
 
         const formData = new FormData();
+        formData.append("agentNo",resercationAgentNo)
         formData.append("memberName",memberName);
         formData.append("peopleCount",people);
         formData.append("phone",phone);
@@ -382,8 +385,10 @@
             url : "${pageContext.request.contextPath}/realEstate/reservation",
             type: "POST",
             data : formData,
-            success : (data) => {
-                console.log(data)
+            processData : false,
+            contentType: false,
+            success : () => {
+                console.log("예약 성공!")
             },
             error : () => {
                 console.log("예약등록에 실패!")
