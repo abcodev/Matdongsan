@@ -115,7 +115,7 @@
                SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN AS ADDRESS,
                BLDG_NM,
                DEAL_YMD as dealYmd,
-               '보증금 : ' || RENT_GTN || '(만원) / 월세 :' || RENT_FEE AS OBJ_AMT,
+               '보증금 : ' || RENT_GTN || ' / 월세 :' || RENT_FEE AS OBJ_AMT,
                RENT_AREA                                            AS BLDGAREA,
                RENT_GBN                                             AS GBN,
                BJDONG_NM,
