@@ -99,25 +99,5 @@
     }
 </script>
 
-<script>
-    let myChart = document.getElementById('myChart').getContext('2d');
 
-    <%--let num1 = Number(${chartResult.totalRentAvg});--%>
-    <%--let num2 = Number(${chartResult.totalSellAvg});--%>
-    <%--let num3 = Number(${chartResult.rentAvg});--%>
-    <%--let num4 = Number(${chartResult.sellAvg});--%>
-
-    let massPopChart = new Chart(myChart, {
-        type : 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea;
-        data : {
-            labels : ['서울시 전세 보증금', '서울시 매매가격', ' 전세 보증금', ' 매매 가격'],
-            datasets:[{
-                label : '가격 평균값',
-                data : [1, 2, 3, 4],
-                backgroundColor : 'green'
-            }]
-        },
-        options : {}
-    });
-</script>
 
