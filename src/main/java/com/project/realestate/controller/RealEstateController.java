@@ -144,4 +144,10 @@ public class RealEstateController {
         realEstateService.saveInterest(req, loginUser);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/realEstate/reservation")
+    @ResponseBody
+    public void realestateReservation (){
+
+    }
 }
