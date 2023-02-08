@@ -1,5 +1,6 @@
 package com.project.member.dao;
 
+import com.project.client.oauth.OAuthToken;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.vo.Member;
@@ -10,7 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,6 +96,16 @@ public class MemberDao {
 
     public int deleteMember(SqlSession sqlSession, long memberNo){
         return sqlSession.delete("memberMapper.deleteMember", memberNo);
+    }
+
+    public void updateToken(String provider, String providerId, OAuthToken token) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("provider", provider);
+        params.put("providerId", providerId);
+        params.put("accessToken", token.getAccessToken());
+        params.put("refreshToken", token.getRefreshToken());
+        params.put("refreshTokenExpiredAt", Timestamp.valueOf(LocalDateTime.now().plus(Duration.ofSeconds(token.getRefreshTokenExpiresIn()))));
+        sqlSession.update("memberMapper.updateToken", params);
     }
 
 //    public ArrayList<Interest> selectInterestList(SqlSession sqlSession, String estateNo){

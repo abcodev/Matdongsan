@@ -24,7 +24,7 @@
             contentType: "application/json; charset=UTF-8",
             data: JSON.stringify({
                 'estateNo': estateNo,
-                'isInterest': $('#checkbox_heart').is(':checked')
+                'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
                 console.log(estateNo);
@@ -34,17 +34,6 @@
     }
 </script>
 
-<script>
-    $(document).ready(function () {
-        $("#checkbox_heart").change(function () {
-            if ($($(this)).is(".checked")) {
-                console.log("체크");
-            } else {
-                console.log("해제");
-            }
-        })
-    })
-</script>
 <div id="content">
     <div id="info_box">
         <div id="userimg">
@@ -82,7 +71,7 @@
         <div id="likeList">
             <c:forEach items="${interestList}" var="interest">
                 <div id="heart" class="likeInfo">
-                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">하트
+                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">하트
                     <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
                             ${interest.estateNo}<br>${interest.bldgNm}<br>${interest.address}
                     </div>
