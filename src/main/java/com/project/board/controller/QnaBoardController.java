@@ -34,7 +34,6 @@ public class QnaBoardController {
                              HttpSession session
     ) {
 
-
         Map<String, Object> map = new HashMap();
         if (paramMap.get("condition") == null) {
             map = boardService.selectList(currentPage);

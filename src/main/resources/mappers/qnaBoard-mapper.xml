@@ -43,7 +43,7 @@
         WHERE B.STATUS = 'Y'
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
-        ORDER SIBLINGS BY QNA_BNO ASC
+        ORDER SIBLINGS BY QNA_BNO DESC
     </select>
 
     <select id="selectListCount" resultType="int">
@@ -89,7 +89,7 @@
         </if>
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
-        ORDER SIBLINGS BY QNA_BNO ASC
+        ORDER SIBLINGS BY QNA_BNO DESC
     </select>
 
     <select id="searchListCount" resultType="int">

@@ -93,7 +93,7 @@
                     </c:otherwise>
                 </c:choose>
 
-                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                <c:forEach var="item" begin="${pi.startPage}" end="${pi.endPage}">
                     <div class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
                 </c:forEach>
                         <c:choose>

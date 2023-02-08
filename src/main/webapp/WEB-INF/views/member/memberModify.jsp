@@ -35,13 +35,10 @@
             </div>
             <div class="userinfo phone">
                 <h3>휴대폰번호</h3>
-                <input type="text" id="phone" name="phone" value="${loginUser.phone}">
-                <input  class="signin_pass" id="phoneNumber" type="text" name="phoneNumber" title="전화번호 입력" placeholder="전화번호 입력해주세요">
-                <input  class="signin_pass" type="button" value="입력" id="phoneChk">
-
-                <input  class="signin_pass" id="phone2" type="text" name="phone2" title="전화번호 입력" placeholder="인증번호 입력해주세요">
-                <input  class="signin_pass" type="button" value="인증확인" id="phoneChk2">
-                <button>인증</button>
+                <input id="phoneNumber" type="text" name="phoneNumber" value="${loginUser.phone}">
+                <button type="button" id="phoneChk">인증받기</button><br>
+                <input id="phone2" type="text" name="phone2" placeholder="인증번호 입력해주세요">
+                <button type="button" value="인증확인" id="phoneChk2">인증확인</button>
             </div>
 <%--            <div class="userinfo adressNum">--%>
 <%--                <h3>우편번호</h3>--%>
@@ -101,7 +98,6 @@
         $("#phoneChk2").click(function() {
             if ($("#phone2").val() == code2) {
                 alert('인증성공')
-                //값이 비어있을떄 도 인증성공이 떠서 안뜨게해야함
             } else {
                 alert('인증실패 정확히 입력해주세요')
                 $("#phoneChk2").focus();
