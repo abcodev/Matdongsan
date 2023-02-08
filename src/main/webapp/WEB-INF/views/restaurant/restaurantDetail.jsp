@@ -262,6 +262,19 @@
         });
     }
 
+    function ajaxHashtag() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/restaurant/selectHashtag',
+            type: 'GET',
+            data: {
+                resNo: ${restaurantDetail.resNo}
+            },
+            success: function (data) {
+                // hashtag....
+            }
+        });
+    }
+
     // 리뷰 등록
     function insertReview() {
         const score = $('input:radio[name=reviewStar]:checked').val();
@@ -288,6 +301,7 @@
             contentType: false,
             processData: false,
             success: () => {
+                ajaxHashtag();
                 selectReviewList();
             },
             error: function () {
