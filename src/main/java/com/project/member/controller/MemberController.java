@@ -105,15 +105,4 @@ public class MemberController {
         return Integer.toString(randomNumber);
     }
 
-//    @RequestMapping("interestList")
-//    @ResponseBody
-//    public String selectInterestList(String estateNo, Model model){
-//        ArrayList<Interest> list = memberService.selectInterestList(estateNo);
-//
-//        Gson gson = new Gson();
-//
-//        String result = gson.toJson(list);
-//        return result;
-//    }
-
 }
