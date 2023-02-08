@@ -370,12 +370,13 @@
         console.log(reservationDate);
 
         const formData = new FormData();
-        formData.append("time",time);
-        formData.append("people",people);
         formData.append("memberName",memberName);
+        formData.append("peopleCount",people);
         formData.append("phone",phone);
         formData.append("email",email);
         formData.append("requestText",requestText);
+        formData.append("revTime",time);
+        formData.append("revDate",reservationDate);
 
         $.ajax({
             url : "${pageContext.request.contextPath}/realEstate/reservation",

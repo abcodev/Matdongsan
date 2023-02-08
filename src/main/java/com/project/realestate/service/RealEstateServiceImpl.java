@@ -113,6 +113,11 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
     }
 
+    @Override
+    public int reservationEnroll(ReservationRequest req) {
+
+        return realEstateDao.reservationEnroll(req);
+    }
 
 
 }

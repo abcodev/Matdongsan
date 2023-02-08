@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.project.board.vo.FreeBoard;
 import com.project.common.type.StateList;
 import com.project.member.vo.Member;
-import com.project.realestate.dto.RealEstateDetailDto;
-import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.dto.RealEstateRentListRequest;
-import com.project.realestate.dto.RealEstateRentListResponse;
+import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
@@ -147,7 +144,14 @@ public class RealEstateController {
 
     @PostMapping("/realEstate/reservation")
     @ResponseBody
-    public void realestateReservation (){
+    public ResponseEntity<?> realEstateReservation (ReservationRequest req,HttpSession session){
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        long memberNo = loginUser.getMemberNo();
+        req.setMemberNo(memberNo);
 
+        int result = realEstateService.reservationEnroll(req);
+
+
+        return ResponseEntity.ok().body("1");
     }
 }

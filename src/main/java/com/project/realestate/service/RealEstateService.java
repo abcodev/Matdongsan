@@ -44,4 +44,6 @@ public interface RealEstateService {
     List<Interest> getMostInterest();
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
+
+    int reservationEnroll(ReservationRequest req);
 }
