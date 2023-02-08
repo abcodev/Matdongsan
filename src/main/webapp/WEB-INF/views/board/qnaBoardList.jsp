@@ -85,6 +85,7 @@
         <div id="paging">
             <div class="pagination">
                 <c:choose>
+
                     <c:when test="${ pi.currentPage eq 1 }">
                         <div class="page-item disabled"><a class="page-link" href="#">Previous</a></div >
                     </c:when>

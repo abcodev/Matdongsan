@@ -69,6 +69,7 @@
         )
     </update>
 
+
     <update id="deleteFree" parameterType="int">
         UPDATE FREE_BOARD
         SET STATUS = 'N'

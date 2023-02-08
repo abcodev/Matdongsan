@@ -22,4 +22,5 @@ public interface AdminService {
     public int insertBlack(Admin ad);
 
 
+
 }

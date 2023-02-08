@@ -71,6 +71,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int insertBlack(Admin ad){
         return adminDao.insertBlack(sqlSession,ad);
+
     }
 
 }

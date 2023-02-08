@@ -44,6 +44,7 @@ public class AdminDao {
 
     public int insertBlack(SqlSession sqlSession, Admin ad){
         return sqlSession.insert("adminMapper.insertBlack",ad);
+
     }
 
 }
