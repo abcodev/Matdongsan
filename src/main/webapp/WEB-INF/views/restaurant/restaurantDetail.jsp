@@ -206,7 +206,7 @@
                     }
 
                     str += '<div>'
-                        + '<div><br></div>'
+                        + '<div><br><hr></div>'
                         + '<div class="review_header">'
                         + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
                         + '<div class="review_user_name">' + i.memberName + '</div>'

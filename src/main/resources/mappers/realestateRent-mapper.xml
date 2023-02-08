@@ -212,14 +212,14 @@
     <!-- 부동산 리스트 -->
     <select id="selectListByFilter" resultMap="realEstateRentListResultSet">
         SELECT
-        ESTATE_NO,
-        SGG_NM,
-        BLDG_NM,
-        RENT_GBN,
-        RENT_GTN,
-        RENT_AREA,
-        SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN AS ADDRESS,
-        SGG_NM || ' ' || BJDONG_NM AS SUB_ADDRESS
+            ESTATE_NO,
+            SGG_NM,
+            BLDG_NM,
+            RENT_GBN,
+            RENT_GTN,
+            RENT_AREA,
+            SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN AS ADDRESS,
+            SGG_NM || ' ' || BJDONG_NM AS SUB_ADDRESS
         FROM REALESTATE_RENT
         WHERE REALESTATE_RENT.SGG_NM like '%' || #{state} || '%'
         AND REALESTATE_RENT.BJDONG_NM like '%' || #{dong} || '%'
@@ -261,14 +261,14 @@
         </if>
         UNION ALL
         SELECT
-        ESTATE_NO,
-        SGG_NM,
-        BLDG_NM,
-        GBN,
-        OBJ_AMT,
-        BLDG_AREA,
-        SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON AS ADDRESS,
-        SGG_NM || ' ' || BJDONG_NM AS SUB_ADDRESS
+            ESTATE_NO,
+            SGG_NM,
+            BLDG_NM,
+            GBN,
+            OBJ_AMT,
+            BLDG_AREA,
+            SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON AS ADDRESS,
+            SGG_NM || ' ' || BJDONG_NM AS SUB_ADDRESS
         FROM REALESTATE_SELL
         WHERE REALESTATE_SELL.SGG_NM like '%' || #{state} || '%'
         AND REALESTATE_SELL.BJDONG_NM like '%' || #{dong} || '%'

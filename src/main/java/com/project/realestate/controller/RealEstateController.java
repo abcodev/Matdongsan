@@ -49,10 +49,17 @@ public class RealEstateController {
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
 
         List<RealEstateRent> searchResult = resp.getRealEstateRentList();
+        RealEstateRent chartResult = realEstateService.chartList(state);
+        System.out.println("chartResult : " + chartResult);
+
+        searchResult.add(chartResult);
+        System.out.println("searchResult : " + searchResult);
 
         //1. Gson으로 형변환해주기
         Gson gson = new Gson();
         String result = gson.toJson(searchResult);
+
+        System.out.println("result : " + result);
 
         model.addAttribute("result", result);
 
@@ -74,12 +81,9 @@ public class RealEstateController {
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
         List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
-        List<RealEstateRent> chartResult = realEstateService.chartList(state);
-
 
         modelAndView.addObject("estateRentList", resp.getRealEstateRentList());
         modelAndView.addObject("selectFboard", selectFboard);
-        modelAndView.addObject("chartResult", chartResult);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.setViewName("realestate/realestateContents");
         return modelAndView;

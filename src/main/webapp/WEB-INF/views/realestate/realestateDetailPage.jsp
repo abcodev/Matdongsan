@@ -81,8 +81,8 @@
         <div class="info_table foot">
             <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
             <div class="realtor_table">
-                <c:forEach var="agentList" items="${ agentList }">
-                    <div class="rno">${ agentList.agentName }</div>
+                <c:forEach var="agent" begin="0" end="6" items="${ agentList }">
+                    <div class="rno">${ agent.agentName }</div>
                 </c:forEach>
             </div>
         </div>
@@ -92,6 +92,7 @@
         <div class="modal_wrap">
             <div id="modal_content">
                 <div id="content_head">
+                    <div class="">부동산이름</div>
                     <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div id="content_body">

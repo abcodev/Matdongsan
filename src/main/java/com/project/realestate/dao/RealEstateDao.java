@@ -53,8 +53,8 @@ public class RealEstateDao {
     }
 
     // 매매, 전세 평균값
-    public ArrayList<RealEstateRent> chartList(SqlSession sqlSession, String state){
-        return (ArrayList) sqlSession.selectList("rentMapper.selectChartList", state);
+    public RealEstateRent chartList(SqlSession sqlSession, String state){
+        return sqlSession.selectOne("rentMapper.selectChartList", state);
     }
 
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {
