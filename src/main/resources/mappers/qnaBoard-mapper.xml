@@ -68,7 +68,8 @@
         QNA_AREA,
         QNA_CONTENT,
         M.NICKNAME,
-        QNA_DATE
+        QNA_DATE,
+        QNA_DEPTH
         FROM QNA_BOARD Q
         LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS='Y'

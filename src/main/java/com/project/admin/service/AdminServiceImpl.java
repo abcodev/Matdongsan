@@ -2,8 +2,6 @@ package com.project.admin.service;
 
 import com.project.admin.dao.AdminDao;
 import com.project.admin.vo.Admin;
-import com.project.board.service.QnaBoardService;
-import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfo;
 import com.project.common.template.Pagination;
 import com.project.member.vo.Member;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -69,6 +66,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int deleteFree(int fNo){
         return adminDao.deleteFree(sqlSession, fNo);
+    }
+
+    @Override
+    public int insertBlack(Admin ad){
+        return adminDao.insertBlack(sqlSession,ad);
     }
 
 }

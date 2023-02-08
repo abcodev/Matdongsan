@@ -34,7 +34,7 @@
             <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
             <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
         </div>
-        <form id="searchForm" action="/board/qnaList/search" method="get">
+        <form id="searchForm" action="?search=" method="get">
             <div class="content head">
                 <select name="condition" id="selectState">
                     <option value="title">제목</option>
@@ -46,6 +46,7 @@
                     <input id="freeBoardSearch" type="text" name="keyword" placeholder="검색내용을 입력해주세요">
                 </div>
                 <button type="submit">조회</button>
+                ${pi}
 
             </div>
 
@@ -80,31 +81,32 @@
             </div>
         </div>
         <c:set var="url" value="?cpage="/>
+
         <div id="paging">
-            <ul class="pagination">
+            <div class="pagination">
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <div class="page-item disabled"><a class="page-link" href="#">Previous</a></div >
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></li>
+                        <div class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></div>
                     </c:otherwise>
                 </c:choose>
 
                 <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                    <li class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
+                    <div class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
                 </c:forEach>
-
-                <c:choose>
+                        <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
-                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        <div  class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
+                        <div  class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
                     </c:otherwise>
                 </c:choose>
-            </ul>
+            </div>
         </div>
+
     </div>
 
 

@@ -47,13 +47,17 @@
                 <td>${rl.reportContent}</td>
                 <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
                 <td><button type="button" class="btn22" id="add-btn"  data-no="${rl.FNo}" data-type='${rl.reportType}')>처리중</button></td>
-                    <%--onclick="movePage2(${rl.FNo},'${rl.reportType}')"--%>
-                <td><select id="stop" name="stop" onchange="changeSelect()">
-                    <option>정지기간선택</option>
-                    <option>3일정지</option>
-                    <option>7일정지</option>
-                    <option>영구정지</option>
-                </select></td>
+                <form id="insertBlack" method="post" action="${pageContext.request.contextPath}/admin/insertBlack">
+                <td><select id="reportPeriod" name="reportPeriod">
+                <option>정지기간선택</option>
+                <option value="three">3일정지</option>
+                <option value="seven">7일정지</option>
+                <option value="infinity">영구정지</option>
+            </select>
+                <button type="submit">정지확인</button>
+            </td>
+                </form>
+
             </tr>
 </c:forEach>
 </tbody>
@@ -70,7 +74,6 @@
            <input type="hidden" id="rType" value=""/>
             <input type="hidden" id="fNo"  value=""/>
             <button type="button" id="clear" class="btn" onclick="movePage2()">예</button>
-
             <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
         </div>
 
@@ -86,8 +89,8 @@
 
 <script>
 
+    let reportPeriod = document.getElementById("reportPeriod");
 
-    /*페이지 이동*/
     $(function(){
         $("#movePage").click(function(){
             $.ajax({
@@ -123,9 +126,6 @@
     });
 
 
-
-
-
     // 모달 닫기
     $(document).on('click', '#close_btn', function (e) {
         console.log("click event");
@@ -148,12 +148,14 @@
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +fNo;
             alert("질문게시판 삭제처리 완료")
 
+
         }else{
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+fNo;
             alert("자유게시판 삭제처리 완료")
 
         }
     }
+
 
 
 
