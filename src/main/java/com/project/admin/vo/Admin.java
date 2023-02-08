@@ -2,6 +2,8 @@ package com.project.admin.vo;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class Admin {
 
@@ -19,6 +21,10 @@ public class Admin {
     private String boardWriter;
     private String reportType;
     private String nickName;
+    private Timestamp reportDate;
+    private String reportPeriod;
+
+
 
 
 }
