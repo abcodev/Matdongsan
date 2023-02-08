@@ -22,3 +22,5 @@ public class PageInfo{
     private int startPage;
     private int endPage;
 }
+
+// TODO: 페이지인포 컴바인으로 합치기

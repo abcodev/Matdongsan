@@ -2,20 +2,22 @@ package com.project.realestate.controller;
 
 import com.google.gson.Gson;
 import com.project.board.vo.FreeBoard;
+import com.project.common.type.StateList;
 import com.project.member.vo.Member;
-import com.project.realestate.dto.*;
+import com.project.realestate.dto.RealEstateDetailDto;
+import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.dto.RealEstateRentListRequest;
+import com.project.realestate.dto.RealEstateRentListResponse;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
-import com.project.common.type.StateList;
+import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.parser.JSONParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -28,21 +30,23 @@ public class RealEstateController {
 
     // final 키워드 붙이면 컴파일 오류 찾기 쉬워짐 (생성자에서만 값을 생성할 수 있음)
     private final RealEstateService realEstateService;
+    private final RecentRealEstateRedisService recentRealEstateRedisService;
+
 
     @RequestMapping
     public String realEstatePage(Model model) {
-        model.addAttribute("localList",StateList.values());
+        model.addAttribute("localList", StateList.values());
         return "realestate/realestateList";
     }
 
     @RequestMapping("/map")
     @ResponseBody
     public String realEstateDong(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                       @RequestParam(value = "state", defaultValue = "") String state,
-                                       @RequestParam(value = "dong", defaultValue = "") String dong,
-                                       @RequestParam(value = "rentType", defaultValue = "") String rentType,
-                                       @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model
+                                 @RequestParam(value = "state", defaultValue = "") String state,
+                                 @RequestParam(value = "dong", defaultValue = "") String dong,
+                                 @RequestParam(value = "rentType", defaultValue = "") String rentType,
+                                 @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
+                                 @RequestParam(value = "chooseType", defaultValue = "") String chooseType, Model model
     ) {
 
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
@@ -105,12 +109,16 @@ public class RealEstateController {
 
     @GetMapping("/detail")
     public ModelAndView realEstateDetail(@RequestParam("estateNo") String estateNo,
-                                         ModelAndView modelAndView
+                                         ModelAndView modelAndView,
+                                         HttpSession session
     ) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         List<RealEstateAgent> agentList = realEstateService.selectAgentList(realEstateDetailDto.getBjdongNm());
+        recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
+
         modelAndView.setViewName("realestate/realestateDetailPage");
-        modelAndView.addObject("agentList",agentList);
+        modelAndView.addObject("agentList", agentList);
         modelAndView.addObject("realEstateDetail", realEstateDetailDto);
         return modelAndView;
     }

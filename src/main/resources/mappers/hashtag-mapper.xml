@@ -45,17 +45,17 @@
     </insert>
 
 
-    <!--    SELECT-->
-    <!--    HASHTAG_ID,COUNT(*) AS "COUNT"-->
-    <!--    FROM(SELECT-->
-    <!--    *-->
-    <!--    FROM RES_HASHTAG-->
-    <!--    WHERE RES_NO='988'AND HASHTAG_ID NOT IN (SELECT HASHTAG_ID-->
-    <!--    FROM RES_HASHTAG-->
-    <!--    WHERE RES_HASHTAG.MEMBER_NO = '1'-->
-    <!--    AND RES_HASHTAG.RES_NO='988' ))-->
-    <!--    GROUP BY HASHTAG_ID-->
-    <!--    ORDER BY COUNT DESC;-->
+<!--        SELECT-->
+<!--        HASHTAG_ID,COUNT(*) AS "COUNT"-->
+<!--        FROM(SELECT-->
+<!--        *-->
+<!--        FROM RES_HASHTAG-->
+<!--        WHERE RES_NO='988'AND HASHTAG_ID NOT IN (SELECT HASHTAG_ID-->
+<!--        FROM RES_HASHTAG-->
+<!--        WHERE RES_HASHTAG.MEMBER_NO = '1'-->
+<!--        AND RES_HASHTAG.RES_NO='988' ))-->
+<!--        GROUP BY HASHTAG_ID-->
+<!--        ORDER BY COUNT DESC;-->
 
 
 </mapper>

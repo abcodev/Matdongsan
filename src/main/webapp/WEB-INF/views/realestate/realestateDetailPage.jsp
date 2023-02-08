@@ -81,8 +81,8 @@
         <div class="info_table foot">
             <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
             <div class="realtor_table">
-                <c:forEach var="agentList" items="${ agentList }">
-                    <div class="rno">${ agentList.agentName }</div>
+                <c:forEach var="agent" begin="0" end="6" items="${ agentList }">
+                    <div class="rno" onclick="showRealtor(${ agent.agentNo }, '${ agent.agentName }')">${ agent.agentName }</div>
                 </c:forEach>
             </div>
         </div>
@@ -92,6 +92,7 @@
         <div class="modal_wrap">
             <div id="modal_content">
                 <div id="content_head">
+                    <div class="" id="agent_name">부동산이름</div>
                     <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div id="content_body">
@@ -267,19 +268,27 @@
 
 <%--*****************예약******************--%>
 <script>
+    function showRealtor(agentNo, agentName) {
+        $('#agent_name').html(agentName);
+        document.querySelector('.modal_wrap').style.display = 'block';
+        document.querySelector('.black_bg').style.display = 'block';
+
+        // agentNo 를 가지고 서버호출을 하는 코드는 여기에 넣으면 될듯
+    }
+
     window.onload = function () {
 
-        function onClick() {
-            document.querySelector('.modal_wrap').style.display = 'block';
-            document.querySelector('.black_bg').style.display = 'block';
-        }
+        // function onClick() {
+        //     document.querySelector('.modal_wrap').style.display = 'block';
+        //     document.querySelector('.black_bg').style.display = 'block';
+        // }
 
         function offClick() {
             document.querySelector('.modal_wrap').style.display = 'none';
             document.querySelector('.black_bg').style.display = 'none';
         }
 
-        document.querySelector('.rno').addEventListener('click', onClick);
+        // document.querySelector('.rno').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
@@ -310,7 +319,7 @@
 
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
-            htmlDummy += '<div>'+i+'</div>';
+            // htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
         }
 
         // 다음달 날짜 표시하기
@@ -322,9 +331,11 @@
         document.querySelector('.dateTitle').innerText = currentYear + '년 ' + currentMonth + '월';
     }
 
+    function test(year, month, day) {
+        console.log(year, month, day);
+    }
 
     const date = new Date();
-
     makeCalendar(date);
 
     // 이전달 이동

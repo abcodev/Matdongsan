@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Log4j
 @RequiredArgsConstructor
 @Component
-public class MatScheduling {
+public class RealEstateApiScheduling {
 
     private final RealEstateApiService realEstateApiService;
 
@@ -35,3 +35,5 @@ public class MatScheduling {
     }
 
 }
+
+// TODO: 스케줄러 실행시켜야함
