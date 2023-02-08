@@ -48,46 +48,56 @@
     }
 </script>
 
+<script>
+    $(document).ready(function () {
+        $("#checkbox_heart").change(function () {
+            if ($($(this)).is(".checked")) {
+                console.log("체크");
+            } else {
+                console.log("해제");
+            }
+        })
+    })
+</script>
 <div id="content">
     <div id="info_box">
-        <div id="userimg">
+        <div id="user_img">
             <img src="${loginUser.profileImage}">
         </div>
 
         <div id="userInfo">
             <table>
                 <tr>
-                    <td>닉네임 : ${loginUser.nickName}</td>
+                    <td><span>닉네임</span>${loginUser.nickName}</td>
                 </tr>
                 <tr>
-                    <td>핸드폰 : ${loginUser.phone}</td>
+                    <td><span>핸드폰</span>${loginUser.phone}</td>
                 </tr>
                 <tr>
-                    <td>이메일 : ${loginUser.email}</td>
+                    <td><span>이메일</span>${loginUser.email}</td>
                 </tr>
                 <tr>
-                    <td>주소 : ${loginUser.address}</td>
-                </tr>
-                <tr>
-                    <td>관심구 : ${loginUser.interestState}</td>
+                    <td><span>주소</span>${loginUser.address}</td>
                 </tr>
             </table>
         </div>
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
 <%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
-            <a href="${pageContext.request.contextPath}/memberModify">정보수정</a>
+            <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
         </div>
     </div>
 
     <div id="like">
-        <h4>내가 찜한 목록</h4>
-        <div id="likeList">
+        <div class="like_list_top">내가 찜한 목록</div>
+        <div class="like_list">
             <c:forEach items="${interestList}" var="interest">
                 <div id="heart" class="likeInfo">
-                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">하트
+                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
+                    <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
+
                     <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
-                            ${interest.estateNo}<br>${interest.bldgNm}<br>${interest.address}
+                        <div class="bldg_name">${interest.bldgNm}</div>
                     </div>
                 </div>
             </c:forEach>

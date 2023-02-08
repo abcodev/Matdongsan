@@ -82,7 +82,7 @@
             <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
             <div class="realtor_table">
                 <c:forEach var="agent" begin="0" end="6" items="${ agentList }">
-                    <div class="rno">${ agent.agentName }</div>
+                    <div class="rno" onclick="showRealtor(${ agent.agentNo }, '${ agent.agentName }')">${ agent.agentName }</div>
                 </c:forEach>
             </div>
         </div>
@@ -92,7 +92,7 @@
         <div class="modal_wrap">
             <div id="modal_content">
                 <div id="content_head">
-                    <div class="">부동산이름</div>
+                    <div class="realtor_name" id="agent_name">부동산이름</div>
                     <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div id="content_body">
@@ -116,14 +116,18 @@
                         </div>
                         <div class="time_select">
                             <span>시간</span>
-                            <select>
+                            <select id="reservationTime">
                                 <option>11:00</option>
                                 <option>12:00</option>
+                                <option>14:00</option>
+                                <option>15:00</option>
+                                <option>16:00</option>
+                                <option>17:00</option>
                             </select>
                         </div>
                         <div class="pCont">
                             <span>인원</span>
-                            <select>
+                            <select id="peopleCount">
                                 <option>1명</option>
                                 <option>2명</option>
                             </select>
@@ -138,24 +142,24 @@
                             <div class="info name">
                                 <i class="fa-solid fa-check"></i>
                                 <span>이름</span>
-                                <input type="text" value="">
+                                <input id="memberName" type="text" value="">
                             </div>
                             <div class="info phone">
                                 <i class="fa-solid fa-check"></i>
                                 <span>전화번호</span>
-                                <input type="text" value="">
+                                <input id="telephone" type="text" value="">
                             </div>
                             <div class="info mail">
                                 <span>이메일</span>
-                                <input type="email" value="">
+                                <input id="email" type="email" value="">
                             </div>
                             <div class="info message">
                                 <span>요청사항</span>
-                                <textarea placeholder="업체에 요청하실 내용을 적어주세요"></textarea>
+                                <textarea id="requestText" placeholder="업체에 요청하실 내용을 적어주세요"></textarea>
                             </div>
                         </div>
                         <div class="info_table_foot">
-                            <button>예약하기</button>
+                            <button onclick="reservation()">예약하기</button>
                         </div>
                     </div>
                 </div>
@@ -268,24 +272,33 @@
 
 <%--*****************예약******************--%>
 <script>
+    function showRealtor(agentNo, agentName) {
+        $('#agent_name').html(agentName);
+        document.querySelector('.modal_wrap').style.display = 'block';
+        document.querySelector('.black_bg').style.display = 'block';
+
+        // agentNo 를 가지고 서버호출을 하는 코드는 여기
+    }
+
     window.onload = function () {
 
-        function onClick() {
-            document.querySelector('.modal_wrap').style.display = 'block';
-            document.querySelector('.black_bg').style.display = 'block';
-        }
+        // function onClick() {
+        //     document.querySelector('.modal_wrap').style.display = 'block';
+        //     document.querySelector('.black_bg').style.display = 'block';
+        // }
 
         function offClick() {
             document.querySelector('.modal_wrap').style.display = 'none';
             document.querySelector('.black_bg').style.display = 'none';
         }
 
-        document.querySelector('.rno').addEventListener('click', onClick);
+        // document.querySelector('.rno').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
-        selectReviewList();
     };
+
+    let reservationDate = null;
 
     // 달력 생성
     const makeCalendar = (date) => {
@@ -311,7 +324,7 @@
 
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
-            htmlDummy += '<div>'+i+'</div>';
+            htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
         }
 
         // 다음달 날짜 표시하기
@@ -323,9 +336,12 @@
         document.querySelector('.dateTitle').innerText = currentYear + '년 ' + currentMonth + '월';
     }
 
+    function test(year, month, day) {
+        // console.log(year, month, day);
+        reservationDate = year + ','+month + ',' + day;
+    }
 
     const date = new Date();
-
     makeCalendar(date);
 
     // 이전달 이동
@@ -336,6 +352,45 @@
     // 다음달 이동
     document.querySelector('.nextDay').onclick = () => {
         makeCalendar(new Date(date.setMonth(date.getMonth() + 1)));
+    }
+
+    function reservation(){
+        let time = $('#reservationTime').val();
+        let people = $('#peopleCount').val();
+        let memberName = $('#memberName').val();
+        let phone = $('#telephone').val();
+        let email = $('#email').val();
+        let requestText = $('#requestText').val();
+        console.log(time);
+        console.log(people);
+        console.log(memberName);
+        console.log(phone);
+        console.log(email);
+        console.log(requestText);
+        console.log(reservationDate);
+
+        const formData = new FormData();
+        formData.append("memberName",memberName);
+        formData.append("peopleCount",people);
+        formData.append("phone",phone);
+        formData.append("email",email);
+        formData.append("requestText",requestText);
+        formData.append("revTime",time);
+        formData.append("revDate",reservationDate);
+
+        $.ajax({
+            url : "${pageContext.request.contextPath}/realEstate/reservation",
+            type: "POST",
+            data : formData,
+            success : (data) => {
+                console.log(data)
+            },
+            error : () => {
+                console.log("예약등록에 실패!")
+            }
+
+        })
+
     }
 </script>
 </body>

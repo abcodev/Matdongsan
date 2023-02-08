@@ -146,30 +146,6 @@
                 var listData1 = [];
                 listData1 = ${sellList2};
 
-                console.log(listData1);
-                <%--var listData1 = [--%>
-                <%--    <c:forEach items="${sellList}" var="list">--%>
-                <%--    '${list.address}',--%>
-                <%--    </c:forEach>--%>
-                <%--];--%>
-
-                <%--var listData2 = [--%>
-                <%--    <c:forEach items="${sellList}" var="list2">--%>
-                <%--    '${list2.bldgNm}',--%>
-                <%--    </c:forEach>--%>
-                <%--];--%>
-
-                <%--var listData3 = [--%>
-                <%--    <c:forEach items="${sellList}" var="list3">--%>
-                <%--    '${list3.objAmt}',--%>
-                <%--    </c:forEach>--%>
-                <%--];--%>
-
-                <%--var listData4 = [--%>
-                <%--    <c:forEach items="${sellList}" var="list4">--%>
-                <%--    '${list4.estateNo}',--%>
-                <%--    </c:forEach>--%>
-                <%--]--%>
 
                 listData1.forEach(function (addr, index) {
                     let overlay;

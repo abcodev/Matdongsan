@@ -20,6 +20,8 @@ public interface RealEstateService {
 
     public List<FreeBoard> selectFboard(String state);
 
+    public RealEstateRent basicChart();
+
     public RealEstateRent chartList(String state);
 
 
@@ -44,4 +46,6 @@ public interface RealEstateService {
     List<Interest> getMostInterest();
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
+
+    int reservationEnroll(ReservationRequest req);
 }

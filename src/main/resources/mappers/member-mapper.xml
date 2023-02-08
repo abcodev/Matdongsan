@@ -85,7 +85,15 @@
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
-
+    <update id="updateToken" parameterType="Map">
+        UPDATE MEMBER
+        SET
+            ACCESS_TOKEN = #{accessToken},
+            REFRESH_TOKEN = #{refreshToken},
+            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt}
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
+    </update>
 
     <update id="updateRecentAccess" parameterType="Map">
         UPDATE MEMBER

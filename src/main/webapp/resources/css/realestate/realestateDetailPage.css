@@ -65,7 +65,6 @@
     color: #e74464;
 }
 
-
 .body {
     height: 250px;
     margin-top: 25px;
@@ -164,9 +163,20 @@
     z-index: 1;
 }
 
+.realtor_name{
+    padding: 15px 0 0 150px;
+    width: 42%;
+    font-size: 24px;
+    font-weight: 500;
+    color: #566392;
+    letter-spacing: 2px;
+}
+
 .modal_close {
     font-size: 30px;
-    margin-left: 80%;
+    width: 58%;
+    text-align: end;
+    padding-right: 30px;
 }
 
 .modal_close>i {
@@ -191,7 +201,7 @@
 }
 
 .dateHead div {
-    background: #566392;
+    background: #989de1;
     color: #fff;
     text-align: center;
     border-radius: 8px;
@@ -352,7 +362,7 @@
 .info {
     display: flex;
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .info > .fa-check{
@@ -374,7 +384,7 @@
 }
 
 .info > input{
-    height: 30px;
+    height: 35px;
     width: 280px;
     border-radius: 3px;
     border: #eee 1px solid;
