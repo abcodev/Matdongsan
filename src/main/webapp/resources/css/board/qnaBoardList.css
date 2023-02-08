@@ -1,87 +1,119 @@
-* {
+*{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-#content{
-    padding: 60px 200px 30px 200px;
+.div{
+    border: 2px solid gray;
 }
 
-.content {
+#content{
+    padding: 60px 350px 30px 350px;
+    height: 800px;
+}
+
+.content{
+    padding: 0 20px 0 20px;
+}
+
+.head{
+    margin-top: 50px;
     display: flex;
 }
 
-.head {
-    height: 60px;
+.head > select{
+    width: 120px;
+    height: 40px;
+    border: 1px solid #a4a4a4;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #515151;
+    cursor: pointer;
+    margin-right: 30px;
 }
 
 .search_input {
-    width: 80%;
-    padding-left: 150px;
+    display: flex;
+    border: #a4a4a4 1px solid;
+    width: 550px;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: 3px;
+    margin-right: 40px;
 }
 
-.search_input>input {
-    width:100%;
-    height: 80%;
+.fa-magnifying-glass{
+    width: 16px;
+    height: 16px;
+    margin: 2px 10px 0 0;
+    color: #515151;
 }
 
-.search_icon {
-    width: 20%;
-    height: 80%;
-    margin-left: 20px;
+#freeBoardSearch{
+    padding: 0;
+    width: 100%;
+    line-height: 1.43;
+    font-size: 14px;
+    border: 0;
+    background: none;
 }
 
-.search_icon > button {
-    width: 40%;
-    height: 100%;
-    background-color: #213048;
-    color: white;
+#freeBoardSearch:focus{
+    outline: none;
+}
+
+.head > button{
+    background-color: #E0E0E0;
+    color: #515151;
     font-size: 20px;
-    font-weight: 500;
-    border-radius: 5px;
-    margin-right: 20px;
+    font-weight: 450;
+    width: 80px;
+    height: 40px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
 }
 
-.fa-magnifying-glass {
-    font-size: 25px;
-    margin-right: 5px;
+.head > button:hover{
+    background-color: #566392;
+    color: #E0E0E0;
+}
+.side{
+    position: fixed;
+    overflow: auto;
 }
 
-.body {
-    height: 800px;
-    padding: 50px 30px 20px 30px;
-}
-
-.sidebar {
-    left: 30px;
+.submenu{
+    left: 100px;
     top: 120px;
-    width: 280px;
-    height: 310px;
+    width: 150px;
+    height: 100px;
     display: table;
     background: none;
-    border-radius: 5px;
-    text-align: center;
-    padding: 10px 5px 10px 5px;
+    text-align: left;
+    padding: 0 5px 0 5px;
     z-index: 100;
+    border-left: 4px solid #566392;
 }
 
-.sidebar > a{
+.submenu > a{
     text-decoration: none;
     font-size: 20px;
     display: block;
-    margin: 20px 0 10px 20px;
+    padding: 10px 0 10px 10px;
     font-weight: bold;
     color: #213048;
 }
 
-.sidebar > a:hover{
+.submenu > a:hover{
     color: #989de1;
 }
-
 .boardlist {
-    width: 75%;
+    width: 100%;
+    margin: auto;
 }
 
 .boardlist_head {
@@ -97,7 +129,8 @@
     font-size: 16px;
     font-weight: 500;
     border-radius: 5px;
-    margin-right: 20px;
+    position: relative;
+    left: 256px;
 }
 
 .fa-pencil{
@@ -118,11 +151,16 @@
     margin-top: 20px;
 }
 
-.boardlist_head>select {
-    width: 150px;
-    height: 30px;
-    margin-left: 55px;
-    margin-top: 5px;
+.head > select{
+    width: 120px;
+    height: 40px;
+    border: 1px solid #a4a4a4;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #515151;
+    cursor: pointer;
+    margin-right: 30px;
 }
 
 .table {

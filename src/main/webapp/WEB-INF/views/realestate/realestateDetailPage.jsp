@@ -92,7 +92,7 @@
         <div class="modal_wrap">
             <div id="modal_content">
                 <div id="content_head">
-                    <div class="" id="agent_name">부동산이름</div>
+                    <div class="realtor_name" id="agent_name">부동산이름</div>
                     <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div id="content_body">
