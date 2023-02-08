@@ -31,7 +31,10 @@ public class RealEstateController {
 
     @RequestMapping
     public String realEstatePage(Model model) {
+        RealEstateRent seoulAvg = realEstateService.basicChart();
+
         model.addAttribute("localList",StateList.values());
+        model.addAttribute("seoulAvg", seoulAvg);
         return "realestate/realestateList";
     }
 

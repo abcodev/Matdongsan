@@ -24,6 +24,7 @@
     window.onload = () => {
         retrieveRealEstate(1)
         getMap()
+        basicChart()
     }
 
     function retrieveRealEstate(current_page) {
@@ -207,11 +208,37 @@
 </script>
 
 <script>
+    function basicChart(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // type : 'bar' = 막대차트를 의미합니다.
+            type: 'bar', //
+            data: {
+                labels: ['전세가격','매매가격'],
+                datasets: [{
+                    label: '서울시 평균 가격(만원)',
+                    backgroundColor: [
+                        'red',
+                        'blue'
+                    ],
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [2 ,10]
+                }]
+            },
+        });
+    }
+
+
+
     function showChart(feeAvg){
+        $("canvas#myChart").remove();
+        $("div.estate_table").append('<canvas id="myChart"></canvas>');
+
         var rentFee = $('#selectOption1 option:checked').val() + " 전세 가격";
         var sellFee = $('#selectOption1 option:checked').val() + " 매매 가격";
 
         var ctx = document.getElementById('myChart').getContext('2d');
+
         var chart = new Chart(ctx, {
             // type : 'bar' = 막대차트를 의미합니다.
             type: 'bar', //
@@ -225,6 +252,7 @@
                 }]
             },
         });
+        // chart.destroy()
     }
 </script>
 
