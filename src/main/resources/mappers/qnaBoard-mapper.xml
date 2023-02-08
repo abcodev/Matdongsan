@@ -99,7 +99,7 @@
             AND
             <choose>
                 <when test="condition == 'title'">
-                    QNA_TITLE LIKE 'f%${keyword}%'
+                    QNA_TITLE LIKE '%${keyword}%'
                 </when>
                 <when test="condition == 'content'">
                     QNA_CONTENT LIKE '%${keyword}%'
