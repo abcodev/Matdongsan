@@ -20,6 +20,8 @@ public interface RealEstateService {
 
     public List<FreeBoard> selectFboard(String state);
 
+    public RealEstateRent basicChart();
+
     public RealEstateRent chartList(String state);
 
 

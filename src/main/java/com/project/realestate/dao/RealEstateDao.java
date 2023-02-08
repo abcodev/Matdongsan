@@ -14,6 +14,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +57,10 @@ public class RealEstateDao {
     // 매매, 전세 평균값
     public RealEstateRent chartList(SqlSession sqlSession, String state){
         return sqlSession.selectOne("rentMapper.selectChartList", state);
+    }
+
+    public RealEstateRent basicChart(SqlSession sqlSession){
+        return sqlSession.selectOne("rentMapper.selectBasicList");
     }
 
     public List<RealEstateMainListDto> getSellList(SqlSession sqlSession) {

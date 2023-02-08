@@ -143,28 +143,13 @@
                 // 지도를 생성합니다
                 var map = new kakao.maps.Map(mapContainer, mapOption);
                 var geocoder = new kakao.maps.services.Geocoder();
+                var listData1 = [];
+                listData1 = ${sellList2};
 
-                var listData1 = [
-                    <c:forEach items="${sellList}" var="list">
-                    '${list.address}',
-                    </c:forEach>
-                ];
-
-                var listData2 = [
-                    <c:forEach items="${sellList}" var="list2">
-                    '${list2.bldgNm}',
-                    </c:forEach>
-                ];
-
-                var listData3 = [
-                    <c:forEach items="${sellList}" var="list3">
-                    '${list3.objAmt}',
-                    </c:forEach>
-                ];
 
                 listData1.forEach(function (addr, index) {
                     let overlay;
-                    geocoder.addressSearch(addr, function (result, status) {
+                    geocoder.addressSearch(addr['address'], function (result, status) {
                         if (status === kakao.maps.services.Status.OK) {
                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
@@ -185,12 +170,12 @@
                             var content = '<div class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
-                                '               <div class="bldgNm">' + '건물명  : ' + listData2[index] + '</div>' +
+                                '               <div class="bldgNm">' + '건물명  : ' + addr['bldgNm'] + '</div>' +
                                 '                <div class="close" id="overlay-btn' + index + '" title="닫기"></div>' +
                                 '           </div>' +
                                 '            <div class="desc">' +
-                                '               <div style="width:100px;padding:3px;">' + '주소  : 서울특별시 ' + listData1[index] + '</div>' +
-                                '               <div style="width:100px;padding:3px;">' + '실거래가  : ' + listData3[index] + '(만원)' + '</div>' +
+                                '               <div style="width:100px;padding:3px;">' + '주소  : 서울특별시 ' + addr['address'] + '</div>' +
+                                '               <div style="width:100px;padding:3px;">' + '실거래가  : ' + addr['objAmt'] + '(만원)' +'</div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>';
@@ -202,6 +187,12 @@
                                 map: map,
                                 position: marker.getPosition()
                             });
+
+                            kakao.maps.event.addListener(marker, 'click', function(){
+                                // window.open("http://www.naver.com");
+                                // location.href= 'http://www.naver.com';
+                                location.href= '${pageContext.request.contextPath}/realEstate/detail?estateNo='+addr.estateNo;
+                            }.bind(addr))
 
                             // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
                             kakao.maps.event.addListener(marker, 'mouseover', function () {
@@ -224,6 +215,53 @@
                         }
                     })
                 });
+                function displayMarker(locPosition, message) {
+
+                    // 마커를 생성합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: locPosition
+                    });
+
+                    var iwContent = message, // 인포윈도우에 표시할 내용
+                        iwRemoveable = true;
+
+                    // 인포윈도우를 생성합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content : iwContent,
+                        removable : iwRemoveable
+                    });
+
+                    // 인포윈도우를 마커위에 표시합니다
+                    infowindow.open(map, marker);
+
+                    // 지도 중심좌표를 접속위치로 변경합니다
+                    map.setCenter(locPosition);
+                }
+
+                if (navigator.geolocation) {
+
+                    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                    navigator.geolocation.getCurrentPosition(function (position) {
+
+                        var lat = position.coords.latitude, // 위도
+                            lon = position.coords.longitude; // 경도
+
+                        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성
+                            message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용
+
+                        // 마커와 인포윈도우를 표시
+                        displayMarker(locPosition, message);
+
+                    });
+
+                } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정
+
+                    var locPosition = new kakao.maps.LatLng(37.566826, 126.9786567),
+                        message = 'geolocation을 사용할수 없어요..'
+
+                    displayMarker(locPosition, message);
+                }
 
 
             </script>

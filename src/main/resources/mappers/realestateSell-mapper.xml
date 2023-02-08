@@ -21,6 +21,14 @@
         <result column="HOUSE_TYPE" property="houseType"/>
         <result column="FLOOR" property="floor"/>
         <result column="ADDRESS" property="address"/>
+        <result column="ESTATE_NO" property="estateNo"/>
+    </resultMap>
+    
+    <resultMap type="RealEstateMainListDto" id="realEstateMainListDtoResultSet" >
+        <result column="ESTATE_NO" property="estateNo"/>
+        <result column="BLDG_NM" property="bldgNm"/>
+        <result column="OBJ_AMT" property="objAmt"/>
+        <result column="ADDRESS" property="address"/>
     </resultMap>
 
     <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
@@ -86,10 +94,11 @@
 
 
     <!-- 메인페이지 지도 - 부동산 매매 리스트 -->
-    <select id="getSellList" resultMap="realEstateSellResultSet">
+    <select id="getSellList" resultMap="realEstateMainListDtoResultSet">
         SELECT SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS,
                OBJ_AMT,
-               BLDG_NM
+               BLDG_NM,
+               ESTATE_NO
         FROM REALESTATE_SELL
         ORDER BY BJDONG_NM
     </select>

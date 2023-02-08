@@ -10,11 +10,13 @@ import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.JSONParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -32,7 +34,10 @@ public class RealEstateController {
 
     @RequestMapping
     public String realEstatePage(Model model) {
-        model.addAttribute("localList", StateList.values());
+        RealEstateRent seoulAvg = realEstateService.basicChart();
+
+        model.addAttribute("localList",StateList.values());
+        model.addAttribute("seoulAvg", seoulAvg);
         return "realestate/realestateList";
     }
 

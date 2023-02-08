@@ -355,5 +355,17 @@
         from dual
     </select>
 
+    <select id="selectBasicList" resultMap="avgResultSet">
+        select
+            ( SELECT round(AVG(TO_NUMBER(RENT_GTN)), 1)
+              FROM REALESTATE_RENT
+              WHERE RENT_GBN = '전세') AS TOTAL_RENT_AVG,
+
+            (SELECT
+                 ROUND(AVG(TO_NUMBER(OBJ_AMT)), 1)
+             FROM REALESTATE_SELL) AS TOTAL_SELL_AVG
+        FROM DUAL
+    </select>
+
 
 </mapper>

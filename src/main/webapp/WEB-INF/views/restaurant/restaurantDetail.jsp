@@ -233,28 +233,6 @@
                 }
                 $('#star_rating').html(star_rating)
 
-                // 해시태그 비동기 갱신
-                // const hashtag_list = list.flatMap(obj => obj['hashtags'])
-                // const hashtag_count = {}
-                // hashtag_list.forEach(hashtag => {
-                //     if (hashtag_count[hashtag] === undefined) {
-                //         hashtag_count[hashtag] = 1
-                //     } else {
-                //         hashtag_count[hashtag] += 1
-                //     }
-                // });
-                // const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
-                // items.sort((first, second) => second[1] - first[1]);
-                // const keys = items.map((e) => e[0]);
-                // let review_hashtag_contents = '';
-                //
-                // keys.slice(0, 2).forEach(hashtag => {
-                //     review_hashtag_contents +=
-                //         '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
-                //         '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
-                // });
-                // $('.head tag').html(review_hashtag_contents);
-
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -270,7 +248,7 @@
                 resNo: ${restaurantDetail.resNo}
             },
             success: function (data) {
-                // hashtag....
+                console.log(data);
             }
         });
     }

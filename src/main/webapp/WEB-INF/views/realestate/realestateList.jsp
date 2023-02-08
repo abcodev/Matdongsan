@@ -24,6 +24,7 @@
     window.onload = () => {
         retrieveRealEstate(1)
         getMap()
+        basicChart()
     }
 
     function retrieveRealEstate(current_page) {
@@ -207,24 +208,88 @@
 </script>
 
 <script>
-    function showChart(feeAvg){
-        var rentFee = $('#selectOption1 option:checked').val() + " 전세 가격";
-        var sellFee = $('#selectOption1 option:checked').val() + " 매매 가격";
+
+    function basicChart(){
+        var rentAvg = ${seoulAvg.totalRentAvg};
+        var sellAvg = ${seoulAvg.totalSellAvg};
 
         var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['전세가격','매매가격'],
+                datasets: [{
+                    label: '서울시 평균 가격(만원)',
+                    backgroundColor: [
+                        'rgb(133,145,238)',
+                        'rgb(243,144,165)'
+                    ],
+                    borderColor: 'white',
+                    data: [rentAvg ,sellAvg],
+                    borderWidth: 1
+                }]
+            },
+        });
+    }
+
+
+    function showChart(feeAvg){
+        $("canvas#myChart").remove();
+        $("div.estate_table").append('<canvas id="myChart"></canvas>');
+
+        var rentFee = $('#selectOption1 option:checked').val();
+        //var sellFee = $('#selectOption1 option:checked').val() + " 매매 가격";
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+
         var chart = new Chart(ctx, {
             // type : 'bar' = 막대차트를 의미합니다.
             type: 'bar', //
             data: {
-                labels: ['서울시 전세가격','서울시 매매 가격', rentFee, sellFee],
-                datasets: [{
-                    label: '평균 가격',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [feeAvg.totalRentAvg, feeAvg.totalSellAvg, feeAvg.rentAvg, feeAvg.sellAvg]
-                }]
+                labels: ['전세가격','매매 가격'],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: '서울시',
+                        backgroundColor: 'rgb(133,145,238)',
+                        data: [feeAvg.totalRentAvg, feeAvg.totalSellAvg],
+                        borderColor: 'white',
+                        borderWidth: 2,
+                    },
+                    {
+                        type: 'bar',
+                        label: rentFee,
+                        backgroundColor: 'rgb(243,144,165)',
+                        data: [feeAvg.rentAvg, feeAvg.sellAvg],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
             },
+            options : {
+                scale : {
+                    y:{afterDataLimits: (scale) => {
+                            // y축의 최대값은 데이터의 최대값에 딱 맞춰져서 그려지므로
+                            // y축 위쪽 여유공간이 없어 좀 답답한 느낌이 들 수 있는데요,
+                            // 이와 같이 afterDataLimits 콜백을 사용하여 y축의 최대값을 좀 더 여유있게 지정할 수 있습니다!
+                            scale.max = scale.max * 1.1;
+                        },
+                        axis: 'y', // 이 축이 y축임을 명시해줍니다.
+                        display: true, // 축의 가시성 여부도 설정할 수 있습니다.
+                        position: 'left',
+                        title: { // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
+                            display: true,
+                            align: 'end',
+                            color: '#808080',
+                            text: '단위: 만원'
+                        }
+                    }
+                },
+                tooltip : {
+
+                }
+            }
         });
+
     }
 </script>
 

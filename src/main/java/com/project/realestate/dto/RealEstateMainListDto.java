@@ -10,5 +10,6 @@ public class RealEstateMainListDto {
     private String address;
     private String objAmt;
     private String bldgNm;
+    private String estateNo;
 
 }
