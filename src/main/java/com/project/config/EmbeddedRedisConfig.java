@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 import redis.embedded.RedisServer;
 
 /**
- *  Bean 을 생성할 때
- *  생성 후 실행할 코드 (스프링이 켜질때)
- *  Bean 을 없앨 때 실행할 코드를 작성하기 위함 (스프링이 꺼질때)
+ * Redis
+ * Bean 을 생성할 때
+ * 생성 후 실행할 코드 (스프링이 켜질때)
+ * Bean 을 없앨 때 실행할 코드를 작성하기 위함 (스프링이 꺼질때)
  */
 
 @Slf4j

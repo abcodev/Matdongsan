@@ -1,16 +1,14 @@
 package com.project.member.vo;
 
-import com.project.board.vo.FreeBoard;
-import com.project.board.vo.QnaBoard;
+import com.project.client.oauth.OAuthToken;
 import com.project.client.oauth.OAuthUser;
 import com.project.member.type.MemberGrade;
-import com.project.realestate.vo.Interest;
 import lombok.*;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.ZoneOffset;
 
 /*
     빌더패턴 : 객체 생성을 위한 디자인 패턴
@@ -41,14 +39,22 @@ public class Member {
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
     private String interestState;
 
+    private String accessToken;
+    private String refreshToken;
+    private Timestamp refreshTokenExpiredAt;
 
-    public static Member of(OAuthUser oAuthUser) {
+    public static Member of(OAuthUser oAuthUser, OAuthToken oAuthToken) {
         return Member.builder()
                 .provider(oAuthUser.getProvider())
                 .providerId(String.valueOf(oAuthUser.getId()))
                 .memberName(oAuthUser.getNickname())
                 .profileImage(oAuthUser.getProfileImage())
                 .email(oAuthUser.getEmail())
+                .accessToken(oAuthToken.getAccessToken())
+                .refreshToken(oAuthToken.getRefreshToken())
+                .refreshTokenExpiredAt(
+                        Timestamp.valueOf(LocalDateTime.now().plus(Duration.ofSeconds(oAuthToken.getRefreshTokenExpiresIn())))
+                )
                 .build();
     }
 
@@ -64,5 +70,11 @@ public class Member {
                 .phone(member.getPhone())
                 .interestState(member.getInterestState())
                 .build();
+    }
+
+    public OAuthToken toOAuthToken() {
+        LocalDateTime expiredAt = this.getRefreshTokenExpiredAt().toLocalDateTime();
+        long expiresIn = expiredAt.toEpochSecond(ZoneOffset.UTC) - LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        return new OAuthToken(this.getAccessToken(), this.getRefreshToken(), expiresIn);
     }
 }

@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
 *{
     box-sizing: border-box;
     font-family: 'IBM Plex Sans KR', sans-serif;
@@ -25,7 +27,7 @@
 #content_right{
     width: 62%;
     margin-top: 50px;
-    padding-left: 20px;
+    padding: 0 0 10px 20px;
 }
 
 .head{
@@ -91,7 +93,328 @@
     height: 250px;
 }
 
+.foot > .realtor_top{
+    display: flex;
+    padding-left: 10px;
+}
+
+.foot > .realtor_top > .fa-handshake{
+    font-size: 30px;
+    margin-right: 15px;
+}
+
+.foot > .realtor_top > p{
+    font-size: 22px;
+    font-weight: 420;
+}
+
+.realtor_table {
+    padding: 10px;
+}
+
+.realtor_table > .rno{
+    font-size: 17px;
+    font-weight: 420;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.realtor_table > .rno:hover{
+    color: #566392;
+    font-size: 18px;
+}
+
 #map ,#roadview{
     width: 95%;
     height: 320px;
+    z-index: -1;
+}
+
+
+/***********예약*************/
+
+
+.review {
+    padding-left: 100px;
+    margin-top: 40px;
+}
+
+.modal_wrap {
+    display: none;
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 48%;
+    left: 36%;
+    margin: -250px 0 0 -250px;
+    background: white;
+    z-index: 2;
+    border-radius: 5px;
+}
+
+.black_bg {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.modal_close {
+    font-size: 30px;
+    margin-left: 80%;
+}
+
+.modal_close>i {
+    cursor: pointer;
+}
+
+#content_head {
+    display: flex;
+    margin-top: 10px;
+}
+
+#content_head>span {
+    width: 95%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#content_body{
+    padding: 0 60px;
+    display: flex;
+}
+
+.dateHead div {
+    background: #566392;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    height: 35px;
+    width: 35px;
+    font-weight: 450;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 5px;
+}
+
+.grid div {
+    padding: .3rem;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.dateBoard div {
+    color: #222;
+    font-weight: bold;
+    height: 35px;
+    width: 35px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 2px solid #eee;
+}
+
+.dateBoard > div:hover{
+    background-color: #e4ddee;
+}
+
+.noColor {
+    background: #eee;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 12px;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.dateTitle {
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 0.85;
+}
+
+/* 좌우 버튼 */
+.prevDay , .nextDay {
+    display: block;
+    width: 13px;
+    height: 13px;
+    border: 3px solid #000;
+    border-width: 3px 3px 0 0;
+    cursor: pointer;
+}
+
+.prevDay {
+    transform: rotate(-135deg);
+}
+
+.nextDay {
+    transform: rotate(45deg);
+}
+
+/* ---- */
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: Pretendard;
+}
+
+.calendar {
+    width: 300px;
+    padding: 0 1.4rem;
+    margin-top: 1.4rem;
+}
+
+.dateHead {
+    margin: .4rem 0;
+}
+
+.time_select {
+    margin-top: 50px;
+    padding-left: 30px;
+}
+.pCont {
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.time_select > span,
+.pCont > span{
+    font-weight: 450;
+    font-size: 18px;
+    margin-right: 20px;
+}
+
+.time_select > select,
+.pCont > select{
+    height: 40px;
+    width: 200px;
+    border-radius: 3px;
+    border: #eee 1px solid;
+    font-size: 16px;
+    font-weight: 410;
+}
+
+.time_select > select > option,
+.pCont > select > option{
+    font-size: 16px;
+    font-weight: 410;
+}
+
+.time_select > select:focus,
+.pCont > select:focus{
+    outline-color: #566392;
+}
+
+.body_right{
+    margin-left: 110px;
+}
+
+.info_table_top {
+    display: flex;
+}
+
+.info_table_top > p{
+    font-size: 22px;
+    font-weight: 450;
+    margin-right: 250px;
+    padding-left: 30px;
+}
+
+.info_table_top > span {
+    font-size: 14px;
+    font-weight: 450;
+}
+
+.info_table_top > span > .fa-check{
+    font-size: 20px;
+    color: #989de1;
+    margin-right: 5px;
+}
+
+.user_info_table{
+    margin-top: 50px;
+}
+
+.info {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.info > .fa-check{
+    font-size: 20px;
+    color: #989de1;
+    margin-right: 7px;
+}
+
+.info > span{
+    font-weight: 450;
+    font-size: 18px;
+    width: 25%;
+}
+
+.mail > span ,
+.message > span{
+    padding-left: 25px;
+    margin-right: 25px;
+}
+
+.info > input{
+    height: 30px;
+    width: 280px;
+    border-radius: 3px;
+    border: #eee 1px solid;
+    font-size: 16px;
+    font-weight: 410;
+}
+
+.info > input:focus
+.info > textarea:focus{
+    outline-color: #566392;
+}
+
+.message > textarea{
+    height: 150px;
+    width: 280px;
+    border-radius: 3px;
+    border: #eee 1px solid;
+    font-size: 16px;
+    font-weight: 410;
+    resize: none;
+}
+
+.info_table_foot{
+    margin-top: 20px;
+    padding-left: 40px;
+}
+
+.info_table_foot > button {
+    height: 37px;
+    width: 370px;
+    font-size: 18px;
+    font-weight: 420;
+    background-color: #eeeeee;
+    color: #213048;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.info_table_foot > button:hover{
+    background-color: #566392;
+    color: #eeeeee;
 }

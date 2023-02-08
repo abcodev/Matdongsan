@@ -41,9 +41,7 @@ public class MemberController {
 
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){
-
         model.addAttribute("stateList", StateList.values());
-
         return "member/memberModify";
     }
 
@@ -88,16 +86,12 @@ public class MemberController {
     }
 
     @RequestMapping("/delete")
-    public String deleteMember(HttpSession session){
-        long memberNo = ((Member)session.getAttribute("loginUser")).getMemberNo();
-
-        int result = memberService.deleteMember(memberNo);
-        if(result == 1){
-            session.removeAttribute("loginUser");
-            return "redirect:/";
-        }
-
+    public String deleteMember(HttpSession session) {
+        Member member = (Member)session.getAttribute("loginUser");
+        memberService.deleteMember(member);
+        session.removeAttribute("loginUser");
         return "redirect:/";
+
     }
 
     /**
@@ -110,16 +104,5 @@ public class MemberController {
         memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
         return Integer.toString(randomNumber);
     }
-
-//    @RequestMapping("interestList")
-//    @ResponseBody
-//    public String selectInterestList(String estateNo, Model model){
-//        ArrayList<Interest> list = memberService.selectInterestList(estateNo);
-//
-//        Gson gson = new Gson();
-//
-//        String result = gson.toJson(list);
-//        return result;
-//    }
 
 }

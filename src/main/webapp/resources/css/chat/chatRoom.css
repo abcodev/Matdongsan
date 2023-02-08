@@ -44,7 +44,8 @@
   height: 700px;
   overflow: hidden;
   background-color: #566392;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
 }
 
 .preChatList .preChat {
@@ -101,6 +102,11 @@
   padding: 5px;
 }
 
+/* 채팅 정렬 */
+.new_preChat{
+  order : -1;
+}
+
 .new {
   height: 25px;
   margin: 3px 0 0 10px;
@@ -111,6 +117,7 @@
   background-color: red;
   border: none;
   border-radius: 20px;
+
 }
 
 

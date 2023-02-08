@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 public interface OAuthClient {
     String generateRedirectUrl(HttpSession session);
-    OAuthUser getUserProfile(HttpSession session, String code, String state);
-
+    OAuthToken getToken(HttpSession session, String code, String state);
+    OAuthUser getUserProfile(HttpSession session, OAuthToken token);
+    void unlink(OAuthToken token);
 }
