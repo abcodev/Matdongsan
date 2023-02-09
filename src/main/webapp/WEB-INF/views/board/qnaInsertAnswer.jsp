@@ -1,43 +1,48 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2023-01-23
-  Time: 오후 8:12
-  To change this template use File | Settings | File Templates.
-
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!DOCTYPE html>
-
-
-<html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <title>자유게시판 작성</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardEnroll.css"/>">
+  <jsp:include page="../template/font.jsp"/>
+  <script src="<c:url value="./resources/js/summernote-lite.js"/>"></script>
+  <script src="<c:url value="./resources/js/summernote-ko-KR.js"/>"></script>
+  <link rel="stylesheet" href="<c:url value="/resources/css/summernote/css/summernote-lite.css"/>">
 
 </head>
 <body>
-<title></title>
-<form id="insertAnswer" method="post" action="${pageContext.request.contextPath}/board/insertAnswer">
-  답글 제목
-  <input type="text" id="title" name="qnaTitle">
-  <br><br>
+<%@ include file ="../template/header.jsp" %>
+<div id="content">
+  <div id="board_submenu">질문게시판</div>
+  <div class="enroll_form">
+    <form id="insertAnswer" method="post" action="${pageContext.request.contextPath}/board/insertAnswer">
+      <div class="form_head">
 
-  답글 내용
-  <textarea id="content" name="qnaContent"></textarea>
+        <input type="text" id="title" name="qnaTitle" required placeholder="답글 제목을 입력해주세요" class="board_title">
+      </div>
+      <div class="form_body">
 
-  <br>
-  <button type="submit" class="btn btn-primary">등록하기</button>
-
-  <button type="reset"  class="btn btn-danger" onclick="movePage()">취소하기</button>
-
-  <input type="hidden" id="depth" name="depth" value="${depth}">
-  <input type="hidden" id="pBno" name="pBno" value="${pBno}">
-  <input type="hidden" id="qBno" name="qBno" value="${qBno}">
+        <textarea name="qnaContent"  required placeholder="답글을 입력해주세요"></textarea>
+      </div>
+      <div class="btn_box">
+        <button type="submit">답글 등록</button>
+        <button type="reset" onclick="history.back()">취소</button>
+      </div>
+      <input type="hidden" id="depth" name="depth" value="${depth}">
+      <input type="hidden" id="pBno" name="pBno" value="${pBno}">
+      <input type="hidden" id="qBno" name="qBno" value="${qBno}">
+    </form>
+  </div>
+</div>
 </form>
-
 <script>
-  function movePage(){
+  let qnaArea = document.getElementById("qnaArea");
 
-    history.back()
-  }
 </script>
 </body>
 </html>
