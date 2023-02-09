@@ -115,9 +115,7 @@
 
 
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-<%--                        <c:if test="${selectAllBoardList.boardType eq 'F'}">--%>
-                        <tr class="myBoard_info"
-                            onclick="moveDetail();">
+                        <tr class="myBoard_info" onclick="moveDetail();">
                             <script>
                                 function moveDetail(){
                                     if(${selectAllBoardList.boardType eq 'F'}){
@@ -127,22 +125,11 @@
                                     }
                                 }
                             </script>
-<%--                            location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'--%>
                             <td>${selectAllBoardList.boardNo}</td>
                             <td>${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
                             <td>${selectAllBoardList.boardType}</td>
                         </tr>
-<%--                       </c:if>--%>
-<%--                        <c:if test="${selectAllBoardList.boardType eq 'Q'}">--%>
-<%--                            <tr class="myBoard_info"--%>
-<%--                                onclick="location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">--%>
-<%--                                <td>${selectAllBoardList.boardNo}</td>--%>
-<%--                                <td>${selectAllBoardList.boardTitle}</td>--%>
-<%--                                <td>${selectAllBoardList.boardDate}</td>--%>
-<%--                                <td>${selectAllBoardList.boardType}</td>--%>
-<%--                            </tr>--%>
-<%--                        </c:if>--%>
                     </c:forEach>
 
 
