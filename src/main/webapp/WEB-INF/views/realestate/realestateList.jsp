@@ -421,15 +421,9 @@
                     });
 
                     var content = '<div class="wrap">' +
-                        '    <div class="info">' +
-                        '           <div class="title">' +
                         '               <div class="bldgNm">'+ buildName[index]+ '아파트' + '</div>'+
-                        '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
-                        '           </div>' +
-                        '            <div class="desc">' +
-                        '            </div>' +
-                        '        </div>' +
-                        '    </div>';
+                        '           </div>'
+
 
                     // 마커 위에 커스텀오버레이를 표시합니다
                     // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다

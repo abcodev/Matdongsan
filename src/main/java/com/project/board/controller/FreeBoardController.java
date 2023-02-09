@@ -8,9 +8,11 @@ import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
+import com.project.common.template.ViewCountUp;
 import com.project.common.type.StateList;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.springframework.web.servlet.View;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,16 +86,24 @@ public class FreeBoardController {
     @RequestMapping("freeList/detail/{fno}")
     public ModelAndView detailFreeBoard(ModelAndView mv,
                                         @PathVariable("fno") int fno,
-                                        HttpSession session
+                                        @ModelAttribute("loginUser") Member loginUser,
+                                        HttpServletRequest httpServletRequest,
+                                        HttpServletResponse httpServletResponse
+
     ){
-        Member loginUser = (Member) session.getAttribute("loginUser");
-        FreeBoard fb = freeBoardService.detailFreeBoard(fno);
         long memberNo = 0;
+
         if(!ObjectUtils.isEmpty(loginUser)) {
             memberNo = loginUser.getMemberNo();
         }
-        FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
-        freeBoardService.freeBoardCount(count);
+
+        FreeBoard fb = freeBoardService.detailFreeBoard(fno);
+        Boolean countCheck = ViewCountUp.countUp(fb,loginUser,httpServletRequest,httpServletResponse);
+        if(countCheck){
+            FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
+            freeBoardService.freeBoardCount(count);
+        }
+
         mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;

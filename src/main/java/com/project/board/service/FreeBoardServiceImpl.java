@@ -9,10 +9,15 @@ import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
+import com.project.common.template.ViewCountUp;
+import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +49,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
     // 게시글 상세조회
     public FreeBoard detailFreeBoard(int fno){
-        return freeBoardDao.detailFreeBoard(sqlSession, fno);
+        return freeBoardDao.detailFreeBoard(sqlSession,fno);
     }
 
     public int insertReply(Reply r){

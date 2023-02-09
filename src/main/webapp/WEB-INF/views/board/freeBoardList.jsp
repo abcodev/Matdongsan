@@ -118,13 +118,16 @@
 <script>
     function retrieveFreeBoards(current_page) {
         console.log($("#freeBoardSearch").val());
+        console.log($('input[type="checkbox"][name="arrayList"]:checked').val());
+        let array = $('input[type="checkbox"][name="arrayList"]:checked').val()
         $.ajax({
             url: '${pageContext.request.contextPath}/board/freeList',
             method: 'GET',
             data: {
                 cpage: current_page,
                 state: $("#selectState").val(),
-                search: $("#freeBoardSearch").val()
+                search: $("#freeBoardSearch").val(),
+                select: array
             },
             success(data) {
                 $('#boardlist_main').empty();
