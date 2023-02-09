@@ -35,6 +35,21 @@
         WHERE R.REV_NO = #{revNo}
     </select>
 
+    <select id="resHashtagByReview" parameterType="String" resultType="String">
+        SELECT HASHTAG
+        FROM (SELECT HASHTAG, COUNT(*) AS "COUNT"
+              FROM (SELECT H.HASHTAG
+                    FROM RES_HASHTAG RH
+                             INNER JOIN HASHTAG H on RH.HASHTAG_ID = H.HASHTAG_ID
+                    WHERE RES_NO = #{resNo} AND RH.HASHTAG_ID NOT IN (SELECT HASHTAG_ID
+                                                                    FROM RES_HASHTAG
+                                                                    WHERE RES_HASHTAG.MEMBER_NO = '1'
+                                                                      AND RES_HASHTAG.RES_NO = #{resNo}))
+              GROUP BY HASHTAG
+              ORDER BY COUNT DESC)
+        WHERE ROWNUM &lt;= 2
+    </select>
+
     <!-- 관리자 - 맛집 삭제 -->
     <delete id="deleteResHash" parameterType="string">
         DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo}

@@ -8,7 +8,7 @@
         <result column="HASHTAG_ID" property="hashtagId"/>
         <result column="HASHTAG" property="hashtag"/>
     </resultMap>
-    
+
     <resultMap id="resHashtagResultSet" type="resHashtag">
         <result column="RES_NO" property="resNo"/>
         <result column="HASHTAG_ID" property="hashtagId"/>
@@ -30,6 +30,7 @@
         FROM HASHTAG
     </select>
 
+
     <select id="resHashtagByAdmin" resultType="String">
         SELECT H.HASHTAG
         FROM RES_HASHTAG
@@ -45,17 +46,6 @@
     </insert>
 
 
-<!--        SELECT-->
-<!--        HASHTAG_ID,COUNT(*) AS "COUNT"-->
-<!--        FROM(SELECT-->
-<!--        *-->
-<!--        FROM RES_HASHTAG-->
-<!--        WHERE RES_NO='988'AND HASHTAG_ID NOT IN (SELECT HASHTAG_ID-->
-<!--        FROM RES_HASHTAG-->
-<!--        WHERE RES_HASHTAG.MEMBER_NO = '1'-->
-<!--        AND RES_HASHTAG.RES_NO='988' ))-->
-<!--        GROUP BY HASHTAG_ID-->
-<!--        ORDER BY COUNT DESC;-->
 
 
 </mapper>

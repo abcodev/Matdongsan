@@ -285,13 +285,16 @@
             <c:when test="${loginUser == null}">
                 <h3>인기 아파트 단지</h3>
 
-                <c:forEach var="mostInterest" end="4" items="${mostInterest}" varStatus="status">
-                    <a href="">${status.count}. ${mostInterest.bldgNm}</a><br>
+                <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a><br>
                 </c:forEach>
 
             </c:when>
             <c:otherwise>
                 <h3>최근 본 부동산 목록</h3>
+                <c:forEach var="recentView" items="${recentViewList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${status.count}. ${recentView.bldgNm}</a><br>
+                </c:forEach>
             </c:otherwise>
         </c:choose>
     </div>

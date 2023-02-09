@@ -38,16 +38,19 @@
             <i class="fa-solid fa-star"></i>
             <span id="star_rating"></span>
         </div>
-        <div class="head tag">
-
-            <c:forEach items="${resHashtagByAdmin}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-            </c:forEach>
-            <c:forEach items="${resHashtagByReview}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-            </c:forEach>
+        <div class="head">
+            <span id="hashtag_by_admin" class="tag">
+                <c:forEach items="${resHashtagByAdmin}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+                </c:forEach>
+            </span>
+            <span id="hashtag_by_review" class="tag">
+                <c:forEach items="${resHashtagByReview}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+                </c:forEach>
+            </span>
 
             <%--해시태그 비동기 갱신--%>
             <%--            <span id = "hashtag_by_review">--%>
@@ -190,10 +193,10 @@
                 resNo: ${restaurantDetail.resNo}
             },
             dataType: "json",
-            success: function (list) {
-                console.log(list);
+            success: function (data) {
+                console.log(data);
                 let str = "";
-                for (let i of list) {
+                for (let i of data['reviewList']) {
                     console.log(i)
                     let hashtagList = '';
                     for (let hashtag of i.hashtags) {
@@ -220,34 +223,27 @@
                         + '</div>';
                 }
                 $("#reviewArea tbody").html(str);
-                $("#rCount").html(list.length);
+                $("#rCount").html(data['reviewList'].length);
 
                 let star_rating;
-                if (list.length === 0) {
+                if (data['reviewList'].length === 0) {
                     star_rating = '별점을 남겨주세요!'
                 } else {
-                    star_rating = Math.round(list.map(obj => obj['starRating'])
-                        .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10
+                    star_rating = Math.round(data['reviewList'].map(obj => obj['starRating'])
+                        .reduce((accumulator, current) => accumulator + current, 0) *10 / data['reviewList'].length) / 10
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
+
+                let hashtagByReview = '';
+                for (let hashtag of data['hashtagList']) {
+                    hashtagByReview += '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>';
+                    hashtagByReview += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
+                }
+                $('#hashtag_by_review').html(hashtagByReview);
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
-            }
-        });
-    }
-
-    function ajaxHashtag() {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/restaurant/selectHashtag',
-            type: 'GET',
-            data: {
-                resNo: ${restaurantDetail.resNo}
-            },
-            success: function (data) {
-                // $('#head tag').prop(data)
-                console.log(data);
             }
         });
     }
@@ -279,7 +275,6 @@
             contentType: false,
             processData: false,
             success: () => {
-                ajaxHashtag();
                 selectReviewList();
             },
             error: function () {

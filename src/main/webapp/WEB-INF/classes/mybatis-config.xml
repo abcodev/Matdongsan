@@ -35,6 +35,7 @@
         <typeAlias type="com.project.member.dto.AllBoard" alias="allBoard"/>
         <typeAlias type="com.project.board.vo.HotWeek" alias="hotWeek"/>
         <typeAlias type="com.project.realestate.dto.RealEstateMainListDto" alias="RealEstateMainListDto"/>
+        <typeAlias type="com.project.realestate.dto.RealEstateViewDto" alias="RealEstateViewDto"/>
     </typeAliases>
 
     <mappers>
