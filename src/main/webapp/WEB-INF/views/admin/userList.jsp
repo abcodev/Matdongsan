@@ -39,7 +39,7 @@
                 <td>${ul.email}</td>
                 <td>${ul.email}</td>
                 <td>${ul.memberName}</td>
-                <td>영구정지</td>
+                <td>${ul.memberGrade}</td>
             </tr>
         </c:forEach>
         </tbody>

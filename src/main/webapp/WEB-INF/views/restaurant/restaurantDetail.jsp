@@ -38,16 +38,19 @@
             <i class="fa-solid fa-star"></i>
             <span id="star_rating"></span>
         </div>
-        <div class="head tag">
-
-            <c:forEach items="${resHashtagByAdmin}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-            </c:forEach>
-            <c:forEach items="${resHashtagByReview}" var="hashtag">
-                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
-                <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
-            </c:forEach>
+        <div class="head">
+            <span id="hashtag_by_admin" class="tag">
+                <c:forEach items="${resHashtagByAdmin}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+                </c:forEach>
+            </span>
+            <span id="hashtag_by_review" class="tag">
+                <c:forEach items="${resHashtagByReview}" var="hashtag">
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>
+                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
+                </c:forEach>
+            </span>
 
             <%--해시태그 비동기 갱신--%>
             <%--            <span id = "hashtag_by_review">--%>
@@ -156,7 +159,6 @@
     </div>
 </div>
 
-
 <script>
     window.onload = function () {
 
@@ -191,10 +193,10 @@
                 resNo: ${restaurantDetail.resNo}
             },
             dataType: "json",
-            success: function (list) {
-                console.log(list);
+            success: function (data) {
+                console.log(data);
                 let str = "";
-                for (let i of list) {
+                for (let i of data['reviewList']) {
                     console.log(i)
                     let hashtagList = '';
                     for (let hashtag of i.hashtags) {
@@ -221,56 +223,27 @@
                         + '</div>';
                 }
                 $("#reviewArea tbody").html(str);
-                $("#rCount").html(list.length);
+                $("#rCount").html(data['reviewList'].length);
 
                 let star_rating;
-                if (list.length === 0) {
+                if (data['reviewList'].length === 0) {
                     star_rating = '별점을 남겨주세요!'
                 } else {
-                    star_rating = Math.round(list.map(obj => obj['starRating'])
-                        .reduce((accumulator, current) => accumulator + current, 0) *10 / list.length) / 10
+                    star_rating = Math.round(data['reviewList'].map(obj => obj['starRating'])
+                        .reduce((accumulator, current) => accumulator + current, 0) *10 / data['reviewList'].length) / 10
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
 
-                // 해시태그 비동기 갱신
-                // const hashtag_list = list.flatMap(obj => obj['hashtags'])
-                // const hashtag_count = {}
-                // hashtag_list.forEach(hashtag => {
-                //     if (hashtag_count[hashtag] === undefined) {
-                //         hashtag_count[hashtag] = 1
-                //     } else {
-                //         hashtag_count[hashtag] += 1
-                //     }
-                // });
-                // const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
-                // items.sort((first, second) => second[1] - first[1]);
-                // const keys = items.map((e) => e[0]);
-                // let review_hashtag_contents = '';
-                //
-                // keys.slice(0, 2).forEach(hashtag => {
-                //     review_hashtag_contents +=
-                //         '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
-                //         '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
-                // });
-                // $('.head tag').html(review_hashtag_contents);
-
+                let hashtagByReview = '';
+                for (let hashtag of data['hashtagList']) {
+                    hashtagByReview += '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>';
+                    hashtagByReview += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
+                }
+                $('#hashtag_by_review').html(hashtagByReview);
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
-            }
-        });
-    }
-
-    function ajaxHashtag() {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/restaurant/selectHashtag',
-            type: 'GET',
-            data: {
-                resNo: ${restaurantDetail.resNo}
-            },
-            success: function (data) {
-                // hashtag....
             }
         });
     }
@@ -294,6 +267,7 @@
             formData.append("files", files[i])
         }
 
+
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/insertReview',
             type: 'POST',
@@ -301,7 +275,6 @@
             contentType: false,
             processData: false,
             success: () => {
-                ajaxHashtag();
                 selectReviewList();
             },
             error: function () {
@@ -310,7 +283,8 @@
         });
     }
 
-    // 리뷰 해시태그 최대 선택 개수 제한
+
+
     $('input:checkbox[name=chk_hashtag]').click(function(){
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if(cntEPT>3){
@@ -318,6 +292,8 @@
             $(this).prop('checked', false);
         }
     });
+
+
 
     // 관리자 - 리뷰삭제
     function deleteReview(button){
@@ -334,7 +310,6 @@
             }
         });
     }
-
 </script>
 
 

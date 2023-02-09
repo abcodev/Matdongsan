@@ -21,7 +21,7 @@
     <div id="userimg">
         <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
     </div>
-    <form action="${pageContext.request.contextPath}/updateMember" method="post">
+    <form action="${pageContext.request.contextPath}/updateMember" method="post" name="form_name">
         <div class="form">
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">

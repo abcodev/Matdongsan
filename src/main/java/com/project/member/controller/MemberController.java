@@ -55,6 +55,7 @@ public class MemberController {
             Member updateMember = memberService.loginMember(m);
 
             session.setAttribute("loginUser", updateMember);
+            session.removeAttribute("loginUser");
             model.addAttribute("alertMsg","회원정보 수정 성공");
             return "redirect:/myPage";
         } else {

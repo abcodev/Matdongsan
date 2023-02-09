@@ -3,28 +3,55 @@
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-div{
-    border: 2px solid black;
+#content{
+    width: 100%;
+    height: 100%;
+    padding: 60px 250px 5px 250px;;
 }
+
 #info_box{
     display: flex;
-    height: 200px;
-    padding: 5px 300px 5px 300px;
+    height: 220px;
+    margin: 50px 100px 0 100px;
+    border: #beb0d0 2px solid;
+    border-radius: 3px;
+    padding: 10px;
 }
 
-#userimg{
+#user_img{
     width: 20%;
     text-align: center;
-    padding-top: 30px;
 }
 
-#userimg > img{
-    width: 100px;
-    height: 100px;
+#user_img > img{
+    width: 98%;
+    height: 100%;
+    border-radius: 3%;
 }
 
 #userInfo{
     width: 65%;
+    padding-left: 30px;
+}
+
+#userInfo span{
+    font-size: 18px;
+    font-weight: 450;
+    width: 70px;
+    display: inline-block;
+    color: black;
+}
+
+#userInfo td:not(span){
+    font-size: 15px;
+    font-weight: 410;
+    color: #3d3d3d;
+}
+
+#userInfo table{
+    width: 100%;
+    height: 75%;
+    margin-top: 20px;
 }
 
 #btn_box{
@@ -33,26 +60,195 @@ div{
 }
 
 #btn_box > button {
-    width:100%;
-    height: 45px;
+    width:90%;
+    height: 35px;
+    margin-bottom: 25px;
+    cursor: pointer;
+    font-weight: 420;
+    font-size: 16px;
+    border: none;
+    background-color: rgba(227, 221, 238, 0.5);
+    color: #213048;
+    border-radius: 3px;
+}
+
+#btn_box > button:hover{
+    color: #eeeeee;
+    background-color: rgba(86, 99, 146, 0.5);
+}
+#btn_box > button a:hover{
+    color: #eeeeee;
+}
+
+#btn_box > button a{
+    text-decoration: none;
+    color: #213048;
+}
+
+#like{
+    margin-top: 40px;
+    padding: 0 50px;
+    width: 100%;
+}
+
+.like_list_top{
+    font-weight: 450;
+    font-size: 20px;
+    color: #3d3d3d;
+    width: 100%;
+}
+
+.like_list{
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 930px;
+    height: 200px;
+    margin: 15px 0 30px 0;
+    flex-basis: 250px;
+    padding-top: 10px;
+}
+
+.like_list::-webkit-scrollbar
+{
+    height: 10px;
+    width: 3px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.like_list::-webkit-scrollbar-thumb
+{
+    background-color: rgba(231, 68, 100, 0.4);
+    border-radius: 10px;
+    width: 30px;
+}
+
+.like_list > #heart{
+    height: auto;
+    margin: 10px;
+    text-align: center;
+}
+
+#heart > label,
+#heart > div{
+    width: 178px;
+}
+
+#heart > label > .fa-heart{
+    font-size: 80px;
+    cursor: pointer;
     margin-bottom: 10px;
 }
 
-#like , #myBoard{
-    padding: 5px 300px 5px 300px;
+#heart > input[type=checkbox]{
+    display: none;
 }
 
-#likeList{
-    height: 220px;
+#heart > label > .fa-heart:hover{
+    color: #E0E0E0;
+}
+#heart > label > .fa-heart :hover ~ label{
+    color: #E0E0E0;
+}
+
+#heart > input[type=checkbox]:checked ~ label{
+    color: #e74464;
+}
+
+.bldg_name{
+    font-size: 16px;
+    font-weight: 420;
+    height: 30px;
+    margin-top: 15px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+#history_list{
     display: flex;
+    padding: 0 50px;
+    height: 300px;
+    margin-top: 50px;
 }
 
-.likeInfo{
-    width: 20%;
+.board_history{
+    width: 50%;
+}
+
+.review_history{
+    width: 50%;
+    padding-left: 20px;
+}
+
+.board_history > p,
+.review_history > p{
+    font-weight: 450;
+    font-size: 17px;
+    color: #3d3d3d;
 }
 
 #myBoardList{
+    margin-top: 10px;
+    width: 100%;
+}
+
+#myBoardList > table{
+    width: 100%;
+}
+
+#myBoardList th:first-child,
+#myBoardList td:first-child{
+    width: 20%;
+    padding: 0 7px;
+}
+
+#myBoardList th:nth-child(2),
+#myBoardList td:nth-child(2){
+    width: 50%;
+    padding: 0 7px;
+}
+
+#myBoardList th:nth-child(3),
+#myBoardList td:nth-child(3){
+    width: 30%;
+    padding: 0 7px;
+}
+
+#myBoardList th{
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 3;
+}
+
+.myBoard_info{
+    height: 45px;
+    font-size: 15px;
+    cursor: pointer;
+    border-collapse: collapse
+}
+
+.myBoard_info:hover{
+    color: #566392;
+    font-weight: 450;
+}
+
+.review_history{
+    border-left: #a4a4a4 3px dashed;
+}
+
+.reserve_history{
+    margin-top: 40px;
+    padding: 0 50px;;
+    width: 100%;
     height: 300px;
+}
+
+.reserve_history > p{
+    font-size: 19px;
+    font-weight: 410;
+    color: #3d3d3d;
 }
 
 #paging{

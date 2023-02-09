@@ -34,6 +34,8 @@
         <typeAlias type="com.project.member.dto.MemberInterestDto" alias="memberInterest"/>
         <typeAlias type="com.project.member.dto.AllBoard" alias="allBoard"/>
         <typeAlias type="com.project.board.vo.HotWeek" alias="hotWeek"/>
+        <typeAlias type="com.project.realestate.dto.RealEstateMainListDto" alias="RealEstateMainListDto"/>
+        <typeAlias type="com.project.realestate.dto.RealEstateViewDto" alias="RealEstateViewDto"/>
     </typeAliases>
 
     <mappers>
@@ -49,6 +51,7 @@
         <mapper resource="/mappers/chat-mapper.xml"/>
         <mapper resource="/mappers/alarm-mapper.xml"/>
         <mapper resource="/mappers/admin-mapper.xml"/>
+        <mapper resource="/mappers/reservation-mapper.xml"/>
     </mappers>
 
 </configuration>

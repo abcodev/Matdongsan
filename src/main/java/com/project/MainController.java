@@ -1,9 +1,11 @@
 package com.project;
 
 import com.project.member.vo.Member;
+import com.google.gson.Gson;
+import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
+import com.project.realestate.dto.RealEstateViewDto;
 import com.project.realestate.service.RealEstateService;
-import com.project.realestate.vo.Interest;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,9 +42,7 @@ public class MainController {
 
     @RequestMapping(value = "/mainPage")
     public String mainPage(Model model, HttpSession session) throws IOException {
-
         String url = "https://land.naver.com/news/region.naver?page=1";
-
         Document doc = Jsoup.connect(url).get();
 
         Elements e1 = doc.getElementsByAttributeValue("class", "section_headline");
@@ -72,21 +73,25 @@ public class MainController {
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
-            // TODO : EstateNo 들로 이루어진 리스트 -> RealEstateSell & RealEstateRent Entity 객체로 바꿔서
-            // TODO : ~~ 에 대한 DTO 를 만들어야함
-            // in (1, 2, 3, 4, 5)
-            // List<~~> recentList = realEstateService.selectListIn(recentEstateNoList);
-//            model.addAttribute("recentList", recentList);
-//            model.addAttribute("mostInterest", List.of());
+            // 3, 2, 1, 4, 5
+            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
+            // 1, 2, 3, 4, 5
+            model.addAttribute("recentViewList", recentViewList);
+            model.addAttribute("interestViewList", Collections.emptyList());
         } else {
-            List<String> mostInterestEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
-            // List<~~> mostInterestList = realEstateService.selectListIn(mostInterestEstateNoList);
-//            model.addAttribute("recentList", List.of());
-//            model.addAttribute("mostInterest", mostInterestList);
+            List<String> interestEstateNoList = List.of("30001", "30002");
+            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
+            model.addAttribute("recentViewList", Collections.emptyList());
+            model.addAttribute("interestViewList", interestViewList);
         }
 
         model.addAttribute("newsList", newsList);
-        model.addAttribute("sellList", sellList);
+        Gson gson = new Gson();
+        String sellList2 = gson.toJson(sellList);
+
+        model.addAttribute("sellList2",sellList2);
+//        model.addAttribute("sellList", sellList);
+
         return "common/mainPage";
     }
 

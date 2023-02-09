@@ -24,6 +24,7 @@
     window.onload = () => {
         retrieveRealEstate(1)
         getMap()
+        basicChart()
     }
 
     function retrieveRealEstate(current_page) {
@@ -207,24 +208,113 @@
 </script>
 
 <script>
-    function showChart(feeAvg){
-        var rentFee = $('#selectOption1 option:checked').val() + " 전세 가격";
-        var sellFee = $('#selectOption1 option:checked').val() + " 매매 가격";
+
+    function basicChart(){
+        var rentAvg = ${seoulAvg.totalRentAvg};
+        var sellAvg = ${seoulAvg.totalSellAvg};
 
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
-            // type : 'bar' = 막대차트를 의미합니다.
-            type: 'bar', //
+            type: 'bar',
             data: {
-                labels: ['서울시 전세가격','서울시 매매 가격', rentFee, sellFee],
+                labels: ['전세가격','매매가격'],
                 datasets: [{
-                    label: '평균 가격',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [feeAvg.totalRentAvg, feeAvg.totalSellAvg, feeAvg.rentAvg, feeAvg.sellAvg]
+                    label: '서울시 평균 가격(만원)',
+                    backgroundColor: [
+                        'rgba(133,145,238,0.32)',
+                        'rgba(243,144,165,0.39)'
+                    ],
+                    borderColor: [
+                        'rgb(133,145,238)',
+                        'rgb(243,144,165)'
+                    ],
+                    data: [rentAvg ,sellAvg],
+                    borderWidth: 1
                 }]
             },
+            options : {
+                scale: {
+                    y: {
+                        afterDataLimits: (scale) => {
+                            // y축의 최대값은 데이터의 최대값에 딱 맞춰져서 그려지므로
+                            // y축 위쪽 여유공간이 없어 좀 답답한 느낌이 들 수 있는데요,
+                            // 이와 같이 afterDataLimits 콜백을 사용하여 y축의 최대값을 좀 더 여유있게 지정할 수 있습니다!
+                            scale.max = scale.max * 1.1;
+                        },
+                        axis: 'y', // 이 축이 y축임을 명시해줍니다.
+                        display: true, // 축의 가시성 여부도 설정할 수 있습니다.
+                        position: 'left',
+                        scaleLabel: {
+                            display: true,
+                            labelString: "만원"
+                        }
+                    }
+                }
+            }
         });
+    }
+
+
+    function showChart(feeAvg){
+        $("canvas#myChart").remove();
+        $("div.estate_table").append('<canvas id="myChart"></canvas>');
+
+        var rentFee = $('#selectOption1 option:checked').val();
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var chart = new Chart(ctx, {
+            // type : 'bar' = 막대차트를 의미합니다.
+            type: 'bar',
+            data: {
+                labels: ['평균 전세가격','평균 매매 가격'],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: '서울시',
+                        backgroundColor: 'rgba(133,145,238,0.32)',
+                        data: [feeAvg.totalRentAvg, feeAvg.totalSellAvg],
+                        borderColor: 'rgb(133,145,238)',
+                        borderWidth: 1,
+                    },
+                    {
+                        type: 'bar',
+                        label: rentFee,
+                        backgroundColor: 'rgba(243,144,165,0.39)',
+                        data: [feeAvg.rentAvg, feeAvg.sellAvg],
+                        borderColor: 'rgb(243,144,165)',
+                        borderWidth: 1
+                    }]
+            },
+            options : {
+                scale : {
+                    y:{afterDataLimits: (scale) => {
+                            // y축의 최대값은 데이터의 최대값에 딱 맞춰져서 그려지므로
+                            // y축 위쪽 여유공간이 없어 좀 답답한 느낌이 들 수 있는데요,
+                            // 이와 같이 afterDataLimits 콜백을 사용하여 y축의 최대값을 좀 더 여유있게 지정할 수 있습니다!
+                            scale.max = scale.max * 1.1;
+                        },
+                        axis: 'y', // 이 축이 y축임을 명시해줍니다.
+                        display: true, // 축의 가시성 여부도 설정할 수 있습니다.
+                        position: 'left',
+                        scaleLabel: {
+                            display: true,
+                            labelString: "만원"
+                        }
+                    }
+                },
+                tooltip : {
+                    callbacks: {
+                        label: function (tooltipItem, data){
+                            var label = data.labels[tooltipItem.index] + '만원';
+                            return label;
+                        }
+                    }
+
+                }
+            }
+        });
+
     }
 </script>
 
@@ -331,15 +421,9 @@
                     });
 
                     var content = '<div class="wrap">' +
-                        '    <div class="info">' +
-                        '           <div class="title">' +
                         '               <div class="bldgNm">'+ buildName[index]+ '아파트' + '</div>'+
-                        '                <div class="close" id="overlay-btn'+index+'" title="닫기"></div>' +
-                        '           </div>' +
-                        '            <div class="desc">' +
-                        '            </div>' +
-                        '        </div>' +
-                        '    </div>';
+                        '           </div>'
+
 
                     // 마커 위에 커스텀오버레이를 표시합니다
                     // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다

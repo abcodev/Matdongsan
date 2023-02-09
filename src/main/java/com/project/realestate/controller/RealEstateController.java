@@ -4,22 +4,23 @@ import com.google.gson.Gson;
 import com.project.board.vo.FreeBoard;
 import com.project.common.type.StateList;
 import com.project.member.vo.Member;
-import com.project.realestate.dto.RealEstateDetailDto;
-import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.dto.RealEstateRentListRequest;
-import com.project.realestate.dto.RealEstateRentListResponse;
+import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.JSONParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,10 @@ public class RealEstateController {
 
     @RequestMapping
     public String realEstatePage(Model model) {
-        model.addAttribute("localList", StateList.values());
+        RealEstateRent seoulAvg = realEstateService.basicChart();
+
+        model.addAttribute("localList",StateList.values());
+        model.addAttribute("seoulAvg", seoulAvg);
         return "realestate/realestateList";
     }
 
@@ -78,10 +82,9 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType,
+                                       ModelAndView modelAndView
     ) {
-        ModelAndView modelAndView = new ModelAndView();
-
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
         List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
@@ -144,4 +147,6 @@ public class RealEstateController {
         realEstateService.saveInterest(req, loginUser);
         return ResponseEntity.ok().build();
     }
+
+
 }

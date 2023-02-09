@@ -3,6 +3,7 @@ package com.project.restaurant.controller;
 import com.project.board.vo.Reply;
 import com.project.member.vo.Member;
 import com.project.restaurant.dto.InsertReviewRequest;
+import com.project.restaurant.dto.RestaurantReviewResponse;
 import com.project.restaurant.dto.ReviewResponse;
 import com.project.restaurant.service.RestaurantService;
 import com.project.restaurant.service.ReviewService;
@@ -39,9 +40,10 @@ public class ReviewController {
 
     @RequestMapping("/restaurant/selectReview")
     @ResponseBody
-    public ResponseEntity<List<ReviewResponse>> selectReviewList(String resNo) {
-        List<ReviewResponse> list = reviewService.selectReviewList(resNo);
-        return ResponseEntity.ok(list);
+    public ResponseEntity<RestaurantReviewResponse> selectReviewList(String resNo) {
+        List<ReviewResponse> reviewList = reviewService.selectReviewList(resNo);
+        List<String> hashtagList = reviewService.selectReviewHashtagTop2(resNo);
+        return ResponseEntity.ok(new RestaurantReviewResponse(reviewList, hashtagList));
     }
 
     @DeleteMapping("/restaurant/review/{reviewNo}")

@@ -4,20 +4,22 @@ import com.project.board.vo.FreeBoard;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.vo.Member;
 import com.project.realestate.dao.InterestEstateDao;
+import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
-import com.project.realestate.dao.RealEstateDao;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RealEstateServiceImpl implements RealEstateService{
+public class RealEstateServiceImpl implements RealEstateService {
 
     private static final int DEFAULT_BOARD_SIZE = 10;
     private final RealEstateDao realEstateDao;
@@ -25,7 +27,7 @@ public class RealEstateServiceImpl implements RealEstateService{
     private final SqlSession sqlSession;
 
     @Override
-    public int selectListCount(){
+    public int selectListCount() {
         return realEstateDao.selectListCount(sqlSession);
     }
 
@@ -46,7 +48,7 @@ public class RealEstateServiceImpl implements RealEstateService{
      * 자치 구 리스트
      */
     @Override
-    public List<RealEstateRent> searchLocalList(){
+    public List<RealEstateRent> searchLocalList() {
         return realEstateDao.searchLocalList(sqlSession);
     }
 
@@ -54,7 +56,7 @@ public class RealEstateServiceImpl implements RealEstateService{
      * 동 리스트
      */
     @Override
-    public List<RealEstateRent> searchDongList(String state){
+    public List<RealEstateRent> searchDongList(String state) {
         return realEstateDao.searchDongList(sqlSession, state);
     }
 
@@ -67,16 +69,28 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     /**
-    * 부동산 해당 구의 자유게시판글
-    */
+     * 부동산 해당 구의 자유게시판글
+     */
     @Override
-    public List<FreeBoard> selectFboard(String state){ return realEstateDao.selectFboard(sqlSession, state); }
+    public List<FreeBoard> selectFboard(String state) {
+        return realEstateDao.selectFboard(sqlSession, state);
+    }
 
     /**
      * 전세, 매매 평균값
      */
     @Override
-    public RealEstateRent chartList(String state){ return realEstateDao.chartList(sqlSession, state); }
+    public RealEstateRent chartList(String state) {
+        return realEstateDao.chartList(sqlSession, state);
+    }
+
+    /**
+     * 서울시 전세, 매매 평균
+     */
+    @Override
+    public RealEstateRent basicChart() {
+        return realEstateDao.basicChart(sqlSession);
+    }
 
     @Override
     public RealEstateDetailDto realEstateDetail(String estateNo) {
@@ -113,6 +127,14 @@ public class RealEstateServiceImpl implements RealEstateService{
         return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
     }
 
-
-
+    @Override
+    public List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList) {
+        if (recentEstateNoList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return recentEstateNoList.stream().map(estateNo -> {
+            RealEstateDetailDto detail = this.realEstateDetail(estateNo);
+            return RealEstateViewDto.of(detail);
+        }).map(RealEstateViewDto.class::cast).collect(Collectors.toList());
+    }
 }

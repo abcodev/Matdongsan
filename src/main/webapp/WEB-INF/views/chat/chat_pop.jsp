@@ -17,7 +17,6 @@
 </head>
 <body>
 <div class="floating-chat">
-
   <div id="chat-circle" class="btn btn-raised">
     <i class="fa-regular fa-comments"></i><p>1:1문의</p>
   </div>

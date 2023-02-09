@@ -28,4 +28,8 @@ public class ResHashtagDao {
     public void deleteByRevNo(int revNo) {
         sqlSession.delete("resHashtagMapper.deleteByRevNo", revNo);
     }
+
+    public List<String> selectTop2ByReview(String resNo) {
+        return sqlSession.selectList("resHashtagMapper.resHashtagByReview", resNo);
+    }
 }

@@ -18,7 +18,7 @@
 <body>
 <div id="content">
     <div id="login_head">
-        <h2>소셜로그인</h2>
+        <h2>회원 소셜로그인</h2>
     </div>
     <div id="login_body">
         <div class="login kakao">

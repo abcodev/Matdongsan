@@ -6,11 +6,8 @@ import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
-import com.project.realestate.vo.RealEstateSell;
-import com.project.restaurant.vo.Restaurant;
 
 import java.util.List;
-import java.util.Map;
 
 public interface RealEstateService {
 
@@ -19,6 +16,8 @@ public interface RealEstateService {
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req);
 
     public List<FreeBoard> selectFboard(String state);
+
+    public RealEstateRent basicChart();
 
     public RealEstateRent chartList(String state);
 
@@ -44,4 +43,6 @@ public interface RealEstateService {
     List<Interest> getMostInterest();
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
+
+    List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList);
 }
