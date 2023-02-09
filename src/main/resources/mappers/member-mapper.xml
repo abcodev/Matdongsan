@@ -173,7 +173,7 @@
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
-        ORDER BY BOARD_DATE
+        ORDER BY BOARD_DATE DESC
     </select>
 
     <select id="selectAllBoardCount" resultType="int">

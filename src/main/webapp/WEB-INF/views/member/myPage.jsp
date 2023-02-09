@@ -27,24 +27,11 @@
                 'isInterest': $('#checkbox_heart' + estateNo).is(':checked')
             }),
             success() {
-                console.log(estateNo);
-
-                var cancle = confirm("찜 해제 하시겠습니까?");
-                if(cancle == true){
-                    alert("찜 해제 되었습니다.");
-                }else if(cancle == false){
-                    alert("취소 되었습니다.");
-                }
-
+                alert("관심목록이 해지되었습니다.")
                 location.reload();
             }
 
         });
-        // if(!confirm("찜 해제 하시겠습니까?")){
-        //     alert("취소되었습니다.");
-        // }else{
-        //     alert("찜 해제 되었습니다.");
-        // }
     }
 </script>
 
@@ -83,7 +70,6 @@
         </div>
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
-<%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
         </div>
     </div>
@@ -103,37 +89,37 @@
             </c:forEach>
         </div>
     </div>
-    <div id="myBoard">
-        <h4>내 게시글 보기</h4>
-        <div id="myBoardList">
-            <table>
-                <tr>
-                    <th>게시글 번호</th>
-                    <th>게시글 제목</th>
-                    <th>게시일</th>
-                </tr>
-
-
-                    <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <tr class="myBoard_info" onclick="moveDetail();">
-                            <script>
-                                function moveDetail(){
-                                    if(${selectAllBoardList.boardType eq 'F'}){
-                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
-                                    }else{
-                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+    <div id="history_list">
+        <div class="board_history">
+            <h4>내 게시글 보기</h4>
+            <div id="myBoardList">
+                <table>
+                    <tr>
+                        <th>게시판</th>
+                        <th>게시글 제목</th>
+                        <th>게시일</th>
+                    </tr>
+                        <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
+                            <tr class="myBoard_info" onclick="moveDetail();">
+                                <script>
+                                    function moveDetail(){
+                                        if(${selectAllBoardList.boardType eq 'F'}){
+                                            location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
+                                        }else{
+                                            location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+                                        }
                                     }
-                                }
-                            </script>
-                            <td>${selectAllBoardList.boardNo}</td>
-                            <td>${selectAllBoardList.boardTitle}</td>
-                            <td>${selectAllBoardList.boardDate}</td>
-                            <td>${selectAllBoardList.boardType}</td>
-                        </tr>
-                    </c:forEach>
-
-
-            </table>
+                                </script>
+                                <td>${selectAllBoardList.boardType}</td>
+                                <td>${selectAllBoardList.boardTitle}</td>
+                                <td>${selectAllBoardList.boardDate}</td>
+                            </tr>
+                        </c:forEach>
+                </table>
+            </div>
+        </div>
+        <div class="reserve_history">
+            <p>부동산 예약 내역</p>
         </div>
     </div>
 
@@ -169,11 +155,11 @@
 
     function deleteMember() {
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-        if(deleteMember == true){
+        if(deleteMember === true){
             location.href = '${pageContext.request.contextPath}/delete';
             alert("그동안 맛동산을 이용해주셔서 감사합니다.");
         }
-        else if(deleteMember == false){
+        else if(deleteMember === false){
         }
     }
 

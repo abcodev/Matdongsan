@@ -118,9 +118,19 @@
                 }
             });
         }
-    </script>
-</header>
 
+    </script>
+
+    <script>
+        if(${loginUser.grade == 'GENERAL'}){
+            alert('회원정보 입력&수정 후 이용해주세요.');
+            window.location = '${pageContext.request.contextPath}/memberModify';
+        }
+
+    </script>
+
+
+</header>
 
 <div class="map">
     <div class="mapImg">
