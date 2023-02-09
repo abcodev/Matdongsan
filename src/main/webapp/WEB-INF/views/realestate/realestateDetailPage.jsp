@@ -12,20 +12,6 @@
     <%@ include file ="../template/header.jsp" %>
 </head>
 <body>
-<script>
-    <%--window.onload = () => {--%>
-    <%--    $.ajax({--%>
-    <%--        url: '${pageContext.request.contextPath}/realEstate/detail/interest',--%>
-    <%--        method: 'GET',--%>
-    <%--        data: {--%>
-    <%--            'estateNo': ${realEstateDetail.estateNo}--%>
-    <%--        },--%>
-    <%--            success(data) {--%>
-    <%--            $('#checkbox_heart').prop("checked", data);--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--}--%>
-</script>
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -144,20 +130,20 @@
                             <div class="info name">
                                 <i class="fa-solid fa-check"></i>
                                 <span>이름</span>
-                                <input id="memberName" type="text" value="" required="required">
+                                <input class="rm_input" id="memberName" type="text" value="" required="required">
                             </div>
                             <div class="info phone">
                                 <i class="fa-solid fa-check"></i>
                                 <span>전화번호</span>
-                                <input id="telephone" type="text" value="" required="required">
+                                <input class="rm_input" id="telephone" type="text" value="" required="required">
                             </div>
                             <div class="info mail">
                                 <span>이메일</span>
-                                <input id="email" type="email" value="">
+                                <input class="rm_input" id="email" type="email" value="">
                             </div>
                             <div class="info message">
                                 <span>요청사항</span>
-                                <textarea id="requestText" placeholder="업체에 요청하실 내용을 적어주세요"></textarea>
+                                <textarea class="rm_input" id="requestText" placeholder="업체에 요청하실 내용을 적어주세요"></textarea>
                             </div>
                         </div>
                         <div class="info_table_foot">
@@ -219,8 +205,6 @@
                         map.setCenter(coords);
                     }
                 });
-
-
 
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
                 var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
@@ -301,16 +285,20 @@
         //     document.querySelector('.black_bg').style.display = 'block';
         // }
 
-        function offClick() {
-            document.querySelector('.modal_wrap').style.display = 'none';
-            document.querySelector('.black_bg').style.display = 'none';
-        }
+
 
         // document.querySelector('.rno').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
     };
+
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display = 'none';
+        document.querySelector('.black_bg').style.display = 'none';
+        $(".rm_input").val("");
+        reservationDate="";
+    }
 
     let reservationDate = "";
 
@@ -358,7 +346,6 @@
         if(day <10){
             day = "0"+day;
         }
-
         reservationDate = year + '-'+month + '-' + day;
     }
 
@@ -385,19 +372,18 @@
         let requestText = $('#requestText').val();
 
         // required 검사
-        if(memberName == "") {
-            alert("아이디를 입력해주세요")
+        if(reservationDate == "") {
+            alert("날짜를 입력해주세요")
+            return false;
+        }else if(memberName == ""){
+            alert("이름을 입력해주세요")
             $('#memberName').focus();
             return false;
         }else if(phone == ""){
             alert("휴대폰번호를 입력해주세요")
             $('#telephone').focus();
             return false;
-        }else if(reservationDate == ""){
-            alert("날짜를 입력해주세요")
-            return false;
         }else{
-
         const formData = new FormData();
         formData.append("agentNo",resercationAgentNo)
         formData.append("memberName",memberName);
@@ -415,7 +401,10 @@
             processData : false,
             contentType: false,
             success : () => {
-                console.log("예약 성공!")
+                console.log("예약 성공!");
+                alert("예약에 성공하였습니다.");
+                offClick();
+
             },
             error : () => {
                 console.log("예약등록에 실패!")
