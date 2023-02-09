@@ -22,7 +22,9 @@ public class Admin {
     private String reportType;
     private String nickName;
     private Timestamp reportDate;
-    private String reportPeriod;
+    private String qStatus;
+    private String fStatus;
+
 
 
 

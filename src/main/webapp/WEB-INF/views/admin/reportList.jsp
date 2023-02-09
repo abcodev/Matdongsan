@@ -41,11 +41,18 @@
             <tr>
                 <td>${rl.reportType}</td>
                 <td>${rl.reportNo}</td>
+                <td>${rl.reportEmail}</td>
                 <td>${rl.email}</td>
-                <td>${rl.boardWriter}</td>
                 <td>${rl.reportContent}</td>
                 <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
-                <td><button type="button" class="btn22" id="add-btn"  data-no="${rl.FNo}" data-type='${rl.reportType}')>처리중</button></td>
+                <c:choose>
+                <c:when test="${rl.QStatus or rl.FStatus == 'Y' }">
+                <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
+                </c:when>
+                <c:otherwise>
+                    <td><button type="button" class="add-btn" id="btnClose"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리완료</button></td>
+                </c:otherwise>
+                </c:choose>
                 <td><select id="reportPeriod" name="reportPeriod">
                 <option>정지기간선택</option>
                 <option value="three">3일정지</option>
@@ -159,7 +166,7 @@
 
 
     /* 모달*/
-   $(document).on('click', '#add-btn', function (e) {
+   $(document).on('click', '.add-btn', function (e) {
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
@@ -193,7 +200,6 @@
         if(rType === '질문게시판'){
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +fNo;
             alert("질문게시판 삭제처리 완료")
-
 
         }else{
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+fNo;

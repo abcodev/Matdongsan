@@ -48,9 +48,11 @@ public class QnaBoardController {
     /*게시글 작성페이지*/
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     public String insertBoard(
-            ModelAndView mv
-
+            ModelAndView mv,
+            HttpSession session
     ) {
+        Member m = (Member) session.getAttribute("loginUser");
+        logger.info("session insert :"+m);
         return "board/qnaInsertBoard";
     }
 
@@ -74,9 +76,7 @@ public class QnaBoardController {
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
-
-
-
+            HttpSession session,
             ModelAndView mv
     ) {
         mv.setViewName("board/qnaInsertAnswer");
@@ -84,6 +84,7 @@ public class QnaBoardController {
         mv.addObject("depth", depth);
         mv.addObject("pBno", parentBno);
         mv.addObject("qBno", qBno);
+        Member m = (Member) session.getAttribute("loginUser");
         return mv;
     }
 
@@ -95,14 +96,16 @@ public class QnaBoardController {
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
-            @ModelAttribute("loginUser") Member loginUser,
+            @RequestParam(value = "reporter") String reporter,
             HttpSession session,
             Model model, QnaBoard qb
     ) {
         Member m = (Member) session.getAttribute("loginUser");
-        loginUser.getMemberNo();
+
+
         qb.setDepth(qb.getDepth() + 1);
         qb.setParentBno(Integer.parseInt(qBno));
+        qb.setMemberNo(Integer.parseInt(reporter));
         int answer = boardService.insertAnswer(qb);
         model.addAttribute("qb", qb);
         return "redirect:/board/qnaList";
@@ -112,11 +115,12 @@ public class QnaBoardController {
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(
             @PathVariable("qBno") int qBno,
-            @ModelAttribute("loginUser") Member loginUser,
             HttpSession session,
             ModelAndView mv
     ) {
+        Member m = (Member) session.getAttribute("loginUser");
 
+        logger.info("session Detail:"+m);
         QnaBoard qb = boardService.selectQboard(qBno);
         List<QnaBoard> ab = boardService.selectAnswer(qBno);
 
