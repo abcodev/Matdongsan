@@ -77,9 +77,10 @@
             </c:forEach>
         </div>
     </div>
+
     <div id="history_list">
         <div class="board_history">
-            <p>내 게시글 보기</p>
+            <h4>내 게시글 보기</h4>
             <div id="myBoardList">
                 <table>
                     <tr>
@@ -88,8 +89,16 @@
                         <th>게시일</th>
                     </tr>
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <tr class="myBoard_info"
-                            onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
+                        <tr class="myBoard_info" onclick="moveDetail();">
+                            <script>
+                                function moveDetail(){
+                                    if(${selectAllBoardList.boardType eq 'F'}){
+                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
+                                    }else{
+                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+                                    }
+                                }
+                            </script>
                             <td>${selectAllBoardList.boardType}</td>
                             <td>${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>

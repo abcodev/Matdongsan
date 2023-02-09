@@ -164,6 +164,7 @@
         WHERE M.MEMBER_NO = #{memberNo}
 
         UNION ALL
+
         SELECT
             Q.QNA_BNO,
             Q.QNA_TITLE,
@@ -172,6 +173,7 @@
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
+        ORDER BY BOARD_DATE DESC
     </select>
 
     <select id="selectAllBoardCount" resultType="int">
@@ -203,12 +205,12 @@
         DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </delete>
 
-<!--    <select id="selectInterestList" parameterType="String" resultMap="interestList">-->
-<!--        SELECT-->
-<!--            I.ESTATE_NO,-->
-<!--            RS.BLDG_NM,-->
-<!--            RS.SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS-->
-<!--        FROM INTEREST I-->
-<!--        JOIN REALESTATE_SELL RS on I.ESTATE_NO = RS.ESTATE_NO-->
-<!--    </select>-->
+    <!--    <select id="selectInterestList" parameterType="String" resultMap="interestList">-->
+    <!--        SELECT-->
+    <!--            I.ESTATE_NO,-->
+    <!--            RS.BLDG_NM,-->
+    <!--            RS.SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS-->
+    <!--        FROM INTEREST I-->
+    <!--        JOIN REALESTATE_SELL RS on I.ESTATE_NO = RS.ESTATE_NO-->
+    <!--    </select>-->
 </mapper>
