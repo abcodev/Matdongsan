@@ -11,6 +11,7 @@ public class Report {
     private int reporter; // 신고자
     private String reportContent; // 신고 사유
     private String reportType;
+    private int fNo;
 
 
 }

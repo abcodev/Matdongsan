@@ -74,9 +74,13 @@ public class QnaBoardController {
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
+
+
+
             ModelAndView mv
     ) {
         mv.setViewName("board/qnaInsertAnswer");
+
         mv.addObject("depth", depth);
         mv.addObject("pBno", parentBno);
         mv.addObject("qBno", qBno);
@@ -91,8 +95,12 @@ public class QnaBoardController {
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
+            @ModelAttribute("loginUser") Member loginUser,
+            HttpSession session,
             Model model, QnaBoard qb
     ) {
+        Member m = (Member) session.getAttribute("loginUser");
+        loginUser.getMemberNo();
         qb.setDepth(qb.getDepth() + 1);
         qb.setParentBno(Integer.parseInt(qBno));
         int answer = boardService.insertAnswer(qb);
@@ -110,7 +118,6 @@ public class QnaBoardController {
     ) {
 
         QnaBoard qb = boardService.selectQboard(qBno);
-
         List<QnaBoard> ab = boardService.selectAnswer(qBno);
 
         int result = boardService.increaseCount(qBno);
