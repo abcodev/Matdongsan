@@ -268,6 +268,7 @@
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
 
+        // agentNo 를 가지고 서버호출을 하는 코드는 여기에 넣으면 될듯
     }
 
     window.onload = function () {
@@ -297,6 +298,7 @@
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
+        selectReviewList();
     };
 
     let reservationDate = "";
@@ -325,7 +327,7 @@
 
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
-            htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
+            // htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
         }
 
         // 다음달 날짜 표시하기

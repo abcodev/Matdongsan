@@ -164,12 +164,12 @@
 }
 
 .realtor_name{
-    padding: 15px 0 0 150px;
     width: 42%;
     font-size: 24px;
     font-weight: 500;
     color: #566392;
-    letter-spacing: 2px;
+    text-align: center;
+    padding: 10px 0 0 5px;
 }
 
 .modal_close {
