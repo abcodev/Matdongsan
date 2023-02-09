@@ -35,17 +35,6 @@
     }
 </script>
 
-<script>
-    $(document).ready(function () {
-        $("#checkbox_heart").change(function () {
-            if ($($(this)).is(".checked")) {
-                console.log("체크");
-            } else {
-                console.log("해제");
-            }
-        })
-    })
-</script>
 <div id="content">
     <div id="info_box">
         <div id="user_img">

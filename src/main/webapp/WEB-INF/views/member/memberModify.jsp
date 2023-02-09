@@ -21,7 +21,7 @@
     <div id="userimg">
         <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
     </div>
-    <form action="${pageContext.request.contextPath}/updateMember" method="post">
+    <form action="${pageContext.request.contextPath}/updateMember" method="post" name="form_name">
         <div class="form">
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">
@@ -69,10 +69,17 @@
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit">수정</button>
+                <button id="submit" type="submit">수정</button>
             </div>
     </form>
 </div>
+<script>
+    $(document).ready(function(){
+        document.getElementById("submit").onclick = function (){
+            document.form_name.submit();
+        }
+    });
+</script>
 
 <script>
     $(function(){
