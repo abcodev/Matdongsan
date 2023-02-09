@@ -38,6 +38,10 @@ public class FreeBoardDao {
         return sqlSession.selectList("freeBoardMapper.selectFreeList",filter,rowBounds);
     }
 
+    public List<Report> selectReportList(SqlSession sqlSession){
+        return sqlSession.selectList("freeBoardMapper.selectReportList");
+    }
+
     public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){
         return sqlSession.selectOne("freeBoardMapper.detailFreeBoard", fno);
     }

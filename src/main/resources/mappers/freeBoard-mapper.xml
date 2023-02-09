@@ -72,7 +72,6 @@
         </if>
     </select>
 
-
     <select id="selectFreeList" parameterType="Map" resultMap="fBoardResultSet">
         SELECT  FB.*,(SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT",
         (SELECT COUNT(*) FROM REPLY R WHERE R.FREE_BNO = FB.FREE_BNO) AS "REPLY_COUNT"
@@ -106,6 +105,13 @@
             </choose>
     </select>
 
+    <select id="selectReportList" resultMap="reportResultSet">
+        SELECT F.FREE_BNO
+        FROM REPORT R
+                 LEFT JOIN FREE_BOARD F ON R.FREE_BNO = F.FREE_BNO
+        GROUP BY F.FREE_BNO
+        HAVING COUNT(F.FREE_BNO) >= 5
+    </select>
 
     <resultMap id="hotWeekResultSet" type="hotWeek">
         <result column="FREE_BNO" property="freeBno"/>

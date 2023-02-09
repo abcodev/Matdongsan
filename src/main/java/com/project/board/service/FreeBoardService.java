@@ -18,6 +18,8 @@ public interface FreeBoardService {
 
     FreeBoardListResponse selectFreeList(FreeBoardListRequest req);
 
+    public List<Report> selectReportList();
+
     public int insertFboard(FreeBoard fb);
 
     public int insertNotice(FreeBoard fb);
