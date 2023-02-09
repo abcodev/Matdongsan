@@ -18,56 +18,44 @@
 <%@ include file ="../template/header.jsp" %>
 
 <div id="content">
-    <div id="userimg">
-        <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
+    <div id="userImg">
+        <img src="${loginUser.profileImage}">
     </div>
     <form action="${pageContext.request.contextPath}/updateMember" method="post">
         <div class="form">
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">
-                <h3>닉네임</h3>
-                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}">
+                <span>닉네임</span>
+                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}" required>
                 <button>중복검사</button>
             </div>
             <div class="userinfo email">
-                <h3>이메일</h3>
-                <input type="text" id="email" name="email" value="${loginUser.email}">
+                <span>이메일</span>
+                <input type="text" id="email" name="email" value="${loginUser.email}" required>
             </div>
             <div class="userinfo phone">
-                <h3>휴대폰번호</h3>
-                <input id="phoneNumber" type="text" name="phoneNumber" value="${loginUser.phone}">
+                <span>휴대폰번호</span>
+                <input id="phoneNumber" type="text" name="phoneNumber" value="${loginUser.phone}" required>
                 <button type="button" id="phoneChk">인증받기</button><br>
-                <input id="phone2" type="text" name="phone2" placeholder="인증번호 입력해주세요">
+            </div>
+            <div class="userinfo phone2">
+                <input id="phone2" type="text" name="phone2" placeholder="인증번호를 입력해주세요">
                 <button type="button" value="인증확인" id="phoneChk2">인증확인</button>
             </div>
-<%--            <div class="userinfo adressNum">--%>
-<%--                <h3>우편번호</h3>--%>
-<%--                <input type="text" id="postCode">--%>
-<%--                <button>검색</button>--%>
-<%--            </div>--%>
-<%--            <div class="userinfo address">--%>
-<%--                <h3>주소</h3>--%>
-<%--                <input type="text" id="address" name="address" value="${loginUser.address}">--%>
-<%--            </div>--%>
-            <input type="text" id="sample6_postcode" placeholder="우편번호">
-            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample6_address" placeholder="주소"><br>
-            <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-            <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-            <div class="userinfo interest">
-                <h3>관심구</h3>
-                    <select name="interestState" id="interestState" >
-                        <option value="">전체</option>
-                        <c:forEach var="stateList" items="${stateList}">
-                            <option value="${stateList}">${stateList}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+            <div class="userinfo address">
+                <span>주소</span>
+                <input type="text" id="sample6_postcode" placeholder="우편번호">
+                <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+            </div>
+            <div class="userinfo address2">
+                <input type="text" id="sample6_address" placeholder="주소" value="${loginUser.address}" required><br>
+                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit">수정</button>
+                <button type="submit">수정하기</button>
             </div>
+        </div>
     </form>
 </div>
 
@@ -75,7 +63,7 @@
     $(function(){
     code2 = "";
         $("#phoneChk").click(function(){
-            alert('인증번호 발송이 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
+            // alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
             var phone = $("#phoneNumber").val();
             $.ajax({
                 type:"GET", // post 형식으로 발송
@@ -84,9 +72,9 @@
                 cache : false,
                 success:function(data){
                     if(data == "error"){
-                        alert("휴대폰 번호가 올바르지 않습니다.")
+                        alert("휴대폰번호가 올바르지 않습니다.")
                     }else{
-                        alert("휴대폰 에 메세지가 전송되었습니다.")
+                        alert("인증번호가 전송되었습니다.")
                         code2 = data;
                     }
                 }
@@ -121,29 +109,6 @@
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
                 document.getElementById("sample6_address").value = addr;
@@ -153,8 +118,6 @@
         }).open();
     }
 </script>
-
-
 
 </script>
 </body>
