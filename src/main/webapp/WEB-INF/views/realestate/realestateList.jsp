@@ -208,7 +208,6 @@
 </script>
 
 <script>
-
     function basicChart(){
         var rentAvg = ${seoulAvg.totalRentAvg};
         var sellAvg = ${seoulAvg.totalSellAvg};
