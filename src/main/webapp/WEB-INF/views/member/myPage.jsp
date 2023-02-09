@@ -27,7 +27,6 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.");
                 location.reload();
             }
         });
@@ -58,7 +57,6 @@
         </div>
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
-<%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
         </div>
     </div>
@@ -68,8 +66,8 @@
         <div class="like_list">
             <c:forEach items="${interestList}" var="interest">
                 <div id="heart">
-                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
-                    <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
+                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
+                    <label for="checkbox_heart_${interest.estateNo}"><i class="fa-solid fa-heart"></i></label>
                     <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
                         <div class="bldg_name">${interest.bldgNm}</div>
                     </div>
