@@ -401,13 +401,12 @@
             processData : false,
             contentType: false,
             success : () => {
-                console.log("예약 성공!");
                 alert("예약에 성공하였습니다.");
                 offClick();
 
             },
             error : () => {
-                console.log("예약등록에 실패!")
+                alert("예약 등록에 실패하였습니다.");
             }
         })
         }
