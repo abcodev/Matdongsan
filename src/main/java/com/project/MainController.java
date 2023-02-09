@@ -1,6 +1,7 @@
 package com.project;
 
 import com.project.member.vo.Member;
+import com.google.gson.Gson;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.Interest;
@@ -71,9 +72,9 @@ public class MainController {
 
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
-            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
+//            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
             // TODO : EstateNo 들로 이루어진 리스트 -> RealEstateSell & RealEstateRent Entity 객체로 바꿔서
-            // TODO : ~~ 에 대한 DTO 를 만들어야함
+            // TODO : ~~ 에 대한 DTO 를 만들어야하고
             // in (1, 2, 3, 4, 5)
             // List<~~> recentList = realEstateService.selectListIn(recentEstateNoList);
 //            model.addAttribute("recentList", recentList);
@@ -86,7 +87,12 @@ public class MainController {
         }
 
         model.addAttribute("newsList", newsList);
-        model.addAttribute("sellList", sellList);
+        Gson gson = new Gson();
+        String sellList2 = gson.toJson(sellList);
+
+        model.addAttribute("sellList2",sellList2);
+//        model.addAttribute("sellList", sellList);
+
         return "common/mainPage";
     }
 

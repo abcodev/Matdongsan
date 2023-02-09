@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -67,8 +68,8 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     /**
-     * 부동산 해당 구의 자유게시판글
-     */
+    * 부동산 해당 구의 자유게시판글
+    */
     @Override
     public List<FreeBoard> selectFboard(String state){ return realEstateDao.selectFboard(sqlSession, state); }
 
@@ -118,12 +119,4 @@ public class RealEstateServiceImpl implements RealEstateService{
     public List<RealEstateAgent> selectAgentList(String bjdongNm) {
         return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
     }
-
-    @Override
-    public int reservationEnroll(ReservationRequest req) {
-
-        return realEstateDao.reservationEnroll(req);
-    }
-
-
 }

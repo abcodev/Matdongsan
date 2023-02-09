@@ -156,7 +156,6 @@
     </div>
 </div>
 
-
 <script>
     window.onload = function () {
 
@@ -232,29 +231,6 @@
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
-
-                // 해시태그 비동기 갱신
-                // const hashtag_list = list.flatMap(obj => obj['hashtags'])
-                // const hashtag_count = {}
-                // hashtag_list.forEach(hashtag => {
-                //     if (hashtag_count[hashtag] === undefined) {
-                //         hashtag_count[hashtag] = 1
-                //     } else {
-                //         hashtag_count[hashtag] += 1
-                //     }
-                // });
-                // const items = Object.keys(hashtag_count).map((key) => [key, hashtag_count[key]]);
-                // items.sort((first, second) => second[1] - first[1]);
-                // const keys = items.map((e) => e[0]);
-                // let review_hashtag_contents = '';
-                //
-                // keys.slice(0, 2).forEach(hashtag => {
-                //     review_hashtag_contents +=
-                //         '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>' +
-                //         '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>'
-                // });
-                // $('.head tag').html(review_hashtag_contents);
-
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -270,7 +246,8 @@
                 resNo: ${restaurantDetail.resNo}
             },
             success: function (data) {
-                // hashtag....
+                // $('#head tag').prop(data)
+                console.log(data);
             }
         });
     }
@@ -294,6 +271,7 @@
             formData.append("files", files[i])
         }
 
+
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/insertReview',
             type: 'POST',
@@ -310,7 +288,8 @@
         });
     }
 
-    // 리뷰 해시태그 최대 선택 개수 제한
+
+
     $('input:checkbox[name=chk_hashtag]').click(function(){
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if(cntEPT>3){
@@ -318,6 +297,8 @@
             $(this).prop('checked', false);
         }
     });
+
+
 
     // 관리자 - 리뷰삭제
     function deleteReview(button){
@@ -334,7 +315,6 @@
             }
         });
     }
-
 </script>
 
 

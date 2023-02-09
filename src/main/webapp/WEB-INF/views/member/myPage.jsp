@@ -58,7 +58,7 @@
         </div>
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
-            <%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
+<%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
         </div>
     </div>
@@ -104,7 +104,6 @@
             <p>부동산 예약 내역</p>
         </div>
     </div>
-
     <div id="paging">
         <ul class="pagination">
             <c:choose>
@@ -134,14 +133,13 @@
 </div>
 <script>
 
-
     function deleteMember() {
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-        if(deleteMember == true){
+        if(deleteMember === true){
             location.href = '${pageContext.request.contextPath}/delete';
             alert("그동안 맛동산을 이용해주셔서 감사합니다.");
         }
-        else if(deleteMember == false){
+        else if(deleteMember === false){
         }
     }
 
