@@ -69,10 +69,17 @@ public class FreeBoardController {
     @RequestMapping("freeList/insert")
     public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "")String boardWriter,
                                   @RequestParam(value = "boardArea") String boardArea,
-                                  Model model, FreeBoard fb
+                                  Model model, FreeBoard fb, HttpSession session
     ){
-        model.addAttribute("boardWrtier", boardWriter);
-        freeBoardService.insertFboard(fb);
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+        if(loginUser.getMemberNo() == 1){
+            model.addAttribute("boardWriter",boardWriter);
+            freeBoardService.insertNotice(fb);
+        }else {
+            model.addAttribute("boardWrtier", boardWriter);
+            freeBoardService.insertFboard(fb);
+        }
         return "redirect:/board/freeList";
     }
 

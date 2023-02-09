@@ -38,8 +38,10 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     // 게시글 등록
-    public int insertFboard(FreeBoard fb){
-        return freeBoardDao.insertFboard(sqlSession, fb);
+    public int insertFboard(FreeBoard fb){ return freeBoardDao.insertFboard(sqlSession, fb); }
+
+    public int insertNotice(FreeBoard fb){
+        return freeBoardDao.insertNotice(sqlSession, fb);
     }
 
     // 게시글 상세조회

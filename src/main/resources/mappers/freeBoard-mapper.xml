@@ -43,6 +43,11 @@
         VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
     </insert>
 
+    <insert id="insertNotice" parameterType="freeBoard">
+        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA, NOTICE)
+        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea}, 1)
+    </insert>
+
     <select id="selectByFreeBno" parameterType="_int" resultMap="fBoardResultSet">
         SELECT *
         FROM FREE_BOARD
@@ -85,15 +90,20 @@
                     BOARD_CONTENT like '%' || #{search} || '%'
                 )
             </if>
-            <if test="select.equals('view')">
-                ORDER BY COUNT DESC
-            </if>
-            <if test="select.equals('reply')">
-                ORDER BY REPLY_COUNT DESC
-            </if>
-            <if test="select.equals('recent')">
-                ORDER BY FB.BOARD_DATE DESC
-            </if>
+            <choose>
+                <when test="select.equals('view')">
+                    ORDER BY FB.NOTICE DESC, COUNT DESC, FB.BOARD_DATE DESC
+                </when>
+                <when test="select.equals('reply')">
+                    ORDER BY FB.NOTICE DESC, REPLY_COUNT DESC, FB.BOARD_DATE DESC
+                </when>
+                <when test="select.equals('recent')">
+                    ORDER BY FB.NOTICE DESC, FB.BOARD_DATE DESC
+                </when>
+                <otherwise>
+                    ORDER BY FB.NOTICE DESC , FB.BOARD_DATE DESC
+                </otherwise>
+            </choose>
     </select>
 
 

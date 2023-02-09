@@ -27,6 +27,10 @@ public class FreeBoardDao {
         return sqlSession.insert("freeBoardMapper.insertFboard", fb);
     }
 
+    public int insertNotice(SqlSession sqlSession, FreeBoard fb){
+        return sqlSession.insert("freeBoardMapper.insertNotice", fb);
+    }
+
     public List<FreeBoard> selectFreeList(SqlSession sqlSession,
                                        PageInfoCombine pageInfoCombine,
                                        FreeBoardListFilter filter) {

@@ -20,6 +20,8 @@ public interface FreeBoardService {
 
     public int insertFboard(FreeBoard fb);
 
+    public int insertNotice(FreeBoard fb);
+
     public FreeBoard detailFreeBoard(int fno);
 
     public int insertReply(Reply r);
