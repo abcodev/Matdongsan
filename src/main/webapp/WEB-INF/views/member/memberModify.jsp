@@ -79,7 +79,13 @@
             document.form_name.submit();
         }
     });
+    $("#submit").click(function (){
+        alert('회원정보 수정 성공! 다시 로그인 해주세요.')
+    })
+
+
 </script>
+
 
 <script>
     $(function(){
