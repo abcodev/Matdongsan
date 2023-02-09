@@ -168,8 +168,6 @@
                 }else{
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
-                $('.paging').empty();
-                $('.paging').html($(data).find('.paging'))
                 $('input[type="checkbox"][name="arrayList"]').prop("checked",false);
             }
         })
@@ -208,8 +206,6 @@
                     }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
-                    $('.paging').empty();
-                    $('.paging').html($(data).find('.paging'))
                 }
                 , fail:function (){
                     console.log("zzzzz");

@@ -92,7 +92,6 @@ public class FreeBoardController {
 
     ){
         long memberNo = 0;
-
         if(!ObjectUtils.isEmpty(loginUser)) {
             memberNo = loginUser.getMemberNo();
         }
