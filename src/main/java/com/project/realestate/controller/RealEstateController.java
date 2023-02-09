@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,10 +82,9 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType,
+                                       ModelAndView modelAndView
     ) {
-        ModelAndView modelAndView = new ModelAndView();
-
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
         List<FreeBoard> selectFboard = realEstateService.selectFboard(state);
@@ -147,16 +148,5 @@ public class RealEstateController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/realEstate/reservation")
-    @ResponseBody
-    public ResponseEntity<?> realEstateReservation (ReservationRequest req,HttpSession session){
-        Member loginUser = (Member) session.getAttribute("loginUser");
-        long memberNo = loginUser.getMemberNo();
-        req.setMemberNo(memberNo);
 
-        int result = realEstateService.reservationEnroll(req);
-
-
-        return ResponseEntity.ok().body("1");
-    }
 }

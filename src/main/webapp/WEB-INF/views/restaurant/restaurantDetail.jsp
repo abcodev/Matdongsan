@@ -156,7 +156,6 @@
     </div>
 </div>
 
-
 <script>
     window.onload = function () {
 
@@ -232,7 +231,6 @@
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
-
             },
             error: function () {
                 console.log("리뷰조회 ajax통신 실패");
@@ -248,6 +246,7 @@
                 resNo: ${restaurantDetail.resNo}
             },
             success: function (data) {
+                // $('#head tag').prop(data)
                 console.log(data);
             }
         });
@@ -272,6 +271,7 @@
             formData.append("files", files[i])
         }
 
+
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/insertReview',
             type: 'POST',
@@ -288,7 +288,8 @@
         });
     }
 
-    // 리뷰 해시태그 최대 선택 개수 제한
+
+
     $('input:checkbox[name=chk_hashtag]').click(function(){
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if(cntEPT>3){
@@ -296,6 +297,8 @@
             $(this).prop('checked', false);
         }
     });
+
+
 
     // 관리자 - 리뷰삭제
     function deleteReview(button){

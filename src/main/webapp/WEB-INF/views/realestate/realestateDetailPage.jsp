@@ -12,20 +12,7 @@
     <%@ include file ="../template/header.jsp" %>
 </head>
 <body>
-<script>
-    window.onload = () => {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
-            method: 'GET',
-            data: {
-                'estateNo': ${realEstateDetail.estateNo}
-            },
-            success(data) {
-                $('#checkbox_heart').prop("checked", data);
-            }
-        });
-    }
-</script>
+
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -92,7 +79,7 @@
         <div class="modal_wrap">
             <div id="modal_content">
                 <div id="content_head">
-                    <div class="" id="agent_name">부동산이름</div>
+                    <div class="realtor_name" id="agent_name">부동산이름</div>
                     <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div id="content_body">
@@ -127,9 +114,11 @@
                         </div>
                         <div class="pCont">
                             <span>인원</span>
-                            <select id="peopleCount">
-                                <option>1명</option>
-                                <option>2명</option>
+                            <select id="peopleCount" required>
+                                <option value="1">1명</option>
+                                <option value="2">2명</option>
+                                <option value="3">3명</option>
+                                <option value="4">4명</option>
                             </select>
                         </div>
                     </div>
@@ -142,12 +131,12 @@
                             <div class="info name">
                                 <i class="fa-solid fa-check"></i>
                                 <span>이름</span>
-                                <input id="memberName" type="text" value="">
+                                <input id="memberName" type="text" value="" required="required">
                             </div>
                             <div class="info phone">
                                 <i class="fa-solid fa-check"></i>
                                 <span>전화번호</span>
-                                <input id="telephone" type="text" value="">
+                                <input id="telephone" type="text" value="" required="required">
                             </div>
                             <div class="info mail">
                                 <span>이메일</span>
@@ -272,15 +261,27 @@
 
 <%--*****************예약******************--%>
 <script>
+    let resercationAgentNo = null;
     function showRealtor(agentNo, agentName) {
         $('#agent_name').html(agentName);
+        resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
 
-        // agentNo 를 가지고 서버호출을 하는 코드는 여기
     }
 
     window.onload = function () {
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
+            method: 'GET',
+            data: {
+                'estateNo': ${realEstateDetail.estateNo}
+            },
+            success(data) {
+                $('#checkbox_heart').prop("checked", data);
+            }
+        });
 
         // function onClick() {
         //     document.querySelector('.modal_wrap').style.display = 'block';
@@ -298,7 +299,7 @@
 
     };
 
-    let reservationDate = null;
+    let reservationDate = "";
 
     // 달력 생성
     const makeCalendar = (date) => {
@@ -338,7 +339,14 @@
 
     function test(year, month, day) {
         // console.log(year, month, day);
-        reservationDate = year + ','+month + ',' + day;
+        if(month <10){
+            month = "0"+month;
+        }
+        if(day <10){
+            day = "0"+day;
+        }
+
+        reservationDate = year + '-'+month + '-' + day;
     }
 
     const date = new Date();
@@ -354,6 +362,7 @@
         makeCalendar(new Date(date.setMonth(date.getMonth() + 1)));
     }
 
+    // 예약하기
     function reservation(){
         let time = $('#reservationTime').val();
         let people = $('#peopleCount').val();
@@ -361,36 +370,45 @@
         let phone = $('#telephone').val();
         let email = $('#email').val();
         let requestText = $('#requestText').val();
-        console.log(time);
-        console.log(people);
-        console.log(memberName);
-        console.log(phone);
-        console.log(email);
-        console.log(requestText);
-        console.log(reservationDate);
 
-        const formData = new FormData();
-        formData.append("memberName",memberName);
-        formData.append("peopleCount",people);
-        formData.append("phone",phone);
-        formData.append("email",email);
-        formData.append("requestText",requestText);
-        formData.append("revTime",time);
-        formData.append("revDate",reservationDate);
+        // required 검사
+        if(memberName == "") {
+            alert("아이디를 입력해주세요")
+            $('#memberName').focus();
+            return false;
+        }else if(phone == ""){
+            alert("휴대폰번호를 입력해주세요")
+            $('#telephone').focus();
+            return false;
+        }else if(reservationDate == ""){
+            alert("날짜를 입력해주세요")
+            return false;
+        }else{
 
-        $.ajax({
-            url : "${pageContext.request.contextPath}/realEstate/reservation",
-            type: "POST",
-            data : formData,
-            success : (data) => {
-                console.log(data)
-            },
-            error : () => {
-                console.log("예약등록에 실패!")
-            }
+            const formData = new FormData();
+            formData.append("agentNo",resercationAgentNo)
+            formData.append("memberName",memberName);
+            formData.append("peopleCount",people);
+            formData.append("phone",phone);
+            formData.append("email",email);
+            formData.append("requestText",requestText);
+            formData.append("revTime",time);
+            formData.append("revDate",reservationDate);
 
-        })
-
+            $.ajax({
+                url : "${pageContext.request.contextPath}/reservation/enroll",
+                type: "POST",
+                data : formData,
+                processData : false,
+                contentType: false,
+                success : () => {
+                    console.log("예약 성공!")
+                },
+                error : () => {
+                    console.log("예약등록에 실패!")
+                }
+            })
+        }
     }
 </script>
 </body>

@@ -9,6 +9,7 @@ import com.project.realestate.vo.RealEstateRent;
 import com.project.realestate.vo.RealEstateSell;
 import com.project.restaurant.vo.Restaurant;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +47,4 @@ public interface RealEstateService {
     List<Interest> getMostInterest();
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
-
-    int reservationEnroll(ReservationRequest req);
 }
