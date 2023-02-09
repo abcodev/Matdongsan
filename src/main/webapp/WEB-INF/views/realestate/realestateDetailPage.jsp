@@ -131,20 +131,20 @@
                             <div class="info name">
                                 <i class="fa-solid fa-check"></i>
                                 <span>이름</span>
-                                <input id="memberName" type="text" value="" required="required">
+                                <input class="rm_input" id="memberName" type="text" value="" required="required">
                             </div>
                             <div class="info phone">
                                 <i class="fa-solid fa-check"></i>
                                 <span>전화번호</span>
-                                <input id="telephone" type="text" value="" required="required">
+                                <input class="rm_input" id="telephone" type="text" value="" required="required">
                             </div>
                             <div class="info mail">
                                 <span>이메일</span>
-                                <input id="email" type="email" value="">
+                                <input class="rm_input" id="email" type="email" value="">
                             </div>
                             <div class="info message">
                                 <span>요청사항</span>
-                                <textarea id="requestText" placeholder="업체에 요청하실 내용을 적어주세요"></textarea>
+                                <textarea class="rm_input" id="requestText" placeholder="업체에 요청하실 내용을 적어주세요"></textarea>
                             </div>
                         </div>
                         <div class="info_table_foot">
@@ -268,7 +268,6 @@
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
 
-        // agentNo 를 가지고 서버호출을 하는 코드는 여기에 넣으면 될듯
     }
 
     window.onload = function () {
@@ -289,17 +288,20 @@
         //     document.querySelector('.black_bg').style.display = 'block';
         // }
 
-        function offClick() {
-            document.querySelector('.modal_wrap').style.display = 'none';
-            document.querySelector('.black_bg').style.display = 'none';
-        }
+
 
         // document.querySelector('.rno').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 
-        selectReviewList();
     };
+
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display = 'none';
+        document.querySelector('.black_bg').style.display = 'none';
+        $(".rm_input").val("");
+        reservationDate="";
+    }
 
     let reservationDate = "";
 
@@ -327,7 +329,7 @@
 
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
-            // htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
+            htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
         }
 
         // 다음달 날짜 표시하기
@@ -347,7 +349,6 @@
         if(day <10){
             day = "0"+day;
         }
-
         reservationDate = year + '-'+month + '-' + day;
     }
 
@@ -374,42 +375,43 @@
         let requestText = $('#requestText').val();
 
         // required 검사
-        if(memberName == "") {
-            alert("아이디를 입력해주세요")
+        if(reservationDate == "") {
+            alert("날짜를 입력해주세요")
+            return false;
+        }else if(memberName == ""){
+            alert("이름을 입력해주세요")
             $('#memberName').focus();
             return false;
         }else if(phone == ""){
             alert("휴대폰번호를 입력해주세요")
             $('#telephone').focus();
             return false;
-        }else if(reservationDate == ""){
-            alert("날짜를 입력해주세요")
-            return false;
         }else{
+        const formData = new FormData();
+        formData.append("agentNo",resercationAgentNo)
+        formData.append("memberName",memberName);
+        formData.append("peopleCount",people);
+        formData.append("phone",phone);
+        formData.append("email",email);
+        formData.append("requestText",requestText);
+        formData.append("revTime",time);
+        formData.append("revDate",reservationDate);
 
-            const formData = new FormData();
-            formData.append("agentNo",resercationAgentNo)
-            formData.append("memberName",memberName);
-            formData.append("peopleCount",people);
-            formData.append("phone",phone);
-            formData.append("email",email);
-            formData.append("requestText",requestText);
-            formData.append("revTime",time);
-            formData.append("revDate",reservationDate);
+        $.ajax({
+            url : "${pageContext.request.contextPath}/reservation/enroll",
+            type: "POST",
+            data : formData,
+            processData : false,
+            contentType: false,
+            success : () => {
+                alert("예약에 성공하였습니다.");
+                offClick();
 
-            $.ajax({
-                url : "${pageContext.request.contextPath}/reservation/enroll",
-                type: "POST",
-                data : formData,
-                processData : false,
-                contentType: false,
-                success : () => {
-                    console.log("예약 성공!")
-                },
-                error : () => {
-                    console.log("예약등록에 실패!")
-                }
-            })
+            },
+            error : () => {
+                alert("예약 등록에 실패하였습니다.");
+            }
+        })
         }
     }
 </script>
