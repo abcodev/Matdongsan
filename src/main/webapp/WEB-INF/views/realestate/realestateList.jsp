@@ -134,12 +134,11 @@
         </div>
         <div class="table_area">
             <div class="estate_table">
-                <canvas id="myChart"></canvas>
+                <canvas id="myChart" width="400" height="270"></canvas>
             </div>
         </div>
         <div class="freeBoard_area">
             <div class="freeBoard">
-
             </div>
         </div>
     </div>
@@ -233,6 +232,7 @@
                 }]
             },
             options : {
+                responsive: false,
                 scale: {
                     y: {
                         afterDataLimits: (scale) => {

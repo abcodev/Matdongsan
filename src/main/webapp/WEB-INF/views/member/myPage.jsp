@@ -91,7 +91,7 @@
                         <tr class="myBoard_info"
                             onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
                             <td>${selectAllBoardList.boardType}</td>
-                            <td>${selectAllBoardList.boardTitle}</td>
+                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
                         </tr>
                     </c:forEach>
