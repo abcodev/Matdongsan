@@ -43,6 +43,11 @@
         VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea})
     </insert>
 
+    <insert id="insertNotice" parameterType="freeBoard">
+        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA, NOTICE)
+        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea}, 1)
+    </insert>
+
     <select id="selectByFreeBno" parameterType="_int" resultMap="fBoardResultSet">
         SELECT *
         FROM FREE_BOARD
@@ -67,7 +72,6 @@
         </if>
     </select>
 
-
     <select id="selectFreeList" parameterType="Map" resultMap="fBoardResultSet">
         SELECT  FB.*,(SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT",
         (SELECT COUNT(*) FROM REPLY R WHERE R.FREE_BNO = FB.FREE_BNO) AS "REPLY_COUNT"
@@ -85,17 +89,29 @@
                     BOARD_CONTENT like '%' || #{search} || '%'
                 )
             </if>
-            <if test="select.equals('view')">
-                ORDER BY COUNT DESC
-            </if>
-            <if test="select.equals('reply')">
-                ORDER BY REPLY_COUNT DESC
-            </if>
-            <if test="select.equals('recent')">
-                ORDER BY FB.BOARD_DATE DESC
-            </if>
+            <choose>
+                <when test="select.equals('view')">
+                    ORDER BY FB.NOTICE DESC, COUNT DESC, FB.BOARD_DATE DESC
+                </when>
+                <when test="select.equals('reply')">
+                    ORDER BY FB.NOTICE DESC, REPLY_COUNT DESC, FB.BOARD_DATE DESC
+                </when>
+                <when test="select.equals('recent')">
+                    ORDER BY FB.NOTICE DESC, FB.BOARD_DATE DESC
+                </when>
+                <otherwise>
+                    ORDER BY FB.NOTICE DESC , FB.BOARD_DATE DESC
+                </otherwise>
+            </choose>
     </select>
 
+    <select id="selectReportList" resultMap="reportResultSet">
+        SELECT F.FREE_BNO
+        FROM REPORT R
+                 LEFT JOIN FREE_BOARD F ON R.FREE_BNO = F.FREE_BNO
+        GROUP BY F.FREE_BNO
+        HAVING COUNT(F.FREE_BNO) >= 5
+    </select>
 
     <resultMap id="hotWeekResultSet" type="hotWeek">
         <result column="FREE_BNO" property="freeBno"/>
