@@ -163,6 +163,7 @@
     margin-top: 15px;
     padding: 0 5px;
     cursor: pointer;
+    word-wrap: break-word;
 }
 
 #history_list{
@@ -198,13 +199,12 @@
 }
 
 #myBoardList th:first-child,
-#myBoardList td:first-child{
+#myBoardList td:first-child {
     width: 20%;
     padding: 0 7px;
 }
 
-#myBoardList th:nth-child(2),
-#myBoardList td:nth-child(2){
+#myBoardList th:nth-child(2){
     width: 50%;
     padding: 0 7px;
 }
@@ -220,6 +220,13 @@
     font-size: 14px;
     margin-bottom: 15px;
     line-height: 3;
+}
+
+.boardTitle{
+    width: 50px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .myBoard_info{

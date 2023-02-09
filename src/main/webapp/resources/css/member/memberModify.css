@@ -1,83 +1,128 @@
 *{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-div{
-    border: 2px solid black;
+#content{
+    padding: 100px 270px 20px 270px;
+}
+
+#userImg{
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+#userImg > img{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
 }
 
 .userinfo{
     display: flex;
-    padding-left:220px;
-    margin: 10px 0 10px 0;
+    padding-left:240px;
+    margin: 12px 0;
 }
 
-#content{
-    padding: 60px 300px 20px 300px;
-}
-
-#userimg{
-    text-align: center;
-}
-
-#userimg > img{
-    width: 150px;
-    height: 150px;
+.userinfo > span{
+    font-size: 20px;
+    font-weight: 420;
+    color: #3d3d3d;
+    width: 13%;
 }
 
 .userinfo > input{
-    margin: 15px 0 0 40px;
-    height: 35px;
-    border-radius: 5px;
+    margin-left: 20px;
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
 }
 
 .userinfo > button{
-    margin: 15px 0 0 40px;
-    height: 35px;
-    border-radius: 5px;
+    background-color: #E0E0E0;
+    color: #3d3d3d;
+    height: 32px;
+    width: auto;
+    padding: 5px 11px;
+    border-radius: 2px;
     border: none;
+    font-size: 14px;
+    font-weight: 410;
+    cursor: pointer;
+    margin-left: 25px;
 }
 
-.nickName > input {
-    width: 200px;
+.userinfo > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
 }
 
-.nickName > button {
-    width: 85px;
+.userinfo > input:focus{
+    outline: #989de1 2px solid;
 }
 
-.email > input {
-    width: 300px;
+.nickName,
+.email,
+.phone2,
+.address2{
+    margin-bottom: 40px;
 }
 
-.phone > input {
-    width: 200px;
+.nickName > input,
+.phone > input{
+    width: 35%;
 }
 
-.phone > button {
-    width: 50px;
+.email > input{
+    width: 40%;
 }
 
-.adressNum > input {
-    width: 140px;
+.phone2 > input{
+    margin-left: 117px;
 }
 
-.adressNum > button {
-    width: 50px;
+.address > input{
+    width: 15%;
 }
 
-.address > input {
-    width: 330px;
-}
-
-.btn_box > button{
-    width: 150px;
-    height: 40px;
-    margin: 5px 0 5px 30px;
-
+.address2 > input[required]{
+    margin-left: 117px;
+    width: 30%;
 }
 
 .btn_box{
-    padding-left: 260px;
-}   
+    padding-left: 290px;
+}
+
+.btn_box > button[type=reset]{
+    background-color: #E0E0E0;
+    height: 40px;
+    width: auto;
+    padding: 5px 50px;
+    border-radius: 2px;
+    border: none;
+    font-size: 16px;
+    font-weight: 410;
+    cursor: pointer;
+    margin: 0 25px;
+}
+
+.btn_box > button[type=reset] a{
+    color: #3d3d3d;
+}
+
+.btn_box > button[type=submit]{
+    background-color: #566392;
+    color: #f3f1f5;
+    height: 40px;
+    width: auto;
+    padding: 5px 50px;
+    border-radius: 2px;
+    border: none;
+    font-size: 16px;
+    font-weight: 410;
+    cursor: pointer;
+    margin: 0 25px;
+}
