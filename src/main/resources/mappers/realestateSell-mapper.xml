@@ -23,12 +23,17 @@
         <result column="ADDRESS" property="address"/>
         <result column="ESTATE_NO" property="estateNo"/>
     </resultMap>
-    
-    <resultMap type="RealEstateMainListDto" id="realEstateMainListDtoResultSet" >
+
+    <resultMap type="RealEstateMainListDto" id="realEstateMainListDtoResultSet">
         <result column="ESTATE_NO" property="estateNo"/>
         <result column="BLDG_NM" property="bldgNm"/>
         <result column="OBJ_AMT" property="objAmt"/>
         <result column="ADDRESS" property="address"/>
+    </resultMap>
+
+    <resultMap type="RealEstateViewDto" id="realEstateViewDtoResultSet">
+        <result column="ESTATE_NO" property="estateNo"/>
+        <result column="BLDG_NM" property="bldgNm"/>
     </resultMap>
 
     <resultMap type="com.project.realestate.dto.RealEstateDetailDto" id="realEstateDtoResultSet">
@@ -109,7 +114,7 @@
                ACC_YEAR,
                SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON AS ADDRESS,
                BLDG_NM,
-               DEAL_YMD as dealYmd,
+               DEAL_YMD                                                      as dealYmd,
                OBJ_AMT,
                BLDG_AREA,
                GBN,
@@ -123,10 +128,10 @@
                ACC_YEAR,
                SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN AS ADDRESS,
                BLDG_NM,
-               DEAL_YMD as dealYmd,
-               '보증금 : ' || RENT_GTN || ' / 월세 :' || RENT_FEE AS OBJ_AMT,
-               RENT_AREA                                            AS BLDGAREA,
-               RENT_GBN                                             AS GBN,
+               DEAL_YMD                                                 as dealYmd,
+               '보증금 : ' || RENT_GTN || ' / 월세 :' || RENT_FEE            AS OBJ_AMT,
+               RENT_AREA                                                AS BLDGAREA,
+               RENT_GBN                                                 AS GBN,
                BJDONG_NM,
                FLR_NO,
                BUILD_YEAR
@@ -136,14 +141,13 @@
 
 
     <select id="selectAgent" resultMap="agentResultSet">
-        SELECT
-            AGENT_NO,
-            STATE,
-            RA.BJDONG_NM,
-            ADDRESS,
-            REF_NAME,
-            AGENT_NAME,
-            AGENT_PHONE
+        SELECT AGENT_NO,
+               STATE,
+               RA.BJDONG_NM,
+               ADDRESS,
+               REF_NAME,
+               AGENT_NAME,
+               AGENT_PHONE
         FROM REALESTATE_AGENT RA
         WHERE RA.BJDONG_NM = #{bjdongNm}
     </select>
@@ -154,9 +158,19 @@
         WHERE BJDONG_NM = #{bjdongNm}
     </select>
 
-
-
-
+    <select id="selectBldgNmListIn" parameterType="java.util.List" resultMap="realEstateViewDtoResultSet">
+        SELECT * FROM (
+            SELECT ESTATE_NO, BLDG_NM
+            FROM REALESTATE_SELL
+                UNION ALL
+            SELECT ESTATE_NO, BLDG_NM
+            FROM REALESTATE_RENT)
+        WHERE ESTATE_NO IN (
+            <foreach collection="list" item="estateNo" separator=",">
+                #{estateNo}
+            </foreach>
+        )
+    </select>
 
 
 </mapper>

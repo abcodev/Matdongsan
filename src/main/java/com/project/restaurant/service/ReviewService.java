@@ -104,5 +104,8 @@ public class ReviewService {
         });
     }
 
+    public List<String> selectReviewHashtagTop2(String resNo) {
+        return resHashtagDao.selectTop2ByReview(resNo);
+    }
 }
 

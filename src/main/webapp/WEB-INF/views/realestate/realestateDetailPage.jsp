@@ -12,6 +12,7 @@
     <%@ include file ="../template/header.jsp" %>
 </head>
 <body>
+
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -205,6 +206,8 @@
                         map.setCenter(coords);
                     }
                 });
+
+
 
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
                 var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체

@@ -27,7 +27,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                console.log(estateNo);
+                alert("관심목록이 해지되었습니다.");
                 location.reload();
             }
         });
@@ -67,10 +67,9 @@
         <div class="like_list_top">내가 찜한 목록</div>
         <div class="like_list">
             <c:forEach items="${interestList}" var="interest">
-                <div id="heart" class="likeInfo">
+                <div id="heart">
                     <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
                     <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
-
                     <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
                         <div class="bldg_name">${interest.bldgNm}</div>
                     </div>
@@ -78,9 +77,10 @@
             </c:forEach>
         </div>
     </div>
+
     <div id="history_list">
         <div class="board_history">
-            <p>내 게시글 보기</p>
+            <h4>내 게시글 보기</h4>
             <div id="myBoardList">
                 <table>
                     <tr>
@@ -89,8 +89,16 @@
                         <th>게시일</th>
                     </tr>
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <tr class="myBoard_info"
-                            onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
+                        <tr class="myBoard_info" onclick="moveDetail();">
+                            <script>
+                                function moveDetail(){
+                                    if(${selectAllBoardList.boardType eq 'F'}){
+                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
+                                    }else{
+                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+                                    }
+                                }
+                            </script>
                             <td>${selectAllBoardList.boardType}</td>
                             <td>${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
@@ -98,49 +106,49 @@
                     </c:forEach>
                 </table>
             </div>
+            <div id="paging">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq 1}">
+                            <li class="page-item disabled">Previous</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                        <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq pi.maxPage}">
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
         </div>
-        <div class="reserve_history">
-            <p>부동산 예약 내역</p>
+        <div class="review_history">
+            <p>내가 남긴 리뷰</p>
         </div>
     </div>
-
-    <div id="paging">
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${pi.currentPage eq 1}">
-                    <li class="page-item disabled">Previous</li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
-                </c:otherwise>
-            </c:choose>
-
-            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${pi.currentPage eq pi.maxPage}">
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
-                </c:otherwise>
-            </c:choose>
-
-        </ul>
+    <div class="reserve_history">
+        <p>부동산 예약 내역</p>
     </div>
 </div>
 <script>
 
-
     function deleteMember() {
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-        if(deleteMember == true){
+        if(deleteMember === true){
             location.href = '${pageContext.request.contextPath}/delete';
             alert("그동안 맛동산을 이용해주셔서 감사합니다.");
         }
-        else if(deleteMember == false){
+        else if(deleteMember === false){
         }
     }
 

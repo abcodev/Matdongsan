@@ -35,14 +35,14 @@
     </thead>
     <tbody>
     <c:forEach var="ul" items="${list}">
-    <tr>
-        <td>${ul.memberNo}</td>
-        <td>${ul.email}</td>
-        <td>${ul.email}</td>
-        <td>${ul.memberName}</td>
-        <td>영구정지</td>
+        <tr>
+            <td>${ul.memberNo}</td>
+            <td>${ul.email}</td>
+            <td>${ul.email}</td>
+            <td>${ul.memberName}</td>
+            <td>${ul.memberGrade}</td>
 
-    </tr>
+        </tr>
     </c:forEach>
 
 <input type="hidden" name="fNo" value="${fNo}"/>

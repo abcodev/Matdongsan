@@ -2,16 +2,13 @@ package com.project.admin.dao;
 
 
 import com.project.admin.vo.Admin;
-import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfo;
 import com.project.member.vo.Member;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class AdminDao {
@@ -45,5 +42,9 @@ public class AdminDao {
         return sqlSession.update("adminMapper.deleteFree",fNo);
     }
 
+    public int insertBlack(SqlSession sqlSession, Admin ad){
+        return sqlSession.insert("adminMapper.insertBlack",ad);
+
+    }
 
 }

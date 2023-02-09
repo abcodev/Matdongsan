@@ -82,10 +82,9 @@ public class RealEstateController {
                                        @RequestParam(value = "dong", defaultValue = "") String dong,
                                        @RequestParam(value = "rentType", defaultValue = "") String rentType,
                                        @RequestParam(value = "rentGtn", defaultValue = "") String rentGtn,
-                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType
+                                       @RequestParam(value = "chooseType", defaultValue = "") String chooseType,
+                                       ModelAndView modelAndView
     ) {
-        ModelAndView modelAndView = new ModelAndView();
-
         RealEstateRentListRequest req = new RealEstateRentListRequest(currentPage, state, dong, rentType, rentGtn, chooseType);
         RealEstateRentListResponse resp = realEstateService.selectAllList(req);
         List<FreeBoard> selectFboard = realEstateService.selectFboard(state);

@@ -18,7 +18,7 @@
 <body>
 <div id="content">
     <div id="login_head">
-        <h2>소셜로그인</h2>
+        <h2>회원 소셜로그인</h2>
     </div>
     <div id="login_body">
         <div class="login kakao">
@@ -37,6 +37,18 @@
             </a>
         </div>
     </div>
+
+    <br><br>
+
+    <div id="login_head2">
+        <h2>제휴 부동산 회원</h2>
+    </div>
+    <div>
+        <button>회원가입</button>
+        <button>로그인</button>
+    </div>
+
+
 </div>
 </body>
 </html>

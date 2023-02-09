@@ -75,7 +75,7 @@
                     <div class="login_after">
                         <img src="${loginUser.profileImage}" class="user_img">
                         <c:if test="${loginUser.memberNo == 1}">
-                            <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
+                            <a href="${pageContext.request.contextPath}/admin/userList/1" class="after">관리자페이지</a>
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.memberNo != 1}">
@@ -119,6 +119,16 @@
             });
         }
     </script>
+
+
+    <script>
+        if(${loginUser.grade == 'GENERAL'}){
+            alert('회원정보 입력&수정 후 이용해주세요.');
+            window.location = '${pageContext.request.contextPath}/memberModify';
+        }
+
+    </script>
+
 </header>
 
 
@@ -285,13 +295,16 @@
             <c:when test="${loginUser == null}">
                 <h3>인기 아파트 단지</h3>
 
-                <c:forEach var="mostInterest" end="4" items="${mostInterest}" varStatus="status">
-                    <a href="">${status.count}. ${mostInterest.bldgNm}</a><br>
+                <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a><br>
                 </c:forEach>
 
             </c:when>
             <c:otherwise>
                 <h3>최근 본 부동산 목록</h3>
+                <c:forEach var="recentView" items="${recentViewList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${status.count}. ${recentView.bldgNm}</a><br>
+                </c:forEach>
             </c:otherwise>
         </c:choose>
     </div>

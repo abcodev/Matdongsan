@@ -88,27 +88,51 @@
 #like{
     margin-top: 40px;
     padding: 0 50px;
+    width: 100%;
 }
 
 .like_list_top{
     font-weight: 450;
     font-size: 20px;
     color: #3d3d3d;
+    width: 100%;
 }
 
 .like_list{
-    height: 200px;
     display: flex;
-    margin-top: 20px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 930px;
+    height: 200px;
+    margin: 15px 0 30px 0;
+    flex-basis: 250px;
+    padding-top: 10px;
 }
 
-.likeInfo{
-    width: 20%;
+.like_list::-webkit-scrollbar
+{
+    height: 10px;
+    width: 3px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.like_list::-webkit-scrollbar-thumb
+{
+    background-color: rgba(231, 68, 100, 0.4);
+    border-radius: 10px;
+    width: 30px;
+}
+
+.like_list > #heart{
+    height: auto;
+    margin: 10px;
     text-align: center;
 }
 
-.likeInfo:hover{
-    transform: scale(1.05);
+#heart > label,
+#heart > div{
+    width: 178px;
 }
 
 #heart > label > .fa-heart{
@@ -144,21 +168,21 @@
 #history_list{
     display: flex;
     padding: 0 50px;
-    height: 500px;
-    margin-top: 30px;
+    height: 300px;
+    margin-top: 50px;
 }
 
 .board_history{
-    width: 45%;
+    width: 50%;
 }
 
-.reserve_history{
-    width: 55%;
+.review_history{
+    width: 50%;
     padding-left: 20px;
 }
 
 .board_history > p,
-.reserve_history > p{
+.review_history > p{
     font-weight: 450;
     font-size: 17px;
     color: #3d3d3d;
@@ -210,10 +234,22 @@
     font-weight: 450;
 }
 
-.reserve_history{
+.review_history{
     border-left: #a4a4a4 3px dashed;
 }
 
+.reserve_history{
+    margin-top: 40px;
+    padding: 0 50px;;
+    width: 100%;
+    height: 300px;
+}
+
+.reserve_history > p{
+    font-size: 19px;
+    font-weight: 410;
+    color: #3d3d3d;
+}
 
 #paging{
     margin-top: 10px;

@@ -6,12 +6,8 @@ import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
-import com.project.realestate.vo.RealEstateSell;
-import com.project.restaurant.vo.Restaurant;
 
-import java.text.ParseException;
 import java.util.List;
-import java.util.Map;
 
 public interface RealEstateService {
 
@@ -47,4 +43,6 @@ public interface RealEstateService {
     List<Interest> getMostInterest();
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
+
+    List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList);
 }
