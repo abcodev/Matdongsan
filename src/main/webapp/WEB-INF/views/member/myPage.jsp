@@ -66,17 +66,15 @@
     <div id="like">
         <div class="like_list_top">내가 찜한 목록</div>
         <div class="like_list">
-            <div class="likeInfo">
                 <c:forEach items="${interestList}" var="interest">
                     <div id="heart">
                         <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
                         <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
                         <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
-                            <div class="bldg_name">${interest.bldgNm}</div>
+                            <p class="bldg_name">${interest.bldgNm}</p>
                         </div>
                     </div>
                 </c:forEach>
-            </div>
         </div>
     </div>
     <div id="history_list">
@@ -99,36 +97,38 @@
                     </c:forEach>
                 </table>
             </div>
+            <div id="paging">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq 1}">
+                            <li class="page-item disabled">Previous</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                        <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq pi.maxPage}">
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
         </div>
-        <div class="reserve_history">
-            <p>부동산 예약 내역</p>
+        <div class="review_history">
+            <p>내가 남긴 리뷰</p>
         </div>
     </div>
-    <div id="paging">
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${pi.currentPage eq 1}">
-                    <li class="page-item disabled">Previous</li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
-                </c:otherwise>
-            </c:choose>
-
-            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${pi.currentPage eq pi.maxPage}">
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
-                </c:otherwise>
-            </c:choose>
-
-        </ul>
+    <div class="reserve_history">
+        <p>부동산 예약 내역</p>
     </div>
 </div>
 <script>

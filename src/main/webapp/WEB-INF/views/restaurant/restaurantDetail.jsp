@@ -246,7 +246,6 @@
                 resNo: ${restaurantDetail.resNo}
             },
             success: function (data) {
-                // $('#head tag').prop(data)
                 console.log(data);
             }
         });

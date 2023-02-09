@@ -68,8 +68,8 @@ public class RealEstateServiceImpl implements RealEstateService{
     }
 
     /**
-    * 부동산 해당 구의 자유게시판글
-    */
+     * 부동산 해당 구의 자유게시판글
+     */
     @Override
     public List<FreeBoard> selectFboard(String state){ return realEstateDao.selectFboard(sqlSession, state); }
 

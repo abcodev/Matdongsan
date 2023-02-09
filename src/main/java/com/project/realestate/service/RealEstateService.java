@@ -48,5 +48,4 @@ public interface RealEstateService {
 
     List<RealEstateAgent> selectAgentList(String bjdongNm);
 
-    int reservationEnroll(ReservationRequest req);
 }
