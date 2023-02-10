@@ -12,7 +12,7 @@ public class RealEstateViewDto {
     private String estateNo;
     private String bldgNm;
 
-    public static Object of(RealEstateDetailDto detail) {
+    public static RealEstateViewDto of(RealEstateDetailDto detail) {
         return new RealEstateViewDto(detail.getEstateNo(), detail.getBldgNm());
     }
 }

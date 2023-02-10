@@ -42,7 +42,7 @@ tr:last-child td:last-child {
 }
 #headeer{
     box-sizing: border-box;
-    height: 180px;
+    height: 150px;
 }
 #button2{
     margin: auto;
@@ -165,6 +165,15 @@ tr:last-child td:last-child {
     background-color: #566392;
     color: #f3f1f5;
 }
+#btnOn{
+    background: #585c9c;
+    font-weight: bold;
+    color:white;
+    border: 1px solid #585c9c;
+    border-radius: 5px;
+    width:72px;
+    height: 30px;
+}
 .btn22{
     background: #585c9c;
     font-weight: bold;
@@ -174,7 +183,7 @@ tr:last-child td:last-child {
     width:72px;
     height: 30px;
 }
-.btn22:hover{
+#btnOn:hover{
     background: white;
     font-weight: bold;
     color:#585c9c;
@@ -183,5 +192,20 @@ tr:last-child td:last-child {
     width:72px;
     height: 30px;
 }
-
+.paging > ul > li{
+    display: inline-block;
+    position: relative;
+    left: 655px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+#btnClose {
+    background: gray;
+    font-weight: bold;
+    color: white;
+    border: 1px solid #585c9c;
+    border-radius: 5px;
+    width: 72px;
+    height: 30px;
+}
 

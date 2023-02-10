@@ -43,12 +43,12 @@ public class FreeBoardController {
     @RequestMapping("/freeList")
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                       @RequestParam(value = "state", defaultValue = "" ) String state,
+                                       @RequestParam(value = "state", defaultValue = "") String state,
                                        @RequestParam(value = "search", defaultValue = "") String search,
-                                       @RequestParam(value = "select",defaultValue = "recent")String select
-    ){
+                                       @RequestParam(value = "select", defaultValue = "recent") String select
+    ) {
 
-        FreeBoardListRequest req = new FreeBoardListRequest(currentPage,state,search,select);
+        FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
 
         freeBoardService.selectReportList();
@@ -75,16 +75,15 @@ public class FreeBoardController {
 
     // 게시글 등록
     @RequestMapping("freeList/insert")
-    public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "")String boardWriter,
+    public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "") String boardWriter,
                                   @RequestParam(value = "boardArea") String boardArea,
                                   Model model, FreeBoard fb, HttpSession session
-    ){
+    ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-
-        if(loginUser.getMemberNo() == 1){
-            model.addAttribute("boardWriter",boardWriter);
+        if (loginUser.getMemberNo() == 1) {
+            model.addAttribute("boardWriter", boardWriter);
             freeBoardService.insertNotice(fb);
-        }else {
+        } else {
             model.addAttribute("boardWrtier", boardWriter);
             freeBoardService.insertFboard(fb);
         }
