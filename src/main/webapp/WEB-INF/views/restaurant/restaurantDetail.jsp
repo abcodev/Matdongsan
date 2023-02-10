@@ -111,7 +111,6 @@
             </table>
         </div>
     </div>
-
 </div>
 
 <%--리뷰모달--%>
@@ -125,7 +124,7 @@
         </div>
         <div id="content_body">
             <span>별점</span>
-            <div id="review_star">
+                <div id="review_star">
                 <input type="radio" name="reviewStar" value="5" id="rate1"><label
                     for="rate1">★</label>
                 <input type="radio" name="reviewStar" value="4" id="rate2"><label

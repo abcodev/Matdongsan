@@ -63,7 +63,7 @@
                 </c:choose>
             </div>
         </nav>
-        <div class="login">
+        <div class="login">`
 
             <c:choose>
                 <c:when test="${ empty loginUser}">
@@ -99,7 +99,7 @@
         }
 
         const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-        sse.addEventListener('realtime_alarm', (event) => {
+        sse.addEventListener('realtime_alarm', (event)  => {
             retrieveAlarmList();
             console.log(event);
         });
@@ -122,10 +122,10 @@
 
 
     <script>
-        if(${loginUser.grade == 'GENERAL'}){
-            alert('회원정보 입력&수정 후 이용해주세요.');
-            window.location = '${pageContext.request.contextPath}/memberModify';
-        }
+        <%--if(${loginUser.grade == 'GENERAL'}){--%>
+        <%--    alert('회원정보 입력&수정 후 이용해주세요.');--%>
+        <%--    window.location = '${pageContext.request.contextPath}/memberModify';--%>
+        <%--}--%>
 
     </script>
 

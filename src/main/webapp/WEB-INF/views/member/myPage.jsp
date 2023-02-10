@@ -18,6 +18,7 @@
 <script>
 
     function changeHeart(estateNo) {
+        console.log($('#checkbox_heart_' + estateNo).is(':checked'))
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             type: 'POST',
@@ -68,8 +69,8 @@
         <div class="like_list">
             <c:forEach items="${interestList}" var="interest">
                 <div id="heart">
-                    <input id="checkbox_heart" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
-                    <label for="checkbox_heart"><i class="fa-solid fa-heart"></i></label>
+                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
+                    <label for="checkbox_heart_${interest.estateNo}"><i class="fa-solid fa-heart"></i></label>
                     <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
                         <div class="bldg_name">${interest.bldgNm}</div>
                     </div>
