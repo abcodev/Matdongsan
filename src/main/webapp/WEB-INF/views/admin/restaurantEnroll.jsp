@@ -11,45 +11,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
     <%@ include file="../template/header.jsp" %>
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data" name="restaurantEnroll">
-<div id="content">
-    <div class="res name">
-        <h3>맛집이름</h3>
-        <input type="text" name="resName" required>
+    <div id="content">
+        <div id="contentHead"></div>
+        <div class="resDiv">
+            <span>맛집이름 : </span>
+            <input type="text" name="resName" required>
+        </div>
+        <div class="resDiv">
+            <span>주소 :</span>
+            <input type="text" name="address" required>
+        </div>
+        <div class="resDiv">
+            <span>전화번호 :</span>
+            <input type="text" name="resPhone" required>
+        </div>
+        <div class="resDiv">
+            <span>주요 메뉴 :</span>
+            <input type="text" name="resFood" required>
+        </div>
+        <div class="resDiv">
+            <span>지역 : </span>
+            <input type="text" name="state" required>
+        </div>
     </div>
-    <div class="res address">
-        <h3>주소</h3>
-        <input type="text" name="address" required>
-    </div>
-    <div class="res phone">
-        <h3>전화번호</h3>
-        <input type="text" name="resPhone" required>
-    </div>
-    <div class="res menu">
-        <h3>주요 메뉴</h3>
-        <input type="text" name="resFood" required>
-    </div>
-        <h3>지역</h3>
-        <input type="text" name="state" required>
-    </div>
-    <div class="place hashtag">
+    <div class="placeHashtag">
         <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
             <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
             <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
         </c:forEach>
     </div>
-    <div class="res img">
-        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file"  onchange="readURL(this);" required>
+    <div class="resImg">
+
+        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
+        <br>
         <img id="preview"/>
     </div>
+    <br>
     <div class="btn_box">
-        <button>취소</button>
-        <input type="submit" onclick="return gopage();" value="등록" />
+        <button class="bbtn">취소</button>
+        <input  class="bbtn" type="submit" onclick="return gopage();" value="등록" />
     </div>
-</div>
+    </div>
 <script>
     $('input:checkbox[name=hashtagId]').click(function(){
 
