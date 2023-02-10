@@ -77,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
         int count  = adminDao.BrokerListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count,currentPage,DEFAULT_RES_SIZE);
         List<BrokerEnroll> brokerEnrollList = adminDao.BrokerList(sqlSession,pageInfoCombine);
-        return new BrokerListResponse();
+        return new BrokerListResponse(brokerEnrollList,pageInfoCombine);
     }
 
 }
