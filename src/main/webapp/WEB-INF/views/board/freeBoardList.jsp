@@ -65,10 +65,11 @@
                 <c:if test="${not empty freeBoardList}">
                     <c:forEach items="${freeBoardList}" var="freeBoardList" varStatus="status">
                         <c:if test="${freeBoardList.memberNo ne 1}">
-                            <c:if test="${reportList[status.index] ne freeBoardList.boardNo}">
+                            <c:if test="${freeBoardList.blind eq 'N'}">
                                 <div class="boardlist">
                                     <p style="display: none">${freeBoardList.boardNo}</p>
                                     <p style="display: none">${freeBoardList.memberNo}</p>
+                                    <p style="display: none">${freeBoardList.blind}</p>
                                     <div class="board_title">
                                         <p>${freeBoardList.boardTitle}</p>
                                     </div>
@@ -84,31 +85,28 @@
                                     </div>
                                 </div>
                             </c:if>
-                            <c:if test="${reportList[status.index] eq freeBoardList.boardNo}">
+                            <c:if test="${freeBoardList.blind eq 'Y'}">
                                 <div class="boardlist" style="background-color: #dddddd">
                                     <p style="display: none">${freeBoardList.boardNo}</p>
                                     <p style="display: none">${freeBoardList.memberNo}</p>
+                                    <p style="display: none">${freeBoardList.blind}</p>
                                     <div class="board_title">
                                         <p>블라인드 처리된 게시글 입니다.</p>
                                     </div>
                                     <div class="board_content">
-                                        <p>${freeBoardList.boardContent}</p>
+
                                     </div>
                                     <div class="board_info">
-                                        <p class="info writer">${freeBoardList.boardWriter}</p>
-                                        <p class="info area">${freeBoardList.boardArea}</p>
-                                        <p class="info date">${freeBoardList.boardDate}</p>
-                                        <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoardList.count}</p>
-                                        <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoardList.replyCount}</p>
+
                                     </div>
                                 </div>
                             </c:if>
-
                         </c:if>
                         <c:if test="${freeBoardList.memberNo eq 1}">
                             <div class="boardlist" style="background-color: #f2dede">
                                 <p style="display: none">${freeBoardList.boardNo}</p>
                                 <p style="display: none">${freeBoardList.memberNo}</p>
+                                <p style="display: none">${freeBoardList.blind}</p>
                                 <div class="board_title">
                                     <p>${freeBoardList.boardTitle}</p>
                                 </div>
@@ -220,9 +218,18 @@
 
     $('#boardlist_main').on('click', '.boardlist', function(){
         console.log($(this).children('p:eq(0)').html());
+        console.log($(this).children('p:eq(2)').html());
+
         let fno = $(this).children('p:eq(0)').html();
         let member = $(this).children('p:eq(1)').html();
-        location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+        let blind = $(this).children('p:eq(2)').html();
+
+        if(blind == 'N'){
+            location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+        }else {
+            alert("블라인드 처리된 게시글 입니다");
+        }
+
     })
 
 

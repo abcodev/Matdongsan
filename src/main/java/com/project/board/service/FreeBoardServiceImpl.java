@@ -43,7 +43,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     @Override
-    public List<Report> selectReportList(){
+    public int selectReportList(){
         return freeBoardDao.selectReportList(sqlSession);
     }
 
