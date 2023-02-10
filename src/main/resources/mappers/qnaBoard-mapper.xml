@@ -18,6 +18,8 @@
         <result column="NICKNAME" property="qnaWriter"/>
         <result column="QNA_WRITER" property="qnaWriter"/>
         <result column="QNA_DEPTH" property="depth"/>
+        <result column="NOTICE" property="notice"/>
+        <result column="BLIND" property="blind"/>
     </resultMap>
 
     <resultMap id="reportResultSet" type="report">
@@ -44,7 +46,7 @@
         WHERE B.STATUS = 'Y'
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
-        ORDER SIBLINGS BY QNA_BNO DESC
+        ORDER SIBLINGS BY NOTICE DESC, QNA_BNO DESC
     </select>
 
     <select id="selectListCount" resultType="int">
@@ -56,8 +58,13 @@
 
 
     <insert id="insertQboard" parameterType="QBoard">
-        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO,QNA_WRITER, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
         VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo},#{qnaWriter}, #{qnaTitle},#{qnaContent}, #{qnaArea})
+    </insert>
+
+    <insert id="insertNotice" parameterType="QBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT ,QNA_AREA, NOTICE)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo},#{qnaWriter}, #{qnaTitle},#{qnaContent}, #{qnaArea}, 1)
     </insert>
 
     <select id="searchList" resultMap="qBoardResultSet">

@@ -51,7 +51,7 @@ public class FreeBoardController {
         FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
 
-        freeBoardService.selectReportList();
+        freeBoardService.selectReportList(); // 블라인드 게시글 조회 및 업데이트
 
         modelAndView.addObject("freeBoardList",resp.getFreeBoardList());
         modelAndView.addObject("pi",resp.getPageInfoCombine());

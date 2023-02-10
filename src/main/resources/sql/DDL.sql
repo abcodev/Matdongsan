@@ -598,7 +598,8 @@ CREATE TABLE "FREE_BOARD"
     "BOARD_DATE"    TIMESTAMP    DEFAULT localtimestamp NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL,
-    "NOTICE"        NUMBER DEFAULT 0             NULL
+    "NOTICE"        NUMBER DEFAULT 0             NULL,
+    "BLIND"         VARCHAR2(1)  DEFAULT 'N'     NULL
 );
 
 COMMENT
@@ -627,6 +628,10 @@ COMMENT
 
 COMMENT
     ON COLUMN "FREE_BOARD"."NOTICE" IS '공지사항 여부';
+
+COMMENT
+    ON COLUMN "FREE_BOARD"."BLIND" IS '블라인드 여부';
+
 
 
 
@@ -706,7 +711,9 @@ CREATE TABLE "QNA_BOARD"
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NULL,
     "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL,
-    "QNA_WRITER"  VARCHAR(255)                  NULL
+    "QNA_WRITER"  VARCHAR(255)                  NULL,
+    "NOTICE"        NUMBER DEFAULT 0             NULL,
+    "BLIND"         VARCHAR2(1)  DEFAULT 'N'     NULL
 );
 
 COMMENT
@@ -741,6 +748,13 @@ COMMENT
 
 COMMENT
     ON COLUMN "QNA_BOARD"."QNA_WRITER" IS '작성자';
+
+COMMENT
+    ON COLUMN "FREE_BOARD"."NOTICE" IS '공지사항 여부';
+
+COMMENT
+    ON COLUMN "FREE_BOARD"."BLIND" IS '블라인드 여부';
+
 
 
 
