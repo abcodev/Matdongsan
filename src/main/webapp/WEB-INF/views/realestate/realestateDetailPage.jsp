@@ -69,7 +69,7 @@
             <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
             <div class="realtor_table">
                 <c:forEach var="agent" begin="0" end="6" items="${ agentList }">
-                    <div class="rno" onclick="showRealtor(${ agent.agentNo }, '${ agent.agentName }')">${ agent.agentName }</div>
+                    <div class="rno" onclick="showRealtor('${ agent.agentNo }', '${ agent.agentName }')">${ agent.agentName }</div>
                 </c:forEach>
             </div>
         </div>
@@ -263,6 +263,7 @@
 <script>
     let resercationAgentNo = null;
     function showRealtor(agentNo, agentName) {
+        console.log(agentNo);
         $('#agent_name').html(agentName);
         resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
@@ -283,14 +284,6 @@
             }
         });
 
-        // function onClick() {
-        //     document.querySelector('.modal_wrap').style.display = 'block';
-        //     document.querySelector('.black_bg').style.display = 'block';
-        // }
-
-
-
-        // document.querySelector('.rno').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 

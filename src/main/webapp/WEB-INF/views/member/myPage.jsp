@@ -16,8 +16,8 @@
 <body>
 <%@ include file="../template/header.jsp" %>
 <script>
-
     function changeHeart(estateNo) {
+        console.log($('#checkbox_heart_' + estateNo).is(':checked'))
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             type: 'POST',
@@ -59,6 +59,7 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
+            <button><a href="${pageContext.request.contextPath}/estate/enrollPage">제휴부동산 신청</a></button>
         </div>
     </div>
 
@@ -141,7 +142,6 @@
         else if(deleteMember === false){
         }
     }
-
 
 
     function retrieveAllBoards(current_page) {

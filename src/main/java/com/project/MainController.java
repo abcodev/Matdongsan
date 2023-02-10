@@ -2,10 +2,10 @@ package com.project;
 
 import com.project.member.vo.Member;
 import com.google.gson.Gson;
-import com.project.realestate.dto.RealEstateDetailDto;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateViewDto;
 import com.project.realestate.service.RealEstateService;
+import com.project.redis.interestrealestate.InterestRealEstateRedisRepository;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -33,11 +31,24 @@ public class MainController {
 
     private final RealEstateService realEstateService;
     private final RecentRealEstateRedisService recentRealEstateRedisService;
+    private final InterestRealEstateRedisRepository interestRealEstateRedisRepository;
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv) {
         mv.setViewName("index");
         return mv;
+    }
+
+    @GetMapping("/zset/test/1")
+    public ResponseEntity<Void> test1(@RequestParam String param) {
+        interestRealEstateRedisRepository.addIfAbsent(param);
+        interestRealEstateRedisRepository.incrementScore(param);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/zset/test/2")
+    public ResponseEntity<Set<String>> test2() {
+        return ResponseEntity.ok(interestRealEstateRedisRepository.findTopN(5));
     }
 
     @RequestMapping(value = "/mainPage")

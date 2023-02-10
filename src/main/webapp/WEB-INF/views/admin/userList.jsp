@@ -19,6 +19,8 @@
 <div id="button2">
     <button id="b1">회원관리</button>
     <button type="button" class="b2" id="movePage">신고관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
+
 </div>
 <br><br><br><br>
 <div class="memberTable">
@@ -39,7 +41,7 @@
                 <td>${ul.email}</td>
                 <td>${ul.email}</td>
                 <td>${ul.memberName}</td>
-                <td>영구정지</td>
+                <td>회원등급</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -59,7 +61,7 @@
         </c:choose>
 
         <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>
+            <li class="page-item" onclick="retrieveUserList(${item})"><${item }></li>
         </c:forEach>
 
         <c:choose>
@@ -75,6 +77,17 @@
 </div>
 
 <script>
+
+    $('#moveBrokerList').click(function (){
+        $.ajax({
+            type : "POST",
+            url : "${pageContext.request.contextPath}/admin/brokerList",
+            dataType : "html",
+            success : function (data){
+                $("body").html(data);
+            }
+        })
+    })
 
 
     $(function () {

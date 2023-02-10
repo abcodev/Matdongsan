@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -132,10 +133,11 @@ public class RealEstateServiceImpl implements RealEstateService {
         if (recentEstateNoList.isEmpty()) {
             return Collections.emptyList();
         }
-        return recentEstateNoList.stream().map(estateNo -> {
-            RealEstateDetailDto detail = this.realEstateDetail(estateNo);
-            return RealEstateViewDto.of(detail);
-        }).map(RealEstateViewDto.class::cast).collect(Collectors.toList());
+        return recentEstateNoList.stream()
+                .map(this::realEstateDetail)
+                .filter(Objects::nonNull)
+                .map(RealEstateViewDto::of)
+                .collect(Collectors.toList());
     }
 
 //    @Override

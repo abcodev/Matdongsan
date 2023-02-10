@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8"%><!DOCTYPE html>
 
-<c:set var="q" value="${qb.qnaWriter}"/>
+<c:set var="q" value="${qb.memberNo}"/>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -38,7 +38,6 @@
 
             <input type="text" name="boardTitle" value="${qb.qnaTitle}">
 
-
         </div>
         <div class="board_info">
           <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
@@ -52,12 +51,15 @@
       </div>
       <div class="btn_box">
         <c:if test="${not empty loginUser}">
-          <c:if test="${q eq loginUser.nickName}">
-            <button onclick="movePage()">답글달기</button>
-            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">신고하기</button>
+          <c:if test="${q eq loginUser.memberNo}">
+            <button type="button" class="btn1" onclick="deletePage(${qb.qnaBno})">삭제</button>
+            <%--<button><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a></button>--%>
           </c:if>
-          <c:if test="${q ne loginUser.nickName}">
-            <button><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a></button>
+          <c:if test="${q ne loginUser.memberNo}">
+            <c:if test="${q ne 1}">
+              <button onclick="movePage()">답글달기</button>
+              <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">신고하기</button>
+            </c:if>
           </c:if>
         </c:if>
       </div>
@@ -138,6 +140,10 @@
       })
     }
 
+    function deletePage(qBno){
+      location.href = '${pageContext.request.contextPath}/board/delete/'+qBno;
+      alert("게시판 삭제 완료")
+    }
   </script>
 
 

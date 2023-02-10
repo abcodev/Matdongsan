@@ -2,6 +2,7 @@ package com.project.admin.controller;
 
 import com.project.admin.dto.AdminListRequest;
 import com.project.admin.dto.AdminListResponse;
+import com.project.admin.dto.BrokerListResponse;
 import com.project.admin.dto.ReportListResponse;
 import com.project.admin.service.AdminService;
 import com.project.admin.vo.Admin;
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private final AdminService adminService;
     @RequestMapping(value = "/userList/{fNo}")
     public ModelAndView selectUserList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
@@ -33,13 +34,6 @@ public class AdminController {
         mv.addObject("pi", aesp.getPageInfoCombine());
         mv.setViewName("admin/userList");
         return mv;
-
-        model.addAttribute("map",map);
-        model.addAttribute("ad",ad);
-
-
-        return "admin/userList";
-
     }
 
     @RequestMapping(value = "/reportList/{fNo}")
@@ -57,23 +51,17 @@ public class AdminController {
         mv.addObject("fNo",fNo);
         mv.setViewName("admin/reportList");
         return mv;
-
-
     }
 
     @RequestMapping(value = "/deleteQna/{fNo}")
-    public String deleteQna(
-            @PathVariable("fNo") int fNo
-    ){
+    public String deleteQna(@PathVariable("fNo") int fNo) {
+
         int result = adminService.deleteQna(fNo);
         if(result == 0){
             return "common/errorPage";
         }else {
             return "redirect:/admin/userList/{fNo}";
         }
-
-
-
 
     }
 
@@ -87,18 +75,24 @@ public class AdminController {
         }else {
             return "redirect:/admin/userList/{fNo}";
         }
-
-
-
     }
 
-    @RequestMapping(value = "/insertBlack" ,method = RequestMethod.GET)
-    public String insertBlack(Admin ad){
+    @RequestMapping(value = "/brokerList")
+    public ModelAndView BrokerList (
+            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+            ModelAndView mv
 
-        int result = adminService.insertBlack(ad);
+    ){
 
-        return "admin/userList";
+        BrokerListResponse resp = adminService.BrokerList(currentPage);
+        mv.addObject("brokerList",resp.getBrokerEnrollList());
+        mv.addObject("pi",resp.getPageInfoCombine());
+        mv.setViewName("admin/realEstateBroker");
+        return  mv;
     }
+
+
+
 
 
 }

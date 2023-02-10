@@ -3,8 +3,10 @@ package com.project.admin.service;
 import com.project.admin.dao.AdminDao;
 import com.project.admin.dto.AdminListRequest;
 import com.project.admin.dto.AdminListResponse;
+import com.project.admin.dto.BrokerListResponse;
 import com.project.admin.dto.ReportListResponse;
 import com.project.admin.vo.Admin;
+import com.project.admin.vo.BrokerEnroll;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
 import com.project.common.template.Pagination;
@@ -13,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
@@ -53,7 +56,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
-
     @Override
     public int deleteQna(int fNo){
         return adminDao.deleteQna(sqlSession, fNo);
@@ -68,6 +70,14 @@ public class AdminServiceImpl implements AdminService {
     public int insertBlack(Admin ad){
         return adminDao.insertBlack(sqlSession,ad);
 
+    }
+
+    @Override
+    public BrokerListResponse BrokerList(int currentPage) {
+        int count  = adminDao.BrokerListCount(sqlSession);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count,currentPage,DEFAULT_RES_SIZE);
+        List<BrokerEnroll> brokerEnrollList = adminDao.BrokerList(sqlSession,pageInfoCombine);
+        return new BrokerListResponse(brokerEnrollList,pageInfoCombine);
     }
 
 }

@@ -31,7 +31,8 @@ public class QnaBoard {
     private String reportReason;
     private int reportUserNo;
 
-
+    private int notice;
+    private String blind;
 
 
 

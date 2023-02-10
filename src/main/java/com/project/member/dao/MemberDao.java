@@ -42,6 +42,9 @@ public class MemberDao {
         return sqlSession.selectOne("memberMapper.select", params);
     }
 
+    public void updateMemberWithLogin(Member member) {
+        sqlSession.update("memberMapper.updateWithLogin", member);
+    }
 
     public int updateMember(SqlSession sqlSession, Member m){
         return sqlSession.update("memberMapper.update", m);
@@ -49,16 +52,6 @@ public class MemberDao {
 
     public Member loginMember(SqlSession sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
-    }
-
-
-
-
-    public void updateRecentAccess(String provider, String providerId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("provider", provider);
-        params.put("providerId", providerId);
-        sqlSession.update("memberMapper.updateRecentAccess", params);
     }
 
     public Member select(long memberNo) {
@@ -96,16 +89,6 @@ public class MemberDao {
 
     public int deleteMember(SqlSession sqlSession, long memberNo){
         return sqlSession.delete("memberMapper.deleteMember", memberNo);
-    }
-
-    public void updateToken(String provider, String providerId, OAuthToken token) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("provider", provider);
-        params.put("providerId", providerId);
-        params.put("accessToken", token.getAccessToken());
-        params.put("refreshToken", token.getRefreshToken());
-        params.put("refreshTokenExpiredAt", Timestamp.valueOf(LocalDateTime.now().plus(Duration.ofSeconds(token.getRefreshTokenExpiresIn()))));
-        sqlSession.update("memberMapper.updateToken", params);
     }
 
 //    public ArrayList<Interest> selectInterestList(SqlSession sqlSession, String estateNo){

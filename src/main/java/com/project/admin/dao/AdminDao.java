@@ -2,6 +2,7 @@ package com.project.admin.dao;
 
 
 import com.project.admin.vo.Admin;
+import com.project.admin.vo.BrokerEnroll;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
 import com.project.common.template.PageInfoCombine;
@@ -11,6 +12,7 @@ import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.velocity.app.event.implement.EscapeSqlReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -51,4 +53,12 @@ public class AdminDao {
 
     }
 
+    public int BrokerListCount(SqlSession sqlSession) {
+        return sqlSession.selectOne("realEstateAgentMapper.BrokerListCount");
+    }
+
+    public List<BrokerEnroll> BrokerList(SqlSession sqlSession, PageInfoCombine pageInfoCombine) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("realEstateAgentMapper.BrokerList",null,rowBounds);
+    }
 }
