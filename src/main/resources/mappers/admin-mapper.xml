@@ -81,10 +81,7 @@
         WHERE FREE_BNO = #{fNo}
     </update>
 
-    <insert id="insertBlack" parameterType="admin">
-        INSERT INTO REPORT(REPORT_NO, FREE_BNO, REPORT_PERIOD)
-        VALUES (199,199,#{reportPeriod})
-    </insert>
+
 
 
 

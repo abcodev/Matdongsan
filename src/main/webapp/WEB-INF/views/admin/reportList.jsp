@@ -50,7 +50,7 @@
                 <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
                 </c:when>
                 <c:otherwise>
-                    <td><button type="button" class="add-btn" id="btnClose"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리완료</button></td>
+                    <td><button type="button" class="add-btn" id="btnClose">처리완료</button></td>
                 </c:otherwise>
                 </c:choose>
                 <td><select id="reportPeriod" name="reportPeriod">
