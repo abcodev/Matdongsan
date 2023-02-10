@@ -36,8 +36,8 @@
             <th>활동 정지</th>
         </tr>
         </thead>
-<tbody id="tableList">
-<c:forEach var="rl" items="${reportList}">
+        <tbody id="tableList">
+        <c:forEach var="rl" items="${reportList}">
             <tr>
                 <td>${rl.reportType}</td>
                 <td>${rl.reportNo}</td>
@@ -46,25 +46,25 @@
                 <td>${rl.reportContent}</td>
                 <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
                 <c:choose>
-                <c:when test="${rl.QStatus or rl.FStatus == 'Y' }">
-                <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
-                </c:when>
-                <c:otherwise>
-                    <td><button type="button" class="add-btn" id="btnClose">처리완료</button></td>
-                </c:otherwise>
+                    <c:when test="${rl.QStatus  == 'Y' && rl.FStatus == 'Y' }">
+                        <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
+                    </c:when>
+                    <c:otherwise>
+                        <td><button type="button" id="btnClose">처리완료</button></td>
+                    </c:otherwise>
                 </c:choose>
                 <td><select id="reportPeriod" name="reportPeriod">
-                <option>정지기간선택</option>
-                <option value="three">3일정지</option>
-                <option value="seven">7일정지</option>
-                <option value="infinity">영구정지</option>
-                 </select>
-                <button type="submit">정지확인</button>
-            </td>
+                    <option>정지기간선택</option>
+                    <option value="three">3일정지</option>
+                    <option value="seven">7일정지</option>
+                    <option value="infinity">영구정지</option>
+                </select>
+                    <button type="submit">정지확인</button>
+                </td>
 
             </tr>
-</c:forEach>
-</tbody>
+        </c:forEach>
+        </tbody>
 
 
     </table>
@@ -77,7 +77,7 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-           <input type="hidden" id="rType" value=""/>
+            <input type="hidden" id="rType" value=""/>
             <input type="hidden" id="fNo"  value=""/>
             <button type="button" id="clear" class="btn" onclick="movePage2()">예</button>
             <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
@@ -166,14 +166,14 @@
 
 
     /* 모달*/
-   $(document).on('click', '.add-btn', function (e) {
+    $(document).on('click', '.add-btn', function (e) {
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
         console.log(fNo);
         console.log(type);
-       $("#rType").val(type);
-       $("#fNo").val(fNo);
+        $("#rType").val(type);
+        $("#fNo").val(fNo);
         $('#modal').addClass('show');
 
     });
@@ -206,7 +206,27 @@
             alert("자유게시판 삭제처리 완료")
 
         }
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 </body>
 </html>
