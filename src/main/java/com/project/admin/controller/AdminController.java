@@ -33,9 +33,6 @@ public class AdminController {
         mv.addObject("pi", aesp.getPageInfoCombine());
         mv.setViewName("admin/userList");
         return mv;
-
-
-
     }
 
     @RequestMapping(value = "/reportList/{fNo}")
@@ -53,23 +50,17 @@ public class AdminController {
         mv.addObject("fNo",fNo);
         mv.setViewName("admin/reportList");
         return mv;
-
-
     }
 
     @RequestMapping(value = "/deleteQna/{fNo}")
-    public String deleteQna(
-            @PathVariable("fNo") int fNo
-    ){
+    public String deleteQna(@PathVariable("fNo") int fNo) {
+
         int result = adminService.deleteQna(fNo);
         if(result == 0){
             return "common/errorPage";
         }else {
             return "redirect:/admin/userList/{fNo}";
         }
-
-
-
 
     }
 
@@ -83,17 +74,6 @@ public class AdminController {
         }else {
             return "redirect:/admin/userList/{fNo}";
         }
-
-
-
-    }
-
-    @RequestMapping(value = "/insertBlack" ,method = RequestMethod.GET)
-    public String insertBlack(Admin ad){
-
-        int result = adminService.insertBlack(ad);
-
-        return "admin/userList";
     }
 
 

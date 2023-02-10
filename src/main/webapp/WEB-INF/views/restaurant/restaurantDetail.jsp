@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
           rel="stylesheet">
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
+<%@ include file="../template/header.jsp" %>
 <div id="content">
     <div class="detail_head">
 
@@ -51,14 +51,6 @@
                     <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
                 </c:forEach>
             </span>
-
-            <%--해시태그 비동기 갱신--%>
-            <%--            <span id = "hashtag_by_review">--%>
-            <%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
-            <%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
-            <%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
-            <%--                </c:forEach>--%>
-            <%--            </span>--%>
         </div>
     </div>
     <div class="detail_main">
@@ -111,6 +103,7 @@
             </table>
         </div>
     </div>
+
 </div>
 
 <%--리뷰모달--%>
@@ -124,7 +117,7 @@
         </div>
         <div id="content_body">
             <span>별점</span>
-                <div id="review_star">
+            <div id="review_star" class="review_starRating">
                 <input type="radio" name="reviewStar" value="5" id="rate1"><label
                     for="rate1">★</label>
                 <input type="radio" name="reviewStar" value="4" id="rate2"><label
@@ -140,12 +133,13 @@
                 <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
                     <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag"
                            autocomplete="off" value="${hashtag.hashtag}">
-                    <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
+                    <label class="btn btn-outline-secondary"
+                           for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
                 </c:forEach>
             </div>
 
             <div id="review_text">
-                <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
+                <textarea type="text" id="reviewContent" class="rv_input" placeholder="리뷰를 남겨주세요"></textarea>
             </div>
 
             <div class="review_img">
@@ -166,19 +160,9 @@
             document.querySelector('.black_bg').style.display = 'block';
         }
 
-        function offClick() {
-            document.querySelector('.modal_wrap').style.display = 'none';
-            document.querySelector('.black_bg').style.display = 'none';
-        }
-
         document.getElementById('review_btn').addEventListener('click', onClick);
-        document.getElementById('review_insert').addEventListener('click', offClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
-
-        // $('.modal_wrap').on('hidden.bs.modal', function (e) {
-        //     $(offClick).find('form')[0].reset()
-        // });
 
         selectReviewList();
     };
@@ -211,9 +195,9 @@
                         + '<div class="review_header">'
                         + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
                         + '<div class="review_user_name">' + i.memberName + '</div>'
-                        + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★": i.starRating === 4 ? "★★★★": i.starRating === 3 ? "★★★": i.starRating === 2 ? "★★": i.starRating === 1 ? "★" : "" )) + '</div>'
+                        + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★" : i.starRating === 4 ? "★★★★" : i.starRating === 3 ? "★★★" : i.starRating === 2 ? "★★" : i.starRating === 1 ? "★" : "")) + '</div>'
                         + '<div class="review_date">' + i.createDate.substring(0, 16) + '</div>'
-                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>":""))
+                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>" : ""))
                         + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
                         + '</div>'
                         + '<div class="review_content">' + i.reviewContent + '</div>'
@@ -229,7 +213,7 @@
                     star_rating = '별점을 남겨주세요!'
                 } else {
                     star_rating = Math.round(data['reviewList'].map(obj => obj['starRating'])
-                        .reduce((accumulator, current) => accumulator + current, 0) *10 / data['reviewList'].length) / 10
+                        .reduce((accumulator, current) => accumulator + current, 0) * 10 / data['reviewList'].length) / 10
                     star_rating += ' / 5'
                 }
                 $('#star_rating').html(star_rating)
@@ -251,11 +235,28 @@
     function insertReview() {
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
-        $('input:checkbox[name=chk_hashtag]:checked').each(function() {
+        $('input:checkbox[name=chk_hashtag]:checked').each(function () {
             hashtags.push(this.value);
         });
         const contents = $('#reviewContent').val()
         const files = $('#formFileSm')[0].files
+
+        if(score === undefined) {
+            alert("별점을 입력해주세요")
+            return;
+        }
+        if(hashtags.length === 0){
+            alert("해시태그를 입력해주세요")
+            return;
+        }
+        if(contents === "") {
+            alert("리뷰를 입력해 주세요")
+            return;
+        }
+        if(files.length === 0) {
+            alert("사진을 첨부해주세요")
+            return;
+        }
 
         const formData = new FormData();
         formData.set("resNo", ${restaurantDetail.resNo});
@@ -266,7 +267,6 @@
             formData.append("files", files[i])
         }
 
-
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/insertReview',
             type: 'POST',
@@ -275,42 +275,55 @@
             processData: false,
             success: () => {
                 selectReviewList();
+                offClick();
             },
             error: function () {
+                offClick();
                 console.log("리뷰 등록 실패");
             }
         });
     }
 
-
-
-    $('input:checkbox[name=chk_hashtag]').click(function(){
+    $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
-        if(cntEPT>3){
+        if (cntEPT > 3) {
             alert('해시태그는 최대 3개까지 선택 가능합니다.')
             $(this).prop('checked', false);
         }
     });
 
 
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display = 'none';
+        document.querySelector('.black_bg').style.display = 'none';
+
+        $(".rv_input").val("");
+        $("#formFileSm").val("");
+        $('input:radio[name=reviewStar]').each(function () {
+            $(this).prop('checked', false);
+        });
+        $('input:checkbox[name=chk_hashtag]').each(function () {
+            $(this).prop('checked', false);
+        });
+    }
+
 
     // 관리자 - 리뷰삭제
-    function deleteReview(button){
+    function deleteReview(button) {
         let revNo = $(button).parent().parent().find("[name='revNo']").val();
         $.ajax({
-            url : "${pageContext.request.contextPath}/restaurant/review/" + revNo,
-            type : "delete",
-            success : function (result) {
+            url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
+            type: "delete",
+            success: function (result) {
                 alert("리뷰 삭제 성공");
                 selectReviewList();
             },
-            error : function (){
+            error: function () {
                 alert("리뷰 삭제 실패");
             }
         });
     }
 </script>
-
 
 
 </body>

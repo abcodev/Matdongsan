@@ -16,10 +16,10 @@
         <result column="ADDRESS" property="address"/>
         <result column="STATUS" property="status"/>
         <result column="GRADE" property="grade"/>
-        <result column="INTEREST_STATE" property="interestState"/>
         <result column="ACCESS_TOKEN" property="accessToken" />
         <result column="REFRESH_TOKEN" property="refreshToken" />
         <result column="REFRESH_TOKEN_EXPIRED_AT" property="refreshTokenExpiredAt" />
+        <result column="BAN_PERIOD" property="banPeriod" />
     </resultMap>
 
     <resultMap type="memberInterest" id="interestList">
@@ -66,7 +66,7 @@
 
     <select id="loginMember" parameterType="member" resultMap="memberResultSet">
         SELECT
-            MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, INTEREST_STATE, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
+            MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
           AND STATUS = 'Y'
@@ -84,19 +84,14 @@
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
-    <update id="updateToken" parameterType="Map">
+    <update id="updateWithLogin" parameterType="member">
         UPDATE MEMBER
         SET
+            PROFILE_IMAGE = #{profileImage},
+            MEMBER_NAME = #{memberName},
             ACCESS_TOKEN = #{accessToken},
             REFRESH_TOKEN = #{refreshToken},
-            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt}
-        WHERE PROVIDER = #{provider}
-          AND PROVIDER_ID = #{providerId}
-    </update>
-
-    <update id="updateRecentAccess" parameterType="Map">
-        UPDATE MEMBER
-        SET
+            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt},
             RECENT_ACCESS = CURRENT_TIMESTAMP
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}

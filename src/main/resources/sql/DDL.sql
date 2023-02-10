@@ -283,10 +283,10 @@ CREATE TABLE "MEMBER"
     "STATUS"                   VARCHAR(255) DEFAULT 'Y'       NULL,
     "GRADE"                    VARCHAR(255) DEFAULT 'GENERAL' NULL,
     "RECENT_ACCESS"            TIMESTAMP                      NULL,
-    "INTEREST_STATE"           VARCHAR2(255)                  NULL,
     "ACCESS_TOKEN"             VARCHAR2(255)                  NULL,
     "REFRESH_TOKEN"            VARCHAR2(255)                  NULL,
-    "REFRESH_TOKEN_EXPIRED_AT" VARCHAR2(255)                  NULL
+    "REFRESH_TOKEN_EXPIRED_AT" VARCHAR2(255)                  NULL,
+    "REPORT_PERIOD" TIMESTAMP NULL
 );
 
 COMMENT
@@ -324,9 +324,6 @@ COMMENT
 
 COMMENT
     ON COLUMN "MEMBER"."RECENT_ACCESS" IS '최근접속기록';
-
-COMMENT
-    ON COLUMN "MEMBER"."INTEREST_STATE" IS '관심구';
 
 COMMENT
     ON COLUMN "MEMBER"."ACCESS_TOKEN"  IS '로그인 토큰';

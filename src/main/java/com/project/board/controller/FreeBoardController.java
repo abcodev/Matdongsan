@@ -43,12 +43,12 @@ public class FreeBoardController {
     @RequestMapping("/freeList")
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                       @RequestParam(value = "state", defaultValue = "" ) String state,
+                                       @RequestParam(value = "state", defaultValue = "") String state,
                                        @RequestParam(value = "search", defaultValue = "") String search,
-                                       @RequestParam(value = "select",defaultValue = "recent")String select
-    ){
+                                       @RequestParam(value = "select", defaultValue = "recent") String select
+    ) {
 
-        FreeBoardListRequest req = new FreeBoardListRequest(currentPage,state,search,select);
+        FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
 
         List<Report> reportList = freeBoardService.selectReportList();
@@ -56,7 +56,7 @@ public class FreeBoardController {
         int reportFno = 0;
         List<Integer> reportFList = new ArrayList<>();
 
-        for(int i=0; i<reportList.size(); i++){
+        for (int i = 0; i < reportList.size(); i++) {
             reportFno = reportList.get(i).getReportFno();
             reportFList.add(reportFno);
             modelAndView.addObject("reportList", reportFList);
@@ -65,8 +65,8 @@ public class FreeBoardController {
         System.out.println("신고 리스트 : " + reportFList);
 
         //modelAndView.addObject("reportList", reportList);
-        modelAndView.addObject("freeBoardList",resp.getFreeBoardList());
-        modelAndView.addObject("pi",resp.getPageInfoCombine());
+        modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
+        modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
         modelAndView.addObject("hotWeekList",freeBoardService.hotWeekList());
         modelAndView.addObject("condition",req);
@@ -87,16 +87,15 @@ public class FreeBoardController {
 
     // 게시글 등록
     @RequestMapping("freeList/insert")
-    public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "")String boardWriter,
+    public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "") String boardWriter,
                                   @RequestParam(value = "boardArea") String boardArea,
                                   Model model, FreeBoard fb, HttpSession session
-    ){
+    ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-
-        if(loginUser.getMemberNo() == 1){
-            model.addAttribute("boardWriter",boardWriter);
+        if (loginUser.getMemberNo() == 1) {
+            model.addAttribute("boardWriter", boardWriter);
             freeBoardService.insertNotice(fb);
-        }else {
+        } else {
             model.addAttribute("boardWrtier", boardWriter);
             freeBoardService.insertFboard(fb);
         }
@@ -113,6 +112,7 @@ public class FreeBoardController {
 
     ){
         long memberNo = 0;
+
         if(!ObjectUtils.isEmpty(loginUser)) {
             memberNo = loginUser.getMemberNo();
         }

@@ -12,6 +12,12 @@ public class Report {
     private String reportContent; // 신고 사유
     private String reportType;
     private int fNo;
+    private String qStatus;
+    private String fStatus;
+    private String email;
+    private String reportEmail;
+
+
 
 
 }

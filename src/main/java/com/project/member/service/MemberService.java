@@ -63,9 +63,9 @@ public class MemberService {
         Member member = Member.of(oAuthUser, oAuthToken);
         if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
             memberDao.insertMember(member);
+        } {
+            memberDao.updateMemberWithLogin(member);
         }
-        memberDao.updateToken(member.getProvider(), member.getProviderId(), oAuthToken);
-        memberDao.updateRecentAccess(member.getProvider(), member.getProviderId());
         return memberDao.select(member.getProvider(), member.getProviderId());
     }
 

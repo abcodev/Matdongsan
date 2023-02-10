@@ -5,14 +5,21 @@ import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.restaurant.vo.Hashtag;
+import com.project.restaurant.vo.Restaurant;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -105,5 +112,16 @@ public class MemberController {
         memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
         return Integer.toString(randomNumber);
     }
+
+
+    /**
+     * 부동산 회원 인증 페이지
+     */
+    @RequestMapping("estate/enrollPage")
+    public ModelAndView estateEnrollPage(ModelAndView modelAndView) {
+        modelAndView.setViewName("member/estateMemberEnroll");
+        return modelAndView;
+    }
+
 
 }
