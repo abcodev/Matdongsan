@@ -17,6 +17,7 @@
         <result column="STATUS" property="status"/>
         <result column="COUNT" property="count"/>
         <result column="REPLY_COUNT" property="replyCount"/>
+        <result column="BLIND" property="blind"/>
     </resultMap>
 
     <resultMap id="replyResultSet" type="reply">
@@ -105,13 +106,16 @@
             </choose>
     </select>
 
-    <select id="selectReportList" resultMap="reportResultSet">
-        SELECT F.FREE_BNO
-        FROM REPORT R
-                 LEFT JOIN FREE_BOARD F ON R.FREE_BNO = F.FREE_BNO
-        GROUP BY F.FREE_BNO
-        HAVING COUNT(F.FREE_BNO) >= 5
-    </select>
+    <update id="selectReportList">
+        UPDATE FREE_BOARD
+        SET BLIND = 'Y'
+        WHERE FREE_BNO IN (SELECT
+                               FREE_BNO
+                           FROM REPORT
+                           WHERE REPORT_TYPE = '자유게시판'
+                           GROUP BY FREE_BNO
+                           HAVING COUNT(FREE_BNO) >= 10)
+    </update>
 
     <resultMap id="hotWeekResultSet" type="hotWeek">
         <result column="FREE_BNO" property="freeBno"/>
