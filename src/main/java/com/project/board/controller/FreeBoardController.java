@@ -68,17 +68,19 @@ public class FreeBoardController {
         modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
-        modelAndView.addObject("hotWeekList", freeBoardService.hotWeekList());
-        modelAndView.addObject("condition", req);
+        modelAndView.addObject("hotWeekList",freeBoardService.hotWeekList());
+        modelAndView.addObject("condition",req);
         modelAndView.setViewName("board/freeBoardList");
 
         return modelAndView;
     }
 
 
+
+
     // 게시글 작성폼
     @RequestMapping("/freeList/enrollForm")
-    public String enrollForm(Model model) {
+    public String enrollForm(Model model){
         model.addAttribute("localList", StateList.values());
         return "board/freeBoardEnroll";
     }
@@ -107,28 +109,30 @@ public class FreeBoardController {
                                         @ModelAttribute("loginUser") Member loginUser,
                                         HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse
-    ) {
+
+    ){
         long memberNo = 0;
 
-        if (!ObjectUtils.isEmpty(loginUser)) {
+        if(!ObjectUtils.isEmpty(loginUser)) {
             memberNo = loginUser.getMemberNo();
         }
 
         FreeBoard fb = freeBoardService.detailFreeBoard(fno);
-        Boolean countCheck = ViewCountUp.countUp(fb, loginUser, httpServletRequest, httpServletResponse);
-        if (countCheck) {
-            FreeBoardCountDto count = FreeBoardCountDto.count(fno, memberNo);
+        Boolean countCheck = ViewCountUp.countUp(fb,loginUser,httpServletRequest,httpServletResponse);
+        if(countCheck){
+            FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
             freeBoardService.freeBoardCount(count);
         }
-        mv.addObject("fb", fb);
+
+        mv.addObject("fb", fb );
         mv.setViewName("board/freeBoardDetail");
         return mv;
     }
 
     // 게시글 수정
-    @RequestMapping(value = "/update", produces = "application/json")
+    @RequestMapping(value = "/update" , produces = "application/json")
     @ResponseBody
-    public ResponseEntity<FreeBoard> updatePost(FreeBoard freeBoard) throws Exception {
+    public ResponseEntity<FreeBoard> updatePost(FreeBoard freeBoard) throws Exception{
         freeBoardService.updatePost(freeBoard);
         freeBoard = freeBoardService.detailFreeBoard(freeBoard.getBoardNo());
         return ResponseEntity.ok(freeBoard);
@@ -136,13 +140,14 @@ public class FreeBoardController {
 
     // 게시글 삭제
     @RequestMapping("freeList/deletePost={fno}")
-    public String deletePost(@PathVariable("fno") int fno) {
+    public String deletePost(@PathVariable("fno") int fno){
         int result = freeBoardService.deletePost(fno);
-        if (result == 0) {
+        if(result == 0){
             return "common/errorPage";
-        } else {
+        }else {
             return "redirect:/board/freeList";
         }
+
     }
 
     // 댓글 작성
@@ -150,22 +155,23 @@ public class FreeBoardController {
     @ResponseBody
     public String insertReply(Reply r, HttpSession session) {
 
-        Member m = (Member) session.getAttribute("loginUser");
-        if (m != null) {
+        Member m = (Member)session.getAttribute("loginUser");
+        if(m != null) {
             r.setMemberNo(m.getMemberNo());
         }
         int result = freeBoardService.insertReply(r);
-        if (result > 0) {
+        if(result > 0) {
             return "1";
-        } else {
+        }else {
             return "0";
         }
+
     }
 
     // 댓글 보기
     @RequestMapping("/replyList")
     @ResponseBody
-    public String selectReplyList(int fno) {
+    public String selectReplyList (int fno){
         ArrayList<Reply> replyList = freeBoardService.selectReplyList(fno);
         Gson gson = new GsonBuilder().create();
         String result = gson.toJson(replyList);
@@ -175,7 +181,7 @@ public class FreeBoardController {
     // 댓글 삭제
     @RequestMapping("/deleteReply")
     @ResponseBody
-    public int deleteReply(Reply reply) {
+    public int deleteReply(Reply reply){
         int result = freeBoardService.deleteReply(reply);
         return result;
     }
@@ -183,11 +189,12 @@ public class FreeBoardController {
     // 게시글 신고하기
     @RequestMapping("/report")
     @ResponseBody
-    public String reportPost(Report report) {
+    public String reportPost(Report report){
+
         int result = freeBoardService.insertReport(report);
-        if (result > 0) {
+        if(result > 0){
             return "1";
-        } else {
+        }else {
             return "0";
         }
     }

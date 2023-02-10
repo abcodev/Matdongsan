@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="boardMapper">
+
+    <resultMap type="QBoard" id="qBoardResultSet">
+        <result column="QNA_BNO" property="qnaBno"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="P_BNO" property="parentBno"/>
+        <result column="QNA_TITLE" property="qnaTitle"/>
+        <result column="QNA_CONTENT" property="qnaContent"/>
+        <result column="QNA_DATE" property="qnaDate"/>
+        <result column="COUNT" property="count"/>
+        <result column="STATUS" property="status"/>
+        <result column="QNA_AREA" property="qnaArea"/>
+        <result column="NICKNAME" property="qnaWriter"/>
+        <result column="QNA_DEPTH" property="depth"/>
+    </resultMap>
+
+    <resultMap id="reportResultSet" type="report">
+        <result column="REPORT_NO" property="reportNo"/>
+        <result column="QNA_BNO" property="reportQno"/>
+        <result column="MEMBER_NO" property="reportedPerson"/>
+        <result column="REPORT_USER_NO" property="reporter"/>
+        <result column="REPORT_CONTENT" property="reportContent"/>
+    </resultMap>
+
+
+    <select id="selectList" resultMap="qBoardResultSet">
+        SELECT QNA_BNO,
+               M.MEMBER_NO,
+               M.NICKNAME AS QNA_WRITER,
+               P_BNO,
+               QNA_TITLE,
+               QNA_DATE,
+               QNA_DEPTH,
+               QNA_AREA,
+               COUNT
+        FROM QNA_BOARD B
+                LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+        WHERE B.STATUS = 'Y'
+        START WITH P_BNO IS NULL
+        CONNECT BY PRIOR QNA_BNO = P_BNO
+        ORDER SIBLINGS BY QNA_BNO DESC
+    </select>
+
+    <select id="selectListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD
+        WHERE STATUS = 'Y'
+
+    </select>
+
+
+    <insert id="insertQboard" parameterType="QBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle},#{qnaContent}, #{qnaArea})
+    </insert>
+
+    <select id="searchList" resultMap="qBoardResultSet">
+        SELECT
+        QNA_BNO,
+        Q.MEMBER_NO,
+        P_BNO,
+        QNA_TITLE,
+        QNA_AREA,
+        QNA_CONTENT,
+        M.NICKNAME,
+        QNA_DATE,
+        QNA_DEPTH
+        FROM QNA_BOARD Q
+        LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
+        WHERE Q.STATUS='Y'
+        <if test='keyword != null and keyword != ""'>
+            AND
+            <choose>
+                <when test="condition == 'title'">
+                    QNA_TITLE LIKE '%${keyword}%'
+                </when>
+                <when test="condition == 'content'">
+                    QNA_CONTENT LIKE '%${keyword}%'
+                </when>
+                <when test="condition == 'area'">
+                    QNA_AREA LIKE '%${keyword}%'
+                </when>
+            </choose>
+        </if>
+        START WITH P_BNO IS NULL
+        CONNECT BY PRIOR QNA_BNO = P_BNO
+        ORDER SIBLINGS BY QNA_BNO DESC
+    </select>
+
+    <select id="searchListCount" resultType="int">
+        SELECT COUNT(*)
+        FROM QNA_BOARD
+        WHERE STATUS = 'Y'
+        <if test='keyword != null and keyword != ""'>
+            AND
+            <choose>
+                <when test="condition == 'title'">
+                    QNA_TITLE LIKE '%${keyword}%'
+                </when>
+                <when test="condition == 'content'">
+                    QNA_CONTENT LIKE '%${keyword}%'
+                </when>
+                <when test="condition == 'area'">
+                    QNA_AREA LIKE '%${keyword}%'
+                </when>
+            </choose>
+        </if>
+    </select>
+
+
+    <select id="selectQboard" parameterType="int" resultMap="qBoardResultSet">
+        SELECT QNA_BNO,
+               COUNT,
+               QNA_TITLE,
+               QNA_CONTENT,
+               M.NICKNAME,
+               M.MEMBER_NO,
+               QNA_AREA,
+               QNA_DEPTH,
+               P_BNO,
+               QNA_DATE
+        FROM QNA_BOARD Q
+        LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
+        WHERE Q.STATUS = 'Y'
+          AND QNA_BNO = #{qBno}
+
+    </select>
+
+    <update id="increaseCount" parameterType="int">
+        UPDATE QNA_BOARD
+        SET COUNT = COUNT + 1
+        WHERE QNA_BNO = #{qBno}
+    </update>
+
+    <select id="selectAnswer" parameterType="int" resultMap="qBoardResultSet">
+        SELECT QNA_BNO,
+               QNA_TITLE,
+               M.MEMBER_NO,
+               QNA_CONTENT,
+               M.NICKNAME
+        FROM QNA_BOARD Q
+                 LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
+        WHERE Q.STATUS = 'Y'
+          AND P_BNO = #{qBno}
+
+    </select>
+
+    <insert id="insertAnswer" parameterType="QBoard">
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT, P_BNO, QNA_DEPTH)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{parentBno}, #{depth})
+    </insert>
+
+
+    <update id="deleteBoard" parameterType="int">
+        UPDATE QNA_BOARD
+        SET STATUS = 'N'
+        WHERE QNA_BNO in (
+            SELECT QNA_BNO FROM qna_board
+            START WITH QNA_BNO = #{qBno}
+            CONNECT BY PRIOR QNA_BNO = P_BNO
+        )
+    </update>
+
+    <insert id="insertReport" parameterType="report">
+        INSERT INTO REPORT (REPORT_NO, FREE_BNO, MEMBER_NO, REPORT_USER_NO, REPORT_CONTENT,REPORT_TYPE)
+        VALUES (SEQ_REPORT_NO.NEXTVAL, ${reportFno}, ${reportedPerson}, ${reporter}, '${reportContent}','질문게시판')
+    </insert>
+
+    <select id="selectByQnaBno" parameterType="_int" resultMap="qBoardResultSet">
+        SELECT *
+        FROM QNA_BOARD
+        WHERE QNA_BNO = #{qnaBno}
+    </select>
+
+
+
+
+
+
+
+</mapper>

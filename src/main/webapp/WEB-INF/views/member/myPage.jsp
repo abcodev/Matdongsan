@@ -17,6 +17,7 @@
 <%@ include file="../template/header.jsp" %>
 <script>
     function changeHeart(estateNo) {
+        console.log($('#checkbox_heart_' + estateNo).is(':checked'))
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             type: 'POST',

@@ -36,15 +36,13 @@
       <form>
         <input type="hidden" id="roomNo">
         <input type="text" id="chat-input" placeholder="문의내용을 작성해주세요" />
-        <button type="submit" class="chat-submit" id="chat-submit"><i
-                class="fa-regular fa-paper-plane"  onclick="send();"></i></button>
+        <button type="submit" class="chat-submit" id="chat-submit">
+          <i class="fa-regular fa-paper-plane"  onclick="send();"></i>
+        </button>
       </form>
     </div>
   </div>
 </div>
-
-
-
 <script>
   // var INDEX = 0;
   //   var msg = $("#chat-input").val();
@@ -97,7 +95,10 @@
   // });
 
   $("#chat-circle").click(function () {
-
+    if(${empty loginUser}){
+      alert("로그인 후 이용하실 수 있습니다.")
+    }else{
+    console.log("로그인 필요!")
     $.ajax({
       url: '${pageContext.request.contextPath}/createChatRoom',
       type: "POST",
@@ -111,17 +112,20 @@
         connection(roomNo);
       },
       fail : function (){
+        console.log("실패")
         alert("사용 실패")
         $("#chat-circle").toggle("scale");
       }
     })
+  }
   });
+
 
   $(".chat-box-toggle").click(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
     $('.chat-logs').empty();
-
+    stompClient.disconnect();
   });
 
 
@@ -180,7 +184,7 @@
     const roomNo = $("#roomNo").val();
     // Type : ${loginUser} 의 Grade 가 ADMIN 이면 ANSWER, 아니면 QUESTION
     const data = {
-      'memberNo' : ${loginUser.memberNo},
+      'memberNo' : '${loginUser.memberNo}',
       'message': $("#chat-input").val(),
       'roomNo' : roomNo
     };
