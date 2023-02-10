@@ -220,10 +220,14 @@
         let member = $(this).children('p:eq(1)').html();
         let blind = $(this).children('p:eq(2)').html();
 
-        if(blind == 'N'){
+        if(${loginUser.memberNo eq 1}){
             location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
         }else {
-            alert("블라인드 처리된 게시글 입니다");
+            if(blind == 'N'){
+                location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+            }else {
+                alert("블라인드 처리된 게시글 입니다");
+            }
         }
 
     })
