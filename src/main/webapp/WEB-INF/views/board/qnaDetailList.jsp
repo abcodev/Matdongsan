@@ -52,11 +52,11 @@
       </div>
       <div class="btn_box">
         <c:if test="${not empty loginUser}">
-          <c:if test="${q eq loginUser.nickName}">
+          <c:if test="${q ne loginUser.nickName}">
             <button onclick="movePage()">답글달기</button>
             <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">신고하기</button>
           </c:if>
-          <c:if test="${q ne loginUser.nickName}">
+          <c:if test="${q eq loginUser.nickName}">
             <button><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a></button>
           </c:if>
         </c:if>

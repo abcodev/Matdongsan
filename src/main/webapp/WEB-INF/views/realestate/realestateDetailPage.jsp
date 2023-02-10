@@ -283,14 +283,6 @@
             }
         });
 
-        // function onClick() {
-        //     document.querySelector('.modal_wrap').style.display = 'block';
-        //     document.querySelector('.black_bg').style.display = 'block';
-        // }
-
-
-
-        // document.querySelector('.rno').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 

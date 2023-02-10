@@ -43,7 +43,7 @@
                              INNER JOIN HASHTAG H on RH.HASHTAG_ID = H.HASHTAG_ID
                     WHERE RES_NO = #{resNo} AND RH.HASHTAG_ID NOT IN (SELECT HASHTAG_ID
                                                                     FROM RES_HASHTAG
-                                                                    WHERE RES_HASHTAG.MEMBER_NO = '1'
+                                                                    WHERE RES_HASHTAG.REV_NO is null
                                                                       AND RES_HASHTAG.RES_NO = #{resNo}))
               GROUP BY HASHTAG
               ORDER BY COUNT DESC)

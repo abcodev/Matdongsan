@@ -37,11 +37,10 @@ public class Member {
     private String status;
     private MemberGrade grade = MemberGrade.GENERAL;
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
-    private String interestState;
-
     private String accessToken;
     private String refreshToken;
     private Timestamp refreshTokenExpiredAt;
+    private Timestamp banPeriod;
 
     public static Member of(OAuthUser oAuthUser, OAuthToken oAuthToken) {
         return Member.builder()
@@ -68,7 +67,6 @@ public class Member {
                 .address(member.getAddress())
                 .nickName(member.getNickName())
                 .phone(member.getPhone())
-                .interestState(member.getInterestState())
                 .build();
     }
 
@@ -77,4 +75,9 @@ public class Member {
         long expiresIn = expiredAt.toEpochSecond(ZoneOffset.UTC) - LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         return new OAuthToken(this.getAccessToken(), this.getRefreshToken(), expiresIn);
     }
+
+    public boolean isBan() {
+        return this.banPeriod != null && this.banPeriod.toLocalDateTime().isAfter(LocalDateTime.now());
+    }
+
 }

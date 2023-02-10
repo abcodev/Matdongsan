@@ -63,64 +63,64 @@
             </div>
             <div id="boardlist_main">
                 <c:if test="${not empty freeBoardList}">
-                    <c:forEach items="${freeBoardList}" var="freeBoardList" varStatus="status">
-                        <c:if test="${freeBoardList.memberNo ne 1}">
-                            <c:if test="${reportList[status.index] ne freeBoardList.boardNo}">
+                    <c:forEach items="${freeBoardList}" var="freeBoard" varStatus="status">
+                        <c:if test="${freeBoard.memberNo ne 1}">
+                            <c:if test="${reportList[status.index] ne freeBoard.boardNo}">
                                 <div class="boardlist">
-                                    <p style="display: none">${freeBoardList.boardNo}</p>
-                                    <p style="display: none">${freeBoardList.memberNo}</p>
+                                    <p style="display: none">${freeBoard.boardNo}</p>
+                                    <p style="display: none">${freeBoard.memberNo}</p>
                                     <div class="board_title">
-                                        <p>${freeBoardList.boardTitle}</p>
+                                        <p>${freeBoard.boardTitle}</p>
                                     </div>
                                     <div class="board_content">
-                                        <p>${freeBoardList.boardContent}</p>
+                                        <p>${freeBoard.boardContent}</p>
                                     </div>
                                     <div class="board_info">
-                                        <p class="info writer">${freeBoardList.boardWriter}</p>
-                                        <p class="info area">${freeBoardList.boardArea}</p>
-                                        <p class="info date">${freeBoardList.boardDate}</p>
-                                        <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoardList.count}</p>
-                                        <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoardList.replyCount}</p>
+                                        <p class="info writer">${freeBoard.boardWriter}</p>
+                                        <p class="info area">${freeBoard.boardArea}</p>
+                                        <p class="info date">${freeBoard.boardDate}</p>
+                                        <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
+                                        <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}</p>
                                     </div>
                                 </div>
                             </c:if>
-                            <c:if test="${reportList[status.index] eq freeBoardList.boardNo}">
+                            <c:if test="${reportList[status.index] eq freeBoard.boardNo}">
                                 <div class="boardlist" style="background-color: #dddddd">
-                                    <p style="display: none">${freeBoardList.boardNo}</p>
-                                    <p style="display: none">${freeBoardList.memberNo}</p>
+                                    <p style="display: none">${freeBoard.boardNo}</p>
+                                    <p style="display: none">${freeBoard.memberNo}</p>
                                     <div class="board_title">
                                         <p>블라인드 처리된 게시글 입니다.</p>
                                     </div>
                                     <div class="board_content">
-                                        <p>${freeBoardList.boardContent}</p>
+                                        <p>${freeBoard.boardContent}</p>
                                     </div>
                                     <div class="board_info">
-                                        <p class="info writer">${freeBoardList.boardWriter}</p>
-                                        <p class="info area">${freeBoardList.boardArea}</p>
-                                        <p class="info date">${freeBoardList.boardDate}</p>
-                                        <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoardList.count}</p>
-                                        <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoardList.replyCount}</p>
+                                        <p class="info writer">${freeBoard.boardWriter}</p>
+                                        <p class="info area">${freeBoard.boardArea}</p>
+                                        <p class="info date">${freeBoard.boardDate}</p>
+                                        <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
+                                        <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}</p>
                                     </div>
                                 </div>
                             </c:if>
 
                         </c:if>
-                        <c:if test="${freeBoardList.memberNo eq 1}">
+                        <c:if test="${freeBoard.memberNo eq 1}">
                             <div class="boardlist" style="background-color: #f2dede">
-                                <p style="display: none">${freeBoardList.boardNo}</p>
-                                <p style="display: none">${freeBoardList.memberNo}</p>
+                                <p style="display: none">${freeBoard.boardNo}</p>
+                                <p style="display: none">${freeBoard.memberNo}</p>
                                 <div class="board_title">
-                                    <p>${freeBoardList.boardTitle}</p>
+                                    <p>${freeBoard.boardTitle}</p>
                                 </div>
                                 <div class="board_content">
-                                    <p>${freeBoardList.boardContent}</p>
+                                    <p>${freeBoard.boardContent}</p>
                                 </div>
                                 <div class="board_info">
-                                    <p class="info writer">${freeBoardList.boardWriter}</p>
-                                    <p class="info area">${freeBoardList.boardArea}</p>
-                                    <p class="info date">${freeBoardList.boardDate}</p>
-                                    <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoardList.count}</p>
-                                    <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoardList.replyCount}</p>
+                                    <p class="info writer">${freeBoard.boardWriter}</p>
+                                    <p class="info area">${freeBoard.boardArea}</p>
+                                    <p class="info date">${freeBoard.boardDate}</p>
+                                    <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
+                                    <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}</p>
                                 </div>
                             </div>
                         </c:if>

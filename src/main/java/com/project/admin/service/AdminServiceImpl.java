@@ -53,7 +53,6 @@ public class AdminServiceImpl implements AdminService {
     }
 
 
-
     @Override
     public int deleteQna(int fNo){
         return adminDao.deleteQna(sqlSession, fNo);

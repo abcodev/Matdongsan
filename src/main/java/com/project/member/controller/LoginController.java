@@ -49,22 +49,25 @@ public class LoginController {
     ) {
         ModelAndView mav = new ModelAndView();
         Member loginUser = memberService.login(session, provider, code, state);
-        session.setAttribute("loginUser", loginUser);
 
-        String redirectUrl = (String) session.getAttribute("redirectUrl");
-        mav.setViewName("redirect:" + redirectUrl);
+        if (loginUser.isBan()) {
+            mav.addObject("errorMsg", loginUser.getBanPeriod() + " 까지 정지된 사용자입니다.");
+            mav.setViewName("common/errorPage");
+        } else {
+            session.setAttribute("loginUser", loginUser);
+            String redirectUrl = (String) session.getAttribute("redirectUrl");
+            mav.setViewName("redirect:" + redirectUrl);
+        }
         return mav;
     }
 
     @RequestMapping(value = "/logout")
     public ModelAndView logout(HttpSession session) {
-        ModelAndView mav = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         session.removeAttribute("loginUser");
-        mav.setViewName("redirect:/");
-        return mav;
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
     }
-
-
 
 }
 
