@@ -121,14 +121,14 @@
     </script>
 
 
-    <script>
-        if(${loginUser.grade == 'GENERAL'}){
-            alert('회원정보 입력 후 이용해주세요.');
-            window.location = '${pageContext.request.contextPath}/memberModify';
-        }else{
+<%--    <script>--%>
+<%--        if(${loginUser.grade == 'GENERAL'}){--%>
+<%--            alert('회원정보 입력 후 이용해주세요.');--%>
+<%--            window.location = '${pageContext.request.contextPath}/memberModify';--%>
+<%--        }else{--%>
 
-        }
-    </script>
+<%--        }--%>
+<%--    </script>--%>
 
 </header>
 

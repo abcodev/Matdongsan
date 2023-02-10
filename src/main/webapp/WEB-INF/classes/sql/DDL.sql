@@ -600,7 +600,8 @@ CREATE TABLE "FREE_BOARD"
     "BOARD_CONTENT" VARCHAR(2056)                NULL,
     "BOARD_DATE"    TIMESTAMP    DEFAULT localtimestamp NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
+    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL,
+    "NOTICE"        NUMBER DEFAULT 0             NULL
 );
 
 COMMENT
@@ -627,6 +628,8 @@ COMMENT
 COMMENT
     ON COLUMN "FREE_BOARD"."STATUS" IS '상태';
 
+COMMENT
+    ON COLUMN "FREE_BOARD"."NOTICE" IS '공지사항 여부';
 
 
 

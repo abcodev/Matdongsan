@@ -80,7 +80,6 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            INTEREST_STATE = #{interestState},
             GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
     </update>
