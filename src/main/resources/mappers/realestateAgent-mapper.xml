@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="realEstateAgentMapper">
+    <select id="BrokerListCount">
+        SELECT
+            COUNT(*)
+        FROM REALESTATE_AGENT
+        WHERE MEMBER_NO IS NOT NULL
+    </select>
+
+    <resultMap id="brokerEnrollResultSet" type="brokerEnroll">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="EMAIL" property="email"/>
+        <result column="AGENT_NO" property="agentNo"/>
+        <result column="AGENT_NAME" property="agentName"/>
+        <result column="AGENT_PHONE" property="agentPhone"/>
+        <result column="ATTACHMENT" property="attachment"/>
+        <result column="APPLY_STATUS" property="applyStatus"/>
+    </resultMap>
+
+    <select id="BrokerList" resultMap="">
+    </select>
+
+
+
+</mapper>

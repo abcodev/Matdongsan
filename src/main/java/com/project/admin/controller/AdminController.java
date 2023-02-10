@@ -2,6 +2,7 @@ package com.project.admin.controller;
 
 import com.project.admin.dto.AdminListRequest;
 import com.project.admin.dto.AdminListResponse;
+import com.project.admin.dto.BrokerListResponse;
 import com.project.admin.dto.ReportListResponse;
 import com.project.admin.service.AdminService;
 import com.project.admin.vo.Admin;
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private final AdminService adminService;
     @RequestMapping(value = "/userList/{fNo}")
     public ModelAndView selectUserList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
@@ -75,6 +76,23 @@ public class AdminController {
             return "redirect:/admin/userList/{fNo}";
         }
     }
+
+    @RequestMapping(value = "/moveBrokerList")
+    public ModelAndView BrokerList (
+            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+            ModelAndView mv
+
+    ){
+
+        BrokerListResponse resp = adminService.BrokerList(currentPage);
+
+
+
+        return  mv;
+    }
+
+
+
 
 
 }

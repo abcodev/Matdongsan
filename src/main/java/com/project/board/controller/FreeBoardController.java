@@ -94,11 +94,12 @@ public class FreeBoardController {
     @RequestMapping("freeList/detail/{fno}")
     public ModelAndView detailFreeBoard(ModelAndView mv,
                                         @PathVariable("fno") int fno,
-                                        @ModelAttribute("loginUser") Member loginUser,
                                         HttpServletRequest httpServletRequest,
-                                        HttpServletResponse httpServletResponse
+                                        HttpServletResponse httpServletResponse,
+                                        HttpSession session
 
     ){
+        Member loginUser = (Member) session.getAttribute("loginUser");
         long memberNo = 0;
 
         if(!ObjectUtils.isEmpty(loginUser)) {
@@ -106,7 +107,7 @@ public class FreeBoardController {
         }
 
         FreeBoard fb = freeBoardService.detailFreeBoard(fno);
-        Boolean countCheck = ViewCountUp.countUp(fb,loginUser,httpServletRequest,httpServletResponse);
+        Boolean countCheck = ViewCountUp.countUp(fb,memberNo,httpServletRequest,httpServletResponse);
         if(countCheck){
             FreeBoardCountDto count = FreeBoardCountDto.count(fno,memberNo);
             freeBoardService.freeBoardCount(count);
