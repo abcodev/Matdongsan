@@ -34,7 +34,7 @@
             M.STATUS,
             F.FREE_BNO
         FROM MEMBER M
-        LEFT JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
+                 LEFT JOIN FREE_BOARD F ON(M.MEMBER_NO = F.FREE_BNO)
         ORDER BY MEMBER_NO
 
     </select>
