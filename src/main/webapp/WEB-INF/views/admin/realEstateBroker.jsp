@@ -35,31 +35,13 @@
         </tr>
         </thead>
         <tbody id="tableList">
-        <c:forEach var="rl" items="${reportList}">
+        <c:forEach var="broker" items="${brokerList}">
             <tr>
                 <td>x</td>
                 <td>x</td>
                 <td>x</td>
                 <td>x</td>
                 <td>x</td>
-                <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
-                <c:choose>
-                    <c:when test="${rl.QStatus or rl.FStatus == 'Y' }">
-                        <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
-                    </c:when>
-                    <c:otherwise>
-                        <td><button type="button" class="add-btn" id="btnClose">처리완료</button></td>
-                    </c:otherwise>
-                </c:choose>
-                <td><select id="reportPeriod" name="reportPeriod">
-                    <option>정지기간선택</option>
-                    <option value="three">3일정지</option>
-                    <option value="seven">7일정지</option>
-                    <option value="infinity">영구정지</option>
-                </select>
-                    <button type="submit">정지확인</button>
-                </td>
-
             </tr>
         </c:forEach>
         </tbody>
@@ -83,9 +65,5 @@
 
     </div>
 </div>
-
-
-
-
 </body>
 </html>

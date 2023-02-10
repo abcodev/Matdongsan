@@ -21,7 +21,18 @@
         <result column="APPLY_STATUS" property="applyStatus"/>
     </resultMap>
 
-    <select id="BrokerList" resultMap="">
+    <select id="BrokerList" resultMap="brokerEnrollResultSet">
+        SELECT
+            RA.MEMBER_NO,
+            M.MEMBER_NAME,
+            M.EMAIL,
+            RA.AGENT_NO,
+            RA.AGENT_NAME,
+            RA.AGENT_PHONE,
+            RA.ATTACHMENT,
+            RA.APPLY_STATUS
+        FROM REALESTATE_AGENT RA
+        JOIN MEMBER M on RA.MEMBER_NO = M.MEMBER_NO
     </select>
 
 

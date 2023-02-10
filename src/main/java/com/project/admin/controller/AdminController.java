@@ -77,7 +77,7 @@ public class AdminController {
         }
     }
 
-    @RequestMapping(value = "/moveBrokerList")
+    @RequestMapping(value = "/brokerList")
     public ModelAndView BrokerList (
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             ModelAndView mv
@@ -85,9 +85,9 @@ public class AdminController {
     ){
 
         BrokerListResponse resp = adminService.BrokerList(currentPage);
-
-
-
+        mv.addObject("brokerList",resp.getBrokerEnrollList());
+        mv.addObject("pi",resp.getPageInfoCombine());
+        mv.setViewName("admin/realEstateBroker");
         return  mv;
     }
 
