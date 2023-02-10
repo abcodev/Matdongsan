@@ -9,6 +9,7 @@
         <result column="FREE_BNO" property="fNo"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="EMAIL" property="email"/>
+        <result column="EMAIL2" property="reportEmail"/>
         <result column="BOARD_WRITER" property="boardWriter"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="STATUS" property="status"/>
@@ -18,35 +19,40 @@
         <result column="REPORT_TYPE" property="reportType"/>
         <result column="REPORT_DATE" property="reportDate"/>
         <result column="REPORT_PERIOD" property="reportPeriod"/>
+        <result column="QS" property="qStatus"/>
+        <result column="FS" property="fStatus"/>
+
     </resultMap>
 
 
-    <select id="userList" resultMap="AdminResultSet">
+    <select id="selectUserList" resultMap="AdminResultSet">
         select
             M.MEMBER_NO,
+            MEMBER_NAME,
             NICKNAME,
             EMAIL,
             M.STATUS,
             F.FREE_BNO
         FROM MEMBER M
-        JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
+        LEFT JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
         ORDER BY MEMBER_NO
 
     </select>
 
-    <select id="reportList" resultMap="AdminResultSet" parameterType="int">
+    <select id="selectReportList" resultMap="AdminResultSet" parameterType="int">
         SELECT
             REPORT_NO,
             REPORT_CONTENT,
             REPORT_TYPE,
             R.FREE_BNO,
-            F.FREE_BNO,
+            F.STATUS AS FS,
+            Q.STATUS AS QS,
             M.EMAIL,
-            F.BOARD_WRITER
+            (SELECT EMAIL FROM MEMBER WHERE MEMBER_NO = R.REPORT_USER_NO) AS EMAIL2
         FROM REPORT R
                  LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO= M.MEMBER_NO)
-                 LEFT OUTER JOIN FREE_BOARD F ON(F.FREE_BNO = R.FREE_BNO)
-
+                 LEFT OUTER JOIN FREE_BOARD F ON(F.MEMBER_NO = R.MEMBER_NO)
+                 LEFT OUTER JOIN QNA_BOARD Q ON(Q.QNA_BNO = R.FREE_BNO)
 
     </select>
 
@@ -63,7 +69,7 @@
         UPDATE QNA_BOARD
         SET STATUS = 'N'
         WHERE QNA_BNO in (
-            SELECT QNA_BNO FROM qna_board
+            SELECT QNA_BNO FROM QNA_BOARD
             START WITH QNA_BNO = #{fNo}
             CONNECT BY PRIOR QNA_BNO = P_BNO
         )
@@ -76,10 +82,7 @@
         WHERE FREE_BNO = #{fNo}
     </update>
 
-    <insert id="insertBlack" parameterType="admin">
-        INSERT INTO REPORT(REPORT_NO, FREE_BNO, REPORT_PERIOD)
-        VALUES (199,199,#{reportPeriod})
-    </insert>
+
 
 
 

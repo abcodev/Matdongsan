@@ -15,7 +15,7 @@ public class InterestRealEstateRedisRepository {
      *   MEMBER 는 식별자 - estateNo
      *   SCORE 는 숫자 - 조회수
      *
-     *   SCORE 를 기준으로 자동으로 정렬해준다.
+     *   SCORE 를 기준으로 자동으로 정렬해줌
      */
 
     private final RedisTemplate<String, String> redisTemplate;

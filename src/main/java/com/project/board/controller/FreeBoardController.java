@@ -62,9 +62,6 @@ public class FreeBoardController {
             modelAndView.addObject("reportList", reportFList);
         }
 
-        System.out.println("신고 리스트 : " + reportFList);
-
-        //modelAndView.addObject("reportList", reportList);
         modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());

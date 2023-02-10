@@ -48,7 +48,7 @@
                 <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
             </div>
             <div class="userinfo address2">
-                <input type="text" id="sample6_address" placeholder="주소" value="${loginUser.address}" required><br>
+                <input type="text" id="sample6_address" placeholder="주소" name="address" value="${loginUser.address}" required><br>
                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
             </div>
             <div class="btn_box">
@@ -60,6 +60,20 @@
 </div>
 
 <script>
+
+
+    $(document).ready(function(){
+        document.getElementById("submit").onclick = function (){
+            document.form_name.submit();
+        }
+    });
+    $("#submit").click(function (){
+        alert('회원정보 수정 완료')
+    })
+
+
+
+
     $(function(){
     code2 = "";
         $("#phoneChk").click(function(){

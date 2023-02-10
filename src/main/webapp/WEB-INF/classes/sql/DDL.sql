@@ -279,10 +279,10 @@ CREATE TABLE "MEMBER"
     "STATUS"                   VARCHAR(255) DEFAULT 'Y'       NULL,
     "GRADE"                    VARCHAR(255) DEFAULT 'GENERAL' NULL,
     "RECENT_ACCESS"            TIMESTAMP                      NULL,
-    "INTEREST_STATE"           VARCHAR2(255)                  NULL,
     "ACCESS_TOKEN"             VARCHAR2(255)                  NULL,
     "REFRESH_TOKEN"            VARCHAR2(255)                  NULL,
-    "REFRESH_TOKEN_EXPIRED_AT" VARCHAR2(255)                  NULL
+    "REFRESH_TOKEN_EXPIRED_AT" VARCHAR2(255)                  NULL,
+    "REPORT_PERIOD" TIMESTAMP NULL
 );
 
 COMMENT
@@ -320,9 +320,6 @@ COMMENT
 
 COMMENT
     ON COLUMN "MEMBER"."RECENT_ACCESS" IS '최근접속기록';
-
-COMMENT
-    ON COLUMN "MEMBER"."INTEREST_STATE" IS '관심구';
 
 COMMENT
     ON COLUMN "MEMBER"."ACCESS_TOKEN"  IS '로그인 토큰';
@@ -600,7 +597,8 @@ CREATE TABLE "FREE_BOARD"
     "BOARD_CONTENT" VARCHAR(2056)                NULL,
     "BOARD_DATE"    TIMESTAMP    DEFAULT localtimestamp NULL,
     "BOARD_AREA"    VARCHAR(255)                 NULL,
-    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
+    "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL,
+    "NOTICE"        NUMBER DEFAULT 0             NULL
 );
 
 COMMENT
@@ -627,6 +625,8 @@ COMMENT
 COMMENT
     ON COLUMN "FREE_BOARD"."STATUS" IS '상태';
 
+COMMENT
+    ON COLUMN "FREE_BOARD"."NOTICE" IS '공지사항 여부';
 
 
 
@@ -705,7 +705,8 @@ CREATE TABLE "QNA_BOARD"
     "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NULL,
-    "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL
+    "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL,
+    "QNA_WRITER"  VARCHAR(255)                  NULL
 );
 
 COMMENT
@@ -737,6 +738,9 @@ COMMENT
 
 COMMENT
     ON COLUMN "QNA_BOARD"."QNA_DEPTH" IS '글깊이';
+
+COMMENT
+    ON COLUMN "QNA_BOARD"."QNA_WRITER" IS '작성자';
 
 
 
