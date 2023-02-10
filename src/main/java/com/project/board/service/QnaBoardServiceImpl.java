@@ -75,6 +75,9 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
 
     @Override
+    public int insertNotice(QnaBoard qb){ return boardDao.insertNotice(sqlSession, qb); }
+
+    @Override
     public QnaBoard selectQboard(int qBno){
         return boardDao.selectQboard(sqlSession,qBno);
     }

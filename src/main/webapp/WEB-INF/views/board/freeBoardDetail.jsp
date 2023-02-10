@@ -56,11 +56,13 @@
                         <button onclick="deletePost();">삭제</button>
                     </c:if>
                     <c:if test="${w ne loginUser.memberNo}">
-                        <div class="alert_btn_box">
-                            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                신고하기
-                            </button>
-                        </div>
+                        <c:if test="${w ne 1}">
+                            <div class="alert_btn_box">
+                                <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    신고하기
+                                </button>
+                            </div>
+                        </c:if>
                     </c:if>
                 </c:if>
         </div>

@@ -51,19 +51,10 @@ public class FreeBoardController {
         FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
 
-        List<Report> reportList = freeBoardService.selectReportList();
+        freeBoardService.selectReportList(); // 블라인드 게시글 조회 및 업데이트
 
-        int reportFno = 0;
-        List<Integer> reportFList = new ArrayList<>();
-
-        for (int i = 0; i < reportList.size(); i++) {
-            reportFno = reportList.get(i).getReportFno();
-            reportFList.add(reportFno);
-            modelAndView.addObject("reportList", reportFList);
-        }
-
-        modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
-        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.addObject("freeBoardList",resp.getFreeBoardList());
+        modelAndView.addObject("pi",resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
         modelAndView.addObject("hotWeekList",freeBoardService.hotWeekList());
         modelAndView.addObject("condition",req);

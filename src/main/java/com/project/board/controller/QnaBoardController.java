@@ -63,10 +63,16 @@ public class QnaBoardController {
     ,@ModelAttribute("loginUser") Member loginUser) {
 
         Member m = (Member) session.getAttribute("loginUser");
-        loginUser.getMemberNo();
+       // loginUser.getMemberNo();
         qb.setQnaArea(qb.getQnaArea());
 
-        int result = boardService.insertQboard(qb);
+        if(m.getMemberNo() == 1){
+            boardService.insertNotice(qb);
+        }else {
+            boardService.insertQboard(qb);
+        }
+
+
         return "redirect:/board/qnaList";
     }
 
