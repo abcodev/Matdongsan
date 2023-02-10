@@ -37,18 +37,6 @@
             </a>
         </div>
     </div>
-
-    <br><br>
-
-    <div id="login_head2">
-        <h2>제휴 부동산 회원</h2>
-    </div>
-    <div>
-        <button>회원가입</button>
-        <button>로그인</button>
-    </div>
-
-
 </div>
 </body>
 </html>

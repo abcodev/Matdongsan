@@ -18,6 +18,7 @@ public class FreeBoard {
     private String status;
     private int count;
     private int replyCount;
+    private int notice;
 
 
 

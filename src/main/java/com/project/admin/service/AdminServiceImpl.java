@@ -1,19 +1,24 @@
 package com.project.admin.service;
 
 import com.project.admin.dao.AdminDao;
+import com.project.admin.dto.AdminListRequest;
+import com.project.admin.dto.AdminListResponse;
+import com.project.admin.dto.ReportListResponse;
 import com.project.admin.vo.Admin;
-import com.project.common.template.PageInfo;
+import com.project.board.vo.Report;
+import com.project.common.template.PageInfoCombine;
 import com.project.common.template.Pagination;
 import com.project.member.vo.Member;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+
 
 @Service
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
     @Autowired
@@ -22,41 +27,32 @@ public class AdminServiceImpl implements AdminService {
     private SqlSession sqlSession;
     @Autowired
     private Pagination pagination;
-
-
+    private static final int DEFAULT_RES_SIZE = 12;
     @Override
-    public int uListCount(){
-        return adminDao.uListCount(sqlSession);
+    public int uListCount() {
+        return 0;
     }
     @Override
-    public Map<String , Object> userList(int currentPage){
-
-        Map<String , Object> map = new HashMap();
-
-        int listCount = uListCount();
-
-        int pageLimit = 10;
-        int boardLimit = 10;
-        PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-
-        map.put("pi",pi);
-
-        ArrayList<Member> list = adminDao.userList(sqlSession,pi);
-
-        map.put("list", list);
-        return map;
+    public AdminListResponse selectUserList(AdminListRequest request) {
+        int count = adminDao.uListCount(sqlSession);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
+        List<Member> result = adminDao.selectUserList(sqlSession,pageInfoCombine);
+        return new AdminListResponse(result,pageInfoCombine);
     }
 
     @Override
-    public ArrayList<Admin> reportList(int fNo){
-        return adminDao.reportList(sqlSession,fNo);
+    public int rListCount() {
+        return 0;
     }
-
-
     @Override
-    public int rListCount(){
-        return adminDao.rListCount(sqlSession);
+    public ReportListResponse selectReportList(AdminListRequest request, int fNo) {
+        int count = adminDao.rListCount(sqlSession);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
+        List<Report> result = adminDao.selectReportList(sqlSession,pageInfoCombine,fNo);
+        return new ReportListResponse(result,pageInfoCombine,fNo);
     }
+
+
 
     @Override
     public int deleteQna(int fNo){

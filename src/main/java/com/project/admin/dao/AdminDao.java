@@ -2,36 +2,40 @@ package com.project.admin.dao;
 
 
 import com.project.admin.vo.Admin;
+import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
+import com.project.common.template.PageInfoCombine;
 import com.project.member.vo.Member;
+import com.project.restaurant.dto.RestaurantListFilter;
+import com.project.restaurant.vo.Restaurant;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class AdminDao {
 
-    public int uListCount(SqlSession sqlSession){
+    public int uListCount(SqlSession sqlSession) {
         return sqlSession.selectOne("adminMapper.uListCount");
     }
-    public ArrayList<Member> userList(SqlSession sqlSession, PageInfo pi) {
-        int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-        int limit = pi.getBoardLimit();
 
-        RowBounds rowBounds = new RowBounds(offset,limit);
-
-        return (ArrayList)sqlSession.selectList("adminMapper.userList",null,rowBounds);
+    public List<Member> selectUserList(SqlSession sqlSession,PageInfoCombine pageInfoCombine) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("adminMapper.selectUserList", null, rowBounds);
     }
-    public ArrayList<Admin> reportList(SqlSession sqlSession,int fNo){
-        return (ArrayList) sqlSession.selectList("adminMapper.reportList",fNo);
-    }
-
-
-
-    public int rListCount(SqlSession sqlSession){
+    public int rListCount(SqlSession sqlSession) {
         return sqlSession.selectOne("adminMapper.rListCount");
+    }
+
+    public List<Report> selectReportList(SqlSession sqlSession, PageInfoCombine pageInfoCombine,int fNo) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("adminMapper.selectReportList", fNo, rowBounds);
     }
 
     public int deleteQna(SqlSession sqlSession,int fNo) {

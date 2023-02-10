@@ -25,7 +25,7 @@ public class GradeAccessInterceptor extends HandlerInterceptorAdapter  {
 //            return false;
 //        }
 
-        if(requestUrl.contains("insertReview") && grade.equals("GENERAL")) {
+        if(requestUrl.contains("/insertReview") && grade.equals("GENERAL")) {
             req.setAttribute("errorMsg", "추가정보 입력 후 이용해 주세요");
             req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req,res);
             return false;

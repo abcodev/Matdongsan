@@ -28,7 +28,6 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.");
                 location.reload();
             }
         });
@@ -59,7 +58,6 @@
         </div>
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
-<%--            <a href="${pageContext.request.contextPath}/delete">회원탈퇴</a>--%>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
         </div>
     </div>
@@ -101,7 +99,7 @@
                                 }
                             </script>
                             <td>${selectAllBoardList.boardType}</td>
-                            <td>${selectAllBoardList.boardTitle}</td>
+                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
                         </tr>
                     </c:forEach>

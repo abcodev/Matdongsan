@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="alarmMapper">
+
+    <resultMap type="Alarm" id="alarmResultSet">
+        <result column="ALARM_NO" property="alarmNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="ALARM_TYPE" property="alarmType"/>
+        <result column="TARGET_NO" property="targetNo"/>
+        <result column="IS_READ" property="isRead"/>
+        <result column="IS_DELETED" property="isDeleted"/>
+        <result column="TITLE" property="title"/>
+        <result column="CONTENTS" property="contents"/>
+        <result column="CREATED_DATE" property="createdDate"/>
+    </resultMap>
+
+    <update id="read" parameterType="_long">
+        UPDATE ALARM SET IS_READ = 1 WHERE ALARM_NO = #{alarmNo}
+    </update>
+
+    <update id="readAll" parameterType="_long">
+        UPDATE ALARM SET IS_READ = 1 WHERE MEMBER_NO = #{memberNo}
+    </update>
+
+    <select id="selectByAlarmNo" parameterType="_long" resultMap="alarmResultSet">
+        SELECT *
+        FROM ALARM
+        WHERE ALARM_NO = #{alarmNo}
+    </select>
+
+    <select id="selectList" parameterType="_long" resultMap="alarmResultSet">
+        SELECT *
+        FROM ALARM
+        WHERE MEMBER_NO = #{memberNo} AND IS_DELETED = 0
+    </select>
+
+    <insert id="insert" parameterType="alarm">
+        INSERT INTO ALARM (ALARM_NO, MEMBER_NO, ALARM_TYPE, TARGET_NO, IS_READ, IS_DELETED, TITLE, CONTENTS, CREATED_DATE)
+        VALUES (SEQ_ALARM_NO.NEXTVAL, #{memberNo}, #{alarmType}, #{targetNo}, #{isRead}, #{isDeleted}, #{title}, #{contents}, #{createdDate})
+    </insert>
+
+    <update id="delete" parameterType="_long">
+        UPDATE ALARM
+        SET IS_DELETED = 1
+        WHERE ALARM_NO = #{alarmNo}
+    </update>
+
+    <update id="deleteIfRead" parameterType="_long">
+        UPDATE ALARM
+        SET IS_DELETED = 1
+        WHERE MEMBER_NO = #{memberNo}
+            AND IS_READ = 1
+    </update>
+</mapper>

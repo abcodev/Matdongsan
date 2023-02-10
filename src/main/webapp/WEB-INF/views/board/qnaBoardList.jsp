@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>커뮤니티 질문게시판</title>
@@ -46,7 +46,7 @@
                     <input id="freeBoardSearch" type="text" name="keyword" placeholder="검색내용을 입력해주세요">
                 </div>
                 <button type="submit">조회</button>
-                ${pi}
+
 
             </div>
 
@@ -66,10 +66,10 @@
                         <c:forEach var="qb" items="${list}">
                             <tr><td onclick="movePage(${qb.qnaBno})">
                                 <c:forEach step="1" begin="2" end ="${qb.depth}">
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 </c:forEach>
                                 <c:if test="${qb.depth ne 1 }">
-                                    └->
+                                    <i class="bi bi-arrow-return-right"></i>
                                 </c:if>
                                 <c:if test="${qb.qnaArea != null}">
                                     (${qb.qnaArea})</c:if>
