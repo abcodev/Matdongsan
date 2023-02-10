@@ -54,7 +54,7 @@
 <%--            </div>--%>
             <input type="text" id="sample6_postcode" placeholder="우편번호">
             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample6_address" placeholder="주소"><br>
+            <input type="text" id="sample6_address" placeholder="주소" name="address" value="${loginUser.address}"><br>
             <input type="text" id="sample6_detailAddress" placeholder="상세주소">
             <input type="text" id="sample6_extraAddress" placeholder="참고항목">
             <div class="userinfo interest">
@@ -80,7 +80,7 @@
         }
     });
     $("#submit").click(function (){
-        alert('회원정보 수정 성공! 다시 로그인 해주세요.')
+        alert('회원정보 수정 완료')
     })
 
 

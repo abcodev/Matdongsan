@@ -39,7 +39,7 @@ public class MemberService {
     private final SqlSessionTemplate sqlSession;
     private final InterestEstateDao interestEstateDao;
     private final RealEstateDao realEstateDao;
-    private static final int DEFAULT_SIZE = 10;
+    private static final int DEFAULT_SIZE = 5;
     /*
         sqlsession 만들지 않아도 되는 이유 (이건 jdbc 쓸 때 사용하는 방식)
 

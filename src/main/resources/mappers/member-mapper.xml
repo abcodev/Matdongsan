@@ -158,7 +158,7 @@
             F.FREE_BNO,
             F.BOARD_TITLE,
             F.BOARD_DATE,
-            'F' AS TYPE
+            '자유게시판' AS TYPE
         FROM FREE_BOARD F
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
@@ -169,7 +169,7 @@
             Q.QNA_BNO,
             Q.QNA_TITLE,
             Q.QNA_DATE,
-            'Q' AS TYPE
+            '질문게시판' AS TYPE
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
@@ -183,7 +183,7 @@
                   FREE_BNO,
                   BOARD_TITLE,
                   BOARD_DATE,
-                  'F' AS TYPE
+                  '자유게시판' AS TYPE
               FROM FREE_BOARD
               WHERE MEMBER_NO = #{memberNo}
               UNION ALL
@@ -191,7 +191,7 @@
                   QNA_BNO,
                   QNA_TITLE,
                   QNA_DATE,
-                  'Q' AS TYPE
+                  '질문게시판' AS TYPE
               FROM QNA_BOARD
               WHERE MEMBER_NO = #{memberNo})
     </select>

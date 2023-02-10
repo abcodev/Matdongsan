@@ -154,7 +154,7 @@ public class RealEstateController {
         long memberNo = loginUser.getMemberNo();
         req.setMemberNo(memberNo);
 
-        int result = realEstateService.reservationEnroll(req);
+//        int result = realEstateService.reservationEnroll(req);
 
 
         return ResponseEntity.ok().body("1");

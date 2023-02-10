@@ -55,8 +55,8 @@ public class MemberController {
             Member updateMember = memberService.loginMember(m);
 
             session.setAttribute("loginUser", updateMember);
-            session.removeAttribute("loginUser");
-            return "member/loginPage";
+//            session.removeAttribute("loginUser");
+            return "member/myPage";
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
             return "common/errorPage";

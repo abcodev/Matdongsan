@@ -46,5 +46,4 @@ public interface RealEstateService {
 
     List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList);
 
-    int reservationEnroll(ReservationRequest req);
 }
