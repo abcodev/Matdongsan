@@ -46,11 +46,11 @@
                 <td>${rl.reportContent}</td>
                 <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
                 <c:choose>
-                <c:when test="${rl.QStatus or rl.FStatus == 'Y' }">
+                <c:when test="${rl.QStatus  == 'Y' && rl.FStatus == 'Y' }">
                 <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
                 </c:when>
                 <c:otherwise>
-                    <td><button type="button" class="add-btn" id="btnClose">처리완료</button></td>
+                    <td><button type="button" id="btnClose">처리완료</button></td>
                 </c:otherwise>
                 </c:choose>
                 <td><select id="reportPeriod" name="reportPeriod">

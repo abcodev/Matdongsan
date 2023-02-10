@@ -705,7 +705,8 @@ CREATE TABLE "QNA_BOARD"
     "COUNT"       NUMBER       DEFAULT 0       NULL,
     "STATUS"      VARCHAR(255) DEFAULT 'Y'     NULL,
     "QNA_AREA"    VARCHAR(255)                 NULL,
-    "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL
+    "QNA_DEPTH"   NUMBER       DEFAULT '1'     NULL,
+    "QNA_WRITER"  VARCHAR(255)                  NULL
 );
 
 COMMENT
@@ -737,6 +738,9 @@ COMMENT
 
 COMMENT
     ON COLUMN "QNA_BOARD"."QNA_DEPTH" IS '글깊이';
+
+COMMENT
+    ON COLUMN "QNA_BOARD"."QNA_WRITER" IS '작성자';
 
 
 
