@@ -27,11 +27,19 @@ public class FreeBoardDao {
         return sqlSession.insert("freeBoardMapper.insertFboard", fb);
     }
 
+    public int insertNotice(SqlSession sqlSession, FreeBoard fb){
+        return sqlSession.insert("freeBoardMapper.insertNotice", fb);
+    }
+
     public List<FreeBoard> selectFreeList(SqlSession sqlSession,
                                        PageInfoCombine pageInfoCombine,
                                        FreeBoardListFilter filter) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
         return sqlSession.selectList("freeBoardMapper.selectFreeList",filter,rowBounds);
+    }
+
+    public List<Report> selectReportList(SqlSession sqlSession){
+        return sqlSession.selectList("freeBoardMapper.selectReportList");
     }
 
     public FreeBoard detailFreeBoard (SqlSession sqlSession, int fno){

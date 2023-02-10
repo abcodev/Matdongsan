@@ -42,9 +42,16 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return new FreeBoardListResponse(result,pageInfoCombine);
     }
 
+    @Override
+    public List<Report> selectReportList(){
+        return freeBoardDao.selectReportList(sqlSession);
+    }
+
     // 게시글 등록
-    public int insertFboard(FreeBoard fb){
-        return freeBoardDao.insertFboard(sqlSession, fb);
+    public int insertFboard(FreeBoard fb){ return freeBoardDao.insertFboard(sqlSession, fb); }
+
+    public int insertNotice(FreeBoard fb){
+        return freeBoardDao.insertNotice(sqlSession, fb);
     }
 
     // 게시글 상세조회
@@ -60,8 +67,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return freeBoardDao.insertReply(sqlSession, r);
     }
-
-
 
     public ArrayList<Reply> selectReplyList(int fno){
         return  freeBoardDao.selectReplyList(sqlSession, fno);

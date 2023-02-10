@@ -67,10 +67,11 @@
 
 <div id="selectFboard">
         <p>우리동네 이야기</p>
-        <br>
+        <div class="freeBoard_list">
         <c:forEach items="${selectFboard}" var="fb" begin="0" end="4" varStatus="status">
-            <a style="display: block;" href="${pageContext.request.contextPath}/board/freeList/detail/${fb.boardNo}">${status.count}. ${fb.boardTitle}</a>
+            <a href="${pageContext.request.contextPath}/board/freeList/detail/${fb.boardNo}">${fb.boardTitle}</a>
         </c:forEach>
+        </div>
 </div>
 
 <div id="chart">

@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <title>질문게시판 상세보기</title>
-  <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
+  <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardDetail.css"/>">
   <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <jsp:include page="../template/font.jsp"/>
@@ -23,6 +23,7 @@
 <body>
 <main>
   <%@ include file ="../template/header.jsp" %>
+  <div id="MainDiv">
   <div id="content">
     <div class="freeBoard_Detail">
       <div class="detail_top">
@@ -46,51 +47,35 @@
       </div>
       <div class="detail_body">
 
-          <textarea name="boardContent">${qb.qnaContent}</textarea>
-
-
-          <div name="boardContent">${qb.qnaContent}</div>
+          <div name="boardContent" >${qb.qnaContent}</div>
 
       </div>
       <div class="btn_box">
         <c:if test="${not empty loginUser}">
           <c:if test="${q eq loginUser.nickName}">
             <button onclick="movePage()">답글달기</button>
-            <button>
-              <a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a>
-            </button>
+            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">신고하기</button>
           </c:if>
           <c:if test="${q ne loginUser.nickName}">
-            <div class="alert_btn_box">
-              <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                신고하기
-              </button>
-            </div>
+            <button><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a></button>
           </c:if>
         </c:if>
       </div>
-            <div class="alert_btn_box">
-              <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                신고하기
-              </button>
-            </div>
+
       </div>
     </div>
 
-    <c:if test="${empty list}">
-    <span id="hong">작성된 답글이 없습니다</span>
-    </c:if>
+
+
   <c:forEach var="list" items="${ab}">
-
     <div id="Answer">
-      <span>${qb.qnaTitle}대한 답변</span><br><br>
-      <span>제목 : ${list.qnaTitle}</span><br><br>
-      <span>작성자 : ${list.qnaWriter}</span><br><br><br>
-      <span>내용 :${list.qnaContent}</span>
-
-
+  <%--    <c:if test="${empty list}">
+        <span id="hong">작성된 답글이 없습니다</span>
+      </c:if>--%>
+      <h3>${qb.qnaTitle}에 대한 답글${list.qnaTitle}</h3>
+      <span>작성자 : ${list.qnaWriter}</span><br><br>
+      <h4>내용 :${list.qnaContent}</h4>
     </div>
-
   </c:forEach>
 
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,6 +103,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
   <script>
     function movePage(){

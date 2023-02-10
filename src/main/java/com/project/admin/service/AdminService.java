@@ -1,31 +1,22 @@
 package com.project.admin.service;
 
+import com.project.admin.dto.AdminListRequest;
+import com.project.admin.dto.AdminListResponse;
+import com.project.admin.dto.ReportListResponse;
 import com.project.admin.vo.Admin;
-import com.project.member.vo.Member;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public interface AdminService {
 
-    public Map<String, Object> userList(int currentPage);
-
-    public ArrayList<Admin> reportList(int fNo);
-
-
-
-
-
-
-
     public int uListCount();
-
+    public AdminListResponse selectUserList(AdminListRequest request);
     public int rListCount();
-
+    public ReportListResponse selectReportList(AdminListRequest request,int fNo);
     public int deleteQna(int fNo);
 
     public int deleteFree(int fNo);
+
+    public int insertBlack(Admin ad);
+
 
 
 }

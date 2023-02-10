@@ -1,47 +1,38 @@
 package com.project.admin.controller;
 
+import com.project.admin.dto.AdminListRequest;
+import com.project.admin.dto.AdminListResponse;
+import com.project.admin.dto.ReportListResponse;
 import com.project.admin.service.AdminService;
 import com.project.admin.vo.Admin;
-import com.project.board.vo.FreeBoard;
-import com.project.board.vo.Report;
-import com.project.member.vo.Member;
-import org.dom4j.rule.Mode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
+@SessionAttributes("loginUser")
 @RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     AdminService adminService;
     @RequestMapping(value = "/userList/{fNo}")
-    public String userList(
+    public ModelAndView selectUserList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            @RequestParam Map<String, Object> paramMap,
             @PathVariable("fNo") int fNo,
-            Model model,
-            Admin ad
+            ModelAndView mv
 
            ){
-        Map<String, Object> map = new HashMap();
+        AdminListRequest aeq = new AdminListRequest(currentPage);
+        AdminListResponse aesp = adminService.selectUserList(aeq);
 
-        map = adminService.userList(currentPage);
-        paramMap.put("cpage", currentPage);
-
+        mv.addObject("userList", aesp.getMemberList());
+        mv.addObject("pi", aesp.getPageInfoCombine());
+        mv.setViewName("admin/userList");
+        return mv;
 
         model.addAttribute("map",map);
         model.addAttribute("ad",ad);
@@ -52,20 +43,21 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/reportList/{fNo}")
-    public ModelAndView reportList(
-            Admin ad,
+    public ModelAndView selectReportList(
+            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             ModelAndView mv,
             @PathVariable("fNo") int fNo
 
             ){
-        ArrayList<Admin> list2 = adminService.reportList(fNo);
-        ad.setReportType(ad.getReportType());
-        int listCount = adminService.rListCount();
-        mv.addObject("list2",list2);
+        AdminListRequest req = new AdminListRequest(currentPage);
+        ReportListResponse resp = adminService.selectReportList(req,fNo);
+
+        mv.addObject("reportList", resp.getReportList());
+        mv.addObject("pi", resp.getPageInfoCombine());
         mv.addObject("fNo",fNo);
-        mv.addObject("ad",ad);
         mv.setViewName("admin/reportList");
         return mv;
+
 
     }
 
@@ -99,4 +91,14 @@ public class AdminController {
 
 
     }
+
+    @RequestMapping(value = "/insertBlack" ,method = RequestMethod.GET)
+    public String insertBlack(Admin ad){
+
+        int result = adminService.insertBlack(ad);
+
+        return "admin/userList";
+    }
+
+
 }

@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>커뮤니티 질문게시판</title>
@@ -34,7 +34,7 @@
             <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
             <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
         </div>
-        <form id="searchForm" action="/board/qnaList/search" method="get">
+        <form id="searchForm" action="?search=" method="get">
             <div class="content head">
                 <select name="condition" id="selectState">
                     <option value="title">제목</option>
@@ -46,6 +46,7 @@
                     <input id="freeBoardSearch" type="text" name="keyword" placeholder="검색내용을 입력해주세요">
                 </div>
                 <button type="submit">조회</button>
+
 
             </div>
 
@@ -65,10 +66,10 @@
                         <c:forEach var="qb" items="${list}">
                             <tr><td onclick="movePage(${qb.qnaBno})">
                                 <c:forEach step="1" begin="2" end ="${qb.depth}">
-                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 </c:forEach>
                                 <c:if test="${qb.depth ne 1 }">
-                                    └->
+                                    <i class="bi bi-arrow-return-right"></i>
                                 </c:if>
                                 <c:if test="${qb.qnaArea != null}">
                                     (${qb.qnaArea})</c:if>
@@ -80,31 +81,33 @@
             </div>
         </div>
         <c:set var="url" value="?cpage="/>
+
         <div id="paging">
-            <ul class="pagination">
+            <div class="pagination">
                 <c:choose>
+
                     <c:when test="${ pi.currentPage eq 1 }">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        <div class="page-item disabled"><a class="page-link" href="#">Previous</a></div >
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></li>
+                        <div class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></div>
                     </c:otherwise>
                 </c:choose>
 
-                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                    <li class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
+                <c:forEach var="item" begin="${pi.startPage}" end="${pi.endPage}">
+                    <div class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
                 </c:forEach>
-
-                <c:choose>
+                        <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
-                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        <div  class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
+                        <div  class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
                     </c:otherwise>
                 </c:choose>
-            </ul>
+            </div>
         </div>
+
     </div>
 
 

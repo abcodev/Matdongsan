@@ -6,9 +6,11 @@
 }
 
 #content{
-    padding: 60px 300px 30px 300px;
+    padding: 60px 400px 30px 300px;
 }
 
+a:link { color: black; text-decoration: none;}
+a:link:hover { color: #f3f1f5; }
 textarea:focus , input:focus {
     outline: #dedcf1 2px solid;
     border-radius: 2px;
@@ -77,26 +79,28 @@ textarea:focus , input:focus {
     font-weight: 450;
     line-height: 2.8;
 }
+#MainDiv{
+    height: 1000px;
+}
 
 .detail_body > div{
     border: none;
     width: 100%;
-    height: auto;
+    height: 200px;
     font-size: 18px;
     margin-top: 25px;
     resize: none;
 }
 
 .btn_box{
-    padding-left: 86%;
-    margin-top: 10px;
+   float: right;
 }
 
 .btn_box > button{
     margin-left: 10px;
     border: none;
-    width: 50px;
-    height: 30px;
+    width: 100px;
+    height: 40px;
     font-size: 16px;
     background-color: #f3f1f5;
     color: #213048;
@@ -117,19 +121,6 @@ textarea:focus , input:focus {
     margin-top: 10px;
 }
 
-.btn_box > .alert_btn_box > button{
-    margin-left: 10px;
-    border: none;
-    width: auto;
-    height: auto;
-    font-size: 16px;
-    background-color: #f3f1f5;
-    color: #213048;
-    font-weight: 450;
-    cursor: pointer;
-    border-radius: 2px;
-    padding: 5px 10px 5px 10px;
-}
 
 .btn_box > .alert_btn_box > button:hover{
     background-color: #566392;
@@ -179,3 +170,25 @@ textarea:focus , input:focus {
     background-color: #566392;
     color: #f3f1f5;
 }
+#boardContent{
+    border: 1px skyblue;
+    border: none;
+    font-size: 20px;
+    resize: none;
+    height: 250px;
+    width: 100%;
+}
+#Answer{
+    box-sizing: border-box;
+    border: 2px solid #beb0d0;
+    border-radius: 10px;
+    padding: 30px;
+    border-radius: 10px;
+    width: 60%;
+    height: 240px;
+    position: relative;
+    top: 67px;
+    margin-left: 284px;
+    margin-bottom: 20px;
+}
+

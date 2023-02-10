@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatMapper">
+
+    <resultMap type="chatingRoom" id="chatroomResultSet">
+        <result column="CHAT_ROOM_NO" property="roomNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+    </resultMap>
+
+    <resultMap id="chatMessageResultSet" type="chatMessage">
+        <result column="CM_NO" property="cmNo"/>
+        <result column="CHAT_ROOM_NO" property="roomNo"/>
+        <result column="SEND_NO" property="sendNo"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="READ" property="read"/>
+        <result column="MS_CONTENT" property="content"/>
+    </resultMap>
+
+    <resultMap id="chatJoinMemberResultSet" type="com.project.chat.dto.ChatJoinMember">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="CHAT_ROOM_NO" property="chatRoomNo"/>
+        <result column="NICKNAME" property="nickname"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="GRADE" property="grade"/>
+    </resultMap>
+
+    <select id="selectByRoomNo" parameterType="String" resultMap="chatroomResultSet">
+            SELECT *
+            FROM CHAT_ROOM
+            WHERE CHAT_ROOM_NO = #{roomNo}
+    </select>
+
+    <select id="roomCheck" resultMap="chatroomResultSet">
+        SELECT
+            CHAT_ROOM_NO,
+            MEMBER_NO
+        FROM CHAT_ROOM
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
+
+
+    <insert id="chatRoomInsert">
+        INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
+            VALUES (#{roomNo},#{memberNo})
+    </insert>
+
+    <select id="messageList" resultMap="chatMessageResultSet">
+        SELECT CM_NO,
+               CHAT_ROOM_NO,
+               SEND_NO,
+               CREATE_DATE,
+               READ,
+               MS_CONTENT
+        FROM CHAT_MESSAGE
+        WHERE CHAT_ROOM_NO = #{roomNo}
+        ORDER BY CREATE_DATE
+    </select>
+
+    <select id="selectJoinMemberList" resultMap="chatJoinMemberResultSet">
+        SELECT M.MEMBER_NO, CHAT_ROOM_NO, NICKNAME, MEMBER_NAME, GRADE
+        FROM CHAT_ROOM_JOIN
+             INNER JOIN MEMBER M on CHAT_ROOM_JOIN.MEMBER_NO = M.MEMBER_NO
+        WHERE CHAT_ROOM_NO = #{roomNo}
+    </select>
+
+    <insert id="enterRoom">
+        INSERT INTO CHAT_ROOM_JOIN(CHAT_ROOM_NO, MEMBER_NO)
+        VALUES (#{chatRoomNo},#{memberNo})
+    </insert>
+
+    <insert id="sendMessage">
+        INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, CREATE_DATE, READ, MS_CONTENT)
+        VALUES (SEQ_CM_NO.nextval,#{roomNo},#{memberNo},default,default,#{message})
+    </insert>
+
+
+
+    <resultMap id="adminChatRoomResultSet" type="adminChatRoom">
+        <result column="CHAT_ROOM_NO" property="roomNo"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="PROFILE_IMAGE" property="profileImage"/>
+        <result column="MS_CONTENT" property="latestMessage"/>
+        <result column="CREATE_DATE" property="latestMessageTime"/>
+        <result column="READ" property="read"/>
+    </resultMap>
+    <select id="chattingList" resultMap="adminChatRoomResultSet">
+        SELECT
+            CHAT_ROOM_NO,
+            MEMBER_NAME,
+            PROFILE_IMAGE,
+            CREATE_DATE,
+            READ,
+            MS_CONTENT
+        FROM CHAT_MESSAGE
+                 JOIN MEMBER ON(MEMBER_NO = SEND_NO)
+        WHERE CREATE_DATE IN (SELECT MAX(CREATE_DATE)
+                              FROM CHAT_MESSAGE
+                              GROUP BY CHAT_ROOM_NO)
+
+    </select>
+
+    <resultMap id="adminChatMessageResultSet" type="adminChatMessage">
+        <result column="CHAT_ROOM_NO" property="roomNo"></result>
+        <result column="SEND_NO" property="memberNo"></result>
+        <result column="MEMBER_NAME" property="memberName"></result>
+        <result column="MS_CONTENT" property="message"></result>
+        <result column="CREATE_DATE" property="createDate"></result>
+        <result column="READ" property="read"></result>
+    </resultMap>
+
+    <select id="adminMessageList" parameterType="string" resultMap="adminChatMessageResultSet">
+        SELECT
+            C.CHAT_ROOM_NO,
+            C.SEND_NO,
+            M.MEMBER_NAME,
+            C.MS_CONTENT
+        FROM CHAT_MESSAGE C
+                 JOIN MEMBER M ON (M.MEMBER_NO=C.SEND_NO)
+        WHERE C.CHAT_ROOM_NO = #{roomNo}
+        ORDER BY C.CREATE_DATE
+    </select>
+
+    <update id="messageRead" parameterType="string">
+        UPDATE CHAT_MESSAGE
+        SET READ = 'Y'
+        WHERE CHAT_ROOM_NO = #{roomNo}
+    </update>
+
+    <update id="updateMessageRead">
+        UPDATE CHAT_MESSAGE
+        SET READ ='Y'
+        WHERE CHAT_ROOM_NO = #{roomNo}
+        AND SEND_NO = #{memberNo}
+    </update>
+</mapper>
