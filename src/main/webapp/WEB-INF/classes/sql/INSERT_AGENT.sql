@@ -787,3 +787,5 @@ INSERT INTO REALESTATE_AGENT (AGENT_NO, STATE, BJDONG_NM, ADDRESS, REF_NAME, AGE
 VALUES ('11680-2017-00315', '강남구', '역삼동', '서울특별시 강남구 테헤란로4길 6 지1층 센트럴애비뉴 B112호(역삼동 강남역 센트럴 푸르지오 시티)', '김정태', '강남제일공인중개사사무소', '02-567-0358');
 INSERT INTO REALESTATE_AGENT (AGENT_NO, STATE, BJDONG_NM, ADDRESS, REF_NAME, AGENT_NAME, AGENT_PHONE)
 VALUES ('11680-2020-00496', '강남구', '일원동', '서울특별시 강남구 일원로 39 1층(일원동)', '정광명', '마사이부동산공인중개사사무소', '02-445-9919');
+
+COMMIT;

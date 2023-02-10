@@ -21,20 +21,21 @@
     </resultMap>
 
 
-    <select id="userList" resultMap="AdminResultSet">
+    <select id="selectUserList" resultMap="AdminResultSet">
         select
             M.MEMBER_NO,
+            MEMBER_NAME,
             NICKNAME,
             EMAIL,
             M.STATUS,
             F.FREE_BNO
         FROM MEMBER M
-        JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
+        LEFT JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
         ORDER BY MEMBER_NO
 
     </select>
 
-    <select id="reportList" resultMap="AdminResultSet" parameterType="int">
+    <select id="selectReportList" resultMap="AdminResultSet" parameterType="int">
         SELECT
             REPORT_NO,
             REPORT_CONTENT,
