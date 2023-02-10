@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private final AdminService adminService;
     @RequestMapping(value = "/userList/{fNo}")
     public ModelAndView selectUserList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,

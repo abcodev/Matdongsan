@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ViewCountUp {
     public static Boolean countUp(FreeBoard freeBoard,
-                                  Member loginUser,
+                                  long memberNo,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        if (freeBoard.getMemberNo() != loginUser.getMemberNo()) {
+        if (freeBoard.getMemberNo() != memberNo) {
             Cookie oldCookie = null;
             Cookie[] cookies = request.getCookies();
             if (cookies != null && cookies.length > 0) {
