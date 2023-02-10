@@ -16,6 +16,7 @@
         <result column="STATUS" property="status"/>
         <result column="QNA_AREA" property="qnaArea"/>
         <result column="NICKNAME" property="qnaWriter"/>
+        <result column="QNA_WRITER" property="qnaWriter"/>
         <result column="QNA_DEPTH" property="depth"/>
     </resultMap>
 
@@ -55,8 +56,8 @@
 
 
     <insert id="insertQboard" parameterType="QBoard">
-        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle},#{qnaContent}, #{qnaArea})
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO,QNA_WRITER, QNA_TITLE, QNA_CONTENT ,QNA_AREA)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo},#{qnaWriter}, #{qnaTitle},#{qnaContent}, #{qnaArea})
     </insert>
 
     <select id="searchList" resultMap="qBoardResultSet">

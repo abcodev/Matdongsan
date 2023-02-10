@@ -61,6 +61,7 @@ public class AdminController {
         }else {
             return "redirect:/admin/userList/{fNo}";
         }
+
     }
 
     @RequestMapping(value = "/deleteFree/{fNo}")

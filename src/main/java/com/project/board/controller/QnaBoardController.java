@@ -49,9 +49,11 @@ public class QnaBoardController {
     // 게시글 작성페이지
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     public String insertBoard(
-            ModelAndView mv
-
+            ModelAndView mv,
+            HttpSession session
     ) {
+        Member m = (Member) session.getAttribute("loginUser");
+        logger.info("session insert :"+m);
         return "board/qnaInsertBoard";
     }
 
@@ -75,9 +77,7 @@ public class QnaBoardController {
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
             @RequestParam(value = "qBno") String qBno,
-
-
-
+            HttpSession session,
             ModelAndView mv
     ) {
         mv.setViewName("board/qnaInsertAnswer");
@@ -85,6 +85,7 @@ public class QnaBoardController {
         mv.addObject("depth", depth);
         mv.addObject("pBno", parentBno);
         mv.addObject("qBno", qBno);
+        Member m = (Member) session.getAttribute("loginUser");
         return mv;
     }
 
