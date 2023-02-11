@@ -8,6 +8,8 @@
     <resultMap id="AdminResultSet" type="admin">
         <result column="REPORT_NO" property="reportNo"/>
         <result column="FREE_BNO" property="fNo"/>
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="EMAIL" property="email"/>
         <result column="EMAIL2" property="reportEmail"/>
@@ -30,6 +32,9 @@
                MEMBER_NAME,
                NICKNAME,
                EMAIL,
+               PROVIDER,
+               PROVIDER_ID,
+               GRADE,
                M.STATUS,
                F.FREE_BNO
         FROM MEMBER M

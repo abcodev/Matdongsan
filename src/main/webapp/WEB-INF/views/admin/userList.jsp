@@ -28,20 +28,20 @@
         <thead>
         <tr>
             <th>No</th>
-            <th>아이디</th>
-            <th>이메일</th>
-            <th>이름</th>
-            <th>회원 상태</th>
+<%--            <th>소셜사</th>--%>
+<%--            <th>아이디</th>--%>
+            <th>회원명</th>
+<%--            <th>회원등급</th>--%>
         </tr>
         </thead>
         <tbody id="tableList">
         <c:forEach var="ul" items="${userList}">
             <tr id="memberData">
                 <td>${ul.memberNo}</td>
-                <td>${ul.email}</td>
-                <td>${ul.email}</td>
+<%--                <td>${ul.provider}</td>--%>
+<%--                <td>${ul.providerId}</td>--%>
                 <td>${ul.memberName}</td>
-                <td>회원등급</td>
+<%--                <td>${ul.grade}</td>--%>
             </tr>
         </c:forEach>
         </tbody>
