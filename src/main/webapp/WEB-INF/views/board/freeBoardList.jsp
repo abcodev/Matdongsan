@@ -127,7 +127,6 @@
             </div>
         </div>
     </div>
-    <br>
     <div class="paging">
         <ul class="pagination">
             <c:choose>

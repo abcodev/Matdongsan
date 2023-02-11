@@ -2,8 +2,10 @@ package com.project.restaurant.vo;
 
 import com.project.member.vo.Member;
 import com.project.restaurant.dto.InsertReviewRequest;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import oracle.sql.DATE;
 
 import java.sql.Date;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Review {
 
     private int revNo;

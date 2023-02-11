@@ -13,26 +13,26 @@
 <jsp:include page="../template/font.jsp"/>
 
 <div id="estate_rent_list_ajax">
-        <table class="table">
-            <tr>
-                <th>자치구명</th>
-                <th>아파트명</th>
-                <th>거래 타입</th>
-                <th>금액 (만원)</th>
-                <th>임대면적</th>
+    <table class="table">
+        <tr>
+            <th>자치구명</th>
+            <th>아파트명</th>
+            <th>거래 타입</th>
+            <th>금액 (만원)</th>
+            <th>임대면적</th>
+        </tr>
+
+        <c:forEach var="estateRent" items="${ estateRentList }">
+            <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
+                <td class="rno" >${ estateRent.sggNm } </td>
+                <td>${estateRent.buildName }</td>
+                <td>${estateRent.rentGbn}</td>
+                <td>${estateRent.rentGtn}</td>
+                <td>${estateRent.rentArea }</td>
             </tr>
+        </c:forEach>
 
-                <c:forEach var="estateRent" items="${ estateRentList }">
-                    <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
-                        <td class="rno" >${ estateRent.sggNm } </td>
-                        <td>${estateRent.buildName }</td>
-                        <td>${estateRent.rentGbn}</td>
-                        <td>${estateRent.rentGtn}</td>
-                        <td>${estateRent.rentArea }</td>
-                    </tr>
-                </c:forEach>
-
-        </table>
+    </table>
 
     <div id="paging">
 
@@ -66,12 +66,12 @@
 </div>
 
 <div id="selectFboard">
-        <p>우리동네 이야기</p>
-        <div class="freeBoard_list">
+    <p>우리동네 이야기</p>
+    <div class="freeBoard_list">
         <c:forEach items="${selectFboard}" var="fb" begin="0" end="4" varStatus="status">
             <a href="${pageContext.request.contextPath}/board/freeList/detail/${fb.boardNo}">${fb.boardTitle}</a>
         </c:forEach>
-        </div>
+    </div>
 </div>
 
 <div id="chart">

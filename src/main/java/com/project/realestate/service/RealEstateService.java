@@ -45,4 +45,5 @@ public interface RealEstateService {
     List<RealEstateAgent> selectAgentList(String bjdongNm);
 
     List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList);
+
 }

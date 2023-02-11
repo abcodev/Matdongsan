@@ -8,6 +8,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class MemberController {
 
     @RequestMapping("/myPage")
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                   ModelAndView modelAndView, HttpSession session) {
+                                   ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
@@ -41,14 +42,16 @@ public class MemberController {
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
+        modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
+
         modelAndView.setViewName("member/myPage");
 
         return modelAndView;
     }
 
     @RequestMapping(value = "/memberModify")
-    public String memberModify(Model model) {
+    public String memberModify(Model model){
         model.addAttribute("stateList", StateList.values());
         return "member/memberModify";
     }
@@ -83,10 +86,10 @@ public class MemberController {
 
     @PostMapping("/myPage")
     @ResponseBody
-    public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session) {
+    public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session){
         Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            throw new RuntimeException("로그인 해라 ");
+        if(loginUser == null){
+            throw  new RuntimeException("로그인 해라 ");
         }
         memberService.saveInterest(req, loginUser);
         return ResponseEntity.ok().build();
@@ -94,7 +97,7 @@ public class MemberController {
 
     @RequestMapping("/delete")
     public String deleteMember(HttpSession session) {
-        Member member = (Member) session.getAttribute("loginUser");
+        Member member = (Member)session.getAttribute("loginUser");
         memberService.deleteMember(member);
         session.removeAttribute("loginUser");
         return "redirect:/";
@@ -107,8 +110,8 @@ public class MemberController {
     @RequestMapping(value = "/phoneCheck", method = RequestMethod.GET)
     @ResponseBody
     public String sendSMS(@RequestParam("phone") String userPhoneNumber) {
-        int randomNumber = (int) ((Math.random() * (9999 - 1000 + 1)) + 1000);
-        memberService.certifiedPhoneNumber(userPhoneNumber, randomNumber);
+        int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);
+        memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
         return Integer.toString(randomNumber);
     }
 

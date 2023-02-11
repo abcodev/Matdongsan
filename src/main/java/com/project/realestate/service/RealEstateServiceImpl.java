@@ -139,4 +139,12 @@ public class RealEstateServiceImpl implements RealEstateService {
                 .map(RealEstateViewDto::of)
                 .collect(Collectors.toList());
     }
+
+//    @Override
+//    public int reservationEnroll(ReservationRequest req) {
+//
+//        return realEstateDao.reservationEnroll(req);
+//    }
+
+
 }

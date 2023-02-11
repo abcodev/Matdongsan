@@ -67,7 +67,7 @@
                     <div class="login_after">
                         <img src="${loginUser.profileImage}" class="user_img">
                         <c:if test="${loginUser.memberNo == 1}">
-                            <a href="${pageContext.request.contextPath}/admin/userList/1" class="after">관리자페이지</a>
+                            <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.memberNo != 1}">
@@ -110,6 +110,17 @@
                 }
             });
         }
+
+    </script>
+
+    <script>
+        if(${loginUser.grade == 'GENERAL'}){
+            alert('회원정보 입력&수정 후 이용해주세요.');
+            window.location = '${pageContext.request.contextPath}/memberModify';
+        }else{
+
+        }
+
     </script>
 
 
@@ -129,7 +140,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
 
             <script>
