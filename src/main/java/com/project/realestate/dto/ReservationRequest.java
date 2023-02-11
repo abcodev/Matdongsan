@@ -20,5 +20,6 @@ public class ReservationRequest {
     private String revTime;
     private String revDate;
 
+
 }
 

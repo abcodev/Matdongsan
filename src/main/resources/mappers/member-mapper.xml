@@ -102,6 +102,19 @@
           AND PROVIDER_ID = #{providerId}
     </update>
 
+    <update id="updateWithLogin" parameterType="member">
+        UPDATE MEMBER
+        SET
+            PROFILE_IMAGE = #{profileImage},
+            MEMBER_NAME = #{memberName},
+            ACCESS_TOKEN = #{accessToken},
+            REFRESH_TOKEN = #{refreshToken},
+            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt},
+            RECENT_ACCESS = CURRENT_TIMESTAMP
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
+    </update>
+
     <update id="updateBanPeriod" parameterType="Map">
         UPDATE MEMBER
         SET BAN_PERIOD = #{banPeriod}
@@ -232,5 +245,22 @@
         FROM REVIEW
         WHERE MEMBER_NO = #{memberNo}
     </select>
+
+
+    <resultMap id="reservationList" type="com.project.realestate.dto.ReservationRequest">
+        <result column="REV_TIME" property="revTime"/>
+        <result column="REV_DATE" property="revDate"/>
+    </resultMap>
+
+    <select id="selectReservationList" resultMap="reservationList">
+        SELECT
+            R.REV_DATE,
+            R.REV_TIME
+        FROM REAL_RESERVATION R
+                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+        WHERE R.MEMBER_NO = #{memberNo}
+    </select>
+
+
 
 </mapper>

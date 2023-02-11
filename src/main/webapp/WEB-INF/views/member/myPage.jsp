@@ -176,6 +176,22 @@
     </div>
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
+
+        <div id="myReservationList">
+            <table>
+                <c:forEach var="reservationList" items="${reservationList}">
+                    <tr>
+                        <th>예약날짜</th>
+                        <th>예약시간</th>
+                    </tr>
+                    <tr onclick="location.href='realEstate/detail?estateNo=${reservationList.estateNo}'">
+                        <td>${reservationList.revDate}</td>
+                        <td>${reservationList.revTime}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+
     </div>
 </div>
 <script>

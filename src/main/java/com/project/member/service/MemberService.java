@@ -13,6 +13,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -162,6 +163,12 @@ public class MemberService {
         brokerEnroll.setFileUrl("http://localhost:8070/Matdongsan/resources/files/agent/" + attachment);
         memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
+
+
+    public List<ReservationRequest> selectReservationList(Member m){
+        return memberDao.selectReservationList(sqlSession, m);
+    }
+
 
 
 }

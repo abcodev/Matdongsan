@@ -6,6 +6,7 @@ import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
@@ -39,10 +40,12 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
+        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
+        modelAndView.addObject("reservationList", reservationList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
 
         modelAndView.setViewName("member/myPage");

@@ -7,6 +7,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
@@ -116,4 +117,10 @@ public class MemberDao {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
         return sqlSession.selectList("memberMapper.selectReviewList", m, rowBounds);
     }
+
+    public List<ReservationRequest> selectReservationList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("memberMapper.selectReservationList", m);
+    }
+
+
 }
