@@ -97,10 +97,16 @@ public class AdminController {
     }
 
     @PostMapping(value = "/broker/handleApply")
-    public ResponseEntity<String> handleApply(@RequestParam("handle") String status){
+    public ResponseEntity<String> handleApply(@RequestParam HandleApplyRequest req
+                                              ){
+        adminService.handleApply(req);
 
-
-        String a = "1";
-        return ResponseEntity.ok().body(a);
+        String result = "";
+        if(req.getStatus().equals("consent")){
+            result = "신청 승인을 완료하였습니다.";
+        }else{
+            result = "신청 승인을 거절하였습니다";
+        }
+        return ResponseEntity.ok().body(result);
     }
 }

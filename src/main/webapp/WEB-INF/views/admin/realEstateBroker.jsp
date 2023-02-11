@@ -48,8 +48,8 @@
                 <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
                 <td>
                     <button type="button" class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            data-agentNo="${broker.agentNo}"
-                            data-memberNo="${broker.memberNo}">
+                            data-bs-agentNo="${broker.agentNo}"
+                            data-bs-memberNo="${broker.memberNo}">
                         ${broker.applyStatus}
                     </button>
                 </td>
@@ -68,7 +68,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" id="modalCLose" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 승인하시겠습니까 ?
@@ -133,29 +133,19 @@
             });
         });
 
-
-
-
-
-
-
-
-
         $('.handleApply').click(function (){
             let status = $(this).val();
-            // let tr = $(this).parent().parent()
-            // console.log(agentNo)
-            // console.log(memberNo)
-            console.log($(this).data('agentNo'))
-            // console.log(tr.text())
-            // let agentNo =;
-            // let memberNo = ;
+            console.log(agentNo)
+            console.log(memberNo)
+
             $.ajax({
                 type : "POST",
                 url : "${pageContext.request.contextPath}/admin/broker/handleApply",
                 data : { 'handle': status},
-                success : function (){
-                    console.log("테스트 성공1")
+                success : function (result){
+                    console.log("테스트 성공1");
+                    // $('#staticBackdrop').modal('hide');
+                    alert(result)
                 },
                 fail : function (){
                     console.log("테스트 실패!")

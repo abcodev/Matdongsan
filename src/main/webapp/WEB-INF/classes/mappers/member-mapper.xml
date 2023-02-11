@@ -203,5 +203,9 @@
         DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </delete>
 
-
+    <update id="changeMemberGrade">
+        UPDATE MEMBER
+            SET GRADE = #{grade}
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
 </mapper>

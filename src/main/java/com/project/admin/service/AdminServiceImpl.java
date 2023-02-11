@@ -8,12 +8,14 @@ import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
 import com.project.common.template.Pagination;
 import com.project.member.dao.MemberDao;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -84,6 +86,13 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void ban(BanRequest req) {
         memberDao.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
+    }
+
+    @Override
+    @Transactional
+    public void handleApply(HandleApplyRequest req) {
+        adminDao.changeMemberGrade(sqlSession, req);
+        adminDao.changeEstateStatus(sqlSession, req);
     }
 
 }

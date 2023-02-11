@@ -43,5 +43,16 @@
         VALUES(#{agentNo},#{state},#{bjdongNm},#{address},#{refName},#{agentName},#{agentPhone},#{memberNo},#{attachment})
     </insert>
 
+    <update id="changeEstateStatus">
+        UPDATE REALESTATE_AGENT
+            <if test="status.equals('consent')">
+                SET APPLY_STATUS = 'Y'
+            </if>
+            <if test="status.equals('reject')">
+                SET APPLY_STATUS = 'N'
+            </if>
+        WHERE AGENT_NO = #{agentNo}
+    </update>
+
 
 </mapper>

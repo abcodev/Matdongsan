@@ -19,4 +19,6 @@ public interface AdminService {
     BrokerListResponse BrokerList(int currentPage);
 
     void ban(BanRequest req);
+
+    void handleApply(HandleApplyRequest req);
 }
