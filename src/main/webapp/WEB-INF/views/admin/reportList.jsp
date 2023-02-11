@@ -81,7 +81,7 @@
                                 type: 'POST',
                                 contentType: "application/json; charset=UTF-8",
                                 data: JSON.stringify({
-                                    // TODO : 23 으로 그냥 넣고 할텐데 SELECT 하는쪽 수정후 변경 필요
+                                    // TODO : SELECT 하는쪽 수정후 변경 필요
                                     'memberNo': 23,
                                     'banPeriod': banPeriod
                                 }),
