@@ -181,7 +181,8 @@
 
 .review_history{
     width: 50%;
-    padding-left: 20px;
+    padding-left: 40px;
+    border-left: #a4a4a4 3px dashed;
 }
 
 .board_history > p,
@@ -189,6 +190,10 @@
     font-weight: 450;
     font-size: 17px;
     color: #3d3d3d;
+}
+
+table{
+    table-layout: fixed;
 }
 
 #myBoardList{
@@ -224,11 +229,11 @@
     line-height: 3;
 }
 
-.boardTitle{
-    width: 50px;
-    white-space: nowrap; !important;
-    overflow: hidden; !important;
-    text-overflow: ellipsis; !important;
+#myBoardList td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 5px;
 }
 
 .myBoard_info{
@@ -243,8 +248,27 @@
     font-weight: 450;
 }
 
-.review_history{
-    border-left: #a4a4a4 3px dashed;
+.myReview_list{
+    display: flex;
+    margin-top: 10px;
+}
+.myReview_list > div {
+    width: 33%;
+    padding-left: 5px;
+}
+
+.review_resNm{
+    font-size: 16px;
+    font-weight: 420;
+}
+
+.review_star{
+    font-size: 20px;
+    color: #f8d562;
+}
+
+.review_date{
+    font-size: 14px;
 }
 
 .reserve_history{
@@ -252,13 +276,19 @@
     padding: 0 50px;;
     width: 100%;
     height: 300px;
+    border: rgba(86, 99, 146, 0.3) 2px solid;
+    border-radius: 2px;
 }
 
 .reserve_history > p{
     font-size: 19px;
     font-weight: 410;
     color: #3d3d3d;
+    text-align: center;
+    margin-top: 20px;
 }
+
+
 
 #paging{
     margin-top: 10px;

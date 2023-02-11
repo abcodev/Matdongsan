@@ -78,7 +78,7 @@
 
     <div id="history_list">
         <div class="board_history">
-            <h4>내 게시글 보기</h4>
+            <p>내 게시글 보기</p>
             <div id="myBoardList">
                 <table>
                     <tr>
@@ -98,7 +98,7 @@
                                 }
                             </script>
                             <td>${selectAllBoardList.boardType}</td>
-                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
+                            <td>${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
                         </tr>
                     </c:forEach>
@@ -132,10 +132,33 @@
         </div>
         <div class="review_history">
             <p>내가 남긴 리뷰</p>
+                <div class="myReview_list">
+                    <div class="review_resNm">레스토랑 이름</div>
+                    <div class="review_star">★★★★★</div>
+                    <div class="review_date">2023-01-18</div>
+                </div>
         </div>
     </div>
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
+        <div class="myReserve_list">
+            <table>
+                <tr>
+                    <th>공인중개사</th>
+                    <th>예약일</th>
+                    <th>예약시간</th>
+                    <th>예약인원</th>
+                    <th>예약처리</th>
+                </tr>
+                <tr onclick="">
+                    <td>강남공인중개사</td>
+                    <td>2023-02-08</td>
+                    <td>12:00</td>
+                    <td>2명</td>
+                    <td>확인 중</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 <script>
