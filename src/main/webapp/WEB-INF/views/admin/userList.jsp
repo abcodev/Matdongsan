@@ -17,10 +17,9 @@
 <%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
-    <button id="b1">회원관리</button>
-    <button type="button" class="b2" id="movePage">신고관리</button>
-    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
-
+    <button type="button" class="b1" id="userList">회원관리</button>
+    <button type="button" class="b2" id="reportList">신고관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산관리</button>
 </div>
 <br><br><br><br>
 <div class="memberTable">
@@ -87,24 +86,36 @@
                 $("body").html(data);
             }
         })
-    })
+    });
 
-
-    $(function () {
-        $("#movePage").click(function () {
-
-            $.ajax({
-                type: "POST",
-                url: "/Matdongsan/admin/reportList/" +${fNo},
-                data: {},
-                dataType: "html",
-                cache: false,
-                success(data) {
-                    $("body").html(data);
-                }
-            });
+    $("#userList").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/${pageContext.request.contextPath}/admin/userList/" +${fNo},
+            data: {},
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+            }
         });
     });
+
+
+    $("#reportList").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/Matdongsan/admin/reportList/" +${fNo},
+            data: {},
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+            }
+        });
+    });
+
 
     function retrieveUserList(current_page) {
 
@@ -144,7 +155,7 @@
                     "color": "#eaeaed",
                     "background": "#585c9c",
                     "border": "#585c9c"
-                });
+                });ㄷ
         });
     });
 

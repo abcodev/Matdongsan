@@ -48,9 +48,9 @@ tr:last-child td:last-child {
     margin: auto;
     width: 32%;
 }
-#b1{
+.b1{
     height: 65px;
-    width: 230px;
+    width: 150px;
     border-radius: 8px;
     border: white;
     background: #585c9c;
@@ -60,7 +60,7 @@ tr:last-child td:last-child {
 }
 .b2{
     height: 65px;
-    width: 230px;
+    width: 150px;
     border-radius: 8px;
     border: #eaeaed;
     background: #eaeaed;
@@ -71,7 +71,7 @@ tr:last-child td:last-child {
 }
 .b3{
     height: 65px;
-    width: 230px;
+    width: 150px;
     border-radius: 8px;
     border: #eaeaed;
     background: #eaeaed;

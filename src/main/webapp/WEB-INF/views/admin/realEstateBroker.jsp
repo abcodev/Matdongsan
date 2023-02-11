@@ -9,6 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ page language="java" pageEncoding="UTF-8"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>부동산 중개업자 신청 관리</title>
 </head>
@@ -19,7 +21,7 @@
 <div id="button2">
     <button type="button" class="b1" id="userList">회원관리</button>
     <button type="button" class="b2" id="reportList">신고관리</button>
-    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산관리</button>
 </div>
 <br><br><br><br>
 <div class="reportTable">
@@ -43,8 +45,12 @@
                 <td>${broker.agentName}</td>
                 <td>${broker.agentNo}</td>
                 <td>${broker.agentPhone}</td>
-                <td></td>
-                <td>${broker.applyStatus}</td>
+                <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
+                <td>
+                    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        ${broker.applyStatus}
+                    </button>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
@@ -53,49 +59,53 @@
     </table>
 </div>
 
-<div class="modal" id="modal">
-    <div class="modal_body">
-        <div class="m_head">
-            <div class="modal_title">게시글을 삭제처리하시겠습니까?</div>
-            <div class="close_btn" id="close_btn">X</div>
-        </div>
-        <div class="m_body">
-            <input type="hidden" id="rType" value=""/>
-            <input type="hidden" id="fNo"  value=""/>
-            <button type="button" id="clear" class="btn" onclick="movePage2()">예</button>
-            <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
-        </div>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                승인하시겠습니까 ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary handleApply" value="consent">승인</button>
+                <button type="button" class="btn btn-primary handleApply" value="reject">거부</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-        $("#reportList").click(function () {
+        <%--$("#reportList").click(function () {--%>
 
-            $.ajax({
-                type: "POST",
-                url: "/${pageContext.request.contextPath}/admin/reportList/" +${fNo},
-                data: {},
-                dataType: "html",
-                cache: false,
-                success(data) {
-                    $("body").html(data);
-                }
-            });
-        });
+        <%--    $.ajax({--%>
+        <%--        type: "POST",--%>
+        <%--        url: "${pageContext.request.contextPath}/admin/reportList/" +${fNo},--%>
+        <%--        data: {},--%>
+        <%--        dataType: "html",--%>
+        <%--        cache: false,--%>
+        <%--        success(data) {--%>
+        <%--            $("body").html(data);--%>
+        <%--        }--%>
+        <%--    });--%>
+        <%--});--%>
 
-        $("#userList").click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/${pageContext.request.contextPath}/admin/userList/" +${fNo},
-                data: {},
-                dataType: "html",
-                cache: false,
-                success(data) {
-                    $("body").html(data);
-                }
-            });
-        });
+        <%--$("#userList").click(function () {--%>
+        <%--    $.ajax({--%>
+        <%--        type: "POST",--%>
+        <%--        url: "${pageContext.request.contextPath}/admin/userList/" +${fNo},--%>
+        <%--        data: {},--%>
+        <%--        dataType: "html",--%>
+        <%--        cache: false,--%>
+        <%--        success(data) {--%>
+        <%--            $("body").html(data);--%>
+        <%--        }--%>
+        <%--    });--%>
+        <%--});--%>
 
         $('#moveBrokerList').click(function (){
             $.ajax({
@@ -104,6 +114,22 @@
                 dataType : "html",
                 success : function (data){
                     $("body").html(data);
+                }
+            })
+        })
+
+
+        $('.handleApply').click(function (){
+            let status = $(this).val();
+            $.ajax({
+                type : "POST",
+                url : "${pageContext.request.contextPath}/admin/broker/handleApply",
+                data : { 'handle': status},
+                success : function (){
+                    console.log("테스트 성공1")
+                },
+                fail : function (){
+                    console.log("테스트 실패!")
                 }
             })
         })

@@ -18,9 +18,9 @@
 <%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
-    <button id="b1">회원관리</button>
+    <button type="button" class="b1" id="userList">회원관리</button>
     <button type="button" class="b2" id="reportList">신고관리</button>
-    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산관리</button>
 </div>
 <br><br><br><br>
 <div class="reportTable">
