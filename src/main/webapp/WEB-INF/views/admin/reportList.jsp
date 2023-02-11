@@ -18,8 +18,9 @@
 <%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
-    <button class="b2" id="movePage">회원관리</button>
-    <button type="button" id="b1">신고관리</button>
+    <button id="b1">회원관리</button>
+    <button type="button" class="b2" id="reportList">신고관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
 </div>
 <br><br><br><br>
 <div class="reportTable">
@@ -80,7 +81,7 @@
                                 type: 'POST',
                                 contentType: "application/json; charset=UTF-8",
                                 data: JSON.stringify({
-                                    // TODO : 23 으로 그냥 넣고 할텐데 SELECT 하는쪽 수정후 변경 필요
+                                    // TODO : SELECT 하는쪽 수정후 변경 필요
                                     'memberNo': 23,
                                     'banPeriod': banPeriod
                                 }),
@@ -148,6 +149,44 @@
 
 <script>
 
+    $("#reportList").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/${pageContext.request.contextPath}/admin/reportList/" +${fNo},
+            data: {},
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+    $("#movePage").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/${pageContext.request.contextPath}/admin/userList/" +${fNo},
+            data: {},
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+            }
+        });
+    });
+
+    $('#moveBrokerList').click(function (){
+        $.ajax({
+            type : "POST",
+            url : "${pageContext.request.contextPath}/admin/brokerList",
+            dataType : "html",
+            success : function (data){
+                $("body").html(data);
+            }
+        })
+    })
+
 
     function ReportList(current_page) {
         $.ajax({
@@ -172,20 +211,6 @@
     }
 
 
-    $(function () {
-        $("#movePage").click(function () {
-            $.ajax({
-                type: "POST",
-                url: "/Matdongsan/admin/userList/" +${fNo},
-                data: {},
-                dataType: "html",
-                cache: false,
-                success(data) {
-                    $("body").html(data);
-                }
-            });
-        });
-    });
 
     function changeSelect() {
         const stop = document.getElementById("stop");
