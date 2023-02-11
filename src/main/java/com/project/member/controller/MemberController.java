@@ -5,20 +5,15 @@ import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.restaurant.vo.Hashtag;
-import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -37,10 +32,13 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
+//        List<>
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
+        modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
+
         modelAndView.setViewName("member/myPage");
 
         return modelAndView;
@@ -62,9 +60,8 @@ public class MemberController {
             Member updateMember = memberService.loginMember(m);
 
             session.setAttribute("loginUser", updateMember);
-            session.removeAttribute("loginUser");
-            model.addAttribute("alertMsg","회원정보 수정 성공");
-            return "redirect:/myPage";
+//            session.removeAttribute("loginUser");
+            return "member/myPage";
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
             return "common/errorPage";
@@ -112,16 +109,5 @@ public class MemberController {
         memberService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
         return Integer.toString(randomNumber);
     }
-
-
-    /**
-     * 부동산 회원 인증 페이지
-     */
-    @RequestMapping("estate/enrollPage")
-    public ModelAndView estateEnrollPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("member/estateMemberEnroll");
-        return modelAndView;
-    }
-
 
 }

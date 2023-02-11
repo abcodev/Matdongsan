@@ -5,6 +5,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.vo.Member;
 import com.project.realestate.vo.Interest;
+import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -42,9 +43,6 @@ public class MemberDao {
         return sqlSession.selectOne("memberMapper.select", params);
     }
 
-    public void updateMemberWithLogin(Member member) {
-        sqlSession.update("memberMapper.updateWithLogin", member);
-    }
 
     public int updateMember(SqlSession sqlSession, Member m){
         return sqlSession.update("memberMapper.update", m);
@@ -52,6 +50,16 @@ public class MemberDao {
 
     public Member loginMember(SqlSession sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.loginMember", m);
+    }
+
+
+
+
+    public void updateRecentAccess(String provider, String providerId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("provider", provider);
+        params.put("providerId", providerId);
+        sqlSession.update("memberMapper.updateRecentAccess", params);
     }
 
     public Member select(long memberNo) {
@@ -84,15 +92,31 @@ public class MemberDao {
 
     public List<AllBoard> selectAllBoardList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("memberMapper.selectAllBoard",m,rowBounds);
+        return sqlSession.selectList("memberMapper.selectAllBoard", m, rowBounds);
+    }
+
+    public int selectReviewCount(SqlSession sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.selectReviewCount", m);
+    }
+    public List<Review> selectReviewList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("memberMapper.selectReviewList", m, rowBounds);
     }
 
     public int deleteMember(SqlSession sqlSession, long memberNo){
         return sqlSession.delete("memberMapper.deleteMember", memberNo);
     }
 
-//    public ArrayList<Interest> selectInterestList(SqlSession sqlSession, String estateNo){
-//        return (ArrayList) sqlSession.selectList("memberMapper.selectInterestList", estateNo);
-//    }
+    public void updateToken(String provider, String providerId, OAuthToken token) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("provider", provider);
+        params.put("providerId", providerId);
+        params.put("accessToken", token.getAccessToken());
+        params.put("refreshToken", token.getRefreshToken());
+        params.put("refreshTokenExpiredAt", Timestamp.valueOf(LocalDateTime.now().plus(Duration.ofSeconds(token.getRefreshTokenExpiresIn()))));
+        sqlSession.update("memberMapper.updateToken", params);
+    }
+
+
 
 }

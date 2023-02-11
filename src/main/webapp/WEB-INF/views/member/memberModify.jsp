@@ -35,7 +35,7 @@
             </div>
             <div class="userinfo phone">
                 <span>휴대폰번호</span>
-                <input id="phoneNumber" type="text" name="phoneNumber" value="${loginUser.phone}" required>
+                <input id="phoneNumber" type="text" name="phone" value="${loginUser.phone}" required>
                 <button type="button" id="phoneChk">인증받기</button><br>
             </div>
             <div class="userinfo phone2">
@@ -48,7 +48,7 @@
                 <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
             </div>
             <div class="userinfo address2">
-                <input type="text" id="sample6_address" placeholder="주소" name="address" value="${loginUser.address}" required><br>
+                <input type="text" id="sample6_address" placeholder="주소" value="${loginUser.address}" name="address" required><br>
                 <input type="text" id="sample6_detailAddress" placeholder="상세주소">
             </div>
             <div class="btn_box">
@@ -73,22 +73,8 @@
 
 
 <script>
-
-
-    $(document).ready(function(){
-        document.getElementById("submit").onclick = function (){
-            document.form_name.submit();
-        }
-    });
-    $("#submit").click(function (){
-        alert('회원정보 수정 완료')
-    })
-
-
-
-
     $(function(){
-    code2 = "";
+        code2 = "";
         $("#phoneChk").click(function(){
             // alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
             var phone = $("#phoneNumber").val();
@@ -110,15 +96,15 @@
         });
     });
 
-        $("#phoneChk2").click(function() {
-            if ($("#phone2").val() == code2) {
-                alert('인증성공')
-            } else {
-                alert('인증실패 정확히 입력해주세요')
-                $("#phoneChk2").focus();
+    $("#phoneChk2").click(function() {
+        if ($("#phone2").val() == code2) {
+            alert('인증성공')
+        } else {
+            alert('인증실패 정확히 입력해주세요')
+            $("#phoneChk2").focus();
 
-            }
-        })
+        }
+    })
 
     function sample6_execDaumPostcode() {
         new daum.Postcode({

@@ -12,6 +12,7 @@ import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.vo.Interest;
+import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 //import net.nurigo.java_sdk.api.Message;
 //import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -25,7 +26,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,9 +63,9 @@ public class MemberService {
         Member member = Member.of(oAuthUser, oAuthToken);
         if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
             memberDao.insertMember(member);
-        } {
-            memberDao.updateMemberWithLogin(member);
         }
+        memberDao.updateToken(member.getProvider(), member.getProviderId(), oAuthToken);
+        memberDao.updateRecentAccess(member.getProvider(), member.getProviderId());
         return memberDao.select(member.getProvider(), member.getProviderId());
     }
 
@@ -114,10 +114,13 @@ public class MemberService {
 
     public MyPageListResponse selectList(MyPageListRequest request, Member m){
         int count = memberDao.selectListCount(sqlSession, m);
+        int count2 = memberDao.selectReviewCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
-        List<AllBoard> result = memberDao.selectAllBoardList(sqlSession,pageInfoCombine, m);
+        PageInfoCombine pageInfoCombine2 = new PageInfoCombine(count2, request.getCurrentPage(), DEFAULT_SIZE);
+        List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
+        List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
 
-        return new MyPageListResponse(result, pageInfoCombine);
+        return new MyPageListResponse(result, result1, pageInfoCombine);
 
     }
 
@@ -139,17 +142,21 @@ public class MemberService {
         // AccessToken 이 만료됐을 수도 있다.
         // 1. AccessToken 이 만료되었는지 확인.
         /** TODO :
-            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-            if (isExpired) {
-                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-                member.setToken(freshToken);
-            }
+         boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+         if (isExpired) {
+         OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+         member.setToken(freshToken);
+         }
          */
         // 2. RefreshToken 으로 AccessToken 재발급.
         // 3. 재발급된 AccessToken 으로 요청.
         oAuthClient.unlink(member.toOAuthToken());
         memberDao.deleteMember(sqlSession, member.getMemberNo());
     }
+
+//    public List<Review> selectReviewList(Member m) {
+//        return memberDao.selectReviewList(sqlSession, pageInfoCombine, m);
+//    }
 
 //    public ArrayList<Interest> selectInterestList(String estateNo){
 //        return memberDao.selectInterestList(sqlSession, estateNo);

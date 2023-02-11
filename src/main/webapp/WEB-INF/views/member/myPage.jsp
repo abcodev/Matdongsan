@@ -16,8 +16,8 @@
 <body>
 <%@ include file="../template/header.jsp" %>
 <script>
+
     function changeHeart(estateNo) {
-        console.log($('#checkbox_heart_' + estateNo).is(':checked'))
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             type: 'POST',
@@ -59,7 +59,6 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-            <button><a href="${pageContext.request.contextPath}/estate/enrollPage">제휴부동산 신청</a></button>
         </div>
     </div>
 
@@ -88,8 +87,17 @@
                         <th>게시일</th>
                     </tr>
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <tr class="myBoard_info"
-                            onclick="location.href='board/freeList/detail/${selectAllBoardList.boardNo}'">
+                        <tr class="myBoard_info" onclick="moveDetail();">
+                            <script>
+                                function moveDetail(){
+                                    if(${selectAllBoardList.boardType eq '자유게시판'}){
+                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
+                                    }else{
+                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+                                    }
+                                }
+                            </script>
+
                             <td>${selectAllBoardList.boardType}</td>
                             <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
@@ -124,13 +132,54 @@
             </div>
         </div>
         <div class="review_history">
-            <p>내가 남긴 리뷰</p>
+            <h4>내가 남긴 리뷰</h4><br>
+            <div id="myReviewList">
+                <table>
+                    <tr>
+                        <td>리뷰 내용</td>
+                    </tr>
+                    <c:forEach var="reviewList" items="${reviewList}">
+                        <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                            <td>${reviewList.reviewContent}</td>
+                            <td>${reviewList.createDate}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+                <div id="paging_review">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq 1}">
+                                <li class="page-item disabled">Previous</li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage - 1})">Previous</li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                            <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage + 1})">Next</li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+    <br><br><br><br><br><br><br><br><br>
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
     </div>
 </div>
+
 <script>
 
     function deleteMember() {
@@ -142,6 +191,7 @@
         else if(deleteMember === false){
         }
     }
+
 
 
     function retrieveAllBoards(current_page) {
@@ -159,6 +209,26 @@
                     $('#myBoardList').html($(data).find("#myBoardList"))
                 } else {
                     $('#myBoardList').html('<p>조회된 게시글이 없습니다.</p>');
+                }
+            }
+        })
+    }
+
+    function retrieveReviewList(current_page1) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/myPage',
+            method: 'GET',
+            data: {
+                cpage: current_page1
+            },
+            success(data) {
+                $('#myReviewList').empty();
+                console.log($(data).find("#myReviewList"));
+                console.log($(data).find(".myReview_info").length);
+                if ($(data).find(".myReview_info").length > 0) {
+                    $('#myReviewList').html($(data).find("#myReviewList"))
+                } else {
+                    $('#myReviewList').html('<p>조회된 게시글이 없습니다.</p>');
                 }
             }
         })

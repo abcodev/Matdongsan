@@ -380,31 +380,31 @@
             $('#telephone').focus();
             return false;
         }else{
-        const formData = new FormData();
-        formData.append("agentNo",resercationAgentNo)
-        formData.append("memberName",memberName);
-        formData.append("peopleCount",people);
-        formData.append("phone",phone);
-        formData.append("email",email);
-        formData.append("requestText",requestText);
-        formData.append("revTime",time);
-        formData.append("revDate",reservationDate);
+            const formData = new FormData();
+            formData.append("agentNo",resercationAgentNo)
+            formData.append("memberName",memberName);
+            formData.append("peopleCount",people);
+            formData.append("phone",phone);
+            formData.append("email",email);
+            formData.append("requestText",requestText);
+            formData.append("revTime",time);
+            formData.append("revDate",reservationDate);
 
-        $.ajax({
-            url : "${pageContext.request.contextPath}/reservation/enroll",
-            type: "POST",
-            data : formData,
-            processData : false,
-            contentType: false,
-            success : () => {
-                alert("예약에 성공하였습니다.");
-                offClick();
+            $.ajax({
+                url : "${pageContext.request.contextPath}/reservation/enroll",
+                type: "POST",
+                data : formData,
+                processData : false,
+                contentType: false,
+                success : () => {
+                    alert("예약에 성공하였습니다.");
+                    offClick();
 
-            },
-            error : () => {
-                alert("예약 등록에 실패하였습니다.");
-            }
-        })
+                },
+                error : () => {
+                    alert("예약 등록에 실패하였습니다.");
+                }
+            })
         }
     }
 </script>
