@@ -20,6 +20,7 @@
 <div id="button2">
     <button class="b2" id="movePage">회원관리</button>
     <button type="button" id="b1">신고관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
 </div>
 <br><br><br><br>
 <div class="reportTable">

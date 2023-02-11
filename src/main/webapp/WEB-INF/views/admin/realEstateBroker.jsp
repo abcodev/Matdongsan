@@ -17,8 +17,9 @@
 <%@ include file ="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
-    <button class="b2" id="movePage">회원관리</button>
-    <button type="button" id="b1">신고관리</button>
+    <button id="b1">회원관리</button>
+    <button type="button" class="b2" id="movePage">신고관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산중개업자신청 관리</button>
 </div>
 <br><br><br><br>
 <div class="reportTable">
@@ -37,13 +38,13 @@
         <tbody id="tableList">
         <c:forEach var="broker" items="${brokerList}">
             <tr>
-                <td>>${borker.memberName}</td>
+                <td>${broker.memberName}</td>
                 <td>${broker.email}</td>
                 <td>${broker.agentName}</td>
                 <td>${broker.agentNo}</td>
                 <td>${broker.agentPhone}</td>
                 <td></td>
-                <td>${broker.agenStatus}</td>
+                <td>${broker.applyStatus}</td>
             </tr>
         </c:forEach>
         </tbody>

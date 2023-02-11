@@ -3,8 +3,8 @@ package com.project.redis.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.data.redis.connection.RedisServer;
 import org.springframework.stereotype.Component;
-import redis.embedded.RedisServer;
 
 /**
  * Redis
