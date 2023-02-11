@@ -97,6 +97,12 @@
           AND PROVIDER_ID = #{providerId}
     </update>
 
+    <update id="updateBanPeriod" parameterType="Map">
+        UPDATE MEMBER
+        SET BAN_PERIOD = #{banPeriod}
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
+
     <select id="getInterestList" resultMap="interestList">
         SELECT
             M.MEMBER_NO,

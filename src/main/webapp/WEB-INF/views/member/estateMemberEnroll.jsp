@@ -21,9 +21,9 @@
     <div id="userImg">
         <img src="${loginUser.profileImage}">
     </div>
-    <form action="${pageContext.request.contextPath}/updateMember" method="post" name="form_name">
+    <form action="${pageContext.request.contextPath}/broker/enroll" method="post" name="form_name" enctype="multipart/form-data">
         <div class="form">
-            <input type="hidden" value="${loginUser.memberNo}">
+            <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
 
             <div class="userinfo ">
                 <span>대표자명</span>
@@ -45,26 +45,30 @@
                 <input id="phoneNumber" type="text" name="agentPhone" required>
             </div>
 
+            <div class="userinfo state">
+                <span>지역</span>
+                <input type="text" id="state"  name="state" placeholder="구를 입력해 주세요">
+                <input type="text" id="bjdongNm" name="bjdongNm" placeholder="동을 입력해 주세요">
+            </div>
+
             <div class="userinfo address">
                 <span>부동산 주소</span>
                 <input type="text" id="sample6_postcode" placeholder="우편번호">
                 <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
             </div>
             <div class="userinfo address2">
-                <input type="text" id="sample6_address" placeholder="주소" required><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                <input type="text" id="sample6_address" name="address" placeholder="주소" required><br>
+                <input type="text" id="sample6_detailAddress" name="addressDetail" placeholder="상세주소">
             </div>
 
             <div class="userinfo">
-                사업자 등록증 첨부
-                <input class="form-control form-control-sm" id="formFileSm" name="file" type="file"
-                       onchange="readURL(this);"
-                       required>
+                <span>사업자 등록증 첨부</span>
+                <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
             </div>
 
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit">신청 하기</button>
+                <button type="submit" onclick="brokerEnroll();">신청 하기</button>
             </div>
         </div>
     </form>
@@ -73,6 +77,9 @@
 
 <script>
 
+    $("form").on("submit", function() {
+        alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
+    });
 
     function readURL(input) {
         if (input.files && input.files[0]) {

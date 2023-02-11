@@ -15,7 +15,7 @@
     <%@ include file="../template/header.jsp" %>
 </head>
 <body>
-<div action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data" name="restaurantEnroll">
+<form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data" name="restaurantEnroll">
     <div class="body">
         <div id="content">
             <div id="contentHead"></div>
@@ -59,7 +59,7 @@
             <input  class="bbtn" type="submit" onclick="return gopage();" value="등록" />
         </div>
     </div>
-</div>
+</form>
 <script>
     $('input:checkbox[name=hashtagId]').click(function(){
 
@@ -84,7 +84,7 @@
 
     function gopage(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
-        if(cntEPT==2){
+        if(cntEPT===2){
             return true;
         }else{
             alert("해쉬태그 두개 선택해라 장현정")
@@ -93,6 +93,5 @@
     }
 
 </script>
-</form>
 </body>
 </html>

@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="adminMapper">
+
     <resultMap id="AdminResultSet" type="admin">
         <result column="REPORT_NO" property="reportNo"/>
         <result column="FREE_BNO" property="fNo"/>
@@ -21,38 +22,35 @@
         <result column="REPORT_PERIOD" property="reportPeriod"/>
         <result column="QS" property="qStatus"/>
         <result column="FS" property="fStatus"/>
-
     </resultMap>
 
 
     <select id="selectUserList" resultMap="AdminResultSet">
-        select
-            M.MEMBER_NO,
-            MEMBER_NAME,
-            NICKNAME,
-            EMAIL,
-            M.STATUS,
-            F.FREE_BNO
+        select M.MEMBER_NO,
+               MEMBER_NAME,
+               NICKNAME,
+               EMAIL,
+               M.STATUS,
+               F.FREE_BNO
         FROM MEMBER M
-                 LEFT JOIN FREE_BOARD F ON(M.MEMBER_NO = F.FREE_BNO)
+                 LEFT JOIN FREE_BOARD F ON (M.MEMBER_NO = F.FREE_BNO)
         ORDER BY MEMBER_NO
 
     </select>
 
     <select id="selectReportList" resultMap="AdminResultSet" parameterType="int">
-        SELECT
-            REPORT_NO,
-            REPORT_CONTENT,
-            REPORT_TYPE,
-            R.FREE_BNO,
-            F.STATUS AS FS,
-            Q.STATUS AS QS,
-            M.EMAIL,
-            (SELECT EMAIL FROM MEMBER WHERE MEMBER_NO = R.REPORT_USER_NO) AS EMAIL2
+        SELECT REPORT_NO,
+               REPORT_CONTENT,
+               REPORT_TYPE,
+               R.FREE_BNO,
+               F.STATUS                                                      AS FS,
+               Q.STATUS                                                      AS QS,
+               M.EMAIL,
+               (SELECT EMAIL FROM MEMBER WHERE MEMBER_NO = R.REPORT_USER_NO) AS EMAIL2
         FROM REPORT R
-                 LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO= M.MEMBER_NO)
-                 LEFT OUTER JOIN FREE_BOARD F ON(F.FREE_BNO = R.FREE_BNO)
-                 LEFT OUTER JOIN QNA_BOARD Q ON(Q.QNA_BNO = R.FREE_BNO)
+                 LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+                 LEFT OUTER JOIN FREE_BOARD F ON (F.FREE_BNO = R.FREE_BNO)
+                 LEFT OUTER JOIN QNA_BOARD Q ON (Q.QNA_BNO = R.FREE_BNO)
 
     </select>
 
@@ -68,11 +66,10 @@
     <update id="deleteQna" parameterType="int">
         UPDATE QNA_BOARD
         SET STATUS = 'N'
-        WHERE QNA_BNO in (
-            SELECT QNA_BNO FROM QNA_BOARD
-            START WITH QNA_BNO = #{fNo}
-            CONNECT BY PRIOR QNA_BNO = P_BNO
-        )
+        WHERE QNA_BNO in (SELECT QNA_BNO
+                          FROM QNA_BOARD
+                          START WITH QNA_BNO = #{fNo}
+                          CONNECT BY PRIOR QNA_BNO = P_BNO)
     </update>
 
 
@@ -81,11 +78,6 @@
         SET STATUS = 'N'
         WHERE FREE_BNO = #{fNo}
     </update>
-
-
-
-
-
 
 
 </mapper>

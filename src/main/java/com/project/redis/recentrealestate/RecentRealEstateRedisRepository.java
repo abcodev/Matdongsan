@@ -6,17 +6,21 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/*
+    최근 본 부동산 -> Redis List 를 활용 -> Key : [ List ]
+    Key : MemberNo
+    List Element : EstateNo
+ */
+
 @Repository
 @RequiredArgsConstructor
 public class RecentRealEstateRedisRepository {
 
     private final RedisTemplate<Long, String> redisTemplate;
 
-    // memberNo estateNo 넣어줘
-    // lrem estateNo 지우고 왼쪽에 lpush 해주는 것
-
     public void push(long memberNo, String estateNo) {
         redisTemplate.opsForList().leftPush(memberNo, estateNo);
+        // memberNo estateNo 넣어주고 lrem estateNo 지우고 왼쪽에 lpush 해줌
     }
 
     public void remove(long memberNo, String estateNo) {

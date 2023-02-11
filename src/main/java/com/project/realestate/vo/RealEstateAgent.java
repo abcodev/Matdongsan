@@ -17,6 +17,4 @@ public class RealEstateAgent {
     private String agentName;
     private String agentPhone;
 
-
-
 }

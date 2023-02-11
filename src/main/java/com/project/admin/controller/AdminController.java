@@ -1,13 +1,11 @@
 package com.project.admin.controller;
 
-import com.project.admin.dto.AdminListRequest;
-import com.project.admin.dto.AdminListResponse;
-import com.project.admin.dto.BrokerListResponse;
-import com.project.admin.dto.ReportListResponse;
+import com.project.admin.dto.*;
 import com.project.admin.service.AdminService;
 import com.project.admin.vo.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,6 +49,13 @@ public class AdminController {
         mv.addObject("fNo",fNo);
         mv.setViewName("admin/reportList");
         return mv;
+    }
+
+    @ResponseBody
+    @PostMapping("/report/ban")
+    public ResponseEntity<Void> ban(@RequestBody BanRequest req) {
+        adminService.ban(req);
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/deleteQna/{fNo}")

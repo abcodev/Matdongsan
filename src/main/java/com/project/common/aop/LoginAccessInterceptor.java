@@ -1,6 +1,5 @@
 package com.project.common.aop;
 
-import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -11,27 +10,21 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
-
+    // 로그인 하지 않은 사용자가 로그인 해야하는 경로 접속했을 때
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
 
-        String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
-        MemberGrade grade = getGrade(req.getSession());
-
-        // 로그인 안한 사용자
-        if(grade == null){
-            req.setAttribute("errorMsg","로그인 후 이용할 수 있습니다.");
+        if (existLoginUser(req.getSession())) {
+            req.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
+            req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
             return false;
         }
         return true;
     }
 
-    public MemberGrade getGrade(HttpSession session){
-        Member member = (Member)session.getAttribute("loginUser");
-        if(member == null){
-            return null;
-        }
-        return member.getGrade();
+    public boolean existLoginUser(HttpSession session) {
+        Member member = (Member) session.getAttribute("loginUser");
+        return member != null;
     }
 
 }

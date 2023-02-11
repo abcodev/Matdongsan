@@ -29,11 +29,11 @@
         <div class="chatSelect">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">전체</a>
+                    <a class="nav-link active" href="#">전체 문의</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">미확인</a>
-                </li>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link" href="#">미확인</a>--%>
+<%--                </li>인--%>
             </ul>
         </div>
         <div class="preChatList" >
@@ -59,6 +59,7 @@
             </c:forEach>
         </div>
     </div>
+
     <div id="chat_right">
         <div class="header-chat">
             <div class="name" ></div>

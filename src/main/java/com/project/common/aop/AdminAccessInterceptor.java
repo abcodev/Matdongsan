@@ -22,23 +22,25 @@ public class AdminAccessInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
-
         String requestUrl = req.getRequestURI().substring(req.getContextPath().length());
         MemberGrade grade = getGrade(req.getSession());
 
-        // admin 경로 권한이 없는 사용자
-        if(grade == null || requestUrl.contains("admin") && !grade.equals(MemberGrade.ADMIN)){
-            // url 에 admin 이 있는 경로로 갈 경우 session에 있는 member객체에서 role을 검사하기.
-            req.setAttribute("errorMsg","권한이 없습니다");
-            req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req,res);
-            return  false;
+        if (grade == null) {
+            req.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
+            req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
+            return false;
+        }
+        if (requestUrl.contains("admin") && !grade.equals(MemberGrade.ADMIN)) {
+            req.setAttribute("errorMsg", "권한이 없습니다");
+            req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
+            return false;
         }
         return true;
     }
 
-    public MemberGrade getGrade(HttpSession session){
-        Member member = (Member)session.getAttribute("loginUser");
-        if(member == null){
+    public MemberGrade getGrade(HttpSession session) {
+        Member member = (Member) session.getAttribute("loginUser");
+        if (member == null) {
             return null;
         }
         return member.getGrade();

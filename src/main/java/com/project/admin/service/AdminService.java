@@ -1,9 +1,6 @@
 package com.project.admin.service;
 
-import com.project.admin.dto.AdminListRequest;
-import com.project.admin.dto.AdminListResponse;
-import com.project.admin.dto.BrokerListResponse;
-import com.project.admin.dto.ReportListResponse;
+import com.project.admin.dto.*;
 import com.project.admin.vo.Admin;
 
 public interface AdminService {
@@ -20,4 +17,6 @@ public interface AdminService {
 
 
     BrokerListResponse BrokerList(int currentPage);
+
+    void ban(BanRequest req);
 }

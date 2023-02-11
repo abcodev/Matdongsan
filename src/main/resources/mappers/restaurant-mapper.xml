@@ -175,7 +175,7 @@
 
     <insert id="resInsertImg" parameterType="resImg">
         INSERT INTO RES_IMG(IMG_NO, REV_NO, MEMBER_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
-        VALUES(SEQ_IMG_NO.NEXTVAL, #{revNo}, #{memberNo}, #{resNo},#{originName},#{changeName})
+        VALUES(SEQ_IMG_NO.NEXTVAL, #{revNo}, #{memberNo}, #{resNo}, #{originName}, #{changeName})
     </insert>
 
 

@@ -8,6 +8,7 @@ import com.project.realestate.dto.*;
 import com.project.realestate.service.RealEstateService;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
+import com.project.redis.interestrealestate.InterestRealEstateRedisService;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.JSONParser;
@@ -32,13 +33,14 @@ public class RealEstateController {
     // final 키워드 붙이면 컴파일 오류 찾기 쉬워짐 (생성자에서만 값을 생성할 수 있음)
     private final RealEstateService realEstateService;
     private final RecentRealEstateRedisService recentRealEstateRedisService;
+    private final InterestRealEstateRedisService interestRealEstateRedisService;
 
 
     @RequestMapping
     public String realEstatePage(Model model) {
         RealEstateRent seoulAvg = realEstateService.basicChart();
 
-        model.addAttribute("localList",StateList.values());
+        model.addAttribute("localList", StateList.values());
         model.addAttribute("seoulAvg", seoulAvg);
         return "realestate/realestateList";
     }
@@ -116,9 +118,13 @@ public class RealEstateController {
                                          HttpSession session
     ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
+        interestRealEstateRedisService.increment(estateNo);
+        if (loginUser != null) {
+            recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
+        }
+
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         List<RealEstateAgent> agentList = realEstateService.selectAgentList(realEstateDetailDto.getBjdongNm());
-        recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
 
         modelAndView.setViewName("realestate/realestateDetailPage");
         modelAndView.addObject("agentList", agentList);

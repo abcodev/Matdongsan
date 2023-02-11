@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@ page language="java" pageEncoding="UTF-8"%>
+    <%@ page language="java" pageEncoding="UTF-8" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <title>Document</title>
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<%@ include file ="../template/header.jsp" %>
+<%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
     <button class="b2" id="movePage">회원관리</button>
@@ -36,35 +36,66 @@
             <th>활동 정지</th>
         </tr>
         </thead>
-<tbody id="tableList">
-<c:forEach var="rl" items="${reportList}">
+        <tbody id="tableList">
+        <c:forEach var="rl" items="${reportList}">
             <tr>
                 <td>${rl.reportType}</td>
                 <td>${rl.reportNo}</td>
                 <td>${rl.reportEmail}</td>
                 <td>${rl.email}</td>
                 <td>${rl.reportContent}</td>
-                <td><button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button></td>
+                <td>
+                    <button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button>
+                </td>
                 <c:choose>
-                    <c:when test="${rl.QStatus  == 'Y' && rl.FStatus == 'Y' }">
-                        <td><button type="button" class="add-btn" id="btnOn"  data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중</button></td>
+                    <c:when test="${rl.QStatus  == 'Y' && rl.FStatus == 'Y'}">
+                        <td>
+                            <button type="button" class="add-btn" id="btnOn" data-no="${rl.FNo}"
+                                    data-type='${rl.reportType}'>처리중
+                            </button>
+                        </td>
                     </c:when>
                     <c:otherwise>
-                        <td><button type="button" id="btnClose">처리완료</button></td>
+                        <td>
+                            <button type="button" id="btnClose">처리완료</button>
+                        </td>
                     </c:otherwise>
                 </c:choose>
-                <td><select id="reportPeriod" name="reportPeriod">
-                <option>정지기간선택</option>
-                <option value="three">3일정지</option>
-                <option value="seven">7일정지</option>
-                <option value="infinity">영구정지</option>
-                 </select>
-                <button type="submit">정지확인</button>
-            </td>
+                <td>
+                    <select id="reportPeriod" name="reportPeriod">
+                        <option value="0">정지기간선택</option>
+                        <option value="3">3일정지</option>
+                        <option value="7">7일정지</option>
+                        <option value="-1">영구정지</option>
+                    </select>
+                    <button onclick="ban()">정지</button>
+                    <script>
+                        function ban() {
+                            const banPeriod = $('select[name=reportPeriod]').val()
+                            if (banPeriod === '0') {
+                                return;
+                            }
+                            $.ajax({
+                                url: '${pageContext.request.contextPath}/admin/report/ban',
+                                type: 'POST',
+                                contentType: "application/json; charset=UTF-8",
+                                data: JSON.stringify({
+                                    // TODO : 23 으로 그냥 넣고 할텐데 SELECT 하는쪽 수정후 변경 필요
+                                    'memberNo': 23,
+                                    'banPeriod': banPeriod
+                                }),
+                                success() {
+                                    alert("정지 완료")
+                                }
+                            });
+                            console.log(banPeriod)
+                        }
+                    </script>
+                </td>
 
             </tr>
-</c:forEach>
-</tbody>
+        </c:forEach>
+        </tbody>
 
 
     </table>
@@ -77,8 +108,8 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-           <input type="hidden" id="rType" value=""/>
-            <input type="hidden" id="fNo"  value=""/>
+            <input type="hidden" id="rType" value=""/>
+            <input type="hidden" id="fNo" value=""/>
             <button type="button" id="clear" class="btn" onclick="movePage2()">예</button>
             <button type="button" class="btn close_btn" id="close_btn2">아니요</button>
         </div>
@@ -115,8 +146,6 @@
 </div>
 
 
-
-
 <script>
 
 
@@ -130,7 +159,7 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-                console.log("test"+$(data).find("#tableDiv"));
+                console.log("test" + $(data).find("#tableDiv"));
                 console.log($(data).find("#tableDiv").length);
                 if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
@@ -143,37 +172,37 @@
     }
 
 
-
-    $(function(){
-        $("#movePage").click(function(){
+    $(function () {
+        $("#movePage").click(function () {
             $.ajax({
-                type:"POST",
-                url:"/Matdongsan/admin/userList/" +${fNo},
+                type: "POST",
+                url: "/Matdongsan/admin/userList/" +${fNo},
                 data: {},
                 dataType: "html",
-                cache : false,
-                success(data){
+                cache: false,
+                success(data) {
                     $("body").html(data);
                 }
             });
         });
     });
-    function changeSelect(){
+
+    function changeSelect() {
         const stop = document.getElementById("stop");
         const value = (stop.options[stop.selectedIndex].value);
-        alert(value +" 처리하시겠습니까?");
+        alert(value + " 처리하시겠습니까?");
     };
 
 
     /* 모달*/
-   $(document).on('click', '.add-btn', function (e) {
+    $(document).on('click', '.add-btn', function (e) {
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
         console.log(fNo);
         console.log(type);
-       $("#rType").val(type);
-       $("#fNo").val(fNo);
+        $("#rType").val(type);
+        $("#fNo").val(fNo);
         $('#modal').addClass('show');
 
     });
@@ -187,44 +216,29 @@
     });
 
 
-    function movePage(fNo,reportType){
-        if(reportType === '질문게시판'){
-            location.href = '${pageContext.request.contextPath}/board/detail/'+fNo;
-        }else{
-            location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fNo;
+    function movePage(fNo, reportType) {
+        if (reportType === '질문게시판') {
+            location.href = '${pageContext.request.contextPath}/board/detail/' + fNo;
+        } else {
+            location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fNo;
         }
     }
-    function movePage2(){
+
+    function movePage2() {
         let fNo = $("#fNo").val();
         let rType = $("#rType").val();
-        if(rType === '질문게시판'){
-            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' +fNo;
+        if (rType === '질문게시판') {
+            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
             alert("질문게시판 삭제처리 완료")
 
-        }else{
-            location.href = '${pageContext.request.contextPath}/admin/deleteFree/'+fNo;
+        } else {
+            location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
             alert("자유게시판 삭제처리 완료")
 
         }
 
 
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </script>

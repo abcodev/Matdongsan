@@ -13,11 +13,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @Configuration
 public class RedisConfig {
 
-    // Redis Server -> Embedded Redis 로 띄워놨고
-    // 거기랑 코드상에서 대화를 하려면 Redis Client 가 코드상에 존재해야함
-    // Redis Client 역할을 대신 해주는 라이브러리가 Lettuce 가 기본적으로 사용되고 Spring 에서는 (Jedis)
-    // Lettuce 는 JDBC 같은 역할을 해줌.
-    // Redis Client(Lettuce) 에서는 RedisTemplate(JdbcTemplate) 을 통해서 쉽게 Redis Server 에 커맨드를 전달할 수 있다.
+    /*
+        Redis Server -> Embedded Redis 로 띄워놨음
+        여기랑 대화를 하려면 Redis Client 가 코드에 존재해야함
+        Redis Client 역할을 대신 해주는 라이브러리 Lettuce 가 기본적으로 사용되고 (Spring 에서는 Jedis)
+        Lettuce 는 JDBC 같은 역할을 해준다
+        Redis Client(Letture) 로 RedisTemplate을 통해서 Redis Server 에 커맨드를 전달 할 수 있음
+     */
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
