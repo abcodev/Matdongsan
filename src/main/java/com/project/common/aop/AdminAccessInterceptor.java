@@ -31,7 +31,7 @@ public class AdminAccessInterceptor extends HandlerInterceptorAdapter {
             return false;
         }
         if (requestUrl.contains("admin") && !grade.equals(MemberGrade.ADMIN)) {
-            req.setAttribute("errorMsg", "권한이 없습니다");
+            req.setAttribute("errorMsg", "접근 권한이 없습니다");
             req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
             return false;
         }

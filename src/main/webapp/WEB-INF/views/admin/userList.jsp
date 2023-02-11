@@ -26,11 +26,14 @@
     <table id="tableDiv">
         <thead>
         <tr>
-            <th>No</th>
-<%--            <th>소셜사</th>--%>
-<%--            <th>아이디</th>--%>
+            <th>회원번호</th>
+<%--            <th>프로바이더</th>--%>
+<%--            <th>프로바이더아이디</th>--%>
             <th>회원명</th>
-<%--            <th>회원등급</th>--%>
+<%--            <th>닉네임</th>--%>
+<%--            <th>최근 접속일</th>--%>
+<%--            <th>회원등급 grade</th>--%>
+<%--            <th>회원 상태 status</th>--%>
         </tr>
         </thead>
         <tbody id="tableList">

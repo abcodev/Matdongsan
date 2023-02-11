@@ -23,8 +23,7 @@ public class AdminController {
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             @PathVariable("fNo") int fNo,
             ModelAndView mv
-
-           ){
+    ){
         AdminListRequest aeq = new AdminListRequest(currentPage);
         AdminListResponse aesp = adminService.selectUserList(aeq);
 
@@ -86,9 +85,7 @@ public class AdminController {
     public ModelAndView BrokerList (
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             ModelAndView mv
-
     ){
-
         BrokerListResponse resp = adminService.BrokerList(currentPage);
         mv.addObject("brokerList",resp.getBrokerEnrollList());
         mv.addObject("pi",resp.getPageInfoCombine());

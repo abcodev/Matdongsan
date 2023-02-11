@@ -47,9 +47,8 @@
                 <td>${broker.agentPhone}</td>
                 <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
                 <td>
-                    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                            data-agentNo="${broker.agentNo}"
-                            data-memberNo="${broker.memberNo}">
+                    <button type="button" class="approveBroker" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                            data-agentNo="${broker.agentNo}" data-memberNo="${broker.memberNo}">
                         ${broker.applyStatus}
                     </button>
                 </td>
@@ -67,7 +66,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <h5 class="modal-title" id="staticBackdropLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -82,6 +81,7 @@
 </div>
 
 <script>
+
         <%--$("#reportList").click(function () {--%>
 
         <%--    $.ajax({--%>
@@ -132,10 +132,6 @@
                 console.log(memberNo);
             });
         });
-
-
-
-
 
 
 

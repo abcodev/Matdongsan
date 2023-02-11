@@ -12,7 +12,6 @@
         <result column="PROVIDER_ID" property="providerId"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="EMAIL" property="email"/>
-        <result column="EMAIL2" property="reportEmail"/>
         <result column="BOARD_WRITER" property="boardWriter"/>
         <result column="MEMBER_NO" property="memberNo"/>
         <result column="STATUS" property="status"/>
@@ -21,7 +20,6 @@
         <result column="REPORT_CONTENT" property="reportContent"/>
         <result column="REPORT_TYPE" property="reportType"/>
         <result column="REPORT_DATE" property="reportDate"/>
-        <result column="REPORT_PERIOD" property="reportPeriod"/>
         <result column="QS" property="qStatus"/>
         <result column="FS" property="fStatus"/>
     </resultMap>
@@ -50,8 +48,7 @@
                R.FREE_BNO,
                F.STATUS                                                      AS FS,
                Q.STATUS                                                      AS QS,
-               M.EMAIL,
-               (SELECT EMAIL FROM MEMBER WHERE MEMBER_NO = R.REPORT_USER_NO) AS EMAIL2
+               M.EMAIL
         FROM REPORT R
                  LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
                  LEFT OUTER JOIN FREE_BOARD F ON (F.FREE_BNO = R.FREE_BNO)

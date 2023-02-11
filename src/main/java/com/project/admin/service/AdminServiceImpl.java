@@ -24,7 +24,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final AdminDao adminDao;
     private final MemberDao memberDao;
-
     private final SqlSession sqlSession;
 
     private static final int DEFAULT_RES_SIZE = 12;
@@ -70,7 +69,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int insertBlack(Admin ad) {
         return adminDao.insertBlack(sqlSession, ad);
-
     }
 
     @Override

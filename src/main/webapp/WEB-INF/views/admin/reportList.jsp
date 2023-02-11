@@ -29,8 +29,8 @@
         <tr>
             <th>신고게시판</th>
             <th>신고번호</th>
-            <th>신고받은사람</th>
-            <th>한사람</th>
+            <th>피신고회원</th> 번호도 받아오고 멤버닉네임도 받아와야함
+            <th>신고회원</th> 번호도 받아오고 닉네임 받아오기
             <th>신고 사유</th>
             <th>상세보기</th>
             <th>게시글 상태</th>
@@ -51,8 +51,7 @@
                 <c:choose>
                     <c:when test="${rl.QStatus  == 'Y' && rl.FStatus == 'Y'}">
                         <td>
-                            <button type="button" class="add-btn" id="btnOn" data-no="${rl.FNo}"
-                                    data-type='${rl.reportType}'>처리중
+                            <button type="button" class="add-btn" id="btnOn" data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중
                             </button>
                         </td>
                     </c:when>
