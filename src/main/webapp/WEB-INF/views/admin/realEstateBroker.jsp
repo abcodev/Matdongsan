@@ -37,11 +37,13 @@
         <tbody id="tableList">
         <c:forEach var="broker" items="${brokerList}">
             <tr>
-                <td>x</td>
-                <td>x</td>
-                <td>x</td>
-                <td>x</td>
-                <td>x</td>
+                <td>>${borker.memberName}</td>
+                <td>${broker.email}</td>
+                <td>${broker.agentName}</td>
+                <td>${broker.agentNo}</td>
+                <td>${broker.agentPhone}</td>
+                <td></td>
+                <td>${broker.agenStatus}</td>
             </tr>
         </c:forEach>
         </tbody>

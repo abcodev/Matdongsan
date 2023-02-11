@@ -54,7 +54,7 @@ public class AdminDao {
     }
 
     public int BrokerListCount(SqlSession sqlSession) {
-        return sqlSession.selectOne("realEstateAgentMapper.BrokerListCount");
+        return sqlSession.selectOne("realEstateAgentMapper.brokerListCount");
     }
 
     public List<BrokerEnroll> BrokerList(SqlSession sqlSession, PageInfoCombine pageInfoCombine) {

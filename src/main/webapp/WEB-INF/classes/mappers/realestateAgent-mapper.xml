@@ -38,10 +38,5 @@
     </select>
 
 
-    <insert id="brokerMemberInsert" parameterType="com.project.member.dto.BrokerEnrollInsertDto">
-        INSERT INTO REALESTATE_AGENT(AGENT_NO, STATE, BJDONG_NM, ADDRESS, REF_NAME, AGENT_NAME, AGENT_PHONE, MEMBER_NO, ATTACHMENT)
-        VALUES(#{agentNo},#{state},#{bjdongNm},#{address},#{refName},#{agentName},#{agentPhone},#{memberNo},#{attachment})
-    </insert>
-
 
 </mapper>
