@@ -98,6 +98,8 @@ public class AdminController {
 
     @PostMapping(value = "/broker/handleApply")
     public ResponseEntity<String> handleApply(@RequestParam("handle") String status){
+
+
         String a = "1";
         return ResponseEntity.ok().body(a);
     }

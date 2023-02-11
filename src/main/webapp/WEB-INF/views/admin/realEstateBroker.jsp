@@ -47,7 +47,9 @@
                 <td>${broker.agentPhone}</td>
                 <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
                 <td>
-                    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                            data-agentNo="${broker.agentNo}"
+                            data-memberNo="${broker.memberNo}">
                         ${broker.applyStatus}
                     </button>
                 </td>
@@ -107,6 +109,8 @@
         <%--    });--%>
         <%--});--%>
 
+
+
         $('#moveBrokerList').click(function (){
             $.ajax({
                 type : "POST",
@@ -118,9 +122,34 @@
             })
         })
 
+        let agentNo="";
+        let memberNo="";
+        $(document).ready(function() {
+            $('#staticBackdrop').on('show.bs.modal', function(event){
+                agentNo = $(event.relatedTarget).data('agentNo');
+                memberNo = $(event.relatedTarget).data('memberNo');
+                console.log(agentNo);
+                console.log(memberNo);
+            });
+        });
+
+
+
+
+
+
+
+
 
         $('.handleApply').click(function (){
             let status = $(this).val();
+            // let tr = $(this).parent().parent()
+            // console.log(agentNo)
+            // console.log(memberNo)
+            console.log($(this).data('agentNo'))
+            // console.log(tr.text())
+            // let agentNo =;
+            // let memberNo = ;
             $.ajax({
                 type : "POST",
                 url : "${pageContext.request.contextPath}/admin/broker/handleApply",
