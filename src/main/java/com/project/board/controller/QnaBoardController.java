@@ -42,6 +42,8 @@ public class QnaBoardController {
             paramMap.put("cpage", currentPage);
             map = boardService.selectList(paramMap);
         }
+        boardService.selectReportList();// 블라인드 조회 및 업데이트
+
         model.addAttribute("map", map);
         return "board/qnaBoardList";
     }
@@ -71,7 +73,6 @@ public class QnaBoardController {
         }else {
             boardService.insertQboard(qb);
         }
-
 
         return "redirect:/board/qnaList";
     }

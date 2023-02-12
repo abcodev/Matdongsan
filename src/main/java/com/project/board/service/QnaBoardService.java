@@ -13,6 +13,7 @@ public interface QnaBoardService {
     public int selectListCount(Map<String, Object> paramMap);
     public Map<String, Object> selectList(int currentPage);
     Map<String, Object> selectList(Map<String, Object> paramMap);
+    public int selectReportList();
     public int insertQboard(QnaBoard qb);
     public int insertNotice(QnaBoard qb);
     public QnaBoard selectQboard(int qBno);

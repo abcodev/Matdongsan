@@ -53,6 +53,11 @@ public class QnaBoardDao {
     public QnaBoard selectQboard(SqlSession sqlSession, int qBno) {
         return sqlSession.selectOne("boardMapper.selectQboard",qBno);
     }
+
+    public int selectReportList(SqlSession sqlSession){
+        return sqlSession.update("boardMapper.selectReportList");
+    }
+
     public int updateBoard(SqlSession sqlSession, int qBno){
         return sqlSession.update("boardMapper.updateBoard",qBno);
     }

@@ -63,9 +63,6 @@ public class FreeBoardController {
         return modelAndView;
     }
 
-
-
-
     // 게시글 작성폼
     @RequestMapping("/freeList/enrollForm")
     public String enrollForm(Model model){

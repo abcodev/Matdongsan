@@ -40,7 +40,8 @@
                QNA_DATE,
                QNA_DEPTH,
                QNA_AREA,
-               COUNT
+               COUNT,
+               BLIND
         FROM QNA_BOARD B
                 LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
         WHERE B.STATUS = 'Y'
@@ -56,6 +57,16 @@
 
     </select>
 
+    <update id="selectReportList">
+        UPDATE QNA_BOARD
+        SET BLIND = 'Y'
+        WHERE QNA_BNO IN (SELECT
+                               FREE_BNO
+                           FROM REPORT
+                           WHERE REPORT_TYPE = '질문게시판'
+                           GROUP BY FREE_BNO
+                           HAVING COUNT(FREE_BNO) >= 5)
+    </update>
 
     <insert id="insertQboard" parameterType="QBoard">
         INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT ,QNA_AREA)

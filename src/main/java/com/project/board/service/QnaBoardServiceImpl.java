@@ -83,6 +83,9 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     }
 
     @Override
+    public int selectReportList(){ return boardDao.selectReportList(sqlSession); }
+
+    @Override
     public int updateBoard(int qBno){
         return boardDao.updateBoard(sqlSession,qBno);
     }
