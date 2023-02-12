@@ -1,12 +1,13 @@
 package com.project.common.vo;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Setter
+@Getter
 @RequiredArgsConstructor
+@Component
 public class ApiKey {
-
     public String SeoulApiSell;
     public String SeoulApiRent;
     public String KakaoLogin;

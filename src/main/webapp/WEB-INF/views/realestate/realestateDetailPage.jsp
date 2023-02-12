@@ -261,6 +261,7 @@
 
 <%--*****************예약******************--%>
 <script>
+
     let resercationAgentNo = null;
     function showRealtor(agentNo, agentName) {
         console.log(agentNo);
@@ -268,11 +269,9 @@
         resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
-
     }
 
     window.onload = function () {
-
         $.ajax({
             url: '${pageContext.request.contextPath}/realEstate/detail/interest',
             method: 'GET',
@@ -283,10 +282,8 @@
                 $('#checkbox_heart').prop("checked", data);
             }
         });
-
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
-
     };
 
     function offClick() {
@@ -295,6 +292,7 @@
         $(".rm_input").val("");
         reservationDate="";
     }
+
 
     let reservationDate = "";
 

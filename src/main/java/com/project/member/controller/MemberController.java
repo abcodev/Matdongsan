@@ -98,17 +98,6 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("/myPage/interest")
-//    @ResponseBody
-//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session){
-//        Member loginUser = (Member) session.getAttribute("loginUser");
-//        if (loginUser == null) {
-//            throw new RuntimeException("로그인 하고 오세용");
-//        }
-//        boolean isInterest = MemberService.checkInterest(estateNo, loginUser);
-//        return ResponseEntity.ok(isInterest);
-//    }
-
     @PostMapping("/myPage")
     @ResponseBody
     public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session){
@@ -150,8 +139,6 @@ public class MemberController {
         return modelAndView;
     }
 
-    // Spring Boot -> Validator 를 이용한 유효성 검사
-    // Validator -> Client 로부터 받은 데이터에 대한 유효성 검사
     @PostMapping("broker/enroll")
     public String agentMemberInsert(@RequestParam(value = "file", required = true) MultipartFile file,
                                     BrokerEnroll brokerEnroll

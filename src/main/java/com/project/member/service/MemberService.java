@@ -17,9 +17,6 @@ import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
-//import net.nurigo.java_sdk.api.Message;
-//import net.nurigo.java_sdk.exceptions.CoolsmsException;
-//import org.json.simple.JSONObject;
 import lombok.extern.log4j.Log4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -44,7 +41,6 @@ public class MemberService {
     private final MemberDao memberDao;
     private final SqlSessionTemplate sqlSession;
     private final InterestEstateDao interestEstateDao;
-    private final RealEstateDao realEstateDao;
     private static final int DEFAULT_SIZE = 5;
     private final ServletContext servletContext;
 
@@ -140,7 +136,7 @@ public class MemberService {
 
     public void deleteMember(Member member) {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
-        // AccessToken 이 만료됐을 수도 있다.
+        // AccessToken 이 만료됐을 수도 있음
         // 1. AccessToken 이 만료되었는지 확인.
         /** TODO :
             boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
