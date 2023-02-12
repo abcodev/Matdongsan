@@ -109,20 +109,22 @@
     padding-top: 10px;
 }
 
-.like_list::-webkit-scrollbar
-{
+.like_list::-webkit-scrollbar{
     height: 10px;
     width: 3px;
     background-color: #F5F5F5;
     border-radius: 10px;
 }
 
-.like_list::-webkit-scrollbar-thumb
-{
+.like_list::-webkit-scrollbar-thumb{
     background-color: rgba(231, 68, 100, 0.4);
     border-radius: 10px;
     width: 30px;
 }
+.like_list::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(231, 68, 100, 0.9);
+}
+
 
 .like_list > #heart{
     height: auto;
@@ -179,7 +181,8 @@
 
 .review_history{
     width: 50%;
-    padding-left: 20px;
+    padding-left: 40px;
+    border-left: #a4a4a4 3px dashed;
 }
 
 .board_history > p,
@@ -187,6 +190,10 @@
     font-weight: 450;
     font-size: 17px;
     color: #3d3d3d;
+}
+
+table{
+    table-layout: fixed;
 }
 
 #myBoardList{
@@ -222,11 +229,11 @@
     line-height: 3;
 }
 
-.boardTitle{
-    width: 50px;
+#myBoardList td{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-left: 5px;
 }
 
 .myBoard_info{
@@ -241,8 +248,27 @@
     font-weight: 450;
 }
 
-.review_history{
-    border-left: #a4a4a4 3px dashed;
+.myReview_list{
+    display: flex;
+    margin-top: 10px;
+}
+.myReview_list > div {
+    width: 33%;
+    padding-left: 5px;
+}
+
+.review_resNm{
+    font-size: 16px;
+    font-weight: 420;
+}
+
+.review_star{
+    font-size: 20px;
+    color: #f8d562;
+}
+
+.review_date{
+    font-size: 14px;
 }
 
 .reserve_history{
@@ -250,13 +276,100 @@
     padding: 0 50px;;
     width: 100%;
     height: 300px;
+    border: rgba(86, 99, 146, 0.3) 2px solid;
+    border-radius: 2px;
 }
 
 .reserve_history > p{
     font-size: 19px;
     font-weight: 410;
     color: #3d3d3d;
+    text-align: center;
+    margin-top: 20px;
 }
+
+.myReserve_info_list{
+    cursor: pointer;
+}
+
+/******예약확인모달*******/
+
+.modal-content{
+    width: 80%;
+}
+
+.fa-user-check{
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.modal-header > span{
+    font-size: 20px;
+    font-weight: 450;
+}
+
+.reserve_info{
+    border-top: #a4a4a4 2px dashed;
+    padding-top: 20px;
+}
+
+.user_info > div,
+.reserve_info > div{
+    display: flex;
+}
+
+.user_info > p,
+.reserve_info > p{
+    font-size: 22px;
+    font-weight: 450;
+}
+
+.user_info > div > span,
+.reserve_info > div > span{
+    font-size: 19px;
+    font-weight: 420;
+    color: #3d3d3d;
+    width: 20%;
+}
+
+.user_info > div > p,
+.reserve_info > div > p{
+    font-size: 17px;
+    font-weight: 400;
+    color: #515151;
+}
+
+.realtor_name{
+    font-weight: 450;
+    color: #566392;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.modal-footer{
+    padding-right: 150px;
+}
+
+.modal-footer > button{
+    margin-left: 10px;
+    border: none;
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 5px 10px 5px 10px;
+}
+
+.modal-footer > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
+
+
 
 #paging{
     margin-top: 10px;

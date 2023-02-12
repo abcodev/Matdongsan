@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-    <title>마이페이지</title>
+    <title>부동산회원 페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -17,24 +17,6 @@
 </head>
 <body>
 <%@ include file="../template/header.jsp" %>
-<script>
-
-    function changeHeart(estateNo) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/myPage',
-            type: 'POST',
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify({
-                'estateNo': estateNo,
-                'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
-            }),
-            success() {
-                alert("관심목록이 해지되었습니다.")
-                location.reload();
-            }
-        });
-    }
-</script>
 
 <div id="content">
     <div id="info_box">
@@ -61,7 +43,7 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-            <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
+<%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
         </div>
     </div>
 
@@ -182,38 +164,19 @@
         </div>
     </div>
     <div class="reserve_history">
-        <p>부동산 예약 내역</p>
-
-
-<%--        <div id="myReservationList">--%>
-<%--            <table>--%>
-<%--                <c:forEach var="reservationList" items="${reservationList}">--%>
-<%--                    <tr>--%>
-<%--                        <th>예약날짜</th>--%>
-<%--                        <th>예약시간</th>--%>
-<%--                    </tr>--%>
-<%--                    <tr onclick="location.href='realEstate/detail?estateNo=${reservationList.estateNo}'">--%>
-<%--                        <td>${reservationList.revDate}</td>--%>
-<%--                        <td>${reservationList.revTime}</td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </table>--%>
-<%--        </div>--%>
-
-
-
+        <p>예약 확인</p>
 
         <div class="myReserve_list">
             <table>
                 <tr>
-                    <th>공인중개사</th>
+                    <th>예약자명</th>
                     <th>예약일</th>
                     <th>예약시간</th>
                     <th>예약인원</th>
                     <th>예약처리</th>
                 </tr>
                 <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <td>강남공인중개사</td>
+                    <td>이름</td>
                     <td>2023-02-08</td>
                     <td>12:00</td>
                     <td>2명</td>
@@ -264,6 +227,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button">예약승인</button>
                         <button type="button">예약취소</button>
                     </div>
                 </div>
@@ -271,7 +235,24 @@
         </div>
     </div>
 </div>
+
 <script>
+
+    function changeHeart(estateNo) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/myPage',
+            type: 'POST',
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({
+                'estateNo': estateNo,
+                'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
+            }),
+            success() {
+                alert("관심목록이 해지되었습니다.")
+                location.reload();
+            }
+        });
+    }
 
     function deleteMember() {
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
