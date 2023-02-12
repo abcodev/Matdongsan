@@ -53,6 +53,28 @@ public class MemberController {
         return modelAndView;
     }
 
+    @RequestMapping("/brokerMemberMyPage")
+    public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+                                   ModelAndView modelAndView, HttpSession session){
+        Member m = (Member) session.getAttribute("loginUser");
+
+        MyPageListRequest req = new MyPageListRequest(currentPage);
+        MyPageListResponse resp = memberService.selectList(req, m);
+        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
+
+        modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
+        modelAndView.addObject("interestList", memberService.getInterestList(m));
+        modelAndView.addObject("reviewList", resp.getReviewList());
+        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("pi", resp.getPageInfoCombine());
+
+        modelAndView.setViewName("member/brokerMemberMyPage");
+
+        return modelAndView;
+    }
+
+
+
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){
         model.addAttribute("stateList", StateList.values());
@@ -124,7 +146,7 @@ public class MemberController {
      */
     @RequestMapping("broker/enrollPage")
     public ModelAndView brokerEnrollPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("member/estateMemberEnroll");
+        modelAndView.setViewName("member/brokerMemberEnroll");
         return modelAndView;
     }
 

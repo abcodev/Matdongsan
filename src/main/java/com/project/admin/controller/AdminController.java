@@ -16,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //테스트트트트트
-
     @Autowired
     private final AdminService adminService;
     @RequestMapping(value = "/userList/{fNo}")
