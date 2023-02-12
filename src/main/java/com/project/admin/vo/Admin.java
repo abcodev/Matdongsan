@@ -11,24 +11,20 @@ import java.sql.Timestamp;
 @Data
 public class Admin {  // Entity x -> Admin 객체는..?
 
-    private int reportNo;
     private int fNo;
     private int memberNo;
     private int reportUserNo;
-    private String reportContent;
     private String provider;
     private String providerId;
-    private String reportStatus;
     private String email;
     private String status;
     private String memberName;
-    private String reportEmail;
-    private String boardWriter;
-    private String reportType;
+    private String grade;
     private String nickName;
-    private Timestamp reportDate;
-    private String qStatus;
-    private String fStatus;
+    private String recentAccess;
+
+
+
 
 
 

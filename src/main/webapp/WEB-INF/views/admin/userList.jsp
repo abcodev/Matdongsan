@@ -27,23 +27,26 @@
         <thead>
         <tr>
             <th>회원번호</th>
-<%--            <th>프로바이더</th>--%>
-<%--            <th>프로바이더아이디</th>--%>
+            <th>프로바이더</th>
+            <th>프로바이더아이디</th>
             <th>회원명</th>
-<%--            <th>닉네임</th>--%>
-<%--            <th>최근 접속일</th>--%>
-<%--            <th>회원등급 grade</th>--%>
-<%--            <th>회원 상태 status</th>--%>
+            <th>닉네임</th>
+            <th>최근 접속일</th>
+            <th>회원등급 grade</th>
+            <th>회원 상태 status</th>
         </tr>
         </thead>
         <tbody id="tableList">
         <c:forEach var="ul" items="${userList}">
             <tr id="memberData">
                 <td>${ul.memberNo}</td>
-<%--                <td>${ul.provider}</td>--%>
-<%--                <td>${ul.providerId}</td>--%>
+                <td>${ul.provider}</td>
+                <td>${ul.providerId}</td>
                 <td>${ul.memberName}</td>
-<%--                <td>${ul.grade}</td>--%>
+                <td>${ul.nickName}</td>
+                <td>${ul.recentAccess}</td>
+                <td>${ul.grade}</td>
+                <td>${ul.status}</td>
             </tr>
         </c:forEach>
         </tbody>
@@ -85,36 +88,22 @@
             type : "POST",
             url : "${pageContext.request.contextPath}/admin/brokerList",
             dataType : "html",
+
             success : function (data){
                 $("body").html(data);
             }
         })
     });
 
-    $("#userList").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/${pageContext.request.contextPath}/admin/userList/" +${fNo},
-            data: {},
-            dataType: "html",
-            cache: false,
-            success(data) {
-                $("body").html(data);
-            }
-        });
-    });
-
-
     $("#reportList").click(function () {
 
         $.ajax({
             type: "POST",
-            url: "/Matdongsan/admin/reportList/" +${fNo},
-            data: {},
+            url: "/Matdongsan/admin/reportList/1",
             dataType: "html",
-            cache: false,
-            success(data) {
-                $("body").html(data);
+
+            success : function(data) {
+                $('body').html(data);
             }
         });
     });
@@ -123,7 +112,7 @@
     function retrieveUserList(current_page) {
 
         $.ajax({
-            url: '${pageContext.request.contextPath}/admin/userList/' + ${fNo},
+            url: '${pageContext.request.contextPath}/admin/userList',
             method: 'GET',
             data: {
                 cpage: current_page,
@@ -145,9 +134,9 @@
 
 
     $(function () {
-        $("#movePage").click(function () {
+        $(".b2").click(function () {
 
-            $("#b1").css(
+            $(".b1").css(
                 {
                     "color": "#585c9c",
                     "background": "#eaeaed",
@@ -158,7 +147,7 @@
                     "color": "#eaeaed",
                     "background": "#585c9c",
                     "border": "#585c9c"
-                });ㄷ
+                });
         });
     });
 

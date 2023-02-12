@@ -16,14 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/admin")
 public class AdminController {
 
-    //테스트트트트트
-
     @Autowired
     private final AdminService adminService;
-    @RequestMapping(value = "/userList/{fNo}")
+    @RequestMapping(value = "/userList")
     public ModelAndView selectUserList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            @PathVariable("fNo") int fNo,
             ModelAndView mv
     ){
         AdminListRequest aeq = new AdminListRequest(currentPage);
@@ -66,7 +63,7 @@ public class AdminController {
         if(result == 0){
             return "common/errorPage";
         }else {
-            return "redirect:/admin/userList/{fNo}";
+            return "redirect:/admin/userList";
         }
 
     }
@@ -79,7 +76,7 @@ public class AdminController {
         if(result == 0){
             return "common/errorPage";
         }else {
-            return "redirect:/admin/userList/{fNo}";
+            return "redirect:/admin/userList";
         }
     }
 

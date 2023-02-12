@@ -28,15 +28,15 @@
        <!-- 추가 -->
        <mvc:resources mapping="/resources/**" location="/resources/" />
 
-       <mvc:interceptors>
-              <mvc:interceptor> <!-- 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.-->
+     <!--  <mvc:interceptors>
+              <mvc:interceptor> &lt;!&ndash; 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.&ndash;&gt;
                      <mvc:mapping path="/admin/**"/>
-<!--                     <mvc:mapping path="/board/**"/>-->
+&lt;!&ndash;                     <mvc:mapping path="/board/**"/>&ndash;&gt;
                      <mvc:exclude-mapping path="/"/>
                      <beans:bean class="com.project.common.aop.AdminAccessInterceptor"/>
-<!--                     <beans:bean class="com.project.common.aop.LoginAccessInterceptor"/>-->
+&lt;!&ndash;                     <beans:bean class="com.project.common.aop.LoginAccessInterceptor"/>&ndash;&gt;
               </mvc:interceptor>
-       </mvc:interceptors>
+       </mvc:interceptors>-->
 
 
 

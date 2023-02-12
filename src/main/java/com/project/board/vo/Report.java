@@ -16,6 +16,11 @@ public class Report {
     private String fStatus;
     private String email;
     private String reportEmail;
+    private String nickName;
+    private String nickName2;
+    private String memberName;
+    private String memberName2;
+
 
 
 
