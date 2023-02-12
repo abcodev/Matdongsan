@@ -288,6 +288,87 @@ table{
     margin-top: 20px;
 }
 
+.myReserve_info_list{
+    cursor: pointer;
+}
+
+/******예약확인모달*******/
+
+.modal-content{
+    width: 80%;
+}
+
+.fa-user-check{
+    font-size: 22px;
+    margin-right: 10px;
+}
+
+.modal-header > span{
+    font-size: 20px;
+    font-weight: 450;
+}
+
+.reserve_info{
+    border-top: #a4a4a4 2px dashed;
+    padding-top: 20px;
+}
+
+.user_info > div,
+.reserve_info > div{
+    display: flex;
+}
+
+.user_info > p,
+.reserve_info > p{
+    font-size: 22px;
+    font-weight: 450;
+}
+
+.user_info > div > span,
+.reserve_info > div > span{
+    font-size: 19px;
+    font-weight: 420;
+    color: #3d3d3d;
+    width: 20%;
+}
+
+.user_info > div > p,
+.reserve_info > div > p{
+    font-size: 17px;
+    font-weight: 400;
+    color: #515151;
+}
+
+.realtor_name{
+    font-weight: 450;
+    color: #566392;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.modal-footer{
+    padding-right: 150px;
+}
+
+.modal-footer > button{
+    margin-left: 10px;
+    border: none;
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    background-color: #f3f1f5;
+    color: #213048;
+    font-weight: 450;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 5px 10px 5px 10px;
+}
+
+.modal-footer > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
+
 
 
 #paging{
