@@ -46,7 +46,8 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("reservationList", reservationList);
-        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.addObject("pi1", resp.getPageInfoCombine());
+        modelAndView.addObject("pi2", resp.getPageInfoCombine2());
 
         modelAndView.setViewName("member/myPage");
 
@@ -90,6 +91,7 @@ public class MemberController {
         if (result != 0) {
             Member updateMember = memberService.loginMember(m);
 
+            // TODO : 여기다 브레이크 포인트 걸고 updateMember 의 Grade 값 확인 -> GENERAL2
             session.setAttribute("loginUser", updateMember);
             return "member/myPage";
         } else {

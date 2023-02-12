@@ -94,7 +94,17 @@
     <div class="detail review">
         <div class="review_btn_box">
             <span>리뷰</span><span id="rCount"></span>
-            <button id="review_btn"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
+            <button id="review_btn" onclick="showReviewModal()"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
+            <script>
+                function showReviewModal() {
+                    if (${loginUser == null}) {
+                        alert("로그인 후 이용가능합니다.");
+                        return;
+                    }
+                    document.querySelector('.modal_wrap').style.display = 'block';
+                    document.querySelector('.black_bg').style.display = 'block';
+                }
+            </script>
         </div>
         <div class="review content">
             <table id="reviewArea">
@@ -155,12 +165,6 @@
 <script>
     window.onload = function () {
 
-        function onClick() {
-            document.querySelector('.modal_wrap').style.display = 'block';
-            document.querySelector('.black_bg').style.display = 'block';
-        }
-
-        document.getElementById('review_btn').addEventListener('click', onClick);
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
 

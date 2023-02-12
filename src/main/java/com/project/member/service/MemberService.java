@@ -9,6 +9,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.common.template.Utils;
 import com.project.member.dao.MemberDao;
 import com.project.member.dto.*;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
@@ -76,12 +77,17 @@ public class MemberService {
 
 
     public Member loginMember(Member m) {
-        Member loginMember = memberDao.loginMember(sqlSession, m);
-        return loginMember;
+        return memberDao.loginMember(sqlSession, m);
     }
 
 
     public int updateMember(Member m) {
+        Member existingMember = memberDao.select(m.getMemberNo());
+        if (existingMember.getGrade().equals(MemberGrade.GENERAL)) {
+            m.setGrade(MemberGrade.GENERAL2);
+        } else {
+            m.setGrade(existingMember.getGrade());
+        }
         return memberDao.updateMember(sqlSession, m);
     }
 
@@ -96,7 +102,7 @@ public class MemberService {
         params.put("to", userPhoneNumber);    // 수신전화번호
         params.put("from", "010-4818-2172");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
         params.put("type", "SMS");
-        params.put("text", "[TEST] 인증번호는" + "["+randomNumber+"]" + "입니다."); // 문자 내용 입력
+        params.put("text", "[TEST] 인증번호는" + "[" + randomNumber + "]" + "입니다."); // 문자 내용 입력
         params.put("app_version", "test app 1.2"); // application name and version
 
         try {
@@ -109,12 +115,12 @@ public class MemberService {
 
     }
 
-    public List<Interest> getInterestList(Member m){
+    public List<Interest> getInterestList(Member m) {
         return memberDao.getInterestList(sqlSession, m);
     }
 
 
-    public MyPageListResponse selectList(MyPageListRequest request, Member m){
+    public MyPageListResponse selectList(MyPageListRequest request, Member m) {
         int count = memberDao.selectListCount(sqlSession, m);
         int count2 = memberDao.selectReviewCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
@@ -122,14 +128,14 @@ public class MemberService {
         List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
         List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
 
-        return new MyPageListResponse(result, result1, pageInfoCombine);
+        return new MyPageListResponse(result, result1, pageInfoCombine, pageInfoCombine2);
 
     }
 
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
             interestEstateDao.insert(req.getEstateNo(), loginUser.getMemberNo());
-        }else{
+        } else {
             interestEstateDao.delete(req.getEstateNo(), loginUser.getMemberNo());
         }
     }
@@ -139,11 +145,11 @@ public class MemberService {
         // AccessToken 이 만료됐을 수도 있음
         // 1. AccessToken 이 만료되었는지 확인.
         /** TODO :
-            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-            if (isExpired) {
-                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-                member.setToken(freshToken);
-            }
+         boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+         if (isExpired) {
+         OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+         member.setToken(freshToken);
+         }
          */
         // 2. RefreshToken 으로 AccessToken 재발급.
         // 3. 재발급된 AccessToken 으로 요청.
@@ -161,10 +167,9 @@ public class MemberService {
     }
 
 
-    public List<ReservationRequest> selectReservationList(Member m){
+    public List<ReservationRequest> selectReservationList(Member m) {
         return memberDao.selectReservationList(sqlSession, m);
     }
-
 
 
 }

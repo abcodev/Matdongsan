@@ -119,8 +119,8 @@
                     </c:when>
                     <c:otherwise>
                         <div class="my_img">
-<%--                            <img src="https://cdn-icons-png.flaticon.com/512/4675/4675250.png">--%>
-                            <img src="https://cdn-icons-png.flaticon.com/512/7155/7155292.png">
+                            <img src="https://cdn-icons-png.flaticon.com/512/4675/4675250.png">
+<%--                            <img src="https://cdn-icons-png.flaticon.com/512/7155/7155292.png">--%>
                         </div>
                         <input name="replyContent" type="text" disabled placeholder="로그인 후 이용이 가능합니다.">
                         <button onclick="insertReply();" disabled>댓글 등록</button>
