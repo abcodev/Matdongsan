@@ -119,7 +119,6 @@ public class QnaBoardController {
     // 상세 페이지
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(@PathVariable("qBno") int qBno,
-                                  @ModelAttribute("loginUser") Member loginUser,
                                   HttpSession session,
                                   ModelAndView mv,
                                   HttpServletRequest req,

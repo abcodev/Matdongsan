@@ -29,8 +29,8 @@
         <tr>
             <th>신고게시판</th>
             <th>신고번호</th>
-            <th>피신고회원</th> 번호도 받아오고 멤버닉네임도 받아와야함
-            <th>신고회원</th> 번호도 받아오고 닉네임 받아오기
+            <th>피신고회원</th>
+            <th>신고회원</th>
             <th>신고 사유</th>
             <th>상세보기</th>
             <th>게시글 상태</th>
@@ -40,16 +40,17 @@
         <tbody id="tableList">
         <c:forEach var="rl" items="${reportList}">
             <tr>
+                    <%-- 신고한회원번호 ${rl.reporter}  신고당한회원번호${rl.reportedPerson}--%>
                 <td>${rl.reportType}</td>
                 <td>${rl.reportNo}</td>
-                <td>${rl.reportEmail}</td>
-                <td>${rl.email}</td>
+                <td>${rl.nickName}</td>
+                <td>${rl.nickName2}</td>
                 <td>${rl.reportContent}</td>
                 <td>
                     <button type="button" class="btn22" onclick="movePage(${rl.FNo},'${rl.reportType}')">상세보기</button>
                 </td>
                 <c:choose>
-                    <c:when test="${rl.QStatus  == 'Y' && rl.FStatus == 'Y'}">
+                    <c:when test="${rl.QStatus  == 'Y' || rl.FStatus == 'Y'}">
                         <td>
                             <button type="button" class="add-btn" id="btnOn" data-no="${rl.FNo}" data-type='${rl.reportType}'>처리중
                             </button>
@@ -148,24 +149,10 @@
 
 <script>
 
-    $("#reportList").click(function () {
-
-        $.ajax({
-            type: "POST",
-            url: "/${pageContext.request.contextPath}/admin/reportList/" +${fNo},
-            data: {},
-            dataType: "html",
-            cache: false,
-            success(data) {
-                $("body").html(data);
-            }
-        });
-    });
-
     $("#movePage").click(function () {
         $.ajax({
             type: "POST",
-            url: "/${pageContext.request.contextPath}/admin/userList/" +${fNo},
+            url: "/${pageContext.request.contextPath}/admin/userList",
             data: {},
             dataType: "html",
             cache: false,
@@ -180,6 +167,7 @@
             type : "POST",
             url : "${pageContext.request.contextPath}/admin/brokerList",
             dataType : "html",
+            cache: false,
             success : function (data){
                 $("body").html(data);
             }

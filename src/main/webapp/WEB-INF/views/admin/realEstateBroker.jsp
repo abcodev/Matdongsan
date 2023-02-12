@@ -82,40 +82,38 @@
 
 <script>
 
-        <%--$("#reportList").click(function () {--%>
+    $("#reportList").click(function () {
+       $.ajax({
+            type: "POST",
+            url: '${pageContext.request.contextPath}/admin/reportList/1',
+            dataType: "html",
+           cache: false,
+            success(data) {
+              $("body").html(data);
+            }
+        });
+   });
 
-        <%--    $.ajax({--%>
-        <%--        type: "POST",--%>
-        <%--        url: "${pageContext.request.contextPath}/admin/reportList/" +${fNo},--%>
-        <%--        data: {},--%>
-        <%--        dataType: "html",--%>
-        <%--        cache: false,--%>
-        <%--        success(data) {--%>
-        <%--            $("body").html(data);--%>
-        <%--        }--%>
-        <%--    });--%>
-        <%--});--%>
-
-        <%--$("#userList").click(function () {--%>
-        <%--    $.ajax({--%>
-        <%--        type: "POST",--%>
-        <%--        url: "${pageContext.request.contextPath}/admin/userList/" +${fNo},--%>
-        <%--        data: {},--%>
-        <%--        dataType: "html",--%>
-        <%--        cache: false,--%>
-        <%--        success(data) {--%>
-        <%--            $("body").html(data);--%>
-        <%--        }--%>
-        <%--    });--%>
-        <%--});--%>
+    $("#userList").click(function () {
+        $.ajax({
+           type: "POST",
+         url: '${pageContext.request.contextPath}/admin/userList',
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+          }
+      });
+    });
 
 
 
         $('#moveBrokerList').click(function (){
             $.ajax({
                 type : "POST",
-                url : "${pageContext.request.contextPath}/admin/brokerList",
+                url : '${pageContext.request.contextPath}/admin/brokerList',
                 dataType : "html",
+                cache: false,
                 success : function (data){
                     $("body").html(data);
                 }
