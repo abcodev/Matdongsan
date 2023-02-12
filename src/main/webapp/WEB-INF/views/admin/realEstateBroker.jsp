@@ -47,7 +47,7 @@
                 <td>${broker.agentPhone}</td>
                 <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
                 <td>
-                    <button type="button" class="approveBroker" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    <button type="button" class="add-btn" id="btnOn"
                             data-agentNo="${broker.agentNo}" data-memberNo="${broker.memberNo}">
                         ${broker.applyStatus}
                     </button>
@@ -62,21 +62,18 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                승인하시겠습니까 ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary handleApply" value="consent">승인</button>
-                <button type="button" class="btn btn-primary handleApply" value="reject">거부</button>
-            </div>
+<div class="modal" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal_body">
+        <div class="m_head">
+            <div class="modal_title">승인하시겠습니까 ?</div>
+            <div class="close_btn" id="close_btn">X</div>
         </div>
+        <div class="m_body">
+
+            <button type="button" id="clear" class="btn" value="consent">승인</button>
+            <button type="button" cclass="btn close_btn" id="close_btn2" value="reject">거부</button>
+        </div>
+
     </div>
 </div>
 
@@ -122,20 +119,29 @@
 
         let agentNo="";
         let memberNo="";
-        $(document).ready(function() {
-            $('#staticBackdrop').on('show.bs.modal', function(event){
-                agentNo = $(event.relatedTarget).data('agentNo');
-                memberNo = $(event.relatedTarget).data('memberNo');
+  /*      $(document).ready(function() {
+            $('#add').on('show.bs.modal', function(event){
+
                 console.log(agentNo);
                 console.log(memberNo);
             });
-        });
+        });*/
+    $(document).on('click', '.add-btn', function (e) {
+        console.log("click event");
+        agentNo = $(event.relatedTarget).data('agentNo');
+        memberNo = $(event.relatedTarget).data('memberNo');
+        console.log(agentNo);
+        console.log(memberNo);
+
+
+    });
 
 
 
 
 
-        $('.handleApply').click(function (){
+
+    $('.handleApply').click(function (){
             let status = $(this).val();
             // let tr = $(this).parent().parent()
             // console.log(agentNo)
