@@ -1,12 +1,15 @@
 package com.project.member.controller;
 
+import com.project.admin.vo.BrokerEnroll;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,14 +40,40 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
+        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
+        modelAndView.addObject("reviewList", resp.getReviewList());
+        modelAndView.addObject("reservationList", reservationList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
+
         modelAndView.setViewName("member/myPage");
 
         return modelAndView;
     }
+
+    @RequestMapping("/brokerMemberMyPage")
+    public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+                                   ModelAndView modelAndView, HttpSession session){
+        Member m = (Member) session.getAttribute("loginUser");
+
+        MyPageListRequest req = new MyPageListRequest(currentPage);
+        MyPageListResponse resp = memberService.selectList(req, m);
+        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
+
+        modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
+        modelAndView.addObject("interestList", memberService.getInterestList(m));
+        modelAndView.addObject("reviewList", resp.getReviewList());
+        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("pi", resp.getPageInfoCombine());
+
+        modelAndView.setViewName("member/brokerMemberMyPage");
+
+        return modelAndView;
+    }
+
+
 
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){
@@ -62,9 +91,7 @@ public class MemberController {
             Member updateMember = memberService.loginMember(m);
 
             session.setAttribute("loginUser", updateMember);
-            session.removeAttribute("loginUser");
-            model.addAttribute("alertMsg","회원정보 수정 성공");
-            return "redirect:/myPage";
+            return "member/myPage";
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
             return "common/errorPage";
@@ -115,12 +142,22 @@ public class MemberController {
 
 
     /**
-     * 부동산 회원 인증 페이지
+     * 부동산 회원 인증
      */
-    @RequestMapping("estate/enrollPage")
-    public ModelAndView estateEnrollPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("member/estateMemberEnroll");
+    @RequestMapping("broker/enrollPage")
+    public ModelAndView brokerEnrollPage(ModelAndView modelAndView) {
+        modelAndView.setViewName("member/brokerMemberEnroll");
         return modelAndView;
+    }
+
+    // Spring Boot -> Validator 를 이용한 유효성 검사
+    // Validator -> Client 로부터 받은 데이터에 대한 유효성 검사
+    @PostMapping("broker/enroll")
+    public String agentMemberInsert(@RequestParam(value = "file", required = true) MultipartFile file,
+                                    BrokerEnroll brokerEnroll
+    ) {
+        memberService.brokerMemberInsert(file, brokerEnroll);
+        return "member/myPage";
     }
 
 

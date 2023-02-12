@@ -158,7 +158,7 @@ public class RestaurantController {
      * 관리자 - 맛집 삭제
      */
     @RequestMapping("/admin/resDelete")
-    @ResponseBody // AJAX 호출 -> success()
+    @ResponseBody
     public ModelAndView restaurantDelete(@RequestParam("resNo") String resNo,
                                          ModelAndView modelAndView
     ) {

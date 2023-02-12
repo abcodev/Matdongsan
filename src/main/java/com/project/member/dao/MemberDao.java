@@ -1,10 +1,16 @@
 package com.project.member.dao;
 
+import com.project.admin.dto.BanRequest;
+import com.project.admin.vo.BrokerEnroll;
 import com.project.client.oauth.OAuthToken;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
+import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
+import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -46,11 +52,11 @@ public class MemberDao {
         sqlSession.update("memberMapper.updateWithLogin", member);
     }
 
-    public int updateMember(SqlSession sqlSession, Member m){
+    public int updateMember(SqlSession sqlSession, Member m) {
         return sqlSession.update("memberMapper.update", m);
     }
 
-    public Member loginMember(SqlSession sqlSession, Member m){
+    public Member loginMember(SqlSession sqlSession, Member m) {
         return sqlSession.selectOne("memberMapper.loginMember", m);
     }
 
@@ -91,8 +97,30 @@ public class MemberDao {
         return sqlSession.delete("memberMapper.deleteMember", memberNo);
     }
 
-//    public ArrayList<Interest> selectInterestList(SqlSession sqlSession, String estateNo){
-//        return (ArrayList) sqlSession.selectList("memberMapper.selectInterestList", estateNo);
-//    }
+
+    public String brokerInsert(BrokerEnrollInsertDto brokerEnroll) {
+        sqlSession.insert("realEstateAgentMapper.brokerMemberInsert", brokerEnroll);
+        return brokerEnroll.getAgentNo();
+    }
+
+    public void updateBanPeriod(long memberNo, LocalDateTime banPeriod) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberNo", memberNo);
+        params.put("banPeriod", Timestamp.valueOf(banPeriod));
+        sqlSession.update("memberMapper.updateBanPeriod", params);
+    }
+
+    public int selectReviewCount(SqlSession sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.selectReviewCount", m);
+    }
+    public List<Review> selectReviewList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("memberMapper.selectReviewList", m, rowBounds);
+    }
+
+    public List<ReservationRequest> selectReservationList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("memberMapper.selectReservationList", m);
+    }
+
 
 }

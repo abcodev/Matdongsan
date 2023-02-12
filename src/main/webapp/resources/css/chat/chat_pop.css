@@ -170,6 +170,36 @@
     background-color: #566392;
 }
 
+/*위치 확인 test*/
+.chat-logs > .other {
+    background:white;
+    padding:10px 15px 10px 15px;
+    color:#666;
+    max-width:75%;
+    float:left;
+    margin-left:10px;
+    position:relative;
+    margin-bottom:20px;
+    border-radius:30px;
+
+}
+
+.chat-logs > .me {
+    padding: 10px 30% 10px 15px;
+    float:right;
+    margin-right:10px;
+    background: #566392;
+    color:white;
+
+    max-width:75%;
+    position:relative;
+    margin-bottom:20px;
+    border-radius:30px;
+}
+/*위치 확인 test*/
+
+
+
 @media only screen and (max-width: 500px) {
     .chat-logs {
         height:40vh;

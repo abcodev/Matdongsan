@@ -11,13 +11,15 @@
     <title>마이페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
 <%@ include file="../template/header.jsp" %>
 <script>
+
     function changeHeart(estateNo) {
-        console.log($('#checkbox_heart_' + estateNo).is(':checked'))
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             type: 'POST',
@@ -27,6 +29,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
+                alert("관심목록이 해지되었습니다.")
                 location.reload();
             }
         });
@@ -58,7 +61,7 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-            <button><a href="${pageContext.request.contextPath}/estate/enrollPage">제휴부동산 신청</a></button>
+            <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
         </div>
     </div>
 
@@ -76,10 +79,9 @@
             </c:forEach>
         </div>
     </div>
-
     <div id="history_list">
         <div class="board_history">
-            <h4>내 게시글 보기</h4>
+            <p>내 게시글 보기</p>
             <div id="myBoardList">
                 <table>
                     <tr>
@@ -91,7 +93,7 @@
                         <tr class="myBoard_info" onclick="moveDetail();">
                             <script>
                                 function moveDetail(){
-                                    if(${selectAllBoardList.boardType eq 'F'}){
+                                    if(${selectAllBoardList.boardType eq '자유게시판'}){
                                         location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
                                     }else{
                                         location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
@@ -133,10 +135,140 @@
         </div>
         <div class="review_history">
             <p>내가 남긴 리뷰</p>
+            <div id="myReviewList">
+
+                <div class="review_resNm">레스토랑 이름</div>
+                <div class="review_star">★★★★★</div>
+                <div class="review_date">2023-01-18</div>
+
+                <table>
+                    <tr>
+                        <td>리뷰 내용</td>
+                    </tr>
+                    <c:forEach var="reviewList" items="${reviewList}">
+                        <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                            <td>${reviewList.reviewContent}</td>
+                            <td>${reviewList.createDate}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+                <div id="paging_review">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq 1}">
+                                <li class="page-item disabled">Previous</li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage - 1})">Previous</li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                            <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage + 1})">Next</li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
+
+
+<%--        <div id="myReservationList">--%>
+<%--            <table>--%>
+<%--                <c:forEach var="reservationList" items="${reservationList}">--%>
+<%--                    <tr>--%>
+<%--                        <th>예약날짜</th>--%>
+<%--                        <th>예약시간</th>--%>
+<%--                    </tr>--%>
+<%--                    <tr onclick="location.href='realEstate/detail?estateNo=${reservationList.estateNo}'">--%>
+<%--                        <td>${reservationList.revDate}</td>--%>
+<%--                        <td>${reservationList.revTime}</td>--%>
+<%--                    </tr>--%>
+<%--                </c:forEach>--%>
+<%--            </table>--%>
+<%--        </div>--%>
+
+
+
+
+        <div class="myReserve_list">
+            <table>
+                <tr>
+                    <th>공인중개사</th>
+                    <th>예약일</th>
+                    <th>예약시간</th>
+                    <th>예약인원</th>
+                    <th>예약처리</th>
+                </tr>
+                <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <td>강남공인중개사</td>
+                    <td>2023-02-08</td>
+                    <td>12:00</td>
+                    <td>2명</td>
+                    <td>예약확인 중</td>
+                </tr>
+            </table>
+        </div>
+        <%--  ************예약확인창 모달***************  --%>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <i class="fa-solid fa-user-check"></i>
+                        <span>예약 상세정보</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="user_info">
+                            <p>예약자 정보</p>
+                            <div class="user_name">
+                                <span>이름</span>
+                                <p>김도윤</p>
+                            </div>
+                            <div class="user_phone">
+                                <span>전화번호</span>
+                                <p>01023239208</p>
+                            </div>
+                            <div class="user_email">
+                                <span>이메일</span>
+                                <p>lodykhve@naver.com</p>
+                            </div>
+                        </div>
+                        <div class="reserve_info">
+                            <p>예약내역</p>
+                            <div class="realtor_name">강남공인중개사</div>
+                            <div class="reserve_person">
+                                <span>예약인원</span>
+                                <p>3명</p>
+                            </div>
+                            <div class="reserve_date">
+                                <span>예약날짜</span>
+                                <p>2023-02-18</p>
+                            </div>
+                            <div class="reserve_time">
+                                <span>예약시간</span>
+                                <p>12:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button">예약취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -167,6 +299,26 @@
                     $('#myBoardList').html($(data).find("#myBoardList"))
                 } else {
                     $('#myBoardList').html('<p>조회된 게시글이 없습니다.</p>');
+                }
+            }
+        })
+    }
+
+    function retrieveReviewList(current_page1) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/myPage',
+            method: 'GET',
+            data: {
+                cpage: current_page1
+            },
+            success(data) {
+                $('#myReviewList').empty();
+                console.log($(data).find("#myReviewList"));
+                console.log($(data).find(".myReview_info").length);
+                if ($(data).find(".myReview_info").length > 0) {
+                    $('#myReviewList').html($(data).find("#myReviewList"))
+                } else {
+                    $('#myReviewList').html('<p>조회된 게시글이 없습니다.</p>');
                 }
             }
         })

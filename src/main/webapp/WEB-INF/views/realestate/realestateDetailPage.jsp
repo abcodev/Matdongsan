@@ -69,7 +69,7 @@
             <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
             <div class="realtor_table">
                 <c:forEach var="agent" begin="0" end="6" items="${ agentList }">
-                    <div class="rno" onclick="showRealtor(${ agent.agentNo }, '${ agent.agentName }')">${ agent.agentName }</div>
+                    <div class="rno" onclick="showRealtor('${ agent.agentNo }', '${ agent.agentName }')">${ agent.agentName }</div>
                 </c:forEach>
             </div>
         </div>
@@ -263,6 +263,7 @@
 <script>
     let resercationAgentNo = null;
     function showRealtor(agentNo, agentName) {
+        console.log(agentNo);
         $('#agent_name').html(agentName);
         resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
@@ -379,31 +380,31 @@
             $('#telephone').focus();
             return false;
         }else{
-        const formData = new FormData();
-        formData.append("agentNo",resercationAgentNo)
-        formData.append("memberName",memberName);
-        formData.append("peopleCount",people);
-        formData.append("phone",phone);
-        formData.append("email",email);
-        formData.append("requestText",requestText);
-        formData.append("revTime",time);
-        formData.append("revDate",reservationDate);
+            const formData = new FormData();
+            formData.append("agentNo",resercationAgentNo)
+            formData.append("memberName",memberName);
+            formData.append("peopleCount",people);
+            formData.append("phone",phone);
+            formData.append("email",email);
+            formData.append("requestText",requestText);
+            formData.append("revTime",time);
+            formData.append("revDate",reservationDate);
 
-        $.ajax({
-            url : "${pageContext.request.contextPath}/reservation/enroll",
-            type: "POST",
-            data : formData,
-            processData : false,
-            contentType: false,
-            success : () => {
-                alert("예약에 성공하였습니다.");
-                offClick();
+            $.ajax({
+                url : "${pageContext.request.contextPath}/reservation/enroll",
+                type: "POST",
+                data : formData,
+                processData : false,
+                contentType: false,
+                success : () => {
+                    alert("예약에 성공하였습니다.");
+                    offClick();
 
-            },
-            error : () => {
-                alert("예약 등록에 실패하였습니다.");
-            }
-        })
+                },
+                error : () => {
+                    alert("예약 등록에 실패하였습니다.");
+                }
+            })
         }
     }
 </script>

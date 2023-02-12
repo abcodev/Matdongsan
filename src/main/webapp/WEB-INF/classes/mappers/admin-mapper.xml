@@ -4,9 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="adminMapper">
+
     <resultMap id="AdminResultSet" type="admin">
         <result column="REPORT_NO" property="reportNo"/>
         <result column="FREE_BNO" property="fNo"/>
+        <result column="PROVIDER" property="provider"/>
+        <result column="PROVIDER_ID" property="providerId"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="EMAIL" property="email"/>
         <result column="BOARD_WRITER" property="boardWriter"/>
@@ -17,36 +20,39 @@
         <result column="REPORT_CONTENT" property="reportContent"/>
         <result column="REPORT_TYPE" property="reportType"/>
         <result column="REPORT_DATE" property="reportDate"/>
-        <result column="REPORT_PERIOD" property="reportPeriod"/>
+        <result column="QS" property="qStatus"/>
+        <result column="FS" property="fStatus"/>
     </resultMap>
 
 
-    <select id="userList" resultMap="AdminResultSet">
-        select
-            M.MEMBER_NO,
-            NICKNAME,
-            EMAIL,
-            M.STATUS,
-            F.FREE_BNO
+    <select id="selectUserList" resultMap="AdminResultSet">
+        select M.MEMBER_NO,
+               MEMBER_NAME,
+               NICKNAME,
+               EMAIL,
+               PROVIDER,
+               PROVIDER_ID,
+               GRADE,
+               M.STATUS,
+               F.FREE_BNO
         FROM MEMBER M
-        JOIN FREE_BOARD F ON(M.MEMBER_NO = F.MEMBER_NO)
+                 LEFT JOIN FREE_BOARD F ON (M.MEMBER_NO = F.FREE_BNO)
         ORDER BY MEMBER_NO
 
     </select>
 
-    <select id="reportList" resultMap="AdminResultSet" parameterType="int">
-        SELECT
-            REPORT_NO,
-            REPORT_CONTENT,
-            REPORT_TYPE,
-            R.FREE_BNO,
-            F.FREE_BNO,
-            M.EMAIL,
-            F.BOARD_WRITER
+    <select id="selectReportList" resultMap="AdminResultSet" parameterType="int">
+        SELECT REPORT_NO,
+               REPORT_CONTENT,
+               REPORT_TYPE,
+               R.FREE_BNO,
+               F.STATUS                                                      AS FS,
+               Q.STATUS                                                      AS QS,
+               M.EMAIL
         FROM REPORT R
-                 LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO= M.MEMBER_NO)
-                 LEFT OUTER JOIN FREE_BOARD F ON(F.FREE_BNO = R.FREE_BNO)
-
+                 LEFT OUTER JOIN MEMBER M ON (R.MEMBER_NO = M.MEMBER_NO)
+                 LEFT OUTER JOIN FREE_BOARD F ON (F.FREE_BNO = R.FREE_BNO)
+                 LEFT OUTER JOIN QNA_BOARD Q ON (Q.QNA_BNO = R.FREE_BNO)
 
     </select>
 
@@ -62,11 +68,10 @@
     <update id="deleteQna" parameterType="int">
         UPDATE QNA_BOARD
         SET STATUS = 'N'
-        WHERE QNA_BNO in (
-            SELECT QNA_BNO FROM qna_board
-            START WITH QNA_BNO = #{fNo}
-            CONNECT BY PRIOR QNA_BNO = P_BNO
-        )
+        WHERE QNA_BNO in (SELECT QNA_BNO
+                          FROM QNA_BOARD
+                          START WITH QNA_BNO = #{fNo}
+                          CONNECT BY PRIOR QNA_BNO = P_BNO)
     </update>
 
 
@@ -75,14 +80,6 @@
         SET STATUS = 'N'
         WHERE FREE_BNO = #{fNo}
     </update>
-
-    <insert id="insertBlack" parameterType="admin">
-        INSERT INTO REPORT(REPORT_NO, FREE_BNO, REPORT_PERIOD)
-        VALUES (199,199,#{reportPeriod})
-    </insert>
-
-
-
 
 
 </mapper>

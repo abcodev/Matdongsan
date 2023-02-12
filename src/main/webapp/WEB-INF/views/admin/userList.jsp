@@ -17,29 +17,33 @@
 <%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
-    <button id="b1">회원관리</button>
-    <button type="button" class="b2" id="movePage">신고관리</button>
+    <button type="button" class="b1" id="userList">회원관리</button>
+    <button type="button" class="b2" id="reportList">신고관리</button>
+    <button type="button" class="b3" id="moveBrokerList">부동산관리</button>
 </div>
 <br><br><br><br>
 <div class="memberTable">
     <table id="tableDiv">
         <thead>
         <tr>
-            <th>No</th>
-            <th>아이디</th>
-            <th>이메일</th>
-            <th>이름</th>
-            <th>회원 상태</th>
+            <th>회원번호</th>
+<%--            <th>프로바이더</th>--%>
+<%--            <th>프로바이더아이디</th>--%>
+            <th>회원명</th>
+<%--            <th>닉네임</th>--%>
+<%--            <th>최근 접속일</th>--%>
+<%--            <th>회원등급 grade</th>--%>
+<%--            <th>회원 상태 status</th>--%>
         </tr>
         </thead>
         <tbody id="tableList">
         <c:forEach var="ul" items="${userList}">
             <tr id="memberData">
                 <td>${ul.memberNo}</td>
-                <td>${ul.email}</td>
-                <td>${ul.email}</td>
+<%--                <td>${ul.provider}</td>--%>
+<%--                <td>${ul.providerId}</td>--%>
                 <td>${ul.memberName}</td>
-                <td>회원등급</td>
+<%--                <td>${ul.grade}</td>--%>
             </tr>
         </c:forEach>
         </tbody>
@@ -76,22 +80,45 @@
 
 <script>
 
+    $('#moveBrokerList').click(function (){
+        $.ajax({
+            type : "POST",
+            url : "${pageContext.request.contextPath}/admin/brokerList",
+            dataType : "html",
+            success : function (data){
+                $("body").html(data);
+            }
+        })
+    });
 
-    $(function () {
-        $("#movePage").click(function () {
-
-            $.ajax({
-                type: "POST",
-                url: "/Matdongsan/admin/reportList/" +${fNo},
-                data: {},
-                dataType: "html",
-                cache: false,
-                success(data) {
-                    $("body").html(data);
-                }
-            });
+    $("#userList").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "/${pageContext.request.contextPath}/admin/userList/" +${fNo},
+            data: {},
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+            }
         });
     });
+
+
+    $("#reportList").click(function () {
+
+        $.ajax({
+            type: "POST",
+            url: "/Matdongsan/admin/reportList/" +${fNo},
+            data: {},
+            dataType: "html",
+            cache: false,
+            success(data) {
+                $("body").html(data);
+            }
+        });
+    });
+
 
     function retrieveUserList(current_page) {
 
@@ -131,7 +158,7 @@
                     "color": "#eaeaed",
                     "background": "#585c9c",
                     "border": "#585c9c"
-                });
+                });ㄷ
         });
     });
 

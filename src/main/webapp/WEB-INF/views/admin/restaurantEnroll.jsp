@@ -16,47 +16,50 @@
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data" name="restaurantEnroll">
-    <div id="content">
-        <div id="contentHead"></div>
-        <div class="resDiv">
-            <span>맛집이름 : </span>
-            <input type="text" name="resName" required>
+    <div class="body">
+        <div id="content">
+            <div id="contentHead"></div>
+            <div class="resDiv">
+                <span class="font">맛집이름 : </span>
+                <input type="text" class="textInput" name="resName" required placeholder="맛집을 입력해주세요">
+            </div>
+            <div class="resDiv">
+                <span class="font">주소 :</span>
+                <input type="text" id="space" class="textInput"name="address" required placeholder="주소를 입력해주세요">
+            </div>
+            <div class="resDiv">
+                <span class="font">전화번호 :</span>
+                <input type="text" class="textInput"name="resPhone" required placeholder="전화번호를 입력해주세요">
+            </div>
+            <div class="resDiv">
+                <span class="font">주요메뉴 :</span>
+                <input type="text" class="textInput" name="resFood" required placeholder="메뉴를 입력해주세요">
+            </div>
+            <div class="resDiv">
+                <span class="font">지역 : </span>
+                <input type="text" id="space2" class="textInput" name="state" required placeholder="지역을 입력해주세요">
+            </div>
         </div>
-        <div class="resDiv">
-            <span>주소 :</span>
-            <input type="text" name="address" required>
+        <div class="placeHashtag">
+            <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
+                <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
+            </c:forEach>
         </div>
-        <div class="resDiv">
-            <span>전화번호 :</span>
-            <input type="text" name="resPhone" required>
+        <br><br>
+        <div class="resImg">
+            <span class="font">사진 : </span>
+            <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
+            <br><br>
+            <img id="preview"/>
         </div>
-        <div class="resDiv">
-            <span>주요 메뉴 :</span>
-            <input type="text" name="resFood" required>
-        </div>
-        <div class="resDiv">
-            <span>지역 : </span>
-            <input type="text" name="state" required>
+        <br><br>
+        <div class="btn_box">
+            <button class="bbtn">취소</button>
+            <input  class="bbtn" type="submit" onclick="return gopage();" value="등록" />
         </div>
     </div>
-    <div class="placeHashtag">
-        <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
-            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
-            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
-        </c:forEach>
-    </div>
-    <div class="resImg">
-
-        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
-        <br>
-        <img id="preview"/>
-    </div>
-    <br>
-    <div class="btn_box">
-        <button class="bbtn">취소</button>
-        <input  class="bbtn" type="submit" onclick="return gopage();" value="등록" />
-    </div>
-    </div>
+</form>
 <script>
     $('input:checkbox[name=hashtagId]').click(function(){
 
@@ -81,7 +84,7 @@
 
     function gopage(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
-        if(cntEPT==2){
+        if(cntEPT===2){
             return true;
         }else{
             alert("해쉬태그 두개 선택해라 장현정")
@@ -90,6 +93,5 @@
     }
 
 </script>
-</form>
 </body>
 </html>

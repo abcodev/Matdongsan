@@ -1,12 +1,11 @@
 package com.project.admin.controller;
 
-import com.project.admin.dto.AdminListRequest;
-import com.project.admin.dto.AdminListResponse;
-import com.project.admin.dto.ReportListResponse;
+import com.project.admin.dto.*;
 import com.project.admin.service.AdminService;
 import com.project.admin.vo.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,14 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @Autowired
-    AdminService adminService;
+    private final AdminService adminService;
     @RequestMapping(value = "/userList/{fNo}")
     public ModelAndView selectUserList(
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             @PathVariable("fNo") int fNo,
             ModelAndView mv
-
-           ){
+    ){
         AdminListRequest aeq = new AdminListRequest(currentPage);
         AdminListResponse aesp = adminService.selectUserList(aeq);
 
@@ -52,6 +50,13 @@ public class AdminController {
         return mv;
     }
 
+    @ResponseBody
+    @PostMapping("/report/ban")
+    public ResponseEntity<Void> ban(@RequestBody BanRequest req) {
+        adminService.ban(req);
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping(value = "/deleteQna/{fNo}")
     public String deleteQna(@PathVariable("fNo") int fNo) {
 
@@ -76,5 +81,23 @@ public class AdminController {
         }
     }
 
+    @RequestMapping(value = "/brokerList")
+    public ModelAndView BrokerList (
+            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+            ModelAndView mv
+    ){
+        BrokerListResponse resp = adminService.BrokerList(currentPage);
+        mv.addObject("brokerList",resp.getBrokerEnrollList());
+        mv.addObject("pi",resp.getPageInfoCombine());
+        mv.setViewName("admin/realEstateBroker");
+        return  mv;
+    }
 
+    @PostMapping(value = "/broker/handleApply")
+    public ResponseEntity<String> handleApply(@RequestParam("handle") String status){
+
+
+        String a = "1";
+        return ResponseEntity.ok().body(a);
+    }
 }

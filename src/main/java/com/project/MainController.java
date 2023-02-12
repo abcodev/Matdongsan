@@ -6,6 +6,7 @@ import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateViewDto;
 import com.project.realestate.service.RealEstateService;
 import com.project.redis.interestrealestate.InterestRealEstateRedisRepository;
+import com.project.redis.interestrealestate.InterestRealEstateRedisService;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,24 +32,12 @@ public class MainController {
 
     private final RealEstateService realEstateService;
     private final RecentRealEstateRedisService recentRealEstateRedisService;
-    private final InterestRealEstateRedisRepository interestRealEstateRedisRepository;
+    private final InterestRealEstateRedisService interestRealEstateRedisService;
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv) {
         mv.setViewName("index");
         return mv;
-    }
-
-    @GetMapping("/zset/test/1")
-    public ResponseEntity<Void> test1(@RequestParam String param) {
-        interestRealEstateRedisRepository.addIfAbsent(param);
-        interestRealEstateRedisRepository.incrementScore(param);
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/zset/test/2")
-    public ResponseEntity<Set<String>> test2() {
-        return ResponseEntity.ok(interestRealEstateRedisRepository.findTopN(5));
     }
 
     @RequestMapping(value = "/mainPage")
@@ -84,13 +73,11 @@ public class MainController {
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
-            // 3, 2, 1, 4, 5
             List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
-            // 1, 2, 3, 4, 5
             model.addAttribute("recentViewList", recentViewList);
             model.addAttribute("interestViewList", Collections.emptyList());
         } else {
-            List<String> interestEstateNoList = List.of("30001", "30002");
+            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
             List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
             model.addAttribute("recentViewList", Collections.emptyList());
             model.addAttribute("interestViewList", interestViewList);

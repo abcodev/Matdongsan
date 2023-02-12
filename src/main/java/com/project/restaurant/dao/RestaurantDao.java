@@ -87,7 +87,6 @@ public class RestaurantDao {
     /**
      * 관리자 - 맛집 등록
      */
-
     public String resInsert(Restaurant restaurant) {
         sqlSession.insert("resMapper.resInsert",restaurant);
         return restaurant.getResNo();
