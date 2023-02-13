@@ -2,9 +2,7 @@ package com.project.admin.controller;
 
 import com.project.admin.dto.*;
 import com.project.admin.service.AdminService;
-import com.project.admin.vo.Admin;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @Autowired
     private final AdminService adminService;
-    @RequestMapping(value = "/userList/{fNo}")
+
+    @RequestMapping(value = "/userList")
     public ModelAndView selectUserList(
-            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            @PathVariable("fNo") int fNo,
+            @RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
             ModelAndView mv
-    ){
+    ) {
         AdminListRequest aeq = new AdminListRequest(currentPage);
         AdminListResponse aesp = adminService.selectUserList(aeq);
 
@@ -33,20 +30,30 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/reportList/{fNo}")
+    @RequestMapping(value = "/reportList")
     public ModelAndView selectReportList(
-            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            ModelAndView mv,
-            @PathVariable("fNo") int fNo
-
-            ){
+            @RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
+            ModelAndView mv
+    ) {
         AdminListRequest req = new AdminListRequest(currentPage);
-        ReportListResponse resp = adminService.selectReportList(req,fNo);
+        ReportListResponse resp = adminService.selectReportList(req);
 
         mv.addObject("reportList", resp.getReportList());
         mv.addObject("pi", resp.getPageInfoCombine());
-        mv.addObject("fNo",fNo);
         mv.setViewName("admin/reportList");
+        return mv;
+    }
+
+    @RequestMapping(value = "/brokerList")
+    public ModelAndView BrokerList(
+            @RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
+            ModelAndView mv
+    ) {
+        BrokerListResponse resp = adminService.brokerList(currentPage);
+
+        mv.addObject("brokerList", resp.getBrokerEnrollList());
+        mv.addObject("pi", resp.getPageInfoCombine());
+        mv.setViewName("admin/realEstateBroker");
         return mv;
     }
 
@@ -61,10 +68,10 @@ public class AdminController {
     public String deleteQna(@PathVariable("fNo") int fNo) {
 
         int result = adminService.deleteQna(fNo);
-        if(result == 0){
+        if (result == 0) {
             return "common/errorPage";
-        }else {
-            return "redirect:/admin/userList/{fNo}";
+        } else {
+            return "redirect:/admin/userList";
         }
 
     }
@@ -72,29 +79,17 @@ public class AdminController {
     @RequestMapping(value = "/deleteFree/{fNo}")
     public String deleteFree(
             @PathVariable("fNo") int fNo
-    ){
+    ) {
         int result = adminService.deleteFree(fNo);
-        if(result == 0){
+        if (result == 0) {
             return "common/errorPage";
-        }else {
-            return "redirect:/admin/userList/{fNo}";
+        } else {
+            return "redirect:/admin/userList";
         }
     }
 
-    @RequestMapping(value = "/brokerList")
-    public ModelAndView BrokerList (
-            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
-            ModelAndView mv
-    ){
-        BrokerListResponse resp = adminService.BrokerList(currentPage);
-        mv.addObject("brokerList",resp.getBrokerEnrollList());
-        mv.addObject("pi",resp.getPageInfoCombine());
-        mv.setViewName("admin/realEstateBroker");
-        return  mv;
-    }
-
     @PostMapping(value = "/broker/handleApply")
-    public ResponseEntity<String> handleApply(@RequestParam("handle") String status){
+    public ResponseEntity<String> handleApply(@RequestParam("handle") String status) {
 
 
         String a = "1";

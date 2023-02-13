@@ -11,8 +11,11 @@
     <title>마이페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
@@ -70,7 +73,8 @@
         <div class="like_list">
             <c:forEach items="${interestList}" var="interest">
                 <div id="heart">
-                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
+                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox"
+                           onchange="changeHeart(${interest.estateNo})" checked="checked">
                     <label for="checkbox_heart_${interest.estateNo}"><i class="fa-solid fa-heart"></i></label>
                     <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
                         <div class="bldg_name">${interest.bldgNm}</div>
@@ -92,11 +96,11 @@
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
                         <tr class="myBoard_info" onclick="moveDetail();">
                             <script>
-                                function moveDetail(){
-                                    if(${selectAllBoardList.boardType eq '자유게시판'}){
-                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
-                                    }else{
-                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
+                                function moveDetail() {
+                                    if (${selectAllBoardList.boardType eq '자유게시판'}) {
+                                        location.href = '${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
+                                    } else {
+                                        location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
                                     }
                                 }
                             </script>
@@ -110,24 +114,24 @@
             <div id="paging">
                 <ul class="pagination">
                     <c:choose>
-                        <c:when test="${pi.currentPage eq 1}">
+                        <c:when test="${pi1.currentPage eq 1}">
                             <li class="page-item disabled">Previous</li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
                         </c:otherwise>
                     </c:choose>
 
-                    <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                    <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
                         <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
                     </c:forEach>
 
                     <c:choose>
-                        <c:when test="${pi.currentPage eq pi.maxPage}">
+                        <c:when test="${pi1.currentPage eq pi1.maxPage}">
                             <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -156,24 +160,24 @@
                 <div id="paging_review">
                     <ul class="pagination">
                         <c:choose>
-                            <c:when test="${pi.currentPage eq 1}">
+                            <c:when test="${pi2.currentPage eq 1}">
                                 <li class="page-item disabled">Previous</li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage - 1})">Previous</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})">Previous</li>
                             </c:otherwise>
                         </c:choose>
 
-                        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                        <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
                             <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
                         </c:forEach>
 
                         <c:choose>
-                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                            <c:when test="${pi2.currentPage eq pi2.maxPage}">
                                 <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage + 1})">Next</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">Next</li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
@@ -185,22 +189,20 @@
         <p>부동산 예약 내역</p>
 
 
-<%--        <div id="myReservationList">--%>
-<%--            <table>--%>
-<%--                <c:forEach var="reservationList" items="${reservationList}">--%>
-<%--                    <tr>--%>
-<%--                        <th>예약날짜</th>--%>
-<%--                        <th>예약시간</th>--%>
-<%--                    </tr>--%>
-<%--                    <tr onclick="location.href='realEstate/detail?estateNo=${reservationList.estateNo}'">--%>
-<%--                        <td>${reservationList.revDate}</td>--%>
-<%--                        <td>${reservationList.revTime}</td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </table>--%>
-<%--        </div>--%>
-
-
+        <%--        <div id="myReservationList">--%>
+        <%--            <table>--%>
+        <%--                <c:forEach var="reservationList" items="${reservationList}">--%>
+        <%--                    <tr>--%>
+        <%--                        <th>예약날짜</th>--%>
+        <%--                        <th>예약시간</th>--%>
+        <%--                    </tr>--%>
+        <%--                    <tr onclick="location.href='realEstate/detail?estateNo=${reservationList.estateNo}'">--%>
+        <%--                        <td>${reservationList.revDate}</td>--%>
+        <%--                        <td>${reservationList.revTime}</td>--%>
+        <%--                    </tr>--%>
+        <%--                </c:forEach>--%>
+        <%--            </table>--%>
+        <%--        </div>--%>
 
 
         <div class="myReserve_list">
@@ -275,11 +277,10 @@
 
     function deleteMember() {
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-        if(deleteMember === true){
+        if (deleteMember === true) {
             location.href = '${pageContext.request.contextPath}/delete';
             alert("그동안 맛동산을 이용해주셔서 감사합니다.");
-        }
-        else if(deleteMember === false){
+        } else if (deleteMember === false) {
         }
     }
 

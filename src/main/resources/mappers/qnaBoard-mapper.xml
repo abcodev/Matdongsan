@@ -150,7 +150,7 @@
                QNA_TITLE,
                M.MEMBER_NO,
                QNA_CONTENT,
-               M.NICKNAME
+               M.NICKNAME AS QNA_WRITER
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
@@ -159,8 +159,8 @@
     </select>
 
     <insert id="insertAnswer" parameterType="QBoard">
-        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT, P_BNO, QNA_DEPTH)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{parentBno}, #{depth})
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_WRITER,QNA_CONTENT, P_BNO, QNA_DEPTH)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle},#{qnaWriter}, #{qnaContent}, #{parentBno}, #{depth})
     </insert>
 
 

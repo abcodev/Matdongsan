@@ -9,7 +9,7 @@
     <title>부동산상세페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
-    <%@ include file ="../template/header.jsp" %>
+    <%@ include file="../template/header.jsp" %>
 </head>
 <body>
 
@@ -59,17 +59,19 @@
                 </tr>
                 <tr>
                     <th>금액</th>
-                    <td>${realEstateDetail.gbn}  /  ${realEstateDetail.objAmt}</td>
+                    <td>${realEstateDetail.gbn} / ${realEstateDetail.objAmt}</td>
                 </tr>
             </table>
         </div>
 
 
         <div class="info_table foot">
-            <div class="realtor_top"><i class="fa-regular fa-handshake"></i><p>제휴 부동산</p></div>
+            <div class="realtor_top"><i class="fa-regular fa-handshake"></i>
+                <p>제휴 부동산</p></div>
             <div class="realtor_table">
                 <c:forEach var="agent" begin="0" end="6" items="${ agentList }">
-                    <div class="rno" onclick="showRealtor('${ agent.agentNo }', '${ agent.agentName }')">${ agent.agentName }</div>
+                    <div class="rno"
+                         onclick="showRealtor('${ agent.agentNo }', '${ agent.agentName }')">${ agent.agentName }</div>
                 </c:forEach>
             </div>
         </div>
@@ -170,7 +172,8 @@
                 </div>
             </div>
 
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+            <script type="text/javascript"
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
             <script>
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapCenter = new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
@@ -183,7 +186,7 @@
                 var map = new kakao.maps.Map(mapContainer, mapOption);
                 var geocoder = new kakao.maps.services.Geocoder();
 
-                geocoder.addressSearch('${realEstateDetail.address}', function(result, status) {
+                geocoder.addressSearch('${realEstateDetail.address}', function (result, status) {
 
                     // 정상적으로 검색이 완료됐으면
                     if (status === kakao.maps.services.Status.OK) {
@@ -208,24 +211,24 @@
                 });
 
 
-
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
                 var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
                 var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
 
-                function Roadview (){
+                function Roadview() {
                     // 주소로 좌표를 검색합니다
-                    geocoder.addressSearch('${realEstateDetail.address}', function(result, status) {
+                    geocoder.addressSearch('${realEstateDetail.address}', function (result, status) {
                         // 정상적으로 검색이 완료됐으면
                         if (status === kakao.maps.services.Status.OK) {
                             var position = new kakao.maps.LatLng(result[0].y, result[0].x);
                             // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-                            roadviewClient.getNearestPanoId(position, 500, function(panoId) {
+                            roadviewClient.getNearestPanoId(position, 500, function (panoId) {
                                 roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
                                 rvResetValue.panoId = panoId;
                             });
 
                             setTimeout(rvMarker, 1500);
+
                             function rvMarker() {
                                 // 로드뷰에 올릴 마커를 생성합니다.
                                 var rMarker = new kakao.maps.Marker({
@@ -261,18 +264,18 @@
 
 <%--*****************예약******************--%>
 <script>
+
     let resercationAgentNo = null;
+
     function showRealtor(agentNo, agentName) {
         console.log(agentNo);
         $('#agent_name').html(agentName);
         resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
         document.querySelector('.black_bg').style.display = 'block';
-
     }
 
     window.onload = function () {
-
         $.ajax({
             url: '${pageContext.request.contextPath}/realEstate/detail/interest',
             method: 'GET',
@@ -283,26 +286,26 @@
                 $('#checkbox_heart').prop("checked", data);
             }
         });
-
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
-
     };
 
     function offClick() {
         document.querySelector('.modal_wrap').style.display = 'none';
         document.querySelector('.black_bg').style.display = 'none';
         $(".rm_input").val("");
-        reservationDate="";
+        reservationDate = "";
     }
+
 
     let reservationDate = "";
 
     // 달력 생성
     const makeCalendar = (date) => {
         // 현재 년도와 월 받아오기
-        const currentYear = new Date(date).getFullYear();
-        const currentMonth = new Date(date).getMonth() + 1;
+        const currentDate = new Date(date);
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
 
         // 첫날의 요일 구하기 - 초기 시작위치를 위해서
         const firstDay = new Date(date.setDate(1)).getDay();
@@ -322,7 +325,11 @@
 
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
-            htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">'+i+'</div>';
+            if (i < currentDate.getDate()) {
+                htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!!\')">' + i + '</div>';
+            } else {
+                htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
+            }
         }
 
         // 다음달 날짜 표시하기
@@ -335,14 +342,14 @@
     }
 
     function test(year, month, day) {
-        // console.log(year, month, day);
-        if(month <10){
-            month = "0"+month;
+        console.log(year, month, day);
+        if (month < 10) {
+            month = "0" + month;
         }
-        if(day <10){
-            day = "0"+day;
+        if (day < 10) {
+            day = "0" + day;
         }
-        reservationDate = year + '-'+month + '-' + day;
+        reservationDate = year + '-' + month + '-' + day;
     }
 
     const date = new Date();
@@ -359,7 +366,7 @@
     }
 
     // 예약하기
-    function reservation(){
+    function reservation() {
         let time = $('#reservationTime').val();
         let people = $('#peopleCount').val();
         let memberName = $('#memberName').val();
@@ -368,40 +375,40 @@
         let requestText = $('#requestText').val();
 
         // required 검사
-        if(reservationDate == "") {
+        if (reservationDate == "") {
             alert("날짜를 입력해주세요")
             return false;
-        }else if(memberName == ""){
+        } else if (memberName == "") {
             alert("이름을 입력해주세요")
             $('#memberName').focus();
             return false;
-        }else if(phone == ""){
+        } else if (phone == "") {
             alert("휴대폰번호를 입력해주세요")
             $('#telephone').focus();
             return false;
-        }else{
+        } else {
             const formData = new FormData();
-            formData.append("agentNo",resercationAgentNo)
-            formData.append("memberName",memberName);
-            formData.append("peopleCount",people);
-            formData.append("phone",phone);
-            formData.append("email",email);
-            formData.append("requestText",requestText);
-            formData.append("revTime",time);
-            formData.append("revDate",reservationDate);
+            formData.append("agentNo", resercationAgentNo)
+            formData.append("memberName", memberName);
+            formData.append("peopleCount", people);
+            formData.append("phone", phone);
+            formData.append("email", email);
+            formData.append("requestText", requestText);
+            formData.append("revTime", time);
+            formData.append("revDate", reservationDate);
 
             $.ajax({
-                url : "${pageContext.request.contextPath}/reservation/enroll",
+                url: "${pageContext.request.contextPath}/reservation/enroll",
                 type: "POST",
-                data : formData,
-                processData : false,
+                data: formData,
+                processData: false,
                 contentType: false,
-                success : () => {
+                success: () => {
                     alert("예약에 성공하였습니다.");
                     offClick();
 
                 },
-                error : () => {
+                error: () => {
                     alert("예약 등록에 실패하였습니다.");
                 }
             })

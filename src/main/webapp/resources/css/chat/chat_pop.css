@@ -185,7 +185,7 @@
 }
 
 .chat-logs > .me {
-    padding: 10px 30% 10px 15px;
+    padding-left: 50%;
     float:right;
     margin-right:10px;
     background: #566392;
