@@ -96,7 +96,6 @@
         console.log(memberNo);
     }
 
-    // 모달 닫기
     $(document).on('click', '#close_btn', function (e) {
         console.log("click event");
         $('#modal').removeClass('show');

@@ -25,7 +25,6 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
-@RequiredLogin
 public class QnaBoardController {
     private static final Logger logger = LoggerFactory.getLogger(QnaBoardController.class);
     private final QnaBoardService boardService;
@@ -51,6 +50,7 @@ public class QnaBoardController {
 
     // 게시글 작성페이지
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
+    @RequiredLogin
     public String insertBoard(
             ModelAndView mv,
             HttpSession session
@@ -79,8 +79,6 @@ public class QnaBoardController {
         return "redirect:/board/qnaList";
     }
 
-
-    // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
     public ModelAndView insertBoard2(
             @RequestParam(value = "depth") String depth,

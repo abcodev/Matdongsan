@@ -19,6 +19,7 @@ import java.io.IOException;
 public class RealEstateApiRentController {
 
     private final RealEstateRentApiService realEstateRentApiService;
+
     private final SeoulRentApiClient seoulRentApiClient;
 
     @GetMapping("/parsingRentList")

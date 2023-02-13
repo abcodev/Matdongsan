@@ -276,27 +276,6 @@ a{
     color: #566392;
 }
 
-
-/*.look_list > a{*/
-/*    text-decoration: none;*/
-/*    font-size: 15px;*/
-/*    font-weight: 450;*/
-/*    line-height: 1.2;*/
-/*    color: #213048;*/
-/*    display: block;*/
-/*}*/
-
-/*.look_List:hover{*/
-/*    background-color: rgba(255, 255, 255, 0.95);;*/
-/*}*/
-
-/*.look_List > a:hover{*/
-/*    color: #566392;*/
-/*}*/
-
-
-
-
 .side{
     position: fixed;
     overflow: auto;

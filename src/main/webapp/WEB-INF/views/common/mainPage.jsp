@@ -16,7 +16,9 @@
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
-    <jsp:include page="../chat/chat_pop.jsp"/>
+    <c:if test="${loginUser.grade != 'ADMIN'}">
+        <jsp:include page="../chat/chat_pop.jsp"/>
+    </c:if>
 </head>
 
 <body>
@@ -46,7 +48,7 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-                <c:if test="${loginUser.memberNo == 1}">
+                <c:if test="${loginUser.grade == 'ADMIN'}">
                     <div class="dropdown">
                         <button class="dropdown-btn">
                             <a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
@@ -93,7 +95,10 @@
             retrieveAlarmList();
         }
 
+        // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
         const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+        // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해
+        // 새로운 이벤트가 왔을 때 할 행위를 등록한다.
         sse.addEventListener('realtime_alarm', (event) => {
             retrieveAlarmList();
             console.log(event);
@@ -117,13 +122,10 @@
     </script>
 
     <script>
-        if(${loginUser.grade == 'GENERAL'}){
+        if (${loginUser.grade == 'GENERAL'}) {
             alert('회원정보 입력 후 이용해주세요.');
             window.location = '${pageContext.request.contextPath}/memberModify';
-        }else{
-
         }
-
     </script>
 
 </header>
@@ -135,7 +137,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
 
             <script>

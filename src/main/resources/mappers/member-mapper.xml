@@ -20,6 +20,7 @@
         <result column="ACCESS_TOKEN" property="accessToken" />
         <result column="REFRESH_TOKEN" property="refreshToken" />
         <result column="REFRESH_TOKEN_EXPIRED_AT" property="refreshTokenExpiredAt" />
+        <result column="BAN_PERIOD" property="banPeriod" />
     </resultMap>
 
     <resultMap type="memberInterest" id="interestList">
@@ -42,7 +43,6 @@
     </resultMap>
 
 
-
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
         (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS, ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_TOKEN_EXPIRED_AT)
@@ -55,6 +55,7 @@
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
     </select>
+
     <select id="select" parameterType="Map" resultMap="memberResultSet">
         SELECT *
         FROM MEMBER
@@ -62,11 +63,9 @@
           AND PROVIDER_ID = #{providerId}
     </select>
 
-
-
     <select id="loginMember" parameterType="member" resultMap="memberResultSet">
         SELECT
-            MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
+            MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, GRADE, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
           AND STATUS = 'Y'
@@ -80,7 +79,7 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            GRADE = #{grade}'
+            GRADE = #{grade}
         WHERE MEMBER_NO = #{memberNo}
     </update>
 

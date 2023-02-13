@@ -66,14 +66,12 @@ public class AdminController {
 
     @RequestMapping(value = "/deleteQna/{fNo}")
     public String deleteQna(@PathVariable("fNo") int fNo) {
-
         int result = adminService.deleteQna(fNo);
         if (result == 0) {
             return "common/errorPage";
         } else {
             return "redirect:/admin/userList";
         }
-
     }
 
     @RequestMapping(value = "/deleteFree/{fNo}")
@@ -90,8 +88,6 @@ public class AdminController {
 
     @PostMapping(value = "/broker/handleApply")
     public ResponseEntity<String> handleApply(@RequestParam("handle") String status) {
-
-
         String a = "1";
         return ResponseEntity.ok().body(a);
     }

@@ -4,6 +4,7 @@ import com.project.admin.vo.BrokerEnroll;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
 import com.project.member.service.MemberService;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationRequest;
@@ -90,10 +91,13 @@ public class MemberController {
         int result = memberService.updateMember(m);
         if (result != 0) {
             Member updateMember = memberService.loginMember(m);
-
-            // TODO : 여기다 브레이크 포인트 걸고 updateMember 의 Grade 값 확인 -> GENERAL2
             session.setAttribute("loginUser", updateMember);
-            return "member/myPage";
+
+            if(m.getGrade().equals(MemberGrade.BROKER)) {
+                return "member/brokerMemberMyPage";
+            }else {
+                return "member/myPage";
+            }
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
             return "common/errorPage";

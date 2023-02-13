@@ -22,9 +22,14 @@ import java.util.*;
     3. sse 를 통해 알림을 받는면 사용자는 본인의 MEMBER_NO와 비교 -> 같으면 ajax 로 ALARM 을 읽어와 갱신
  */
 
+// Message Queue -> Kafka, RabbitMQ
 @Slf4j
 @Service
 public class AlarmEventProducer {
+
+    /*
+        알람을 받고싶어서 구독 하는 사람 - AlarmEventProducer(알람을 보내주는 역할) - 알람을 보내는 사람
+     */
 
     private final Map<Long, List<SseEmitter>> subscribers;
     // Long : MemberNo , List<SseEmitter> : 구독 리스트

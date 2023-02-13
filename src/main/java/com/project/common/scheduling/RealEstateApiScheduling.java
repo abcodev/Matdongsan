@@ -1,6 +1,7 @@
 package com.project.common.scheduling;
 
 import com.project.realestate.service.RealEstateApiService;
+
 import com.project.realestate.service.RealEstateRentApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;

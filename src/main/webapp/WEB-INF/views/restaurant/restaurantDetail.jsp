@@ -153,170 +153,170 @@
         </div>
     </div>
 </div>
-    <script>
-        window.onload = function () {
+<script>
+    window.onload = function () {
 
-            document.querySelector('#review_insert').addEventListener('click', offClick);
-            document.querySelector('.btn-close').addEventListener("click", offClick);
+        document.querySelector('#review_insert').addEventListener('click', offClick);
+        document.querySelector('.btn-close').addEventListener("click", offClick);
 
-            selectReviewList();
-        };
+        selectReviewList();
+    };
 
-        // 리뷰 조회
-        function selectReviewList() {
-            $.ajax({
-                url: '${pageContext.request.contextPath}/restaurant/selectReview',
-                type: 'GET',
-                data: {
-                    resNo: ${restaurantDetail.resNo}
-                },
-                dataType: "json",
-                success: function (data) {
-                    console.log(data);
-                    let str = "";
-                    for (let i of data['reviewList']) {
-                        console.log(i)
-                        let hashtagList = '';
-                        for (let hashtag of i.hashtags) {
-                            hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
-                        }
-                        let imgList = '';
-                        for (let img of i.changeNames) {
-                            imgList += '<img src="' + img + '" />'
-                        }
-
-                        str += '<div>'
-                            + '<div><br><hr></div>'
-                            + '<div class="review_header">'
-                            + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
-                            + '<div class="review_user_name">' + i.memberName + '</div>'
-                            + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★" : i.starRating === 4 ? "★★★★" : i.starRating === 3 ? "★★★" : i.starRating === 2 ? "★★" : i.starRating === 1 ? "★" : "")) + '</div>'
-                            + '<div class="review_date">' + i.createDate.substring(0, 16) + '</div>'
-                            + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>" : ""))
-                            + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
-                            + '</div>'
-                            + '<div class="review_content">' + i.reviewContent + '</div>'
-                            + '<div class="review_img_list">' + imgList + '</div>'
-                            + '<div>' + hashtagList + '</div>'
-                            + '</div>';
+    // 리뷰 조회
+    function selectReviewList() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/restaurant/selectReview',
+            type: 'GET',
+            data: {
+                resNo: ${restaurantDetail.resNo}
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                let str = "";
+                for (let i of data['reviewList']) {
+                    console.log(i)
+                    let hashtagList = '';
+                    for (let hashtag of i.hashtags) {
+                        hashtagList += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
                     }
-                    $("#reviewArea tbody").html(str);
-                    $("#rCount").html(data['reviewList'].length);
-
-                    let star_rating;
-                    if (data['reviewList'].length === 0) {
-                        star_rating = '별점을 남겨주세요!'
-                    } else {
-                        star_rating = Math.round(data['reviewList'].map(obj => obj['starRating'])
-                            .reduce((accumulator, current) => accumulator + current, 0) * 10 / data['reviewList'].length) / 10
-                        star_rating += ' / 5'
+                    let imgList = '';
+                    for (let img of i.changeNames) {
+                        imgList += '<img src="' + img + '" />'
                     }
-                    $('#star_rating').html(star_rating)
 
-                    let hashtagByReview = '';
-                    for (let hashtag of data['hashtagList']) {
-                        hashtagByReview += '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>';
-                        hashtagByReview += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
-                    }
-                    $('#hashtag_by_review').html(hashtagByReview);
-                },
-                error: function () {
-                    console.log("리뷰조회 ajax통신 실패");
+                    str += '<div>'
+                        + '<div><br><hr></div>'
+                        + '<div class="review_header">'
+                        + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
+                        + '<div class="review_user_name">' + i.memberName + '</div>'
+                        + '<div class="review_star_rating">' + ((i.starRating === 5 ? "★★★★★" : i.starRating === 4 ? "★★★★" : i.starRating === 3 ? "★★★" : i.starRating === 2 ? "★★" : i.starRating === 1 ? "★" : "")) + '</div>'
+                        + '<div class="review_date">' + i.createDate.substring(0, 16) + '</div>'
+                        + (('1' === '${loginUser.memberNo}' ? "<button onclick='deleteReview(this);'>x</button>" : ""))
+                        + '<div>' + "<input type='hidden' name='revNo' value=" + i.revNo + ">" + '</div>'
+                        + '</div>'
+                        + '<div class="review_content">' + i.reviewContent + '</div>'
+                        + '<div class="review_img_list">' + imgList + '</div>'
+                        + '<div>' + hashtagList + '</div>'
+                        + '</div>';
                 }
-            });
-        }
+                $("#reviewArea tbody").html(str);
+                $("#rCount").html(data['reviewList'].length);
 
-        // 리뷰 등록
-        function insertReview() {
-            const score = $('input:radio[name=reviewStar]:checked').val();
-            const hashtags = [];
-            $('input:checkbox[name=chk_hashtag]:checked').each(function () {
-                hashtags.push(this.value);
-            });
-            const contents = $('#reviewContent').val()
-            const files = $('#formFileSm')[0].files
-
-            if(score === undefined) {
-                alert("별점을 입력해주세요")
-                return;
-            }
-            if(hashtags.length === 0){
-                alert("해시태그를 입력해주세요")
-                return;
-            }
-            if(contents === "") {
-                alert("리뷰를 입력해 주세요")
-                return;
-            }
-            if(files.length === 0) {
-                alert("사진을 첨부해주세요")
-                return;
-            }
-
-            const formData = new FormData();
-            formData.set("resNo", ${restaurantDetail.resNo});
-            formData.set("score", score);
-            formData.set("hashtags", hashtags.join(","));
-            formData.set("contents", contents);
-            for (let i = 0; i < files.length; ++i) {
-                formData.append("files", files[i])
-            }
-
-            $.ajax({
-                url: '${pageContext.request.contextPath}/restaurant/insertReview',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: () => {
-                    selectReviewList();
-                    offClick();
-                },
-                error: function () {
-                    offClick();
-                    console.log("리뷰 등록 실패");
+                let star_rating;
+                if (data['reviewList'].length === 0) {
+                    star_rating = '별점을 남겨주세요!'
+                } else {
+                    star_rating = Math.round(data['reviewList'].map(obj => obj['starRating'])
+                        .reduce((accumulator, current) => accumulator + current, 0) * 10 / data['reviewList'].length) / 10
+                    star_rating += ' / 5'
                 }
-            });
-        }
+                $('#star_rating').html(star_rating)
 
-        $('input:checkbox[name=chk_hashtag]').click(function () {
-            let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
-            if (cntEPT > 3) {
-                alert('해시태그는 최대 3개까지 선택 가능합니다.')
-                $(this).prop('checked', false);
+                let hashtagByReview = '';
+                for (let hashtag of data['hashtagList']) {
+                    hashtagByReview += '<input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>';
+                    hashtagByReview += '<label class="btn btn-outline-secondary" for="btn-check-outlined">' + hashtag + '</label>';
+                }
+                $('#hashtag_by_review').html(hashtagByReview);
+            },
+            error: function () {
+                console.log("리뷰조회 ajax통신 실패");
             }
         });
+    }
 
+    // 리뷰 등록
+    function insertReview() {
+        const score = $('input:radio[name=reviewStar]:checked').val();
+        const hashtags = [];
+        $('input:checkbox[name=chk_hashtag]:checked').each(function () {
+            hashtags.push(this.value);
+        });
+        const contents = $('#reviewContent').val()
+        const files = $('#formFileSm')[0].files
 
-        function offClick() {
-
-            $("#reviewContent").val("");
-            $("#formFileSm").val("");
-            $('input:radio[name=reviewStar]').each(function () {
-                $(this).prop('checked', false);
-            });
-            $('input:checkbox[name=chk_hashtag]').each(function () {
-                $(this).prop('checked', false);
-            });
+        if(score === undefined) {
+            alert("별점을 입력해주세요")
+            return;
+        }
+        if(hashtags.length === 0){
+            alert("해시태그를 입력해주세요")
+            return;
+        }
+        if(contents === "") {
+            alert("리뷰를 입력해 주세요")
+            return;
+        }
+        if(files.length === 0) {
+            alert("사진을 첨부해주세요")
+            return;
         }
 
-
-        // 관리자 - 리뷰삭제
-        function deleteReview(button) {
-            let revNo = $(button).parent().parent().find("[name='revNo']").val();
-            $.ajax({
-                url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
-                type: "delete",
-                success: function (result) {
-                    alert("리뷰 삭제 성공");
-                    selectReviewList();
-                },
-                error: function () {
-                    alert("리뷰 삭제 실패");
-                }
-            });
+        const formData = new FormData();
+        formData.set("resNo", ${restaurantDetail.resNo});
+        formData.set("score", score);
+        formData.set("hashtags", hashtags.join(","));
+        formData.set("contents", contents);
+        for (let i = 0; i < files.length; ++i) {
+            formData.append("files", files[i])
         }
-    </script>
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/restaurant/insertReview',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: () => {
+                selectReviewList();
+                offClick();
+            },
+            error: function () {
+                offClick();
+                console.log("리뷰 등록 실패");
+            }
+        });
+    }
+
+    $('input:checkbox[name=chk_hashtag]').click(function () {
+        let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
+        if (cntEPT > 3) {
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            $(this).prop('checked', false);
+        }
+    });
+
+
+    function offClick() {
+
+        $("#reviewContent").val("");
+        $("#formFileSm").val("");
+        $('input:radio[name=reviewStar]').each(function () {
+            $(this).prop('checked', false);
+        });
+        $('input:checkbox[name=chk_hashtag]').each(function () {
+            $(this).prop('checked', false);
+        });
+    }
+
+
+    // 관리자 - 리뷰삭제
+    function deleteReview(button) {
+        let revNo = $(button).parent().parent().find("[name='revNo']").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
+            type: "delete",
+            success: function (result) {
+                alert("리뷰 삭제 성공");
+                selectReviewList();
+            },
+            error: function () {
+                alert("리뷰 삭제 실패");
+            }
+        });
+    }
+</script>
 
 
 </body>

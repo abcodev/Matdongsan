@@ -21,6 +21,10 @@ public class AlarmService {
         return alarmRepository.selectList(memberNo);
     }
 
+    // MemberNo 1번아 너 새로운 알람왔더라!
+    // 1번이 아 새로운거 왔다고? 읽어야겠다.
+    // Zero Payload
+
     public void send(AlarmTemplate template) {
         // 1. template -> Alarm Entity 생성 -> alarmDao.save(entity)
         Alarm alarm = Alarm.of(template);
