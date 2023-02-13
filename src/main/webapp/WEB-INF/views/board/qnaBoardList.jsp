@@ -106,32 +106,30 @@
         <c:set var="url" value="?cpage="/>
 
         <div id="paging">
-            <div class="pagination">
+            <ul class="pagination">
                 <c:choose>
-
                     <c:when test="${ pi.currentPage eq 1 }">
-                        <div class="page-item disabled"><a class="page-link" href="#">Previous</a></div >
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li >
                     </c:when>
                     <c:otherwise>
-                        <div class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></div>
+                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage -1 }${sUrl}">Previous</a></li>
                     </c:otherwise>
                 </c:choose>
 
                 <c:forEach var="item" begin="${pi.startPage}" end="${pi.endPage}">
-                    <div class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
+                    <li class="page-item"><a class="page-link" href="${url }${item }${sUrl}">${item }</a></li>
                 </c:forEach>
                         <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
-                        <div  class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                     </c:when>
                     <c:otherwise>
-                        <div  class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="${url }${pi.currentPage + 1 }${sUrl}">Next</a></li>
                     </c:otherwise>
                 </c:choose>
-            </div>
+            </ul>
         </div>
 
-    </div>
 
 
     <script>

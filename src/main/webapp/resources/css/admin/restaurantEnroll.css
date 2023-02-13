@@ -8,7 +8,7 @@
 #content{
     margin:auto;
     box-sizing: border-box;
-    width: 70%;
+    width: 48%;
     padding: 20px;
 }
 #contentHead{
@@ -98,4 +98,9 @@ input[type=file]::file-selector-button {
 input::placeholder {
    position: relative;
     left: 20px;
+}
+.bi-camera::before {
+    position: relative;
+    left: 130px;
+    top: 25px;
 }

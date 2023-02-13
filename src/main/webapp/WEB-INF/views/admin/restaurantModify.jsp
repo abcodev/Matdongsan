@@ -16,6 +16,7 @@
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,24 +32,24 @@
         <div id="content">
         <div id="contentHead"></div>
         <div class="resDiv">
-            <span class="font">맛집이름 : </span>
+            <span class="font">맛집이름 : &nbsp;</span>
             <input type="text" name="resName"  class="textInput" value="${restaurantDetail.resName}">
             <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
         </div>
         <div class="resDiv">
-            <span class="font">지역 : </span>
+            <span class="font">지역 : &nbsp;</span>
             <input type="text" id="space"  class="textInput" name="state" value="${restaurantDetail.state}">
         </div>
         <div class="resDiv">
-            <span class="font">주소 : </span>
+            <span class="font">주소 : &nbsp;</span>
             <input type="text"  id="space2"  class="textInput"name="address" value="${restaurantDetail.address}">
         </div>
         <div class="resDiv">
-            <span class="font">전화번호 : </span>
+            <span class="font">전화번호 : &nbsp;</span>
             <input type="text"  class="textInput" name="resPhone" value="${restaurantDetail.resPhone}">
         </div>
         <div class="resDiv">
-            <span class="font">주요메뉴 : </span>
+            <span class="font">주요메뉴 : &nbsp;</span>
             <input type="text"  class="textInput" name="resFood" value="${restaurantDetail.resFood}">
         </div>
         </div>
@@ -68,7 +69,7 @@
             <img src="${restaurantDetail.resImgUrl}">
             <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
         </div>--%>
-
+            <span class="font"><i class="bi bi-camera"></i></span>
         <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
             <br><br>
         <img id="preview" src="${restaurantDetail.resImgUrl}">

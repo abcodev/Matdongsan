@@ -204,7 +204,14 @@
 
 .table th:nth-child(3){
     width: 140px;
+} .pagination> li{
+    display: inline-block;
+    margin: auto;
+    position: relative;
+    left: 560px;
 }
+
+
 
 
 

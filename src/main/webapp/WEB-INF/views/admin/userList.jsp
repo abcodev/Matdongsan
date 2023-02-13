@@ -65,7 +65,7 @@
         </c:choose>
 
         <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-            <li class="page-item" onclick="retrieveUserList(${item})"><${item }></li>
+            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>
         </c:forEach>
 
         <c:choose>

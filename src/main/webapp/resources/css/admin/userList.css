@@ -222,10 +222,10 @@ tr:last-child td:last-child {
     height: 30px;
 }
 
-.paging > ul > li {
+#paging{
     display: inline-block;
     position: relative;
-    left: 655px;
+    left: 820px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
