@@ -52,10 +52,13 @@
         </div>
         <br><br>
         <div class="resImg">
-            <span class="font">사진 : </span>
+
             <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
             <br><br>
+            <div id="previewHead">
             <img id="preview"/>
+            </div>
+
         </div>
         <br><br>
         <div class="btn_box">

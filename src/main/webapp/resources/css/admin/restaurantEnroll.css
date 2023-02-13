@@ -1,6 +1,6 @@
 .body{
     box-sizing: border-box;
-    height: 1450px;
+    height: 1420px;
     width: 100%;
 }
 
@@ -31,17 +31,19 @@ input[type=file]::file-selector-button {
     width: 150px;
     height: 30px;
     background: #fff;
-    border: 1px solid rgb(77,77,77);
+    border: 2px solid #beb0d0;
     border-radius: 10px;
     cursor: pointer;
 }
+
 #preview{
     box-sizing: border-box;
-    border: 3px #989de1;
     width: 900px;
     height: 400px;
-    border-radius: 20px;
+    border-radius: 15px;
+    border: 1px solid #beb0d0;
 }
+
 .resImg{
     margin: auto;
     width: 49%;
@@ -51,10 +53,10 @@ input[type=file]::file-selector-button {
     margin: auto;
     width: 33%;
 }
-.btn{
+.btn ,#hashBtn{
     margin: 5px;
     width: auto;
-    border-radius: 15px
+    border-radius: 15px;
 }
 .bbtn{
      border: 1px solid #f3f1f5;
@@ -84,12 +86,16 @@ input[type=file]::file-selector-button {
     color : #3d3d3d;
 }
 .textInput{
-    width: 350px;
-    height: 36px;
+    width: 400px;
+    height: 40px;
     border-radius:  4px;
     border: 1px solid #beb0d0;
 }
 #space ,#space2{
     position: relative;
     right: -38px;
+}
+input::placeholder {
+   position: relative;
+    left: 20px;
 }

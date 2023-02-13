@@ -57,7 +57,7 @@
     <div class="placeHashtag">
         <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
             <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
-            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
+            <label class="btn btn-outline-secondary" id="hashBtn" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
         </c:forEach>
     </div>
     <br><br>
