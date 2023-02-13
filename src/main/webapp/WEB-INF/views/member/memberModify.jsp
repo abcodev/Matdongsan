@@ -26,8 +26,10 @@
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">
                 <span>닉네임</span>
-                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}" required>
+                <input type="text" id="nickName" name="nickName" oninput = "checkNick()" value="${loginUser.nickName}" required>
                 <button>중복검사</button>
+                <span class="usable">사용 가능한 아이디입니다.</span>
+                <span class="already_use">누군가 이 아이디를 사용하고 있어요.</span>
             </div>
             <div class="userinfo email">
                 <span>이메일</span>
@@ -60,6 +62,30 @@
 </div>
 
 <script>
+
+    // function checkNick(){
+    //     var nickName = $('#nickName').val(); //id값이 "id"인 입력란의 값을 저장
+    //     $.ajax({
+    //         url:'./nickNameCheck', //Controller에서 요청 받을 주소
+    //         type:'post', //POST 방식으로 전달
+    //         data:{nickName:nickName},
+    //         success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+    //             if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+    //                 $('.usable').css("display","inline-block");
+    //                 $('.already_use').css("display", "none");
+    //             } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+    //                 $('.already_use').css("display","inline-block");
+    //                 $('.usable').css("display", "none");
+    //                 alert("닉네임을 다시 입력해주세요");
+    //                 $('#nickName').val('');
+    //             }
+    //         },
+    //         error:function(){
+    //             alert("에러입니다");
+    //         }
+    //     });
+    // };
+
     $(function(){
     code2 = "";
         $("#phoneChk").click(function(){

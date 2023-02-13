@@ -106,4 +106,13 @@ public class MemberController {
         return Integer.toString(randomNumber);
     }
 
+//    @PostMapping("/nickNameCheck")
+//    @ResponseBody
+//    public int nickNameCheck(@RequestParam("nickName") String nickName) {
+//
+//        int cnt = memberService.nickNameCheck(nickName);
+//        return cnt;
+//
+//    }
+
 }

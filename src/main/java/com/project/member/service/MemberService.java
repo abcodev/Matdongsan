@@ -155,7 +155,6 @@ public class MemberService {
 //        return memberDao.selectInterestList(sqlSession, estateNo);
 //    }
 
-
 }
 
 
