@@ -273,11 +273,12 @@ table{
 
 .reserve_history{
     margin-top: 40px;
-    padding: 0 50px;;
-    width: 100%;
+    padding: 0 80px;;
+    width: 90%;
     height: 300px;
     border: rgba(86, 99, 146, 0.3) 2px solid;
     border-radius: 2px;
+    margin-left: 5%;
 }
 
 .reserve_history > p{
@@ -288,8 +289,45 @@ table{
     margin-top: 20px;
 }
 
+.myReserve_list > table{
+    width: 100%;
+}
+
+.myReserve_info_list_top{
+    background-color: #E0E0E0;
+}
+
+.myReserve_list > table th,
+.myReserve_list > table td{
+    text-align: center;
+}
+
+.myReserve_list > table td:first-child,
+.myReserve_list > table th:first-child{
+    width: 44%;
+}
+
+.myReserve_list > table td:nth-child(n+2),
+.myReserve_list > table th:nth-child(n+2){
+    width: 14%;
+}
+
+.myReserve_list > table th{
+    background-color: #E0E0E0;
+}
+
+.myReserve_list > table tr{
+    height: 40px;
+}
+
+
 .myReserve_info_list{
     cursor: pointer;
+    border-bottom: rgba(164, 164, 164, 0.5) 2px solid;
+}
+
+.myReserve_info_list:hover{
+    font-weight: 420;
 }
 
 /******예약확인모달*******/
@@ -368,8 +406,6 @@ table{
     background-color: #566392;
     color: #f3f1f5;
 }
-
-
 
 #paging{
     margin-top: 10px;
