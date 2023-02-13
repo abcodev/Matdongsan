@@ -1,6 +1,6 @@
 .body{
     box-sizing: border-box;
-    height: 1350px;
+    height: 1450px;
     width: 100%;
 }
 
@@ -20,7 +20,7 @@
 }
 .placeHashtag{
     margin:auto;
-    width:58%;
+    width:43%;
 }
 #formFileSm{
     width: 500px;
@@ -44,28 +44,52 @@ input[type=file]::file-selector-button {
 }
 .resImg{
     margin: auto;
-    width: 48%;
+    width: 49%;
 }
 
 .btn_box{
     margin: auto;
-    width: 35%;
+    width: 33%;
+}
+.btn{
+    margin: 5px;
+    width: auto;
+    border-radius: 15px
 }
 .bbtn{
-    border: 1px solid #585c9c;
+     border: 1px solid #f3f1f5;
+     width: 300px;
+     height: 55px;
+     text-align: center;
+     border-radius: 10px;
+     color: #f3f1f5;
+     background-color: #213048;
+     font-weight: bold;
+    font-size: 18px;
+ }
+.bbtn:hover{
+    border: 1px solid #f3f1f5;
     width: 300px;
     height: 55px;
     text-align: center;
     border-radius: 10px;
-    background-color: #585c9c;
-    color: white;
+    color: #213048;
+    background-color: #f3f1f5;
     font-weight: bold;
+    font-size: 18px;
 }
 .font{
     font-weight: bold;
     font-size: 22px;
+    color : #3d3d3d;
 }
 .textInput{
     width: 350px;
     height: 36px;
+    border-radius:  4px;
+    border: 1px solid #beb0d0;
+}
+#space ,#space2{
+    position: relative;
+    right: -38px;
 }
