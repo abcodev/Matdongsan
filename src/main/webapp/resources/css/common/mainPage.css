@@ -153,11 +153,25 @@ a{
     padding-top: 13px;
     cursor: pointer;
     color: #213048;
+    position: relative;
 }
 
 .fa-bell:hover {
     color: #989de1;
     font-size: 27px;
+}
+
+#alarm_count{
+    background-color: red;
+    color: white;
+    font-weight: 650;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    top: 30px;
 }
 
 .map{

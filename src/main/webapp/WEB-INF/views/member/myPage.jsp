@@ -153,7 +153,7 @@
                     <th>예약처리</th>
                 </tr>
                 <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <td>강남미소자이공인중개사사무소</td>
+                    <td>주식회사티에이치이바른부동산중개법인</td>
                     <td>2023-02-08</td>
                     <td>12:00</td>
                     <td>2명</td>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="reserve_info">
                             <p>예약내역</p>
-                            <div class="realtor_name">강남공인중개사</div>
+                            <div class="realtor_name">주식회사티에이치이바른부동산중개법인</div>
                             <div class="reserve_person">
                                 <span>예약인원</span>
                                 <p>3명</p>
