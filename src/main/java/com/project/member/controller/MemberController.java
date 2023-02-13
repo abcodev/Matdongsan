@@ -7,9 +7,11 @@ import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationRequest;
+import com.project.realestate.dto.ReservationResponse;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
+import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,14 +45,14 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
-        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("reservationList", resp.getReservationList());
         modelAndView.addObject("pi1", resp.getPageInfoCombine());
         modelAndView.addObject("pi2", resp.getPageInfoCombine2());
+        modelAndView.addObject("pi3", resp.getPageInfoCombine3());
 
         modelAndView.setViewName("member/myPage");
 
@@ -61,12 +66,12 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
+//        List<ReservationResponse> reservationList = memberService.selectReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
-        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("reservationList", resp.getReservationList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
 
         modelAndView.setViewName("member/brokerMemberMyPage");
@@ -148,6 +153,13 @@ public class MemberController {
         memberService.brokerMemberInsert(file, brokerEnroll);
         return "member/myPage";
     }
+
+    @RequestMapping("revDelete")
+    public String deleteReservation(Integer revNo){
+        memberService.deleteReservation(revNo);
+        return "redirect:/myPage";
+    }
+
 
 
 }

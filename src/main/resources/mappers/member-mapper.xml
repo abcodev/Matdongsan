@@ -80,7 +80,7 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            GRADE = #{grade}'
+            GRADE = 'GENERAL2'
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
@@ -222,7 +222,7 @@
     <delete id="delete" parameterType="Map">
         DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </delete>
-    
+
     <resultMap id="reviewList" type="review">
         <result column="REVIEW_CONTENT" property="reviewContent"/>
         <result column="CREATE_DATE" property="createDate"/>
@@ -247,19 +247,47 @@
     </select>
 
 
-    <resultMap id="reservationList" type="com.project.realestate.dto.ReservationRequest">
+    <resultMap id="reservationList" type="com.project.realestate.dto.ReservationResponse">
+        <result column="REV_NO" property="revNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="REV_PEOPLE" property="peopleCount"/>
+        <result column="PHONE" property="phone"/>
+        <result column="EMAIL" property="email"/>
+        <result column="REV_ASK" property="requestText"/>
         <result column="REV_TIME" property="revTime"/>
         <result column="REV_DATE" property="revDate"/>
+        <result column="REV_STATUS" property="status"/>
     </resultMap>
 
     <select id="selectReservationList" resultMap="reservationList">
         SELECT
+            R.REV_NO,
+            R.MEMBER_NO,
+            R.MEMBER_NAME,
+            R.REV_PEOPLE,
+            R.PHONE,
+            R.EMAIL,
+            R.REV_ASK,
+            R.REV_TIME,
             R.REV_DATE,
-            R.REV_TIME
+            R.REV_STATUS
         FROM REAL_RESERVATION R
-                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+                 LEFT JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
         WHERE R.MEMBER_NO = #{memberNo}
     </select>
+
+    <select id="selectReservationCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM REAL_RESERVATION
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
+
+    <delete id="deleteReservation" parameterType="Integer">
+        DELETE FROM REAL_RESERVATION
+        WHERE MEMBER_NO = #{memberNo}
+    </delete>
 
 
 

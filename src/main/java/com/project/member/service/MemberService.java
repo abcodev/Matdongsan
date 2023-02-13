@@ -15,6 +15,7 @@ import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationRequest;
+import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -123,12 +124,15 @@ public class MemberService {
     public MyPageListResponse selectList(MyPageListRequest request, Member m) {
         int count = memberDao.selectListCount(sqlSession, m);
         int count2 = memberDao.selectReviewCount(sqlSession, m);
+        int count3 = memberDao.selectReservationCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
         PageInfoCombine pageInfoCombine2 = new PageInfoCombine(count2, request.getCurrentPage(), DEFAULT_SIZE);
+        PageInfoCombine pageInfoCombine3 = new PageInfoCombine(count3, request.getCurrentPage(), DEFAULT_SIZE);
         List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
         List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
+        List<ReservationResponse> result2 = memberDao.selectReservationList(sqlSession, pageInfoCombine3, m);
 
-        return new MyPageListResponse(result, result1, pageInfoCombine, pageInfoCombine2);
+        return new MyPageListResponse(result, result1, result2, pageInfoCombine, pageInfoCombine2, pageInfoCombine3);
 
     }
 
@@ -167,8 +171,12 @@ public class MemberService {
     }
 
 
-    public List<ReservationRequest> selectReservationList(Member m) {
-        return memberDao.selectReservationList(sqlSession, m);
+//    public List<ReservationResponse> selectReservationList(Member m) {
+//        return memberDao.selectReservationList(sqlSession, m);
+//    }
+
+    public void deleteReservation(Integer revNo){
+        memberDao.deleteReservation(sqlSession, revNo);
     }
 
 

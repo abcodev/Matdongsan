@@ -1,15 +1,11 @@
 package com.project.member.dao;
 
-import com.project.admin.dto.BanRequest;
-import com.project.admin.vo.BrokerEnroll;
-import com.project.client.oauth.OAuthToken;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
-import com.project.realestate.dto.ReservationRequest;
+import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.Interest;
-import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
@@ -18,7 +14,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -118,8 +113,17 @@ public class MemberDao {
         return sqlSession.selectList("memberMapper.selectReviewList", m, rowBounds);
     }
 
-    public List<ReservationRequest> selectReservationList(SqlSession sqlSession, Member m){
-        return sqlSession.selectList("memberMapper.selectReservationList", m);
+    public int selectReservationCount(SqlSession sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.selectReservationCount", m);
+    }
+
+    public List<ReservationResponse> selectReservationList(SqlSession sqlSession, PageInfoCombine pageInfoCombine ,Member m){
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("memberMapper.selectReservationList", m, rowBounds);
+    }
+
+    public int deleteReservation(SqlSession sqlSession, Integer revNo){
+        return sqlSession.delete("memberMapper.deleteReservation", revNo);
     }
 
 

@@ -187,24 +187,7 @@
     </div>
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
-
-
-        <%--        <div id="myReservationList">--%>
-        <%--            <table>--%>
-        <%--                <c:forEach var="reservationList" items="${reservationList}">--%>
-        <%--                    <tr>--%>
-        <%--                        <th>예약날짜</th>--%>
-        <%--                        <th>예약시간</th>--%>
-        <%--                    </tr>--%>
-        <%--                    <tr onclick="location.href='realEstate/detail?estateNo=${reservationList.estateNo}'">--%>
-        <%--                        <td>${reservationList.revDate}</td>--%>
-        <%--                        <td>${reservationList.revTime}</td>--%>
-        <%--                    </tr>--%>
-        <%--                </c:forEach>--%>
-        <%--            </table>--%>
-        <%--        </div>--%>
-
-
+        <div id="myReserveList">
         <div class="myReserve_list">
             <table>
                 <tr>
@@ -214,15 +197,93 @@
                     <th>예약인원</th>
                     <th>예약처리</th>
                 </tr>
+                <c:forEach var="reservationList" items="${reservationList}">
                 <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <td>강남공인중개사</td>
-                    <td>2023-02-08</td>
-                    <td>12:00</td>
-                    <td>2명</td>
-                    <td>예약확인 중</td>
+                    <td>${reservationList.revDate}</td>
+                    <td>${reservationList.revTime}</td>
+                    <td>${reservationList.peopleCount}</td>
+                    <td>${reservationList.status}</td>
                 </tr>
+                </c:forEach>
             </table>
+
+            <div id="paging_reserve">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${pi2.currentPage eq 1}">
+                            <li class="page-item disabled">Previous</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveReserveList(${pi2.currentPage - 1})">Previous</li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                        <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${pi2.currentPage eq pi2.maxPage}">
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveReserveList(${pi2.currentPage + 1})">Next</li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
         </div>
+        </div>
+<%--        <script>--%>
+<%--            function moreContent(id, cnt){--%>
+<%--                var list_length = $("#"+id+" tr").length-1;--%>
+<%--                var aname = id+"_btn";--%>
+<%--                var callLength = list_length;--%>
+
+<%--                $('#startCount').val(callLength);--%>
+<%--                $('#viewCount').val(cnt);--%>
+
+<%--                $.ajax({--%>
+<%--                    type: "post",--%>
+<%--                    url: "/getMoreContents_ajax.do",--%>
+<%--                    data: $('#searchTxtForm').serialize(),--%>
+<%--                    dataType: "json",--%>
+<%--                    success: function (result) {--%>
+<%--                        if (result.resulCnt > 0) {--%>
+<%--                            var list = result.resultList;--%>
+<%--                            if (resultVo.title != '') {--%>
+<%--                                $('#' + aname).attr('href', "javascript:moreContent('" + id + "', " + cnt + ");");--%>
+<%--                                getMoreList(list);--%>
+<%--                            } else {--%>
+<%--                                $("#" + id + "_div").remove();--%>
+<%--                            }--%>
+<%--                        }else{--%>
+<%--                        }--%>
+<%--                    },--%>
+<%--                    error : function (request,status,error){--%>
+<%--                        alert("code = "+request.status + "message = " + request.responseText + "error = " + error); // 실패시 처리--%>
+<%--                    }--%>
+<%--                });--%>
+
+<%--                function getMoreList(list){--%>
+<%--                    var content = "";--%>
+<%--                    var length = list.length;--%>
+<%--                    for(i=0; i<list.length; i++){--%>
+<%--                        var resultVo =list[i];--%>
+<%--                        if(resultVo.title != ''){--%>
+<%--                            content += "<tr>";--%>
+<%--                            content += "<td>"+resultVo.title+"</td>";--%>
+<%--                            content += "<td>"+resultVo.reg_date+"</td>";--%>
+<%--                            content += "</tr>";--%>
+<%--                        }--%>
+<%--                    }--%>
+<%--                    $("#more_list tr:last").after(content);--%>
+<%--                }--%>
+<%--            }--%>
+<%--        </script>--%>
+
+
         <%--  ************예약확인창 모달***************  --%>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -232,20 +293,21 @@
                         <span>예약 상세정보</span>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <c:forEach var="reservationList" items="${reservationList}">
                     <div class="modal-body">
                         <div class="user_info">
                             <p>예약자 정보</p>
                             <div class="user_name">
                                 <span>이름</span>
-                                <p>김도윤</p>
+                                <p>${reservationList.memberName}</p>
                             </div>
                             <div class="user_phone">
                                 <span>전화번호</span>
-                                <p>01023239208</p>
+                                <p>${reservationList.phone}</p>
                             </div>
                             <div class="user_email">
                                 <span>이메일</span>
-                                <p>lodykhve@naver.com</p>
+                                <p>${reservationList.email}</p>
                             </div>
                         </div>
                         <div class="reserve_info">
@@ -253,21 +315,22 @@
                             <div class="realtor_name">강남공인중개사</div>
                             <div class="reserve_person">
                                 <span>예약인원</span>
-                                <p>3명</p>
+                                <p>${reservationList.peopleCount}</p>
                             </div>
                             <div class="reserve_date">
                                 <span>예약날짜</span>
-                                <p>2023-02-18</p>
+                                <p>${reservationList.revDate}</p>
                             </div>
                             <div class="reserve_time">
                                 <span>예약시간</span>
-                                <p>12:00</p>
+                                <p>${reservationList.revTime}</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button">예약취소</button>
+                        <button type="button" onclick="revDelete();">예약취소</button>
                     </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -281,6 +344,16 @@
             location.href = '${pageContext.request.contextPath}/delete';
             alert("그동안 맛동산을 이용해주셔서 감사합니다.");
         } else if (deleteMember === false) {
+        }
+    }
+
+    function revDelete(){
+        var revDelete = confirm("예약을 취소하시겠습니까?");
+        if(revDelete === true){
+            location.href = '${pageContext.request.contextPath}/revDelete';
+            alert("예약이 취소되었습니다.");
+        }else if (revDelete === false){
+
         }
     }
 
@@ -320,6 +393,26 @@
                     $('#myReviewList').html($(data).find("#myReviewList"))
                 } else {
                     $('#myReviewList').html('<p>조회된 게시글이 없습니다.</p>');
+                }
+            }
+        })
+    }
+
+    function retrieveReserveList(current_page2) {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/myPage',
+            method: 'GET',
+            data: {
+                cpage: current_page2
+            },
+            success(data) {
+                $('#myReserveList').empty();
+                console.log($(data).find("#myReserveList"));
+                console.log($(data).find(".myReserve_info").length);
+                if ($(data).find(".myReserve_info").length > 0) {
+                    $('#myReserveList').html($(data).find("#myReserveList"))
+                } else {
+                    $('#myReserveList').html('<p>조회된 게시글이 없습니다.</p>');
                 }
             }
         })
