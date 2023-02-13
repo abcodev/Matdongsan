@@ -1,15 +1,12 @@
 package com.project.member.dao;
 
-import com.project.admin.dto.BanRequest;
-import com.project.admin.vo.BrokerEnroll;
-import com.project.client.oauth.OAuthToken;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
-import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
@@ -18,7 +15,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -122,5 +118,8 @@ public class MemberDao {
         return sqlSession.selectList("memberMapper.selectReservationList", m);
     }
 
+    public List<ReservationBroker> selectBrokerReservationList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("memberMapper.selectBrokerResList", m);
+    }
 
 }

@@ -175,13 +175,15 @@
                     <th>예약인원</th>
                     <th>예약처리</th>
                 </tr>
-                <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <td>이름</td>
-                    <td>2023-02-08</td>
-                    <td>12:00</td>
-                    <td>2명</td>
-                    <td>예약확인 중</td>
-                </tr>
+                <c:forEach items="${reservationList}" var="res">
+                    <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <td>${res.memberName}</td>
+                        <td>${res.revDate}</td>
+                        <td>${res.revTime}</td>
+                        <td>${res.peopleCount}</td>
+                        <td>예약확인 중</td>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
         <%--  ************예약확인창 모달***************  --%>
@@ -227,8 +229,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button">예약승인</button>
-                        <button type="button">예약취소</button>
+                        <button type="button" onclick="acceptRes();">예약승인</button>
+                        <button type="button" onclick="cancleRes();">예약취소</button>
                     </div>
                 </div>
             </div>
@@ -237,7 +239,6 @@
 </div>
 
 <script>
-
     function changeHeart(estateNo) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',

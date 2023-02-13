@@ -6,10 +6,8 @@ import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.realestate.dto.ReservationRequest;
-import com.project.restaurant.vo.Hashtag;
-import com.project.restaurant.vo.Restaurant;
-import com.project.restaurant.vo.Review;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -60,12 +55,12 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
+        List<ReservationBroker> brokerReservationList = memberService.selectBrokerReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
-        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("brokerResList", brokerReservationList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
 
         modelAndView.setViewName("member/brokerMemberMyPage");

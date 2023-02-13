@@ -13,6 +13,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
@@ -169,7 +170,9 @@ public class MemberService {
         return memberDao.selectReservationList(sqlSession, m);
     }
 
-
+    public List<ReservationBroker> selectBrokerReservationList(Member m){
+        return memberDao.selectBrokerReservationList(sqlSession, m);
+    }
 
 }
 

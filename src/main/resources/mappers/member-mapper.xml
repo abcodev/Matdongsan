@@ -254,13 +254,48 @@
 
     <select id="selectReservationList" resultMap="reservationList">
         SELECT
+            R.MEMBER_NO,
+            R.MEMBER_NAME,
             R.REV_DATE,
-            R.REV_TIME
+            R.REV_TIME,
+            R.REV_PEOPLE,
+            R.REV_STATUS
         FROM REAL_RESERVATION R
                  JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
         WHERE R.MEMBER_NO = #{memberNo}
     </select>
 
+    <resultMap id="BrokerResList" type="brokerList">
+        <result column="REV_NO" property="revNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="REV_PEOPLE" property="revPeople"/>
+        <result column="PHONE" property="phone"/>
+        <result column="EMAIL" property="email"/>
+        <result column="REV_ASK" property="revAsk"/>
+        <result column="REV_TIME" property="revTime"/>
+        <result column="REV_DATE" property="revDate"/>
+        <result column="REV_CREATEDATE" property="revCreateDate"/>
+        <result column="REV_STATUS" property="revStatus"/>
+        <result column="ESTATE_NO" property="agentNo"/>
+    </resultMap>
 
+    <select id="selectBrokerResList" resultMap="brokerList">
+        SELECT
+            REV_NO,
+            R.MEMBER_NO,
+            R.MEMBER_NAME,
+            REV_PEOPLE,
+            R.PHONE,
+            R.EMAIL,
+            REV_ASK,
+            REV_TIME,
+            REV_DATE,
+            REV_CREATEDATE,
+            REV_STATUS
+        FROM REAL_RESERVATION R
+        JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+        WHERE R.MEMBER_NO = #{memberNo}
+    </select>
 
 </mapper>
