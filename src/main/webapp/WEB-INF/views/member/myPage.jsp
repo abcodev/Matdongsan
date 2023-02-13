@@ -11,11 +11,8 @@
     <title>마이페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-            crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
@@ -64,7 +61,6 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-            <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
         </div>
     </div>
 
@@ -83,6 +79,7 @@
             </c:forEach>
         </div>
     </div>
+
     <div id="history_list">
         <div class="board_history">
             <p>내 게시글 보기</p>
@@ -190,7 +187,7 @@
         <div id="myReserveList">
         <div class="myReserve_list">
             <table>
-                <tr>
+                <tr class="myReserve_info_list_top">
                     <th>공인중개사</th>
                     <th>예약일</th>
                     <th>예약시간</th>
@@ -235,55 +232,6 @@
             </div>
         </div>
         </div>
-<%--        <script>--%>
-<%--            function moreContent(id, cnt){--%>
-<%--                var list_length = $("#"+id+" tr").length-1;--%>
-<%--                var aname = id+"_btn";--%>
-<%--                var callLength = list_length;--%>
-
-<%--                $('#startCount').val(callLength);--%>
-<%--                $('#viewCount').val(cnt);--%>
-
-<%--                $.ajax({--%>
-<%--                    type: "post",--%>
-<%--                    url: "/getMoreContents_ajax.do",--%>
-<%--                    data: $('#searchTxtForm').serialize(),--%>
-<%--                    dataType: "json",--%>
-<%--                    success: function (result) {--%>
-<%--                        if (result.resulCnt > 0) {--%>
-<%--                            var list = result.resultList;--%>
-<%--                            if (resultVo.title != '') {--%>
-<%--                                $('#' + aname).attr('href', "javascript:moreContent('" + id + "', " + cnt + ");");--%>
-<%--                                getMoreList(list);--%>
-<%--                            } else {--%>
-<%--                                $("#" + id + "_div").remove();--%>
-<%--                            }--%>
-<%--                        }else{--%>
-<%--                        }--%>
-<%--                    },--%>
-<%--                    error : function (request,status,error){--%>
-<%--                        alert("code = "+request.status + "message = " + request.responseText + "error = " + error); // 실패시 처리--%>
-<%--                    }--%>
-<%--                });--%>
-
-<%--                function getMoreList(list){--%>
-<%--                    var content = "";--%>
-<%--                    var length = list.length;--%>
-<%--                    for(i=0; i<list.length; i++){--%>
-<%--                        var resultVo =list[i];--%>
-<%--                        if(resultVo.title != ''){--%>
-<%--                            content += "<tr>";--%>
-<%--                            content += "<td>"+resultVo.title+"</td>";--%>
-<%--                            content += "<td>"+resultVo.reg_date+"</td>";--%>
-<%--                            content += "</tr>";--%>
-<%--                        }--%>
-<%--                    }--%>
-<%--                    $("#more_list tr:last").after(content);--%>
-<%--                }--%>
-<%--            }--%>
-<%--        </script>--%>
-
-
         <%--  ************예약확인창 모달***************  --%>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

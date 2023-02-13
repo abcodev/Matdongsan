@@ -113,8 +113,8 @@
                 }
             });
         }
-
     </script>
+
 
     <script>
         if(${loginUser.grade == 'GENERAL'}){
@@ -123,16 +123,7 @@
         }else{
 
         }
-
     </script>
-
-
-<%--    <script>--%>
-<%--        if(${loginUser.grade == 'GENERAL'}){--%>
-<%--            alert('회원정보 입력 후 이용해주세요.');--%>
-<%--            window.location = '${pageContext.request.contextPath}/memberModify';--%>
-<%--        }else{--%>
-<%--    </script>--%>
 
 </header>
 
@@ -143,9 +134,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
-<%--            <script type="text/javascript"--%>
-<%--            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&libraries=services&clusterer"></script>--%>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
 
             <script>
@@ -302,22 +291,17 @@
             <c:when test="${loginUser == null}">
                 <span>인기 아파트 단지</span>
 
-                <div class="look_List">
-                    <br>
                     <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
                         <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a><br>
                     </c:forEach>
-                </div>
+
 
             </c:when>
             <c:otherwise>
                 <span>최근 본 부동산 목록</span>
-                <div class="look_List">
-                    <br>
                     <c:forEach var="recentView" items="${recentViewList}" varStatus="status">
-                        <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${status.count}. ${recentView.bldgNm}</a><br>
+                        <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${status.count}. ${recentView.bldgNm}</a>
                     </c:forEach>
-                </div>
             </c:otherwise>
         </c:choose>
     </div>
