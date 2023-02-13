@@ -6,13 +6,11 @@ import com.project.admin.vo.Admin;
 import com.project.admin.vo.BrokerEnroll;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
-import com.project.common.template.Pagination;
 import com.project.member.dao.MemberDao;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +24,7 @@ public class AdminServiceImpl implements AdminService {
 
     private final AdminDao adminDao;
     private final MemberDao memberDao;
-
     private final SqlSession sqlSession;
-
     private static final int DEFAULT_RES_SIZE = 12;
 
     @Override
@@ -51,11 +47,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ReportListResponse selectReportList(AdminListRequest request, int fNo) {
+    public ReportListResponse selectReportList(AdminListRequest request) {
         int count = adminDao.rListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
-        List<Report> result = adminDao.selectReportList(sqlSession, pageInfoCombine, fNo);
-        return new ReportListResponse(result, pageInfoCombine, fNo);
+        List<Report> result = adminDao.selectReportList(sqlSession, pageInfoCombine);
+        return new ReportListResponse(result, pageInfoCombine);
     }
 
 
@@ -72,11 +68,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int insertBlack(Admin ad) {
         return adminDao.insertBlack(sqlSession, ad);
-
     }
 
     @Override
-    public BrokerListResponse BrokerList(int currentPage) {
+    public BrokerListResponse brokerList(int currentPage) {
         int count = adminDao.BrokerListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, currentPage, DEFAULT_RES_SIZE);
         List<BrokerEnroll> brokerEnrollList = adminDao.BrokerList(sqlSession, pageInfoCombine);

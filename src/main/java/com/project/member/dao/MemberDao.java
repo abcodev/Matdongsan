@@ -7,8 +7,10 @@ import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Restaurant;
+import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -77,21 +79,21 @@ public class MemberDao {
     }
 
 
-    public List<Interest> getInterestList(SqlSession sqlSession, Member m) {
+    public List<Interest> getInterestList(SqlSession sqlSession, Member m){
         return sqlSession.selectList("memberMapper.getInterestList", m);
     }
 
 
-    public int selectListCount(SqlSession sqlSession, Member m) {
+    public int selectListCount(SqlSession sqlSession, Member m){
         return sqlSession.selectOne("memberMapper.selectAllBoardCount", m);
     }
 
-    public List<AllBoard> selectAllBoardList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m) {
+    public List<AllBoard> selectAllBoardList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("memberMapper.selectAllBoard", m, rowBounds);
+        return sqlSession.selectList("memberMapper.selectAllBoard",m,rowBounds);
     }
 
-    public int deleteMember(SqlSession sqlSession, long memberNo) {
+    public int deleteMember(SqlSession sqlSession, long memberNo){
         return sqlSession.delete("memberMapper.deleteMember", memberNo);
     }
 
@@ -107,4 +109,18 @@ public class MemberDao {
         params.put("banPeriod", Timestamp.valueOf(banPeriod));
         sqlSession.update("memberMapper.updateBanPeriod", params);
     }
+
+    public int selectReviewCount(SqlSession sqlSession, Member m){
+        return sqlSession.selectOne("memberMapper.selectReviewCount", m);
+    }
+    public List<Review> selectReviewList(SqlSession sqlSession, PageInfoCombine pageInfoCombine, Member m){
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("memberMapper.selectReviewList", m, rowBounds);
+    }
+
+    public List<ReservationRequest> selectReservationList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("memberMapper.selectReservationList", m);
+    }
+
+
 }

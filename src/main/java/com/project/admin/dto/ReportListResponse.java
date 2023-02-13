@@ -13,10 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ReportListResponse {
     private List<Report> ReportList;
-
     private PageInfoCombine pageInfoCombine;
-
-    private int fNo;
-
 
 }

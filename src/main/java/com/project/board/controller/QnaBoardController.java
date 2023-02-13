@@ -3,6 +3,7 @@ package com.project.board.controller;
 import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
+import com.project.common.annotation.RequiredLogin;
 import com.project.common.template.BoardCookieHelper;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@RequiredLogin
 public class QnaBoardController {
     private static final Logger logger = LoggerFactory.getLogger(QnaBoardController.class);
     private final QnaBoardService boardService;
@@ -34,6 +36,7 @@ public class QnaBoardController {
                              Model model,
                              HttpSession session
     ) {
+
 
         Map<String, Object> map = new HashMap();
         if (paramMap.get("condition") == null) {
@@ -118,7 +121,6 @@ public class QnaBoardController {
     // 상세 페이지
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(@PathVariable("qBno") int qBno,
-                                  @ModelAttribute("loginUser") Member loginUser,
                                   HttpSession session,
                                   ModelAndView mv,
                                   HttpServletRequest req,

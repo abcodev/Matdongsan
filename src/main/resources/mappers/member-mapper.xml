@@ -16,10 +16,10 @@
         <result column="ADDRESS" property="address"/>
         <result column="STATUS" property="status"/>
         <result column="GRADE" property="grade"/>
+        <result column="INTEREST_STATE" property="interestState"/>
         <result column="ACCESS_TOKEN" property="accessToken" />
         <result column="REFRESH_TOKEN" property="refreshToken" />
         <result column="REFRESH_TOKEN_EXPIRED_AT" property="refreshTokenExpiredAt" />
-        <result column="BAN_PERIOD" property="banPeriod" />
     </resultMap>
 
     <resultMap type="memberInterest" id="interestList">
@@ -80,8 +80,26 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            GRADE = 'GENERAL2'
+            GRADE = #{grade}'
         WHERE MEMBER_NO = #{memberNo}
+    </update>
+
+    <update id="updateToken" parameterType="Map">
+        UPDATE MEMBER
+        SET
+            ACCESS_TOKEN = #{accessToken},
+            REFRESH_TOKEN = #{refreshToken},
+            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt}
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
+    </update>
+
+    <update id="updateRecentAccess" parameterType="Map">
+        UPDATE MEMBER
+        SET
+            RECENT_ACCESS = CURRENT_TIMESTAMP
+        WHERE PROVIDER = #{provider}
+          AND PROVIDER_ID = #{providerId}
     </update>
 
     <update id="updateWithLogin" parameterType="member">
@@ -162,7 +180,9 @@
         FROM FREE_BOARD F
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
         WHERE M.MEMBER_NO = #{memberNo}
+
         UNION ALL
+
         SELECT
             Q.QNA_BNO,
             Q.QNA_TITLE,
@@ -181,7 +201,7 @@
                   FREE_BNO,
                   BOARD_TITLE,
                   BOARD_DATE,
-                  'F' AS TYPE
+                  '자유게시판' AS TYPE
               FROM FREE_BOARD
               WHERE MEMBER_NO = #{memberNo}
               UNION ALL
@@ -189,7 +209,7 @@
                   QNA_BNO,
                   QNA_TITLE,
                   QNA_DATE,
-                  'Q' AS TYPE
+                  '질문게시판' AS TYPE
               FROM QNA_BOARD
               WHERE MEMBER_NO = #{memberNo})
     </select>
@@ -202,6 +222,45 @@
     <delete id="delete" parameterType="Map">
         DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </delete>
+    
+    <resultMap id="reviewList" type="review">
+        <result column="REVIEW_CONTENT" property="reviewContent"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="RES_NO" property="resNo"/>
+    </resultMap>
+
+    <select id="selectReviewList" resultMap="reviewList">
+        SELECT
+            R.REVIEW_CONTENT,
+            R.CREATE_DATE,
+            RES.RES_NO
+        FROM REVIEW R
+                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+                 JOIN RESTAURANT RES ON RES.RES_NO = R.RES_NO
+        WHERE R.MEMBER_NO = #{memberNo}
+    </select>
+    <select id="selectReviewCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM REVIEW
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
+
+
+    <resultMap id="reservationList" type="com.project.realestate.dto.ReservationRequest">
+        <result column="REV_TIME" property="revTime"/>
+        <result column="REV_DATE" property="revDate"/>
+    </resultMap>
+
+    <select id="selectReservationList" resultMap="reservationList">
+        SELECT
+            R.REV_DATE,
+            R.REV_TIME
+        FROM REAL_RESERVATION R
+                 JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+        WHERE R.MEMBER_NO = #{memberNo}
+    </select>
+
 
     <update id="changeMemberGrade">
         UPDATE MEMBER

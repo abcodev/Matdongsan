@@ -8,7 +8,7 @@ public interface AdminService {
     public int uListCount();
     public AdminListResponse selectUserList(AdminListRequest request);
     public int rListCount();
-    public ReportListResponse selectReportList(AdminListRequest request,int fNo);
+    public ReportListResponse selectReportList(AdminListRequest request);
     public int deleteQna(int fNo);
 
     public int deleteFree(int fNo);
@@ -16,7 +16,7 @@ public interface AdminService {
     public int insertBlack(Admin ad);
 
 
-    BrokerListResponse BrokerList(int currentPage);
+    BrokerListResponse brokerList(int currentPage);
 
     void ban(BanRequest req);
 

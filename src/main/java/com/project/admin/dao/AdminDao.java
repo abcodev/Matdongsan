@@ -17,6 +17,7 @@ import org.apache.velocity.app.event.implement.EscapeSqlReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.jdbc.Sql;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +37,9 @@ public class AdminDao {
         return sqlSession.selectOne("adminMapper.rListCount");
     }
 
-    public List<Report> selectReportList(SqlSession sqlSession, PageInfoCombine pageInfoCombine,int fNo) {
+    public List<Report> selectReportList(SqlSession sqlSession, PageInfoCombine pageInfoCombine) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("adminMapper.selectReportList", fNo, rowBounds);
+        return sqlSession.selectList("adminMapper.selectReportList", 0, rowBounds);
     }
 
     public int deleteQna(SqlSession sqlSession,int fNo) {

@@ -23,6 +23,4 @@ public class RealEstateDetailDto {
     private String buildYear;
     private String floor;
 
-    
-
 }
