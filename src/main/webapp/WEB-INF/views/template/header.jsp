@@ -59,13 +59,16 @@
                 <c:otherwise>
                     <div class="login_after">
                         <img src="${loginUser.profileImage}" class="user_img">
-                        <c:if test="${loginUser.memberNo == 1}">
+                        <c:if test="${loginUser.grade == 'ADMIN'}">
                             <a href="${pageContext.request.contextPath}/admin/userList" class="after">관리자페이지</a>
+                        </c:if>
+                        <c:if test="${loginUser.grade == 'GENERAL' || loginUser.grade == 'GENERAL2'}">
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
-                        <c:if test="${loginUser.memberNo != 1}">
-                            <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
+                        <c:if test="${loginUser.grade == 'BROKER'}">
+                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원 마이페이지</a>
                         </c:if>
+
                         <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
                         <div id="alarm_place">
 

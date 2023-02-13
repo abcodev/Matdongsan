@@ -18,6 +18,7 @@ public class MyPageListResponse {
     private List<Review> reviewList;
 
     private PageInfoCombine pageInfoCombine;
+    private PageInfoCombine pageInfoCombine2;
 
 //    private int fno;
 

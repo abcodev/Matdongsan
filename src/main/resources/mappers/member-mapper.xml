@@ -80,7 +80,7 @@
             EMAIL = #{email},
             PHONE = #{phone},
             ADDRESS = #{address},
-            GRADE = 'GENERAL2'
+            GRADE = #{grade}'
         WHERE MEMBER_NO = #{memberNo}
     </update>
 

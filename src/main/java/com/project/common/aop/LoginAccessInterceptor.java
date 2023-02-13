@@ -1,6 +1,8 @@
 package com.project.common.aop;
 
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.ServletException;
@@ -13,13 +15,22 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
     // 로그인 하지 않은 사용자가 로그인 해야하는 경로 접속했을 때
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
-
-        if (existLoginUser(req.getSession())) {
-            req.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
-            req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
-            return false;
+        if (hasRequiredLoginAnnotation(handler)) {
+            if (!existLoginUser(req.getSession())) {
+                req.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
+                req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
+                return false;
+            }
         }
         return true;
+    }
+
+    private boolean hasRequiredLoginAnnotation(Object handler) {
+        if (handler instanceof HandlerMethod) {
+            return ((HandlerMethod) handler).hasMethodAnnotation(RequiredLogin.class)
+                    || ((HandlerMethod) handler).getMethod().getDeclaringClass().isAnnotationPresent(RequiredLogin.class);
+        }
+        return false;
     }
 
     public boolean existLoginUser(HttpSession session) {

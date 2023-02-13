@@ -22,7 +22,7 @@
   </div>
   <div class="chat-box">
     <div class="chat-box-header">
-      <span></span>
+      <span>1:1 문의</span>
       <span class="chat-box-toggle"><i class="fa-solid fa-xmark"></i></span>
     </div>
     <div class="chat-box-body">

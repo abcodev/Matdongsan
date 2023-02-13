@@ -2,6 +2,8 @@ package com.project.board.vo;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class Report {
     private int reportNo; // 신고번호
@@ -20,9 +22,7 @@ public class Report {
     private String nickName2;
     private String memberName;
     private String memberName2;
-
-
-
+    private Timestamp banPeriod;
 
 
 }

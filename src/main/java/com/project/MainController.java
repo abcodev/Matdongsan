@@ -1,5 +1,6 @@
 package com.project;
 
+import com.project.common.vo.ApiKey;
 import com.project.member.vo.Member;
 import com.google.gson.Gson;
 import com.project.realestate.dto.RealEstateMainListDto;
@@ -33,6 +34,7 @@ public class MainController {
     private final RealEstateService realEstateService;
     private final RecentRealEstateRedisService recentRealEstateRedisService;
     private final InterestRealEstateRedisService interestRealEstateRedisService;
+    private final ApiKey apiKey;
 
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv) {
@@ -89,6 +91,7 @@ public class MainController {
 
         model.addAttribute("sellList2",sellList2);
 //        model.addAttribute("sellList", sellList);
+        model.addAttribute("apiKey", apiKey.KakaoMapKeyMain);
 
         return "common/mainPage";
     }

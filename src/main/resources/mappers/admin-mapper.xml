@@ -31,6 +31,7 @@
         <result column="REPORT_TYPE" property="reportType"/>
         <result column="QS" property="qStatus"/>
         <result column="FS" property="fStatus"/>
+        <result column="BAN_PERIOD" property="banPeriod" />
     </resultMap>
 
 
@@ -43,7 +44,7 @@
                PROVIDER_ID,
                GRADE,
                M.STATUS,
-            M.RECENT_ACCESS
+               M.RECENT_ACCESS
         FROM MEMBER M
                  LEFT JOIN FREE_BOARD F ON (M.MEMBER_NO = F.FREE_BNO)
         ORDER BY MEMBER_NO
@@ -55,14 +56,15 @@
                REPORT_CONTENT,
                REPORT_TYPE,
                R.FREE_BNO,
-               F.STATUS                                                      AS FS,
-               Q.STATUS                                                      AS QS,
+               F.STATUS                                                          AS FS,
+               Q.STATUS                                                          AS QS,
                M.MEMBER_NAME,
                M.NICKNAME,
                R.MEMBER_NO,
                R.REPORT_USER_NO,
-               (SELECT NICKNAME FROM MEMBER WHERE MEMBER_NO = REPORT_USER_NO) AS NICKNAME2,
-               (SELECT MEMBER_NAME FROM MEMBER WHERE MEMBER_NO = REPORT_USER_NO) AS MEMBER_NAME2
+               (SELECT NICKNAME FROM MEMBER WHERE MEMBER_NO = REPORT_USER_NO)    AS NICKNAME2,
+               (SELECT MEMBER_NAME FROM MEMBER WHERE MEMBER_NO = REPORT_USER_NO) AS MEMBER_NAME2,
+               M.BAN_PERIOD
 
 
         FROM REPORT R

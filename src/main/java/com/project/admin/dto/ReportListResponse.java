@@ -14,7 +14,5 @@ import java.util.List;
 public class ReportListResponse {
     private List<Report> ReportList;
     private PageInfoCombine pageInfoCombine;
-    private int fNo;
-
 
 }
