@@ -294,17 +294,17 @@
     <div class="side lookList">
         <c:choose>
             <c:when test="${loginUser == null}">
-                <h3>인기 아파트 단지</h3>
+                <span>인기 아파트 단지</span>
 
                 <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
-                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a><br>
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a>
                 </c:forEach>
 
             </c:when>
             <c:otherwise>
-                <h3>최근 본 부동산 목록</h3>
+                <span>최근 본 부동산 목록</span>
                 <c:forEach var="recentView" items="${recentViewList}" varStatus="status">
-                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${status.count}. ${recentView.bldgNm}</a><br>
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${recentView.bldgNm}</a>
                 </c:forEach>
             </c:otherwise>
         </c:choose>

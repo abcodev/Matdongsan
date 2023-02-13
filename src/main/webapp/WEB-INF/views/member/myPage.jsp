@@ -145,7 +145,7 @@
         <p>부동산 예약 내역</p>
         <div class="myReserve_list">
             <table>
-                <tr>
+                <tr class="myReserve_info_list_top">
                     <th>공인중개사</th>
                     <th>예약일</th>
                     <th>예약시간</th>
@@ -153,7 +153,7 @@
                     <th>예약처리</th>
                 </tr>
                 <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <td>강남공인중개사</td>
+                    <td>강남미소자이공인중개사사무소</td>
                     <td>2023-02-08</td>
                     <td>12:00</td>
                     <td>2명</td>

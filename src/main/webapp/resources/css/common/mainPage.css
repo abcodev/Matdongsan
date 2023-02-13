@@ -180,7 +180,8 @@ a{
     z-index: 100;
 }
 
-.news > span{
+.news > span,
+.lookList > span{
     font-size: 20px;
     font-weight: bolder;
     color: #566392;
@@ -195,8 +196,34 @@ a{
     display: block;
 }
 
+.lookList > a{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.2;
+    color: #213048;
+    display: block;
+    text-align: center;
+    padding: 0 10px;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.lookList > span{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #566392;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.lookList > a:hover{
+    color: #566392;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
 .news_list :hover{
-    background-color: rgba(255, 255, 255, 0.95);;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .news_list > a:hover{
