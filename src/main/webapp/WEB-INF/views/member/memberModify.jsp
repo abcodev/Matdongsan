@@ -49,7 +49,7 @@
             </div>
             <div class="userinfo address2">
                 <input type="text" id="sample6_address" placeholder="주소" value="${loginUser.address}" name="address" required><br>
-                <input type="text" id="sample6_detailAddress" name="addressDetail" placeholder="상세주소">
+                <input type="text" id="sample6_detailAddress" value="" name="addressDetail" placeholder="상세주소">
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>

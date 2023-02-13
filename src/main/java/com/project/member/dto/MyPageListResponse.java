@@ -23,6 +23,5 @@ public class MyPageListResponse {
     private PageInfoCombine pageInfoCombine2;
     private PageInfoCombine pageInfoCombine3;
 
-//    private int fno;
 
 }

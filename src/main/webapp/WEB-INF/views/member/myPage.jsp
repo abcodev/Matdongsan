@@ -29,10 +29,26 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.")
+                // alert("관심목록이 해지되었습니다.")
                 location.reload();
             }
         });
+
+        var chageHeart = confirm("찜 해제 하시겠습니까?");
+        if(chageHeart === true){
+            alert("찜 해제 되었습니다.");
+        }else if(chageHeart === false){
+        }
+    }
+</script>
+<script>
+    function deleteMember() {
+        var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
+        if (deleteMember === true) {
+            location.href = '${pageContext.request.contextPath}/delete';
+            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
+        } else if (deleteMember === false) {
+        }
     }
 </script>
 
@@ -61,6 +77,7 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
+            <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
         </div>
     </div>
 
@@ -90,25 +107,25 @@
                         <th>게시글 제목</th>
                         <th>게시일</th>
                     </tr>
+
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <tr class="myBoard_info" onclick="moveDetail();">
-                            <script>
-                                function moveDetail() {
-                                    if (${selectAllBoardList.boardType eq '자유게시판'}) {
-                                        location.href = '${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
-                                    } else {
-                                        location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
-                                    }
-                                }
-                            </script>
+                        <c:choose>
+                            <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
+                                <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
+                            </c:when>
+                            <c:otherwise>
+                                <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
+                            </c:otherwise>
+                        </c:choose>
                             <td>${selectAllBoardList.boardType}</td>
                             <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
                             <td>${selectAllBoardList.boardDate}</td>
                         </tr>
                     </c:forEach>
                 </table>
+
             </div>
-            <div id="paging">
+            <div id="paging_boardList">
                 <ul class="pagination">
                     <c:choose>
                         <c:when test="${pi1.currentPage eq 1}">
@@ -148,6 +165,27 @@
                     </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                            <td>${reviewList.resName}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${reviewList.starRating eq 5}">
+                                      ★★★★★
+                                    </c:when>
+                                    <c:when test="${reviewList.starRating eq 4}">
+                                        ★★★★
+                                    </c:when>
+                                    <c:when test="${reviewList.starRating eq 3}">
+                                        ★★★
+                                    </c:when>
+                                    <c:when test="${reviewList.starRating eq 2}">
+                                        ★★
+                                    </c:when>
+                                    <c:otherwise>
+                                        ★
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
                             <td>${reviewList.reviewContent}</td>
                             <td>${reviewList.createDate}</td>
                         </tr>
@@ -196,7 +234,7 @@
                 </tr>
                 <c:forEach var="reservationList" items="${reservationList}">
                 <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <td>강남공인중개사</td>
+                    <td>${reservationList.agentName}</td>
                     <td>${reservationList.revDate}</td>
                     <td>${reservationList.revTime}</td>
                     <td>${reservationList.peopleCount}</td>
@@ -208,24 +246,24 @@
             <div id="paging_reserve">
                 <ul class="pagination">
                     <c:choose>
-                        <c:when test="${pi2.currentPage eq 1}">
+                        <c:when test="${pi3.currentPage eq 1}">
                             <li class="page-item disabled">Previous</li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi2.currentPage - 1})">Previous</li>
+                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})">Previous</li>
                         </c:otherwise>
                     </c:choose>
 
-                    <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                    <c:forEach var="item" begin="${pi3.startPage }" end="${pi3.endPage }">
                         <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
                     </c:forEach>
 
                     <c:choose>
-                        <c:when test="${pi2.currentPage eq pi2.maxPage}">
+                        <c:when test="${pi3.currentPage eq pi3.maxPage}">
                             <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi2.currentPage + 1})">Next</li>
+                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">Next</li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -260,7 +298,7 @@
                         </div>
                         <div class="reserve_info">
                             <p>예약내역</p>
-                            <div class="realtor_name">강남공인중개사</div>
+                            <div class="realtor_name">${reservationList.agentName}</div>
                             <div class="reserve_person">
                                 <span>예약인원</span>
                                 <p>${reservationList.peopleCount}</p>
@@ -276,7 +314,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="revDelete();">예약취소</button>
+                        <button type="button" onclick="deleteReservation();">예약취소</button>
                     </div>
                     </c:forEach>
                 </div>
@@ -284,6 +322,7 @@
         </div>
     </div>
 </div>
+
 <script>
 
     function deleteMember() {
@@ -295,23 +334,22 @@
         }
     }
 
-    function revDelete(){
-        var revDelete = confirm("예약을 취소하시겠습니까?");
-        if(revDelete === true){
+    function deleteReservation(){
+        var deleteReservation = confirm("예약을 취소하시겠습니까?");
+        if(deleteReservation === true){
             location.href = '${pageContext.request.contextPath}/revDelete';
             alert("예약이 취소되었습니다.");
-        }else if (revDelete === false){
+        }else if(deleteReservation === false){
 
         }
     }
 
-
-    function retrieveAllBoards(current_page) {
+    function retrieveAllBoards(current_page1) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             method: 'GET',
             data: {
-                cpage: current_page
+                cpage: current_page1
             },
             success(data) {
                 $('#myBoardList').empty();
@@ -326,12 +364,12 @@
         })
     }
 
-    function retrieveReviewList(current_page1) {
+    function retrieveReviewList(current_page2) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             method: 'GET',
             data: {
-                cpage: current_page1
+                cpage: current_page2
             },
             success(data) {
                 $('#myReviewList').empty();
@@ -346,18 +384,18 @@
         })
     }
 
-    function retrieveReserveList(current_page2) {
+    function retrieveReserveList(current_page3) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             method: 'GET',
             data: {
-                cpage: current_page2
+                cpage: current_page3
             },
             success(data) {
                 $('#myReserveList').empty();
                 console.log($(data).find("#myReserveList"));
-                console.log($(data).find(".myReserve_info").length);
-                if ($(data).find(".myReserve_info").length > 0) {
+                console.log($(data).find(".myReserve_info_list").length);
+                if ($(data).find(".myReserve_info_list").length > 0) {
                     $('#myReserveList').html($(data).find("#myReserveList"))
                 } else {
                     $('#myReserveList').html('<p>조회된 게시글이 없습니다.</p>');

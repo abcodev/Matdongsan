@@ -19,6 +19,7 @@ public class ReservationResponse {
     private String revDate;
     private String requestText;
     private String status;
+    private String agentName;
 
 }
 

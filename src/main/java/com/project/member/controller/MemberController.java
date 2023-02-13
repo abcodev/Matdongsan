@@ -66,7 +66,6 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-//        List<ReservationResponse> reservationList = memberService.selectReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
@@ -104,6 +103,17 @@ public class MemberController {
             return "common/errorPage";
         }
     }
+
+//    @GetMapping("/myPage")
+//    @ResponseBody
+//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session) {
+//        Member loginUser = (Member) session.getAttribute("loginUser");
+//        if (loginUser == null) {
+//            throw new RuntimeException("로그인 하고 오세용");
+//        }
+//        boolean isInterest = memberService.checkInterest(estateNo, loginUser);
+//        return ResponseEntity.ok(isInterest);
+//    }
 
     @PostMapping("/myPage")
     @ResponseBody
@@ -154,10 +164,11 @@ public class MemberController {
         return "member/myPage";
     }
 
-    @RequestMapping("revDelete")
-    public String deleteReservation(Integer revNo){
-        memberService.deleteReservation(revNo);
+    @RequestMapping("/revDelete")
+    public String deleteReservation(Member m){
+        memberService.deleteReservation(m);
         return "redirect:/myPage";
+
     }
 
 

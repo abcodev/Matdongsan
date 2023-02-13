@@ -11,10 +11,8 @@ import com.project.member.dao.MemberDao;
 import com.project.member.dto.*;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
-import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
@@ -136,6 +134,10 @@ public class MemberService {
 
     }
 
+//    public boolean checkInterest(String estateNo, Member loginUser) {
+//        return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
+//    }
+
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
             interestEstateDao.insert(req.getEstateNo(), loginUser.getMemberNo());
@@ -170,13 +172,9 @@ public class MemberService {
         memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 
-
-//    public List<ReservationResponse> selectReservationList(Member m) {
-//        return memberDao.selectReservationList(sqlSession, m);
-//    }
-
-    public void deleteReservation(Integer revNo){
-        memberDao.deleteReservation(sqlSession, revNo);
+    @Transactional
+    public int deleteReservation(Member m){
+        return memberDao.deleteReservation(sqlSession, m);
     }
 
 

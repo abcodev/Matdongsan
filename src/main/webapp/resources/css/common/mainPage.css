@@ -433,7 +433,7 @@ a{
     color: #888;
     width: 17px;
     height: 17px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    /*background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');*/
 }
 
 .info .close:hover {
