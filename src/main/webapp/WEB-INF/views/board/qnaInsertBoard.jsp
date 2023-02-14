@@ -22,35 +22,13 @@
   <div class="enroll_form">
     <form id="enrollForm" method="post" action="${pageContext.request.contextPath}/board/insert">
       <div class="form_head">
+        <input type="hidden" name="qnaWriter" value="${loginUser.nickName}">
+        <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
         <div class="select_city">
-          <input type="hidden" name="qnaWriter" value="${loginUser.nickName}">
-          <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
           <select id="qnaArea" name="qnaArea">
-            <option value="강남구">강남구</option>
-            <option value="서초구">서초구</option>
-            <option value="은평구">은평구</option>
-            <option value="도봉구">도봉구</option>
-            <option value="노원구">노원구</option>
-            <option value="강북구">강북구</option>
-            <option value="강동구">강동구</option>
-            <option value="강서구">강서구</option>
-            <option value="관악구">관악구</option>
-            <option value="광진구">광진구</option>
-            <option value="구로구">구로구</option>
-            <option value="금천구">금천구</option>
-            <option value="동대문구">동대문구</option>
-            <option value="동작구">동작구</option>
-            <option value="마포구">마포구</option>
-            <option value="서대문구">서대문구</option>
-            <option value="성동구">성동구</option>
-            <option value="성북구">성북구</option>
-            <option value="송파구">송파구</option>
-            <option value="양천구">양천구</option>
-            <option value="영등포구">영등포구</option>
-            <option value="용산구">용산구</option>
-            <option value="종로구">종로구</option>
-            <option value="중구">중구</option>
-            <option value="중랑구">중랑구</option>
+            <c:forEach var="localList" items="${localList}">
+              <option value="${localList}">${localList}</option>
+            </c:forEach>
           </select>
         </div>
         <input type="text" id="title" name="qnaTitle" required placeholder="제목을 입력해주세요" class="board_title">
@@ -67,9 +45,6 @@
   </div>
 </div>
 </form>
-<script>
-  let qnaArea = document.getElementById("qnaArea");
 
-</script>
 </body>
 </html>

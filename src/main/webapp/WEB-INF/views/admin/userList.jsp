@@ -57,23 +57,23 @@
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-item disabled">Previous</li>
+                <div class="page-link disabled"><</div>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="retrieveUserList(${pi.currentPage - 1})">Previous</li>
+                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>
             </c:otherwise>
         </c:choose>
 
         <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-            <li class="page-item" onclick="retrieveUserList(${item})"><${item }></li>
+            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>
         </c:forEach>
 
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="retrieveUserList(${pi.currentPage + 1})">Next</li>
+                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>
             </c:otherwise>
         </c:choose>
     </ul>
@@ -110,6 +110,11 @@
             }
         })
     }
+
+
+
+
+
 
 
 </script>

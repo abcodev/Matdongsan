@@ -88,8 +88,11 @@
                 document.getElementById('preview').src = e.target.result;
             };
             reader.readAsDataURL(input.files[0]);
-        } else {
+        }
 
+        if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
+            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            input.value = null;
         }
     }
 

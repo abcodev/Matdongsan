@@ -153,11 +153,25 @@ a{
     padding-top: 13px;
     cursor: pointer;
     color: #213048;
+    position: relative;
 }
 
 .fa-bell:hover {
     color: #989de1;
     font-size: 27px;
+}
+
+#alarm_count{
+    background-color: red;
+    color: white;
+    font-weight: 650;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    top: 30px;
 }
 
 .map{
@@ -180,7 +194,8 @@ a{
     z-index: 100;
 }
 
-.news > span{
+.news > span,
+.lookList > span{
     font-size: 20px;
     font-weight: bolder;
     color: #566392;
@@ -195,8 +210,34 @@ a{
     display: block;
 }
 
+.lookList > a{
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 1.2;
+    color: #213048;
+    display: block;
+    text-align: center;
+    padding: 0 10px;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.lookList > span{
+    font-size: 20px;
+    font-weight: bolder;
+    color: #566392;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.lookList > a:hover{
+    color: #566392;
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
 .news_list :hover{
-    background-color: rgba(255, 255, 255, 0.95);;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .news_list > a:hover{
@@ -234,27 +275,6 @@ a{
     font-weight: bolder;
     color: #566392;
 }
-
-
-/*.look_list > a{*/
-/*    text-decoration: none;*/
-/*    font-size: 15px;*/
-/*    font-weight: 450;*/
-/*    line-height: 1.2;*/
-/*    color: #213048;*/
-/*    display: block;*/
-/*}*/
-
-/*.look_List:hover{*/
-/*    background-color: rgba(255, 255, 255, 0.95);;*/
-/*}*/
-
-/*.look_List > a:hover{*/
-/*    color: #566392;*/
-/*}*/
-
-
-
 
 .side{
     position: fixed;
@@ -406,7 +426,7 @@ a{
     color: #888;
     width: 17px;
     height: 17px;
-    background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
+    /*background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');*/
 }
 
 .info .close:hover {

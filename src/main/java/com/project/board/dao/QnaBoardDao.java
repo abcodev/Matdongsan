@@ -1,46 +1,29 @@
 package com.project.board.dao;
 
+import com.project.board.dto.QnaBoardListFilter;
 import com.project.board.vo.Report;
-import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
+import com.project.common.template.PageInfoCombine;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class QnaBoardDao {
 
-    public int selectListCount(SqlSession sqlSession) {
-
-        return sqlSession.selectOne("boardMapper.selectListCount");
+    public List<QnaBoard> selectQnaList(SqlSession sqlSession,
+                                        PageInfoCombine pageInfoCombine,
+                                        QnaBoardListFilter filter) {
+        RowBounds rowBounds = pageInfoCombine.generateRowBounds();
+        return sqlSession.selectList("boardMapper.selectQnaList",filter,rowBounds);
+    }
+    public int selectQnaListCount(SqlSession sqlSession, QnaBoardListFilter filter) {
+        return sqlSession.selectOne("boardMapper.selectQnaListCount",filter);
     }
 
-
-    public int selectListCount(SqlSession sqlSession , Map<String, Object> paramMap) {
-        return sqlSession.selectOne("boardMapper.searchListCount", paramMap);
-    }
-
-    public ArrayList<QnaBoard> selectList(SqlSession sqlSession, PageInfo pi){
-        int offset = (pi.getCurrentPage() -1) * pi.getBoardLimit();
-        int limit = pi.getBoardLimit();
-
-        RowBounds rowBounds = new RowBounds(offset,limit);
-
-        return (ArrayList) sqlSession.selectList("boardMapper.selectList",null,rowBounds);
-    }
-    public ArrayList<QnaBoard> selectList(SqlSession sqlSession, Map<String,Object> paramMap){
-        int offset = ( ((PageInfo)paramMap.get("pi")).getCurrentPage() -1) * ((PageInfo)paramMap.get("pi")).getBoardLimit();
-        int limit = ((PageInfo)paramMap.get("pi")).getBoardLimit();
-
-        RowBounds rowBounds = new RowBounds(offset,limit);
-
-        return (ArrayList) sqlSession.selectList("boardMapper.searchList", paramMap ,rowBounds);
-    }
 
     public int insertQboard(SqlSession sqlSession, QnaBoard qb){
         return sqlSession.insert("boardMapper.insertQboard",qb);
@@ -53,6 +36,11 @@ public class QnaBoardDao {
     public QnaBoard selectQboard(SqlSession sqlSession, int qBno) {
         return sqlSession.selectOne("boardMapper.selectQboard",qBno);
     }
+
+    public int selectReportList(SqlSession sqlSession){
+        return sqlSession.update("boardMapper.selectReportList");
+    }
+
     public int updateBoard(SqlSession sqlSession, int qBno){
         return sqlSession.update("boardMapper.updateBoard",qBno);
     }
@@ -79,5 +67,8 @@ public class QnaBoardDao {
         return sqlSession.selectOne("boardMapper.selectByQnaBno", parentBno);
     }
 
+    public List<QnaBoard> selectQaNoticeList(SqlSession sqlSession){
+        return sqlSession.selectList("boardMapper.selectQaNoticeList");
+    }
 
 }

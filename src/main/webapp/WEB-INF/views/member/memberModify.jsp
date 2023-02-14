@@ -49,11 +49,11 @@
             </div>
             <div class="userinfo address2">
                 <input type="text" id="sample6_address" placeholder="주소" value="${loginUser.address}" name="address" required><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                <input type="text" id="sample6_detailAddress" value="" name="addressDetail" placeholder="상세주소">
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit">수정하기</button>
+                <button id="submit" type="submit">수정하기</button>
             </div>
         </div>
     </form>
@@ -68,15 +68,10 @@
         alert('회원정보 수정 완료')
     })
 
-
-</script>
-
-
-<script>
     $(function(){
         code2 = "";
         $("#phoneChk").click(function(){
-            // alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
+            alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
             var phone = $("#phoneNumber").val();
             $.ajax({
                 type:"GET", // post 형식으로 발송
@@ -124,26 +119,20 @@
                 }
 
                 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
                     // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-
-                } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-                }
+                //     if(data.buildingName !== '' && data.apartment === 'Y'){
+                //         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                //     }
+                //     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                //     if(extraAddr !== ''){
+                //         extraAddr = ' (' + extraAddr + ')';
+                //     }
+                //     // 조합된 참고항목을 해당 필드에 넣는다.
+                //     document.getElementById("sample6_extraAddress").value = extraAddr;
+                //
+                // } else {
+                //     document.getElementById("sample6_extraAddress").value = '';
+                // }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;

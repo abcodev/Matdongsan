@@ -187,8 +187,18 @@ textarea:focus , input:focus {
     width: 60%;
     height: 240px;
     position: relative;
-    top: 67px;
+    top: 35px;
     margin-left: 284px;
     margin-bottom: 20px;
 }
-
+#line{
+    border: 1px solid #beb0d0;
+    width: 63.5%;
+    margin: auto;
+    position: relative;
+    right: 50px;
+}
+.font{
+    font-size: 15px;
+    font-weight: bold;
+}

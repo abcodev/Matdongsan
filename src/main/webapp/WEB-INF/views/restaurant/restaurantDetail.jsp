@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -11,15 +11,12 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantDetail.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file="../template/header.jsp" %>
+<%@ include file ="../template/header.jsp" %>
 <div id="content">
     <div class="detail_head">
 
@@ -51,6 +48,14 @@
                     <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
                 </c:forEach>
             </span>
+
+            <%--해시태그 비동기 갱신--%>
+            <%--            <span id = "hashtag_by_review">--%>
+            <%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
+            <%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
+            <%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
+            <%--                </c:forEach>--%>
+            <%--            </span>--%>
         </div>
     </div>
     <div class="detail_main">
@@ -94,17 +99,7 @@
     <div class="detail review">
         <div class="review_btn_box">
             <span>리뷰</span><span id="rCount"></span>
-            <button id="review_btn" onclick="showReviewModal()"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
-            <script>
-                function showReviewModal() {
-                    if (${loginUser == null}) {
-                        alert("로그인 후 이용가능합니다.");
-                        return;
-                    }
-                    document.querySelector('.modal_wrap').style.display = 'block';
-                    document.querySelector('.black_bg').style.display = 'block';
-                }
-            </script>
+            <button id="review_btn" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
         </div>
         <div class="review content">
             <table id="reviewArea">
@@ -113,60 +108,56 @@
             </table>
         </div>
     </div>
-
 </div>
-
 <%--리뷰모달--%>
-<div class="black_bg"></div>
-<div class="modal_wrap">
-    <div id="modal_content">
-
-        <div id="content_head">
-            <span>가게명</span>
-            <div class="modal_close"><i class="fa-solid fa-xmark"></i></div>
-        </div>
-        <div id="content_body">
-            <span>별점</span>
-            <div id="review_star" class="review_starRating">
-                <input type="radio" name="reviewStar" value="5" id="rate1"><label
-                    for="rate1">★</label>
-                <input type="radio" name="reviewStar" value="4" id="rate2"><label
-                    for="rate2">★</label>
-                <input type="radio" name="reviewStar" value="3" id="rate3"><label
-                    for="rate3">★</label>
-                <input type="radio" name="reviewStar" value="2" id="rate4"><label
-                    for="rate4">★</label>
-                <input type="radio" name="reviewStar" value="1" id="rate5"><label
-                    for="rate5">★</label>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>가게명</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div id="review_hashtag">
-                <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
-                    <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag"
-                           autocomplete="off" value="${hashtag.hashtag}">
-                    <label class="btn btn-outline-secondary"
-                           for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
-                </c:forEach>
+            <div class="modal-body">
+                <span>별점</span>
+                <div id="review_star">
+                    <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                        for="rate1">★</label>
+                    <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                        for="rate2">★</label>
+                    <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                        for="rate3">★</label>
+                    <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                        for="rate4">★</label>
+                    <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                        for="rate5">★</label>
+                </div>
+                <div id="review_hashtag">
+                    <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
+                        <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="chk_hashtag"
+                               autocomplete="off" value="${hashtag.hashtag}">
+                        <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
+                    </c:forEach>
+                </div>
+
+                <div id="review_text">
+                    <textarea type="text" id="reviewContent" placeholder="리뷰를 남겨주세요"></textarea>
+                </div>
+
+                <div class="review_img">
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
+                </div>
+                <div class="modal-footer">
+                    <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">등록하기</button>
+                </div>
             </div>
-
-            <div id="review_text">
-                <textarea type="text" id="reviewContent" class="rv_input" placeholder="리뷰를 남겨주세요"></textarea>
-            </div>
-
-            <div class="review_img">
-                <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
-            </div>
-
-            <button id="review_insert" onclick="insertReview()">등록하기</button>
-
         </div>
     </div>
 </div>
-
 <script>
     window.onload = function () {
 
-        document.querySelector('.modal_close').addEventListener('click', offClick);
-        document.querySelector('.black_bg').addEventListener("click", offClick);
+        document.querySelector('#review_insert').addEventListener('click', offClick);
+        document.querySelector('.btn-close').addEventListener("click", offClick);
 
         selectReviewList();
     };
@@ -298,10 +289,8 @@
 
 
     function offClick() {
-        document.querySelector('.modal_wrap').style.display = 'none';
-        document.querySelector('.black_bg').style.display = 'none';
 
-        $(".rv_input").val("");
+        $("#reviewContent").val("");
         $("#formFileSm").val("");
         $('input:radio[name=reviewStar]').each(function () {
             $(this).prop('checked', false);

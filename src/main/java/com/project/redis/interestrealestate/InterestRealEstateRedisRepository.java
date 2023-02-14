@@ -22,6 +22,9 @@ public class InterestRealEstateRedisRepository {
     private static final String INTEREST_REAL_ESTATE_REDIS_KEY = "interest_real_estate";
 
     public void addIfAbsent(String estateNo) {
+        // ZADD ~~~~~~~~
+        // addIfAbsent 새로운 Member:Score(estateNo:0) 형태로 만들어줘.
+        // IfAbsent 라는건 있으면 굳이 만들지말고, 없으면 만들어줘.
         redisTemplate.opsForZSet().addIfAbsent(INTEREST_REAL_ESTATE_REDIS_KEY, estateNo, 0);
     }
 
@@ -30,6 +33,8 @@ public class InterestRealEstateRedisRepository {
     }
 
     public Set<String> findTopN(int n) {
+        // ZRANGE ~~~~~
+        // 역순으로 정렬해서 0 ~ n-1 번째에 있는 데이터 꺼내와줘.
         return redisTemplate.opsForZSet().reverseRange(INTEREST_REAL_ESTATE_REDIS_KEY, 0, n - 1);
     }
 

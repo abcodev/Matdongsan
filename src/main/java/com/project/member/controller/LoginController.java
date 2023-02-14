@@ -18,6 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class LoginController {
 
+        /*
+        LoginController ->(의존) OAuthClient(인터페이스) : 컴파일시점의 의존성
+        LoginController ->(의존) NAVER_OAuthClient(구체적클래스) : 런타임시점의 의존성
+        Upcasting , 다형성
+     */
+
     private final MemberService memberService;
     private final OAuthClientService oAuthClientService;
 
@@ -27,11 +33,6 @@ public class LoginController {
         return "member/loginPage";
     }
 
-    /*
-        LoginController ->(의존) OAuthClient(인터페이스) : 컴파일시점의 의존성
-        LoginController ->(의존) NAVER_OAuthClient(구체적클래스) : 런타임시점의 의존성
-        Upcasting , 다형성
-     */
     @RequestMapping(value = "/login/{provider}")
     public String redirectLoginPage(HttpSession session, @PathVariable String provider) {
 

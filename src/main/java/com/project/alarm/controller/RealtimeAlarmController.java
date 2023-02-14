@@ -1,17 +1,17 @@
 package com.project.alarm.controller;
 
-import com.github.scribejava.core.model.Response;
 import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.alarm.vo.Alarm;
-import com.project.chat.dto.MessageDto;
 import com.project.chat.service.ChatService;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -23,7 +23,7 @@ import java.util.List;
 
     사용자 -> RealtimeAlarmController -> (subscribe) -> AlarmEventProducer
              (session -> memberNo)
- */
+*/
 
 @Controller
 @RequiredArgsConstructor
@@ -31,7 +31,6 @@ public class RealtimeAlarmController {
 
     private final AlarmEventProducer alarmEventProducer;
     private final AlarmService alarmService;
-    private final ChatService chatService;
 
     @GetMapping("/alarmList")
     public ModelAndView retrieveAlarmList(HttpSession session) {
@@ -82,6 +81,10 @@ public class RealtimeAlarmController {
         return ResponseEntity.ok().build();
     }
 
+    /*
+        SSE 연결을 통해서 알람을 받겠다고 구독하는 행위
+        SSE -> 서버 to client 스트림을 유지시켜놓음 서버가 일방적으로 메세지를 보낼 수 있는 구조
+     */
     @GetMapping(value = "/alarm/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter alarmSubscribe(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
@@ -91,6 +94,6 @@ public class RealtimeAlarmController {
         return alarmEventProducer.subscribe(loginUser.getMemberNo());
     }
 
-
-
 }
+
+
