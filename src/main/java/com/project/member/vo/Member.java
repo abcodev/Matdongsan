@@ -34,6 +34,7 @@ public class Member {
     private String nickName;
     private String phone;
     private String address;
+    private String addressDetail;
     private String status;
     private MemberGrade grade = MemberGrade.GENERAL;
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
@@ -64,7 +65,7 @@ public class Member {
                 .email(member.getEmail())
                 .memberName(member.getMemberName())
                 .profileImage(member.getProfileImage())
-                .address(member.getAddress())
+                .address(member.getAddress() + " " + member.getAddressDetail())
                 .nickName(member.getNickName())
                 .phone(member.getPhone())
                 .build();

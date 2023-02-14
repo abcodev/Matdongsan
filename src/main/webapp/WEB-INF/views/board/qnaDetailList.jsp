@@ -77,9 +77,13 @@
   <%--    <c:if test="${empty list}">
         <span id="hong">작성된 답글이 없습니다</span>
       </c:if>--%>
-      <span class="font">${qb.qnaTitle}에 대한 답글 제목 : ${list.qnaTitle}</span><br>
-      <span id="writer">작성자 : ${list.qnaWriter}</span><br><br>
-      <span class="font">내용 :${list.qnaContent}</span>
+      <span class="font">${qb.qnaTitle}</span>
+      <span class="deptFont">에 대한 답글 제목 : </span>
+      <span>${list.qnaTitle}</span><br><br>
+      <span class="deptFont">작성자 : </span>
+      <span id="writer">${list.qnaWriter}</span><br><br>
+      <span class="deptFont">내용 : </span>
+      <span class="font">${list.qnaContent}</span>
     </div>
   </c:forEach>
 

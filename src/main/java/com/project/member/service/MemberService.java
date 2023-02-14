@@ -11,13 +11,17 @@ import com.project.member.dao.MemberDao;
 import com.project.member.dto.*;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
-import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
+import com.project.realestate.dto.ReservationResponse;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
+//import net.nurigo.java_sdk.api.Message;
+//import net.nurigo.java_sdk.exceptions.CoolsmsException;
+//import org.json.simple.JSONObject;
 import lombok.extern.log4j.Log4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -69,9 +73,7 @@ public class MemberService {
         if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
             memberDao.insertMember(member);
         }
-        {
-            memberDao.updateMemberWithLogin(member);
-        }
+        memberDao.updateMemberWithLogin(member);
         return memberDao.select(member.getProvider(), member.getProviderId());
     }
 
@@ -123,14 +125,21 @@ public class MemberService {
     public MyPageListResponse selectList(MyPageListRequest request, Member m) {
         int count = memberDao.selectListCount(sqlSession, m);
         int count2 = memberDao.selectReviewCount(sqlSession, m);
+        int count3 = memberDao.selectReservationCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
         PageInfoCombine pageInfoCombine2 = new PageInfoCombine(count2, request.getCurrentPage(), DEFAULT_SIZE);
+        PageInfoCombine pageInfoCombine3 = new PageInfoCombine(count3, request.getCurrentPage(), DEFAULT_SIZE);
         List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
         List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
+        List<ReservationResponse> result2 = memberDao.selectReservationList(sqlSession, pageInfoCombine3, m);
 
-        return new MyPageListResponse(result, result1, pageInfoCombine, pageInfoCombine2);
+        return new MyPageListResponse(result, result1, result2, pageInfoCombine, pageInfoCombine2, pageInfoCombine3);
 
     }
+
+//    public boolean checkInterest(String estateNo, Member loginUser) {
+//        return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
+//    }
 
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
@@ -142,14 +151,14 @@ public class MemberService {
 
     public void deleteMember(Member member) {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
-        // AccessToken 이 만료됐을 수도 있음
+        // AccessToken 이 만료됐을 수도 있다.
         // 1. AccessToken 이 만료되었는지 확인.
         /** TODO :
-         boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-         if (isExpired) {
-         OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-         member.setToken(freshToken);
-         }
+            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+            if (isExpired) {
+                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+                member.setToken(freshToken);
+            }
          */
         // 2. RefreshToken 으로 AccessToken 재발급.
         // 3. 재발급된 AccessToken 으로 요청.
@@ -166,11 +175,14 @@ public class MemberService {
         memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 
-
-    public List<ReservationRequest> selectReservationList(Member m) {
-        return memberDao.selectReservationList(sqlSession, m);
+    @Transactional
+    public int deleteReservation(Member m){
+        return memberDao.deleteReservation(sqlSession, m);
     }
 
+    public List<ReservationBroker> selectBrokerReservationList(Member m){
+        return memberDao.selectBrokerReservationList(sqlSession, m);
+    }
 
 }
 

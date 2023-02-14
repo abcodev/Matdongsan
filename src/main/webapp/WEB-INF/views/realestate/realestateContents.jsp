@@ -21,6 +21,7 @@
             <th>금액 (만원)</th>
             <th>임대면적</th>
         </tr>
+
         <c:if test="${!empty estateRentList}">
             <c:forEach var="estateRent" items="${ estateRentList }">
                 <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
@@ -43,32 +44,43 @@
     </table>
 
     <div id="paging">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <c:choose>
+                    <c:when test="${ pi.currentPage eq 1 }">
+                        <li class="page-item disabled"><a class="page-link" href="#">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage - 1})">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
 
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${ pi.currentPage eq 1 }">
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage - 1})">Previous</a>
-                    </li>
-                </c:otherwise>
-            </c:choose>
+                <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                    <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${item})">${item }</a></li>
+                </c:forEach>
 
-            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${item})">${item }</a></li>
-            </c:forEach>
-
-            <c:choose>
-                <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-item"><a class="page-link"
-                                             onclick="retrieveRealEstate(${pi.currentPage + 1})">Next</a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+                <c:choose>
+                    <c:when test="${ pi.currentPage eq pi.maxPage }">
+                        <li class="page-item disabled"><a class="page-link" href="#">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage + 1})">
+                            <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </nav>
     </div>
 
 </div>

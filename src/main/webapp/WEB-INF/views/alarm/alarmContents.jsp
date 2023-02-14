@@ -14,7 +14,7 @@
 
 <div id="alarm_list_ajax">
     <i class="fa-regular fa-bell"></i>
-    <span>
+    <span id="alarm_count">
         <c:set var="alarmCount" value="0"/>
         <c:forEach items="${alarmList}" var="alarm">
             <c:if test="${alarm.read == false}">

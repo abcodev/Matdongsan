@@ -30,31 +30,52 @@
         <result column="REPORT_CONTENT" property="reportContent"/>
     </resultMap>
 
-
-    <select id="selectList" resultMap="qBoardResultSet">
+    <select id="selectQnaList" parameterType="Map" resultMap="qBoardResultSet">
         SELECT QNA_BNO,
-               M.MEMBER_NO,
-               M.NICKNAME AS QNA_WRITER,
-               P_BNO,
-               QNA_TITLE,
-               QNA_DATE,
-               QNA_DEPTH,
-               QNA_AREA,
-               COUNT,
-               BLIND
+            M.MEMBER_NO,
+            M.NICKNAME AS QNA_WRITER,
+            P_BNO,
+            QNA_TITLE,
+            QNA_DATE,
+            QNA_DEPTH,
+            QNA_AREA,
+            COUNT,
+            BLIND
         FROM QNA_BOARD B
-                LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
+        LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
         WHERE B.STATUS = 'Y'
+        <if test="!state.isBlank()">
+            AND QNA_AREA = #{state}
+        </if>
+        <if test="!search.isBlank()">
+            AND (
+            QNA_TITLE like '%' || #{search} || '%'
+            OR
+            QNA_WRITER like '%' || #{search} || '%'
+            OR
+            QNA_AREA like '%' || #{search} || '%'
+            )
+        </if>
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
         ORDER SIBLINGS BY NOTICE DESC, QNA_BNO DESC
     </select>
-
-    <select id="selectListCount" resultType="int">
+    <select id="selectQnaListCount" resultType="int">
         SELECT COUNT(*)
         FROM QNA_BOARD
-        WHERE STATUS = 'Y'
-
+        WHERE STATUS='Y'
+        <if test="!state.isBlank()">
+            AND QNA_AREA = #{state}
+        </if>
+        <if test="!search.isBlank()">
+            AND (
+            QNA_TITLE like '%' || #{search} || '%'
+            OR
+            QNA_WRITER like '%' || #{search} || '%'
+            OR
+            QNA_AREA like '%' || #{search} || '%'
+            )
+        </if>
     </select>
 
     <update id="selectReportList">
@@ -77,59 +98,6 @@
         INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_WRITER, QNA_TITLE, QNA_CONTENT ,QNA_AREA, NOTICE)
         VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo},#{qnaWriter}, #{qnaTitle},#{qnaContent}, #{qnaArea}, 1)
     </insert>
-
-    <select id="searchList" resultMap="qBoardResultSet">
-        SELECT
-        QNA_BNO,
-        Q.MEMBER_NO,
-        P_BNO,
-        QNA_TITLE,
-        QNA_AREA,
-        QNA_CONTENT,
-        M.NICKNAME,
-        QNA_DATE,
-        QNA_DEPTH
-        FROM QNA_BOARD Q
-        LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
-        WHERE Q.STATUS='Y'
-        <if test='keyword != null and keyword != ""'>
-            AND
-            <choose>
-                <when test="condition == 'title'">
-                    QNA_TITLE LIKE '%${keyword}%'
-                </when>
-                <when test="condition == 'content'">
-                    QNA_CONTENT LIKE '%${keyword}%'
-                </when>
-                <when test="condition == 'area'">
-                    QNA_AREA LIKE '%${keyword}%'
-                </when>
-            </choose>
-        </if>
-        START WITH P_BNO IS NULL
-        CONNECT BY PRIOR QNA_BNO = P_BNO
-        ORDER SIBLINGS BY QNA_BNO DESC
-    </select>
-
-    <select id="searchListCount" resultType="int">
-        SELECT COUNT(*)
-        FROM QNA_BOARD
-        WHERE STATUS = 'Y'
-        <if test='keyword != null and keyword != ""'>
-            AND
-            <choose>
-                <when test="condition == 'title'">
-                    QNA_TITLE LIKE '%${keyword}%'
-                </when>
-                <when test="condition == 'content'">
-                    QNA_CONTENT LIKE '%${keyword}%'
-                </when>
-                <when test="condition == 'area'">
-                    QNA_AREA LIKE '%${keyword}%'
-                </when>
-            </choose>
-        </if>
-    </select>
 
 
     <select id="selectQboard" parameterType="int" resultMap="qBoardResultSet">
@@ -161,7 +129,7 @@
                QNA_TITLE,
                M.MEMBER_NO,
                QNA_CONTENT,
-               M.NICKNAME
+               M.NICKNAME AS QNA_WRITER
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
@@ -170,8 +138,8 @@
     </select>
 
     <insert id="insertAnswer" parameterType="QBoard">
-        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_CONTENT, P_BNO, QNA_DEPTH)
-        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle}, #{qnaContent}, #{parentBno}, #{depth})
+        INSERT INTO QNA_BOARD(QNA_BNO, MEMBER_NO, QNA_TITLE, QNA_WRITER,QNA_CONTENT, P_BNO, QNA_DEPTH)
+        VALUES (SEQ_QNA_BNO.NEXTVAL, #{memberNo}, #{qnaTitle},#{qnaWriter}, #{qnaContent}, #{parentBno}, #{depth})
     </insert>
 
 

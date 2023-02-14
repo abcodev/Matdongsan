@@ -43,7 +43,7 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-<%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
+            <%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
         </div>
     </div>
 
@@ -166,8 +166,8 @@
     <div class="reserve_history">
         <p>예약 확인</p>
 
-        <div class="myReserve_list">
-            <table>
+        <button class="myReserve_list">
+            <table id="broker_ResList">
                 <tr>
                     <th>예약자명</th>
                     <th>예약일</th>
@@ -175,69 +175,36 @@
                     <th>예약인원</th>
                     <th>예약처리</th>
                 </tr>
-                <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <td>이름</td>
-                    <td>2023-02-08</td>
-                    <td>12:00</td>
-                    <td>2명</td>
-                    <td>예약확인 중</td>
-                </tr>
+                <c:forEach items="${brokerResList}" var="res">
+                    <tr class="myReserve_info_list" >
+                        <td style="display: none">${res.revNo}</td>
+                        <td>${res.memberName}</td>
+                        <td>${res.revDate}</td>
+                        <td>${res.revTime}</td>
+                        <td>${res.revPeople}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${res.revStatus eq 'C'}">예약확인 중</c:when>
+                                <c:when test="${res.revStatus eq 'A'}">예약 완료</c:when>
+                                <c:otherwise>예약 취소</c:otherwise>
+                            </c:choose>
+
+                        </td>
+                    </tr>
+                </c:forEach>
             </table>
-        </div>
-        <%--  ************예약확인창 모달***************  --%>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <i class="fa-solid fa-user-check"></i>
-                        <span>예약 상세정보</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="user_info">
-                            <p>예약자 정보</p>
-                            <div class="user_name">
-                                <span>이름</span>
-                                <p>김도윤</p>
-                            </div>
-                            <div class="user_phone">
-                                <span>전화번호</span>
-                                <p>01023239208</p>
-                            </div>
-                            <div class="user_email">
-                                <span>이메일</span>
-                                <p>lodykhve@naver.com</p>
-                            </div>
-                        </div>
-                        <div class="reserve_info">
-                            <p>예약내역</p>
-                            <div class="realtor_name">강남공인중개사</div>
-                            <div class="reserve_person">
-                                <span>예약인원</span>
-                                <p>3명</p>
-                            </div>
-                            <div class="reserve_date">
-                                <span>예약날짜</span>
-                                <p>2023-02-18</p>
-                            </div>
-                            <div class="reserve_time">
-                                <span>예약시간</span>
-                                <p>12:00</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button">예약승인</button>
-                        <button type="button">예약취소</button>
-                    </div>
-                </div>
+            <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"/>
+        </button>
+        <div id="reservationModal">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
             </div>
         </div>
+
     </div>
 </div>
 
 <script>
-
     function changeHeart(estateNo) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
@@ -304,6 +271,22 @@
             }
         })
     }
+
+    // 모달 불러오기
+    $('#broker_ResList').on("click", "tr", function (){
+        console.log($(this).find("td:eq(0)").text());
+        let revNo = $(this).find("td:eq(0)").text();
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/reservation/modal',
+            method: 'GET',
+            data: {revNo : revNo},
+            success: function (data){
+                $('#exampleModal').html(data);
+                $(".modal_btn").click();
+            }
+        })
+    })
 
 </script>
 

@@ -31,9 +31,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="#">전체 문의</a>
                 </li>
-<%--                <li class="nav-item">--%>
-<%--                    <a class="nav-link" href="#">미확인</a>--%>
-<%--                </li>인--%>
             </ul>
         </div>
         <div class="preChatList" >
@@ -62,12 +59,13 @@
 
     <div id="chat_right">
         <div class="header-chat">
-            <div class="name" ></div>
+            <div class="name" >
+                문의를 선택해 주세요
+            </div>
         </div>
         <div class="chat">
-            <div class="messages-chat">
-                <%--                <div class="request">받기</div>--%>
-                <%--                <div class="response">보내기</div>--%>
+            <div class="messages-chat" style="background-image: url('https://cdn-icons-png.flaticon.com/512/4596/4596095.png'); background-repeat: space">
+
             </div>
         </div>
         <div class="footer-chat">
@@ -82,7 +80,7 @@
 
     window.onload = function(){
         connection();
-        $('#chat_right').css('display','none');
+        // $('#chat_right').css('display','none');
     }
 
     function connection(){
@@ -205,3 +203,6 @@
 </body>
 
 </html>
+
+
+

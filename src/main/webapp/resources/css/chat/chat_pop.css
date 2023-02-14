@@ -171,30 +171,27 @@
 }
 
 /*위치 확인 test*/
-.chat-logs > .other {
-    background:white;
-    padding:10px 15px 10px 15px;
-    color:#666;
-    max-width:75%;
-    float:left;
-    margin-left:10px;
-    position:relative;
-    margin-bottom:20px;
-    border-radius:30px;
-
+.chat-logs > .other > div{
+    background-color: rgba(224, 224, 224, 0.6);
+    color: #3d3d3d;
+    padding: 8px 15px;
+    width: fit-content;
+    display: inline-block;
+    float: left;
+    border-radius: 10px;
+    margin: 3% 40% 3% 3%;
 }
 
-.chat-logs > .me {
-    padding-left: 50%;
-    float:right;
-    margin-right:10px;
-    background: #566392;
-    color:white;
 
-    max-width:75%;
-    position:relative;
-    margin-bottom:20px;
-    border-radius:30px;
+.chat-logs > .me > div{
+    background-color: rgba(152, 157, 225, 0.2);
+    color: #3d3d3d;
+    border-radius: 10px;
+    padding: 8px 15px;
+    width: fit-content;
+    display: inline-block;
+    float: right;
+    margin: 3% 3% 3% 40%;;
 }
 /*위치 확인 test*/
 

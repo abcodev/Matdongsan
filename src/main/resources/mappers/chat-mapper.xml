@@ -27,15 +27,14 @@
     </resultMap>
 
     <select id="selectByRoomNo" parameterType="String" resultMap="chatroomResultSet">
-            SELECT *
-            FROM CHAT_ROOM
-            WHERE CHAT_ROOM_NO = #{roomNo}
+        SELECT *
+        FROM CHAT_ROOM
+        WHERE CHAT_ROOM_NO = #{roomNo}
     </select>
 
     <select id="roomCheck" resultMap="chatroomResultSet">
-        SELECT
-            CHAT_ROOM_NO,
-            MEMBER_NO
+        SELECT CHAT_ROOM_NO,
+               MEMBER_NO
         FROM CHAT_ROOM
         WHERE MEMBER_NO = #{memberNo}
     </select>
@@ -43,7 +42,7 @@
 
     <insert id="chatRoomInsert">
         INSERT INTO CHAT_ROOM(CHAT_ROOM_NO, MEMBER_NO)
-            VALUES (#{roomNo},#{memberNo})
+        VALUES (#{roomNo}, #{memberNo})
     </insert>
 
     <select id="messageList" resultMap="chatMessageResultSet">
@@ -61,20 +60,19 @@
     <select id="selectJoinMemberList" resultMap="chatJoinMemberResultSet">
         SELECT M.MEMBER_NO, CHAT_ROOM_NO, NICKNAME, MEMBER_NAME, GRADE
         FROM CHAT_ROOM_JOIN
-             INNER JOIN MEMBER M on CHAT_ROOM_JOIN.MEMBER_NO = M.MEMBER_NO
+                 INNER JOIN MEMBER M on CHAT_ROOM_JOIN.MEMBER_NO = M.MEMBER_NO
         WHERE CHAT_ROOM_NO = #{roomNo}
     </select>
 
     <insert id="enterRoom">
         INSERT INTO CHAT_ROOM_JOIN(CHAT_ROOM_NO, MEMBER_NO)
-        VALUES (#{chatRoomNo},#{memberNo})
+        VALUES (#{chatRoomNo}, #{memberNo})
     </insert>
 
     <insert id="sendMessage">
         INSERT INTO CHAT_MESSAGE(CM_NO, CHAT_ROOM_NO, SEND_NO, CREATE_DATE, READ, MS_CONTENT)
-        VALUES (SEQ_CM_NO.nextval,#{roomNo},#{memberNo},default,default,#{message})
+        VALUES (SEQ_CM_NO.nextval, #{roomNo}, #{memberNo}, default, default, #{message})
     </insert>
-
 
 
     <resultMap id="adminChatRoomResultSet" type="adminChatRoom">
@@ -86,19 +84,17 @@
         <result column="READ" property="read"/>
     </resultMap>
     <select id="chattingList" resultMap="adminChatRoomResultSet">
-        SELECT
-            CHAT_ROOM_NO,
-            MEMBER_NAME,
-            PROFILE_IMAGE,
-            CREATE_DATE,
-            READ,
-            MS_CONTENT
+        SELECT CHAT_ROOM_NO,
+               MEMBER_NAME,
+               PROFILE_IMAGE,
+               CREATE_DATE,
+               READ,
+               MS_CONTENT
         FROM CHAT_MESSAGE
-                 JOIN MEMBER ON(MEMBER_NO = SEND_NO)
+                 JOIN MEMBER ON (MEMBER_NO = SEND_NO)
         WHERE CREATE_DATE IN (SELECT MAX(CREATE_DATE)
                               FROM CHAT_MESSAGE
                               GROUP BY CHAT_ROOM_NO)
-
     </select>
 
     <resultMap id="adminChatMessageResultSet" type="adminChatMessage">
@@ -111,15 +107,14 @@
     </resultMap>
 
     <select id="adminMessageList" parameterType="string" resultMap="adminChatMessageResultSet">
-        SELECT
-            C.CHAT_ROOM_NO,
-            C.SEND_NO,
-            M.MEMBER_NAME,
-            C.MS_CONTENT
+        SELECT C.CHAT_ROOM_NO,
+               C.SEND_NO,
+               M.MEMBER_NAME,
+               C.MS_CONTENT
         FROM CHAT_MESSAGE C
-                JOIN MEMBER M ON (M.MEMBER_NO=C.SEND_NO)
+                 JOIN MEMBER M ON (M.MEMBER_NO = C.SEND_NO)
         WHERE C.CHAT_ROOM_NO = #{roomNo}
-        ORDER BY C.CREATE_DATE DESC
+        ORDER BY C.CREATE_DATE
     </select>
 
     <update id="messageRead" parameterType="string">
@@ -132,6 +127,6 @@
         UPDATE CHAT_MESSAGE
         SET READ ='Y'
         WHERE CHAT_ROOM_NO = #{roomNo}
-        AND SEND_NO = #{memberNo}
+          AND SEND_NO = #{memberNo}
     </update>
 </mapper>

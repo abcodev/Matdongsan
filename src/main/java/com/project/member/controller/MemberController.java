@@ -4,12 +4,16 @@ import com.project.admin.vo.BrokerEnroll;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
 import com.project.member.service.MemberService;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationRequest;
+import com.project.realestate.dto.ReservationResponse;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
+import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,14 +47,14 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
-        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("reservationList", resp.getReservationList());
         modelAndView.addObject("pi1", resp.getPageInfoCombine());
         modelAndView.addObject("pi2", resp.getPageInfoCombine2());
+        modelAndView.addObject("pi3", resp.getPageInfoCombine3());
 
         modelAndView.setViewName("member/myPage");
 
@@ -61,13 +68,15 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-        List<ReservationRequest> reservationList = memberService.selectReservationList(m);
+        List<ReservationBroker> brokerReservationList = memberService.selectBrokerReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
-        modelAndView.addObject("reservationList", reservationList);
+        modelAndView.addObject("brokerResList", brokerReservationList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
+
+        System.out.println("부동산 예약 리스트 : " + brokerReservationList);
 
         modelAndView.setViewName("member/brokerMemberMyPage");
 
@@ -90,15 +99,29 @@ public class MemberController {
         int result = memberService.updateMember(m);
         if (result != 0) {
             Member updateMember = memberService.loginMember(m);
-
-            // TODO : 여기다 브레이크 포인트 걸고 updateMember 의 Grade 값 확인 -> GENERAL2
             session.setAttribute("loginUser", updateMember);
-            return "member/myPage";
+
+            if(m.getGrade().equals(MemberGrade.BROKER)) {
+                return "member/brokerMemberMyPage";
+            }else {
+                return "member/myPage";
+            }
         } else {
             model.addAttribute("errorMsg", "회원정보 수정 실패");
             return "common/errorPage";
         }
     }
+
+//    @GetMapping("/myPage/interest")
+//    @ResponseBody
+//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session){
+//        Member loginUser = (Member) session.getAttribute("loginUser");
+//        if (loginUser == null) {
+//            throw new RuntimeException("로그인 하고 오세용");
+//        }
+//        boolean isInterest = MemberService.checkInterest(estateNo, loginUser);
+//        return ResponseEntity.ok(isInterest);
+//    }
 
     @PostMapping("/myPage")
     @ResponseBody
@@ -141,6 +164,8 @@ public class MemberController {
         return modelAndView;
     }
 
+    // Spring Boot -> Validator 를 이용한 유효성 검사
+    // Validator -> Client 로부터 받은 데이터에 대한 유효성 검사
     @PostMapping("broker/enroll")
     public String agentMemberInsert(@RequestParam(value = "file", required = true) MultipartFile file,
                                     BrokerEnroll brokerEnroll
@@ -148,6 +173,16 @@ public class MemberController {
         memberService.brokerMemberInsert(file, brokerEnroll);
         return "member/myPage";
     }
+
+    @RequestMapping("/revDelete")
+    public String deleteReservation(HttpSession session){
+        Member m = (Member) session.getAttribute("loginUser");
+        memberService.deleteReservation(m);
+
+        return "redirect:/myPage";
+
+    }
+
 
 
 }

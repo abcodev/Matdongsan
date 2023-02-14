@@ -1,12 +1,10 @@
 package com.project;
 
-import com.project.common.vo.ApiKey;
 import com.project.member.vo.Member;
 import com.google.gson.Gson;
 import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.dto.RealEstateViewDto;
 import com.project.realestate.service.RealEstateService;
-import com.project.redis.interestrealestate.InterestRealEstateRedisRepository;
 import com.project.redis.interestrealestate.InterestRealEstateRedisService;
 import com.project.redis.recentrealestate.RecentRealEstateRedisService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +13,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +31,6 @@ public class MainController {
     private final RealEstateService realEstateService;
     private final RecentRealEstateRedisService recentRealEstateRedisService;
     private final InterestRealEstateRedisService interestRealEstateRedisService;
-    private final ApiKey apiKey;
-
     @RequestMapping(value = "/")
     public ModelAndView index(ModelAndView mv) {
         mv.setViewName("index");
@@ -73,17 +68,17 @@ public class MainController {
         }
 
         Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser != null) {
-            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
-            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
-            model.addAttribute("recentViewList", recentViewList);
-            model.addAttribute("interestViewList", Collections.emptyList());
-        } else {
-            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
-            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
-            model.addAttribute("recentViewList", Collections.emptyList());
-            model.addAttribute("interestViewList", interestViewList);
-        }
+//        if (loginUser != null) {
+//            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
+//            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
+//            model.addAttribute("recentViewList", recentViewList);
+//            model.addAttribute("interestViewList", Collections.emptyList());
+//        } else {
+//            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
+//            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
+//            model.addAttribute("recentViewList", Collections.emptyList());
+//            model.addAttribute("interestViewList", interestViewList);
+//        }
 
         model.addAttribute("newsList", newsList);
         Gson gson = new Gson();
@@ -91,7 +86,6 @@ public class MainController {
 
         model.addAttribute("sellList2",sellList2);
 //        model.addAttribute("sellList", sellList);
-        model.addAttribute("apiKey", apiKey.KakaoMapKeyMain);
 
         return "common/mainPage";
     }

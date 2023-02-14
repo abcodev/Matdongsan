@@ -1,6 +1,7 @@
 package com.project.admin.dao;
 
 
+import com.project.admin.dto.HandleApplyRequest;
 import com.project.admin.vo.Admin;
 import com.project.admin.vo.BrokerEnroll;
 import com.project.board.vo.Report;
@@ -61,5 +62,13 @@ public class AdminDao {
     public List<BrokerEnroll> BrokerList(SqlSession sqlSession, PageInfoCombine pageInfoCombine) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
         return sqlSession.selectList("realEstateAgentMapper.BrokerList",null,rowBounds);
+    }
+
+    public void changeMemberGrade(SqlSession sqlSession, HandleApplyRequest req) {
+        sqlSession.update("memberMapper.changeMemberGrade",req);
+    }
+
+    public void changeEstateStatus(SqlSession sqlSession, HandleApplyRequest req) {
+        sqlSession.update("realEstateAgentMapper.changeEstateStatus",req);
     }
 }

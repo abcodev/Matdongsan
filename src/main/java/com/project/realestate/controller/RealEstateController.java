@@ -117,10 +117,10 @@ public class RealEstateController {
                                          HttpSession session
     ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        interestRealEstateRedisService.increment(estateNo);
-        if (loginUser != null) {
-            recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
-        }
+//        interestRealEstateRedisService.increment(estateNo);
+//        if (loginUser != null) {
+//            recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
+//        }
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         List<RealEstateAgent> agentList = realEstateService.selectAgentList(realEstateDetailDto.getBjdongNm());
@@ -159,10 +159,6 @@ public class RealEstateController {
         Member loginUser = (Member) session.getAttribute("loginUser");
         long memberNo = loginUser.getMemberNo();
         req.setMemberNo(memberNo);
-
-//        int result = realEstateService.reservationEnroll(req);
-
-
         return ResponseEntity.ok().body("1");
     }
 }

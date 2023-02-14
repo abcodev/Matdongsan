@@ -127,14 +127,15 @@
             </div>
         </div>
     </div>
-    <div class="paging">
+</div>
+    <div id="paging">
         <ul class="pagination">
             <c:choose>
                 <c:when test="${ pi.currentPage eq 1 }">
-                    <li class="page-item disabled">Previous</li>
+                    <li class="page-item disabled"><</li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage - 1})">Previous</li>
+                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage - 1})"><</li>
                 </c:otherwise>
             </c:choose>
 
@@ -144,15 +145,15 @@
 
             <c:choose>
                 <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">></a></li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage + 1})">Next</li>
+                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage + 1})">></li>
                 </c:otherwise>
             </c:choose>
         </ul>
 
-    </div>
+
 </div>
 
 <script>

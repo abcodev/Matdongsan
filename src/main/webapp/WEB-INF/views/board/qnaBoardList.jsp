@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -82,7 +82,7 @@
                             </c:if>
                             <c:if test="${qb.memberNo ne 1}">
                                 <c:if test="${qb.blind eq 'N'}">
-                                    <tr>
+                                    <tr id="tdBody">
                                         <td onclick="movePage(${qb.qnaBno})">
                                             <c:forEach step="1" begin="2" end ="${qb.depth}">
                                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -93,29 +93,31 @@
                                             <c:if test="${qb.qnaArea != null}">
                                                 (${qb.qnaArea})
                                             </c:if>
-                                            ${qb.qnaTitle}</td>
-                                        <td>${qb.qnaWriter}</td>
-                                        <td>${qb.qnaDate}</td>
-                                        <td>${qb.count}</td>
+                                            ${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${qb.qnaDate}</td><td>${qb.count}
+                                        </td>
                                     </tr>
                                 </c:if>
+
+
                                 <c:if test="${qb.blind eq 'Y'}">
-                                    <tr style="background-color: #dddddd">
+                                    <tr style="background-color: #dddddd" id="tdBody">
                                         <c:if test="${loginUser.memberNo eq 1}">
-                                            <td colspan="4" onclick="movePage(${qb.qnaBno})">
-                                        </c:if>
-                                        <c:if test="${loginUser.memberNo ne 1}">
-                                            <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
-                                        </c:if>
+                                        <td colspan="4" onclick="movePage(${qb.qnaBno})">
+                                            </c:if>
+                                            <c:if test="${loginUser.memberNo ne 1}">
+                                        <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
+                                            </c:if>
                                             <c:forEach step="1" begin="2" end ="${qb.depth}">
                                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             </c:forEach>
                                             <c:if test="${qb.depth ne 1 }">
                                                 <i class="bi bi-arrow-return-right"></i>
                                             </c:if>
-                                                블라인드 처리된 게시글 입니다.</td>
+                                            블라인드 처리된 게시글 입니다.</td>
                                     </tr>
                                 </c:if>
+
+
                             </c:if>
                         </c:forEach>
                     </table>

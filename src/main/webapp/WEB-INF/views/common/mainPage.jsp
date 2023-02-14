@@ -16,7 +16,9 @@
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
-    <jsp:include page="../chat/chat_pop.jsp"/>
+    <c:if test="${loginUser.grade != 'ADMIN'}">
+        <jsp:include page="../chat/chat_pop.jsp"/>
+    </c:if>
 </head>
 
 <body>
@@ -46,7 +48,7 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-                <c:if test="${loginUser.memberNo == 1}">
+                <c:if test="${loginUser.grade == 'ADMIN'}">
                     <div class="dropdown">
                         <button class="dropdown-btn">
                             <a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
@@ -93,7 +95,10 @@
             retrieveAlarmList();
         }
 
+        // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
         const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+        // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해
+        // 새로운 이벤트가 왔을 때 할 행위를 등록함
         sse.addEventListener('realtime_alarm', (event) => {
             retrieveAlarmList();
             console.log(event);
@@ -117,22 +122,13 @@
     </script>
 
     <script>
-        if(${loginUser.grade == 'GENERAL'}){
-            alert('회원정보 입력&수정 후 이용해주세요.');
+        if (${loginUser.grade == 'GENERAL'}) {
+            alert('회원정보 입력 후 이용해주세요.');
             window.location = '${pageContext.request.contextPath}/memberModify';
-        }else{
-
         }
-
     </script>
 
 
-<%--    <script>--%>
-<%--        if(${loginUser.grade == 'GENERAL'}){--%>
-<%--            alert('회원정보 입력 후 이용해주세요.');--%>
-<%--            window.location = '${pageContext.request.contextPath}/memberModify';--%>
-<%--        }else{--%>
-<%--    </script>--%>
 
 </header>
 
@@ -144,8 +140,6 @@
 
             <script type="text/javascript"
                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
-<%--            <script type="text/javascript"--%>
-<%--            src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${apiKey}&libraries=services&clusterer"></script>--%>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
 
             <script>
@@ -302,22 +296,16 @@
             <c:when test="${loginUser == null}">
                 <span>인기 아파트 단지</span>
 
-                <div class="look_List">
-                    <br>
-                    <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
-                        <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a><br>
-                    </c:forEach>
-                </div>
+                <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a>
+                </c:forEach>
 
             </c:when>
             <c:otherwise>
                 <span>최근 본 부동산 목록</span>
-                <div class="look_List">
-                    <br>
-                    <c:forEach var="recentView" items="${recentViewList}" varStatus="status">
-                        <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${status.count}. ${recentView.bldgNm}</a><br>
-                    </c:forEach>
-                </div>
+                <c:forEach var="recentView" items="${recentViewList}" varStatus="status">
+                    <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${recentView.estateNo}">${recentView.bldgNm}</a>
+                </c:forEach>
             </c:otherwise>
         </c:choose>
     </div>

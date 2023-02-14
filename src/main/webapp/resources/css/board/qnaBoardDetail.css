@@ -202,3 +202,8 @@ textarea:focus , input:focus {
     font-size: 15px;
     font-weight: bold;
 }
+.deptFont{
+    color: #585c9c;
+    font-weight: bold;
+    font-size: 18px;
+}

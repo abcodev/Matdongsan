@@ -27,7 +27,7 @@
         <div class="detail_head">
             <div class="board_title">
                     <c:if test="${w eq loginUser.memberNo}">
-                        <input type="text" name="boardTitle" value="${fb.boardTitle}">
+                        <input type="text" name="boardTitle" value="${fb.boardTitle}" maxlength="70" oninput="handleInputLength(this, 70)">
                     </c:if>
                     <c:if test="${w ne loginUser.memberNo}">
                         <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
@@ -103,9 +103,9 @@
             <p>(<span id="rcount"></span>)</p>
         </div>
         <div class="reply_body">
-            <table id="replyResult">
+            <div id="replyResult">
 
-            </table>
+            </div>
         </div>
         <div class="reply_foot">
             <div>
@@ -173,6 +173,13 @@
 
 </script>
 
+<script>
+    function handleInputLength(el, max) {
+        if(el.value.length > max) {
+            el.value = el.value.substr(0, max);
+        }
+    }
+</script>
 
 <!-- 게시글 삭제 -->
 <script>
@@ -199,15 +206,15 @@
                     console.log(result);
                     let html = ""
                     for(let reply of result){
-                        html += "<tr>"
-                            + "<td><img src=" + reply.profileImage + "></td>"
-                            + "<td>" + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + "></td>"
-                            + "<td>" + reply.replyContent + "</td>"
-                            + "<td>" + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +"></td>"
-                            + "<td>"
-                            + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>삭제</button>":""))
-                            +"</td>"
-                            + "</tr>";
+                        html += '<div class="reply_detail">'
+                            + '<div class="reply_info">'
+                            + '<div class=""><img src=' + reply.profileImage + '></div>'
+                            + '<div>' + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + '></div>'
+                            + '<div>' + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
+                            + '<div>' + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
+                            + '</div>'
+                            + '<div class="reply_content">' + reply.replyContent + '</div>'
+                            + '</div>';
                     }
                     $("#replyResult").html(html);
                     $("#rcount").html(result.length);

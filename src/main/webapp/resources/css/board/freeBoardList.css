@@ -133,6 +133,7 @@
     padding-bottom: 15px;
     font-weight: bold;
     color: #213048;
+    word-break: break-all;
 }
 
 #boardlist_top{
@@ -198,11 +199,15 @@
 .board_title > p{
     font-weight: 450;
     font-size: 20px;
+    word-break: break-word;
 }
 
 .board_content > p{
     font-size: 18px;
     margin-top: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .board_info{
@@ -239,3 +244,24 @@
 .board_info > .reply{
     margin-left: 10px;
 }
+.pagination> li{
+    display: inline-block;
+    position: relative;
+    left: 830px;
+    top:75px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
+}
+.pagination> li:hover{
+    border: 2px solid #beb0d0;
+}
+
