@@ -60,6 +60,7 @@
         CONNECT BY PRIOR QNA_BNO = P_BNO
         ORDER SIBLINGS BY NOTICE DESC, QNA_BNO DESC
     </select>
+
     <select id="selectQnaListCount" resultType="int">
         SELECT COUNT(*)
         FROM QNA_BOARD
@@ -76,6 +77,20 @@
             QNA_AREA like '%' || #{search} || '%'
             )
         </if>
+    </select>
+
+    <select id="selectQaNoticeList" resultMap="qBoardResultSet">
+        SELECT
+            QNA_BNO,
+            Q.MEMBER_NO,
+            NICKNAME,
+            QNA_TITLE,
+            QNA_DATE,
+            COUNT
+        FROM QNA_BOARD Q
+        JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
+        WHERE NOTICE = 1
+        ORDER BY QNA_DATE DESC
     </select>
 
     <update id="selectReportList">
@@ -163,11 +178,6 @@
         FROM QNA_BOARD
         WHERE QNA_BNO = #{qnaBno}
     </select>
-
-
-
-
-
 
 
 </mapper>
