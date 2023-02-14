@@ -63,8 +63,27 @@
             </div>
             <div id="boardlist_main">
                 <c:if test="${not empty freeBoardList}">
+                    <c:forEach items="${freeNoticeList}" var="fn">
+                        <div class="boardlist" style="background-color: #f2dede">
+                            <p style="display: none">${fn.boardNo}</p>
+                            <p style="display: none">${fn.memberNo}</p>
+                            <p style="display: none">${fn.blind}</p>
+                            <div class="board_title">
+                                <p>${fn.boardTitle}</p>
+                            </div>
+                            <div class="board_content">
+                                <p>${fn.boardContent}</p>
+                            </div>
+                            <div class="board_info">
+                                <p class="info writer">${fn.boardWriter}</p>
+                                <p class="info area">${fn.boardArea}</p>
+                                <p class="info date">${fn.boardDate}</p>
+                                <p class="info view"><i class="fa-regular fa-eye"></i>${fn.count}</p>
+                                <p class="info reply"><i class="fa-regular fa-comment"></i>${fn.replyCount}</p>
+                            </div>
+                        </div>
+                    </c:forEach>
                     <c:forEach items="${freeBoardList}" var="freeBoard" varStatus="status">
-                        <c:if test="${freeBoard.memberNo ne 1}">
                             <c:if test="${freeBoard.blind eq 'N'}">
                                 <div class="boardlist">
                                     <p style="display: none">${freeBoard.boardNo}</p>
@@ -101,27 +120,9 @@
                                     </div>
                                 </div>
                             </c:if>
-                        </c:if>
-                        <c:if test="${freeBoard.memberNo eq 1}">
-                            <div class="boardlist" style="background-color: #f2dede">
-                                <p style="display: none">${freeBoard.boardNo}</p>
-                                <p style="display: none">${freeBoard.memberNo}</p>
-                                <p style="display: none">${freeBoard.blind}</p>
-                                <div class="board_title">
-                                    <p>${freeBoard.boardTitle}</p>
-                                </div>
-                                <div class="board_content">
-                                    <p>${freeBoard.boardContent}</p>
-                                </div>
-                                <div class="board_info">
-                                    <p class="info writer">${freeBoard.boardWriter}</p>
-                                    <p class="info area">${freeBoard.boardArea}</p>
-                                    <p class="info date">${freeBoard.boardDate}</p>
-                                    <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
-                                    <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}</p>
-                                </div>
-                            </div>
-                        </c:if>
+
+
+
                     </c:forEach>
                 </c:if>
             </div>
