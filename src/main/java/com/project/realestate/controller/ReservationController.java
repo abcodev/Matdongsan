@@ -51,4 +51,20 @@ public class ReservationController {
         reservationService.cancelReservation(revNo);
     }
 
+    @RequestMapping("/myPage/modal")
+    @ResponseBody
+    public ModelAndView modalReservation(@RequestParam(value = "revNo")int revNo,
+                                         ModelAndView modelAndView){
+        ReservationBroker modalInfo = reservationService.selectReservation(revNo);
+        modelAndView.addObject("selectReservation", modalInfo);
+        modelAndView.setViewName("member/reservationContents");
+        return modelAndView;
+    }
+
+    @RequestMapping("/myPage/cancel")
+    @ResponseBody
+    public void myPageCancelReservation(@RequestParam(value = "revNo")int revNo){
+        reservationService.cancelReservation(revNo);
+    }
+
 }

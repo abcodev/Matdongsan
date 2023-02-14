@@ -174,26 +174,13 @@ public class MemberController {
         return "member/myPage";
     }
 
-    @RequestMapping("/revDelete")
-    public String deleteReservation(HttpSession session){
-        Member m = (Member) session.getAttribute("loginUser");
-        memberService.deleteReservation(m);
-
-        return "redirect:/myPage";
-
-    }
-
-//    @RequestMapping("/myPage/modal")
-//    @ResponseBody
-//    public String reservationModal(@RequestParam("revNo") int revNo,
-//                                   ModelAndView modelAndView){
+//    @RequestMapping("/revDelete")
+//    public String deleteReservation(@RequestParam(value = "revNo")int revNo) {
+//        memberService.deleteReservation(revNo);
 //
+//        return "redirect:/myPage";
 //
-//
-//
-//        return modelAndView;
 //    }
-
 
 
 }

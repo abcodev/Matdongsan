@@ -124,10 +124,6 @@ public class MemberDao {
         return sqlSession.selectList("memberMapper.selectReservationList", m, rowBounds);
     }
 
-    public int deleteReservation(SqlSession sqlSession, Member m){
-        return sqlSession.update("memberMapper.deleteReservation", m);
-    }
-
     public List<ReservationBroker> selectBrokerReservationList(SqlSession sqlSession, Member m){
         return sqlSession.selectList("memberMapper.selectBrokerResList", m);
     }

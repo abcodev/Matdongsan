@@ -175,11 +175,6 @@ public class MemberService {
         memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 
-    @Transactional
-    public int deleteReservation(Member m){
-        return memberDao.deleteReservation(sqlSession, m);
-    }
-
     public List<ReservationBroker> selectBrokerReservationList(Member m){
         return memberDao.selectBrokerReservationList(sqlSession, m);
     }

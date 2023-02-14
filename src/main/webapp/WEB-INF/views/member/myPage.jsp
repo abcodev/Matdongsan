@@ -219,13 +219,19 @@
                     <th>예약처리</th>
                 </tr>
                 <c:forEach var="reservationList" items="${reservationList}">
-                <tr class="myReserve_info_list">
-                    <td>${reservationList.agentName}</td>
-                    <td>${reservationList.revDate}</td>
-                    <td>${reservationList.revTime}</td>
-                    <td>${reservationList.peopleCount}</td>
-                    <td>${reservationList.status}</td>
-                </tr>
+                    <tr class="myReserve_info_list">
+                        <td style="display: none">${reservationList.revNo}</td>
+                        <td>${reservationList.agentName}</td>
+                        <td>${reservationList.revDate}</td>
+                        <td>${reservationList.revTime}</td>
+                        <td>${reservationList.peopleCount}</td>
+                        <td>
+                        <c:choose>
+                            <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
+                            <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
+                            <c:otherwise>예약 취소</c:otherwise>
+                        </c:choose></td>
+                    </tr>
                 </c:forEach>
             </table>
 
@@ -350,18 +356,17 @@
         let revNo = $(this).find("td:eq(0)").text();
 
         $.ajax({
-            url: '${pageContext.request.contextPath}/myPage/modal',
+            url: '${pageContext.request.contextPath}/reservation/myPage/modal',
             method: 'GET',
             data: {revNo : revNo},
             success: function (data){
 
-                //const html = jQuery('<div>').html(data);
-                //const contents = html.find('div#revContent').html();
                 $('#exampleModal').html(data);
                 $(".modal_btn").click();
             }
         })
     })
+
 
 </script>
 
