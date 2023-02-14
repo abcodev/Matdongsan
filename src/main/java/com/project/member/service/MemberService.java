@@ -11,10 +11,9 @@ import com.project.member.dao.MemberDao;
 import com.project.member.dto.*;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
-import com.project.realestate.dao.RealEstateDao;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.dto.ReservationRequest;
+import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -121,14 +120,21 @@ public class MemberService {
     public MyPageListResponse selectList(MyPageListRequest request, Member m) {
         int count = memberDao.selectListCount(sqlSession, m);
         int count2 = memberDao.selectReviewCount(sqlSession, m);
+        int count3 = memberDao.selectReservationCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
         PageInfoCombine pageInfoCombine2 = new PageInfoCombine(count2, request.getCurrentPage(), DEFAULT_SIZE);
+        PageInfoCombine pageInfoCombine3 = new PageInfoCombine(count3, request.getCurrentPage(), DEFAULT_SIZE);
         List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
         List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
+        List<ReservationResponse> result2 = memberDao.selectReservationList(sqlSession, pageInfoCombine3, m);
 
-        return new MyPageListResponse(result, result1, pageInfoCombine, pageInfoCombine2);
+        return new MyPageListResponse(result, result1, result2, pageInfoCombine, pageInfoCombine2, pageInfoCombine3);
 
     }
+
+//    public boolean checkInterest(String estateNo, Member loginUser) {
+//        return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
+//    }
 
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
@@ -164,9 +170,9 @@ public class MemberService {
         memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 
-
-    public List<ReservationRequest> selectReservationList(Member m) {
-        return memberDao.selectReservationList(sqlSession, m);
+    @Transactional
+    public int deleteReservation(Member m){
+        return memberDao.deleteReservation(sqlSession, m);
     }
 
 

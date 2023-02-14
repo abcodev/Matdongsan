@@ -26,6 +26,7 @@ public class Review {
     private String reviewContent;
     private Timestamp createDate;
     private String status;
+    private String resName;
 
     // 정적 팩토리 메소드 -> 객체 생성의 책임을 가지는 메소드
     public static Review of(Member member, InsertReviewRequest req) {
