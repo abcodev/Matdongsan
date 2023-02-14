@@ -177,6 +177,17 @@ public class MemberController {
 
     }
 
+//    @RequestMapping("/myPage/modal")
+//    @ResponseBody
+//    public String reservationModal(@RequestParam("revNo") int revNo,
+//                                   ModelAndView modelAndView){
+//
+//
+//
+//
+//        return modelAndView;
+//    }
+
 
 
 }

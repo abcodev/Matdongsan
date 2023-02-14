@@ -110,32 +110,31 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <div id="paging_boardList">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi1.currentPage eq 1}">
+                                <li class="page-item disabled">Previous</li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
+                            </c:otherwise>
+                        </c:choose>
 
-            </div>
-            <div id="paging_boardList"> <!-- <div id="paging"> -->
-                <ul class="pagination">
-                    <c:choose>
-                        <c:when test="${pi1.currentPage eq 1}">
-                            <li class="page-item disabled">Previous</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
-                        </c:otherwise>
-                    </c:choose>
+                        <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                            <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
+                        </c:forEach>
 
-                    <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                        <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
-                    </c:forEach>
-
-                    <c:choose>
-                        <c:when test="${pi1.currentPage eq pi1.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
+                        <c:choose>
+                            <c:when test="${pi1.currentPage eq pi1.maxPage}">
+                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="review_history">
