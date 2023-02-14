@@ -27,7 +27,7 @@
     <button type="button" class="b3" id="moveBrokerList" style="color: white; background: #585c9c; border: white">부동산관리</button>
 </div>
 <br><br><br><br>
-<div class="reportTable">
+<div class="brokerTable">
     <table id="tableDiv">
         <thead>
         <tr>
@@ -69,9 +69,34 @@
             </tr>
         </c:forEach>
         </tbody>
-
-
     </table>
+</div>
+<div class="paging">
+    <ul class="pagination">
+        <c:choose>
+            <c:when test="${ pi.currentPage eq 1 }">
+                <li class="page-item disabled">Previous</li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item" onclick="brokerList(${pi.currentPage - 1})">Previous</li>
+            </c:otherwise>
+        </c:choose>
+
+        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+            <li class="page-item" onclick="brokerList(${item})">${item }</li>
+        </c:forEach>
+
+        <c:choose>
+            <c:when test="${ pi.currentPage eq pi.maxPage }">
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            </c:when>
+            <c:otherwise>
+                <li class="page-item" onclick="brokerList(${pi.currentPage + 1})">Next</li>
+
+            </c:otherwise>
+        </c:choose>
+    </ul>
+
 </div>
 
 
@@ -91,6 +116,7 @@
 </div>
 
 <script>
+
     let agentNo = "";
     let memberNo = "";
 
@@ -114,13 +140,8 @@
 
     });
 
-
-
     $('.handleApply').click(function (){
         let status = $(this).val();
-        console.log(status);
-        console.log(agentNo);
-        console.log(memberNo);
         $.ajax({
             type : "POST",
             url : "${pageContext.request.contextPath}/admin/broker/handleApply",
@@ -136,6 +157,29 @@
             }
         })
     })
+
+    function brokerList(current_page) {
+        console.log(current_page)
+        $.ajax({
+            url: '${pageContext.request.contextPath}/admin/brokerList',
+            method: 'GET',
+            data: {
+                cpage: current_page,
+            },
+            dataType: 'html',
+            success: function (data) {
+                $('#tableDiv').empty();
+                $('.pagination').empty();
+                $('.paging').html($(data).find('.pagination')) ;
+                if ($(data).find("#tableList").length > 0) {
+                    $('.brokerTable').html($(data).find("#tableDiv"))
+                } else {
+                    $('.brokerTable').html('<p>조회된 회원이 없습니다.</p>');
+                }
+
+            }
+        })
+    }
 </script>
 </body>
 </html>

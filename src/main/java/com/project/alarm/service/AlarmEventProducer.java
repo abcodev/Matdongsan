@@ -100,7 +100,7 @@ public class AlarmEventProducer {
                 alive.add(emitters.get(i));
             }
         }
-        subscribers.put(memberNo, alive);
+//        subscribers.put(memberNo, alive);
     }
 
     public SseEmitter subscribe(long memberNo) { // 여기 memberNo 호출하면 알람이 가게되고
@@ -112,7 +112,6 @@ public class AlarmEventProducer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         if (subscribers.containsKey(memberNo)) {
             subscribers.get(memberNo).add(subscriber);
         } else {

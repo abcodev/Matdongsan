@@ -80,7 +80,6 @@ public class AdminController {
     public ModelAndView BrokerList (
             @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
             ModelAndView mv
-
     ){
 
         BrokerListResponse resp = adminService.brokerList(currentPage);
