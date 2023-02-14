@@ -97,12 +97,12 @@
 
         // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
         const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-        // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해
-        // 새로운 이벤트가 왔을 때 할 행위를 등록함
+        // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
         sse.addEventListener('realtime_alarm', (event) => {
             retrieveAlarmList();
             console.log(event);
         });
+        // 이벤트가 오면 콜백 메서드가 실행됨
 
         function retrieveAlarmList() {
             $.ajax({
@@ -294,7 +294,7 @@
     <div class="side lookList">
         <c:choose>
             <c:when test="${loginUser == null}">
-                <span>인기 아파트 단지</span>
+                <span>인기 아파트 순위</span>
 
                 <c:forEach var="interestView" items="${interestViewList}" varStatus="status">
                     <a href="${pageContext.request.contextPath}/realEstate/detail?estateNo=${interestView.estateNo}">${status.count}. ${interestView.bldgNm}</a>
