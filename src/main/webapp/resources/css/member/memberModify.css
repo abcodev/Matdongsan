@@ -75,6 +75,13 @@
     width: 35%;
 }
 
+.successNameChk{
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 2.7;
+    margin-left: 15px;
+}
+
 .email > input{
     width: 40%;
 }

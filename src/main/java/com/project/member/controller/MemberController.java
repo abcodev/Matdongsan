@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -106,13 +108,12 @@ public class MemberController {
         return Integer.toString(randomNumber);
     }
 
-//    @PostMapping("/nickNameCheck")
-//    @ResponseBody
-//    public int nickNameCheck(@RequestParam("nickName") String nickName) {
-//
-//        int cnt = memberService.nickNameCheck(nickName);
-//        return cnt;
-//
-//    }
 
+    @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public int nameCheck(@RequestParam("nName") String nName) {
+        return memberService.nNameCheck(nName);
+    }
+
+    
 }

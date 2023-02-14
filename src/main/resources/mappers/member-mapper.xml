@@ -211,4 +211,10 @@
 <!--        FROM INTEREST I-->
 <!--        JOIN REALESTATE_SELL RS on I.ESTATE_NO = RS.ESTATE_NO-->
 <!--    </select>-->
+
+    <select id="nNameCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE NICKNAME = #{ NICKNAME }
+    </select>
 </mapper>

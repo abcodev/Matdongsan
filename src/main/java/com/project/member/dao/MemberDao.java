@@ -112,4 +112,9 @@ public class MemberDao {
 //        return (ArrayList) sqlSession.selectList("memberMapper.selectInterestList", estateNo);
 //    }
 
+    public int nNameCheck(String nName) {
+        return sqlSession.selectOne("memberMapper.nNameCheck", nName);
+    }
+
+
 }

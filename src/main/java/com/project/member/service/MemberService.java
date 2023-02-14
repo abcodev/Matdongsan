@@ -155,6 +155,9 @@ public class MemberService {
 //        return memberDao.selectInterestList(sqlSession, estateNo);
 //    }
 
+    public int nNameCheck(String nName) {
+        return memberDao.nNameCheck(nName);
+    }
 }
 
 
