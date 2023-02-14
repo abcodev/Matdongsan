@@ -114,7 +114,7 @@
                            FROM REPORT
                            WHERE REPORT_TYPE = '자유게시판'
                            GROUP BY FREE_BNO
-                           HAVING COUNT(FREE_BNO) >= 10)
+                           HAVING COUNT(FREE_BNO) >= 5)
     </update>
 
     <resultMap id="hotWeekResultSet" type="hotWeek">

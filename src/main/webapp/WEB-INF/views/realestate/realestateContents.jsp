@@ -21,16 +21,24 @@
             <th>금액 (만원)</th>
             <th>임대면적</th>
         </tr>
-
-        <c:forEach var="estateRent" items="${ estateRentList }">
-            <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
-                <td class="rno" >${ estateRent.sggNm } </td>
-                <td>${estateRent.buildName }</td>
-                <td>${estateRent.rentGbn}</td>
-                <td>${estateRent.rentGtn}</td>
-                <td>${estateRent.rentArea }</td>
+        <c:if test="${!empty estateRentList}">
+            <c:forEach var="estateRent" items="${ estateRentList }">
+                <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
+                    <td class="rno" >${ estateRent.sggNm } </td>
+                    <td>${estateRent.buildName }</td>
+                    <td>${estateRent.rentGbn}</td>
+                    <td>${estateRent.rentGtn}</td>
+                    <td>${estateRent.rentArea }</td>
+                </tr>
+            </c:forEach>
+        </c:if>
+        <c:if test="${empty estateRentList}">
+            <tr>
+                <td colspan="5">
+                    검색 결과가 없습니다.
+                </td>
             </tr>
-        </c:forEach>
+        </c:if>
 
     </table>
 

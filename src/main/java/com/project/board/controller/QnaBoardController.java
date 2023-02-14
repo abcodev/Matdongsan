@@ -1,7 +1,5 @@
 package com.project.board.controller;
 
-import com.project.board.dto.QnaBoardListRequest;
-import com.project.board.dto.QnaBoardListResponse;
 import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
@@ -41,7 +39,7 @@ public class QnaBoardController {
 
         QnaBoardListRequest req = new QnaBoardListRequest(currentPage, state, search, select);
         QnaBoardListResponse resp = boardService.selectQnaList(req);
-
+        boardService.selectReportList();
 
         modelAndView.addObject("qnaBoardList", resp.getQnaBoardList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
@@ -125,6 +123,7 @@ public class QnaBoardController {
     // 상세 페이지
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(@PathVariable("qBno") int qBno,
+                                  @ModelAttribute("loginUser") Member loginUser,
                                   HttpSession session,
                                   ModelAndView mv,
                                   HttpServletRequest req,

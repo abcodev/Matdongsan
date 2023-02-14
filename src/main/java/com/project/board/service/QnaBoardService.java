@@ -11,6 +11,7 @@ import java.util.List;
 public interface QnaBoardService {
 
     QnaBoardListResponse selectQnaList(QnaBoardListRequest req);
+    public int selectReportList();
     public int insertQboard(QnaBoard qb);
     public int insertNotice(QnaBoard qb);
     public QnaBoard selectQboard(int qBno);
