@@ -1,10 +1,13 @@
 package com.project.board.controller;
 
+import com.project.board.dto.QnaBoardListRequest;
+import com.project.board.dto.QnaBoardListResponse;
 import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
 import com.project.common.annotation.RequiredLogin;
 import com.project.common.template.BoardCookieHelper;
+import com.project.common.type.StateList;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -17,9 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Controller
@@ -30,51 +31,53 @@ public class QnaBoardController {
     private final QnaBoardService boardService;
 
     @RequestMapping("/qnaList")
-    public String selectList(@RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
-                             @RequestParam Map<String, Object> paramMap,
-                             Model model,
-                             HttpSession session
+    public ModelAndView selectFreeList(ModelAndView modelAndView,
+                                       @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
+                                       @RequestParam(value = "state", defaultValue = "") String state,
+                                       @RequestParam(value = "search", defaultValue = "") String search,
+                                       @RequestParam(value = "select", defaultValue = "recent") String select
     ) {
 
+        QnaBoardListRequest req = new QnaBoardListRequest(currentPage, state, search, select);
+        QnaBoardListResponse resp = boardService.selectQnaList(req);
 
-        Map<String, Object> map = new HashMap();
-        if (paramMap.get("condition") == null) {
-            map = boardService.selectList(currentPage);
-        } else {
-            paramMap.put("cpage", currentPage);
-            map = boardService.selectList(paramMap);
-        }
-        model.addAttribute("map", map);
-        return "board/qnaBoardList";
+
+        modelAndView.addObject("qnaBoardList", resp.getQnaBoardList());
+        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.addObject("stateList", StateList.values());
+        modelAndView.addObject("condition", req);
+        modelAndView.setViewName("board/qnaBoardList");
+
+        return modelAndView;
     }
 
     // 게시글 작성페이지
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @RequiredLogin
     public String insertBoard(
-            ModelAndView mv,
+            Model model,
             HttpSession session
     ) {
         Member m = (Member) session.getAttribute("loginUser");
-        logger.info("session insert :"+m);
+        model.addAttribute("localList", StateList.values());
+
         return "board/qnaInsertBoard";
     }
 
     // 게시글 등록
     @RequestMapping("/insert")
-    public String insertQboard(Model model, QnaBoard qb, HttpSession session
-    ,@ModelAttribute("loginUser") Member loginUser) {
+    public String insertQboard(Model model, QnaBoard qb, HttpSession session,
+    @ModelAttribute("loginUser") Member loginUser,
+    @RequestParam(value = "qnaArea") String qnaArea
+    ) {
 
         Member m = (Member) session.getAttribute("loginUser");
-       // loginUser.getMemberNo();
-        qb.setQnaArea(qb.getQnaArea());
 
         if(m.getMemberNo() == 1){
             boardService.insertNotice(qb);
         }else {
             boardService.insertQboard(qb);
         }
-
 
         return "redirect:/board/qnaList";
     }

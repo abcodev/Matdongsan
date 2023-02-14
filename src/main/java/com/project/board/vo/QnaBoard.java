@@ -24,13 +24,6 @@ public class QnaBoard {
     private String qnaArea;
     private String qnaWriter;
     private int depth;
-
-    private int reportNo;
-    private String email;
-    private String reportedEmail;
-    private String reportReason;
-    private int reportUserNo;
-
     private int notice;
     private String blind;
 

@@ -284,7 +284,7 @@ CREATE TABLE "MEMBER"
     "RECENT_ACCESS"            TIMESTAMP                      NULL,
     "ACCESS_TOKEN"             VARCHAR2(255)                  NULL,
     "REFRESH_TOKEN"            VARCHAR2(255)                  NULL,
-    "REFRESH_TOKEN_EXPIRED_AT" VARCHAR2(255)                  NULL,
+    "REFRESH_TOKEN_EXPIRED_AT" TIMESTAMP                NULL,
     "REPORT_PERIOD" TIMESTAMP NULL
 );
 

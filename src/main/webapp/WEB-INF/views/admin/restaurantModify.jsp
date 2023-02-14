@@ -12,66 +12,83 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 
 <%@ include file="../template/header.jsp" %>
 <form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
-    <div id="content">
-        <div class="res name">
-            <h3>맛집이름</h3>
-            <input type="text" name="resName" value="${restaurantDetail.resName}">
+    <div class="body">
+        <div id="content">
+        <div id="contentHead"></div>
+        <div class="resDiv">
+            <i class="bi bi-shop"></i>
+            <span class="font">맛집이름 : &nbsp;</span>
+            <input type="text" name="resName"  class="textInput" value="${restaurantDetail.resName}">
             <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
         </div>
-        <div>
-            <h3>지역</h3>
-            <input type="text" name="state" value="${restaurantDetail.state}">
+        <div class="resDiv">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span class="font">지역 : &nbsp;</span>
+            <input type="text" id="space"  class="textInput" name="state" value="${restaurantDetail.state}">
         </div>
-        <div class="res address">
-            <h3>주소</h3>
-            <input type="text" name="address" value="${restaurantDetail.address}">
+        <div class="resDiv">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span class="font">주소 : &nbsp;</span>
+            <input type="text"  id="space2"  class="textInput"name="address" value="${restaurantDetail.address}">
         </div>
-        <div class="res phone">
-            <h3>전화번호</h3>
-            <input type="text" name="resPhone" value="${restaurantDetail.resPhone}">
+        <div class="resDiv">
+            <i class="fa-solid fa-phone"></i>
+            <span class="font">전화번호 : &nbsp;</span>
+            <input type="text"  class="textInput" name="resPhone" value="${restaurantDetail.resPhone}">
         </div>
-        <div class="res menu">
-            <h3>주요 메뉴</h3>
-            <input type="text" name="resFood" value="${restaurantDetail.resFood}">
+        <div class="resDiv">
+            <i class="fa-solid fa-utensils"></i>
+            <span class="font">주요메뉴 : &nbsp;</span>
+            <input type="text"  class="textInput" name="resFood" value="${restaurantDetail.resFood}">
+        </div>
         </div>
 
-    </div>
 
-    <div class="place hashtag">
+    <div class="placeHashtag">
         <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
             <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
-            <label class="btn btn-outline-secondary" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
+            <label class="btn btn-outline-secondary" id="hashBtn" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
         </c:forEach>
     </div>
+    <br><br>
 
 
-    <div class="res img">
-        <div>
+    <div class="resImg">
+        <%--<div>
             <img src="${restaurantDetail.resImgUrl}">
             <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
-        </div>
-
+        </div>--%>
+            <span class="font"><i class="bi bi-camera"></i></span>
         <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
-        <img id="preview" />
+            <br><br>
+        <img id="preview" src="${restaurantDetail.resImgUrl}">
+        <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
+        <br><br><br>
 
     </div>
 
 
     <div class="btn_box">
-        <button onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
-        <button type="submit">수정</button>
+        <button type="button" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
+        <button type="submit" class="bbtn">수정</button>
     </div>
-
+    </div>
 </form>
 
 <script>

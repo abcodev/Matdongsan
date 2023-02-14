@@ -30,7 +30,7 @@
         <textarea name="qnaContent"  required placeholder="답글을 입력해주세요"></textarea>
       </div>
       <div class="btn_box">
-        <button type="submit">답글 등록${loginUser.memberNo}</button>
+        <button type="submit">답글 등록</button>
         <button type="reset" onclick="history.back()">취소</button>
       </div>
       <input type="hidden" id="depth" name="depth" value="${depth}">

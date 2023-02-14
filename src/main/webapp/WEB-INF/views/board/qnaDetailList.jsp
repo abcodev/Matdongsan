@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardDetail.css"/>">
   <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
   <jsp:include page="../template/font.jsp"/>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <!-- JavaScript Bundle with Popper -->
@@ -66,7 +68,8 @@
 
       </div>
     </div>
-
+<br>
+    <div id="line"></div>
 
 
   <c:forEach var="list" items="${ab}">
@@ -74,9 +77,9 @@
   <%--    <c:if test="${empty list}">
         <span id="hong">작성된 답글이 없습니다</span>
       </c:if>--%>
-      <h3>${qb.qnaTitle}에 대한 답글${list.qnaTitle}</h3>
-      <span>작성자 : ${list.qnaWriter}</span><br><br>
-      <h4>내용 :${list.qnaContent}</h4>
+      <span class="font">${qb.qnaTitle}에 대한 답글 제목 : ${list.qnaTitle}</span><br>
+      <span id="writer">작성자 : ${list.qnaWriter}</span><br><br>
+      <span class="font">내용 :${list.qnaContent}</span>
     </div>
   </c:forEach>
 
