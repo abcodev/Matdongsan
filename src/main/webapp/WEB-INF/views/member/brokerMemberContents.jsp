@@ -8,12 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <jsp:include page="../template/font.jsp"/>
 
 <%--  ************예약확인창 모달***************  --%>
-<div id="resContent">
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -65,17 +63,14 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
 <script>
-    const revNo = $('#revNo').val();
-
     function approveRes(){
+        const revNo = $('#revNo').val();
 
         $.ajax({
             url: "${pageContext.request.contextPath}/reservation/approve",
-            data: revNo,
+            data: {revNo: revNo},
             method: "GET",
             success: function (data){
                 console.log("승인 완료");
@@ -86,9 +81,11 @@
 
 
     function cancelRes(){
+        const revNo = $('#revNo').val();
+
         $.ajax({
             url: "${pageContext.request.contextPath}/reservation/cancel",
-            data: revNo,
+            data: {revNo : revNo},
             method: "GET",
             success: function (data){
                 console.log("취소 완료");
