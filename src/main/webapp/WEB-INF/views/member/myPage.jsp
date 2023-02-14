@@ -165,8 +165,8 @@
                     </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
-                            <td>${reviewList.resName}</td>
-                            <td>
+                            <td class="review_resNm">${reviewList.resName}</td>
+                            <td class="review_star">
                                 <c:choose>
                                     <c:when test="${reviewList.starRating eq 5}">
                                       ★★★★★
@@ -187,7 +187,7 @@
                             </td>
 
                             <td>${reviewList.reviewContent}</td>
-                            <td>${reviewList.createDate}</td>
+                            <td class="review_date">${reviewList.createDate}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -224,7 +224,7 @@
         <p>부동산 예약 내역</p>
         <div id="myReserveList">
         <div class="myReserve_list">
-            <table>
+            <table id="reserveList_tb">
                 <tr class="myReserve_info_list_top">
                     <th>공인중개사</th>
                     <th>예약일</th>
@@ -233,7 +233,7 @@
                     <th>예약처리</th>
                 </tr>
                 <c:forEach var="reservationList" items="${reservationList}">
-                <tr class="myReserve_info_list" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <tr class="myReserve_info_list">
                     <td>${reservationList.agentName}</td>
                     <td>${reservationList.revDate}</td>
                     <td>${reservationList.revTime}</td>
@@ -271,54 +271,9 @@
         </div>
         </div>
         <%--  ************예약확인창 모달***************  --%>
+        <button class="modal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none"></button>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <i class="fa-solid fa-user-check"></i>
-                        <span>예약 상세정보</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <c:forEach var="reservationList" items="${reservationList}">
-                    <div class="modal-body">
-                        <div class="user_info">
-                            <p>예약자 정보</p>
-                            <div class="user_name">
-                                <span>이름</span>
-                                <p>${reservationList.memberName}</p>
-                            </div>
-                            <div class="user_phone">
-                                <span>전화번호</span>
-                                <p>${reservationList.phone}</p>
-                            </div>
-                            <div class="user_email">
-                                <span>이메일</span>
-                                <p>${reservationList.email}</p>
-                            </div>
-                        </div>
-                        <div class="reserve_info">
-                            <p>예약내역</p>
-                            <div class="realtor_name">${reservationList.agentName}</div>
-                            <div class="reserve_person">
-                                <span>예약인원</span>
-                                <p>${reservationList.peopleCount}</p>
-                            </div>
-                            <div class="reserve_date">
-                                <span>예약날짜</span>
-                                <p>${reservationList.revDate}</p>
-                            </div>
-                            <div class="reserve_time">
-                                <span>예약시간</span>
-                                <p>${reservationList.revTime}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" onclick="deleteReservation();">예약취소</button>
-                    </div>
-                    </c:forEach>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -403,6 +358,24 @@
             }
         })
     }
+
+    $('#reserveList_tb').on("click", "tr", function (){
+        console.log($(this).find("td:eq(0)").text());
+        let revNo = $(this).find("td:eq(0)").text();
+
+        $.ajax({
+            url: '${pageContext.request.contextPath}/myPage/modal',
+            method: 'GET',
+            data: {revNo : revNo},
+            success: function (data){
+
+                //const html = jQuery('<div>').html(data);
+                //const contents = html.find('div#revContent').html();
+                $('#exampleModal').html(data);
+                $(".modal_btn").click();
+            }
+        })
+    })
 
 </script>
 

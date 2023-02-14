@@ -294,7 +294,7 @@
 
     <update id="deleteReservation" parameterType="long">
         UPDATE REAL_RESERVATION
-        SET REV_STATUS = 'N'
+        SET REV_STATUS = '예약취소'
         WHERE MEMBER_NO = #{memberNo}
     </update>
 

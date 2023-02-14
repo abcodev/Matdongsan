@@ -165,8 +165,10 @@ public class MemberController {
     }
 
     @RequestMapping("/revDelete")
-    public String deleteReservation(Member m){
+    public String deleteReservation(HttpSession session){
+        Member m = (Member) session.getAttribute("loginUser");
         memberService.deleteReservation(m);
+
         return "redirect:/myPage";
 
     }
