@@ -72,4 +72,12 @@ public class QnaBoardService {
     public int insertReport(Report report){
         return boardDao.insertReport(sqlSession, report);
     }
+
+
+    public int selectReportList() {
+        return boardDao.selectReportList(sqlSession);
+    }
+
+
+
 }

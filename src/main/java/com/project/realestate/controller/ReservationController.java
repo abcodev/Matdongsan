@@ -33,9 +33,7 @@ public class ReservationController {
     @ResponseBody
     public ModelAndView selectReservation(@RequestParam(value = "revNo")int revNo){
         ModelAndView modelAndView = new ModelAndView();
-
         ReservationBroker modalInfo = reservationService.selectReservation(revNo);
-
         modelAndView.addObject("selectReservation", modalInfo);
         modelAndView.setViewName("member/brokerMemberContents");
         return modelAndView;

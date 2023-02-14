@@ -24,7 +24,6 @@
     </select>
 
 
-
     <resultMap id="BrokerResList" type="brokerList">
         <result column="REV_NO" property="revNo"/>
         <result column="MEMBER_NO" property="memberNo"/>
@@ -37,24 +36,24 @@
         <result column="REV_DATE" property="revDate"/>
         <result column="REV_CREATEDATE" property="revCreateDate"/>
         <result column="REV_STATUS" property="revStatus"/>
-        <result column="ESTATE_NO" property="agentNo"/>
+        <result column="AGENT_NO" property="agentNo"/>
         <result column="AGENT_NAME" property="agentName"/>
     </resultMap>
 
     <select id="selectReservation" resultMap="BrokerResList">
         SELECT
-        REV_NO,
-        R.MEMBER_NO,
-        MEMBER_NAME,
-        PHONE,
-        EMAIL,
-        AGENT_NAME,
-        REV_PEOPLE,
-        REV_ASK,
-        REV_TIME,
-        REV_DATE
+            REV_NO,
+            R.MEMBER_NO,
+            MEMBER_NAME,
+            PHONE,
+            EMAIL,
+            AGENT_NAME,
+            REV_PEOPLE,
+            REV_ASK,
+            REV_TIME,
+            REV_DATE
         FROM REAL_RESERVATION R
-        LEFT JOIN REALESTATE_AGENT RA on R.ESTATE_NO= RA.AGENT_NO
+        LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO= RA.AGENT_NO
         WHERE R.REV_NO = #{revNo}
     </select>
 

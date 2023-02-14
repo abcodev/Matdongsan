@@ -43,7 +43,7 @@
         <div id="btn_box">
             <button onclick="deleteMember()">회원탈퇴</button>
             <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-<%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
+            <%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
         </div>
     </div>
 

@@ -9,6 +9,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.dto.ReservationResponse;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
