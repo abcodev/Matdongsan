@@ -7,6 +7,7 @@ import com.project.common.template.PageInfoCombine;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
@@ -66,5 +67,8 @@ public class QnaBoardDao {
         return sqlSession.selectOne("boardMapper.selectByQnaBno", parentBno);
     }
 
+    public List<QnaBoard> selectQaNoticeList(SqlSession sqlSession){
+        return sqlSession.selectList("boardMapper.selectQaNoticeList");
+    }
 
 }

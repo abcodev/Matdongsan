@@ -14,6 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
+    <style>
+
+
+    </style>
 </head>
 <body>
 <%@ include file="../template/header.jsp" %>
@@ -164,6 +168,7 @@
         </div>
     </div>
     <div class="reserve_history">
+
         <p>예약 확인</p>
 
         <button class="myReserve_list">
@@ -182,14 +187,19 @@
                         <td>${res.revDate}</td>
                         <td>${res.revTime}</td>
                         <td>${res.revPeople}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${res.revStatus eq 'C'}">예약확인 중</c:when>
-                                <c:when test="${res.revStatus eq 'A'}">예약 완료</c:when>
-                                <c:otherwise>예약 취소</c:otherwise>
-                            </c:choose>
+                        <c:choose>
+                            <c:when test="${res.revStatus eq 'C'}">
+                                <td>예약확인 중</td>
+                            </c:when>
+                            <c:when test="${res.revStatus eq 'A'}">
+                                <td style="color: rgba(159,111,217,0.83)">예약 완료</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td style="color: #b4b1b0">예약 취소</td>
+                            </c:otherwise>
+                        </c:choose>
 
-                        </td>
+
                     </tr>
                 </c:forEach>
             </table>
