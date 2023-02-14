@@ -27,43 +27,38 @@ import java.util.*;
     SSE 연결을 통해서 알람을 받겠다고 구독하는 행위
     SSE -> 서버 to 클라이언트 스트림을 유지시켜놓음.
     cf) WebSocket : 양방향 (서버, 클라이언트 모두 언제든지 메시지를 보낼수있음)
-
  */
-
 
 @Slf4j
 @Service
 public class AlarmEventProducer {
 
     /*
-        알람을 받고싶어서 구독 하는 사람 - AlarmEventProducer(알람을 보내주는 역할) - 알람을 보내는 사람
-                            (메세지를 보내고 싶은 사람한테 받아서 반대쪽으로 내보내주는 역할)
+        알람을 구독 하는 사람 - AlarmEventProducer(알람을 보내주는 역할) - 알람을 보내는 사람
+                     (메세지를 보내고 싶은 사람한테 받아서 반대쪽으로 내보내주는 역할) => 이벤트 스트림
+        - Message Queue ex) Kafka, RabbitMQ 같은 역할 (Queue : 한쪽으로 들어온걸 내보내주는 것)
 
-        => 이벤트 스트림
-        ex) Message Queue -> Kafka, RabbitMQ 같은 역할 Queue : 한쪽으로 들어온걸 내보내주는 것
+        알람을 받고 싶은 사람이 등록하는 방법? 과 보내고 싶은 사람은 어떻게 보내나?
 
-        알람을 받고 싶은 사람이 등록하는 방법? 과 보내고 싶은 사람은 어떻게 보내나? 의 두가지 액션이 있음
-
-        알람을 받고싶은 사람은 컨트롤러에서 알람섭스크라이브를 구독하게됨
+        알람을 받고싶은 사람은 컨트롤러(SseEmitter alarmSubscribe)에서 구독하게 됨
         SSE 연결을 통해서 알람을 받겠다고 구독하는 행위
         SSE -> 서버 to 클라이언트 스트림을 유지시켜놓음
-        서버가 일방적으로 메세지를 보낼 수 있는 구조(http는 1:1 요청을 한번에 응답을 계속 보낼 수 있음(요청이 있어야 응답))
+        서버가 일방적으로 메세지를 보낼 수 있는 구조(http 는 1:1 요청을 한번에 응답을 계속 보낼 수 있음(요청이 있어야 응답))
         SSE 는 요청 한번에 응답을 계속 보낼 수 있음
 
         첫번째 액션: 알람을 받고싶은 사람이 프로듀서한테 알람을 받을거라고 기록함
-        프로듀서한테 멤버넘버라는 애가 알람 받고싶다고 하고
-        프로듀서는 누가 알람을 받고싶은지를 기록을 함(private final~ 부분에 기록함)
+        AlarmEventProducer 한테 memberNo에 해당하는 애가 알람 받고싶다고 하고
+        AlarmEventProducer 는 누가 알람을 받고싶은지를 기록 함 (private final~ 부분에 기록)
         Long : MemberNo (로그한 사용자, 알람을 받고싶은 사람의 목록) , List<SseEmitter>(통로) : 구독 리스트
-        memberNo 받고싶어서 기다리고 있는 사람들 목록
-        subscriber 통로를 만들어서 subscribers.put(memberNo, emitters)에 넣어둠
+        - memberNo 받고 싶어서 기다리고 있는 사람들 목록
+        - subscriber 통로를 만들어서 subscribers.put(memberNo, emitters)에 넣어 둠
 
-        이벤트를 보내고 싶은 사람? : 클라이언트가 아니라 소스코드에 있는 다른 서비스들(ex) board-service-insertReply~)
-        보내는거 자체는 알람 이벤트 프로듀서한테 보내달라고 해야함
-        직접 보내달라고 해야할때 memberNo 한테 알람이 왔다고 보내주는 구조
+        이벤트를 보내는 곳 : 클라이언트가 아니라 소스코드에 있는 다른 서비스들 (ex) board-service-insertReply~)
+        보내는거 자체는 알람 이벤트 프로듀서한테 보내달라고 해야하고 , 직접 보내달라고 할 때 memberNo 한테 알람이 왔다고 보내주는 구조
 
-        구독하는 시점? -> 이벤트소스 객체가 생성되는 시점(메인페이지가 켜지는 시점) 서버끄면 구독 리스트는 사라짐
+        구독하는 시점? -> 이벤트소스 객체가 생성되는 시점 (메인페이지가 켜지는 시점) 서버끄면 구독 리스트는 사라짐
 
-        EventSource 객체가 생성되는 시점에 구독이 이루어지고, => mainPage.jsp
+        EventSource 객체가 생성되는 시점에 구독이 이루어 지고, => mainPage.jsp
         addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
         이벤트가 오면 콜백 메서드가 실행됨
      */
@@ -74,12 +69,10 @@ public class AlarmEventProducer {
         List<SseEmitter> : 한 사용자가 여러 브라우저에서 로그인 하거나 강제종료 하거나 비정상적인 종료를 대응하기 위해서
 
         subscriber 통로를 만들어서 subscribers.put(memberNo, emitters)에 넣어둠
-        실행중인 스프링이 프로세스가 되고 메모리를 할당받게되고 이 메모리 안에 저장되게됨 -> 서버가 꺼지면서 메모리가 날아가면 사라짐
+        실행중인 스프링이 프로세스가 되고 메모리를 할당받게되고 이 메모리 안에 저장하게 됨 -> 서버가 꺼지면서 메모리가 날아가면 사라짐
         서버를 끄면 클라이언트와 연결이 끊어지니까 날아가도 상관없음 (클라이언트가 다시 연결하면 다시 기록되니까)
      */
     private final Map<Long, List<SseEmitter>> subscribers;
-
-
 
     public AlarmEventProducer() {
         this.subscribers = new HashMap<>();
@@ -100,6 +93,7 @@ public class AlarmEventProducer {
             }
         }
 
+        // TODO : 이부분 필요 없는 코드인가,,
         List<SseEmitter> alive = new ArrayList<>();
         for (int i = 0; i < emitters.size(); ++i) {
             if (!removeIndex.contains(i)) {

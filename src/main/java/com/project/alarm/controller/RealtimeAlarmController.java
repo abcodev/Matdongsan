@@ -81,7 +81,10 @@ public class RealtimeAlarmController {
         return ResponseEntity.ok().build();
     }
 
-
+    /*
+        SSE 연결을 통해서 알람을 받겠다고 구독하는 행위
+        SSE -> 서버 to client 스트림을 유지시켜놓음 서버가 일방적으로 메세지를 보낼 수 있는 구조
+     */
     @GetMapping(value = "/alarm/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter alarmSubscribe(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
