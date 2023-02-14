@@ -21,10 +21,12 @@ public class AlarmService {
         return alarmRepository.selectList(memberNo);
     }
 
-    // MemberNo 1번아 너 새로운 알람왔더라!
-    // 1번이 아 새로운거 왔다고? 읽어야겠다.
-    // Zero Payload
-
+    /*
+        MemberNo 1번아 너 새로운 알람왔어 라고만 알려줌 1번이 직접 읽어야함 -> Zero Payload 방식
+        테이블에 알람이라는애를 쌓고 있음
+        보내기전에 db에 기록을 해줘야하니까 알람 서비스가 필요함
+        서비스한테 샌드해줘 하면 기록하고 보냄
+     */
     public void send(AlarmTemplate template) {
         // 1. template -> Alarm Entity 생성 -> alarmDao.save(entity)
         Alarm alarm = Alarm.of(template);
