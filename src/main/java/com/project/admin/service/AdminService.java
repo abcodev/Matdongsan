@@ -16,9 +16,10 @@ public interface AdminService {
     public int insertBlack(Admin ad);
 
 
-    BrokerListResponse brokerList(int currentPage);
 
     void ban(BanRequest req);
 
     void handleApply(HandleApplyRequest req);
+
+    BrokerListResponse brokerList(int currentPage);
 }

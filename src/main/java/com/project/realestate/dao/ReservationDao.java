@@ -16,4 +16,12 @@ public class ReservationDao {
     public int reservationEnroll(ReservationDateFilter reqFilter) {
         return sqlSession.insert("reservationMapper.reservationEnroll",reqFilter);
     }
+
+    public long memberNoOfEstate(String agentNo) {
+        return sqlSession.selectOne("reservationMapper.memberNoOfEstate",agentNo);
+    }
+
+    public String memberNoOfReservation(long memberNo) {
+        return sqlSession.selectOne("reservationMapper.memberNoOfReservation",memberNo);
+    }
 }

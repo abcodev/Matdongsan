@@ -8,4 +8,18 @@
         INSERT INTO REAL_RESERVATION(REV_NO, MEMBER_NO, MEMBER_NAME, REV_PEOPLE, PHONE, EMAIL, REV_ASK, REV_TIME, REV_DATE,ESTATE_NO)
         VALUES (SEQ_ESTATE_REV_NO.nextval,#{memberNo},#{memberName},#{peopleCount},#{phone},#{email},#{requestText},#{revTime},#{revDate},#{agentNo})
     </insert>
+
+    <select id="memberNoOfEstate" parameterType="string">
+        SELECT
+            MEMBER_NO
+        FROM REALESTATE_AGENT
+        WHERE AGENT_NO = #{agentNo}
+    </select>
+
+    <select id="memberNoOfReservation" resultType="string">
+        SELECT
+            MEMBER_NAME
+        FROM MEMBER
+        WHERE MEMBER_NO = #{memberNo}
+    </select>
 </mapper>

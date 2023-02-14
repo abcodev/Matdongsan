@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HandleApplyRequest {
 
-    private String status;
-    private String agentNO;
-    private String memberNo;
+    private String handle;
+    private String agentNo;
+    private long memberNo;
     private MemberGrade grade = MemberGrade.BROKER;
 }

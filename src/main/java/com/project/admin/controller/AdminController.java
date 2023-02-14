@@ -3,6 +3,7 @@ package com.project.admin.controller;
 import com.project.admin.dto.*;
 import com.project.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -82,24 +83,28 @@ public class AdminController {
 
     ){
 
-        BrokerListResponse resp = adminService.BrokerList(currentPage);
+        BrokerListResponse resp = adminService.brokerList(currentPage);
         mv.addObject("brokerList",resp.getBrokerEnrollList());
         mv.addObject("pi",resp.getPageInfoCombine());
         mv.setViewName("admin/realEstateBroker");
         return  mv;
     }
 
-    @PostMapping(value = "/broker/handleApply")
-    public ResponseEntity<String> handleApply(@RequestParam HandleApplyRequest req
+    @RequestMapping(value = "/broker/handleApply",  method=RequestMethod.POST )
+    @ResponseBody
+    public ResponseEntity<String> handleApply(@RequestBody HandleApplyRequest req
                                               ){
         adminService.handleApply(req);
 
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type","text/plain;charset=UTF-8");
+
         String result = "";
-        if(req.getStatus().equals("consent")){
+        if(req.getHandle().equals("consent")){
             result = "신청 승인을 완료하였습니다.";
         }else{
             result = "신청 승인을 거절하였습니다";
         }
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().headers(resHeaders).body(result);
     }
 }

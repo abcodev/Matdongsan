@@ -50,10 +50,21 @@
                 <td>${broker.agentPhone}</td>
                 <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
                 <td>
-                    <button type="button" class="add-btn" id="btnOn"
-                            onclick="showApproveModal('${broker.agentNo}', ${broker.memberNo})">
-                            ${broker.applyStatus} 승인대기
-                    </button>
+                    <c:if test="${broker.applyStatus eq 'A'}">
+                        <button type="button" class="add-btn" id="btnOn" onclick="showApproveModal('${broker.agentNo}', ${broker.memberNo})">
+                                승인대기
+                        </button>
+                    </c:if>
+                    <c:if test="${broker.applyStatus eq 'Y'}">
+                        <button type="button" class="add-btn" id="btnOn2" disabled="disabled">
+                                승인 완료
+                        </button>
+                    </c:if>
+                    <c:if test="${broker.applyStatus eq 'N'}">
+                        <button type="button" class="add-btn" id="btnOn2" disabled="disabled">
+                                승인 거절
+                        </button>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>
@@ -72,14 +83,16 @@
             <div class="close_btn" id="close_btn">X</div>
         </div>
         <div class="m_body">
-            <button type="button" id="clear" class="btn" value="consent">승인</button>
-            <button type="button"  class="btn close_btn" id="close_btn2" value="reject">거부</button>
+            <button type="button" id="clear" class="btn handleApply" value="consent">승인</button>
+            <button type="button"  class="btn close_btn handleApply" id="close_btn2" value="reject">거부</button>
         </div>
 
     </div>
 </div>
 
 <script>
+    let agentNo = "";
+    let memberNo = "";
 
     $("#reportList").click(function () {
         location.href = '${pageContext.request.contextPath}/admin/reportList';
@@ -89,16 +102,15 @@
         location.href = '${pageContext.request.contextPath}/admin/userList';
     });
 
-    function showApproveModal(agentNo, memberNo) {
+    function showApproveModal(agent, member) {
         $('#modal').addClass('show');
         // TODO : 이벤트 발생하는 곳
-        console.log(agentNo);
-        console.log(memberNo);
+        agentNo = agent;
+        memberNo = member;
     }
 
     // 모달 닫기
     $(document).on('click', '#close_btn', function (e) {
-        console.log("click event");
         $('#modal').removeClass('show');
 
     });
@@ -107,22 +119,21 @@
 
     $('.handleApply').click(function (){
         let status = $(this).val();
-        // let tr = $(this).parent().parent()
-        // console.log(agentNo)
-        // console.log(memberNo)
-        console.log($(this).data('agentNo'))
-        // console.log(tr.text())
-        // let agentNo =;
-        // let memberNo = ;
+        console.log(status);
+        console.log(agentNo);
+        console.log(memberNo);
         $.ajax({
             type : "POST",
             url : "${pageContext.request.contextPath}/admin/broker/handleApply",
-            data : { 'handle': status},
-            success : function (){
-                console.log("테스트 성공1")
-            },
-            fail : function (){
-                console.log("테스트 실패!")
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({
+                'handle': status,
+                'agentNo': agentNo,
+                'memberNo': memberNo
+            }),
+            success : function (result){
+                console.log(result)
+                document.location.href = document.location.href;
             }
         })
     })

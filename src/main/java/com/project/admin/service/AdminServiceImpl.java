@@ -70,6 +70,12 @@ public class AdminServiceImpl implements AdminService {
         return adminDao.insertBlack(sqlSession, ad);
     }
 
+
+    @Override
+    public void ban(BanRequest req) {
+        memberDao.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
+    }
+
     @Override
     public BrokerListResponse brokerList(int currentPage) {
         int count = adminDao.BrokerListCount(sqlSession);
@@ -77,12 +83,6 @@ public class AdminServiceImpl implements AdminService {
         List<BrokerEnroll> brokerEnrollList = adminDao.BrokerList(sqlSession, pageInfoCombine);
         return new BrokerListResponse(brokerEnrollList, pageInfoCombine);
     }
-
-    @Override
-    public void ban(BanRequest req) {
-        memberDao.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
-    }
-
     @Override
     @Transactional
     public void handleApply(HandleApplyRequest req) {

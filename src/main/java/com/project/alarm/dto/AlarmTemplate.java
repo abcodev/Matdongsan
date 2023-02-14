@@ -57,5 +57,14 @@ public class AlarmTemplate {
         template.setContents("내 질문에 답변이 등록됐습니다.");
         return template;
     }
+    public static AlarmTemplate generateNewRervation(long receiverNo,String senderName){
+        AlarmTemplate template = new AlarmTemplate(receiverNo);
+        template.setTargetNo(String.valueOf(receiverNo));
+        template.setTitle("부동안 예약 알림");
+        template.setAlarmType(AlarmType.NEW_RESERVATION_BROKER);
+        template.setContents( senderName + "가 방문상담을 예약하였습니다.");
+        return template;
+    }
+
 
 }

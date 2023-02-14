@@ -35,6 +35,7 @@
             RA.APPLY_STATUS
         FROM REALESTATE_AGENT RA
                  JOIN MEMBER M on RA.MEMBER_NO = M.MEMBER_NO
+        ORDER BY APPLY_STATUS
     </select>
 
 
@@ -45,10 +46,10 @@
 
     <update id="changeEstateStatus">
         UPDATE REALESTATE_AGENT
-            <if test="status.equals('consent')">
+            <if test="handle.equals('consent')">
                 SET APPLY_STATUS = 'Y'
             </if>
-            <if test="status.equals('reject')">
+            <if test="handle.equals('reject')">
                 SET APPLY_STATUS = 'N'
             </if>
         WHERE AGENT_NO = #{agentNo}
