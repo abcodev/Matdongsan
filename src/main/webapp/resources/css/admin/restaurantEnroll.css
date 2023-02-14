@@ -8,7 +8,7 @@
 #content{
     margin:auto;
     box-sizing: border-box;
-    width: 48%;
+    width: 44%;
     padding: 20px;
 }
 #contentHead{
@@ -61,7 +61,7 @@ input[type=file]::file-selector-button {
 .bbtn{
      border: 1px solid #f3f1f5;
      width: 300px;
-     height: 55px;
+     height: 47px;
      text-align: center;
      border-radius: 10px;
      color: #f3f1f5;
@@ -82,7 +82,9 @@ input[type=file]::file-selector-button {
 }
 .font{
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
+    margin-right: 12px;
+    margin-left: 12px;
     color : #3d3d3d;
 }
 .textInput{
@@ -93,7 +95,7 @@ input[type=file]::file-selector-button {
 }
 #space ,#space2{
     position: relative;
-    right: -38px;
+    right: -34px;
 }
 input::placeholder {
    position: relative;

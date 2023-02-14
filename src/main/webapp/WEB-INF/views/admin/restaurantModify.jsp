@@ -32,23 +32,28 @@
         <div id="content">
         <div id="contentHead"></div>
         <div class="resDiv">
+            <i class="bi bi-shop"></i>
             <span class="font">맛집이름 : &nbsp;</span>
             <input type="text" name="resName"  class="textInput" value="${restaurantDetail.resName}">
             <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
         </div>
         <div class="resDiv">
+            <i class="bi bi-geo-alt-fill"></i>
             <span class="font">지역 : &nbsp;</span>
             <input type="text" id="space"  class="textInput" name="state" value="${restaurantDetail.state}">
         </div>
         <div class="resDiv">
+            <i class="fa-solid fa-map-location-dot"></i>
             <span class="font">주소 : &nbsp;</span>
             <input type="text"  id="space2"  class="textInput"name="address" value="${restaurantDetail.address}">
         </div>
         <div class="resDiv">
+            <i class="fa-solid fa-phone"></i>
             <span class="font">전화번호 : &nbsp;</span>
             <input type="text"  class="textInput" name="resPhone" value="${restaurantDetail.resPhone}">
         </div>
         <div class="resDiv">
+            <i class="fa-solid fa-utensils"></i>
             <span class="font">주요메뉴 : &nbsp;</span>
             <input type="text"  class="textInput" name="resFood" value="${restaurantDetail.resFood}">
         </div>

@@ -222,13 +222,50 @@ tr:last-child td:last-child {
     height: 30px;
 }
 
-#paging{
+.pagination > div{
     display: inline-block;
     position: relative;
-    left: 820px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    left: 830px;
+    margin:0 3px;
+    float:left;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#c6c9cc;
+    font-size:13px;
+    color:#333333;
+    text-decoration:none;
+    font-weight: bold;
 }
+.pagination> div:hover{
+    border: 2px solid black;
+}
+.pagination> li{
+    position: relative;
+    left: 830px;
+    display: inline-block;
+    margin:0 3px;
+    float:left;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:white;
+    font-size:13px;
+    color:#333333;
+    text-decoration:none;
+    font-weight: bold;
+}
+.pagination> li:hover{
+    border: 2px solid black;
+}
+.pagination > li,div{
+
+}
+
 
 #btnClose {
     background: gray;

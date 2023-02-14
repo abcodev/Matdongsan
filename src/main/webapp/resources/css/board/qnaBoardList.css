@@ -52,7 +52,7 @@
     color: #515151;
 }
 
-#freeBoardSearch{
+#qnaBoardSearch{
     padding: 0;
     width: 100%;
     line-height: 1.43;
@@ -61,7 +61,7 @@
     background: none;
 }
 
-#freeBoardSearch:focus{
+#qnaBoardSearch:focus{
     outline: none;
 }
 
@@ -204,11 +204,33 @@
 
 .table th:nth-child(3){
     width: 140px;
-} .pagination> li{
+}
+.pagination> li{
     display: inline-block;
     margin: auto;
     position: relative;
-    left: 560px;
+    left: 470px;
+    margin:0 3px;
+    float:left;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
+}
+.pagination> li:hover{
+    border: 2px solid #beb0d0;
+}
+.page-link{
+    background-color: #beb0d0;
+}
+#big{
+    height: 1000px;
 }
 
 

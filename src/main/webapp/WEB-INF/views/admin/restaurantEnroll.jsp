@@ -25,23 +25,28 @@
         <div id="content">
             <div id="contentHead"></div>
             <div class="resDiv">
-                <span class="font">맛집이름 : &nbsp;</span>
+                <i class="bi bi-shop"></i>
+                <span class="font">맛집이름 : </span>
                 <input type="text" class="textInput" name="resName" required placeholder="맛집을 입력해주세요">
             </div>
             <div class="resDiv">
-                <span class="font">주소 : &nbsp;</span>
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span class="font">주소 : </span>
                 <input type="text" id="space" class="textInput"name="address" required placeholder="주소를 입력해주세요">
             </div>
             <div class="resDiv">
-                <span class="font">전화번호 : &nbsp;</span>
+                <i class="fa-solid fa-phone"></i>
+                <span class="font">전화번호 : </span>
                 <input type="text" class="textInput"name="resPhone" required placeholder="전화번호를 입력해주세요">
             </div>
             <div class="resDiv">
-                <span class="font">주요메뉴 : &nbsp;</span>
+                <i class="fa-solid fa-utensils"></i>
+                <span class="font">주요메뉴 : </span>
                 <input type="text" class="textInput" name="resFood" required placeholder="메뉴를 입력해주세요">
             </div>
             <div class="resDiv">
-                <span class="font">지역 : &nbsp;</span>
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="font">지역 : </span>
                 <input type="text" id="space2" class="textInput" name="state" required placeholder="지역을 입력해주세요">
             </div>
         </div>

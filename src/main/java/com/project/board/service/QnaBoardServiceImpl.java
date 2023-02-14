@@ -3,9 +3,12 @@ package com.project.board.service;
 import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmService;
 import com.project.board.dao.QnaBoardDao;
+import com.project.board.dto.*;
+import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfo;
 import com.project.board.vo.QnaBoard;
+import com.project.common.template.PageInfoCombine;
 import com.project.common.template.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
@@ -25,48 +28,17 @@ public class QnaBoardServiceImpl implements QnaBoardService {
     private final Pagination pagination;
     private final AlarmService alarmService;
 
-    @Override
-    public int selectListCount() {
-        return boardDao.selectListCount(sqlSession);
-    }
-    @Override
-    public int selectListCount(Map<String,Object> paramMap) {
-        return boardDao.selectListCount(sqlSession, paramMap);
-    }
+    private static final int DEFAULT_RES_SIZE = 7;
 
     @Override
-    public Map<String , Object> selectList(int currentPage){
-        Map<String , Object> map = new HashMap();
-        int listCount = selectListCount();
-        int pageLimit = 10;
-        int boardLimit = 15;
-        PageInfo pi = pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-        map.put("pi",pi);
-        ArrayList<QnaBoard> list = boardDao.selectList(sqlSession,pi);
-        map.put("list", list);
-        return map;
+    public QnaBoardListResponse selectQnaList(QnaBoardListRequest req) {
+        QnaBoardListFilter filter = QnaBoardListFilter.from(req);
+        int count = boardDao.selectQnaListCount(sqlSession,filter);
+        PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_RES_SIZE);
+        List<QnaBoard> result = boardDao.selectQnaList(sqlSession, pageInfoCombine, filter);
+        return new QnaBoardListResponse(result,pageInfoCombine);
     }
 
-    @Override
-    public Map<String, Object> selectList(Map<String,Object> paramMap){
-
-        Map<String, Object> map = new HashMap();
-
-        int listCount = selectListCount(paramMap);
-
-        int pageLimit = 10;
-        int boardLimit = 15;
-        PageInfo pi = pagination.getPageInfo(listCount, (Integer) paramMap.get("cpage"), pageLimit, boardLimit);
-        paramMap.put("pi", pi);
-
-        map.put("pi", pi);
-
-
-        ArrayList<QnaBoard> list = boardDao.selectList(sqlSession, paramMap);
-        map.put("list", list);
-
-        return map;
-    }
 
 
     @Override
