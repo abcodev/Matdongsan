@@ -27,7 +27,7 @@
         <div class="detail_head">
             <div class="board_title">
                     <c:if test="${w eq loginUser.memberNo}">
-                        <input type="text" name="boardTitle" value="${fb.boardTitle}">
+                        <input type="text" name="boardTitle" value="${fb.boardTitle}" maxlength="70" oninput="handleInputLength(this, 70)">
                     </c:if>
                     <c:if test="${w ne loginUser.memberNo}">
                         <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
@@ -173,6 +173,13 @@
 
 </script>
 
+<script>
+    function handleInputLength(el, max) {
+        if(el.value.length > max) {
+            el.value = el.value.substr(0, max);
+        }
+    }
+</script>
 
 <!-- 게시글 삭제 -->
 <script>

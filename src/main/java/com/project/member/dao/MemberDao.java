@@ -5,6 +5,8 @@ import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.ReservationResponse;
+import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -126,5 +128,8 @@ public class MemberDao {
         return sqlSession.update("memberMapper.deleteReservation", m);
     }
 
+    public List<ReservationBroker> selectBrokerReservationList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("memberMapper.selectBrokerResList", m);
+    }
 
 }

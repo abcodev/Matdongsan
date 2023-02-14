@@ -10,6 +10,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/chat_pop.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common/mainPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/common" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/brokerMemberMyPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/loginPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/myPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/realestate/realestateContents.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/realestate" />

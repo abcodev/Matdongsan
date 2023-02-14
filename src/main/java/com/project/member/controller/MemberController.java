@@ -9,6 +9,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.dto.ReservationResponse;
+import com.project.realestate.vo.ReservationBroker;
 import com.project.restaurant.vo.Hashtag;
 import com.project.restaurant.vo.Restaurant;
 import com.project.restaurant.vo.Review;
@@ -67,12 +68,15 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
+        List<ReservationBroker> brokerReservationList = memberService.selectBrokerReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
-        modelAndView.addObject("reservationList", resp.getReservationList());
+        modelAndView.addObject("brokerResList", brokerReservationList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
+
+        System.out.println("부동산 예약 리스트 : " + brokerReservationList);
 
         modelAndView.setViewName("member/brokerMemberMyPage");
 
@@ -108,14 +112,14 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("/myPage")
+//    @GetMapping("/myPage/interest")
 //    @ResponseBody
-//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session) {
+//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session){
 //        Member loginUser = (Member) session.getAttribute("loginUser");
 //        if (loginUser == null) {
 //            throw new RuntimeException("로그인 하고 오세용");
 //        }
-//        boolean isInterest = memberService.checkInterest(estateNo, loginUser);
+//        boolean isInterest = MemberService.checkInterest(estateNo, loginUser);
 //        return ResponseEntity.ok(isInterest);
 //    }
 
@@ -160,6 +164,8 @@ public class MemberController {
         return modelAndView;
     }
 
+    // Spring Boot -> Validator 를 이용한 유효성 검사
+    // Validator -> Client 로부터 받은 데이터에 대한 유효성 검사
     @PostMapping("broker/enroll")
     public String agentMemberInsert(@RequestParam(value = "file", required = true) MultipartFile file,
                                     BrokerEnroll brokerEnroll

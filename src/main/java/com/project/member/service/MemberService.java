@@ -14,9 +14,14 @@ import com.project.member.vo.Member;
 import com.project.realestate.dao.InterestEstateDao;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationResponse;
+import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
+//import net.nurigo.java_sdk.api.Message;
+//import net.nurigo.java_sdk.exceptions.CoolsmsException;
+//import org.json.simple.JSONObject;
 import lombok.extern.log4j.Log4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -146,14 +151,14 @@ public class MemberService {
 
     public void deleteMember(Member member) {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
-        // AccessToken 이 만료됐을 수도 있음
+        // AccessToken 이 만료됐을 수도 있다.
         // 1. AccessToken 이 만료되었는지 확인.
         /** TODO :
-         boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-         if (isExpired) {
-         OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-         member.setToken(freshToken);
-         }
+            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+            if (isExpired) {
+                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+                member.setToken(freshToken);
+            }
          */
         // 2. RefreshToken 으로 AccessToken 재발급.
         // 3. 재발급된 AccessToken 으로 요청.
@@ -175,6 +180,9 @@ public class MemberService {
         return memberDao.deleteReservation(sqlSession, m);
     }
 
+    public List<ReservationBroker> selectBrokerReservationList(Member m){
+        return memberDao.selectBrokerReservationList(sqlSession, m);
+    }
 
 }
 
