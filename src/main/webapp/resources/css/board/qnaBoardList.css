@@ -209,6 +209,7 @@
     display: inline-block;
     position: relative;
     left: 470px;
+    float:left;
     margin:0 3px;
     border:1px solid #e6e6e6;
     width:28px;
@@ -224,6 +225,7 @@
 .pagination> li:hover{
     border: 2px solid #beb0d0;
 }
+
 #big{
     height: 1000px;
 }
