@@ -8,4 +8,49 @@
         INSERT INTO REAL_RESERVATION(REV_NO, MEMBER_NO, MEMBER_NAME, REV_PEOPLE, PHONE, EMAIL, REV_ASK, REV_TIME, REV_DATE,ESTATE_NO)
         VALUES (SEQ_ESTATE_REV_NO.nextval,#{memberNo},#{memberName},#{peopleCount},#{phone},#{email},#{requestText},#{revTime},#{revDate},#{agentNo})
     </insert>
+
+    <resultMap id="BrokerResList" type="brokerList">
+        <result column="REV_NO" property="revNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="REV_PEOPLE" property="revPeople"/>
+        <result column="PHONE" property="phone"/>
+        <result column="EMAIL" property="email"/>
+        <result column="REV_ASK" property="revAsk"/>
+        <result column="REV_TIME" property="revTime"/>
+        <result column="REV_DATE" property="revDate"/>
+        <result column="REV_CREATEDATE" property="revCreateDate"/>
+        <result column="REV_STATUS" property="revStatus"/>
+        <result column="ESTATE_NO" property="agentNo"/>
+        <result column="AGENT_NAME" property="agentName"/>
+    </resultMap>
+
+    <select id="selectReservation" resultMap="BrokerResList">
+        SELECT
+            REV_NO,
+            R.MEMBER_NO,
+            MEMBER_NAME,
+            PHONE,
+            EMAIL,
+            AGENT_NAME,
+            REV_PEOPLE,
+            REV_ASK,
+            REV_TIME,
+            REV_DATE
+        FROM REAL_RESERVATION R
+        LEFT JOIN REALESTATE_AGENT RA on R.ESTATE_NO= RA.AGENT_NO
+        WHERE R.REV_NO = #{revNo}
+    </select>
+
+    <update id="updateReservation" parameterType="int">
+        UPDATE REAL_RESERVATION
+        SET REV_STATUS = 'A'
+        WHERE REV_NO = ${revNo}
+    </update>
+
+    <update id="cancelReservation" parameterType="int">
+        UPDATE REAL_RESERVATION
+        SET REV_STATUS = 'F'
+        WHERE REV_NO = ${revNo}
+    </update>
 </mapper>

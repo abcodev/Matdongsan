@@ -278,24 +278,22 @@
         <result column="REV_CREATEDATE" property="revCreateDate"/>
         <result column="REV_STATUS" property="revStatus"/>
         <result column="ESTATE_NO" property="agentNo"/>
+        <result column="AGENT_NAME" property="agentName"/>
     </resultMap>
 
-    <select id="selectBrokerResList" resultMap="brokerList">
+    <select id="selectBrokerResList" resultMap="BrokerResList">
         SELECT
-            REV_NO,
+            R.REV_NO,
             R.MEMBER_NO,
             R.MEMBER_NAME,
             REV_PEOPLE,
-            R.PHONE,
-            R.EMAIL,
-            REV_ASK,
             REV_TIME,
             REV_DATE,
             REV_CREATEDATE,
             REV_STATUS
         FROM REAL_RESERVATION R
-        JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
-        WHERE R.MEMBER_NO = #{memberNo}
+        LEFT JOIN REALESTATE_AGENT RA on R.ESTATE_NO= RA.AGENT_NO
+        WHERE RA.MEMBER_NO = #{memberNo}
     </select>
 
 </mapper>

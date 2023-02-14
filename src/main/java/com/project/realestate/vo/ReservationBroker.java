@@ -20,6 +20,7 @@ public class ReservationBroker {
     private String revTime;
     private Date revDate;
     private Date revCreateDate;
-    private String revSatus;
+    private String revStatus;
     private String agentNo;
+    private String agentName;
 }
