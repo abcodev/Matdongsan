@@ -77,33 +77,5 @@ public class ChatService {
     }
 
 
-//
-//    /**
-//     * 전체 채팅방 조회
-//     */
-//    public List<ChatingRoom> findAllRoom(){
-//        List ChatRooms = chatRepository.findAllRoom();
-//        Collections.reverse(ChatRooms);
-//        return new ChatRooms;
-//    }
-//
-//    /**
-//     * roomId 기준으로 채팅방 찾기
-//     */
-//    public ChatingRoom findRoomById(String roomId){
-//        return chatRepository.findRoomById(roomId);
-//    }
-//    /**
-//     * room 만들기
-//     */
-//    public ChatingRoom createChatRoom(String roomId){
-//        Chae
-//
-//    /**
-//     * 채팅방 인원
-//     */
-//    public void plusUserCnt(String roomId){
-//        ChatingRoom room = chatRepository.get(roomId);
-//        room.setChatRoomNo(room.);
-//    }
+
 }

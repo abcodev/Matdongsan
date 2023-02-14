@@ -62,9 +62,10 @@ public class AlarmTemplate {
         template.setTargetNo(String.valueOf(receiverNo));
         template.setTitle("부동안 예약 알림");
         template.setAlarmType(AlarmType.NEW_RESERVATION_BROKER);
-        template.setContents( senderName + "가 방문상담을 예약하였습니다.");
+        template.setContents( senderName + "님이 방문예약을 하였습니다.");
         return template;
     }
+
 
 
 }
