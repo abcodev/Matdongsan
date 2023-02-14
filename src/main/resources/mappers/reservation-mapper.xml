@@ -9,14 +9,14 @@
         VALUES (SEQ_ESTATE_REV_NO.nextval,#{memberNo},#{memberName},#{peopleCount},#{phone},#{email},#{requestText},#{revTime},#{revDate},#{agentNo})
     </insert>
 
-    <select id="memberNoOfEstate" parameterType="string">
+    <select id="memberNoOfEstate" parameterType="string" resultType="_long">
         SELECT
             MEMBER_NO
         FROM REALESTATE_AGENT
         WHERE AGENT_NO = #{agentNo}
     </select>
 
-    <select id="memberNoOfReservation" resultType="string">
+    <select id="memberNoOfReservation" parameterType="_long" resultType="String">
         SELECT
             MEMBER_NAME
         FROM MEMBER

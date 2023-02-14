@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService {
     private final AdminDao adminDao;
     private final MemberDao memberDao;
     private final SqlSession sqlSession;
-    private static final int DEFAULT_RES_SIZE = 12;
+    private static final int DEFAULT_RES_SIZE = 5;
 
     @Override
     public int uListCount() {

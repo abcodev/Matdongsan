@@ -98,6 +98,10 @@
             retrieveAlarmList();
             console.log(event);
         });
+        sse.addEventListener('connect_message', (event) => {
+            retrieveAlarmList();
+            console.log(event)
+        })
 
         function retrieveAlarmList() {
             $.ajax({

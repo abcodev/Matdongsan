@@ -54,7 +54,7 @@ public class AlarmEventProducer {
                 alive.add(emitters.get(i));
             }
         }
-        subscribers.put(memberNo, alive);
+//        subscribers.put(memberNo, alive);
     }
 
     public SseEmitter subscribe(long memberNo) {
@@ -66,7 +66,6 @@ public class AlarmEventProducer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         if (subscribers.containsKey(memberNo)) {
             subscribers.get(memberNo).add(subscriber);
         } else {

@@ -22,8 +22,8 @@ public class ReservationServiceImpl implements ReservationService{
         reservationDao.reservationEnroll(reqFilter);
 
         long receiverNo = reservationDao.memberNoOfEstate(req.getAgentNo());
-        String seenderName = reservationDao.memberNoOfReservation(req.getMemberNo());
-        AlarmTemplate template = AlarmTemplate.generateNewRervation(receiverNo,seenderName);
+        String senderName = reservationDao.memberNoOfReservation(req.getMemberNo());
+        AlarmTemplate template = AlarmTemplate.generateNewRervation(receiverNo,senderName);
         alarmService.send(template);
     }
 }
