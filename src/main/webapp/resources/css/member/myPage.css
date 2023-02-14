@@ -302,6 +302,11 @@ table{
     text-align: center;
 }
 
+/*추가한 속성*/
+.myReserve_list{
+    border:none;
+}
+
 .myReserve_list > table td:first-child,
 .myReserve_list > table th:first-child{
     width: 44%;
@@ -318,6 +323,7 @@ table{
 
 .myReserve_list > table tr{
     height: 40px;
+    background-color: white;
 }
 
 

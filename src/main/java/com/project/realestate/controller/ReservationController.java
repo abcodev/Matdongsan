@@ -3,10 +3,12 @@ package com.project.realestate.controller;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.service.ReservationService;
+import com.project.realestate.vo.ReservationBroker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,4 +28,29 @@ public class ReservationController {
         reservationService.reservationEnroll(req);
         return ResponseEntity.ok().build();
     }
+
+    @RequestMapping("/modal")
+    @ResponseBody
+    public ModelAndView selectReservation(@RequestParam(value = "revNo")int revNo){
+        ModelAndView modelAndView = new ModelAndView();
+
+        ReservationBroker modalInfo = reservationService.selectReservation(revNo);
+
+        modelAndView.addObject("selectReservation", modalInfo);
+        modelAndView.setViewName("member/brokerMemberContents");
+        return modelAndView;
+    }
+
+    @RequestMapping("/approve")
+    @ResponseBody
+    public void approveReservation(@RequestParam(value = "revNo")int revNo){
+        reservationService.approveReservation(revNo);
+    }
+
+    @RequestMapping("/cancel")
+    @ResponseBody
+    public void cancelReservation(@RequestParam(value = "revNo")int revNo){
+        reservationService.cancelReservation(revNo);
+    }
+
 }

@@ -48,6 +48,8 @@ public class QnaBoardController {
         modelAndView.addObject("condition", req);
         modelAndView.setViewName("board/qnaBoardList");
 
+        boardService.selectReportList();// 블라인드 조회 및 업데이트
+
         return modelAndView;
     }
 
@@ -82,6 +84,7 @@ public class QnaBoardController {
         return "redirect:/board/qnaList";
     }
 
+    // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
     public ModelAndView insertBoard2(
             @RequestParam(value = "depth") String depth,

@@ -64,6 +64,8 @@
           AND PROVIDER_ID = #{providerId}
     </select>
 
+
+
     <select id="loginMember" parameterType="member" resultMap="memberResultSet">
         SELECT
             MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, GRADE, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
@@ -304,4 +306,53 @@
             SET GRADE = #{grade}
         WHERE MEMBER_NO = #{memberNo}
     </update>
+
+
+
+
+
+    <resultMap id="BrokerResList" type="brokerList">
+        <result column="REV_NO" property="revNo"/>
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="MEMBER_NAME" property="memberName"/>
+        <result column="REV_PEOPLE" property="revPeople"/>
+        <result column="PHONE" property="phone"/>
+        <result column="EMAIL" property="email"/>
+        <result column="REV_ASK" property="revAsk"/>
+        <result column="REV_TIME" property="revTime"/>
+        <result column="REV_DATE" property="revDate"/>
+        <result column="REV_CREATEDATE" property="revCreateDate"/>
+        <result column="REV_STATUS" property="revStatus"/>
+        <result column="ESTATE_NO" property="agentNo"/>
+        <result column="AGENT_NAME" property="agentName"/>
+    </resultMap>
+
+    <select id="selectBrokerResList" resultMap="BrokerResList">
+        SELECT
+        R.REV_NO,
+        R.MEMBER_NO,
+        R.MEMBER_NAME,
+        REV_PEOPLE,
+        REV_TIME,
+        REV_DATE,
+        REV_CREATEDATE,
+        REV_STATUS
+        FROM REAL_RESERVATION R
+        LEFT JOIN REALESTATE_AGENT RA on R.ESTATE_NO= RA.AGENT_NO
+        WHERE RA.MEMBER_NO = #{memberNo}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
