@@ -177,7 +177,6 @@
                 </tr>
                 <c:forEach items="${brokerResList}" var="res">
                     <tr class="myReserve_info_list" >
-
                         <td style="display: none">${res.revNo}</td>
                         <td>${res.memberName}</td>
                         <td>${res.revDate}</td>
@@ -194,13 +193,12 @@
                     </tr>
                 </c:forEach>
             </table>
-
             <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"/>
         </button>
         <div id="reservationModal">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            </div>
 
+            </div>
         </div>
 
     </div>
@@ -274,7 +272,7 @@
         })
     }
 
-
+    // 모달 불러오기
     $('#broker_ResList').on("click", "tr", function (){
         console.log($(this).find("td:eq(0)").text());
         let revNo = $(this).find("td:eq(0)").text();
@@ -284,44 +282,12 @@
             method: 'GET',
             data: {revNo : revNo},
             success: function (data){
-
-                //const html = jQuery('<div>').html(data);
-                //const contents = html.find('div#revContent').html();
                 $('#exampleModal').html(data);
                 $(".modal_btn").click();
             }
         })
     })
 
-
-    <%--function approveRes(){--%>
-    <%--    let revNo = $(this).find("td:eq(0)").text();--%>
-
-    <%--    $.ajax({--%>
-    <%--        url: "${pageContext.request.contextPath}/reservation/approve",--%>
-    <%--        data: revNo,--%>
-    <%--        method: "GET",--%>
-    <%--        success: function (data){--%>
-    <%--            console.log("승인 완료");--%>
-    <%--            location.reload();--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--}--%>
-
-
-    <%--function cancelRes(){--%>
-    <%--    let revNo = $(this).find("td:eq(0)").text();--%>
-
-    <%--    $.ajax({--%>
-    <%--        url: "${pageContext.request.contextPath}/reservation/cancel",--%>
-    <%--        data: revNo,--%>
-    <%--        method: "GET",--%>
-    <%--        success: function (data){--%>
-    <%--            console.log("취소 완료");--%>
-    <%--            location.reload();--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--}--%>
 </script>
 
 </body>
