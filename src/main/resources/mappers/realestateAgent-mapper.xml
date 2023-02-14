@@ -35,6 +35,7 @@
             RA.APPLY_STATUS
         FROM REALESTATE_AGENT RA
                  JOIN MEMBER M on RA.MEMBER_NO = M.MEMBER_NO
+        ORDER BY APPLY_STATUS
     </select>
 
 
@@ -42,6 +43,17 @@
         INSERT INTO REALESTATE_AGENT(AGENT_NO, STATE, BJDONG_NM, ADDRESS, REF_NAME, AGENT_NAME, AGENT_PHONE, MEMBER_NO, ATTACHMENT)
         VALUES(#{agentNo},#{state},#{bjdongNm},#{address},#{refName},#{agentName},#{agentPhone},#{memberNo},#{attachment})
     </insert>
+
+    <update id="changeEstateStatus">
+        UPDATE REALESTATE_AGENT
+            <if test="handle.equals('consent')">
+                SET APPLY_STATUS = 'Y'
+            </if>
+            <if test="handle.equals('reject')">
+                SET APPLY_STATUS = 'N'
+            </if>
+        WHERE AGENT_NO = #{agentNo}
+    </update>
 
 
 </mapper>

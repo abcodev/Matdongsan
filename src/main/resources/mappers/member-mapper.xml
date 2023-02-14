@@ -299,5 +299,9 @@
     </update>
 
 
-
+    <update id="changeMemberGrade">
+        UPDATE MEMBER
+            SET GRADE = #{grade}
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
 </mapper>

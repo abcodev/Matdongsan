@@ -7,10 +7,13 @@ import com.project.admin.vo.BrokerEnroll;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dao.MemberDao;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,7 +26,6 @@ public class AdminService {
     private final MemberDao memberDao;
     private final SqlSession sqlSession;
     private static final int DEFAULT_RES_SIZE = 12;
-
 
     public int uListCount() {
         return 0;
@@ -39,7 +41,6 @@ public class AdminService {
     public int rListCount() {
         return 0;
     }
-
 
     public ReportListResponse selectReportList(AdminListRequest request) {
         int count = adminDao.rListCount(sqlSession);
@@ -61,6 +62,11 @@ public class AdminService {
         return adminDao.insertBlack(sqlSession, ad);
     }
 
+
+    public void ban(BanRequest req) {
+        memberDao.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
+    }
+
     public BrokerListResponse brokerList(int currentPage) {
         int count = adminDao.BrokerListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, currentPage, DEFAULT_RES_SIZE);
@@ -68,8 +74,10 @@ public class AdminService {
         return new BrokerListResponse(brokerEnrollList, pageInfoCombine);
     }
 
-    public void ban(BanRequest req) {
-        memberDao.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
+    @Transactional
+    public void handleApply(HandleApplyRequest req) {
+        adminDao.changeMemberGrade(sqlSession, req);
+        adminDao.changeEstateStatus(sqlSession, req);
     }
 
 }

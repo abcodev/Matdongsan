@@ -37,5 +37,4 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
         Member member = (Member) session.getAttribute("loginUser");
         return member != null;
     }
-
 }

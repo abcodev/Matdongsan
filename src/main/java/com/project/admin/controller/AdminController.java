@@ -3,6 +3,7 @@ package com.project.admin.controller;
 import com.project.admin.dto.*;
 import com.project.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -44,19 +45,6 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(value = "/brokerList")
-    public ModelAndView BrokerList(
-            @RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
-            ModelAndView mv
-    ) {
-        BrokerListResponse resp = adminService.brokerList(currentPage);
-
-        mv.addObject("brokerList", resp.getBrokerEnrollList());
-        mv.addObject("pi", resp.getPageInfoCombine());
-        mv.setViewName("admin/realEstateBroker");
-        return mv;
-    }
-
     @ResponseBody
     @PostMapping("/report/ban")
     public ResponseEntity<Void> ban(@RequestBody BanRequest req) {
@@ -66,12 +54,14 @@ public class AdminController {
 
     @RequestMapping(value = "/deleteQna/{fNo}")
     public String deleteQna(@PathVariable("fNo") int fNo) {
+
         int result = adminService.deleteQna(fNo);
         if (result == 0) {
             return "common/errorPage";
         } else {
             return "redirect:/admin/userList";
         }
+
     }
 
     @RequestMapping(value = "/deleteFree/{fNo}")
@@ -86,11 +76,35 @@ public class AdminController {
         }
     }
 
-    @PostMapping(value = "/broker/handleApply")
-    public ResponseEntity<String> handleApply(@RequestParam("handle") String status) {
-        String a = "1";
-        return ResponseEntity.ok().body(a);
+    @RequestMapping(value = "/brokerList")
+    public ModelAndView BrokerList (
+            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+            ModelAndView mv
+
+    ){
+
+        BrokerListResponse resp = adminService.brokerList(currentPage);
+        mv.addObject("brokerList",resp.getBrokerEnrollList());
+        mv.addObject("pi",resp.getPageInfoCombine());
+        mv.setViewName("admin/realEstateBroker");
+        return  mv;
     }
 
-    // hi
+    @RequestMapping(value = "/broker/handleApply",  method=RequestMethod.POST )
+    @ResponseBody
+    public ResponseEntity<String> handleApply(@RequestBody HandleApplyRequest req
+                                              ){
+        adminService.handleApply(req);
+
+        HttpHeaders resHeaders = new HttpHeaders();
+        resHeaders.add("Content-Type","text/plain;charset=UTF-8");
+
+        String result = "";
+        if(req.getHandle().equals("consent")){
+            result = "신청 승인을 완료하였습니다.";
+        }else{
+            result = "신청 승인을 거절하였습니다";
+        }
+        return ResponseEntity.ok().headers(resHeaders).body(result);
+    }
 }
