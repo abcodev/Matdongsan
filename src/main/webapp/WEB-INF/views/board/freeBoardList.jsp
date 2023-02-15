@@ -240,6 +240,8 @@
     })
 
 
+
+
     $('input[type="checkbox"][name="arrayList"]').click(function(){
         if($(this).prop('checked')){
             $('input[type="checkbox"][name="arrayList"]').prop('checked',false);
