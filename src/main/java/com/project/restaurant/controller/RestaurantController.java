@@ -153,8 +153,10 @@ public class RestaurantController {
                                    @RequestParam(value = "hashtagId", defaultValue = "") List<String> hashtagId,
                                    HttpServletRequest req,
                                    Restaurant restaurant,
-                                   HttpSession session
+                                   HttpSession session,
+                                   ModelAndView modelAndView
     ) {
+        modelAndView.addObject("stateList", StateList.values());
         restaurantService.restaurantModify(file, restaurant, session, hashtagId);
         return "redirect:/restaurantDetail?resNo=" + restaurant.getResNo(); // 성공하면 해당하는 resNo url로 보내야함
     }

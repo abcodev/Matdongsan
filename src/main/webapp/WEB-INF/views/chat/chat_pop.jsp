@@ -77,7 +77,6 @@
     if (${empty loginUser}) {
       alert("로그인 후 이용하실 수 있습니다.")
     } else {
-      console.log("로그인 필요함")
       openChat();
     }
   });

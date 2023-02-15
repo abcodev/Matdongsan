@@ -23,11 +23,11 @@
             </div>
             <script>
                 function changeHeart() {
-                    if(${empty loginUser}){
-                        $('#checkbox_heart').prop("checked", false);
-                        alert("로그인 후 이용가능합니다.")
-                        return false;
-                    }
+                    <%--if(${empty loginUser}){--%>
+                    <%--    $('#checkbox_heart').prop("checked", false);--%>
+                    <%--    alert("로그인 후 이용가능합니다.")--%>
+                    <%--    return false;--%>
+                    <%--}--%>
                     $.ajax({
                         url: '${pageContext.request.contextPath}/realEstate/detail/interest',
                         type: 'POST',
@@ -38,6 +38,7 @@
                         })
                     });
                 }
+
             </script>
         </div>
         <div class="info_table body">
