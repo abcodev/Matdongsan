@@ -40,7 +40,12 @@
         <div class="resDiv">
             <i class="bi bi-geo-alt-fill"></i>
             <span class="font">지역 : &nbsp;</span>
-            <input type="text" id="space"  class="textInput" name="state" value="${restaurantDetail.state}">
+            <select id="space"  class="textInput" name="state">
+                <option value="">${restaurantDetail.state}</option>
+                <c:forEach items="${stateList}" var="state">
+                    <option value="${state}">${state}</option>
+                </c:forEach>
+            </select>
         </div>
         <div class="resDiv">
             <i class="fa-solid fa-map-location-dot"></i>

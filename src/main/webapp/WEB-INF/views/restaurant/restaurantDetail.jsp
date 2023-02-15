@@ -22,7 +22,7 @@
 
         <%--관리자 모드--%>
         <div class="detail_head_admin">
-            <c:if test="${ loginUser.memberNo == 1}">
+            <c:if test="${ loginUser.grade eq 'ADMIN'}">
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
                 <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
             </c:if>

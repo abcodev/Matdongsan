@@ -30,6 +30,16 @@
                 <input type="text" class="textInput" name="resName" required placeholder="맛집을 입력해주세요">
             </div>
             <div class="resDiv">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="font">지역 : </span>
+                <select id="space2"  class="textInput" name="state">
+                    <option value="" style="text-align: center">지역을 선택해주세요</option>
+                    <c:forEach items="${stateList}" var="state">
+                        <option value="${state}">${state}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="resDiv">
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span class="font">주소 : </span>
                 <input type="text" id="space" class="textInput"name="address" required placeholder="주소를 입력해주세요">
@@ -43,11 +53,6 @@
                 <i class="fa-solid fa-utensils"></i>
                 <span class="font">주요메뉴 : </span>
                 <input type="text" class="textInput" name="resFood" required placeholder="메뉴를 입력해주세요">
-            </div>
-            <div class="resDiv">
-                <i class="bi bi-geo-alt-fill"></i>
-                <span class="font">지역 : </span>
-                <input type="text" id="space2" class="textInput" name="state" required placeholder="지역을 입력해주세요">
             </div>
         </div>
         <div class="placeHashtag">

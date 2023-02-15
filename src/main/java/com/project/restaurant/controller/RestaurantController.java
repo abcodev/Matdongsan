@@ -1,5 +1,6 @@
 package com.project.restaurant.controller;
 
+import com.project.common.type.StateList;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.service.RestaurantCrawlingService;
@@ -105,6 +106,7 @@ public class RestaurantController {
         List<Hashtag> hashtagList = restaurantService.selectHashtagList();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.addObject("stateList", StateList.values());
         modelAndView.setViewName("admin/restaurantEnroll");
         return modelAndView;
     }
@@ -137,6 +139,7 @@ public class RestaurantController {
 
         modelAndView.addObject("restaurantDetail", restaurant);
         modelAndView.addObject("hashtagList", hashtagList);
+        modelAndView.addObject("stateList", StateList.values());
 
         modelAndView.setViewName("admin/restaurantModify");
         return modelAndView;
