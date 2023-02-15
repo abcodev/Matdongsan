@@ -21,7 +21,7 @@ public class ReservationController {
 
     @PostMapping("/enroll")
     @ResponseBody
-    public ResponseEntity<Void> realEstateReservation(@ModelAttribute ReservationRequest req, HttpSession session) {
+    public ResponseEntity<Void> realEstateReservation (@ModelAttribute ReservationRequest req, HttpSession session){
         Member loginUser = (Member) session.getAttribute("loginUser");
         long memberNo = loginUser.getMemberNo();
         req.setMemberNo(memberNo);
@@ -31,7 +31,7 @@ public class ReservationController {
 
     @RequestMapping("/modal")
     @ResponseBody
-    public ModelAndView selectReservation(@RequestParam(value = "revNo") int revNo) {
+    public ModelAndView selectReservation(@RequestParam(value = "revNo")int revNo){
         ModelAndView modelAndView = new ModelAndView();
         ReservationBroker modalInfo = reservationService.selectReservation(revNo);
         modelAndView.addObject("selectReservation", modalInfo);
@@ -41,13 +41,13 @@ public class ReservationController {
 
     @RequestMapping("/approve")
     @ResponseBody
-    public void approveReservation(@RequestParam(value = "revNo") int revNo) {
+    public void approveReservation(@RequestParam(value = "revNo")int revNo){
         reservationService.approveReservation(revNo);
     }
 
     @RequestMapping("/cancel")
     @ResponseBody
-    public void cancelReservation(@RequestParam(value = "revNo") int revNo) {
+    public void cancelReservation(@RequestParam(value = "revNo")int revNo){
         reservationService.cancelReservation(revNo);
     }
 
@@ -66,10 +66,5 @@ public class ReservationController {
     public void myPageCancelReservation(@RequestParam(value = "revNo")int revNo){
         reservationService.cancelReservation(revNo);
     }
-
-
-
-
-
 
 }

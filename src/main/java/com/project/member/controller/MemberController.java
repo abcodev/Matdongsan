@@ -51,11 +51,6 @@ public class MemberController {
         return modelAndView;
     }
 
-//    @RequestMapping("/myPage/modal")
-//    @RequiredLogin
-//    public ModelAndView myPageReservationModal() {
-//
-//    }
 
     @RequestMapping("/brokerMemberMyPage")
     @RequiredLogin
@@ -173,14 +168,14 @@ public class MemberController {
         return "member/myPage";
     }
 
-    @RequestMapping("/revDelete")
-    @RequiredLogin
-    public String deleteReservation(HttpSession session){
-        Member m = (Member) session.getAttribute("loginUser");
-        memberService.deleteReservation(m);
-        return "redirect:/myPage";
-
-    }
+//    @RequestMapping("/revDelete")
+//    @RequiredLogin
+//    public String deleteReservation(HttpSession session){
+//        Member m = (Member) session.getAttribute("loginUser");
+//        memberService.deleteReservation(m);
+//        return "redirect:/myPage";
+//
+//    }
 
     @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
     @ResponseBody
