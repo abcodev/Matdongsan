@@ -70,14 +70,14 @@
 </div>
 
 
-<div id="paging">
+<div class="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-link disabled"><</li>
+                <div class="page-link disabled"><</div>
             </c:when>
             <c:otherwise>
-                <li class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</li>
+                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>
             </c:otherwise>
         </c:choose>
 
@@ -87,10 +87,10 @@
 
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
+                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>
             </c:when>
             <c:otherwise>
-                <li class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></li>
+                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>
             </c:otherwise>
         </c:choose>
     </ul>
@@ -117,7 +117,8 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-
+                $('.pagination').empty();
+                $('.paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#memberData").length > 0) {
                     $('.memberTable').html($(data).find("#tableDiv"))
                 } else {

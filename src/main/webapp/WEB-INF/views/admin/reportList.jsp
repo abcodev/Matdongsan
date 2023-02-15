@@ -128,15 +128,14 @@
         </div>
     </div>
 </div>
-
 <div class="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-item disabled"><</li>
+                <li class="page-item disabled">Previous</li>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})"><</li>
+                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})">Previous</li>
             </c:otherwise>
         </c:choose>
 
@@ -144,13 +143,12 @@
             <li class="page-item" onclick="ReportList(${item})">${item }</li>
         </c:forEach>
 
-
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#">></a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})">></li>
+                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})">Next</li>
 
             </c:otherwise>
         </c:choose>
@@ -160,7 +158,6 @@
 
 
 <script>
-
 
     $("#userList").click(function () {
         location.href = "${pageContext.request.contextPath}/admin/userList";
@@ -180,8 +177,9 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-
-                if ($(data).find("#reportData").length > 0) {
+                $('.pagination').empty();
+                $('.paging').html($(data).find('.pagination')) ;
+                if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {
                     $('.reportTable').html('<p>조회된 회원이 없습니다.</p>');

@@ -175,8 +175,6 @@
             },
             success(data) {
                 $('#boardlist_main').empty();
-                console.log($(data).find("#boardlist_main"));
-                console.log($(data).find(".board_info").length);
                 if($(data).find(".board_info").length >0) {
                     $('#boardlist_main').html($(data).find(".boardlist"))
                 }else{
@@ -261,9 +259,6 @@
                     }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
-                }
-                , fail:function (){
-                    console.log("zzzzz");
                 }
             })
         }
