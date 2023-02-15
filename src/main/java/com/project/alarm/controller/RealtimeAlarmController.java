@@ -4,6 +4,7 @@ import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.alarm.vo.Alarm;
 import com.project.chat.service.ChatService;
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -35,9 +36,9 @@ public class RealtimeAlarmController {
     @GetMapping("/alarmList")
     public ModelAndView retrieveAlarmList(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            throw new RuntimeException("로그인 하고 오세용");
-        }
+//        if (loginUser == null) {
+//            throw new RuntimeException("로그인 하고 오세용");
+//        }
 
         ModelAndView modelAndView = new ModelAndView();
         List<Alarm> alarmList = alarmService.retrieveAlarmList(loginUser.getMemberNo());
@@ -81,7 +82,10 @@ public class RealtimeAlarmController {
         return ResponseEntity.ok().build();
     }
 
-
+    /*
+        SSE 연결을 통해서 알람을 받겠다고 구독하는 행위
+        SSE -> 서버 to client 스트림을 유지시켜놓음 서버가 일방적으로 메세지를 보낼 수 있는 구조
+     */
     @GetMapping(value = "/alarm/subscribe", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter alarmSubscribe(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");

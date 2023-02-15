@@ -33,14 +33,18 @@
                     <mvc:mapping path="/admin/**"/>
 &lt;!&ndash;                     <mvc:mapping path="/board/**"/>&ndash;&gt;
                     <mvc:exclude-mapping path="/"/>
-                    <beans:bean class="com.project.common.aop.AdminAccessInterceptor"/>
+                    <beans:bean class="com.project.common.aop.PermissionInterceptor/>
 &lt;!&ndash;                     <beans:bean class="com.project.common.aop.LoginAccessInterceptor"/>&ndash;&gt;
              </mvc:interceptor>
       </mvc:interceptors>-->
     <mvc:interceptors>
+<!--        <mvc:interceptor>-->
+<!--            <mvc:mapping path="/**"/>-->
+<!--            <beans:bean class="com.project.common.aop.LoginAccessInterceptor"/>-->
+<!--        </mvc:interceptor>-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <beans:bean class="com.project.common.aop.LoginAccessInterceptor"/>
+            <beans:bean class="com.project.common.aop.PermissionInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
