@@ -83,8 +83,6 @@ public class MemberController {
         return modelAndView;
     }
 
-
-
     @RequestMapping(value = "/memberModify")
     public String memberModify(Model model){
         model.addAttribute("stateList", StateList.values());
@@ -183,6 +181,11 @@ public class MemberController {
 
     }
 
+    @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public int nameCheck(@RequestParam("nName") String nName) {
+        return memberService.nNameCheck(nName);
+    }
 
 
 }

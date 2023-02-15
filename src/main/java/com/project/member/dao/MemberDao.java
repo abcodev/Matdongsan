@@ -132,4 +132,9 @@ public class MemberDao {
         return sqlSession.selectList("memberMapper.selectBrokerResList", m);
     }
 
+    public int nNameCheck(String nName) {
+        return sqlSession.selectOne("memberMapper.nNameCheck", nName);
+    }
+
+
 }
