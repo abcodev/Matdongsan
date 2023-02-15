@@ -127,3 +127,9 @@
 .realPage> li:hover{
     border: 2px solid #beb0d0;
 }
+
+#paging {
+    position: relative;
+    left: 290px;
+    float:left;
+}
