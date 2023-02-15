@@ -11,7 +11,7 @@
 
 #content{
     padding: 60px 350px 30px 350px;
-    height: 800px;
+    height: 1000px;
 }
 
 .content{
@@ -247,8 +247,8 @@
 .pagination> li{
     display: inline-block;
     position: relative;
-    left: 830px;
-    top:75px;
+    left: 670px;
+    top:-50px;
     margin:0 3px;
     border:1px solid #e6e6e6;
     width:28px;

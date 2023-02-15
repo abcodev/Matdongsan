@@ -201,6 +201,16 @@ tr:last-child td:last-child {
     width: 72px;
     height: 30px;
 }
+#down{
+    background: #585c9c;
+    font-weight: bold;
+    color: white;
+    border: 1px solid #585c9c;
+    border-radius: 5px;
+    width: 72px;
+    height: 30px;
+
+}
 
 .btn22 {
     background: #585c9c;
@@ -232,7 +242,7 @@ tr:last-child td:last-child {
 .pagination> li{
     display: inline-block;
     position: relative;
-    left: 690px;
+    left: 670px;
     margin:0 3px;
     border:1px solid #e6e6e6;
     width:28px;

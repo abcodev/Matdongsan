@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ page language="java" pageEncoding="UTF-8" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
     <title>Document</title>
 
@@ -40,7 +41,7 @@
         </thead>
         <tbody id="tableList">
         <c:forEach var="rl" items="${reportList}">
-            <tr>
+            <tr id="reportData">
                 <td>${rl.reportType}</td>
                 <td>${rl.reportNo}</td>
                 <td>${rl.nickName}</td>
@@ -179,17 +180,19 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-                console.log("test" + $(data).find("#tableDiv"));
-                console.log($(data).find("#tableDiv").length);
-                if ($(data).find("#tableList").length > 0) {
+
+                if ($(data).find("#reportData").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {
                     $('.reportTable').html('<p>조회된 회원이 없습니다.</p>');
                 }
 
+
             }
         })
     }
+
+
 
 
     function changeSelect() {
@@ -232,7 +235,7 @@
         let rType = $("#rType").val();
         if (rType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
-            alert("질문게시판 삭제처리 완료")
+            swal('삭제 완료!', rType+"이 삭제되었습니다.", 'success')
 
         } else {
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
