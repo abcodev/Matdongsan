@@ -134,7 +134,6 @@
             </div>
         </div>
     </div>
-</div>
     <div id="paging">
         <ul class="pagination">
             <c:choose>
@@ -161,6 +160,7 @@
         </ul>
 
 
+    </div>
 </div>
 
 <script>

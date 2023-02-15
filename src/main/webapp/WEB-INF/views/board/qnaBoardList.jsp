@@ -74,7 +74,7 @@
                                 </tr>
                         </c:forEach>
 
-<%--                        <c:if test="${not empty qnaBoardList}">--%>
+                        <c:if test="${not empty qnaBoardList}">
                             <c:forEach var="qb" items="${qnaBoardList}">
                                 <c:if test="${qb.blind eq 'N'}">
                                     <tr id="tdBody">
@@ -108,7 +108,12 @@
                                 </c:if>
 
                             </c:forEach>
-<%--                        </c:if>--%>
+                        </c:if>
+                        <c:if test="${empty qnaBoardList}">
+                            <tr>
+                                <td>조회된 게시글이 없습니다.</td>
+                            </tr>
+                        </c:if>
                     </table>
                 </div>
             </div>
@@ -168,8 +173,7 @@
                     if($(data).find("#tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
-                        $('#tdBody').empty();
-                        $('#tdBody').html('<td colspan="5" style="background-color: white">조회된 게시글이 없습니다.</td>');
+                        $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
                     $('#paging').empty();
                     $('#paging').html($(data).find('#paging'))
