@@ -179,8 +179,8 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-                console.log("test" + $(data).find("#tableDiv"));
-                console.log($(data).find("#tableDiv").length);
+                $('.pagination').empty();
+                $('.paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {

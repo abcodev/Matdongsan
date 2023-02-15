@@ -99,7 +99,9 @@
     <div class="detail review">
         <div class="review_btn_box">
             <span>리뷰</span><span id="rCount"></span>
-            <button id="review_btn" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
+            <c:if test="${not empty loginUser}">
+                <button id="review_btn" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-pencil"></i>리뷰작성</button>
+            </c:if>
         </div>
         <div class="review content">
             <table id="reviewArea">
