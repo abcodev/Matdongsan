@@ -258,9 +258,6 @@
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
                 }
-                , fail:function (){
-                    console.log("zzzzz");
-                }
             })
         }
     })
