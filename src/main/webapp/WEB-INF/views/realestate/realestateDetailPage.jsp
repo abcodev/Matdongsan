@@ -349,7 +349,7 @@
         document.querySelector('.dateBoard').innerHTML = htmlDummy;
         document.querySelector('.dateTitle').innerText = currentYear + '년 ' + currentMonth + '월';
 
-        //////////////////////////////////////////////////////
+        //////////////////////// 날짜 선택시 색상 고정 //////////////////////////////
         const nonClick = document.querySelectorAll(".non-click");
         function handleClick(event) {
             // div에서 모든 "click" 클래스 제거
