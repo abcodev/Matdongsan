@@ -22,22 +22,33 @@ import javax.servlet.http.HttpSession;
 public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("인터셉터 시작!");
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
-        Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
-        Permission checkAuth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Permission.class);
-        HttpSession session = request.getSession();
 
-        // 어노테이션이 걸려있지 않다면 통과 시킴.
-        if (permission == null) {
+        // controller 메소드인지 check
+        if (handler instanceof HandlerMethod == false) {
             return true;
         }
 
-        Member loginUser = (Member) session.getAttribute("loginUser");
-        MemberGrade authority = loginUser.getGrade();
-        String aaaa = checkAuth.authority().toString();
-        if (checkAuth != null) {
-            if(aaaa.equals(MemberGrade.ADMIN)) {
+        // 2.형 변환
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+
+        // Permission 가져오기
+        Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
+        Permission classPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Permission.class);
+
+        // @Permission() 메소드나 클래스에 어노테이션 있는지 check
+        if(classPermission == null && permission == null){
+            return true;
+        }
+
+        // 메서드에 @Permission 이 없는경우는 인터셉터 제외
+        HttpSession session = request.getSession();
+        // login 체크는 requiredLogin으로 한다.
+        Member member = (Member) session.getAttribute("loginUser");
+        MemberGrade authority = member.getGrade();
+
+
+        if(classPermission != null){
+            if (classPermission.authority().equals(MemberGrade.ADMIN)) {
                 if (authority.equals(MemberGrade.ADMIN)) {
                     return true;
                 } else {
@@ -46,38 +57,25 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                     return false;
                 }
             }
-        }
-
-
-            if (permission.authority().equals(MemberGrade.ADMIN)) {
-                if (authority.equals(MemberGrade.ADMIN)) {
+        } else if (permission.authority().equals(MemberGrade.BROKER)) {
+            if (authority.equals(MemberGrade.BROKER)) {
                     return true;
                 } else {
-                    request.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
+                    request.setAttribute("errorMsg", "부동산 제휴회원만 이용가능한 페이지입니다.");
                     request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
                     return false;
                 }
-            } else if (permission.authority().equals(MemberGrade.BROKER)) {
-                if (authority.equals(MemberGrade.BROKER)) {
-                    return true;
-                } else {
-                    request.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
-                    request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
-                    return false;
-                }
-            } else if (permission.authority().equals(MemberGrade.GENERAL2)) {
+        } else if (permission.authority().equals(MemberGrade.GENERAL2)) {
                 if (authority.equals(MemberGrade.GENERAL2)) {
                     return true;
                 } else {
-                    request.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
+                    request.setAttribute("errorMsg", "마이페이지에서 정보 입력후 사용가능합니다.");
                     request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
                     return false;
-
                 }
-            }
-
-            return false;
         }
-    }
+            return true;
+        }
+}
 
 
