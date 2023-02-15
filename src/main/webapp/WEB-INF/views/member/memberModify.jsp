@@ -26,8 +26,9 @@
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">
                 <span>닉네임</span>
-                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}" required>
-                <button>중복검사</button>
+                <input id="nickName" type="text" name="nickName" value="${loginUser.nickName}" maxlength="8" title="8자 까지 입력" required autofocus/>
+                <input type="hidden" id="nickNameDoubleChk"/>
+                <p class="point successNameChk">닉네임은 2자 이상 8자 이하로 설정해주세요</p>
             </div>
             <div class="userinfo email">
                 <span>이메일</span>
@@ -58,6 +59,7 @@
         </div>
     </form>
 </div>
+
 <script>
     $(document).ready(function(){
         document.getElementById("submit").onclick = function (){
@@ -142,9 +144,35 @@
             }
         }).open();
     }
+
+    $("#nickName").blur(function(){
+        var nName = $("#nickName").val();
+        if(nName == "" || nName.length < 2){
+            $(".successNameChk").text("닉네임은 2자 이상 8자 이하로 설정해주세요 :)");
+            $(".successNameChk").css("color", "red");
+            $("#nickNameDoubleChk").val("false");
+        }else{
+            $.ajax({
+                url : '${pageContext.request.contextPath}/nNameCheck?nName='+ nName,
+                type : 'post',
+                cache : false,
+                success : function(data) {
+                    if (data == 0) {
+                        $(".successNameChk").text("사용가능한 닉네임입니다 :)");
+                        $(".successNameChk").css("color", "green");
+                        $("#nameDoubleChk").val("true");
+                    } else {
+                        $(".successNameChk").text("이미 사용중인 닉네임입니다 :p");
+                        $(".successNameChk").css("color", "red");
+                        $("#nickNameDoubleChk").val("false");
+                    }
+                }, error : function() {
+                    console.log("실패");
+                }
+            });
+        }
+    });
 </script>
-
-
 
 </script>
 </body>

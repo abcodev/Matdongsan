@@ -43,7 +43,7 @@
             BLIND
         FROM QNA_BOARD B
         LEFT JOIN MEMBER M ON (M.MEMBER_NO = B.MEMBER_NO)
-        WHERE B.STATUS = 'Y'
+        WHERE B.STATUS = 'Y' AND NOTICE = 0
         <if test="!state.isBlank()">
             AND QNA_AREA = #{state}
         </if>
@@ -58,7 +58,7 @@
         </if>
         START WITH P_BNO IS NULL
         CONNECT BY PRIOR QNA_BNO = P_BNO
-        ORDER SIBLINGS BY NOTICE DESC, QNA_BNO DESC
+        ORDER SIBLINGS BY QNA_BNO DESC
     </select>
 
     <select id="selectQnaListCount" resultType="int">
