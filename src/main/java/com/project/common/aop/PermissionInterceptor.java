@@ -4,14 +4,10 @@ import com.project.common.annotation.Permission;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 
 
 /*
@@ -36,8 +32,12 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
             // 메서드에 @Permission 이 없는경우는 인터셉터 제외
             HttpSession session = request.getSession();
             Member member = (Member) session.getAttribute("loginUser");
+            if(member == null){
+               return new LoginAccessInterceptor().preHandle(request, response, handler);
+            }
             MemberGrade authority = member.getGrade();
             MemberGrade grade =selectClassOrMethod(handler);
+
 
             if(grade.equals(MemberGrade.ADMIN)){
                 if (authority.equals(MemberGrade.ADMIN)) {
