@@ -4,11 +4,14 @@ import com.project.common.annotation.Permission;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndViewDefiningException;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 
 /*
@@ -28,27 +31,15 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        // 2.형 변환
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        if(selectClassOrMethod(handler) != null){
 
-        // Permission 가져오기
-        Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
-        Permission classPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Permission.class);
+            // 메서드에 @Permission 이 없는경우는 인터셉터 제외
+            HttpSession session = request.getSession();
+            Member member = (Member) session.getAttribute("loginUser");
+            MemberGrade authority = member.getGrade();
+            MemberGrade grade =selectClassOrMethod(handler);
 
-        // @Permission() 메소드나 클래스에 어노테이션 있는지 check
-        if(classPermission == null && permission == null){
-            return true;
-        }
-
-        // 메서드에 @Permission 이 없는경우는 인터셉터 제외
-        HttpSession session = request.getSession();
-        // login 체크는 requiredLogin으로 한다.
-        Member member = (Member) session.getAttribute("loginUser");
-        MemberGrade authority = member.getGrade();
-
-
-        if(classPermission != null){
-            if (classPermission.authority().equals(MemberGrade.ADMIN)) {
+            if(grade.equals(MemberGrade.ADMIN)){
                 if (authority.equals(MemberGrade.ADMIN)) {
                     return true;
                 } else {
@@ -56,16 +47,15 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                     request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
                     return false;
                 }
-            }
-        } else if (permission.authority().equals(MemberGrade.BROKER)) {
-            if (authority.equals(MemberGrade.BROKER)) {
+            } else if (grade.equals(MemberGrade.BROKER)) {
+                if (authority.equals(MemberGrade.BROKER)) {
                     return true;
                 } else {
                     request.setAttribute("errorMsg", "부동산 제휴회원만 이용가능한 페이지입니다.");
                     request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
                     return false;
                 }
-        } else if (permission.authority().equals(MemberGrade.GENERAL2)) {
+            } else if (grade.equals(MemberGrade.GENERAL2)) {
                 if (authority.equals(MemberGrade.GENERAL2)) {
                     return true;
                 } else {
@@ -73,8 +63,25 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                     request.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(request, response);
                     return false;
                 }
+            }
         }
             return true;
+        }
+
+        private MemberGrade selectClassOrMethod(Object handler){
+
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
+            Permission classPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Permission.class);
+
+            if(classPermission == null && permission == null){
+                return null;
+            }else if(classPermission != null && permission == null){
+                return classPermission.authority();
+            }else{
+                return permission.authority();
+            }
+
         }
 }
 

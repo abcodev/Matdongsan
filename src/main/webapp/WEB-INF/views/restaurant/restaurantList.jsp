@@ -26,7 +26,7 @@
 <div id="content">
     <c:if test="${loginUser.memberNo == 1}">
         <div id="enroll_btn">
-            <button onclick="location.href='${pageContext.request.contextPath}/admin/resEnroll'">새로운 맛집 등록하기</button>
+            <button onclick="location.href='REAL_RESERVATION.request.contextPath}/admin/resEnroll'">새로운 맛집 등록하기</button>
         </div>
     </c:if>
     <div id="place_head">
@@ -58,7 +58,7 @@
         });
 
         $.ajax({
-            url: '${pageContext.request.contextPath}/restaurants',
+            url: 'REAL_RESERVATION.request.contextPath}/restaurants',
             method: 'GET',
             data: {
                 cpage: current_page,
