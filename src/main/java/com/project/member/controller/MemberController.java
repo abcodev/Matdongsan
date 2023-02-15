@@ -182,5 +182,11 @@ public class MemberController {
 //
 //    }
 
+    @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public int nameCheck(@RequestParam("nName") String nName) {
+        return memberService.nNameCheck(nName);
+    }
+
 
 }
