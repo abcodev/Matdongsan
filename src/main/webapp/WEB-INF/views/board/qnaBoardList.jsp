@@ -174,9 +174,8 @@
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
                         $('.tdBody').remove();
-                        $('.table').append('<tr><td colspan="4">조회된 게시글이 없습니다.</td><tr>');
-
-                        // $('.tdBody').html('<td colspan="4">조회된 게시글이 없습니다.</td>');
+                        $('.table').append('<tr class="tdBody"></tr>');
+                        $('.tdBody').html('<td colspan="4">조회된 게시글이 없습니다.</td>');
                     }
                     $('#paging').empty();
                     $('#paging').html($(data).find('#paging'))
