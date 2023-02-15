@@ -203,7 +203,6 @@
                 "<option value='range4'>150000~200000</option>" +
                 "<option value='range5'>200000이상</option>");
         }
-
     }
 </script>
 

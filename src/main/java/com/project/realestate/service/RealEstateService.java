@@ -88,9 +88,6 @@ public class RealEstateService {
         return realEstateDao.realEstateDetail(estateNo);
     }
 
-    public List<String> selectPastList(String bldgNm) {
-        return realEstateDao.selectPastList(bldgNm);
-    }
 
     public boolean checkInterest(String estateNo, Member loginUser) {
         return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
@@ -115,8 +112,7 @@ public class RealEstateService {
 
     public List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList) {
         // Redis 에서 꺼낸 List 는 제 나름대로 정렬된 상태
-        // In Query 로 한번에 조회했더니 PK 순으로 다시 재정렬되서 결과가 나오더라...
-        // 그래서 In Query 를 사용하지 않고 한 건씩 조회하도록 수정
+        // In Query 로 한번에 조회했더니 PK 순으로 다시 재정렬되서 결과가 나옴... -> In Query 를 사용하지 않고 한 건씩 조회하도록 수정함
         return recentEstateNoList.stream()
                 .map(this::realEstateDetail)
                 .filter(Objects::nonNull)

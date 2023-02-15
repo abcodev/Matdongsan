@@ -93,7 +93,6 @@ public class AlarmEventProducer {
             }
         }
 
-        // TODO : 이부분 필요 없는 코드인가,,
         List<SseEmitter> alive = new ArrayList<>();
         for (int i = 0; i < emitters.size(); ++i) {
             if (!removeIndex.contains(i)) {

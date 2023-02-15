@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @SessionAttributes("loginUser")
 @RequestMapping("/admin")
+@RequiredLogin
 @Permission(authority = MemberGrade.ADMIN)
 public class AdminController {
 
@@ -63,14 +64,12 @@ public class AdminController {
 
     @RequestMapping(value = "/deleteQna/{fNo}")
     public String deleteQna(@PathVariable("fNo") int fNo) {
-
         int result = adminService.deleteQna(fNo);
         if (result == 0) {
             return "common/errorPage";
         } else {
-            return "redirect:/admin/userList";
+            return "redirect:/admin/reportList";
         }
-
     }
 
     @RequestMapping(value = "/deleteFree/{fNo}")
@@ -81,7 +80,7 @@ public class AdminController {
         if (result == 0) {
             return "common/errorPage";
         } else {
-            return "redirect:/admin/userList";
+            return "redirect:/admin/reportList";
         }
     }
 

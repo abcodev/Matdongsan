@@ -44,7 +44,7 @@
                 <td>${ul.providerId}</td>
                 <td>${ul.memberName}</td>
                 <td>${ul.nickName}</td>
-                <td>${ul.recentAccess}</td>
+                <td>${ul.recentAccess.substring(0,16)}</td>
                 <td>${ul.grade}</td>
                 <td>${ul.status}</td>
             </tr>
@@ -111,6 +111,11 @@
             }
         })
     }
+
+
+
+
+
 
 
 
