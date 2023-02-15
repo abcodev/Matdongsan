@@ -158,6 +158,12 @@
         WHERE BJDONG_NM = #{bjdongNm}
     </select>
 
+    <select id="selectAgentByAgentNo" parameterType="String" resultMap="agentResultSet">
+        SELECT *
+        FROM REALESTATE_AGENT
+        WHERE AGENT_NO = #{agentNo}
+    </select>
+
     <select id="selectBldgNmListIn" parameterType="java.util.List" resultMap="realEstateViewDtoResultSet">
         SELECT * FROM (
             SELECT ESTATE_NO, BLDG_NM

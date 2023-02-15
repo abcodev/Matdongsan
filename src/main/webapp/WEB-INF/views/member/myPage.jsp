@@ -32,10 +32,11 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.")
+                alert("관심목록이 해제 되었습니다.");
                 location.reload();
             }
         });
+
     }
 </script>
 
@@ -104,9 +105,9 @@
                                 <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
                             </c:otherwise>
                         </c:choose>
-                            <td>${selectAllBoardList.boardType}</td>
-                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
-                            <td>${selectAllBoardList.boardDate}</td>
+                        <td>${selectAllBoardList.boardType}</td>
+                        <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
+                        <td>${selectAllBoardList.boardDate}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -156,7 +157,7 @@
                             <td class="review_star">
                                 <c:choose>
                                     <c:when test="${reviewList.starRating eq 5}">
-                                      ★★★★★
+                                        ★★★★★
                                     </c:when>
                                     <c:when test="${reviewList.starRating eq 4}">
                                         ★★★★
@@ -210,52 +211,53 @@
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
         <div id="myReserveList">
-        <div class="myReserve_list">
-            <table id="reserveList_tb">
-                <tr class="myReserve_info_list_top">
-                    <th>공인중개사</th>
-                    <th>예약일</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약처리</th>
-                </tr>
-                <c:forEach var="reservationList" items="${reservationList}">
-                <tr class="myReserve_info_list">
-                    <td>${reservationList.agentName}</td>
-                    <td>${reservationList.revDate}</td>
-                    <td>${reservationList.revTime}</td>
-                    <td>${reservationList.peopleCount}</td>
-                    <td>${reservationList.status}</td>
-                </tr>
-                </c:forEach>
-            </table>
-
-            <div id="paging_reserve">
-                <ul class="pagination">
-                    <c:choose>
-                        <c:when test="${pi3.currentPage eq 1}">
-                            <li class="page-item disabled">Previous</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})">Previous</li>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <c:forEach var="item" begin="${pi3.startPage }" end="${pi3.endPage }">
-                        <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
+            <div class="myReserve_list">
+                <table id="reserveList_tb">
+                    <tr class="myReserve_info_list_top">
+                        <th>공인중개사</th>
+                        <th>예약일</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약처리</th>
+                    </tr>
+                    <c:forEach var="reservationList" items="${reservationList}">
+                        <tr class="myReserve_info_list">
+                            <td>${reservationList.agentName}</td>
+                            <td>${reservationList.revDate}</td>
+                            <td>${reservationList.revTime}</td>
+                            <td>${reservationList.peopleCount}</td>
+                            <td>${reservationList.status}</td>
+                        </tr>
                     </c:forEach>
+                </table>
 
-                    <c:choose>
-                        <c:when test="${pi3.currentPage eq pi3.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">Next</li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
+                <div id="paging_reserve">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi3.currentPage eq 1}">
+                                <li class="page-item disabled">Previous</li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})">Previous
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:forEach var="item" begin="${pi3.startPage }" end="${pi3.endPage }">
+                            <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
+                        </c:forEach>
+
+                        <c:choose>
+                            <c:when test="${pi3.currentPage eq pi3.maxPage}">
+                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">Next</li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
             </div>
-        </div>
         </div>
         <%--  ************예약확인창 모달***************  --%>
         <button class="modal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none"></button>
@@ -276,12 +278,12 @@
         }
     }
 
-    function deleteReservation(){
+    function deleteReservation() {
         var deleteReservation = confirm("예약을 취소하시겠습니까?");
-        if(deleteReservation === true){
+        if (deleteReservation === true) {
             location.href = '${pageContext.request.contextPath}/revDelete';
             alert("예약이 취소되었습니다.");
-        }else if(deleteReservation === false){
+        } else if (deleteReservation === false) {
 
         }
     }
@@ -346,15 +348,15 @@
         })
     }
 
-    $('#reserveList_tb').on("click", "tr", function (){
+    $('#reserveList_tb').on("click", "tr", function () {
         console.log($(this).find("td:eq(0)").text());
         let revNo = $(this).find("td:eq(0)").text();
 
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage/modal',
             method: 'GET',
-            data: {revNo : revNo},
-            success: function (data){
+            data: {revNo: revNo},
+            success: function (data) {
 
                 //const html = jQuery('<div>').html(data);
                 //const contents = html.find('div#revContent').html();

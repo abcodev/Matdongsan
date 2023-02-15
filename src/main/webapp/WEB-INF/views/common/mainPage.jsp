@@ -75,7 +75,8 @@
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.grade == 'BROKER'}">
-                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원 마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원
+                                마이페이지</a>
                         </c:if>
 
                         <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
@@ -102,6 +103,7 @@
             retrieveAlarmList();
             console.log(event);
         });
+
         // 이벤트가 오면 콜백 메서드가 실행됨
 
         function retrieveAlarmList() {
@@ -127,7 +129,6 @@
             window.location = '${pageContext.request.contextPath}/memberModify';
         }
     </script>
-
 
 
 </header>
@@ -186,7 +187,7 @@
                                 '           </div>' +
                                 '            <div class="desc">' +
                                 '               <div style="width:100px;padding:3px;">' + '주소  : 서울특별시 ' + addr['address'] + '</div>' +
-                                '               <div style="width:100px;padding:3px;">' + '실거래가  : ' + addr['objAmt'] + '(만원)' +'</div>' +
+                                '               <div style="width:100px;padding:3px;">' + '실거래가  : ' + addr['objAmt'] + '(만원)' + '</div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>';
@@ -199,10 +200,10 @@
                                 position: marker.getPosition()
                             });
 
-                            kakao.maps.event.addListener(marker, 'click', function(){
+                            kakao.maps.event.addListener(marker, 'click', function () {
                                 // window.open("http://www.naver.com");
                                 // location.href= 'http://www.naver.com';
-                                location.href= '${pageContext.request.contextPath}/realEstate/detail?estateNo='+addr.estateNo;
+                                location.href = '${pageContext.request.contextPath}/realEstate/detail?estateNo=' + addr.estateNo;
                             }.bind(addr))
 
                             // 마커를 마우스오버 했을 때 커스텀 오버레이를 표시합니다
@@ -226,6 +227,7 @@
                         }
                     })
                 });
+
                 function displayMarker(locPosition, message) {
 
                     // 마커를 생성합니다
@@ -239,8 +241,8 @@
 
                     // 인포윈도우를 생성합니다
                     var infowindow = new kakao.maps.InfoWindow({
-                        content : iwContent,
-                        removable : iwRemoveable
+                        content: iwContent,
+                        removable: iwRemoveable
                     });
 
                     // 인포윈도우를 마커위에 표시합니다

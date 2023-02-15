@@ -232,7 +232,6 @@
         if (rType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
             alert("질문게시판 삭제처리 완료")
-
         } else {
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
             alert("자유게시판 삭제처리 완료")
