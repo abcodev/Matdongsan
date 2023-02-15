@@ -37,10 +37,10 @@
             <ul class="pagination">
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
-                        <li class="page-item disabled"><i class="fa-solid fa-angles-left"></i></li>
+                        <li class="page-item disabled"><</li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage - 1})"><i class="fa-solid fa-angles-left"></i></li>
+                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage - 1})"><</li>
                     </c:otherwise>
                 </c:choose>
 
@@ -50,10 +50,11 @@
 
                 <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
-                        <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-angles-right"></i></a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">></a></li>
                     </c:when>
+
                     <c:otherwise>
-                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage + 1})"><i class="fa-solid fa-angles-right"></i></li>
+                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage + 1})">></li>
                     </c:otherwise>
                 </c:choose>
             </ul>

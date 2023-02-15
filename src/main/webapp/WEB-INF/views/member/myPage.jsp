@@ -184,13 +184,13 @@
                 </table>
 
                 <div id="paging_review">
-                    <ul class="pagination">
+                    <ul class="mypaging">
                         <c:choose>
                             <c:when test="${pi2.currentPage eq 1}">
-                                <li class="page-item disabled">Previous</li>
+                                <li class="page-item disabled"><</li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})">Previous</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})"><</li>
                             </c:otherwise>
                         </c:choose>
 
@@ -200,10 +200,10 @@
 
                         <c:choose>
                             <c:when test="${pi2.currentPage eq pi2.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                                <li class="page-item disabled"><a class="page-link" href="#">></a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">Next</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">></li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
@@ -231,14 +231,39 @@
                             <td>${reservationList.revTime}</td>
                             <td>${reservationList.peopleCount}</td>
                             <td>
-                            <c:choose>
-                                <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
-                                <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
-                                <c:otherwise>예약 취소</c:otherwise>
-                            </c:choose></td>
+                                <c:choose>
+                                    <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
+                                    <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
+                                    <c:otherwise>예약 취소</c:otherwise>
+                                </c:choose></td>
                         </tr>
                     </c:forEach>
                 </table>
+
+            <div id="paging_reserve">
+                <ul class="mypaging">
+                    <c:choose>
+                        <c:when test="${pi3.currentPage eq 1}">
+                            <li class="page-item disabled">Previous</li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})">Previous</li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:forEach var="item" begin="${pi3.startPage }" end="${pi3.endPage }">
+                        <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${pi3.currentPage eq pi3.maxPage}">
+                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">Next</li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
             </div>
         </div>
         <%--  ************예약확인창 모달***************  --%>
