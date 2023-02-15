@@ -66,7 +66,10 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("brokerResList", brokerReservationList);
-        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        //modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.addObject("pi1", resp.getPageInfoCombine());
+        modelAndView.addObject("pi2", resp.getPageInfoCombine2());
+        modelAndView.addObject("pi3", resp.getPageInfoCombine3());
 
         System.out.println("부동산 예약 리스트 : " + brokerReservationList);
 

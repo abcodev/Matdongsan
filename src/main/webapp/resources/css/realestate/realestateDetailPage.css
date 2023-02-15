@@ -240,6 +240,17 @@
     background: #eee;
 }
 
+/****************** 추가 ********************/
+.non-click {
+    background-color: white;
+}
+
+.click {
+    background-color: #e4ddee;
+}
+/********************************************/
+
+
 .header {
     display: flex;
     justify-content: space-between;
