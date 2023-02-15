@@ -67,6 +67,9 @@
         </tbody>
     </table>
 </div>
+
+
+
 <div id="paging">
     <ul class="pagination">
         <c:choose>
@@ -93,8 +96,23 @@
 
         </c:choose>
     </ul>
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- Modal -->

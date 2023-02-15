@@ -22,50 +22,6 @@
 <body>
 <%@ include file="../template/header.jsp" %>
 
-<div id="content">
-    <div id="info_box">
-        <div id="user_img">
-            <img src="${loginUser.profileImage}">
-        </div>
-
-        <div id="userInfo">
-            <table>
-                <tr>
-                    <td><span>닉네임</span>${loginUser.nickName}</td>
-                </tr>
-                <tr>
-                    <td><span>핸드폰</span>${loginUser.phone}</td>
-                </tr>
-                <tr>
-                    <td><span>이메일</span>${loginUser.email}</td>
-                </tr>
-                <tr>
-                    <td><span>주소</span>${loginUser.address}</td>
-                </tr>
-            </table>
-        </div>
-        <div id="btn_box">
-            <button onclick="deleteMember()">회원탈퇴</button>
-            <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-            <%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
-        </div>
-    </div>
-
-    <div id="like">
-        <div class="like_list_top">내가 찜한 목록</div>
-        <div class="like_list">
-            <c:forEach items="${interestList}" var="interest">
-                <div id="heart">
-                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
-                    <label for="checkbox_heart_${interest.estateNo}"><i class="fa-solid fa-heart"></i></label>
-                    <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
-                        <div class="bldg_name">${interest.bldgNm}</div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-
     <div id="content">
         <div id="info_box">
             <div id="user_img">
