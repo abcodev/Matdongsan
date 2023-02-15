@@ -240,6 +240,7 @@
             </div>
         </div>
     </div>
+
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
         <div id="myReserveList">
