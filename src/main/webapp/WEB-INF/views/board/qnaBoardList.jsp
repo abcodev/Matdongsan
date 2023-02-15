@@ -77,7 +77,7 @@
                         <c:if test="${not empty qnaBoardList}">
                             <c:forEach var="qb" items="${qnaBoardList}">
                                 <c:if test="${qb.blind eq 'N'}">
-                                    <tr id="tdBody">
+                                    <tr class="tdBody">
                                         <td onclick="movePage(${qb.qnaBno})">
                                             <c:forEach step="1" begin="2" end ="${qb.depth}">
                                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -92,7 +92,7 @@
                                     </tr>
                                 </c:if>
                                 <c:if test="${qb.blind eq 'Y'}">
-                                    <tr style="background-color: #dddddd" id="tdBody">
+                                    <tr style="background-color: #dddddd" class="tdBody">
                                         <c:if test="${loginUser.memberNo ne 1}">
                                             <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
                                         </c:if>
@@ -170,10 +170,12 @@
                 dataType: 'html',
                 success: function (data) {
                     //$('#boardlist_main').empty();
-                    if($(data).find("#tdBody").length > 0) {
+                    if($(data).find(".tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
-                        $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
+                        $('.tdBody').remove();
+                        $('.table').append('<tr class="tdBody"></tr>');
+                        $('.tdBody').html('<td colspan="4">조회된 게시글이 없습니다.</td>');
                     }
                     $('#paging').empty();
                     $('#paging').html($(data).find('#paging'))
@@ -202,7 +204,7 @@
                     $('#boardlist_main').empty();
                     $('.pagination').empty();
                     $('#paging').html($(data).find('.pagination')) ;
-                    if($(data).find("#tdBody").length >0) {
+                    if($(data).find(".tdBody").length >0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
