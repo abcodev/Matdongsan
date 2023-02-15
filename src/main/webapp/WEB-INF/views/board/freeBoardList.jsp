@@ -171,8 +171,6 @@
             },
             success(data) {
                 $('#boardlist_main').empty();
-                console.log($(data).find("#boardlist_main"));
-                console.log($(data).find(".board_info").length);
                 if($(data).find(".board_info").length >0) {
                     $('#boardlist_main').html($(data).find(".boardlist"))
                 }else{
