@@ -48,6 +48,9 @@
         </script>
     </c:if>
 
+
+
+
     <div class="content body">
 
             <div class="boardlist">
@@ -113,7 +116,6 @@
 
                             </c:if>
                         </c:forEach>
-
                     </table>
                 </div>
             </div>
@@ -170,19 +172,19 @@
                 },
                 dataType: 'html',
                 success: function (data) {
-                    //$('#boardlist_main').empty();
-                    console.log($(data).find("#boardlist_main"));
-                    console.log($(data).find(".board_info").length);
-                    if($(data).find("#tdBody").length >0) {
+                    $('#boardlist_main').empty();
+                    if($(data).find("#tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
+                    $('#paging').empty();
+                    $('#paging').html($(data).find('#paging'))
                 }
             })
         }
 
-        function retrieveQnaBoards(current_page) {
+        function retrieveQnaBoards(current_page,item) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/board/qnaList',
                 method: 'GET',
@@ -192,10 +194,13 @@
                     search: $("#qnaBoardSearch").val(),
                 },
                 success(data) {
-                   // $('#boardlist_main').empty();
-                    console.log($(data).find("#boardlist_main"));
-                    console.log($(data).find(".board_info").length);
-                    if($(data).find("#tdBody").length > 0) {
+                    $(".page-item").on('click', function(){
+                        if($(item).val() === $(current_Page).val()){
+                            $(this).prop('disabled', true);
+                        }
+                    });
+                    $('#boardlist_main').empty();
+                    if($(data).find("#tdBody").length >0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');

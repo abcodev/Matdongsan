@@ -229,51 +229,25 @@ tr:last-child td:last-child {
     height: 30px;
 }
 
-.pagination > div{
-    display: inline-block;
-    position: relative;
-    left: 830px;
-    margin:0 3px;
-    float:left;
-    border:1px solid #e6e6e6;
-    width:28px;
-    height:28px;
-    line-height:28px;
-    text-align:center;
-    background-color:#c6c9cc;
-    font-size:13px;
-    color:#333333;
-    text-decoration:none;
-    font-weight: bold;
-}
-.pagination> div:hover{
-    border: 2px solid black;
-}
 .pagination> li{
-    position: relative;
-    left: 830px;
     display: inline-block;
+    position: relative;
+    left: 840px;
     margin:0 3px;
-    float:left;
     border:1px solid #e6e6e6;
     width:28px;
     height:28px;
     line-height:28px;
     text-align:center;
-    background-color:white;
+    background-color:#fff;
     font-size:13px;
-    color:#333333;
+    color:#999999;
     text-decoration:none;
     font-weight: bold;
 }
 .pagination> li:hover{
-    border: 2px solid black;
+    border: 2px solid #beb0d0;
 }
-.pagination > li,div{
-
-}
-
-
 #btnClose {
     background: gray;
     font-weight: bold;
@@ -282,5 +256,8 @@ tr:last-child td:last-child {
     border-radius: 5px;
     width: 72px;
     height: 30px;
+}
+#tableDiv{
+    margin-bottom: 50px;
 }
 
