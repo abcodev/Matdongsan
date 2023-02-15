@@ -24,7 +24,7 @@
     }
 </script>
 <div id="content">
-    <c:if test="${loginUser.memberNo == 1}">
+    <c:if test="${loginUser.grade eq 'ADMIN'}">
         <div id="enroll_btn">
             <button onclick="location.href='REAL_RESERVATION.request.contextPath}/admin/resEnroll'">새로운 맛집 등록하기</button>
         </div>

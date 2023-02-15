@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +34,6 @@
             <th>닉네임</th>
             <th>최근 접속일</th>
             <th>회원등급</th>
-            <th>회원상태</th>
         </tr>
         </thead>
         <tbody id="tableList">
@@ -41,12 +41,28 @@
             <tr id="memberData">
                 <td>${ul.memberNo}</td>
                 <td>${ul.provider}</td>
-                <td>${ul.providerId}</td>
+                <td>
+                    ${fn:substring(ul.providerId, 0, fn:length(ul.providerId)-6)}******
+                </td>
                 <td>${ul.memberName}</td>
                 <td>${ul.nickName}</td>
-                <td>${ul.recentAccess.substring(0,16)}</td>
-                <td>${ul.grade}</td>
-                <td>${ul.status}</td>
+                <td>
+                        ${fn:substring(ul.recentAccess, 0, 16)}
+                </td>
+                <td>
+                    <c:choose>
+                        <c:when test="${ul.grade eq 'ADMIN'}">
+                            관리자
+                        </c:when>
+                        <c:when test="${ul.grade eq 'BROKER'}">
+                            부동산 중개인
+                        </c:when>
+                        <c:when test="${ul.grade eq 'GENERAL'}">
+                            준회원
+                        </c:when>
+                        <c:otherwise>정회원</c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
@@ -54,14 +70,14 @@
 </div>
 
 
-<div id="paging">
+<div class="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-link disabled"><</li>
+                <div class="page-link disabled"><</div>
             </c:when>
             <c:otherwise>
-                <li class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</li>
+                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>
             </c:otherwise>
         </c:choose>
 
@@ -71,10 +87,10 @@
 
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
+                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>
             </c:when>
             <c:otherwise>
-                <li class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></li>
+                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>
             </c:otherwise>
         </c:choose>
     </ul>
