@@ -71,10 +71,9 @@ public class QnaBoardController {
 
     // 게시글 등록
     @RequestMapping("/insert")
-    public String insertQboard(
-            Model model, QnaBoard qb, HttpSession session,
-            @ModelAttribute("loginUser") Member loginUser,
-            @RequestParam(value = "qnaArea") String qnaArea
+    public String insertQboard(Model model, QnaBoard qb, HttpSession session,
+    @ModelAttribute("loginUser") Member loginUser,
+    @RequestParam(value = "qnaArea", defaultValue = "") String qnaArea
     ) {
         Member m = (Member) session.getAttribute("loginUser");
         if(m.getMemberNo() == 1){

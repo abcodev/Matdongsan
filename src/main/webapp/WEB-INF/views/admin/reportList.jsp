@@ -127,14 +127,15 @@
         </div>
     </div>
 </div>
+
 <div class="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-item disabled">Previous</li>
+                <li class="page-item disabled"><</li>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})">Previous</li>
+                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})"><</li>
             </c:otherwise>
         </c:choose>
 
@@ -142,12 +143,13 @@
             <li class="page-item" onclick="ReportList(${item})">${item }</li>
         </c:forEach>
 
+
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">></a></li>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})">Next</li>
+                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})">></li>
 
             </c:otherwise>
         </c:choose>
@@ -157,6 +159,7 @@
 
 
 <script>
+
 
     $("#userList").click(function () {
         location.href = "${pageContext.request.contextPath}/admin/userList";
@@ -201,8 +204,6 @@
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
-        console.log(fNo);
-        console.log(type);
         $("#rType").val(type);
         $("#fNo").val(fNo);
         $('#modal').addClass('show');

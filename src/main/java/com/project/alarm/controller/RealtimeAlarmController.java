@@ -4,6 +4,7 @@ import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.alarm.vo.Alarm;
 import com.project.chat.service.ChatService;
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

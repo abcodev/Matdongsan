@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ page language="java" pageEncoding="UTF-8" %>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
     <title>Document</title>
@@ -53,14 +54,14 @@
 </div>
 
 
-<div class="paging">
+<div id="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <div class="page-link disabled"><</div>
+                <li class="page-link disabled"><</li>
             </c:when>
             <c:otherwise>
-                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>
+                <li class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</li>
             </c:otherwise>
         </c:choose>
 
@@ -70,10 +71,10 @@
 
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>
+                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
             </c:when>
             <c:otherwise>
-                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>
+                <li class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></li>
             </c:otherwise>
         </c:choose>
     </ul>
