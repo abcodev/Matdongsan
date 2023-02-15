@@ -128,7 +128,6 @@
                     <li class="page-link" onclick="retrieveQnaBoards(${pi.currentPage - 1})"><</li>
                 </c:otherwise>
             </c:choose>
-
             <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
                 <li class="page-item" onclick="retrieveQnaBoards(${item})">${item }</li>
             </c:forEach>
@@ -192,10 +191,13 @@
                 },
                 success(data) {
                     $(".page-item").on('click', function(){
-                        if($(item).val() === $(current_Page).val()){
+                        if($(item).val() === $(current_page).val()){
                             $(this).prop('disabled', true);
                         }
                     });
+
+                    console.log(current_page)
+                    console.log(item)
                     $('#boardlist_main').empty();
                     if($(data).find("#tdBody").length >0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))

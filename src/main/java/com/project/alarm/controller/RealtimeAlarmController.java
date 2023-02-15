@@ -4,6 +4,7 @@ import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.alarm.vo.Alarm;
 import com.project.chat.service.ChatService;
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -35,9 +36,9 @@ public class RealtimeAlarmController {
     @GetMapping("/alarmList")
     public ModelAndView retrieveAlarmList(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            throw new RuntimeException("로그인 하고 오세용");
-        }
+//        if (loginUser == null) {
+//            throw new RuntimeException("로그인 하고 오세용");
+//        }
 
         ModelAndView modelAndView = new ModelAndView();
         List<Alarm> alarmList = alarmService.retrieveAlarmList(loginUser.getMemberNo());
