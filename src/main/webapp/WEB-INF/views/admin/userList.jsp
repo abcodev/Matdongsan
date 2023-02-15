@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +33,6 @@
             <th>닉네임</th>
             <th>최근 접속일</th>
             <th>회원등급</th>
-            <th>회원상태</th>
         </tr>
         </thead>
         <tbody id="tableList">
@@ -40,12 +40,28 @@
             <tr id="memberData">
                 <td>${ul.memberNo}</td>
                 <td>${ul.provider}</td>
-                <td>${ul.providerId}</td>
+                <td>
+                    ${fn:substring(ul.providerId, 0, fn:length(ul.providerId)-6)}******
+                </td>
                 <td>${ul.memberName}</td>
                 <td>${ul.nickName}</td>
-                <td>${ul.recentAccess}</td>
-                <td>${ul.grade}</td>
-                <td>${ul.status}</td>
+                <td>
+                        ${fn:substring(ul.recentAccess, 0, 16)}
+                </td>
+                <td>
+                    <c:choose>
+                        <c:when test="${ul.grade eq 'ADMIN'}">
+                            관리자
+                        </c:when>
+                        <c:when test="${ul.grade eq 'BROKER'}">
+                            부동산 중개인
+                        </c:when>
+                        <c:when test="${ul.grade eq 'GENERAL'}">
+                            준회원
+                        </c:when>
+                        <c:otherwise>정회원</c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
@@ -110,14 +126,6 @@
             }
         })
     }
-
-    // function hideId(){
-    //     const len =
-    //
-    //     for(let i = 0; i < len; i++){
-    //
-    //     }
-    // }
 
 
 
