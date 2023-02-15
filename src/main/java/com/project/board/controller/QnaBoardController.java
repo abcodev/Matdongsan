@@ -41,7 +41,10 @@ public class QnaBoardController {
         QnaBoardListRequest req = new QnaBoardListRequest(currentPage, state, search, select);
         QnaBoardListResponse resp = boardService.selectQnaList(req);
 
+        // 공지사항 게시글 불러오기
+        List<QnaBoard> qnaNoticeList = boardService.selectQaNoticeList();
 
+        modelAndView.addObject("qnaNoticeList", qnaNoticeList);
         modelAndView.addObject("qnaBoardList", resp.getQnaBoardList());
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
@@ -70,7 +73,7 @@ public class QnaBoardController {
     @RequestMapping("/insert")
     public String insertQboard(Model model, QnaBoard qb, HttpSession session,
     @ModelAttribute("loginUser") Member loginUser,
-    @RequestParam(value = "qnaArea") String qnaArea
+    @RequestParam(value = "qnaArea", defaultValue = "") String qnaArea
     ) {
 
         Member m = (Member) session.getAttribute("loginUser");

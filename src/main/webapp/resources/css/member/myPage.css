@@ -279,7 +279,26 @@ table{
     border: rgba(86, 99, 146, 0.3) 2px solid;
     border-radius: 2px;
     margin-left: 5%;
+
+    overflow: auto;
 }
+
+.reserve_history::-webkit-scrollbar {
+    width: 10px;
+}
+.reserve_history::-webkit-scrollbar-track {
+    background-color: #f9f9f9;
+}
+.reserve_history::-webkit-scrollbar-thumb {
+    background-color: #beb0d0;
+    border-radius: 10px;
+    width: 30px;
+}
+
+.reserve_history::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(128, 78, 187, 0.83);
+}
+
 
 .reserve_history > p{
     font-size: 19px;

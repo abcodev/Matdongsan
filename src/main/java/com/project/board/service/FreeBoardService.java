@@ -34,6 +34,10 @@ public class FreeBoardService {
         return new FreeBoardListResponse(result,pageInfoCombine);
     }
 
+    public List<FreeBoard> freeNoticeList(){
+        return freeBoardDao.freeNoticeList(sqlSession);
+    }
+
     public int selectReportList(){
         return freeBoardDao.selectReportList(sqlSession);
     }

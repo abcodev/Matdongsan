@@ -78,6 +78,6 @@ public class QnaBoardService {
         return boardDao.selectReportList(sqlSession);
     }
 
-
+    public List<QnaBoard> selectQaNoticeList(){ return boardDao.selectQaNoticeList(sqlSession); }
 
 }

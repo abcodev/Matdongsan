@@ -25,11 +25,16 @@
         <input type="hidden" name="qnaWriter" value="${loginUser.nickName}">
         <input type="hidden" name="memberNo" value="${loginUser.memberNo}">
         <div class="select_city">
-          <select id="qnaArea" name="qnaArea">
-            <c:forEach var="localList" items="${localList}">
-              <option value="${localList}">${localList}</option>
-            </c:forEach>
-          </select>
+          <c:if test="${loginUser.memberNo ne 1}">
+            <select id="qnaArea" name="qnaArea">
+              <c:forEach var="localList" items="${localList}">
+                <option value="${localList}">${localList}</option>
+              </c:forEach>
+            </select>
+          </c:if>
+          <c:if test="${loginUser.memberNo eq 1}">
+            <input type="hidden" name="qnaArea">
+          </c:if>
         </div>
         <input type="text" id="title" name="qnaTitle" required placeholder="제목을 입력해주세요" class="board_title">
       </div>
