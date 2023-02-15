@@ -61,7 +61,9 @@
                     <input type="checkbox" name="arrayList" id="recent" value="recent"><label for="recent">최신순</label>
                 </div>
                 <div id="writebtn">
-                    <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                    <c:if test="${not empty loginUser}">
+                        <button onclick="movePage()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                    </c:if>
                 </div>
             </div>
             <div id="boardlist_main">
