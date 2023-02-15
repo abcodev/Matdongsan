@@ -171,7 +171,7 @@
 #history_list{
     display: flex;
     padding: 0 50px;
-    height: 300px;
+    height: 350px;
     margin-top: 50px;
 }
 
@@ -432,10 +432,10 @@ table{
     color: #f3f1f5;
 }
 
-#paging{
-    margin-top: 10px;
-    height: 30px;
-}
+/*#paging{*/
+/*    margin-top: 10px;*/
+/*    height: 30px;*/
+/*}*/
 .mypaging > li{
     display: inline-block;
     position: relative;
@@ -452,6 +452,12 @@ table{
     text-decoration:none;
     font-weight: bold;
 }
-.pagination> li:hover{
-    border: 2px solid #beb0d0;
+/*.pagination> li:hover{*/
+/*    border: 2px solid #beb0d0;*/
+/*}*/
+#reviewPaging{
+    padding-bottom: 20px;
+}
+#allBoardsPaging{
+    padding-bottom: 20px;
 }
