@@ -337,7 +337,7 @@
             if (i < currentDate.getDate()) {
                 htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
             } else {
-                htmlDummy += '<div onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
+                htmlDummy += '<div class="non-click" onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
             }
         }
 
@@ -348,6 +348,21 @@
 
         document.querySelector('.dateBoard').innerHTML = htmlDummy;
         document.querySelector('.dateTitle').innerText = currentYear + '년 ' + currentMonth + '월';
+
+        //////////////////////////////////////////////////////
+        const nonClick = document.querySelectorAll(".non-click");
+        function handleClick(event) {
+            // div에서 모든 "click" 클래스 제거
+            nonClick.forEach((e) => {
+                e.classList.remove("click");
+            });
+            // 클릭한 div만 "click"클래스 추가
+            event.target.classList.add("click");
+        }
+
+        nonClick.forEach((e) => {
+            e.addEventListener("click", handleClick);
+        });
     }
 
     function test(year, month, day) {

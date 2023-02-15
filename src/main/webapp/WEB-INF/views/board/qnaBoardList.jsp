@@ -136,7 +136,7 @@
 
             <c:choose>
                 <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <li class="page-item disabled"><a class="page-link" href="#">></a></li>
+                    <li class="page-item disabled"><a class="page-link" href="">></a></li>
                 </c:when>
                 <c:otherwise>
                     <li class="page-link" onclick="retrieveQnaBoards(${pi.currentPage + 1})">></li>
