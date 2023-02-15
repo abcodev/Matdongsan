@@ -140,14 +140,18 @@
         <div class="review_history">
             <p>내가 남긴 리뷰</p>
             <div id="myReviewList">
-
-                <div class="review_resNm">레스토랑 이름</div>
-                <div class="review_star">★★★★★</div>
-                <div class="review_date">2023-01-18</div>
-
                 <table>
                     <tr>
-                        <td>리뷰 내용</td>
+                        <th>레스토랑 이름</th>
+                        <th>별점</th>
+                        <th>리뷰내용</th>
+                        <th>리뷰게시일</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
@@ -209,58 +213,32 @@
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
         <div id="myReserveList">
-        <div class="myReserve_list">
-            <table id="reserveList_tb">
-                <tr class="myReserve_info_list_top">
-                    <th>공인중개사</th>
-                    <th>예약일</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약처리</th>
-                </tr>
-                <c:forEach var="reservationList" items="${reservationList}">
-                    <tr class="myReserve_info_list">
-                        <td style="display: none">${reservationList.revNo}</td>
-                        <td>${reservationList.agentName}</td>
-                        <td>${reservationList.revDate}</td>
-                        <td>${reservationList.revTime}</td>
-                        <td>${reservationList.peopleCount}</td>
-                        <td>
-                        <c:choose>
-                            <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
-                            <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
-                            <c:otherwise>예약 취소</c:otherwise>
-                        </c:choose></td>
+            <div class="myReserve_list">
+                <table id="reserveList_tb">
+                    <tr class="myReserve_info_list_top">
+                        <th>공인중개사</th>
+                        <th>예약일</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약처리</th>
                     </tr>
-                </c:forEach>
-            </table>
-
-            <div id="paging_reserve">
-                <ul class="pagination">
-                    <c:choose>
-                        <c:when test="${pi3.currentPage eq 1}">
-                            <li class="page-item disabled">Previous</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})">Previous</li>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <c:forEach var="item" begin="${pi3.startPage }" end="${pi3.endPage }">
-                        <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
+                    <c:forEach var="reservationList" items="${reservationList}">
+                        <tr class="myReserve_info_list">
+                            <td style="display: none">${reservationList.revNo}</td>
+                            <td>${reservationList.agentName}</td>
+                            <td>${reservationList.revDate}</td>
+                            <td>${reservationList.revTime}</td>
+                            <td>${reservationList.peopleCount}</td>
+                            <td>
+                            <c:choose>
+                                <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
+                                <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
+                                <c:otherwise>예약 취소</c:otherwise>
+                            </c:choose></td>
+                        </tr>
                     </c:forEach>
-
-                    <c:choose>
-                        <c:when test="${pi3.currentPage eq pi3.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">Next</li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
+                </table>
             </div>
-        </div>
         </div>
         <%--  ************예약확인창 모달***************  --%>
         <button class="modal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none"></button>
@@ -326,26 +304,6 @@
                     $('#myReviewList').html($(data).find("#myReviewList"))
                 } else {
                     $('#myReviewList').html('<p>조회된 게시글이 없습니다.</p>');
-                }
-            }
-        })
-    }
-
-    function retrieveReserveList(current_page3) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/myPage',
-            method: 'GET',
-            data: {
-                cpage: current_page3
-            },
-            success(data) {
-                $('#myReserveList').empty();
-                console.log($(data).find("#myReserveList"));
-                console.log($(data).find(".myReserve_info_list").length);
-                if ($(data).find(".myReserve_info_list").length > 0) {
-                    $('#myReserveList').html($(data).find("#myReserveList"))
-                } else {
-                    $('#myReserveList').html('<p>조회된 게시글이 없습니다.</p>');
                 }
             }
         })
