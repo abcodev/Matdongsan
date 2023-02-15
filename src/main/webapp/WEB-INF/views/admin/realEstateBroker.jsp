@@ -44,7 +44,7 @@
                 <td>${broker.agentName}</td>
                 <td>${broker.agentNo}</td>
                 <td>${broker.agentPhone}</td>
-                <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"></a><button id="down">다운로드</button></td>
+                <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button id="down">다운로드</button></a></td>
                 <td>
                     <c:if test="${broker.applyStatus eq 'A'}">
                         <button type="button" class="add-btn" id="btnOn" onclick="showApproveModal('${broker.agentNo}', ${broker.memberNo})">
