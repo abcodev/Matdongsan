@@ -124,3 +124,19 @@
 .pagination> li:hover{
     border: 2px solid #beb0d0;
 }
+.current{
+    display: inline-block;
+    position: relative;
+    left: 300px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color: #beb0d0;
+    font-size:8px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
+}

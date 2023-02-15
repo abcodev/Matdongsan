@@ -53,11 +53,16 @@
                         <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage - 1})"><</a></li>
                     </c:otherwise>
                 </c:choose>
-
                 <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                    <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${item})">${item }</a></li>
+                    <c:choose>
+                        <c:when test="${pi.currentPage eq item }">
+                            <div class="current">${item }</div>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item" onclick="retrieveRealEstate(${item}) ">${item }</li>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
-
                 <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
                         <li class="page-item disabled"><a class="page-link" href="#"></a>></li>

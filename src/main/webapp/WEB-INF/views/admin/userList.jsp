@@ -15,6 +15,7 @@
 
 <body>
 <%@ include file="../template/header.jsp" %>
+<div id="big">
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: white; background: #585c9c; border: white">회원관리</button>
@@ -54,7 +55,7 @@
 </div>
 
 
-<div id="paging">
+<div class="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
@@ -64,9 +65,15 @@
                 <li class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</li>
             </c:otherwise>
         </c:choose>
-
         <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>
+            <c:choose>
+                <c:when test="${pi.currentPage eq item }">
+                    <div class="current">${item }</div>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item" onclick="retrieveUserList(${item}) ">${item }</li>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
 
         <c:choose>
@@ -79,6 +86,7 @@
         </c:choose>
     </ul>
 
+</div>
 </div>
 
 <script>
@@ -101,7 +109,8 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-
+                $('.pagination').empty();
+                $('.paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#memberData").length > 0) {
                     $('.memberTable').html($(data).find("#tableDiv"))
                 } else {

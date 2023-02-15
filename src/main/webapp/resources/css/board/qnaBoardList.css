@@ -211,7 +211,6 @@
     display: inline-block;
     position: relative;
     left: 290px;
-    float:left;
     margin:0 3px;
     border:1px solid #e6e6e6;
     width:28px;
@@ -230,6 +229,22 @@
 
 #big{
     height: 1000px;
+}
+.current{
+    display: inline-block;
+    position: relative;
+    left: 290px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color: #beb0d0;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
 }
 
 

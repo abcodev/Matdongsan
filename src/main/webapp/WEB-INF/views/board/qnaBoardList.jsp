@@ -134,7 +134,15 @@
                 </c:otherwise>
             </c:choose>
             <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item" onclick="retrieveQnaBoards(${item})">${item }</li>
+                <c:choose>
+                    <c:when test="${pi.currentPage eq item }">
+                        <div class="current">${item }</div>
+                    </c:when>
+                <c:otherwise>
+                <li class="page-item" data-item="${item}" onclick="retrieveQnaBoards(${item}) ">${item }</li>
+                </c:otherwise>
+                </c:choose>
+
             </c:forEach>
 
             <c:choose>
@@ -161,6 +169,7 @@
             location.href = '${pageContext.request.contextPath}/board/insert';
         }
 
+
         function searchState() {
             $.ajax({
                 type: 'GET',
@@ -172,6 +181,7 @@
                 },
                 dataType: 'html',
                 success: function (data) {
+                    $('.item').attr("disabled",true);
                     $('#boardlist_main').empty();
                     if($(data).find("#tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
@@ -184,6 +194,7 @@
             })
         }
 
+
         function retrieveQnaBoards(current_page,item) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/board/qnaList',
@@ -194,14 +205,8 @@
                     search: $("#qnaBoardSearch").val(),
                 },
                 success(data) {
-                    $(".page-item").on('click', function(){
-                        if($(item).val() === $(current_page).val()){
-                            $(this).prop('disabled', true);
-                        }
-                    });
+                    let item = $(this).data('item');
 
-                    console.log(current_page)
-                    console.log(item)
                     $('#boardlist_main').empty();
                     $('.pagination').empty();
                     $('#paging').html($(data).find('.pagination')) ;

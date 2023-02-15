@@ -7,12 +7,12 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin: auto;
-
     width: 70%;
 }
-
-th,
-td {
+#big{
+    height: 1100px;
+}
+th, td {
     padding: 6px 15px;
 }
 
@@ -242,7 +242,7 @@ tr:last-child td:last-child {
 .pagination> li{
     display: inline-block;
     position: relative;
-    left: 670px;
+    left: 640px;
     margin:0 3px;
     border:1px solid #e6e6e6;
     width:28px;
@@ -257,6 +257,22 @@ tr:last-child td:last-child {
 }
 .pagination> li:hover{
     border: 2px solid #beb0d0;
+}
+.current{
+    display: inline-block;
+    position: relative;
+    left: 640px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color: #beb0d0;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
 }
 #btnClose {
     background: gray;

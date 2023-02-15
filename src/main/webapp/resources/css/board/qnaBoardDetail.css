@@ -180,7 +180,7 @@ textarea:focus , input:focus {
 }
 #Answer{
     box-sizing: border-box;
-    border: 2px solid #beb0d0;
+    border: 2px solid black;
     border-radius: 10px;
     padding: 30px;
     border-radius: 10px;
@@ -199,7 +199,7 @@ textarea:focus , input:focus {
     right: 45px;
 }
 .font{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: #23527c;
 

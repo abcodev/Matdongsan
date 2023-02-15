@@ -124,7 +124,14 @@
                     </c:choose>
 
                     <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                        <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
+                        <c:choose>
+                            <c:when test="${pi1.currentPage eq item }">
+                                <div class="current">${item }</div>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveAllBoards(${item}) ">${item }</li>
+                            </c:otherwise>
+                        </c:choose>
                     </c:forEach>
 
                     <c:choose>
@@ -189,11 +196,16 @@
                                 <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})"><</li>
                             </c:otherwise>
                         </c:choose>
-
                         <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
-                            <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
+                            <c:choose>
+                                <c:when test="${pi2.currentPage eq item }">
+                                    <div class="current">${item }</div>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item" onclick="retrieveReviewList(${item}) ">${item }</li>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
-
                         <c:choose>
                             <c:when test="${pi2.currentPage eq pi2.maxPage}">
                                 <li class="page-item disabled"><a class="page-link" href="#">></a></li>
