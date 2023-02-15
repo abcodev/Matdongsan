@@ -100,8 +100,8 @@
             dataType: 'html',
             success: function (data) {
                 $('#tableDiv').empty();
-                console.log("test" + $(data).find("#tableDiv"));
-                console.log($(data).find("#tableDiv").length);
+                $('.pagination').empty();
+                $('.paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#memberData").length > 0) {
                     $('.memberTable').html($(data).find("#tableDiv"))
                 } else {
