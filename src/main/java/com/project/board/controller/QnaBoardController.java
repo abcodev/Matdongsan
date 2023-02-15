@@ -85,6 +85,7 @@ public class QnaBoardController {
         return "redirect:/board/qnaList";
     }
 
+
     // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
     @RequiredLogin
