@@ -203,7 +203,7 @@
                 },
                 dataType: 'html',
                 success: function (data) {
-                    //$('#boardlist_main').empty();
+                    $('#boardlist_main').empty();
                     if($(data).find(".tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
@@ -211,8 +211,8 @@
                         $('.table').append('<tr class="tdBody"></tr>');
                         $('.tdBody').html('<td colspan="4">조회된 게시글이 없습니다.</td>');
                     }
-                    $('#paging').empty();
-                    $('#paging').html($(data).find('#paging'))
+                    $('.pagination').empty();
+                    $('#paging').html($(data).find('.pagination'))
                 }
             })
         }
@@ -243,9 +243,7 @@
                     }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
-                    $('#paging').empty();
-                    $('#paging').html($(data).find('#paging'))
-                }
+            }
             })
         }
     </script>
