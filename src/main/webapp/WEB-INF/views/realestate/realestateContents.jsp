@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateList.css"/>">
 <jsp:include page="../template/font.jsp"/>
@@ -44,20 +44,13 @@
     </table>
 
     <div id="paging">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="realPage">
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
-                        <li class="page-item disabled"><a class="page-link" href="#">
-                            <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
+                        <li class="page-item disabled"><a class="page-link" href="#"></a><</li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage - 1})">
-                            <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
+                        <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage - 1})"><</a></li>
                     </c:otherwise>
                 </c:choose>
 
@@ -67,20 +60,14 @@
 
                 <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
-                        <li class="page-item disabled"><a class="page-link" href="#">
-                            <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+                        <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage + 1})">
-                            <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
+                        <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${pi.currentPage + 1})"></a>></li>
                     </c:otherwise>
                 </c:choose>
             </ul>
-        </nav>
+
     </div>
 
 </div>

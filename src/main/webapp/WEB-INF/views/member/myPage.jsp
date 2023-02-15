@@ -113,13 +113,13 @@
 
             </div>
             <div id="paging_boardList"> <!-- <div id="paging"> -->
-                <ul class="pagination">
+                <ul class="mypaging">
                     <c:choose>
                         <c:when test="${pi1.currentPage eq 1}">
-                            <li class="page-item disabled">Previous</li>
+                            <li class="page-item disabled"><</li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})"><</li>
                         </c:otherwise>
                     </c:choose>
 
@@ -129,10 +129,10 @@
 
                     <c:choose>
                         <c:when test="${pi1.currentPage eq pi1.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">></a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
+                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>
@@ -180,13 +180,13 @@
                 </table>
 
                 <div id="paging_review">
-                    <ul class="pagination">
+                    <ul class="mypaging">
                         <c:choose>
                             <c:when test="${pi2.currentPage eq 1}">
-                                <li class="page-item disabled">Previous</li>
+                                <li class="page-item disabled"><</li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})">Previous</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})"><</li>
                             </c:otherwise>
                         </c:choose>
 
@@ -196,10 +196,10 @@
 
                         <c:choose>
                             <c:when test="${pi2.currentPage eq pi2.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                                <li class="page-item disabled"><a class="page-link" href="#">></a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">Next</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">></li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
@@ -231,13 +231,13 @@
             </table>
 
             <div id="paging_reserve">
-                <ul class="pagination">
+                <ul class="mypaging">
                     <c:choose>
                         <c:when test="${pi3.currentPage eq 1}">
-                            <li class="page-item disabled">Previous</li>
+                            <li class="page-item disabled"><</li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})">Previous</li>
+                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})"><</li>
                         </c:otherwise>
                     </c:choose>
 
@@ -247,10 +247,10 @@
 
                     <c:choose>
                         <c:when test="${pi3.currentPage eq pi3.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#">></a></li>
                         </c:when>
                         <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">Next</li>
+                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">></li>
                         </c:otherwise>
                     </c:choose>
                 </ul>

@@ -436,3 +436,22 @@ table{
     margin-top: 10px;
     height: 30px;
 }
+.mypaging > li{
+    display: inline-block;
+    position: relative;
+    left: 120px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
+}
+.pagination> li:hover{
+    border: 2px solid #beb0d0;
+}

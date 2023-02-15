@@ -194,6 +194,7 @@
 .boardlist{
     padding: 10px 5px ;
     border-bottom: #E0E0E0 2px solid;
+
 }
 
 .board_title > p{
@@ -244,6 +245,7 @@
 .board_info > .reply{
     margin-left: 10px;
 }
+
 .pagination> li{
     display: inline-block;
     position: relative;
