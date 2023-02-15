@@ -100,15 +100,18 @@
     font-size: 12.5px;
 }
 
-#res_info_name {
+#res_info_name{
     margin-top: 3px;
     font-weight: 420;
     font-size: 18px;
 }
-.pagination> li{
+
+
+
+.realPage> li{
     display: inline-block;
     position: relative;
-    left: 300px;
+    left: 120px;
     margin:0 3px;
     border:1px solid #e6e6e6;
     width:28px;
@@ -121,6 +124,6 @@
     text-decoration:none;
     font-weight: bold;
 }
-.pagination> li:hover{
+.realPage> li:hover{
     border: 2px solid #beb0d0;
 }

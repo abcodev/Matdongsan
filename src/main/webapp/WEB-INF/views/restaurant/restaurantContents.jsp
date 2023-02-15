@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateList.css"/>">
 <jsp:include page="../template/font.jsp"/>
 
 <div id="restaurant_list_ajax">
@@ -33,14 +34,16 @@
                 </c:choose>
             </div>
         </div>
+
+
         <div id="paging">
             <ul class="pagination">
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
-                        <li class="page-item disabled"><</li>
+                        <li class="page-item disabled"><i class="fa-solid fa-angles-left"></i></li>
                     </c:when>
                     <c:otherwise>
-                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage - 1})"><</li>
+                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage - 1})"><i class="fa-solid fa-angles-left"></i></li>
                     </c:otherwise>
                 </c:choose>
 
@@ -50,15 +53,17 @@
 
                 <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
-                        <li class="page-item disabled"><a class="page-link" href="#">></a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#"><i class="fa-solid fa-angles-right"></i></a></li>
                     </c:when>
-
                     <c:otherwise>
-                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage + 1})">></li>
+                        <li class="page-item" onclick="retrieveRestaurants(${pi.currentPage + 1})"><i class="fa-solid fa-angles-right"></i></li>
                     </c:otherwise>
                 </c:choose>
             </ul>
         </div>
+
+
+
     </div>
 </div>
 
