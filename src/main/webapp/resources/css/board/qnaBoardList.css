@@ -122,15 +122,16 @@
 
 #writebtn {
     width: 140px;
-    height: 40px;
-    margin-left: 700px;
+    height: auto;
     background-color: #213048;
     color: white;
     font-size: 16px;
     font-weight: 500;
-    border-radius: 5px;
+    border-radius: 3px;
     position: relative;
-    left: 256px;
+    left: 594px;
+    top: 10px;
+
 }
 
 .fa-pencil{
@@ -208,7 +209,7 @@
 .pagination> li{
     display: inline-block;
     position: relative;
-    left: 470px;
+    left: 290px;
     float:left;
     margin:0 3px;
     border:1px solid #e6e6e6;
