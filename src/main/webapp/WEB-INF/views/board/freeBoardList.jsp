@@ -179,8 +179,8 @@
                 }else{
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
-                $('.paging').empty();
-                $('.paging').html($(data).find('.paging'))
+                $('#paging').empty();
+                $('#paging').html($(data).find('#paging'))
             }
         })
     }

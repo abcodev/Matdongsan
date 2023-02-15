@@ -157,6 +157,7 @@
     </div>
     <script>
 
+
         function movePage(qBno){
             location.href = '${pageContext.request.contextPath}/board/detail/'+qBno;
         }
@@ -177,18 +178,18 @@
                 dataType: 'html',
                 success: function (data) {
                     $('#boardlist_main').empty();
-                    console.log($(data).find("#boardlist_main"));
-                    console.log($(data).find(".board_info").length);
-                    if($(data).find("#tdBody").length >0) {
+                    if($(data).find("#tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
+                    $('#paging').empty();
+                    $('#paging').html($(data).find('#paging'))
                 }
             })
         }
 
-        function retrieveQnaBoards(current_page) {
+        function retrieveQnaBoards(current_page,item) {
             $.ajax({
                 url: '${pageContext.request.contextPath}/board/qnaList',
                 method: 'GET',
@@ -198,9 +199,12 @@
                     search: $("#qnaBoardSearch").val(),
                 },
                 success(data) {
+                    $(".page-item").on('click', function(){
+                        if($(item).val() === $(current_Page).val()){
+                            $(this).prop('disabled', true);
+                        }
+                    });
                     $('#boardlist_main').empty();
-                    console.log($(data).find("#boardlist_main"));
-                    console.log($(data).find(".board_info").length);
                     if($(data).find("#tdBody").length >0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else{

@@ -127,6 +127,7 @@
         </div>
     </div>
 </div>
+
 <div class="paging">
     <ul class="pagination">
         <c:choose>
@@ -141,6 +142,7 @@
         <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
             <li class="page-item" onclick="ReportList(${item})">${item }</li>
         </c:forEach>
+
 
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
@@ -157,6 +159,7 @@
 
 
 <script>
+
 
     $("#userList").click(function () {
         location.href = "${pageContext.request.contextPath}/admin/userList";
@@ -201,8 +204,6 @@
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
-        console.log(fNo);
-        console.log(type);
         $("#rType").val(type);
         $("#fNo").val(fNo);
         $('#modal').addClass('show');
