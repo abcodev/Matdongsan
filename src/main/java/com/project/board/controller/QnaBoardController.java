@@ -73,7 +73,7 @@ public class QnaBoardController {
     @RequestMapping("/insert")
     public String insertQboard(Model model, QnaBoard qb, HttpSession session,
     @ModelAttribute("loginUser") Member loginUser,
-    @RequestParam(value = "qnaArea") String qnaArea
+    @RequestParam(value = "qnaArea", defaultValue = "") String qnaArea
     ) {
 
         Member m = (Member) session.getAttribute("loginUser");
@@ -86,6 +86,7 @@ public class QnaBoardController {
 
         return "redirect:/board/qnaList";
     }
+
 
     // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)

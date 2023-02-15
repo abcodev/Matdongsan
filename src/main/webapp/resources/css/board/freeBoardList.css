@@ -11,7 +11,7 @@
 
 #content{
     padding: 60px 350px 30px 350px;
-    height: 800px;
+    height: 1000px;
 }
 
 .content{
@@ -244,3 +244,24 @@
 .board_info > .reply{
     margin-left: 10px;
 }
+.pagination> li{
+    display: inline-block;
+    position: relative;
+    left: 670px;
+    top:-50px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
+}
+.pagination> li:hover{
+    border: 2px solid #beb0d0;
+}
+

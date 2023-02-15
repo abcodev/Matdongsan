@@ -22,7 +22,7 @@ public class ReservationService {
 
         long receiverNo = reservationDao.memberNoOfEstate(req.getAgentNo());
         String senderName = reservationDao.memberNoOfReservation(req.getMemberNo());
-        AlarmTemplate template = AlarmTemplate.generateNewRervation(receiverNo,senderName);
+        AlarmTemplate template = AlarmTemplate.generateNewReservation(receiverNo,senderName);
         alarmService.send(template);
     }
 

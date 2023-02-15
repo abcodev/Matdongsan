@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="interestEstateMapper">
+
+    <resultMap id="interestResultSet" type="Interest">
+        <result column="MEMBER_NO" property="memberNo"/>
+        <result column="ESTATE_NO" property="estateNo"/>
+        <result column="BLDGNM" property="bldgNm"/>
+        <result column="MOST" property="most"/>
+    </resultMap>
+
+
+
+    <select id="checkInterest" parameterType="Map" resultMap="interestResultSet">
+        SELECT * FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
+    </select>
+
+    <insert id="insert" parameterType="Map">
+        INSERT INTO INTEREST (ESTATE_NO, MEMBER_NO)
+        VALUES (#{estateNo}, #{memberNo})
+    </insert>
+
+    <delete id="delete" parameterType="Map">
+        DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
+    </delete>
+
+    <select id="mostInterest" parameterType="string" resultMap="interestResultSet">
+        SELECT i.ESTATE_NO,
+               COUNT(i.ESTATE_NO) as most,
+               ((SELECT BLDG_NM FROM REALESTATE_RENT where i.ESTATE_NO = REALESTATE_RENT.ESTATE_NO)
+                UNION
+                (SELECT BLDG_NM FROM REALESTATE_SELL where i.ESTATE_NO = REALESTATE_SELL.ESTATE_NO)) as bldgNm
+        FROM INTEREST i
+        GROUP BY i.ESTATE_NO HAVING COUNT(*) >= 1
+        ORDER BY most DESC
+    </select>
+
+</mapper>

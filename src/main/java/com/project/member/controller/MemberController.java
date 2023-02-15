@@ -1,6 +1,7 @@
 package com.project.member.controller;
 
 import com.project.admin.vo.BrokerEnroll;
+import com.project.common.annotation.Permission;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
 import com.project.member.service.MemberService;
@@ -61,6 +62,7 @@ public class MemberController {
         return modelAndView;
     }
 
+    @Permission(authority = MemberGrade.BROKER)
     @RequestMapping("/brokerMemberMyPage")
     public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){

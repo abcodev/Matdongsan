@@ -203,7 +203,7 @@
                   FREE_BNO,
                   BOARD_TITLE,
                   BOARD_DATE,
-                  'F' AS TYPE
+                  '자유게시판' AS TYPE
               FROM FREE_BOARD
               WHERE MEMBER_NO = #{memberNo}
               UNION ALL
@@ -211,7 +211,7 @@
                   QNA_BNO,
                   QNA_TITLE,
                   QNA_DATE,
-                  'Q' AS TYPE
+                  '질문게시판' AS TYPE
               FROM QNA_BOARD
               WHERE MEMBER_NO = #{memberNo})
     </select>
@@ -293,6 +293,13 @@
         FROM REAL_RESERVATION
         WHERE MEMBER_NO = #{memberNo}
     </select>
+
+    <update id="deleteReservation" parameterType="long">
+        UPDATE REAL_RESERVATION
+        SET REV_STATUS = '예약취소'
+        WHERE MEMBER_NO = #{memberNo}
+    </update>
+
 
     <update id="changeMemberGrade">
         UPDATE MEMBER

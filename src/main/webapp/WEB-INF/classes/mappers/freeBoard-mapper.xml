@@ -77,7 +77,7 @@
         SELECT  FB.*,(SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT",
         (SELECT COUNT(*) FROM REPLY R WHERE R.FREE_BNO = FB.FREE_BNO) AS "REPLY_COUNT"
         FROM FREE_BOARD FB
-        WHERE STATUS='Y' AND NOTICE=0
+        WHERE STATUS='Y'
             <if test="!state.isBlank()">
                 AND BOARD_AREA = #{state}
             </if>
@@ -101,17 +101,9 @@
                     ORDER BY FB.NOTICE DESC, FB.BOARD_DATE DESC
                 </when>
                 <otherwise>
-                    ORDER BY FB.BOARD_DATE DESC
+                    ORDER BY FB.NOTICE DESC , FB.BOARD_DATE DESC
                 </otherwise>
             </choose>
-    </select>
-
-    <select id="freeNoticeList" resultMap="fBoardResultSet">
-        SELECT FB.*, (SELECT COUNT(*) FROM HOTWEEK H WHERE H.FREE_BNO = FB.FREE_BNO) AS "COUNT",
-               (SELECT COUNT(*) FROM REPLY R WHERE R.FREE_BNO = FB.FREE_BNO) AS "REPLY_COUNT"
-        FROM FREE_BOARD FB
-        WHERE STATUS = 'Y' AND NOTICE = 1
-        ORDER BY FB.BOARD_DATE DESC
     </select>
 
     <update id="selectReportList">
