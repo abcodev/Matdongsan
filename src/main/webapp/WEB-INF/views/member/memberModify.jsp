@@ -71,7 +71,7 @@
     $(function(){
         code2 = "";
         $("#phoneChk").click(function(){
-            // alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
+            alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
             var phone = $("#phoneNumber").val();
             $.ajax({
                 type:"GET", // post 형식으로 발송

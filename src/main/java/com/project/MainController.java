@@ -68,24 +68,23 @@ public class MainController {
         }
 
         Member loginUser = (Member) session.getAttribute("loginUser");
-//        if (loginUser != null) {
-//            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
-//            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
-//            model.addAttribute("recentViewList", recentViewList);
-//            model.addAttribute("interestViewList", Collections.emptyList());
-//        } else {
-//            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
-//            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
-//            model.addAttribute("recentViewList", Collections.emptyList());
-//            model.addAttribute("interestViewList", interestViewList);
-//        }
+        if (loginUser != null) {
+            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
+            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
+            model.addAttribute("recentViewList", recentViewList);
+            model.addAttribute("interestViewList", Collections.emptyList());
+        } else {
+            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
+            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
+            model.addAttribute("recentViewList", Collections.emptyList());
+            model.addAttribute("interestViewList", interestViewList);
+        }
 
         model.addAttribute("newsList", newsList);
         Gson gson = new Gson();
         String sellList2 = gson.toJson(sellList);
 
         model.addAttribute("sellList2",sellList2);
-//        model.addAttribute("sellList", sellList);
 
         return "common/mainPage";
     }

@@ -23,7 +23,7 @@ public class RecentRealEstateRedisService {
          *    만약 현 상태가 (1, 2, 3, 4, 5) 일때
          *    내가 3번을 다시 보면
          *    (3, 1, 2, 4, 5) 가 되어야하는데
-         *    Remove 를 하지 않으면 (3, 1, 2, 3, 4) 가 되버림
+         *    Remove 를 하지 않으면 (3, 1, 2, 3, 4) 가 돼 버림
          *    그래서 Push 하기전에 중복된 Element 를 모두 지우는 커맨드를 추가
          */
         recentRealEstateRedisRepository.remove(memberNo, estateNo);
