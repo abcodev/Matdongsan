@@ -65,6 +65,7 @@
             </c:forEach>
         </div>
     </div>
+
     <div id="history_list">
         <div class="board_history">
             <p>내 게시글 보기</p>
@@ -75,66 +76,90 @@
                         <th>게시글 제목</th>
                         <th>게시일</th>
                     </tr>
+
                     <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <tr class="myBoard_info" onclick="moveDetail();">
-                            <script>
-                                function moveDetail(){
-                                    if(${selectAllBoardList.boardType eq '자유게시판'}){
-                                        location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'
-                                    }else{
-                                        location.href='${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'
-                                    }
-                                }
-                            </script>
-                            <td>${selectAllBoardList.boardType}</td>
-                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
-                            <td>${selectAllBoardList.boardDate}</td>
+                        <c:choose>
+                            <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
+                                <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
+                            </c:when>
+                            <c:otherwise>
+                                <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
+                            </c:otherwise>
+                        </c:choose>
+                        <td>${selectAllBoardList.boardType}</td>
+                        <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
+                        <td>${selectAllBoardList.boardDate}</td>
                         </tr>
                     </c:forEach>
                 </table>
-            </div>
-            <div id="paging">
-                <ul class="pagination">
-                    <c:choose>
-                        <c:when test="${pi.currentPage eq 1}">
-                            <li class="page-item disabled">Previous</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage - 1})">Previous</li>
-                        </c:otherwise>
-                    </c:choose>
+                <div id="paging_boardList">
+                    <ul class="pagination">
+                        <c:choose>
+                            <c:when test="${pi1.currentPage eq 1}">
+                                <li class="page-item disabled">Previous</li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
+                            </c:otherwise>
+                        </c:choose>
 
-                    <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                        <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
-                    </c:forEach>
+                        <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                            <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
+                        </c:forEach>
 
-                    <c:choose>
-                        <c:when test="${pi.currentPage eq pi.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi.currentPage + 1})">Next</li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
+                        <c:choose>
+                            <c:when test="${pi1.currentPage eq pi1.maxPage}">
+                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="review_history">
             <p>내가 남긴 리뷰</p>
             <div id="myReviewList">
-
-                <div class="review_resNm">레스토랑 이름</div>
-                <div class="review_star">★★★★★</div>
-                <div class="review_date">2023-01-18</div>
-
                 <table>
                     <tr>
-                        <td>리뷰 내용</td>
+                        <th>레스토랑 이름</th>
+                        <th>별점</th>
+                        <th>리뷰내용</th>
+                        <th>리뷰게시일</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                            <td class="review_resNm">${reviewList.resName}</td>
+                            <td class="review_star">
+                                <c:choose>
+                                    <c:when test="${reviewList.starRating eq 5}">
+                                        ★★★★★
+                                    </c:when>
+                                    <c:when test="${reviewList.starRating eq 4}">
+                                        ★★★★
+                                    </c:when>
+                                    <c:when test="${reviewList.starRating eq 3}">
+                                        ★★★
+                                    </c:when>
+                                    <c:when test="${reviewList.starRating eq 2}">
+                                        ★★
+                                    </c:when>
+                                    <c:otherwise>
+                                        ★
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+
                             <td>${reviewList.reviewContent}</td>
-                            <td>${reviewList.createDate}</td>
+                            <td class="review_date">${reviewList.createDate}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -142,24 +167,24 @@
                 <div id="paging_review">
                     <ul class="pagination">
                         <c:choose>
-                            <c:when test="${pi.currentPage eq 1}">
+                            <c:when test="${pi2.currentPage eq 1}">
                                 <li class="page-item disabled">Previous</li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage - 1})">Previous</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})">Previous</li>
                             </c:otherwise>
                         </c:choose>
 
-                        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                        <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
                             <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
                         </c:forEach>
 
                         <c:choose>
-                            <c:when test="${pi.currentPage eq pi.maxPage}">
+                            <c:when test="${pi2.currentPage eq pi2.maxPage}">
                                 <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi.currentPage + 1})">Next</li>
+                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">Next</li>
                             </c:otherwise>
                         </c:choose>
                     </ul>
@@ -167,8 +192,8 @@
             </div>
         </div>
     </div>
-    <div class="reserve_history">
 
+    <div class="reserve_history">
         <p>예약 확인</p>
 
         <button class="myReserve_list">
@@ -203,16 +228,18 @@
                     </tr>
                 </c:forEach>
             </table>
-            <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"/>
+            <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
         </button>
+
+        <%-- 예약 모달창 --%>
         <div id="reservationModal">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             </div>
         </div>
-
     </div>
 </div>
+
 
 <script>
     function changeHeart(estateNo) {
@@ -242,12 +269,12 @@
     }
 
 
-    function retrieveAllBoards(current_page) {
+    function retrieveAllBoards(current_page1) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             method: 'GET',
             data: {
-                cpage: current_page
+                cpage: current_page1
             },
             success(data) {
                 $('#myBoardList').empty();
@@ -262,12 +289,12 @@
         })
     }
 
-    function retrieveReviewList(current_page1) {
+    function retrieveReviewList(current_page2) {
         $.ajax({
             url: '${pageContext.request.contextPath}/myPage',
             method: 'GET',
             data: {
-                cpage: current_page1
+                cpage: current_page2
             },
             success(data) {
                 $('#myReviewList').empty();
