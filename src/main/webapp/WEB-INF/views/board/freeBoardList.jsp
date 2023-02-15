@@ -62,6 +62,7 @@
                 </div>
             </div>
             <div id="boardlist_main">
+
                 <c:forEach items="${freeNoticeList}" var="fn">
                     <div class="boardlist" style="background-color: #fdf0f0">
                         <p style="display: none">${fn.boardNo}</p>
@@ -87,6 +88,7 @@
                         </div>
                     </div>
                 </c:forEach>
+
                 <c:if test="${not empty freeBoardList}">
                     <c:forEach items="${freeBoardList}" var="freeBoard" varStatus="status">
                         <c:if test="${freeBoard.blind eq 'N'}">
@@ -155,7 +157,7 @@
 
             <c:choose>
                 <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <li class="page-item disabled"><a class="page-link" href="#">></a></li>
+                    <li class="page-item disabled"><a class="page-link">></a></li>
                 </c:when>
                 <c:otherwise>
                     <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage + 1})">></li>
@@ -181,7 +183,7 @@
                 select: array
             },
             success(data) {
-                //$('#boardlist_main').empty();
+                $('#boardlist_main').empty();
                 console.log($(data).find("#boardlist_main"));
                 console.log($(data).find(".board_info").length);
                 if ($(data).find(".board_info").length > 0) {
@@ -189,8 +191,8 @@
                 } else {
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
-                $('#paging').empty();
-                $('#paging').html($(data).find('#paging'))
+                $('.pagination').empty();
+                $('#paging').html($(data).find('.pagination'))
             }
         })
     }
@@ -211,31 +213,31 @@
             },
             dataType: 'html',
             success: function (data) {
-                //$('#boardlist_main').empty();
-                console.log($(data).find("#boardlist_main"));
-                console.log($(data).find(".board_info").length);
-                if ($(data).find(".board_info").length > 0) {
+                $('#boardlist_main').empty();
+                $('.pagination').empty();
+                $('#paging').html($(data).find('.pagination'))
+                if($(data).find(".board_info").length >0) {
                     $('#boardlist_main').html($(data).find(".boardlist"))
-                } else {
+                }else{
                     $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                 }
-                $('input[type="checkbox"][name="arrayList"]').prop("checked", false);
+                $('input[type="checkbox"][name="arrayList"]').prop("checked",false);
             }
         })
     }
 
-    $('#boardlist_main').on('click', '.boardlist', function () {
+    $('#boardlist_main').on('click', '.boardlist', function(){
         console.log($(this).children('p:eq(0)').html());
         let fno = $(this).children('p:eq(0)').html();
         let member = $(this).children('p:eq(1)').html();
         let blind = $(this).children('p:eq(2)').html();
 
-        if (${loginUser.memberNo eq 1}) {
-            location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fno;
-        } else {
-            if (blind == 'N') {
-                location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fno;
-            } else {
+        if(${loginUser.memberNo eq 1}){
+            location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+        }else {
+            if(blind == 'N'){
+                location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
+            }else {
                 alert("블라인드 처리된 게시글 입니다");
             }
         }
@@ -243,10 +245,10 @@
     })
 
 
-    $('input[type="checkbox"][name="arrayList"]').click(function () {
-        if ($(this).prop('checked')) {
-            $('input[type="checkbox"][name="arrayList"]').prop('checked', false);
-            $(this).prop('checked', true);
+    $('input[type="checkbox"][name="arrayList"]').click(function(){
+        if($(this).prop('checked')){
+            $('input[type="checkbox"][name="arrayList"]').prop('checked',false);
+            $(this).prop('checked',true);
             console.log($(this).val());
             let array = $(this).val();
             $.ajax({
@@ -254,26 +256,102 @@
                 url: '${pageContext.request.contextPath}/board/freeList',
                 contentType: "application/json; charset=UTF-8",
                 data: {
-                    'select': array,
-                    'search': $("#freeBoardSearch").val(),
-                    'state': $("#selectState").val()
+                    'select' : array,
+                    'search' : $("#freeBoardSearch").val(),
+                    'state' : $("#selectState").val()
                 },
                 dataType: 'html',
-                success: function (data) {
-                    //$('#boardlist_main').empty();
-                    console.log($(data).find("#boardlist_main"));
-                    console.log($(data).find(".board_info").length);
-                    if ($(data).find(".board_info").length > 0) {
+                success : function (data){
+                    $('#boardlist_main').empty();
+                    $('.pagination').empty();
+                    $('#paging').html($(data).find('.pagination'))
+                    if($(data).find(".board_info").length >0) {
                         $('#boardlist_main').html($(data).find(".boardlist"))
-                    } else {
+                    }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
                 }
-                , fail: function () {
+                , fail:function (){
+                    console.log("zzzzz");
                 }
             })
         }
     })
+
+    <%--function searchState() {--%>
+    <%--    $.ajax({--%>
+    <%--        type: 'GET',--%>
+    <%--        url: '${pageContext.request.contextPath}/board/freeList',--%>
+    <%--        contentType: "application/json; charset=UTF-8",--%>
+    <%--        data: {--%>
+    <%--            'state': $("#selectState").val(),--%>
+    <%--            'search': $("#freeBoardSearch").val()--%>
+    <%--        },--%>
+    <%--        dataType: 'html',--%>
+    <%--        success: function (data) {--%>
+    <%--            $('#boardlist_main').empty();--%>
+    <%--            console.log($(data).find("#boardlist_main"));--%>
+    <%--            console.log($(data).find(".board_info").length);--%>
+    <%--            if ($(data).find(".board_info").length > 0) {--%>
+    <%--                $('#boardlist_main').html($(data).find(".boardlist"))--%>
+    <%--            } else {--%>
+    <%--                $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');--%>
+    <%--            }--%>
+    <%--            $('input[type="checkbox"][name="arrayList"]').prop("checked", false);--%>
+    <%--        }--%>
+    <%--    })--%>
+    <%--}--%>
+
+    <%--$('#boardlist_main').on('click', '.boardlist', function () {--%>
+    <%--    console.log($(this).children('p:eq(0)').html());--%>
+    <%--    let fno = $(this).children('p:eq(0)').html();--%>
+    <%--    let member = $(this).children('p:eq(1)').html();--%>
+    <%--    let blind = $(this).children('p:eq(2)').html();--%>
+
+    <%--    if (${loginUser.memberNo eq 1}) {--%>
+    <%--        location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fno;--%>
+    <%--    } else {--%>
+    <%--        if (blind == 'N') {--%>
+    <%--            location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fno;--%>
+    <%--        } else {--%>
+    <%--            alert("블라인드 처리된 게시글 입니다");--%>
+    <%--        }--%>
+    <%--    }--%>
+
+    <%--})--%>
+
+
+    <%--$('input[type="checkbox"][name="arrayList"]').click(function () {--%>
+    <%--    if ($(this).prop('checked')) {--%>
+    <%--        $('input[type="checkbox"][name="arrayList"]').prop('checked', false);--%>
+    <%--        $(this).prop('checked', true);--%>
+    <%--        console.log($(this).val());--%>
+    <%--        let array = $(this).val();--%>
+    <%--        $.ajax({--%>
+    <%--            type: 'GET',--%>
+    <%--            url: '${pageContext.request.contextPath}/board/freeList',--%>
+    <%--            contentType: "application/json; charset=UTF-8",--%>
+    <%--            data: {--%>
+    <%--                'select': array,--%>
+    <%--                'search': $("#freeBoardSearch").val(),--%>
+    <%--                'state': $("#selectState").val()--%>
+    <%--            },--%>
+    <%--            dataType: 'html',--%>
+    <%--            success: function (data) {--%>
+    <%--                $('#boardlist_main').empty();--%>
+    <%--                console.log($(data).find("#boardlist_main"));--%>
+    <%--                console.log($(data).find(".board_info").length);--%>
+    <%--                if ($(data).find(".board_info").length > 0) {--%>
+    <%--                    $('#boardlist_main').html($(data).find(".boardlist"))--%>
+    <%--                } else {--%>
+    <%--                    $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');--%>
+    <%--                }--%>
+    <%--            }--%>
+    <%--            , fail: function () {--%>
+    <%--            }--%>
+    <%--        })--%>
+    <%--    }--%>
+    <%--})--%>
 </script>
 
 
