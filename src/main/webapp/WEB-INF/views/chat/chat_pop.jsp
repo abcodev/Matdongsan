@@ -45,30 +45,40 @@
   </div>
 </div>
 <script>
+  $(function () {
+    if (${pageContext.request.parameterMap.containsKey("open_chat_flag")
+          && pageContext.request.getParameter("open_chat_flag")}) {
+      openChat();
+    }
+  })
+
+  function openChat() {
+    $.ajax({
+      url: '${pageContext.request.contextPath}/createChatRoom',
+      type: "POST",
+      success: function (result) {
+        $("#chat-circle").toggle("scale");
+        $(".chat-box").toggle("scale");
+        let roomNo = result.room.roomNo;
+        let messageList = result.messageList;
+        loadChat(messageList);
+        $("#roomNo").val(roomNo);
+        connection(roomNo);
+      },
+      fail: function () {
+        console.log("실패")
+        alert("사용 실패")
+        $("#chat-circle").toggle("scale");
+      }
+    })
+  }
 
   $("#chat-circle").click(function () {
     if (${empty loginUser}) {
       alert("로그인 후 이용하실 수 있습니다.")
     } else {
-      console.log("로그인 필요!")
-      $.ajax({
-        url: '${pageContext.request.contextPath}/createChatRoom',
-        type: "POST",
-        success: function (result) {
-          $("#chat-circle").toggle("scale");
-          $(".chat-box").toggle("scale");
-          let roomNo = result.room.roomNo;
-          let messageList = result.messageList;
-          loadChat(messageList);
-          $("#roomNo").val(roomNo);
-          connection(roomNo);
-        },
-        fail: function () {
-          console.log("실패")
-          alert("사용 실패")
-          $("#chat-circle").toggle("scale");
-        }
-      })
+      console.log("로그인 필요함")
+      openChat();
     }
   });
 
@@ -90,7 +100,7 @@
   // setTimeout : 몇초뒤에 특정 함수 호출
   // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
   function onConnected(roomNo) {
-    alert("연결 성공!");
+    // alert("연결 성공!");
     // console.log('Connected: ' + frame);
     setTimeout(function () {
       stompClient.subscribe('/topic/' + roomNo, function (e) {

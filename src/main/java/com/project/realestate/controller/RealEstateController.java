@@ -2,6 +2,7 @@ package com.project.realestate.controller;
 
 import com.google.gson.Gson;
 import com.project.board.vo.FreeBoard;
+import com.project.common.annotation.RequiredLogin;
 import com.project.common.type.StateList;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.*;
@@ -58,12 +59,8 @@ public class RealEstateController {
 
         List<RealEstateRent> searchResult = resp.getRealEstateRentList();
         RealEstateRent chartResult = realEstateService.chartList(state);
-        System.out.println("chartResult : " + chartResult);
-
         searchResult.add(chartResult);
-        System.out.println("searchResult : " + searchResult);
 
-        //1. Gson으로 형변환해주기
         Gson gson = new Gson();
         String result = gson.toJson(searchResult);
 
@@ -117,10 +114,10 @@ public class RealEstateController {
                                          HttpSession session
     ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        /*interestRealEstateRedisService.increment(estateNo);
-        if (loginUser != null) {
-            recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
-        }*/
+//        interestRealEstateRedisService.increment(estateNo);
+//        if (loginUser != null) {
+//            recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
+//        }
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         List<RealEstateAgent> agentList = realEstateService.selectAgentList(realEstateDetailDto.getBjdongNm());

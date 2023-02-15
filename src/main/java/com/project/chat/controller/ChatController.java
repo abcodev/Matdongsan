@@ -5,6 +5,7 @@ import com.project.chat.dto.AdminChatRoom;
 
 import com.project.chat.dto.MessageDto;
 import com.project.chat.service.ChatService;
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

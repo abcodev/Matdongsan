@@ -22,7 +22,6 @@ public class StompController {
     public void sendMsg(MessageDto data){
         // 메세지를 받을때 읽음 처리?
         // 메세지 불러올때 읽음처리
-        System.out.println("data"+data);
         chatService.sendMessage(data);
         simpMessagingTemplate.convertAndSend("/topic/"+data.getRoomNo(), data);
     }

@@ -32,10 +32,11 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.")
+                alert("관심목록이 해제 되었습니다.");
                 location.reload();
             }
         });
+
     }
 </script>
 

@@ -1,6 +1,8 @@
 package com.project.restaurant.controller;
 
 import com.project.common.type.StateList;
+import com.project.common.annotation.Permission;
+import com.project.member.type.MemberGrade;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
 import com.project.restaurant.service.RestaurantCrawlingService;

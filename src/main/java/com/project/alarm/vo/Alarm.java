@@ -30,7 +30,7 @@ public class Alarm {
         return Alarm.builder()
                 .memberNo(template.getMemberNo())
                 .alarmType(template.getAlarmType())
-                .targetNo(template.getTargetNo())
+                .targetNo(template.getTargetNo().toString())
                 .title(template.getTitle())
                 .contents(template.getContents())
                 .createdDate(Timestamp.valueOf(LocalDateTime.now()))

@@ -4,6 +4,8 @@ import com.project.admin.dao.AdminDao;
 import com.project.admin.dto.*;
 import com.project.admin.vo.Admin;
 import com.project.admin.vo.BrokerEnroll;
+import com.project.alarm.dto.AlarmTemplate;
+import com.project.alarm.service.AlarmService;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dao.MemberDao;
@@ -25,11 +27,9 @@ public class AdminService {
     private final AdminDao adminDao;
     private final MemberDao memberDao;
     private final SqlSession sqlSession;
+    private final AlarmService alarmService;
     private static final int DEFAULT_RES_SIZE = 12;
 
-    public int uListCount() {
-        return 0;
-    }
 
     public AdminListResponse selectUserList(AdminListRequest request) {
         int count = adminDao.uListCount(sqlSession);
@@ -38,9 +38,6 @@ public class AdminService {
         return new AdminListResponse(result, pageInfoCombine);
     }
 
-    public int rListCount() {
-        return 0;
-    }
 
     public ReportListResponse selectReportList(AdminListRequest request) {
         int count = adminDao.rListCount(sqlSession);
@@ -78,6 +75,10 @@ public class AdminService {
     public void handleApply(HandleApplyRequest req) {
         adminDao.changeMemberGrade(sqlSession, req);
         adminDao.changeEstateStatus(sqlSession, req);
+
+//        long receiverNo = adminDao.memberNoOfAccept(req.getAgentNo());
+//        AlarmTemplate template = AlarmTemplate.generateNewAccept(receiverNo);
+//        alarmService.send(template);
     }
 
 }
