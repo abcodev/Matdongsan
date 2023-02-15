@@ -163,6 +163,7 @@
         </ul>
 
 
+    </div>
 </div>
 
 <script>
@@ -269,7 +270,6 @@
                     }
                 }
                 , fail:function (){
-                    console.log("zzzzz");
                 }
             })
         }

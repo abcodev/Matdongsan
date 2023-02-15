@@ -93,9 +93,6 @@
                                 </c:if>
                                 <c:if test="${qb.blind eq 'Y'}">
                                     <tr style="background-color: #dddddd" id="tdBody">
-<%--                                        <c:if test="${loginUser.memberNo eq 1}">--%>
-                                            <%--   <td colspan="4" onclick="movePage(${qb.qnaBno})"></td>--%>
-                                            <%--                                        </c:if>--%>
                                         <c:if test="${loginUser.memberNo ne 1}">
                                             <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
                                         </c:if>
@@ -111,6 +108,11 @@
                                 </c:if>
 
                             </c:forEach>
+                        </c:if>
+                        <c:if test="${empty qnaBoardList}">
+                            <tr>
+                                <td>조회된 게시글이 없습니다.</td>
+                            </tr>
                         </c:if>
                     </table>
                 </div>
@@ -167,11 +169,10 @@
                 },
                 dataType: 'html',
                 success: function (data) {
-                    $('#boardlist_main').empty();
+                    //$('#boardlist_main').empty();
                     if($(data).find("#tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
-                        //$('#tdBody').empty();
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
                     $('#paging').empty();
