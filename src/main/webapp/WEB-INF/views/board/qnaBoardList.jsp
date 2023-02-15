@@ -199,6 +199,8 @@
                     console.log(current_page)
                     console.log(item)
                     $('#boardlist_main').empty();
+                    $('.pagination').empty();
+                    $('#paging').html($(data).find('.pagination')) ;
                     if($(data).find("#tdBody").length >0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else{

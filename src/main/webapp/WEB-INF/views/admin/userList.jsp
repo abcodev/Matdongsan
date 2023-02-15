@@ -112,19 +112,6 @@
         })
     }
 
-    // function hideId(){
-    //     const len =
-    //
-    //     for(let i = 0; i < len; i++){
-    //
-    //     }
-    // }
-
-
-
-
-
-
 
 
 
