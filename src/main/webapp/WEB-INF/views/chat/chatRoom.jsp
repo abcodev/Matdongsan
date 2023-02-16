@@ -88,6 +88,7 @@
     function showMessage(data){
         let content = data;
         $('.' + content.roomNo + '_message').text(content.message);
+        $('.' + content.roomNo + '_date').text(calender());
 
         if(content.memberNo == '${loginUser.memberNo}'){
             $('.messages-chat').append("<div class='response'><span class='text'>"+content.message+"</span></div>");
@@ -95,6 +96,7 @@
             $('.' + content.roomNo + '_new').css('display', 'block').addClass('new');
             $('.' + content.roomNo + '_new').parent().parent().addClass('new_preChat');
             $('.messages-chat').append("<div class='request'><span class='text'>"+content.message+"</span></div>");
+
         }
         if(currentChatRoom === content.roomNo){
             clickPreChat(content.roomNo)
@@ -107,6 +109,20 @@
                 }
             })
         }
+    }
+
+    function calender(){
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = ('0' + (today.getMonth() + 1)).slice(-2);
+        const day = ('0' + today.getDate()).slice(-2);
+        const hours = today.getHours();
+        let minutes = today.getMinutes();
+        if(minutes <10){
+            minutes = '0'+minutes;
+        }
+        const currentDate = year + '-' + month + '-' + day + '  '+ hours + ':' + minutes;
+        return currentDate;
     }
 
 
@@ -144,31 +160,3 @@
 </html>
 
 
-
-<%--    function onConnected(roomNo) {--%>
-<%--        console.log(roomNo + " 채팅방 연결 성공!");--%>
-<%--        setTimeout(() => {--%>
-<%--            stompClient.subscribe('/topic/' + roomNo, (event) => {--%>
-<%--                const today = new Date();--%>
-<%--                const year = today.getFullYear();--%>
-<%--                const month = ('0' + (today.getMonth() + 1)).slice(-2);--%>
-<%--                const day = ('0' + today.getDate()).slice(-2);--%>
-<%--                const currentDate = year + '-' + month + '-' + day;--%>
-
-<%--                const body = JSON.parse(event.body);--%>
-<%--                $('.' + body.roomNo + '_new').css('display', 'block');--%>
-<%--                $('.' + body.roomNo + '_message').text(body.contents);--%>
-<%--                $('.' + body.roomNo + '_date').text(currentDate);--%>
-<%--                // Callback -> Message 를 받았을 때 어떻게할건지--%>
-<%--                // 메세지가 도착을 하고나면 룸넘버 멤버넘버 메세지 등등이 들어있고,, 룸넘버를 가지고 그 칸에 new를 띄우기 (visible 값을 변경)--%>
-<%--                // 미리보기 + NEW 표시 하는건 어렵지 않은데,,,--%>
-<%--                // 내가 지금 보고있는 채팅방은 띄우면안되는데;--%>
-<%--                if (currentChatRoom === body.roomNo) {--%>
-<%--                    clickPreChat(body.roomNo);--%>
-<%--                }--%>
-<%--            });--%>
-<%--        }, 500);--%>
-<%--    }--%>
-<%--</script>--%>
-
-<%--</html>--%>

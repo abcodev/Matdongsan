@@ -42,8 +42,8 @@
     $('#chat-input').keypress(function(e){
         if(e.keyCode===13){
             send();
-        }
         $('.chat').scrollTop($('.chat').prop('scrollHeight'));
+        }
     });
 
     function send(){

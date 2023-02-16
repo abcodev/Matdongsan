@@ -89,7 +89,7 @@
                A.MEMBER_NAME,
                A.NICKNAME,
                A.PROFILE_IMAGE,
-               CM.CREATE_DATE,
+               TO_CHAR(CM.CREATE_DATE,'yyyy-mm-dd hh24:mi') AS CREATE_DATE,
                CM.MS_CONTENT,
                READ
         FROM CHAT_MESSAGE CM

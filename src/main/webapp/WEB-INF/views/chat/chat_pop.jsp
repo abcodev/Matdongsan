@@ -17,15 +17,10 @@
 </head>
 <body>
 <div class="floating-chat">
-
-
-
-  <div id="chat-circle" class="btn btn-raised">
+  <div id="chat-circle"  class="btn btn-raised">
     <i class="fa-regular fa-comments"></i>
     <p>1:1문의</p>
   </div>
-
-
   <div class="chat-box">
     <div class="chat-box-header">
       <span>1:1 문의</span>
@@ -50,16 +45,6 @@
   </div>
 </div>
 <script>
-
-  $("#chat-circle").click(function () {
-    if (${empty loginUser}) {
-      alert("로그인 후 이용하실 수 있습니다.")
-    } else {
-      openChat();
-    }
-  });
-
-
   $(function () {
     if (${pageContext.request.parameterMap.containsKey("open_chat_flag")
           && pageContext.request.getParameter("open_chat_flag")}) {
@@ -68,7 +53,6 @@
   })
 
   function openChat() {
-
     $.ajax({
       url: '${pageContext.request.contextPath}/createChatRoom',
       type: "POST",
@@ -89,9 +73,6 @@
     })
   }
 
-
-
-
   $(".chat-box-toggle").click(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
@@ -108,9 +89,7 @@
 
   // setTimeout : 몇초뒤에 특정 함수 호출
   // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
-  function onConnected(roomNo) {
-    // alert("연결 성공!");
-    // console.log('Connected: ' + frame);
+  function onConnected(roomNo) {;
     setTimeout(function () {
       stompClient.subscribe('/topic/' + roomNo, function (e) {
         showMessage(JSON.parse(e.body));
