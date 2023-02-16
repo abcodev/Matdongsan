@@ -14,8 +14,6 @@
                 <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
             </div>
         </a>
-
-
         <nav class="navbar">
             <c:choose>
                 <c:when test="${loginUser.grade == 'ADMIN'}"> <%-- 관리자 --%>

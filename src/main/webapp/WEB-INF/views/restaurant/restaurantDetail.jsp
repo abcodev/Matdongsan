@@ -105,7 +105,7 @@
 </div>
 <%--리뷰모달--%>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <span>가게명</span>
@@ -141,7 +141,7 @@
                     <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
                 </div>
                 <div class="modal-footer">
-                    <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">등록하기</button>
+                    <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">리뷰등록하기</button>
                 </div>
             </div>
         </div>
@@ -152,7 +152,6 @@
 
         document.querySelector('#review_insert').addEventListener('click', offClick);
         document.querySelector('.btn-close').addEventListener("click", offClick);
-
         selectReviewList();
     };
 
@@ -180,7 +179,6 @@
                     }
 
                     str += '<div>'
-                        + '<div><br><hr></div>'
                         + '<div class="review_header">'
                         + '<div class="review_user_img"> <img src=\"' + i.profileImage + '\"/> </div>'
                         + '<div class="review_user_name">' + i.memberName + '</div>'
@@ -191,7 +189,7 @@
                         + '</div>'
                         + '<div class="review_content">' + i.reviewContent + '</div>'
                         + '<div class="review_img_list">' + imgList + '</div>'
-                        + '<div>' + hashtagList + '</div>'
+                        + '<div class="review_tag">' + hashtagList + '</div>'
                         + '</div>';
                 }
                 $("#reviewArea tbody").html(str);
