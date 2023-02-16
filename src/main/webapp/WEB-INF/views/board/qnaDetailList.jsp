@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <title>질문게시판 상세보기</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardDetail.css"/>">
   <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -137,18 +138,18 @@
           "reportFno" : reportFno},
         success : function (result){
           console.log(result);
-          alert("신고 완료");
+          swal('신고 완료','정상적으로 신고가 접수되었습니다','success');
           $('#exampleModal').modal('hide');
         },
         error : function (){
-          alert("신고 실패");
+          swal('신고 실패',"",'error');
         }
       })
     }
 
     function deletePage(qBno){
       location.href = '${pageContext.request.contextPath}/board/delete/'+qBno;
-      alert("게시판 삭제 완료")
+      swal('삭제 완료!','정상적으로 삭제되었습니다','success');
     }
   </script>
 

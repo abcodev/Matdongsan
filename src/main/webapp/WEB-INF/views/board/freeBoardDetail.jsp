@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- JavaScript Bundle with Popper -->
@@ -159,10 +160,10 @@
             type : "post",
             success : function (result){
                         console.log(result);
-                        alert("수정성공!");
+                        swal("수정성공!","","success");
                     },
             error : function (){
-                        alert("수정실패");
+                         swal("수정실패!","","error");
                     },
             complete : function (){
                             location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
@@ -254,11 +255,11 @@
                     memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
-                alert("댓글 삭제 성공");
+                swal("댓글 삭제 성공!","","success");
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
-                alert("댓글 삭제 실패");
+                swal("댓글 삭제 실패!","","error");
             }
         });
     }
@@ -281,11 +282,11 @@
                     "reportFno" : reportFno},
             success : function (result){
                         console.log(result);
-                        alert("신고 완료");
+                        swal('신고 완료','정상적으로 신고가 접수되었습니다','success');
                         $('#exampleModal').modal('hide');
                       },
             error : function (){
-                alert("신고 실패");
+                swal('신고 실패',"",'error');
             }
         })
     }

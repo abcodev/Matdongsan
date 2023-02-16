@@ -22,6 +22,7 @@
 <body>
 
 <%@ include file="../template/header.jsp" %>
+<div id="big">
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: #585c9c; background: #eaeaed; border: #eaeaed;">회원관리</button>
@@ -200,7 +201,7 @@
         </ul>
     </nav>
 </div>
-
+</div>
 
 
 

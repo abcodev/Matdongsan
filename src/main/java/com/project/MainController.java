@@ -67,7 +67,7 @@ public class MainController {
             newsList.add(newsInfo);
         }
 
-        Member loginUser = (Member) session.getAttribute("loginUser");
+/*        Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
             List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
@@ -78,7 +78,7 @@ public class MainController {
             List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
             model.addAttribute("recentViewList", Collections.emptyList());
             model.addAttribute("interestViewList", interestViewList);
-        }
+        }*/
 
         model.addAttribute("newsList", newsList);
         Gson gson = new Gson();

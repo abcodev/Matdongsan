@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <jsp:include page="../template/font.jsp"/>
@@ -81,7 +82,7 @@
         const revNo = $('#revNo').val();
         var cancelRes = confirm("예약을 취소하시겠습니까?");
         if(cancelRes === true){
-            alert("예약이 취소되었습니다.");
+            swal("예약이 취소되었습니다","","success");
         }else if(cancelRes === false){
 
         }

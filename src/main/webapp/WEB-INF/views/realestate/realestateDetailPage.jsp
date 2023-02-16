@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>부동산상세페이지</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
     <%@ include file="../template/header.jsp" %>
@@ -275,7 +276,7 @@
 
     function showRealtor(agentNo, agentName) {
         if(${empty loginUser}){
-            alert("로그인 후 이용가능합니다.")
+            swal("로그인 후 이용이 가능합니다.","","warning")
             return false;
         }
         console.log(agentNo);
@@ -401,14 +402,14 @@
 
         // required 검사
         if (reservationDate == "") {
-            alert("날짜를 입력해주세요")
+            swal("날짜를 입력해주세요.","","warning")
             return false;
         } else if (memberName == "") {
-            alert("이름을 입력해주세요")
+            swal("이름을 입력해주세요.","","warning")
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            alert("휴대폰번호를 입력해주세요")
+            swal("핸드폰 번호를 입력해주세요.","","warning")
             $('#telephone').focus();
             return false;
         } else {
@@ -429,12 +430,12 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    alert("예약에 성공하였습니다.");
+                    swal("예약에 성공하였습니다.","","success");
                     offClick();
 
                 },
                 error: () => {
-                    alert("예약 등록에 실패하였습니다.");
+                    swal("예약에 실패하셧습니다.","","error");
                 }
             })
         }

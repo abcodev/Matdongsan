@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>부동산회원 페이지</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -280,7 +281,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.")
+                swal("관심목록이 해지되었습니다.","","success");
                 location.reload();
             }
         });
@@ -290,7 +291,7 @@
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
         if(deleteMember === true){
             location.href = '${pageContext.request.contextPath}/delete';
-            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
+            swal("탈퇴 완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
         }
         else if(deleteMember === false){
         }
