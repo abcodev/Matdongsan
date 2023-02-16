@@ -1,0 +1,161 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+#content{
+    padding: 100px 250px 100px 250px;
+}
+
+#userImg{
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+#userImg > img{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+}
+
+.info{
+    display: flex;
+    padding-left:240px;
+    margin: 12px 0;
+}
+
+input{
+    font-size: 17px;
+}
+
+.realtor_name > span,
+.realtor_num > span,
+.address > span{
+    font-size: 20px;
+    font-weight: 420;
+    color: #3d3d3d;
+    width: 20%;
+}
+
+.file > span{
+    font-size: 20px;
+    font-weight: 420;
+    color: #3d3d3d;
+    width: 25%;
+}
+
+.name > span,
+.phone > span,
+.state > span {
+    font-size: 20px;
+    font-weight: 420;
+    color: #3d3d3d;
+    width: 10%;
+}
+
+.info > input[type=text],
+.state > select {
+    margin-left: 20px;
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+}
+
+.state > select{
+    color: #737373;
+}
+
+.info > button{
+    background-color: #E0E0E0;
+    color: #3d3d3d;
+    height: 32px;
+    width: auto;
+    padding: 5px 11px;
+    border-radius: 2px;
+    border: none;
+    font-size: 14px;
+    font-weight: 410;
+    cursor: pointer;
+    margin-left: 25px;
+}
+
+.info > button:hover{
+    background-color: #566392;
+    color: #f3f1f5;
+}
+
+.info > input:focus{
+    outline: #989de1 2px solid;
+}
+
+.name,
+.realtor_name,
+.realtor_num,
+.phone,
+.state,
+.address2{
+    margin-bottom: 30px;
+}
+
+.name > input,
+.phone > input{
+    width: 35%;
+}
+
+.realtor_name > input,
+.realtor_num > input{
+    width: 40%;
+}
+
+.address > input{
+    width: 25%;
+}
+
+.address2 > input[required]{
+    margin-left: 175px;
+    width: 30%;
+}
+
+#sample6_detailAddress{
+    width: 20%;
+}
+
+
+.btn_box{
+    padding-left: 320px;
+    margin-top: 40px;
+}
+
+.btn_box > button[type=reset]{
+    background-color: #E0E0E0;
+    color: #3d3d3d;
+    height: 40px;
+    width: auto;
+    padding: 5px 50px;
+    border-radius: 2px;
+    border: none;
+    font-size: 16px;
+    font-weight: 410;
+    cursor: pointer;
+    margin: 0 25px;
+}
+
+.btn_box > button[type=reset] a{
+    color: #3d3d3d;
+}
+
+.btn_box > button[type=submit]{
+    background-color: #566392;
+    color: #f3f1f5;
+    height: 40px;
+    width: auto;
+    padding: 5px 50px;
+    border-radius: 2px;
+    border: none;
+    font-size: 16px;
+    font-weight: 410;
+    cursor: pointer;
+    margin: 0 25px;
+}

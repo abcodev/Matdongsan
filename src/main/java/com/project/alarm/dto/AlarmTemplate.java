@@ -80,7 +80,7 @@ public class AlarmTemplate <T> {
         AlarmTemplate<Integer> template = new AlarmTemplate<>(receiverNo);
         template.setTitle("부동산 예약 알림");
         template.setAlarmType(AlarmType.RESERVATION_APPROVE);
-        template.setContents(agentName + " 방문 예약이 거절되었습니다.");
+        template.setContents(agentName + " 방문 예약이 취소되었습니다.");
         template.setTargetNo(revNo);
         return template;
     }

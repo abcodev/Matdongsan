@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <title>부동산회원 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,8 +13,6 @@
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file="../template/header.jsp" %>
-
     <div id="content">
         <div id="info_box">
             <div id="user_img">
@@ -211,43 +211,43 @@
             </div>
         </div>
 
-    <div class="reserve_history">
-        <p>예약 확인</p>
+        <div class="reserve_history">
+            <p>예약 확인</p>
 
-        <button class="myReserve_list">
-            <table id="broker_ResList">
-                <tr>
-                    <th>예약자명</th>
-                    <th>예약일</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약처리</th>
-                </tr>
-                <c:forEach items="${brokerResList}" var="res">
-                    <tr class="myReserve_info_list" >
-                        <td style="display: none">${res.revNo}</td>
-                        <td>${res.memberName}</td>
-                        <td>${res.revDate}</td>
-                        <td>${res.revTime}</td>
-                        <td>${res.revPeople}</td>
-                        <c:choose>
-                            <c:when test="${res.revStatus eq 'C'}">
-                                <td>예약확인 중</td>
-                            </c:when>
-                            <c:when test="${res.revStatus eq 'A'}">
-                                <td style="color: rgba(159,111,217,0.83)">예약 완료</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td style="color: #b4b1b0">예약 취소</td>
-                            </c:otherwise>
-                        </c:choose>
-
-
+            <button class="myReserve_list">
+                <table id="broker_ResList">
+                    <tr>
+                        <th>예약자명</th>
+                        <th>예약일</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약처리</th>
                     </tr>
-                </c:forEach>
-            </table>
-            <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
-        </button>
+                    <c:forEach items="${brokerResList}" var="res">
+                        <tr class="myReserve_info_list" >
+                            <td style="display: none">${res.revNo}</td>
+                            <td>${res.memberName}</td>
+                            <td>${res.revDate}</td>
+                            <td>${res.revTime}</td>
+                            <td>${res.revPeople}</td>
+                            <c:choose>
+                                <c:when test="${res.revStatus eq 'C'}">
+                                    <td>예약확인 중</td>
+                                </c:when>
+                                <c:when test="${res.revStatus eq 'A'}">
+                                    <td style="color: rgba(159,111,217,0.83)">예약 완료</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td style="color: #b4b1b0">예약 취소</td>
+                                </c:otherwise>
+                            </c:choose>
+
+
+                        </tr>
+                    </c:forEach>
+                </table>
+                <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
+            </button>
 
         <%-- 예약 모달창 --%>
         <div id="reservationModal">
