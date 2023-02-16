@@ -56,6 +56,10 @@
                     </c:if>
                 </div>
             </div>
+
+
+
+
             <div id="boardlist_main">
 
                 <c:forEach items="${freeNoticeList}" var="fn">
@@ -90,7 +94,7 @@
                             <div class="boardlist">
                                 <p style="display: none">${freeBoard.boardNo}</p>
                                 <p style="display: none">${freeBoard.memberNo}</p>
-                                <p class="info date">${fn:substring(freeBoard.boardDate, 0, 16)}</p>
+                                <p style="display: none">${freeBoard.blind}</p>
                                 <div class="board_title">
                                     <p>${freeBoard.boardTitle}</p>
                                 </div>
@@ -100,7 +104,7 @@
                                 <div class="board_info">
                                     <p class="info writer">${freeBoard.boardWriter}</p>
                                     <p class="info area">${freeBoard.boardArea}</p>
-                                    <p class="info date">${freeBoard.boardDate}</p>
+                                    <p class="info date">${fn:substring(freeBoard.boardDate, 0, 16)}</p>
                                     <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
                                     <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}
                                     </p>
@@ -131,6 +135,8 @@
                     </div>
                 </c:if>
             </div>
+
+
         </div>
     </div>
 
