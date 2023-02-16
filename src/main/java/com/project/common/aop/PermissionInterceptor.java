@@ -5,6 +5,7 @@ import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,19 +28,19 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        if(selectClassOrMethod(handler) != null){
+        if (selectClassOrMethod(handler) != null) {
 
             // 메서드에 @Permission 이 없는경우는 인터셉터 제외
             HttpSession session = request.getSession();
             Member member = (Member) session.getAttribute("loginUser");
-            if(member == null){
-               return new LoginAccessInterceptor().preHandle(request, response, handler);
+            if (member == null) {
+                return new LoginAccessInterceptor().preHandle(request, response, handler);
             }
             MemberGrade authority = member.getGrade();
-            MemberGrade grade =selectClassOrMethod(handler);
+            MemberGrade grade = selectClassOrMethod(handler);
 
 
-            if(grade.equals(MemberGrade.ADMIN)){
+            if (grade.equals(MemberGrade.ADMIN)) {
                 if (authority.equals(MemberGrade.ADMIN)) {
                     return true;
                 } else {
@@ -65,24 +66,24 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
-            return true;
+        return true;
+    }
+
+    private MemberGrade selectClassOrMethod(Object handler) {
+
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
+        Permission classPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Permission.class);
+
+        if (classPermission == null && permission == null) {
+            return null;
+        } else if (classPermission != null && permission == null) {
+            return classPermission.authority();
+        } else {
+            return permission.authority();
         }
 
-        private MemberGrade selectClassOrMethod(Object handler){
-
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Permission permission = handlerMethod.getMethodAnnotation(Permission.class);
-            Permission classPermission = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Permission.class);
-
-            if(classPermission == null && permission == null){
-                return null;
-            }else if(classPermission != null && permission == null){
-                return classPermission.authority();
-            }else{
-                return permission.authority();
-            }
-
-        }
+    }
 }
 
 

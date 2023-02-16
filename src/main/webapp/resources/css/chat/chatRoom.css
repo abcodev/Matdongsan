@@ -145,7 +145,7 @@
 .chat .messages-chat {
   padding: 25px 35px;
   width: 100%;
-  height: 100%;
+  height: 600px;
 }
 
 .messages-chat > span{
