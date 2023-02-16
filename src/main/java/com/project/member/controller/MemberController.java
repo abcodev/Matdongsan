@@ -1,6 +1,7 @@
 package com.project.member.controller;
 
 import com.project.admin.vo.BrokerEnroll;
+import com.project.common.annotation.Permission;
 import com.project.common.annotation.RequiredLogin;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequiredLogin
 public class MemberController {
 
     private final MemberService memberService;
@@ -30,7 +32,6 @@ public class MemberController {
     }
 
     @RequestMapping("/myPage")
-    @RequiredLogin
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
@@ -53,7 +54,7 @@ public class MemberController {
 
 
     @RequestMapping("/brokerMemberMyPage")
-    @RequiredLogin
+    @Permission(authority = MemberGrade.BROKER)
     public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
@@ -120,7 +121,6 @@ public class MemberController {
 
     @PostMapping("/myPage")
     @ResponseBody
-    @RequiredLogin
     public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session){
         Member loginUser = (Member) session.getAttribute("loginUser");
         if(loginUser == null){

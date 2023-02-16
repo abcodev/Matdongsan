@@ -106,45 +106,45 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <div id="allBoardsPaging">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-sm" id="allBoardsPagination">
-                            <c:choose>
-                                <c:when test="${ pi.currentPage eq 1 }">
-                                    <li class="page-item disabled"><a class="page-link" href="#">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
+            </div>
+            <div id="allBoardsPaging">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-sm" id="allBoardsPagination">
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq 1 }">
+                                <li class="page-item disabled"><a class="page-link" href="#">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
 
-                            <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                                <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
-                            </c:forEach>
+                        <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                            <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
+                        </c:forEach>
 
-                            <c:choose>
-                                <c:when test="${ pi1.currentPage eq pi1.maxPage }">
-                                    <li class="page-item disabled"><a class="page-link" href="#">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
-                        </ul>
-                    </nav>
-                </div>
+                        <c:choose>
+                            <c:when test="${ pi1.currentPage eq pi1.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </nav>
             </div>
         </div>
         <div class="review_history">
@@ -178,45 +178,45 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <div id="reviewPaging">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination pagination-sm" id="reviewPagination">
-                            <c:choose>
-                                <c:when test="${ pi.currentPage eq 1 }">
-                                    <li class="page-item disabled"><a class="page-link" href="#">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
+            </div>
+            <div id="reviewPaging">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-sm" id="reviewPagination">
+                        <c:choose>
+                            <c:when test="${ pi.currentPage eq 1 }">
+                                <li class="page-item disabled"><a class="page-link" href="#">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
 
-                            <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
-                                <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
-                            </c:forEach>
+                        <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                            <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
+                        </c:forEach>
 
-                            <c:choose>
-                                <c:when test="${ pi2.currentPage eq pi2.maxPage }">
-                                    <li class="page-item disabled"><a class="page-link" href="#">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
-                        </ul>
-                    </nav>
-                </div>
+                        <c:choose>
+                            <c:when test="${ pi2.currentPage eq pi2.maxPage }">
+                                <li class="page-item disabled"><a class="page-link" href="#">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -266,7 +266,7 @@
 
         if (deleteMember === true) {
             location.href = '${pageContext.request.contextPath}/delete';
-            swal("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
+            alert("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
         } else if (deleteMember === false) {
         }
     }
@@ -275,7 +275,7 @@
         var deleteReservation = confirm("예약을 취소하시겠습니까?");
         if(deleteReservation === true){
             location.href = '${pageContext.request.contextPath}/revDelete';
-            swal("예약이 취소되었습니다.","","success");
+            alert("예약이 취소되었습니다.","","success");
         }else if(deleteReservation === false){
 
         }

@@ -10,12 +10,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantDetail.css"/>">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<%--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>--%>
+<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">--%>
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
 <div id="content">
     <div class="detail_head">
 
@@ -23,9 +22,24 @@
         <div class="detail_head_admin">
             <c:if test="${ loginUser.grade eq 'ADMIN'}">
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+                <button onclick="deleteRes()">삭제하기</button>
             </c:if>
         </div>
+
+            <script>
+                function deleteRes() {
+                    var deleteRes = confirm("삭제 하시겠습니까?");
+
+                    if (deleteRes === true) {
+                        location.href = location.href='admin/resDelete?resNo=${restaurantDetail.resNo}';
+                        alert("삭제완료","success");
+                    } else if (deleteRes === false) {
+                    }
+                }
+            </script>
+
+
+
 
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
@@ -107,7 +121,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <span>가게명</span>
+                <span>${restaurantDetail.resName}</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -228,19 +242,19 @@
         const files = $('#formFileSm')[0].files
 
         if(score === undefined) {
-            swal("별점을 입력해주세요")
+            alert("별점을 입력해주세요")
             return;
         }
         if(hashtags.length === 0){
-            swal("해시태그를 입력해주세요")
+            alert("해시태그를 입력해주세요")
             return;
         }
         if(contents === "") {
-            swal("리뷰를 입력해 주세요")
+            alert("리뷰를 입력해 주세요")
             return;
         }
         if(files.length === 0) {
-            swal("사진을 첨부해주세요")
+            alert("사진을 첨부해주세요")
             return;
         }
 
@@ -273,7 +287,7 @@
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            swal('해시태그는 최대 3개까지 선택 가능합니다.')
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
             $(this).prop('checked', false);
         }
     });
@@ -299,11 +313,11 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                swal("리뷰 삭제 성공");
+                alert("리뷰 삭제 성공");
                 selectReviewList();
             },
             error: function () {
-                swal("리뷰 삭제 실패");
+                alert("리뷰 삭제 실패");
             }
         });
     }

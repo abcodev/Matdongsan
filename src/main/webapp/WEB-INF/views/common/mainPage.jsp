@@ -350,7 +350,7 @@
             openChat();
         } else {
             console.log("로그인후 이용가능");
-            swal("로그인 후 이용하실 수 있습니다.");
+            alert("로그인 후 이용하실 수 있습니다.");
         }
     });
 </script>

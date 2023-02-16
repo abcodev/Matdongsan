@@ -5,8 +5,12 @@
     <%@ include file="../template/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
     <c:set var="w" value="${fb.memberNo}"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
 <div id="content">
     <div class="freeBoard_Detail">
         <div class="detail_top">
@@ -49,8 +53,7 @@
                         <c:if test="${w ne 1}">
                             <div class="alert_btn_box">
                                 <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    신고하기
-                                </button>
+                                신고하기</button>
                             </div>
                         </c:if>
                     </c:if>
@@ -148,10 +151,10 @@
             type : "post",
             success : function (result){
                         console.log(result);
-                        swal("수정성공!");
+                        alert("수정성공!");
                     },
             error : function (){
-                        swal("수정실패");
+                        alert("수정실패");
                     },
             complete : function (){
                             location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
@@ -243,11 +246,11 @@
                     memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
-                swal("댓글 삭제 성공");
+                alert("댓글 삭제 성공");
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
-                swal("댓글 삭제 실패");
+                alert("댓글 삭제 실패");
             }
         });
     }
@@ -270,11 +273,11 @@
                     "reportFno" : reportFno},
             success : function (result){
                         console.log(result);
-                        swal("신고 완료");
+                        alert("신고 완료");
                         $('#exampleModal').modal('hide');
                       },
             error : function (){
-                swal("신고 실패");
+                alert("신고 실패");
             }
         })
     }
