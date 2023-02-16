@@ -126,10 +126,10 @@ textarea:focus , input:focus {
 }
 
 .btn_box > .alert_btn_box > button{
-    margin-left: 10px;
+    margin-left: -85px;
     border: none;
-    width: auto;
-    height: auto;
+    width: 100px;
+    height: 32px;
     font-size: 16px;
     background-color: #f3f1f5;
     color: #213048;

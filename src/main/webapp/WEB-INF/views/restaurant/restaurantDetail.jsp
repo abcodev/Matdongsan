@@ -25,7 +25,7 @@
         <div class="detail_head_admin">
             <c:if test="${ loginUser.grade eq 'ADMIN'}">
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+                <button onclick="movePage(${restaurantDetail.resNo})">삭제하기</button>
             </c:if>
         </div>
 
@@ -310,6 +310,11 @@
                 swal("리뷰 삭제 실패","","error")
             }
         });
+    }
+
+    function movePage(resNo){
+        location.href= 'admin/resDelete?resNo=' +resNo;
+        swal('삭제 완료!','정상적으로 삭제되었습니다','success');
     }
 </script>
 
