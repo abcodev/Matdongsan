@@ -49,18 +49,6 @@ public class ChatController {
     }
 
 
-
-//    @PostMapping("/chat/admin/enterChat")
-//    public ModelAndView enterChat(@ModelAttribute("roomNo") String roomNo) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        List<AdminChatMessage> chatMessageList = chatService.adminMessageList(roomNo);
-//
-//        modelAndView.addObject("chatMessageList", chatMessageList);
-//        modelAndView.setViewName("chat/adminChatContents");
-//        return modelAndView;
-//    }
-
-
     /**
      * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
      * - 미리보기
