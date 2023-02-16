@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>마이페이지</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
@@ -34,7 +35,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해제 되었습니다.");
+                swal("관심 목록이 해제되었습니다","","success");
                 location.reload();
             }
         });
@@ -283,9 +284,10 @@
 
     function deleteMember() {
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
+
         if (deleteMember === true) {
             location.href = '${pageContext.request.contextPath}/delete';
-            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
+            swal("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
         } else if (deleteMember === false) {
         }
     }
@@ -294,7 +296,7 @@
         var deleteReservation = confirm("예약을 취소하시겠습니까?");
         if(deleteReservation === true){
             location.href = '${pageContext.request.contextPath}/revDelete';
-            alert("예약이 취소되었습니다.");
+            swal("예약이 취소되었습니다.","","success");
         }else if(deleteReservation === false){
 
         }

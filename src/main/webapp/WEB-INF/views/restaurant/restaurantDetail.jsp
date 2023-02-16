@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>동네맛집상세보기</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantDetail.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
@@ -231,19 +232,19 @@
         const files = $('#formFileSm')[0].files
 
         if(score === undefined) {
-            alert("별점을 입력해주세요")
+            swal("별점을 입력해주세요!","","warning")
             return;
         }
         if(hashtags.length === 0){
-            alert("해시태그를 입력해주세요")
+            swal("해쉬태그를 입력해주세요!","","warning")
             return;
         }
         if(contents === "") {
-            alert("리뷰를 입력해 주세요")
+            swal("리뷰를 입력해주세요!","","warning")
             return;
         }
         if(files.length === 0) {
-            alert("사진을 첨부해주세요")
+            swal("사진을 첨부해주세요!","","warning")
             return;
         }
 
@@ -276,7 +277,7 @@
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            swal("해시태그는 최대 3개 까지만 선택가능합니다.","","warning")
             $(this).prop('checked', false);
         }
     });
@@ -302,11 +303,11 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                alert("리뷰 삭제 성공");
+                swal("리뷰 삭제 성공","","success")
                 selectReviewList();
             },
             error: function () {
-                alert("리뷰 삭제 실패");
+                swal("리뷰 삭제 실패","","error")
             }
         });
     }
