@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -195,7 +195,7 @@
                             </td>
 
                             <td>${reviewList.reviewContent}</td>
-                            <td class="review_date">${reviewList.createDate}</td>
+                            <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
                         </tr>
                     </c:forEach>
                 </table>
