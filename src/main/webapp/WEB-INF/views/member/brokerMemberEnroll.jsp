@@ -20,54 +20,88 @@
     <div id="userImg">
         <img src="${loginUser.profileImage}">
     </div>
-    <form action="${pageContext.request.contextPath}/broker/enroll" method="post" name="form_name" enctype="multipart/form-data">
-        <div class="form">
-            <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
-            <div class="info name">
-                <span>대표자명</span>
-                <input type="text" id="refName" name="refName" value="${loginUser.memberName}" required>
+    <c:choose>
+        <c:when test="${loginUser.grade == 'GENERAL'}">
+        <form action="${pageContext.request.contextPath}/broker/enroll" method="post" name="form_name" enctype="multipart/form-data">
+            <div class="form">
+                <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
+                <div class="info name">
+                    <span>대표자명</span>
+                    <input type="text" id="refName" name="refName" value="${loginUser.memberName}" required>
+                </div>
+                <div class="info realtor_name">
+                    <span>공인중개사 상호명</span>
+                    <input type="text" id="agentName" name="agentName" required>
+                </div>
+                <div class="info realtor_num">
+                    <span>공인중개사 번호</span>
+                    <input type="text" id="agentNo" name="agentNo" required>
+                </div>
+                <div class="info phone">
+                    <span>전화번호</span>
+                    <input id="phoneNumber" type="text" name="agentPhone" required>
+                </div>
+                <div class="info state">
+                    <span>지역</span>
+                    <select id="state" name="state">
+                        <option value="" style="text-align: center">지역구를 선택해주세요</option>
+                        <c:forEach items="${stateList}" var="state">
+                            <option value="${state}">${state}</option>
+                        </c:forEach>
+                    </select>
+                    <input type="text" id="bjdongNm" name="bjdongNm" placeholder="동을 입력해 주세요">
+                </div>
+                <div class="info address">
+                    <span>공인중개사 주소</span>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+                </div>
+                <div class="info address2">
+                    <input type="text" id="sample6_address" name="address" placeholder="주소" required><br>
+                    <input type="text" id="sample6_detailAddress" name="addressDetail" placeholder="상세주소">
+                </div>
+                <div class="info file">
+                    <span>사업자 등록증 첨부</span>
+                    <input id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
+                </div>
+                <div class="btn_box">
+                    <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
+                    <button type="submit" onclick="brokerEnroll();">신청 하기</button>
+                </div>
             </div>
-            <div class="info realtor_name">
-                <span>공인중개사 상호명</span>
-                <input type="text" id="agentName" name="agentName" required>
+        </form>
+        </c:when>
+        <c:otherwise>
+            <div class="broker">
+                <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
+                <div class="info name">
+                    <span>대표자명</span>
+                    <input type="text" id="refName" name="refName" value="${loginUser.memberName}" required>
+                </div>
+                <div class="info realtor_name">
+                    <span>공인중개사 상호명</span>
+                    <p>*******</p>
+                </div>
+                <div class="info realtor_num">
+                    <span>공인중개사 번호</span>
+                    <p>*******</p>
+                </div>
+                <div class="info phone">
+                    <span>전화번호</span>
+                    <p>*******</p>
+                </div>
+                <div class="info state">
+                    <span>지역</span>
+                    <p>*******</p>
+                    <p>*******</p>
+                </div>
+                <div class="info address">
+                    <span>공인중개사 주소</span>
+                    <p>*******</p>
+                </div>
             </div>
-            <div class="info realtor_num">
-                <span>공인중개사 번호</span>
-                <input type="text" id="agentNo" name="agentNo" required>
-            </div>
-            <div class="info phone">
-                <span>전화번호</span>
-                <input id="phoneNumber" type="text" name="agentPhone" required>
-            </div>
-            <div class="info state">
-                <span>지역</span>
-                <select id="state" name="state">
-                    <option value="" style="text-align: center">지역구를 선택해주세요</option>
-                    <c:forEach items="${stateList}" var="state">
-                        <option value="${state}">${state}</option>
-                    </c:forEach>
-                </select>
-                <input type="text" id="bjdongNm" name="bjdongNm" placeholder="동을 입력해 주세요">
-            </div>
-            <div class="info address">
-                <span>공인중개사 주소</span>
-                <input type="text" id="sample6_postcode" placeholder="우편번호">
-                <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-            </div>
-            <div class="info address2">
-                <input type="text" id="sample6_address" name="address" placeholder="주소" required><br>
-                <input type="text" id="sample6_detailAddress" name="addressDetail" placeholder="상세주소">
-            </div>
-            <div class="info file">
-                <span>사업자 등록증 첨부</span>
-                <input id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
-            </div>
-            <div class="btn_box">
-                <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit" onclick="brokerEnroll();">신청 하기</button>
-            </div>
-        </div>
-    </form>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <script>
