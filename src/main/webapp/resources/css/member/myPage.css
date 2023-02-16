@@ -302,6 +302,7 @@ table{
 .myReserve_list{
     overflow-y: scroll;
     height: 300px;
+    margin-bottom: 50px;
 }
 
 .myReserve_list::-webkit-scrollbar{
@@ -323,6 +324,7 @@ table{
 
 .myReserve_info_list_top{
     background-color: #E0E0E0;
+    height: 50px;
 }
 
 .myReserve_info_list{
@@ -352,12 +354,6 @@ table{
 .myReserve_list > table th{
     background-color: #E0E0E0;
 }
-
-.myReserve_list > table tr{
-    height: 40px;
-    background-color: white;
-}
-
 
 .myReserve_info_list{
     cursor: pointer;
