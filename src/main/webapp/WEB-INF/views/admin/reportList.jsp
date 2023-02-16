@@ -8,13 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
-    <!-- 페이징 부트 스트랩 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
 
-<%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: #585c9c; background: #eaeaed; border: #eaeaed;">회원관리</button>

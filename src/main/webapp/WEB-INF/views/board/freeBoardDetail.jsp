@@ -149,10 +149,10 @@
             type : "post",
             success : function (result){
                         console.log(result);
-                        alert("수정성공!");
+                        swal("수정성공!");
                     },
             error : function (){
-                        alert("수정실패");
+                        swal("수정실패");
                     },
             complete : function (){
                             location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
@@ -244,11 +244,11 @@
                     memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
-                alert("댓글 삭제 성공");
+                swal("댓글 삭제 성공");
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
-                alert("댓글 삭제 실패");
+                swal("댓글 삭제 실패");
             }
         });
     }
@@ -271,11 +271,11 @@
                     "reportFno" : reportFno},
             success : function (result){
                         console.log(result);
-                        alert("신고 완료");
+                        swal("신고 완료");
                         $('#exampleModal').modal('hide');
                       },
             error : function (){
-                alert("신고 실패");
+                swal("신고 실패");
             }
         })
     }

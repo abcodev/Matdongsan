@@ -73,9 +73,11 @@ public class AdminService {
 
     @Transactional
     public void handleApply(HandleApplyRequest req) {
-        adminDao.changeMemberGrade(sqlSession, req);
-        adminDao.changeEstateStatus(sqlSession, req);
 
+        if(req.getHandle().equals("consent")){
+            adminDao.changeMemberGrade(sqlSession, req);
+        }
+        adminDao.changeEstateStatus(sqlSession, req);
 //        long receiverNo = adminDao.memberNoOfAccept(req.getAgentNo());
 //        AlarmTemplate<String> template = null;
 //        if (req.getHandle().equals("consent")) {
