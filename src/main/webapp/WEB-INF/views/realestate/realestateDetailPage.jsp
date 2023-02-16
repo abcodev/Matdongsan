@@ -1,19 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>부동산상세페이지</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>부동산상세페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
-    <%@ include file="../template/header.jsp" %>
 </head>
 <body>
+
 
 <div id="content">
     <div id="content_left">
@@ -183,19 +181,18 @@
             </div>
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
             <script>
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapCenter = new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                     mapOption = {
-                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
+                        center: mapCenter, // 지도의 중심 좌표
                         level: 4 // 지도의 확대 레벨
                     };
 
                 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
                 var map = new kakao.maps.Map(mapContainer, mapOption);
-
                 var geocoder = new kakao.maps.services.Geocoder();
-
 
                 geocoder.addressSearch('${realEstateDetail.address}', function (result, status) {
 
@@ -207,24 +204,19 @@
                         // 결과값으로 받은 위치를 마커로 표시합니다
                         var marker = new kakao.maps.Marker({
                             map: map,
-                            position: coords,
-                            draggable:true
+                            position: coords
                         });
-                        marker.setMap(map);
-                        marker.setDraggable(true);
+
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         var infowindow = new kakao.maps.InfoWindow({
                             content: '<div style="width:150px;text-align:center;padding:6px 0;">${realEstateDetail.bldgNm}</div>'
                         });
-
                         infowindow.open(map, marker);
-
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                         map.setCenter(coords);
                     }
                 });
-
 
 
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
@@ -240,7 +232,7 @@
                             // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
                             roadviewClient.getNearestPanoId(position, 500, function (panoId) {
                                 roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
-                                // rvResetValue.panoId = panoId;
+                                rvResetValue.panoId = panoId;
                             });
 
                             setTimeout(rvMarker, 1500);
@@ -249,10 +241,8 @@
                                 // 로드뷰에 올릴 마커를 생성합니다.
                                 var rMarker = new kakao.maps.Marker({
                                     position: position,
-                                    draggable: true,
                                     map: roadview //map 대신 roadview(로드뷰 객체)로 설정하면 로드뷰에 올라갑니다.
                                 });
-                                rmarker.setDraggable(true);
 
                                 // 로드뷰에 올릴 장소명 인포윈도우를 생성합니다.
                                 var rLabel = new kakao.maps.InfoWindow({
@@ -270,7 +260,6 @@
                             }
                         }
                     });
-
                 }
 
                 Roadview();
@@ -288,7 +277,7 @@
 
     function showRealtor(agentNo, agentName) {
         if(${empty loginUser}){
-            swal("로그인 후 이용이 가능합니다.","","warning")
+            swal("로그인 후 이용가능합니다.")
             return false;
         }
         console.log(agentNo);
@@ -349,7 +338,7 @@
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
             if (i < currentDate.getDate()) {
-                htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
+                htmlDummy += '<div onclick="swal(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
             } else {
                 htmlDummy += '<div class="non-click" onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
             }
@@ -414,14 +403,14 @@
 
         // required 검사
         if (reservationDate == "") {
-            swal("날짜를 입력해주세요.","","warning")
+            swal("날짜를 입력해주세요")
             return false;
         } else if (memberName == "") {
-            swal("이름을 입력해주세요.","","warning")
+            swal("이름을 입력해주세요")
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            swal("핸드폰 번호를 입력해주세요.","","warning")
+            swal("휴대폰번호를 입력해주세요")
             $('#telephone').focus();
             return false;
         } else {
@@ -442,12 +431,12 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    swal("예약에 성공하였습니다.","","success");
+                    swal("예약에 성공하였습니다.");
                     offClick();
 
                 },
                 error: () => {
-                    swal("예약에 실패하셧습니다.","","error");
+                    swal("예약 등록에 실패하였습니다.");
                 }
             })
         }

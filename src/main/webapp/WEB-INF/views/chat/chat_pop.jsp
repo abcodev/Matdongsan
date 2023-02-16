@@ -9,7 +9,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" href="<c:url value="/resources/css/chat/chat_pop.css"/>">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -18,7 +17,7 @@
 </head>
 <body>
 <div class="floating-chat">
-  <div id="chat-circle" class="btn btn-raised">
+  <div id="chat-circle"  class="btn btn-raised">
     <i class="fa-regular fa-comments"></i>
     <p>1:1문의</p>
   </div>
@@ -46,7 +45,6 @@
   </div>
 </div>
 <script>
-
   $(function () {
     if (${pageContext.request.parameterMap.containsKey("open_chat_flag")
           && pageContext.request.getParameter("open_chat_flag")}) {
@@ -69,20 +67,11 @@
       },
       fail: function () {
         console.log("실패")
-        swal("사용 실패","","error")
+        alert("사용 실패")
         $("#chat-circle").toggle("scale");
       }
     })
   }
-
-  $("#chat-circle").click(function () {
-    if (${empty loginUser}) {
-      swal("로그인 후 이용할 수 있습니다","","warning")
-    } else {
-      openChat();
-    }
-  });
-
 
   $(".chat-box-toggle").click(function () {
     $("#chat-circle").toggle("scale");
@@ -100,9 +89,7 @@
 
   // setTimeout : 몇초뒤에 특정 함수 호출
   // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
-  function onConnected(roomNo) {
-    // alert("연결 성공!");
-    // console.log('Connected: ' + frame);
+  function onConnected(roomNo) {;
     setTimeout(function () {
       stompClient.subscribe('/topic/' + roomNo, function (e) {
         showMessage(JSON.parse(e.body));

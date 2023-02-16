@@ -1,27 +1,20 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>신고 리스트</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@ page language="java" pageEncoding="UTF-8" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
+    <!-- 페이징 부트 스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>Document</title>
-
-
-
 </head>
 <body>
 
 <%@ include file="../template/header.jsp" %>
-<div id="big">
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: #585c9c; background: #eaeaed; border: #eaeaed;">회원관리</button>
@@ -132,6 +125,34 @@
         </div>
     </div>
 </div>
+<%--<div class="paging">--%>
+<%--    <ul class="pagination">--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
+<%--                <li class="page-item disabled"> < </li>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})"> < </li>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+
+<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
+<%--            <li class="page-item" onclick="ReportList(${item})">${item }</li>--%>
+<%--        </c:forEach>--%>
+
+<%--        <c:choose>--%>
+<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
+<%--                <li class="page-item disabled"><a class="page-link" href="#"> > </a></li>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})"> > </li>--%>
+
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+<%--    </ul>--%>
+
+<%--</div>--%>
+
 
 <div id="paging">
     <nav aria-label="Page navigation example">
@@ -172,7 +193,7 @@
         </ul>
     </nav>
 </div>
-</div>
+
 
 
 
@@ -214,6 +235,17 @@
             }
         })
     }
+
+
+
+
+    function changeSelect() {
+        const stop = document.getElementById("stop");
+        const value = (stop.options[stop.selectedIndex].value);
+        alert(value + " 처리하시겠습니까?");
+    }
+
+
     /* 모달*/
     $(document).on('click', '.add-btn', function (e) {
         console.log("click event");

@@ -4,14 +4,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>동네맛집상세보기</title>
+    <%@ include file ="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동네맛집상세보기</title>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantDetail.css"/>">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
@@ -23,9 +21,9 @@
 
         <%--관리자 모드--%>
         <div class="detail_head_admin">
-            <c:if test="${loginUser.memberNo == 1 or loginUser.grade eq 'ADMIN'}">
+            <c:if test="${ loginUser.grade eq 'ADMIN'}">
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-                <button onclick="movePage(${restaurantDetail.resNo})">삭제하기</button>
+                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
             </c:if>
         </div>
 
@@ -232,19 +230,19 @@
         const files = $('#formFileSm')[0].files
 
         if(score === undefined) {
-            swal("별점을 입력해주세요!","","warning")
+            swal("별점을 입력해주세요")
             return;
         }
         if(hashtags.length === 0){
-            swal("해쉬태그를 입력해주세요!","","warning")
+            swal("해시태그를 입력해주세요")
             return;
         }
         if(contents === "") {
-            swal("리뷰를 입력해주세요!","","warning")
+            swal("리뷰를 입력해 주세요")
             return;
         }
         if(files.length === 0) {
-            swal("사진을 첨부해주세요!","","warning")
+            swal("사진을 첨부해주세요")
             return;
         }
 
@@ -277,7 +275,7 @@
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            swal("해시태그는 최대 3개 까지만 선택가능합니다.","","warning")
+            swal('해시태그는 최대 3개까지 선택 가능합니다.')
             $(this).prop('checked', false);
         }
     });
@@ -303,18 +301,13 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                swal("리뷰 삭제 성공","","success")
+                swal("리뷰 삭제 성공");
                 selectReviewList();
             },
             error: function () {
-                swal("리뷰 삭제 실패","","error")
+                swal("리뷰 삭제 실패");
             }
         });
-    }
-
-    function movePage(resNo){
-        location.href= 'admin/resDelete?resNo=' +resNo;
-        swal('삭제 완료!','정상적으로 삭제되었습니다','success');
     }
 </script>
 

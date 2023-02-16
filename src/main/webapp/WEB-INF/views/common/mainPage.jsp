@@ -20,6 +20,14 @@
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
     </c:if>
+
+    <style>
+        #controlOverlay{
+            width: 500px;
+            overflow: hidden;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -115,8 +123,13 @@
 
         </div>
     </div>
-
     <script>
+        if (${loginUser.grade == 'GENERAL'}) {
+            alert('회원정보 입력 후 이용해주세요.');
+            window.location = '${pageContext.request.contextPath}/memberModify';
+        }
+
+
         let alarmIsOpen = false;
         window.onload = () => {
             retrieveAlarmList();
@@ -146,14 +159,6 @@
                 }
             });
         }
-
-    </script>
-
-    <script>
-        if (${loginUser.grade == 'GENERAL'}) {
-            swal("회원 정보 입력후 사용해주세요","","warning")
-            window.location = '${pageContext.request.contextPath}/memberModify';
-        }
     </script>
 
 
@@ -166,7 +171,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services&clusterer"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
             <%--            035c35f196fa7c757e49e610029837b1--%>
 
@@ -206,7 +211,7 @@
                                 image: markerImage
                             });
 
-                            var content = '<div class="wrap">' +
+                            var content = '<div id="controlOverlay" class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
                                 '               <div class="bldgNm">' + '건물명  : ' + addr['bldgNm'] + '</div>' +
@@ -339,6 +344,16 @@
         </c:choose>
     </div>
 </div>
+<script>
+    $("#chat-circle").click(function () {
+        if (${not empty loginUser}) {
+            openChat();
+        } else {
+            console.log("로그인후 이용가능");
+            swal("로그인 후 이용하실 수 있습니다.");
+        }
+    });
+</script>
 
 </body>
 </html>

@@ -113,11 +113,11 @@ public class RealEstateController {
                                          ModelAndView modelAndView,
                                          HttpSession session
     ) {
-    /*    Member loginUser = (Member) session.getAttribute("loginUser");
+        Member loginUser = (Member) session.getAttribute("loginUser");
         interestRealEstateRedisService.increment(estateNo);
         if (loginUser != null) {
             recentRealEstateRedisService.push(loginUser.getMemberNo(), estateNo);
-        }*/
+        }
 
         RealEstateDetailDto realEstateDetailDto = realEstateService.realEstateDetail(estateNo);
         List<RealEstateAgent> agentList = realEstateService.selectAgentList(realEstateDetailDto.getBjdongNm());
