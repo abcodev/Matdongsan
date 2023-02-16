@@ -56,7 +56,6 @@
                     </c:if>
                 </c:if>
         </div>
-
         <!-- 신고 모달 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -197,7 +196,7 @@
                     for(let reply of result){
                         html += '<div class="reply_detail">'
                             + '<div class="reply_info">'
-                            + '<div class=""><img src=' + reply.profileImage + '></div>'
+                            + '<div><img src=' + reply.profileImage + '></div>'
                             + '<div>' + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + '></div>'
                             + '<div>' + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
                             + '<div>' + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
