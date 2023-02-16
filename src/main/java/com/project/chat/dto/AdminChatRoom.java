@@ -17,6 +17,6 @@ public class AdminChatRoom {
     private String nickName;
     private String profileImage;
     private String latestMessage;
-    private Date latestMessageTime;
+    private String latestMessageTime;
     private String read;
 }

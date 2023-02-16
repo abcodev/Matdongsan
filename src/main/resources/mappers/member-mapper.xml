@@ -285,7 +285,7 @@
             RA.AGENT_NAME
         FROM REAL_RESERVATION R
                  LEFT JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
-                JOIN REALESTATE_AGENT RA ON R.AGENT_NO = RA.AGENT_NO
+                 JOIN REALESTATE_AGENT RA ON R.AGENT_NO = RA.AGENT_NO
         WHERE R.MEMBER_NO = #{memberNo}
     </select>
 
@@ -298,7 +298,7 @@
 
     <update id="changeMemberGrade">
         UPDATE MEMBER
-            SET GRADE = #{grade}
+        SET GRADE = #{grade}
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
@@ -324,16 +324,16 @@
 
     <select id="selectBrokerResList" resultMap="BrokerResList">
         SELECT
-        R.REV_NO,
-        R.MEMBER_NO,
-        R.MEMBER_NAME,
-        REV_PEOPLE,
-        REV_TIME,
-        REV_DATE,
-        REV_CREATEDATE,
-        REV_STATUS
+            R.REV_NO,
+            R.MEMBER_NO,
+            R.MEMBER_NAME,
+            REV_PEOPLE,
+            REV_TIME,
+            REV_DATE,
+            REV_CREATEDATE,
+            REV_STATUS
         FROM REAL_RESERVATION R
-        LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO= RA.AGENT_NO
+                 LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO= RA.AGENT_NO
         WHERE RA.MEMBER_NO = #{memberNo}
     </select>
 

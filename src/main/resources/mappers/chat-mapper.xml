@@ -80,24 +80,31 @@
         <result column="MEMBER_NAME" property="memberName"/>
         <result column="NICKNAME" property="nickName"/>
         <result column="PROFILE_IMAGE" property="profileImage"/>
-        <result column="MS_CONTENT" property="latestMessage"/>
         <result column="CREATE_DATE" property="latestMessageTime"/>
+        <result column="MS_CONTENT" property="latestMessage"/>
         <result column="READ" property="read"/>
     </resultMap>
     <select id="chattingList" resultMap="adminChatRoomResultSet">
-        SELECT CHAT_ROOM_NO,
-               MEMBER_NAME,
-               NICKNAME,
-               PROFILE_IMAGE,
-               CREATE_DATE,
-               READ,
-               MS_CONTENT
-        FROM CHAT_MESSAGE
-                 JOIN MEMBER ON (MEMBER_NO = SEND_NO)
-        WHERE CREATE_DATE IN (SELECT MAX(CREATE_DATE)
-                              FROM CHAT_MESSAGE
-                              GROUP BY CHAT_ROOM_NO)
+        SELECT CM.CHAT_ROOM_NO,
+               A.MEMBER_NAME,
+               A.NICKNAME,
+               A.PROFILE_IMAGE,
+               TO_CHAR(CM.CREATE_DATE,'yyyy-mm-dd hh24:mi') AS CREATE_DATE,
+               CM.MS_CONTENT,
+               READ
+        FROM CHAT_MESSAGE CM
+                 JOIN (SELECT
+                           CR.CHAT_ROOM_NO,
+                           M.PROFILE_IMAGE,
+                           M.NICKNAME,
+                           M.MEMBER_NAME
+                       FROM CHAT_ROOM CR
+                                JOIN MEMBER M on CR.MEMBER_NO = M.MEMBER_NO) A ON CM.CHAT_ROOM_NO = A.CHAT_ROOM_NO
+        WHERE CM.CREATE_DATE IN (SELECT MAX(CREATE_DATE)
+                                 FROM CHAT_MESSAGE
+                                 GROUP BY CHAT_ROOM_NO)
     </select>
+
 
     <resultMap id="adminChatMessageResultSet" type="adminChatMessage">
         <result column="CHAT_ROOM_NO" property="roomNo"></result>

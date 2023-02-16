@@ -15,46 +15,70 @@
                 <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
             </div>
         </a>
+
+
         <nav class="navbar">
-            <div class="navbar_menu">
-                <div class="dropdown">
-                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
-                    </button>
-                </div>
+            <c:choose>
+                <c:when test="${loginUser.grade == 'ADMIN'}"> <%-- 관리자 --%>
+                    <div class="navbar_menu admin">
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
+                            </button>
+                        </div>
 
-                <div class="dropdown">
-                    <button class="dropdown-btn">
-                        <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
-                    </button>
-                </div>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
+                            </button>
+                        </div>
 
-                <div class="dropdown">
-                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a>
-                    </button>
-                    <div class="dropdown-submenu">
-                        <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
-                        <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a>
+                            </button>
+                            <div class="dropdown-submenu">
+                                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                                <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                            </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a
+                                    href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </c:when>
+                <c:otherwise>  <%-- 일반회원, 부동산 회원 --%>
+                    <div class="navbar_menu general">
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
+                            </button>
+                        </div>
 
-                <c:if test="${loginUser.memberNo == 1}">
-                    <div class="dropdown">
-                        <button class="dropdown-btn"><a
-                                href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
-                        </button>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
+                            </button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a>
+                            </button>
+                            <div class="dropdown-submenu">
+                                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                                <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                            </div>
+                        </div>
                     </div>
-                </c:if>
-
-
-            </div>
+                </c:otherwise>
+            </c:choose>
         </nav>
 
         <div class="login">
-
             <c:choose>
                 <c:when test="${ empty loginUser}">
                     <div class="login_before">
-                        <a href="#" onclick="redirectLoginPage()">로그인</a>
+                        <a href="${pageContext.request.contextPath}/loginPage">로그인</a>
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -67,10 +91,10 @@
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.grade == 'BROKER'}">
-                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원 마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원페이지</a>
                         </c:if>
 
-                        <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                        <a href="${pageContext.request.contextPath}/logout" class="logOut">로그아웃</a>
                         <div id="alarm_place">
 
                         </div>
@@ -78,6 +102,8 @@
                 </c:otherwise>
             </c:choose>
         </div>
+
+
 
         <script>
             function redirectLoginPage() {

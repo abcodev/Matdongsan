@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +60,9 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td>${realEstateDetail.floor} 층</td>
+                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}" />
+                        ${floor} 층
+                    </td>
                 </tr>
                 <tr>
                     <th>거래일자</th>
@@ -180,12 +184,11 @@
             </div>
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services"></script>
             <script>
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                    mapCenter = new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                     mapOption = {
-                        center: mapCenter, // 지도의 중심 좌표
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                         level: 4 // 지도의 확대 레벨
                     };
 
@@ -231,7 +234,7 @@
                             // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
                             roadviewClient.getNearestPanoId(position, 500, function (panoId) {
                                 roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
-                                rvResetValue.panoId = panoId;
+                                // rvResetValue.panoId = panoId;
                             });
 
                             setTimeout(rvMarker, 1500);

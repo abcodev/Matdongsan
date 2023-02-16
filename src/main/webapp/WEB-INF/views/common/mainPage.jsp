@@ -12,10 +12,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>맛동산</title>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
@@ -29,37 +29,63 @@
             <img src="${pageContext.request.contextPath}/resources/images/common/맛동산로고.png" alt="로고">
         </div>
         <nav class="navbar">
-            <div class="navbar_menu">
-                <div class="dropdown">
-                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
-                    </button>
-                </div>
+            <c:choose>
+                <c:when test="${loginUser.grade == 'ADMIN'}"> <%-- 관리자 --%>
+                    <div class="navbar_menu admin">
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
+                            </button>
+                        </div>
 
-                <div class="dropdown">
-                    <button class="dropdown-btn">
-                        <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
-                    </button>
-                </div>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
+                            </button>
+                        </div>
 
-                <div class="dropdown">
-                    <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a>
-                    </button>
-                    <div class="dropdown-submenu">
-                        <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
-                        <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a>
+                            </button>
+                            <div class="dropdown-submenu">
+                                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                                <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                            </div>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a
+                                    href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <c:if test="${loginUser.grade == 'ADMIN'}">
-                    <div class="dropdown">
-                        <button class="dropdown-btn">
-                            <a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
-                        </button>
+                </c:when>
+                <c:otherwise>  <%-- 일반회원, 부동산 회원 --%>
+                    <div class="navbar_menu general">
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/realEstate">부동산</a>
+                            </button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="dropdown-btn">
+                                <a href="${pageContext.request.contextPath}/selectResList">동네맛집</a>
+                            </button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="dropdown-btn"><a href="${pageContext.request.contextPath}/board/freeList">커뮤니티</a>
+                            </button>
+                            <div class="dropdown-submenu">
+                                <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
+                                <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                            </div>
+                        </div>
                     </div>
-                </c:if>
-            </div>
+                </c:otherwise>
+            </c:choose>
         </nav>
-        <div class="login">
 
+        <div class="login">
             <c:choose>
                 <c:when test="${ empty loginUser}">
                     <div class="login_before">
@@ -76,11 +102,10 @@
                             <a href="${pageContext.request.contextPath}/myPage" class="after">마이페이지</a>
                         </c:if>
                         <c:if test="${loginUser.grade == 'BROKER'}">
-                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원
-                                마이페이지</a>
+                            <a href="${pageContext.request.contextPath}/brokerMemberMyPage" class="after">부동산회원페이지</a>
                         </c:if>
 
-                        <a href="${pageContext.request.contextPath}/logout" class="after">로그아웃</a>
+                        <a href="${pageContext.request.contextPath}/logout" class="logOut">로그아웃</a>
                         <div id="alarm_place">
 
                         </div>
@@ -141,7 +166,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
             <%--            035c35f196fa7c757e49e610029837b1--%>
 

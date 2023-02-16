@@ -87,7 +87,7 @@
                         <div class="board_info">
                             <p class="info writer">${fn.boardWriter}</p>
                             <p class="info area">${fn.boardArea}</p>
-                            <p class="info date">${fn.boardDate}</p>
+                            <p class="info date">${fn:substring(fn.boardDate, 0, 16)}</p>
                             <p class="info view"><i class="fa-regular fa-eye"></i>${fn.count}</p>
                             <p class="info reply"><i class="fa-regular fa-comment"></i>${fn.replyCount}</p>
                         </div>
@@ -110,7 +110,7 @@
                                 <div class="board_info">
                                     <p class="info writer">${freeBoard.boardWriter}</p>
                                     <p class="info area">${freeBoard.boardArea}</p>
-                                    <p class="info date">${freeBoard.boardDate}</p>
+                                    <p class="info date">${fn:substring(freeBoard.boardDate, 0, 16)}</p>
                                     <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
                                     <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}
                                     </p>

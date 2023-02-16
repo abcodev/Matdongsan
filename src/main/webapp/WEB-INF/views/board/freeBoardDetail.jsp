@@ -26,12 +26,12 @@
         </div>
         <div class="detail_head">
             <div class="board_title">
-                    <c:if test="${w eq loginUser.memberNo}">
-                        <input type="text" name="boardTitle" value="${fb.boardTitle}" maxlength="70" oninput="handleInputLength(this, 70)">
-                    </c:if>
-                    <c:if test="${w ne loginUser.memberNo}">
-                        <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
-                    </c:if>
+                <c:if test="${w eq loginUser.memberNo}">
+                    <input type="text" name="boardTitle" value="${fb.boardTitle}" maxlength="70" oninput="handleInputLength(this, 70)">
+                </c:if>
+                <c:if test="${w ne loginUser.memberNo}">
+                    <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
+                </c:if>
             </div>
             <div class="board_info">
                 <div class="writer_img">
@@ -50,21 +50,21 @@
             </c:if>
         </div>
         <div class="btn_box">
-                <c:if test="${not empty loginUser}">
-                    <c:if test="${w eq loginUser.memberNo}">
-                        <button onclick="updatePost();">수정</button>
-                        <button onclick="deletePost();">삭제</button>
-                    </c:if>
-                    <c:if test="${w ne loginUser.memberNo}">
-                        <c:if test="${w ne 1}">
-                            <div class="alert_btn_box">
-                                <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    신고하기
-                                </button>
-                            </div>
-                        </c:if>
+            <c:if test="${not empty loginUser}">
+                <c:if test="${w eq loginUser.memberNo}">
+                    <button onclick="updatePost();">수정</button>
+                    <button onclick="deletePost();">삭제</button>
+                </c:if>
+                <c:if test="${w ne loginUser.memberNo}">
+                    <c:if test="${w ne 1}">
+                        <div class="alert_btn_box">
+                            <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                신고하기
+                            </button>
+                        </div>
                     </c:if>
                 </c:if>
+            </c:if>
         </div>
 
         <!-- 신고 모달 -->
@@ -119,7 +119,7 @@
                     <c:otherwise>
                         <div class="my_img">
                             <img src="https://cdn-icons-png.flaticon.com/512/4675/4675250.png">
-<%--                            <img src="https://cdn-icons-png.flaticon.com/512/7155/7155292.png">--%>
+                                <%--                            <img src="https://cdn-icons-png.flaticon.com/512/7155/7155292.png">--%>
                         </div>
                         <input name="replyContent" type="text" disabled placeholder="로그인 후 이용이 가능합니다.">
                         <button onclick="insertReply();" disabled>댓글 등록</button>
@@ -158,15 +158,15 @@
             data : formData,
             type : "post",
             success : function (result){
-                        console.log(result);
-                        swal("수정성공!","","success");
-                    },
+                console.log(result);
+                swal("수정성공!","","success");
+            },
             error : function (){
-                         swal("수정실패!","","error");
-                    },
+                swal("수정실패!","","error");
+            },
             complete : function (){
-                            location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
-                        }
+                location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
+            }
         });
     }
 
@@ -192,49 +192,49 @@
 
 <!-- 댓글 등록 & 리스트 보여주기 -->
 <script>
-        $(function(){
-            selectReplyList();
-        });
+    $(function(){
+        selectReplyList();
+    });
 
-        function selectReplyList(){
-            $.ajax({
-                url : '${pageContext.request.contextPath}/board/replyList',
-                data : {fno : '${fb.boardNo}'},
-                dataType : 'json',
-                success : function(result){
-                    console.log(result);
-                    let html = ""
-                    for(let reply of result){
-                        html += '<div class="reply_detail">'
-                            + '<div class="reply_info">'
-                            + '<div class=""><img src=' + reply.profileImage + '></div>'
-                            + '<div>' + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + '></div>'
-                            + '<div>' + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
-                            + '<div>' + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
-                            + '</div>'
-                            + '<div class="reply_content">' + reply.replyContent + '</div>'
-                            + '</div>';
-                    }
-                    $("#replyResult").html(html);
-                    $("#rcount").html(result.length);
+    function selectReplyList(){
+        $.ajax({
+            url : '${pageContext.request.contextPath}/board/replyList',
+            data : {fno : '${fb.boardNo}'},
+            dataType : 'json',
+            success : function(result){
+                console.log(result);
+                let html = ""
+                for(let reply of result){
+                    html += '<div class="reply_detail">'
+                        + '<div class="reply_info">'
+                        + '<div class=""><img src=' + reply.profileImage + '></div>'
+                        + '<div>' + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + '></div>'
+                        + '<div>' + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
+                        + '<div>' + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
+                        + '</div>'
+                        + '<div class="reply_content">' + reply.replyContent + '</div>'
+                        + '</div>';
                 }
-            })
-        }
+                $("#replyResult").html(html);
+                $("#rcount").html(result.length);
+            }
+        })
+    }
 
-        function insertReply(){
-            $.ajax({
-                url : "${pageContext.request.contextPath}/board/insertReply",
-                data: {freeBno : '${fb.boardNo}',
-                        replyContent : $('input[name="replyContent"]:visible').val()},
-                success : function(result){
-                            if(result == "1"){
-								alertify.alert("서비스 요청 성공", '댓글등록 성공');
-							}
-							selectReplyList();
-                        },
-                complete : function(){
-							$('input[name="replyContent"]').val("");
-						}
+    function insertReply(){
+        $.ajax({
+            url : "${pageContext.request.contextPath}/board/insertReply",
+            data: {freeBno : '${fb.boardNo}',
+                replyContent : $('input[name="replyContent"]:visible').val()},
+            success : function(result){
+                if(result == "1"){
+                    alertify.alert("서비스 요청 성공", '댓글등록 성공');
+                }
+                selectReplyList();
+            },
+            complete : function(){
+                $('input[name="replyContent"]').val("");
+            }
 
         })
     }
@@ -250,8 +250,8 @@
             url : "${pageContext.request.contextPath}/board/deleteReply",
             type : "post",
             data : {freeBno : ${fb.boardNo},
-                    replyNo : replyNo,
-                    memberNo : '${loginUser.memberNo}'},
+                replyNo : replyNo,
+                memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
                 swal("댓글 삭제 성공!","","success");
@@ -276,14 +276,14 @@
             url : "${pageContext.request.contextPath}/board/report",
             type : "post",
             data : {"reporter" : reporter,
-                    "reportContent" : reportContent,
-                    "reportedPerson" : reportedPerson,
-                    "reportFno" : reportFno},
+                "reportContent" : reportContent,
+                "reportedPerson" : reportedPerson,
+                "reportFno" : reportFno},
             success : function (result){
-                        console.log(result);
-                        swal('신고 완료','정상적으로 신고가 접수되었습니다','success');
-                        $('#exampleModal').modal('hide');
-                      },
+                console.log(result);
+                swal('신고 완료','정상적으로 신고가 접수되었습니다','success');
+                $('#exampleModal').modal('hide');
+            },
             error : function (){
                 swal('신고 실패',"",'error');
             }

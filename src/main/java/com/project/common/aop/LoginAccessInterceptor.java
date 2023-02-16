@@ -1,8 +1,6 @@
 package com.project.common.aop;
 
-import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.ServletException;
@@ -16,23 +14,40 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
     // 로그인 하지 않은 사용자가 로그인 해야하는 경로 접속했을 때
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
-//        if (hasRequiredLoginAnnotation(handler)) {
         if (!existLoginUser(req.getSession())) {
             res.setContentType("text/html; charset=utf-8");
             PrintWriter out = res.getWriter();
             String pageUrl = req.getContextPath();
             String element =
-                    "<script> alert('로그인을 해야합니다!'); " +
-                            "location.href='" + pageUrl + "/loginPage'; </script>";
+                    "<script> alert('로그인을 해야합니다!'); " + "location.href='" + pageUrl + "/loginPage'; </script>";
             out.println(element);
-            out.flush();//브라우저 출력 비우기
-            out.close();//아웃객체 닫기
+            out.flush(); //브라우저 출력 비우기
+            out.close(); //아웃객체 닫기
             return false;
         }
-//        }
         return true;
     }
 
+    public boolean existLoginUser(HttpSession session) {
+        Member member = (Member) session.getAttribute("loginUser");
+        return member != null;
+    }
+}
+
+//public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
+//    // 로그인 하지 않은 사용자가 로그인 해야하는 경로 접속했을 때
+//    @Override
+//    public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
+//        if (hasRequiredLoginAnnotation(handler)) {
+//            if (!existLoginUser(req.getSession())) {
+//                req.setAttribute("errorMsg", "로그인 후 이용할 수 있습니다.");
+//                req.getRequestDispatcher("/WEB-INF/views/common/errorPage.jsp").forward(req, res);
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//
 //    private boolean hasRequiredLoginAnnotation(Object handler) {
 //        if (handler instanceof HandlerMethod) {
 //            return ((HandlerMethod) handler).hasMethodAnnotation(RequiredLogin.class)
@@ -40,9 +55,11 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
 //        }
 //        return false;
 //    }
+//
+//    public boolean existLoginUser(HttpSession session) {
+//        Member member = (Member) session.getAttribute("loginUser");
+//        return member != null;
+//    }
+//
+//}
 
-    public boolean existLoginUser(HttpSession session) {
-        Member member = (Member) session.getAttribute("loginUser");
-        return member != null;
-    }
-}

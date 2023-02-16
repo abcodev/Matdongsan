@@ -156,6 +156,7 @@
         SELECT *
         FROM REALESTATE_AGENT
         WHERE BJDONG_NM = #{bjdongNm}
+            AND APPLY_STATUS = 'Y'
     </select>
 
     <select id="selectAgentByAgentNo" parameterType="String" resultMap="agentResultSet">
