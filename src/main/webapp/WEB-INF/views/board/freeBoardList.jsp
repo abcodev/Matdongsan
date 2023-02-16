@@ -59,12 +59,12 @@
 
             <div id="boardlist_main">
                 <c:forEach items="${freeNoticeList}" var="fn">
-                    <div class="boardlist" style="background-color: #fdf0f0">
+                    <div class="boardlist notice">
                         <p style="display: none">${fn.boardNo}</p>
                         <p style="display: none">${fn.memberNo}</p>
                         <p style="display: none">${fn.blind}</p>
                         <div class="board_title">
-                            <p><i class="fa-solid fa-bullhorn"></i> ${fn.boardTitle}
+                            <p><i class="fa-solid fa-bullhorn"></i><span>공지사항</span> ${fn.boardTitle}
                             </p>
                         </div>
                         <div class="board_content">
@@ -102,25 +102,18 @@
                             </div>
                         </c:if>
                         <c:if test="${freeBoard.blind eq 'Y'}">
-                            <div class="boardlist" style="background-color: #dddddd">
-                                <p style="display: none">${freeBoard.boardNo}</p>
+                            <div class="boardlist blind">
                                 <p style="display: none">${freeBoard.memberNo}</p>
                                 <p style="display: none">${freeBoard.blind}</p>
                                 <div class="board_title">
                                     <p>블라인드 처리된 게시글 입니다.</p>
-                                </div>
-                                <div class="board_content">
-
-                                </div>
-                                <div class="board_info">
-
                                 </div>
                             </div>
                         </c:if>
                     </c:forEach>
                 </c:if>
                 <c:if test="${empty freeBoardList}">
-                    <div class="boardlist" style="pointer-events: none;">
+                    <div class="boardlist empty" style="pointer-events: none;">
                         조회된 게시글이 없습니다.
                     </div>
                 </c:if>

@@ -197,11 +197,6 @@
 
 }
 
-.fa-bullhorn{
-    font-size: 20px;
-    margin: 0 5px;
-}
-
 .board_title > p{
     font-weight: 450;
     font-size: 16px;
@@ -257,10 +252,6 @@
     margin-left: 360px;
 }
 
-.notice > .view{
-    margin-left: 420px;
-}
-
 .board_info > .info > .fa-eye,
 .board_info > .info > .fa-comment{
     font-size: 18px;
@@ -270,6 +261,51 @@
 .board_info > .reply{
     margin-left: 10px;
 }
+
+/**********공지글 , 블라인드 , 조회된 게시글X *********/
+.empty{
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    color: #3d3d3d;
+    margin-top: 25px;
+    padding-bottom: 30px;
+}
+
+.blind{
+    background-color: #e5e5e5;
+    text-align: center;
+}
+
+.notice > .view{
+    margin-left: 420px;
+}
+
+.notice{
+    background-color: rgb(248, 212, 214);
+}
+
+.fa-bullhorn{
+    font-size: 20px;
+    margin: 0 5px;
+    color: rgb(203, 27, 34);
+}
+
+.notice > .board_title > p > span{
+    color: rgb(203, 27, 34);
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+.blind > .board_title{
+    font-size: 20px;
+    font-weight: 550;
+    color: #3d3d3d;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+/**********************************/
 
 #paging {
     height: 40px;
