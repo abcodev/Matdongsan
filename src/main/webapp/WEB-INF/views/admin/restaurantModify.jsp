@@ -39,9 +39,9 @@
             </div>
             <div class="resDiv">
                 <i class="bi bi-geo-alt-fill"></i>
-                <span class="font">지역 : </span>
+                <span class="font">지역 : </span>&nbsp;&nbsp;
                 <select id="space"  class="textInput" name="state">
-                    <option value="" style="text-align: center">지역을 선택해주세요</option>
+                    <option value="" style="text-align: center">${restaurantDetail.state}</option>
                     <c:forEach items="${stateList}" var="state">
                         <option value="${state}">${state}</option>
                     </c:forEach>

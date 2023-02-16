@@ -15,10 +15,19 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
     </c:if>
+
+    <style>
+        #controlOverlay{
+            width: 500px;
+            overflow: hidden;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -202,7 +211,7 @@
                                 image: markerImage
                             });
 
-                            var content = '<div class="wrap">' +
+                            var content = '<div id="controlOverlay" class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
                                 '               <div class="bldgNm">' + '건물명  : ' + addr['bldgNm'] + '</div>' +
@@ -341,7 +350,7 @@
             openChat();
         } else {
             console.log("로그인후 이용가능");
-            alert("로그인 후 이용하실 수 있습니다.");
+            swal("로그인 후 이용하실 수 있습니다.");
         }
     });
 </script>
