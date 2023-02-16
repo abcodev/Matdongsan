@@ -195,8 +195,14 @@ select:focus {
     color: #3d3d3d;
     font-size: 17px;
     font-weight: 420;
-    margin: 12px 0;
+    /*margin: 12px 0;*/
     word-wrap: break-word;
+
+    /*display: inline-block;*/
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .freeBoard_list > a:hover{
