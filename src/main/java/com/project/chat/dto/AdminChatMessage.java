@@ -14,6 +14,7 @@ public class AdminChatMessage {
     private String roomNo;
     private String memberNo;
     private String memberName;
+    private String nickName;
     private String message;
     private Date createDate;
     private String read;
