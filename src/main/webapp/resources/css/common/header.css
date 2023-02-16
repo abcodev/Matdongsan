@@ -205,7 +205,7 @@ a{
     height: 18px;
     display: inline-block;
     position: absolute;
-    right: 20px;
+    /*right: 20px;*/
     top: 13px;
 }
 
