@@ -77,7 +77,12 @@ public class AdminService {
         adminDao.changeEstateStatus(sqlSession, req);
 
 //        long receiverNo = adminDao.memberNoOfAccept(req.getAgentNo());
-//        AlarmTemplate template = AlarmTemplate.generateNewAccept(receiverNo);
+//        AlarmTemplate<String> template = null;
+//        if (req.getHandle().equals("consent")) {
+//            template = AlarmTemplate.generateNewBrokerAcceptTemplate(receiverNo);
+//        } else if (req.getHandle().equals("reject")) {
+//            template = AlarmTemplate.generateNewBrokerRejectTemplate(receiverNo);
+//        }
 //        alarmService.send(template);
     }
 

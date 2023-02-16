@@ -73,7 +73,7 @@
         </div>
         <br><br>
         <div class="btn_box">
-            <button class="bbtn">취소</button>
+            <button class="bbtn" type="reset" onclick="location.href='${pageContext.request.contextPath}/selectResList'">취소</button>
             <input  class="bbtn" type="submit" onclick="return gopage();" value="등록" />
         </div>
     </div>

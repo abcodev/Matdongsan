@@ -8,6 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// 인가
 // @Retention 어노테이션이 언제까지 유지할지 정한다.
 // @Target 어노테이션이 어디에 적용할지 정한다.
 @Retention(RetentionPolicy.RUNTIME)

@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
 <jsp:include page="../template/font.jsp"/>
 
 <div id="alarm_list_ajax">
@@ -143,6 +142,9 @@
             } else if (alarmType === 'RESERVATION_APPROVE'
                         || alarmType === 'RESERVATION_CANCEL') {
                 moveUrl += '/myPage';
+            } else if (alarmType === 'NEW_BROKER_ACCEPT'
+                        || alarmType === 'NEW_BROKER_REJECT') {
+                moveUrl += '/brokerMemberMyPage';
             }
             location.href = moveUrl;
         }
