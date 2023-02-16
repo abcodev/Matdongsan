@@ -8,10 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
-    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-
 
 <div id="content">
     <div id="content_left">
@@ -277,7 +275,7 @@
 
     function showRealtor(agentNo, agentName) {
         if(${empty loginUser}){
-            swal("로그인 후 이용가능합니다.")
+            alert("로그인 후 이용가능합니다.")
             return false;
         }
         console.log(agentNo);
@@ -338,7 +336,7 @@
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
             if (i < currentDate.getDate()) {
-                htmlDummy += '<div onclick="swal(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
+                htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
             } else {
                 htmlDummy += '<div class="non-click" onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
             }
@@ -403,14 +401,14 @@
 
         // required 검사
         if (reservationDate == "") {
-            swal("날짜를 입력해주세요")
+            alert("날짜를 입력해주세요")
             return false;
         } else if (memberName == "") {
-            swal("이름을 입력해주세요")
+            alert("이름을 입력해주세요")
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            swal("휴대폰번호를 입력해주세요")
+            alert("휴대폰번호를 입력해주세요")
             $('#telephone').focus();
             return false;
         } else {
@@ -431,12 +429,12 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    swal("예약에 성공하였습니다.");
+                    alert("예약에 성공하였습니다.");
                     offClick();
 
                 },
                 error: () => {
-                    swal("예약 등록에 실패하였습니다.");
+                    alert("예약 등록에 실패하였습니다.");
                 }
             })
         }

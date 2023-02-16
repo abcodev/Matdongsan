@@ -151,16 +151,6 @@
             <p>내가 남긴 동네맛집 리뷰</p>
             <div id="myReviewList">
                 <table>
-                    <tr>
-                        <th>레스토랑 이름</th>
-                        <th>별점</th>
-                        <th>리뷰게시일</th>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
                             <td class="review_resNm">${reviewList.resName}</td>
@@ -276,7 +266,7 @@
 
         if (deleteMember === true) {
             location.href = '${pageContext.request.contextPath}/delete';
-            swal("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
+            alert("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
         } else if (deleteMember === false) {
         }
     }
@@ -285,7 +275,7 @@
         var deleteReservation = confirm("예약을 취소하시겠습니까?");
         if(deleteReservation === true){
             location.href = '${pageContext.request.contextPath}/revDelete';
-            swal("예약이 취소되었습니다.","","success");
+            alert("예약이 취소되었습니다.","","success");
         }else if(deleteReservation === false){
 
         }

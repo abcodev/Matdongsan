@@ -9,9 +9,11 @@ import com.project.board.service.FreeBoardService;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.Reply;
 import com.project.board.vo.Report;
+import com.project.common.annotation.Permission;
 import com.project.common.annotation.RequiredLogin;
 import com.project.common.template.ViewCountUp;
 import com.project.common.type.StateList;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -123,6 +125,7 @@ public class FreeBoardController {
     // 게시글 수정
     @RequestMapping(value = "/update", produces = "application/json")
     @ResponseBody
+    @Permission(authority = MemberGrade.GENERAL2)
     public ResponseEntity<FreeBoard> updatePost(FreeBoard freeBoard) throws Exception {
         freeBoardService.updatePost(freeBoard);
         freeBoard = freeBoardService.detailFreeBoard(freeBoard.getBoardNo());
@@ -131,6 +134,7 @@ public class FreeBoardController {
 
     // 게시글 삭제
     @RequestMapping("freeList/deletePost={fno}")
+    @Permission(authority = MemberGrade.GENERAL2)
     public String deletePost(@PathVariable("fno") int fno) {
         int result = freeBoardService.deletePost(fno);
         if (result == 0) {
@@ -144,6 +148,7 @@ public class FreeBoardController {
     // 댓글 작성
     @RequestMapping("/insertReply")
     @ResponseBody
+    @Permission(authority = MemberGrade.GENERAL2)
     public String insertReply(Reply r, HttpSession session) {
 
         Member m = (Member) session.getAttribute("loginUser");
@@ -180,6 +185,7 @@ public class FreeBoardController {
     // 게시글 신고하기
     @RequestMapping("/report")
     @ResponseBody
+    @Permission(authority = MemberGrade.GENERAL2)
     public String reportPost(Report report) {
 
         int result = freeBoardService.insertReport(report);

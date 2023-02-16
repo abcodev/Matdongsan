@@ -1,6 +1,8 @@
 package com.project.common.aop;
 
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.ServletException;
