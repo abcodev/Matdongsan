@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ page language="java" pageEncoding="UTF-8" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -133,34 +132,6 @@
         </div>
     </div>
 </div>
-<%--<div class="paging">--%>
-<%--    <ul class="pagination">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
-<%--                <li class="page-item disabled"> < </li>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})"> < </li>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-
-<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--            <li class="page-item" onclick="ReportList(${item})">${item }</li>--%>
-<%--        </c:forEach>--%>
-
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#"> > </a></li>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})"> > </li>--%>
-
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </ul>--%>
-
-<%--</div>--%>
-
 
 <div id="paging">
     <nav aria-label="Page navigation example">
@@ -243,17 +214,6 @@
             }
         })
     }
-
-
-
-
-    function changeSelect() {
-        const stop = document.getElementById("stop");
-        const value = (stop.options[stop.selectedIndex].value);
-        alert(value + " 처리하시겠습니까?");
-    }
-
-
     /* 모달*/
     $(document).on('click', '.add-btn', function (e) {
         console.log("click event");
@@ -287,11 +247,11 @@
         let rType = $("#rType").val();
         if (rType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
-            swal('삭제 완료!', rType+"이 삭제되었습니다.", 'success')
+            swal('삭제 완료', "질문 게시판이 삭제 처리 되었습니다.", 'success')
 
         } else {
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
-            alert("자유게시판 삭제처리 완료")
+            swal('삭제 완료',"자유 게시판이 삭제 처리 되었습니다", 'success')
         }
     }
 
