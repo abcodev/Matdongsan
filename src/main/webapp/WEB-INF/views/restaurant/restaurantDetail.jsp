@@ -22,9 +22,24 @@
         <div class="detail_head_admin">
             <c:if test="${ loginUser.grade eq 'ADMIN'}">
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
-                <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
+                <button onclick="deleteRes()">삭제하기</button>
             </c:if>
         </div>
+
+            <script>
+                function deleteRes() {
+                    var deleteRes = confirm("삭제 하시겠습니까?");
+
+                    if (deleteRes === true) {
+                        location.href = location.href='admin/resDelete?resNo=${restaurantDetail.resNo}';
+                        alert("삭제완료","success");
+                    } else if (deleteRes === false) {
+                    }
+                }
+            </script>
+
+
+
 
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
