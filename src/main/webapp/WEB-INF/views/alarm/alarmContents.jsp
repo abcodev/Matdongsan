@@ -143,6 +143,9 @@
             } else if (alarmType === 'RESERVATION_APPROVE'
                         || alarmType === 'RESERVATION_CANCEL') {
                 moveUrl += '/myPage';
+            } else if (alarmType === 'NEW_BROKER_ACCEPT'
+                        || alarmType === 'NEW_BROKER_REJECT') {
+                moveUrl += '/brokerMemberMyPage';
             }
             location.href = moveUrl;
         }

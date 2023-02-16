@@ -12,7 +12,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <title>Document</title>
+
+
 
 </head>
 <body>
@@ -169,7 +173,7 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" onclick="retrieveFreeBoards(${pi.currentPage - 1})">
+                    <li class="page-item"><a class="page-link" onclick="ReportList(${pi.currentPage - 1})">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                     </li>
@@ -177,7 +181,7 @@
             </c:choose>
 
             <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item"><a class="page-link" onclick="retrieveFreeBoards(${item})">${item }</a></li>
+                <li class="page-item"><a class="page-link" onclick="ReportList(${item})">${item }</a></li>
             </c:forEach>
 
             <c:choose>
@@ -188,7 +192,7 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" onclick="retrieveFreeBoards(${pi.currentPage + 1})">
+                    <li class="page-item"><a class="page-link" onclick="ReportList(${pi.currentPage + 1})">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                     </li>
@@ -228,7 +232,7 @@
             success: function (data) {
                 $('#tableDiv').empty();
                 $('.pagination').empty();
-                $('.paging').html($(data).find('.pagination')) ;
+                $('#paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {

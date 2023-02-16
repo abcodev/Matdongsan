@@ -140,6 +140,7 @@
         </div>
         <div class="freeBoard_area">
             <div class="freeBoard">
+
             </div>
         </div>
     </div>
@@ -380,6 +381,9 @@
 
             displayMarker(locPosition, message);
         }
+
+
+
     }
 
 

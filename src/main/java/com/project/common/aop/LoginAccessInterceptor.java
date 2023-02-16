@@ -17,18 +17,18 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws ServletException, IOException {
 //        if (hasRequiredLoginAnnotation(handler)) {
-            if (!existLoginUser(req.getSession())) {
-                res.setContentType("text/html; charset=utf-8");
-                PrintWriter out = res.getWriter();
-                String pageUrl = req.getContextPath();
-                String element =
-                        "<script> alert('로그인을 해야합니다!'); " +
-                                "location.href='"+pageUrl+"/loginPage'; </script>";
-                out.println(element);
-                out.flush();//브라우저 출력 비우기
-                out.close();//아웃객체 닫기
-                return false;
-            }
+        if (!existLoginUser(req.getSession())) {
+            res.setContentType("text/html; charset=utf-8");
+            PrintWriter out = res.getWriter();
+            String pageUrl = req.getContextPath();
+            String element =
+                    "<script> alert('로그인을 해야합니다!'); " +
+                            "location.href='" + pageUrl + "/loginPage'; </script>";
+            out.println(element);
+            out.flush();//브라우저 출력 비우기
+            out.close();//아웃객체 닫기
+            return false;
+        }
 //        }
         return true;
     }

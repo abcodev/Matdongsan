@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HandleApplyRequest {
 
-    private String handle;
+    private String handle; // consent & reject
     private String agentNo;
     private long memberNo;
     private MemberGrade grade = MemberGrade.BROKER;

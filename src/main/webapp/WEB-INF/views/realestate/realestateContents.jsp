@@ -45,7 +45,7 @@
 
     <div id="paging">
         <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="pagination" >
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
                         <li class="page-item disabled"><a class="page-link" href="#">
@@ -88,18 +88,6 @@
         </nav>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 <div id="selectFboard">
@@ -107,6 +95,7 @@
     <div class="freeBoard_list">
         <c:forEach items="${selectFboard}" var="fb" begin="0" end="4" varStatus="status">
             <a href="${pageContext.request.contextPath}/board/freeList/detail/${fb.boardNo}">${fb.boardTitle}</a>
+            <hr>
         </c:forEach>
     </div>
 </div>

@@ -7,12 +7,12 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin: auto;
+
     width: 70%;
 }
-#big{
-    height: 1100px;
-}
-th, td {
+
+th,
+td {
     padding: 6px 15px;
 }
 
@@ -239,41 +239,25 @@ tr:last-child td:last-child {
     height: 30px;
 }
 
-.pagination> li{
-    display: inline-block;
-    position: relative;
-    left: 640px;
-    margin:0 3px;
-    border:1px solid #e6e6e6;
-    width:28px;
-    height:28px;
-    line-height:28px;
-    text-align:center;
-    background-color:#fff;
-    font-size:13px;
-    color:#999999;
-    text-decoration:none;
-    font-weight: bold;
-}
-.pagination> li:hover{
-    border: 2px solid #beb0d0;
-}
-.current{
-    display: inline-block;
-    position: relative;
-    left: 640px;
-    margin:0 3px;
-    border:1px solid #e6e6e6;
-    width:28px;
-    height:28px;
-    line-height:28px;
-    text-align:center;
-    background-color: #beb0d0;
-    font-size:13px;
-    color:#999999;
-    text-decoration:none;
-    font-weight: bold;
-}
+/*.pagination> li{*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    left: 670px;*/
+/*    margin:0 3px;*/
+/*    border:1px solid #e6e6e6;*/
+/*    width:28px;*/
+/*    height:28px;*/
+/*    line-height:28px;*/
+/*    text-align:center;*/
+/*    background-color:#fff;*/
+/*    font-size:13px;*/
+/*    color:#999999;*/
+/*    text-decoration:none;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.pagination> li:hover{*/
+/*    border: 2px solid #beb0d0;*/
+/*}*/
 #btnClose {
     background: gray;
     font-weight: bold;
@@ -285,5 +269,14 @@ tr:last-child td:last-child {
 }
 #tableDiv{
     margin-bottom: 50px;
+}
+
+#paging {
+    height: 40px;
+    padding-top: 15px;
+    padding-bottom: 80px;
+    position: relative;
+    left: 45%;
+    float:left;
 }
 
