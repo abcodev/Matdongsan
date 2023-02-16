@@ -131,12 +131,10 @@
                         <tr>
                             <th>레스토랑 이름</th>
                             <th>별점</th>
-                            <th>리뷰내용</th>
                             <th>리뷰게시일</th>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
