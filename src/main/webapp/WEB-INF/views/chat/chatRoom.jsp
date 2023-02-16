@@ -124,8 +124,12 @@
             data : {'roomNo' : ClickRoomNo},
             success : function (res){
                 const html = jQuery('<div>').html(res);
+                // const aaa = jQuery('<script>').html(res);
                 const contents = html.find('div#chat_contents_ajax').html();
+                console.log(contents);
+                // console.log(aaa)
                 $('#chat_right').html(contents)
+                // $('#chat_right').html(aaa)
             },
             fail:function (){
                 console.log("메세지 불러오기에 실패하였습니다. 새로고침해주세요.");
@@ -134,29 +138,6 @@
     })
     function clickPreChat(roomNo) {
         $('.' + roomNo + '_new').css('display', 'none');
-    }
-
-    //엔터 눌렀을때 전송
-    $('#chat-input').keypress(function(e){
-        if(e.keyCode===13){
-            send();
-        }
-        $('.chat').scrollTop($('.chat').prop('scrollHeight'));
-    });
-
-    function send(){
-        if($("#chat-input").val() == ''){
-            return false;
-        }
-        const roomNo = currentChatRoom;
-        const data = {
-            'memberNo' : ${loginUser.memberNo},
-            'message': $("#chat-input").val(),
-            'roomNo' : roomNo
-        };
-        // send(destination,헤더,페이로드)
-        stompClient.send("/app/chat/send", {}, JSON.stringify(data));
-        $("#chat-input").val('');
     }
 </script>
 </body>

@@ -18,18 +18,14 @@
             <c:forEach items="${chattingList}" var="chatMessage">
                 <c:choose>
                     <c:when test="${chatMessage.memberNo eq 1}">
-<%--                        <div class="message text-only">--%>
                             <div class="response">
                                 <p class="text">${chatMessage.message}</p>
                             </div>
-<%--                        </div>--%>
                     </c:when>
                     <c:otherwise>
-<%--                        <div class="message text-only">--%>
                             <div class="request">
                                 <p class=" text">${chatMessage.message}</p>
                             </div>
-<%--                        </div>--%>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -40,7 +36,7 @@
         <input id="roomNo-send" type="hidden">
         <div class="bi bi-send" id="sendMessage" onclick="send();"/>
     </div>
-</div>
+
 <script>
     //엔터 눌렀을때 전송
     $('#chat-input').keypress(function(e){
@@ -65,3 +61,4 @@
         $("#chat-input").val('');
     }
 </script>
+</div>
