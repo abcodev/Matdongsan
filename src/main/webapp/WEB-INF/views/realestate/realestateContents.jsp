@@ -90,6 +90,7 @@
     <div class="freeBoard_list">
         <c:forEach items="${selectFboard}" var="fb" begin="0" end="4" varStatus="status">
             <a href="${pageContext.request.contextPath}/board/freeList/detail/${fb.boardNo}">${fb.boardTitle}</a>
+            <hr>
         </c:forEach>
     </div>
 </div>
