@@ -40,9 +40,11 @@ public class ChatController {
 
     @PostMapping("/chat/admin/enterChat")
     @ResponseBody
-    public ResponseEntity<List<AdminChatMessage>> enterChat(@ModelAttribute("roomNo") String roomNo) {
+    public ModelAndView enterChat(@ModelAttribute("roomNo") String roomNo , ModelAndView mv) {
         List<AdminChatMessage> chattingList = chatService.adminMessageList(roomNo);
-        return ResponseEntity.ok().body(chattingList);
+        mv.addObject("chattingList",chattingList);
+        mv.setViewName("chat/adminChatContents");
+        return mv;
     }
 
 

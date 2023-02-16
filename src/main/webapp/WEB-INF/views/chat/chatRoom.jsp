@@ -31,9 +31,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="#">전체 문의</a>
                 </li>
-                <%--                <li class="nav-item">--%>
-                <%--                    <a class="nav-link" href="#">미확인</a>--%>
-                <%--                </li>인--%>
             </ul>
         </div>
         <div class="preChatList" >
@@ -60,22 +57,21 @@
         </div>
     </div>
 
-    <div id="chat_right">
-        <div class="header-chat">
-            <div class="name" ></div>
-        </div>
-        <div class="chat">
-            <div class="messages-chat">
-                <%--                <div class="request">받기</div>--%>
-                <%--                <div class="response">보내기</div>--%>
-            </div>
-        </div>
-        <div class="footer-chat">
-            <input id="chat-input" type="text"/>
-            <input id="roomNo-send" type="hidden">
-            <div class="bi bi-send" id="sendMessage" onclick="send();"/>
-        </div>
-    </div>
+
+<%--    <div id="chat_right">--%>
+<%--        <div class="header-chat">--%>
+<%--            <div class="name" ></div>--%>
+<%--        </div>--%>
+<%--        <div class="chat">--%>
+<%--            <div class="messages-chat">--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="footer-chat">--%>
+<%--            <input id="chat-input" type="text"/>--%>
+<%--            <input id="roomNo-send" type="hidden">--%>
+<%--            <div class="bi bi-send" id="sendMessage" onclick="send();"/>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 </div>
 <script>
     let currentChatRoom = '';
@@ -147,13 +143,13 @@
             type: "POST",
             data : {'roomNo' : ClickRoomNo},
             success : function (res){
-                $('#chat_right').css('display','block');
-                $('.header-chat > .name').text(memberName);
-                $('#roomNo-send').remove();
-                $('.request').remove();
-                $('.response').remove();
-                let result = res;
-                $('#roomNo-send').val(result.roomNo)
+                // $('#chat_right').css('display','block');
+                // $('.header-chat > .name').text(memberName);
+                // $('#roomNo-send').remove();
+                // $('.request').remove();
+                // $('.response').remove();
+                // let result = res;
+                // $('#roomNo-send').val(result.roomNo)
                 chatList(result)
             },
             fail:function (){
