@@ -229,7 +229,11 @@
 }
 
 .board_info > .date{
-    width: 15%;
+    width: 14.5%;
+
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .board_info > .view{
@@ -245,6 +249,7 @@
 .board_info > .reply{
     margin-left: 10px;
 }
+
 
 /*.pagination> li{*/
 /*    display: inline-block;*/
@@ -272,11 +277,13 @@
     padding-top: 15px;
     padding-bottom: 80px;
     position: relative;
-    left: 35%;
-    float:left;
+    /*left: 35%;*/
+    /*float:left;*/
 }
 
-
+.pagination{
+    justify-content : center;
+}
 
 .page-link {
     color: #000;
