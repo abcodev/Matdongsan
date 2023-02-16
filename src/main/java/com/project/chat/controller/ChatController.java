@@ -48,7 +48,6 @@ public class ChatController {
         return mv;
     }
 
-
     /**
      * 관리자 1:1문의 들어가기 -> 채팅 리스트 보여주기
      * - 미리보기

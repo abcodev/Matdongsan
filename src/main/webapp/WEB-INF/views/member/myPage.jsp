@@ -151,6 +151,16 @@
             <p>내가 남긴 동네맛집 리뷰</p>
             <div id="myReviewList">
                 <table>
+                    <tr>
+                        <th>레스토랑 이름</th>
+                        <th>별점</th>
+                        <th>리뷰게시일</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
                             <td class="review_resNm">${reviewList.resName}</td>
