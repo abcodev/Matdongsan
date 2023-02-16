@@ -275,11 +275,11 @@
         let rType = $("#rType").val();
         if (rType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
-            swal('삭제 완료', "질문 게시판이 삭제 처리 되었습니다.", 'success')
+            alert('삭제 완료', "질문 게시판이 삭제 처리 되었습니다.", 'success')
 
         } else {
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
-            swal('삭제 완료',"자유 게시판이 삭제 처리 되었습니다", 'success')
+            alert('삭제 완료',"자유 게시판이 삭제 처리 되었습니다", 'success')
         }
     }
 

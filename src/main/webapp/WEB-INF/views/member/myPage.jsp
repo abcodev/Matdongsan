@@ -266,7 +266,7 @@
 
         if (deleteMember === true) {
             location.href = '${pageContext.request.contextPath}/delete';
-            swal("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
+            alert("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
         } else if (deleteMember === false) {
         }
     }
@@ -275,7 +275,7 @@
         var deleteReservation = confirm("예약을 취소하시겠습니까?");
         if(deleteReservation === true){
             location.href = '${pageContext.request.contextPath}/revDelete';
-            swal("예약이 취소되었습니다.","","success");
+            alert("예약이 취소되었습니다.","","success");
         }else if(deleteReservation === false){
 
         }

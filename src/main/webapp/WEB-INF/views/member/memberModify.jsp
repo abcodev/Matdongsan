@@ -70,7 +70,7 @@
     $(function () {
         code2 = "";
         $("#phoneChk").click(function () {
-            swal('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
+            alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
             var phone = $("#phoneNumber").val();
             $.ajax({
                 type: "GET", // post 형식으로 발송
@@ -79,9 +79,9 @@
                 cache: false,
                 success: function (data) {
                     if (data == "error") {
-                        swal("휴대폰번호가 올바르지 않습니다.")
+                        alert("휴대폰번호가 올바르지 않습니다.")
                     } else {
-                        swal("인증번호가 전송되었습니다.")
+                        alert("인증번호가 전송되었습니다.")
                         code2 = data;
                     }
                 }
@@ -95,9 +95,9 @@
     $("#phoneChk2").click(function () {
         if ($("#phone2").val() === code2) {
             checkPhoneNumber = true;
-            swal('인증성공')
+            alert('인증성공')
         } else {
-            swal('인증실패 정확히 입력해주세요')
+            alert('인증실패 정확히 입력해주세요')
             $("#phoneChk2").focus();
             checkPhoneNumber = false;
         }
@@ -167,15 +167,15 @@
 
     function signupCheck() {
         if (!checkNickName) {
-            swal("사용 불가능한 닉네임입니다.")
+            alert("사용 불가능한 닉네임입니다.")
             return false;
         }
         const phoneNumber = $("#phoneNumber").val();
         if ('${loginUser.phone}' !== phoneNumber && !checkPhoneNumber) {
-            swal("회원정보를 위해 휴대폰 인증이 필요합니다.")
+            alert("회원정보를 위해 휴대폰 인증이 필요합니다.")
             return false;
         }
-        swal('회원정보 수정 완료')
+        alert('회원정보 수정 완료')
         return true;
     }
 

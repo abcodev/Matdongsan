@@ -106,7 +106,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <span>가게명</span>
+                <span>${restaurantDetail.resName}</span>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -227,19 +227,19 @@
         const files = $('#formFileSm')[0].files
 
         if(score === undefined) {
-            swal("별점을 입력해주세요")
+            alert("별점을 입력해주세요")
             return;
         }
         if(hashtags.length === 0){
-            swal("해시태그를 입력해주세요")
+            alert("해시태그를 입력해주세요")
             return;
         }
         if(contents === "") {
-            swal("리뷰를 입력해 주세요")
+            alert("리뷰를 입력해 주세요")
             return;
         }
         if(files.length === 0) {
-            swal("사진을 첨부해주세요")
+            alert("사진을 첨부해주세요")
             return;
         }
 
@@ -272,7 +272,7 @@
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            swal('해시태그는 최대 3개까지 선택 가능합니다.')
+            alert('해시태그는 최대 3개까지 선택 가능합니다.')
             $(this).prop('checked', false);
         }
     });
@@ -298,11 +298,11 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                swal("리뷰 삭제 성공");
+                alert("리뷰 삭제 성공");
                 selectReviewList();
             },
             error: function () {
-                swal("리뷰 삭제 실패");
+                alert("리뷰 삭제 실패");
             }
         });
     }
