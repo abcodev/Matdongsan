@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +59,9 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td>${realEstateDetail.floor} 층</td>
+                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}" />
+                        ${floor} 층
+                    </td>
                 </tr>
                 <tr>
                     <th>거래일자</th>

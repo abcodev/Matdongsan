@@ -284,9 +284,8 @@ CREATE TABLE "MEMBER"
     "RECENT_ACCESS"            TIMESTAMP                      NULL,
     "ACCESS_TOKEN"             VARCHAR2(255)                  NULL,
     "REFRESH_TOKEN"            VARCHAR2(255)                  NULL,
-    "REFRESH_TOKEN_EXPIRED_AT" TIMESTAMP                NULL,
-    "REPORT_PERIOD" TIMESTAMP NULL,
-    "BAN_PERIOD"    TIMESTAMP NULL
+    "REFRESH_TOKEN_EXPIRED_AT" TIMESTAMP                      NULL,
+    "BAN_PERIOD"               TIMESTAMP                      NULL
 );
 
 COMMENT
@@ -647,7 +646,7 @@ CREATE TABLE "REPLY"
     "MEMBER_NO"     NUMBER                       NOT NULL,
     "FREE_BNO"      NUMBER                       NOT NULL,
     "REPLY_CONTENT" VARCHAR(2056)                NULL,
-    "REPLY_DATE"    DATE         DEFAULT SYSDATE NULL,
+    "REPLY_DATE"    TIMESTAMP DEFAULT localtimestamp NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
 
