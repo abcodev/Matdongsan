@@ -167,8 +167,8 @@
                                     </c:choose>
                                 </td>
 
-                                <td>${reviewList.reviewContent}</td>
-                                <td class="review_date">${reviewList.createDate}</td>
+                                <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
+
                             </tr>
                         </c:forEach>
                     </table>

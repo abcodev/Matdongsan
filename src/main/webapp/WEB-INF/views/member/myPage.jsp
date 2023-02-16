@@ -174,7 +174,8 @@
                                     </c:otherwise>
                                 </c:choose>
                             </td>
-                            <td class="review_date">${reviewList.createDate}</td>
+                            <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
+                        </tr>
                         </tr>
                     </c:forEach>
                 </table>
@@ -237,7 +238,7 @@
                         <tr class="myReserve_info_list">
                             <td style="display: none">${reservationList.revNo}</td>
                             <td>${reservationList.agentName}</td>
-                            <td>${reservationList.revDate}</td>
+                            <td>${fn:substring(reservationList.revDate, 0, 10)}</td>
                             <td>${reservationList.revTime}</td>
                             <td>${reservationList.peopleCount}</td>
                             <td>
