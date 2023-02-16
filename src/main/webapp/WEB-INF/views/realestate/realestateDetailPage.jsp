@@ -9,10 +9,9 @@
     <title>부동산상세페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
-    <%@ include file="../template/header.jsp" %>
 </head>
 <body>
-
+<%@ include file ="../template/header.jsp" %>
 <div id="content">
     <div id="content_left">
         <div class="info_table head">

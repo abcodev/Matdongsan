@@ -158,6 +158,8 @@ public class MemberController {
     @RequestMapping("broker/enrollPage")
     @RequiredLogin
     public ModelAndView brokerEnrollPage(ModelAndView modelAndView) {
+
+        modelAndView.addObject("stateList", StateList.values());
         modelAndView.setViewName("member/brokerMemberEnroll");
         return modelAndView;
     }

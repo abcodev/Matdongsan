@@ -1,4 +1,4 @@
-원<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>부동산 회원 신청</title>
-    <link rel="stylesheet" href="<c:url value="/resources/css/member/memberModify.css"/>">
+    <link rel="stylesheet" href="<c:url value="/resources/css/member/brokerEnroll.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -16,7 +16,6 @@
 </head>
 <body>
 <%@ include file="../template/header.jsp" %>
-
 <div id="content">
     <div id="userImg">
         <img src="${loginUser.profileImage}">
@@ -24,55 +23,51 @@
     <form action="${pageContext.request.contextPath}/broker/enroll" method="post" name="form_name" enctype="multipart/form-data">
         <div class="form">
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
-
-            <div class="userinfo ">
+            <div class="info name">
                 <span>대표자명</span>
                 <input type="text" id="refName" name="refName" value="${loginUser.memberName}" required>
             </div>
-
-            <div class="userinfo ">
-                <span>부동산 상호명</span>
+            <div class="info realtor_name">
+                <span>공인중개사 상호명</span>
                 <input type="text" id="agentName" name="agentName" required>
             </div>
-
-            <div class="userinfo email">
+            <div class="info realtor_num">
                 <span>공인중개사 번호</span>
                 <input type="text" id="agentNo" name="agentNo" required>
             </div>
-
-            <div class="userinfo phone">
-                <span>전화 번호</span>
+            <div class="info phone">
+                <span>전화번호</span>
                 <input id="phoneNumber" type="text" name="agentPhone" required>
             </div>
-
-            <div class="userinfo state">
+            <div class="info state">
                 <span>지역</span>
-                <input type="text" id="state"  name="state" placeholder="구를 입력해 주세요">
+                <select id="state" name="state">
+                    <option value="" style="text-align: center">지역구를 선택해주세요</option>
+                    <c:forEach items="${stateList}" var="state">
+                        <option value="${state}">${state}</option>
+                    </c:forEach>
+                </select>
                 <input type="text" id="bjdongNm" name="bjdongNm" placeholder="동을 입력해 주세요">
             </div>
-
-            <div class="userinfo address">
-                <span>부동산 주소</span>
+            <div class="info address">
+                <span>공인중개사 주소</span>
                 <input type="text" id="sample6_postcode" placeholder="우편번호">
                 <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
             </div>
-            <div class="userinfo address2">
+            <div class="info address2">
                 <input type="text" id="sample6_address" name="address" placeholder="주소" required><br>
                 <input type="text" id="sample6_detailAddress" name="addressDetail" placeholder="상세주소">
             </div>
-
-            <div class="userinfo">
+            <div class="info file">
                 <span>사업자 등록증 첨부</span>
-                <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
+                <input id="formFileSm" name="file" type="file" onchange="readURL(this);" required>
             </div>
-
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
                 <button type="submit" onclick="brokerEnroll();">신청 하기</button>
             </div>
         </div>
     </form>
-
 </div>
 
 <script>

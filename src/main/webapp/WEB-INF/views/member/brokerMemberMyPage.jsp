@@ -47,7 +47,7 @@
             <div id="btn_box">
                 <button onclick="deleteMember()">회원탈퇴</button>
                 <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-                <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
+                <button><a href="${pageContext.request.contextPath}/broker/enrollPage">나의 제휴부동산</a></button>
             </div>
         </div>
 
@@ -141,14 +141,7 @@
                         <tr>
                             <th>레스토랑 이름</th>
                             <th>별점</th>
-                            <th>리뷰내용</th>
                             <th>리뷰게시일</th>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                         </tr>
                         <c:forEach var="reviewList" items="${reviewList}">
                             <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
@@ -172,8 +165,6 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-
-                                <td>${reviewList.reviewContent}</td>
                                 <td class="review_date">${reviewList.createDate}</td>
                             </tr>
                         </c:forEach>
