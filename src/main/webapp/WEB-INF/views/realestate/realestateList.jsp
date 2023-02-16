@@ -380,6 +380,9 @@
 
             displayMarker(locPosition, message);
         }
+
+
+
     }
 
 
