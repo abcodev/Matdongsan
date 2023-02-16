@@ -11,20 +11,20 @@
 
 <div id="chat_contents_ajax">
     <div class="header-chat">
-        <div class="name">사용자</div>
+        <div class="name" id="titleName"></div>
     </div>
     <div class="chat">
         <div class="messages-chat">
-            <c:forEach items="${chattingList}" var="chatMessage">
+            <c:forEach items="${chattingMessageList}" var="chattingMessageList">
                 <c:choose>
-                    <c:when test="${chatMessage.memberNo eq 1}">
+                    <c:when test="${chattingMessageList.memberNo eq 1}">
                             <div class="response">
-                                <p class="text">${chatMessage.message}</p>
+                                <p class="text">${chattingMessageList.message}</p>
                             </div>
                     </c:when>
                     <c:otherwise>
                             <div class="request">
-                                <p class=" text">${chatMessage.message}</p>
+                                <p class=" text">${chattingMessageList.message}</p>
                             </div>
                     </c:otherwise>
                 </c:choose>
