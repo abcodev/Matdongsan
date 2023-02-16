@@ -157,11 +157,11 @@ public class MemberService {
         // AccessToken 이 만료됐을 수도 있다.
         // 1. AccessToken 이 만료되었는지 확인.
         /** TODO :
-            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-            if (isExpired) {
-                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-                member.setToken(freshToken);
-            }
+         boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+         if (isExpired) {
+         OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+         member.setToken(freshToken);
+         }
          */
         // 2. RefreshToken 으로 AccessToken 재발급.
         // 3. 재발급된 AccessToken 으로 요청.
@@ -186,8 +186,6 @@ public class MemberService {
     public int nNameCheck(String nName) {
         return memberDao.nNameCheck(nName);
     }
-
-
 
 }
 

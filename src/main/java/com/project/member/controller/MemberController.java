@@ -55,7 +55,7 @@ public class MemberController {
     @RequestMapping("/brokerMemberMyPage")
     @RequiredLogin
     public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                   ModelAndView modelAndView, HttpSession session){
+                                           ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
