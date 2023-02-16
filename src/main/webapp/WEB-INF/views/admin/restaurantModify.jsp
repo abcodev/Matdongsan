@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
     <title>Document</title>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -40,9 +39,9 @@
             </div>
             <div class="resDiv">
                 <i class="bi bi-geo-alt-fill"></i>
-                <span class="font">지역 : </span>
+                <span class="font">지역 : </span>&nbsp;&nbsp;
                 <select id="space"  class="textInput" name="state">
-                    <option value="" style="text-align: center">지역을 선택해주세요</option>
+                    <option value="" style="text-align: center">${restaurantDetail.state}</option>
                     <c:forEach items="${stateList}" var="state">
                         <option value="${state}">${state}</option>
                     </c:forEach>

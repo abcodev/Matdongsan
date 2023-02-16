@@ -176,7 +176,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
             <%--            035c35f196fa7c757e49e610029837b1--%>
 
@@ -216,7 +216,7 @@
                                 image: markerImage
                             });
 
-                            var content = '<div class="wrap">' +
+                            var content = '<div id="controlOverlay" class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
                                 '               <div class="bldgNm">' + '건물명  : ' + addr['bldgNm'] + '</div>' +
@@ -236,6 +236,12 @@
                                 map: map,
                                 position: marker.getPosition()
                             });
+
+                            // var contentUpperSection = $('#controlOverlay').parent('div');
+                            //
+                            // $('.controlOverlay').mouseover(function(){
+                            //     $(this).parent('div').css('z-index', '100');
+                            // })
 
                             kakao.maps.event.addListener(marker, 'click', function () {
                                 // window.open("http://www.naver.com");
