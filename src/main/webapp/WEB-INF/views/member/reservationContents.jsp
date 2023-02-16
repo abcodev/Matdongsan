@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,7 +80,7 @@
         const revNo = $('#revNo').val();
         var cancelRes = confirm("예약을 취소하시겠습니까?");
         if(cancelRes === true){
-            alert("예약이 취소되었습니다.");
+            swal("예약이 취소되었습니다.");
         }else if(cancelRes === false){
 
         }

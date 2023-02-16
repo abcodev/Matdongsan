@@ -67,6 +67,13 @@
     border-radius:5px;
     box-shadow: 0px 5px 35px 9px #ccc;
     z-index: 999;
+
+
+
+    overflow-y: auto;
+
+
+
 }
 .chat-box-toggle {
     float:right;
@@ -150,19 +157,22 @@
 .chat-logs {
     padding:15px;
     height:370px;
-    overflow-y:scroll;
+    /*overflow-y:scroll;*/
+    overflow-y:auto;
 }
 
 .chat-logs::-webkit-scrollbar-track
 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     background-color: #F5F5F5;
+
 }
 
 .chat-logs::-webkit-scrollbar
 {
     width: 5px;
     background-color: #F5F5F5;
+
 }
 
 .chat-logs::-webkit-scrollbar-thumb

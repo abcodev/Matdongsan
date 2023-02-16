@@ -85,31 +85,29 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/brokerList")
-    public ModelAndView BrokerList (
-            @RequestParam(value = "cpage",required = false,defaultValue ="1") int currentPage,
+    public ModelAndView BrokerList(
+            @RequestParam(value = "cpage", required = false, defaultValue = "1") int currentPage,
             ModelAndView mv
-    ){
+    ) {
 
         BrokerListResponse resp = adminService.brokerList(currentPage);
-        mv.addObject("brokerList",resp.getBrokerEnrollList());
-        mv.addObject("pi",resp.getPageInfoCombine());
+        mv.addObject("brokerList", resp.getBrokerEnrollList());
+        mv.addObject("pi", resp.getPageInfoCombine());
         mv.setViewName("admin/realEstateBroker");
-        return  mv;
+        return mv;
     }
 
-    @RequestMapping(value = "/broker/handleApply",  method=RequestMethod.POST )
+    @RequestMapping(value = "/broker/handleApply", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> handleApply(@RequestBody HandleApplyRequest req
-                                              ){
+    @RequiredLogin
+    public ResponseEntity<String> handleApply(@RequestBody HandleApplyRequest req) {
         adminService.handleApply(req);
-
         HttpHeaders resHeaders = new HttpHeaders();
-        resHeaders.add("Content-Type","text/plain;charset=UTF-8");
-
+        resHeaders.add("Content-Type", "text/plain;charset=UTF-8");
         String result = "";
-        if(req.getHandle().equals("consent")){
+        if (req.getHandle().equals("consent")) {
             result = "신청 승인을 완료하였습니다.";
-        }else{
+        } else {
             result = "신청 승인을 거절하였습니다";
         }
         return ResponseEntity.ok().headers(resHeaders).body(result);

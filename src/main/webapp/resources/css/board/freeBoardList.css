@@ -192,23 +192,35 @@
 }
 
 .boardlist{
-    padding: 10px 5px ;
+    padding: 10px 5px 0 5px ;
     border-bottom: #E0E0E0 2px solid;
 
 }
 
+.fa-bullhorn{
+    font-size: 20px;
+    margin: 0 5px;
+}
+
 .board_title > p{
     font-weight: 450;
-    font-size: 20px;
+    font-size: 16px;
     word-break: break-word;
+    cursor: pointer;
 }
 
 .board_content > p{
-    font-size: 18px;
+    font-size: 14px;
     margin-top: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.board_title:hover,
+.board_content:hover{
+    color: #566392;
 }
 
 .board_info{
@@ -217,28 +229,41 @@
     margin-top: 15px;
 }
 
-.board_info >p{
-    font-size: 13px;
-    font-weight: 420;
-}
-
-.board_info > .writer ,
-.board_info > .area{
-    width: 8%;
+.writer,
+.area,
+.date{
     font-size: 13.5px;
+    font-weight: 550;
 }
 
-.board_info > .date{
+.view,
+.reply{
+    font-weight: 450;
+    font-size: 14px;
+}
+
+.board_info > .writer{
     width: 15%;
 }
 
-.board_info > .view{
-    margin-left: 400px;
+.board_info > .area{
+    width: 8%;
+}
+.board_info > .date{
+    width: 18%;
+}
+
+.normal > .view{
+    margin-left: 360px;
+}
+
+.notice > .view{
+    margin-left: 420px;
 }
 
 .board_info > .info > .fa-eye,
 .board_info > .info > .fa-comment{
-    font-size: 16px;
+    font-size: 18px;
     margin-right: 3px;
 }
 
@@ -246,37 +271,18 @@
     margin-left: 10px;
 }
 
-/*.pagination> li{*/
-/*    display: inline-block;*/
-/*    position: relative;*/
-/*    left: 670px;*/
-/*    top:-50px;*/
-/*    margin:0 3px;*/
-/*    border:1px solid #e6e6e6;*/
-/*    width:28px;*/
-/*    height:28px;*/
-/*    line-height:28px;*/
-/*    text-align:center;*/
-/*    background-color:#fff;*/
-/*    font-size:13px;*/
-/*    color:#999999;*/
-/*    text-decoration:none;*/
-/*    font-weight: bold;*/
-/*}*/
-/*.pagination> li:hover{*/
-/*    border: 2px solid #beb0d0;*/
-/*}*/
-
 #paging {
     height: 40px;
     padding-top: 15px;
     padding-bottom: 80px;
     position: relative;
-    left: 35%;
-    float:left;
+    /*left: 35%;*/
+    /*float:left;*/
 }
 
-
+.pagination{
+    justify-content : center;
+}
 
 .page-link {
     color: #000;

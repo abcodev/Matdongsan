@@ -1,17 +1,18 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>부동산상세페이지</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>부동산상세페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file ="../template/header.jsp" %>
+
+
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -56,7 +57,9 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td>${realEstateDetail.floor} 층</td>
+                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}" />
+                        ${floor} 층
+                    </td>
                 </tr>
                 <tr>
                     <th>거래일자</th>
@@ -274,7 +277,7 @@
 
     function showRealtor(agentNo, agentName) {
         if(${empty loginUser}){
-            alert("로그인 후 이용가능합니다.")
+            swal("로그인 후 이용가능합니다.")
             return false;
         }
         console.log(agentNo);
@@ -335,7 +338,7 @@
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
             if (i < currentDate.getDate()) {
-                htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
+                htmlDummy += '<div onclick="swal(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
             } else {
                 htmlDummy += '<div class="non-click" onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
             }
@@ -400,14 +403,14 @@
 
         // required 검사
         if (reservationDate == "") {
-            alert("날짜를 입력해주세요")
+            swal("날짜를 입력해주세요")
             return false;
         } else if (memberName == "") {
-            alert("이름을 입력해주세요")
+            swal("이름을 입력해주세요")
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            alert("휴대폰번호를 입력해주세요")
+            swal("휴대폰번호를 입력해주세요")
             $('#telephone').focus();
             return false;
         } else {
@@ -428,12 +431,12 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    alert("예약에 성공하였습니다.");
+                    swal("예약에 성공하였습니다.");
                     offClick();
 
                 },
                 error: () => {
-                    alert("예약 등록에 실패하였습니다.");
+                    swal("예약 등록에 실패하였습니다.");
                 }
             })
         }

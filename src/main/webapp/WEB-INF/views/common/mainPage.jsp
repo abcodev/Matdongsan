@@ -15,10 +15,19 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
     </c:if>
+
+    <style>
+        #controlOverlay{
+            width: 500px;
+            overflow: hidden;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -76,7 +85,7 @@
                             </button>
                             <div class="dropdown-submenu">
                                 <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>
-                                <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
+                                <a href="${pageContext.request.contextPath}/board/qnaList">질문과 답변</a>
                             </div>
                         </div>
                     </div>
@@ -114,8 +123,13 @@
 
         </div>
     </div>
-
     <script>
+        if (${loginUser.grade == 'GENERAL'}) {
+            alert('회원정보 입력 후 이용해주세요.');
+            window.location = '${pageContext.request.contextPath}/memberModify';
+        }
+
+
         let alarmIsOpen = false;
         window.onload = () => {
             retrieveAlarmList();
@@ -144,14 +158,6 @@
                     }
                 }
             });
-        }
-
-    </script>
-
-    <script>
-        if (${loginUser.grade == 'GENERAL'}) {
-            alert('회원정보 입력 후 이용해주세요.');
-            window.location = '${pageContext.request.contextPath}/memberModify';
         }
     </script>
 
@@ -205,7 +211,7 @@
                                 image: markerImage
                             });
 
-                            var content = '<div class="wrap">' +
+                            var content = '<div id="controlOverlay" class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
                                 '               <div class="bldgNm">' + '건물명  : ' + addr['bldgNm'] + '</div>' +
@@ -338,6 +344,16 @@
         </c:choose>
     </div>
 </div>
+<script>
+    $("#chat-circle").click(function () {
+        if (${not empty loginUser}) {
+            openChat();
+        } else {
+            console.log("로그인후 이용가능");
+            swal("로그인 후 이용하실 수 있습니다.");
+        }
+    });
+</script>
 
 </body>
 </html>

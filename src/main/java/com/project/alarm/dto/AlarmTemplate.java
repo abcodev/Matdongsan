@@ -80,20 +80,25 @@ public class AlarmTemplate <T> {
         AlarmTemplate<Integer> template = new AlarmTemplate<>(receiverNo);
         template.setTitle("부동산 예약 알림");
         template.setAlarmType(AlarmType.RESERVATION_APPROVE);
-        template.setContents(agentName + " 방문 예약이 거절되었습니다.");
+        template.setContents(agentName + " 방문 예약이 취소되었습니다.");
         template.setTargetNo(revNo);
         return template;
     }
 
-
-    public static AlarmTemplate<String> generateNewAccept(long receiverNo) {
+    public static AlarmTemplate<String> generateNewBrokerAcceptTemplate(long receiverNo) {
         AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
-        template.setTargetNo(String.valueOf(receiverNo));
         template.setTitle("회원 정보 알림");
         template.setAlarmType(AlarmType.NEW_BROKER_ACCEPT);
         template.setContents("부동산 회원 승인이 완료 됐습니다.");
         return template;
     }
 
+    public static AlarmTemplate<String> generateNewBrokerRejectTemplate(long receiverNo) {
+        AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
+        template.setTitle("회원 정보 알림");
+        template.setAlarmType(AlarmType.NEW_BROKER_REJECT);
+        template.setContents("부동산 회원 신청이 거절되었습니다.");
+        return template;
+    }
 
 }

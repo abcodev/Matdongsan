@@ -4,13 +4,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>동네맛집상세보기</title>
+    <%@ include file ="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동네맛집상세보기</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantDetail.css"/>">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
@@ -229,19 +228,19 @@
         const files = $('#formFileSm')[0].files
 
         if(score === undefined) {
-            alert("별점을 입력해주세요")
+            swal("별점을 입력해주세요")
             return;
         }
         if(hashtags.length === 0){
-            alert("해시태그를 입력해주세요")
+            swal("해시태그를 입력해주세요")
             return;
         }
         if(contents === "") {
-            alert("리뷰를 입력해 주세요")
+            swal("리뷰를 입력해 주세요")
             return;
         }
         if(files.length === 0) {
-            alert("사진을 첨부해주세요")
+            swal("사진을 첨부해주세요")
             return;
         }
 
@@ -274,7 +273,7 @@
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            swal('해시태그는 최대 3개까지 선택 가능합니다.')
             $(this).prop('checked', false);
         }
     });
@@ -300,11 +299,11 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                alert("리뷰 삭제 성공");
+                swal("리뷰 삭제 성공");
                 selectReviewList();
             },
             error: function () {
-                alert("리뷰 삭제 실패");
+                swal("리뷰 삭제 실패");
             }
         });
     }

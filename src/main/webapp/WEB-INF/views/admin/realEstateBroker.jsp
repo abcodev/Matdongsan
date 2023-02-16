@@ -1,21 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>부동산 중개업자 신청 관리</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@ page language="java" pageEncoding="UTF-8" %>
-    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
-    <title>부동산 중개업자 신청 관리</title>
 </head>
 <body>
 
-<%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: #585c9c; background: #eaeaed; border: #eaeaed">회원관리</button>
@@ -70,32 +65,74 @@
 
 
 
+<%--<div id="paging">--%>
+<%--    <ul class="pagination">--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
+<%--                <li class="page-item disabled"><</li>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <li class="page-item" onclick="brokerList(${pi.currentPage - 1})"><</li>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+
+<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
+<%--            <li class="page-item" onclick="brokerList(${item})">${item }</li>--%>
+<%--        </c:forEach>--%>
+
+<%--        <c:choose>--%>
+<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
+<%--                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>--%>
+
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <li class="page-link" onclick="brokerList(${pi.currentPage + 1})">></li>--%>
+<%--            </c:otherwise>--%>
+
+<%--        </c:choose>--%>
+<%--    </ul>--%>
+<%--</div>--%>
+
+
+
 <div id="paging">
-    <ul class="pagination">
-        <c:choose>
-            <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-item disabled"><</li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-item" onclick="brokerList(${pi.currentPage - 1})"><</li>
-            </c:otherwise>
-        </c:choose>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <c:choose>
+                <c:when test="${ pi.currentPage eq 1 }">
+                    <li class="page-item disabled"><a class="page-link" href="#">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link" onclick="brokerList(${pi.currentPage - 1})">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
 
-        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-            <li class="page-item" onclick="brokerList(${item})">${item }</li>
-        </c:forEach>
+            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                <li class="page-item"><a class="page-link" onclick="brokerList(${item})">${item }</a></li>
+            </c:forEach>
 
-        <c:choose>
-            <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
-
-            </c:when>
-            <c:otherwise>
-                <li class="page-link" onclick="brokerList(${pi.currentPage + 1})">></li>
-            </c:otherwise>
-
-        </c:choose>
-    </ul>
+            <c:choose>
+                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                    <li class="page-item disabled"><a class="page-link" href="#">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link" onclick="brokerList(${pi.currentPage + 1})">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </nav>
 </div>
 
 

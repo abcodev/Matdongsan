@@ -55,7 +55,7 @@ public class MemberController {
     @RequestMapping("/brokerMemberMyPage")
     @RequiredLogin
     public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
-                                           ModelAndView modelAndView, HttpSession session){
+                                   ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
@@ -158,7 +158,6 @@ public class MemberController {
     @RequestMapping("broker/enrollPage")
     @RequiredLogin
     public ModelAndView brokerEnrollPage(ModelAndView modelAndView) {
-
         modelAndView.addObject("stateList", StateList.values());
         modelAndView.setViewName("member/brokerMemberEnroll");
         return modelAndView;
@@ -173,14 +172,6 @@ public class MemberController {
         return "member/myPage";
     }
 
-//    @RequestMapping("/revDelete")
-//    @RequiredLogin
-//    public String deleteReservation(HttpSession session){
-//        Member m = (Member) session.getAttribute("loginUser");
-//        memberService.deleteReservation(m);
-//        return "redirect:/myPage";
-//
-//    }
 
     @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
     @ResponseBody

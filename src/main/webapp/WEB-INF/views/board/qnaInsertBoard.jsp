@@ -1,19 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><html lang="en">
+<html lang="en">
 <head>
+  <title>자유게시판 작성</title>
+  <%@ include file ="../template/header.jsp" %>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <title>자유게시판 작성</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardEnroll.css"/>">
-  <jsp:include page="../template/font.jsp"/>
   <script src="<c:url value="./resources/js/summernote-lite.js"/>"></script>
   <script src="<c:url value="./resources/js/summernote-ko-KR.js"/>"></script>
   <link rel="stylesheet" href="<c:url value="/resources/css/summernote/css/summernote-lite.css"/>">
-
 </head>
 <body>
 <%@ include file ="../template/header.jsp" %>
@@ -39,7 +35,6 @@
         <input type="text" id="title" name="qnaTitle" required placeholder="제목을 입력해주세요" class="board_title">
       </div>
       <div class="form_body">
-        <%--            <textarea id="summernote" name="editordata"></textarea>--%>
         <textarea name="qnaContent"  required placeholder="내용을 입력해주세요"></textarea>
       </div>
       <div class="btn_box">

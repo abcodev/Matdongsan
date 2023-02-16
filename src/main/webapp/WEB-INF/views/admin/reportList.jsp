@@ -1,23 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>신고 리스트</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@ page language="java" pageEncoding="UTF-8" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
-    <title>Document</title>
-
 </head>
 <body>
 
-<%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: #585c9c; background: #eaeaed; border: #eaeaed;">회원관리</button>
@@ -168,7 +161,7 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" onclick="retrieveFreeBoards(${pi.currentPage - 1})">
+                    <li class="page-item"><a class="page-link" onclick="ReportList(${pi.currentPage - 1})">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                     </li>
@@ -176,7 +169,7 @@
             </c:choose>
 
             <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item"><a class="page-link" onclick="retrieveFreeBoards(${item})">${item }</a></li>
+                <li class="page-item"><a class="page-link" onclick="ReportList(${item})">${item }</a></li>
             </c:forEach>
 
             <c:choose>
@@ -187,7 +180,7 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" onclick="retrieveFreeBoards(${pi.currentPage + 1})">
+                    <li class="page-item"><a class="page-link" onclick="ReportList(${pi.currentPage + 1})">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                     </li>
@@ -227,7 +220,7 @@
             success: function (data) {
                 $('#tableDiv').empty();
                 $('.pagination').empty();
-                $('.paging').html($(data).find('.pagination')) ;
+                $('#paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {
@@ -282,11 +275,11 @@
         let rType = $("#rType").val();
         if (rType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
-            swal('삭제 완료!', rType+"이 삭제되었습니다.", 'success')
+            swal('삭제 완료', "질문 게시판이 삭제 처리 되었습니다.", 'success')
 
         } else {
             location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
-            alert("자유게시판 삭제처리 완료")
+            swal('삭제 완료',"자유 게시판이 삭제 처리 되었습니다", 'success')
         }
     }
 

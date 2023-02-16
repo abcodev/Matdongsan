@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +44,7 @@
 
     <div id="paging">
         <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="pagination" >
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
                         <li class="page-item disabled"><a class="page-link" href="#">
@@ -83,18 +82,6 @@
         </nav>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 <div id="selectFboard">
@@ -102,6 +89,7 @@
     <div class="freeBoard_list">
         <c:forEach items="${selectFboard}" var="fb" begin="0" end="4" varStatus="status">
             <a href="${pageContext.request.contextPath}/board/freeList/detail/${fb.boardNo}">${fb.boardTitle}</a>
+            <hr>
         </c:forEach>
     </div>
 </div>

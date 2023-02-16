@@ -1,23 +1,13 @@
-<!DOCTYPE html>
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>커뮤니티 자유게시판</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-    <title>커뮤니티 자유게시판</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardList.css"/>">
-    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <jsp:include page="../template/font.jsp"/>
-    <%@ include file="../template/header.jsp" %>
-
 </head>
 <body>
 <body>
@@ -66,34 +56,28 @@
                     </c:if>
                 </div>
             </div>
-            <div id="boardlist_main">
 
+            <div id="boardlist_main">
                 <c:forEach items="${freeNoticeList}" var="fn">
                     <div class="boardlist" style="background-color: #fdf0f0">
                         <p style="display: none">${fn.boardNo}</p>
                         <p style="display: none">${fn.memberNo}</p>
                         <p style="display: none">${fn.blind}</p>
                         <div class="board_title">
-                            <p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-megaphone" viewBox="0 0 16 16">
-                                    <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.49a68.14 68.14 0 0 0-.202-.003A2.014 2.014 0 0 1 0 9V7a2.02 2.02 0 0 1 1.992-2.013 74.663 74.663 0 0 0 2.483-.075c3.043-.154 6.148-.849 8.525-2.199V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zm-1 1.35c-2.344 1.205-5.209 1.842-8 2.033v4.233c.18.01.359.022.537.036 2.568.189 5.093.744 7.463 1.993V3.85zm-9 6.215v-4.13a95.09 95.09 0 0 1-1.992.052A1.02 1.02 0 0 0 1 7v2c0 .55.448 1.002 1.006 1.009A60.49 60.49 0 0 1 4 10.065zm-.657.975 1.609 3.037.01.024h.548l-.002-.014-.443-2.966a68.019 68.019 0 0 0-1.722-.082z"/>
-                                </svg> &nbsp; ${fn.boardTitle}
+                            <p><i class="fa-solid fa-bullhorn"></i> ${fn.boardTitle}
                             </p>
                         </div>
                         <div class="board_content">
 
                         </div>
-                        <div class="board_info">
+                        <div class="board_info notice">
                             <p class="info writer">${fn.boardWriter}</p>
-                            <p class="info area">${fn.boardArea}</p>
-                            <p class="info date">${fn.boardDate}</p>
+                            <p class="info date">${fn:substring(fn.boardDate, 0, 16)}</p>
                             <p class="info view"><i class="fa-regular fa-eye"></i>${fn.count}</p>
                             <p class="info reply"><i class="fa-regular fa-comment"></i>${fn.replyCount}</p>
                         </div>
                     </div>
                 </c:forEach>
-
                 <c:if test="${not empty freeBoardList}">
                     <c:forEach items="${freeBoardList}" var="freeBoard" varStatus="status">
                         <c:if test="${freeBoard.blind eq 'N'}">
@@ -107,10 +91,10 @@
                                 <div class="board_content">
                                     <p>${freeBoard.boardContent}</p>
                                 </div>
-                                <div class="board_info">
+                                <div class="board_info normal">
                                     <p class="info writer">${freeBoard.boardWriter}</p>
                                     <p class="info area">${freeBoard.boardArea}</p>
-                                    <p class="info date">${freeBoard.boardDate}</p>
+                                    <p class="info date">${fn:substring(freeBoard.boardDate, 0, 16)}</p>
                                     <p class="info view"><i class="fa-regular fa-eye"></i>${freeBoard.count}</p>
                                     <p class="info reply"><i class="fa-regular fa-comment"></i>${freeBoard.replyCount}
                                     </p>
@@ -141,6 +125,8 @@
                     </div>
                 </c:if>
             </div>
+
+
         </div>
     </div>
 

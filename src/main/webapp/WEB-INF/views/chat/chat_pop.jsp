@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="floating-chat">
-  <div id="chat-circle" class="btn btn-raised">
+  <div id="chat-circle"  class="btn btn-raised">
     <i class="fa-regular fa-comments"></i>
     <p>1:1문의</p>
   </div>
@@ -26,7 +26,7 @@
       <span>1:1 문의</span>
       <span class="chat-box-toggle"><i class="fa-solid fa-xmark"></i></span>
     </div>
-    <div class="chat-box-body">
+    <div class="chat-box-body" id="chatBox">
       <div class="chat-box-overlay">
       </div>
       <div class="chat-logs">
@@ -73,15 +73,6 @@
     })
   }
 
-  $("#chat-circle").click(function () {
-    if (${empty loginUser}) {
-      alert("로그인 후 이용하실 수 있습니다.")
-    } else {
-      openChat();
-    }
-  });
-
-
   $(".chat-box-toggle").click(function () {
     $("#chat-circle").toggle("scale");
     $(".chat-box").toggle("scale");
@@ -98,9 +89,7 @@
 
   // setTimeout : 몇초뒤에 특정 함수 호출
   // 함수가 즉시 실행되면 에러가 날 수 있음 (사용하는 라이브러리가 불러와지고 난 후에 실행되고나서 실행돼야)
-  function onConnected(roomNo) {
-    // alert("연결 성공!");
-    // console.log('Connected: ' + frame);
+  function onConnected(roomNo) {;
     setTimeout(function () {
       stompClient.subscribe('/topic/' + roomNo, function (e) {
         showMessage(JSON.parse(e.body));
@@ -128,6 +117,7 @@
       console.log("other")
       $('.chat-logs').append("<div class='other'>" + "<div>"+ data.message + "</div>" + "</div>"); // 남이 보낸 메세지
     }
+    $('.chat-logs').scrollTop($('.chat-logs').prop('scrollHeight'));
   }
 
   // 이전 채팅 내용 불러오는 함수

@@ -1,27 +1,18 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>부동산회원 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
-    <title>부동산회원 페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
-    <style>
-
-
-    </style>
 </head>
 <body>
-<%@ include file="../template/header.jsp" %>
-
     <div id="content">
         <div id="info_box">
             <div id="user_img">
@@ -47,7 +38,6 @@
             <div id="btn_box">
                 <button onclick="deleteMember()">회원탈퇴</button>
                 <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-                <button><a href="${pageContext.request.contextPath}/broker/enrollPage">나의 제휴부동산</a></button>
             </div>
         </div>
 
@@ -141,7 +131,14 @@
                         <tr>
                             <th>레스토랑 이름</th>
                             <th>별점</th>
+                            <th>리뷰내용</th>
                             <th>리뷰게시일</th>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         <c:forEach var="reviewList" items="${reviewList}">
                             <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
@@ -165,7 +162,9 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
-                                <td class="review_date">${reviewList.createDate}</td>
+
+                                <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
+
                             </tr>
                         </c:forEach>
                     </table>
@@ -212,43 +211,43 @@
             </div>
         </div>
 
-    <div class="reserve_history">
-        <p>예약 확인</p>
+        <div class="reserve_history">
+            <p>예약 확인</p>
 
-        <button class="myReserve_list">
-            <table id="broker_ResList">
-                <tr>
-                    <th>예약자명</th>
-                    <th>예약일</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약처리</th>
-                </tr>
-                <c:forEach items="${brokerResList}" var="res">
-                    <tr class="myReserve_info_list" >
-                        <td style="display: none">${res.revNo}</td>
-                        <td>${res.memberName}</td>
-                        <td>${res.revDate}</td>
-                        <td>${res.revTime}</td>
-                        <td>${res.revPeople}</td>
-                        <c:choose>
-                            <c:when test="${res.revStatus eq 'C'}">
-                                <td>예약확인 중</td>
-                            </c:when>
-                            <c:when test="${res.revStatus eq 'A'}">
-                                <td style="color: rgba(159,111,217,0.83)">예약 완료</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td style="color: #b4b1b0">예약 취소</td>
-                            </c:otherwise>
-                        </c:choose>
-
-
+            <button class="myReserve_list">
+                <table id="broker_ResList">
+                    <tr>
+                        <th>예약자명</th>
+                        <th>예약일</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약처리</th>
                     </tr>
-                </c:forEach>
-            </table>
-            <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
-        </button>
+                    <c:forEach items="${brokerResList}" var="res">
+                        <tr class="myReserve_info_list" >
+                            <td style="display: none">${res.revNo}</td>
+                            <td>${res.memberName}</td>
+                            <td>${res.revDate}</td>
+                            <td>${res.revTime}</td>
+                            <td>${res.revPeople}</td>
+                            <c:choose>
+                                <c:when test="${res.revStatus eq 'C'}">
+                                    <td>예약확인 중</td>
+                                </c:when>
+                                <c:when test="${res.revStatus eq 'A'}">
+                                    <td style="color: rgba(159,111,217,0.83)">예약 완료</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td style="color: #b4b1b0">예약 취소</td>
+                                </c:otherwise>
+                            </c:choose>
+
+
+                        </tr>
+                    </c:forEach>
+                </table>
+                <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
+            </button>
 
         <%-- 예약 모달창 --%>
         <div id="reservationModal">
@@ -271,7 +270,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.")
+                swal("관심목록이 해지되었습니다.")
                 location.reload();
             }
         });
@@ -281,7 +280,7 @@
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
         if(deleteMember === true){
             location.href = '${pageContext.request.contextPath}/delete';
-            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
+            swal("그동안 맛동산을 이용해주셔서 감사합니다.");
         }
         else if(deleteMember === false){
         }

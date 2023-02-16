@@ -19,6 +19,7 @@ import java.util.Map;
 @Controller
 @SessionAttributes("loginUser")
 @RequiredArgsConstructor
+@RequiredLogin
 public class ChatController {
 
     private final ChatService chatService;
@@ -38,11 +39,13 @@ public class ChatController {
         return ResponseEntity.ok().body(chat);
     }
 
-    @PostMapping("/chat/admin/enterChat")
+    @GetMapping("/chat/admin/enterChat")
     @ResponseBody
-    public ResponseEntity<List<AdminChatMessage>> enterChat(@ModelAttribute("roomNo") String roomNo) {
-        List<AdminChatMessage> chattingList = chatService.adminMessageList(roomNo);
-        return ResponseEntity.ok().body(chattingList);
+    public ModelAndView enterChat(@ModelAttribute("roomNo") String roomNo , ModelAndView mv) {
+        List<AdminChatMessage> chattingMessageList = chatService.adminMessageList(roomNo);
+        mv.addObject("chattingMessageList",chattingMessageList);
+        mv.setViewName("chat/adminChatContents");
+        return mv;
     }
 
 

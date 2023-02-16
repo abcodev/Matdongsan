@@ -470,3 +470,19 @@ table{
 #allBoardsPaging{
     padding-bottom: 20px;
 }
+
+
+
+.pagination{
+    /*display: inline-block;*/
+    /*position: relative;*/
+    justify-content : center;
+}
+.pagination a{
+    color: gray;
+}
+.pagination a:hover{
+    color : white;
+    background-color: rgb(86, 99, 146);
+    cursor: pointer;
+}

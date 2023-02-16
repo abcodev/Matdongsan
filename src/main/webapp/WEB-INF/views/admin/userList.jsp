@@ -1,21 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <title>회원 리스트</title>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@ page language="java" pageEncoding="UTF-8" %>
-    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
-    <title>Document</title>
+    <!-- 페이징 부트 스트랩 -->
 </head>
-
 <body>
-<%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: white; background: #585c9c; border: white">회원관리</button>
@@ -55,7 +51,7 @@
                             관리자
                         </c:when>
                         <c:when test="${ul.grade eq 'BROKER'}">
-                            부동산 중개인
+                            부동산 제휴회원
                         </c:when>
                         <c:when test="${ul.grade eq 'GENERAL'}">
                             준회원
@@ -176,7 +172,7 @@
             success: function (data) {
                 $('#tableDiv').empty();
                 $('.pagination').empty();
-                $('.paging').html($(data).find('.pagination')) ;
+                $('#paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#memberData").length > 0) {
                     $('.memberTable').html($(data).find("#tableDiv"))
                 } else {
