@@ -110,10 +110,8 @@
             PROFILE_IMAGE = #{profileImage},
             MEMBER_NAME = #{memberName},
             ACCESS_TOKEN = #{accessToken},
-            <if test="refreshToken != null">
-                REFRESH_TOKEN = #{refreshToken},
-                REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt},
-            </if>
+            REFRESH_TOKEN = #{refreshToken},
+            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt},
             RECENT_ACCESS = CURRENT_TIMESTAMP
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}

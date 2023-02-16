@@ -12,7 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class FreeBoardResponse {
+
     private List<FreeBoard> freeBoardList;
+
     private PageInfoCombine pageInfoCombine;
+
+
 
 }
