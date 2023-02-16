@@ -42,8 +42,8 @@ public class ChatController {
     @GetMapping("/chat/admin/enterChat")
     @ResponseBody
     public ModelAndView enterChat(@ModelAttribute("roomNo") String roomNo , ModelAndView mv) {
-        List<AdminChatMessage> chattingList = chatService.adminMessageList(roomNo);
-        mv.addObject("chattingList",chattingList);
+        List<AdminChatMessage> chattingMessageList = chatService.adminMessageList(roomNo);
+        mv.addObject("chattingMessageList",chattingMessageList);
         mv.setViewName("chat/adminChatContents");
         return mv;
     }
