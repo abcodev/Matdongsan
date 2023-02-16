@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mac
-  Date: 2023/02/14
-  Time: 4:44 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -24,50 +17,83 @@
             <span>예약 상세정보</span>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <c:forEach var="reservationList" items="${reservationList}">
             <div class="modal-body">
                 <div class="user_info">
                     <p>예약자 정보</p>
+                    <input type="hidden" id="revNo" value="${selectReservation.revNo}">
                     <div class="user_name">
                         <span>이름</span>
-                        <p>${reservationList.memberName}</p>
+                        <p>${selectReservation.memberName}</p>
                     </div>
                     <div class="user_phone">
                         <span>전화번호</span>
-                        <p>${reservationList.phone}</p>
+                        <p>${selectReservation.phone}</p>
                     </div>
                     <div class="user_email">
                         <span>이메일</span>
-                        <p>${reservationList.email}</p>
+                        <p>${selectReservation.email}</p>
                     </div>
                 </div>
                 <div class="reserve_info">
                     <p>예약내역</p>
-                    <div class="realtor_name">${reservationList.agentName}</div>
+                    <div class="realtor_name">${selectReservation.agentName}</div>
                     <div class="reserve_person">
                         <span>예약인원</span>
-                        <p>${reservationList.peopleCount}</p>
+                        <p>${selectReservation.revPeople}명</p>
                     </div>
                     <div class="reserve_date">
                         <span>예약날짜</span>
-                        <p>${reservationList.revDate}</p>
+                        <p>${selectReservation.revDate}</p>
                     </div>
                     <div class="reserve_time">
                         <span>예약시간</span>
-                        <p>${reservationList.revTime}</p>
+                        <p>${selectReservation.revTime}</p>
+                    </div>
+                    <div class="reserve_ask">
+                        <span>요청사항</span>
+                        <p>${selectReservation.revAsk}</p>
+                    </div>
+                    <div class="reserve_status">
+                        <span>상태</span>
+                        <p><c:choose>
+                            <c:when test="${selectReservation.revStatus eq 'C'}">예약확인 중</c:when>
+                            <c:when test="${selectReservation.revStatus eq 'A'}">예약 완료</c:when>
+                            <c:otherwise>예약 취소</c:otherwise>
+                        </c:choose></td></p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <c:choose>
-                    <c:when test="${reservationList.status eq '예약취소'}">
+                    <c:when test="${selectReservation.revStatus eq 'F'}">
                         <button type="button" class="disabled">취소된 예약입니다.</button>
                     </c:when>
                     <c:otherwise>
-                        <button type="button" onclick="deleteReservation();">예약취소</button>
+                        <button type="button" onclick="cancelRes();">예약취소</button>
                     </c:otherwise>
                 </c:choose>
             </div>
-        </c:forEach>
     </div>
 </div>
+
+<script>
+    function cancelRes(){
+        const revNo = $('#revNo').val();
+        var cancelRes = confirm("예약을 취소하시겠습니까?");
+        if(cancelRes === true){
+            alert("예약이 취소되었습니다.");
+        }else if(cancelRes === false){
+
+        }
+
+        $.ajax({
+            url: "${pageContext.request.contextPath}/reservation/myPage/cancel",
+            data: {revNo : revNo},
+            method: "GET",
+            success: function (data){
+                console.log("취소 완료");
+                location.reload();
+            }
+        });
+    }
+</script>

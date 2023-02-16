@@ -14,10 +14,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <title>커뮤니티 질문게시판</title>
+    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
     <%@ include file="../template/header.jsp" %>
-    <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardList.css"/>">
-
 </head>
 <body>
 <main>
@@ -55,8 +56,9 @@
 
             <div class="boardlist">
                 <div class="boardlist_head">
-
-                    <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                    <c:if test="${not empty loginUser}">
+                        <button id="writebtn" onclick="movePage2()"><i class="fa-solid fa-pencil"></i>글작성하기</button>
+                    </c:if>
                 </div>
                 <div id="boardlist_main">
                     <table class="table">
@@ -77,7 +79,7 @@
                         <c:if test="${not empty qnaBoardList}">
                             <c:forEach var="qb" items="${qnaBoardList}">
                                 <c:if test="${qb.blind eq 'N'}">
-                                    <tr id="tdBody">
+                                    <tr class="tdBody">
                                         <td onclick="movePage(${qb.qnaBno})">
                                             <c:forEach step="1" begin="2" end ="${qb.depth}">
                                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -92,7 +94,7 @@
                                     </tr>
                                 </c:if>
                                 <c:if test="${qb.blind eq 'Y'}">
-                                    <tr style="background-color: #dddddd" id="tdBody">
+                                    <tr style="background-color: #dddddd" class="tdBody">
                                         <c:if test="${loginUser.memberNo ne 1}">
                                             <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
                                         </c:if>
@@ -120,31 +122,63 @@
         </div>
 
 
-    <div id="paging">
-        <ul class="pagination">
-            <c:choose>
-                <c:when test="${ pi.currentPage eq 1 }">
-                    <li class="page-link"><</li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-link" onclick="retrieveQnaBoards(${pi.currentPage - 1})"><</li>
-                </c:otherwise>
-            </c:choose>
-            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                <li class="page-item" onclick="retrieveQnaBoards(${item})">${item }</li>
-            </c:forEach>
 
-            <c:choose>
-                <c:when test="${ pi.currentPage eq pi.maxPage }">
-                    <li class="page-item disabled"><a class="page-link" href="#">></a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="page-link" onclick="retrieveQnaBoards(${pi.currentPage + 1})">></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
 
-    </div>
+        <div id="paging">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <c:choose>
+                        <c:when test="${ pi.currentPage eq 1 }">
+                            <li class="page-item disabled"><a class="page-link" href="#">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" onclick="retrieveQnaBoards(${pi.currentPage - 1})">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                        <li class="page-item"><a class="page-link" onclick="retrieveQnaBoards(${item})">${item }</a></li>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${ pi.currentPage eq pi.maxPage }">
+                            <li class="page-item disabled"><a class="page-link" href="#">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li class="page-item"><a class="page-link" onclick="retrieveQnaBoards(${pi.currentPage + 1})">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </ul>
+            </nav>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
     </div>
@@ -170,10 +204,12 @@
                 dataType: 'html',
                 success: function (data) {
                     //$('#boardlist_main').empty();
-                    if($(data).find("#tdBody").length > 0) {
+                    if($(data).find(".tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else {
-                        $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
+                        $('.tdBody').remove();
+                        $('.table').append('<tr class="tdBody"></tr>');
+                        $('.tdBody').html('<td colspan="4">조회된 게시글이 없습니다.</td>');
                     }
                     $('#paging').empty();
                     $('#paging').html($(data).find('#paging'))
@@ -200,7 +236,9 @@
                     console.log(current_page)
                     console.log(item)
                     $('#boardlist_main').empty();
-                    if($(data).find("#tdBody").length >0) {
+                    $('.pagination').empty();
+                    $('#paging').html($(data).find('.pagination')) ;
+                    if($(data).find(".tdBody").length >0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     }else{
                         $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');

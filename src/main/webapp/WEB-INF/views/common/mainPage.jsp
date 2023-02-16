@@ -142,6 +142,7 @@
             <script type="text/javascript"
                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
+            <%--            035c35f196fa7c757e49e610029837b1--%>
 
             <script>
 

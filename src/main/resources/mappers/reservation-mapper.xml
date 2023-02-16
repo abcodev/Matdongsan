@@ -5,20 +5,20 @@
 <mapper namespace="reservationMapper">
     <!-- 부동산중개 예약 -->
     <insert id="reservationEnroll">
-        INSERT INTO REAL_RESERVATION(REV_NO, MEMBER_NO, MEMBER_NAME, REV_PEOPLE, PHONE, EMAIL, REV_ASK, REV_TIME,
-                                     REV_DATE, AGENT_NO)
-        VALUES (SEQ_ESTATE_REV_NO.nextval, #{memberNo}, #{memberName}, #{peopleCount}, #{phone}, #{email},
-                #{requestText}, #{revTime}, #{revDate}, #{agentNo})
+        INSERT INTO REAL_RESERVATION(REV_NO, MEMBER_NO, MEMBER_NAME, REV_PEOPLE, PHONE, EMAIL, REV_ASK, REV_TIME, REV_DATE,AGENT_NO)
+        VALUES (SEQ_ESTATE_REV_NO.nextval,#{memberNo},#{memberName},#{peopleCount},#{phone},#{email},#{requestText},#{revTime},#{revDate},#{agentNo})
     </insert>
 
     <select id="memberNoOfEstate" parameterType="string" resultType="_long">
-        SELECT MEMBER_NO
+        SELECT
+            MEMBER_NO
         FROM REALESTATE_AGENT
         WHERE AGENT_NO = #{agentNo}
     </select>
 
     <select id="memberNoOfReservation" parameterType="_long" resultType="String">
-        SELECT MEMBER_NAME
+        SELECT
+            MEMBER_NAME
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
     </select>
@@ -41,18 +41,20 @@
     </resultMap>
 
     <select id="selectReservation" resultMap="BrokerResList">
-        SELECT REV_NO,
-               R.MEMBER_NO,
-               MEMBER_NAME,
-               PHONE,
-               EMAIL,
-               AGENT_NAME,
-               REV_PEOPLE,
-               REV_ASK,
-               REV_TIME,
-               REV_DATE
+        SELECT
+            REV_NO,
+            R.MEMBER_NO,
+            MEMBER_NAME,
+            PHONE,
+            EMAIL,
+            AGENT_NAME,
+            REV_PEOPLE,
+            REV_ASK,
+            REV_TIME,
+            REV_DATE,
+            REV_STATUS
         FROM REAL_RESERVATION R
-                 LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO = RA.AGENT_NO
+        LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO= RA.AGENT_NO
         WHERE R.REV_NO = #{revNo}
     </select>
 

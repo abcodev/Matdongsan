@@ -51,11 +51,6 @@ public class MemberController {
         return modelAndView;
     }
 
-//    @RequestMapping("/myPage/modal")
-//    @RequiredLogin
-//    public ModelAndView myPageReservationModal() {
-//
-//    }
 
     @RequestMapping("/brokerMemberMyPage")
     @RequiredLogin
@@ -71,7 +66,10 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("brokerResList", brokerReservationList);
-        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        //modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.addObject("pi1", resp.getPageInfoCombine());
+        modelAndView.addObject("pi2", resp.getPageInfoCombine2());
+        modelAndView.addObject("pi3", resp.getPageInfoCombine3());
 
         System.out.println("부동산 예약 리스트 : " + brokerReservationList);
 
@@ -79,8 +77,6 @@ public class MemberController {
 
         return modelAndView;
     }
-
-
 
     @RequestMapping(value = "/memberModify")
     @RequiredLogin
@@ -166,8 +162,6 @@ public class MemberController {
         return modelAndView;
     }
 
-    // Spring Boot -> Validator 를 이용한 유효성 검사
-    // Validator -> Client 로부터 받은 데이터에 대한 유효성 검사
     @PostMapping("broker/enroll")
     @RequiredLogin
     public String agentMemberInsert(@RequestParam(value = "file", required = true) MultipartFile file,
@@ -177,14 +171,14 @@ public class MemberController {
         return "member/myPage";
     }
 
-    @RequestMapping("/revDelete")
-    @RequiredLogin
-    public String deleteReservation(HttpSession session){
-        Member m = (Member) session.getAttribute("loginUser");
-        memberService.deleteReservation(m);
-        return "redirect:/myPage";
-
-    }
+//    @RequestMapping("/revDelete")
+//    @RequiredLogin
+//    public String deleteReservation(HttpSession session){
+//        Member m = (Member) session.getAttribute("loginUser");
+//        memberService.deleteReservation(m);
+//        return "redirect:/myPage";
+//
+//    }
 
     @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
     @ResponseBody

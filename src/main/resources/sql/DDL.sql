@@ -234,7 +234,7 @@ CREATE TABLE MATDONGSAN.REAL_RESERVATION
     MEMBER_NO      NUMBER                       NOT NULL,
     MEMBER_NAME    VARCHAR2(255)                NOT NULL,
     PHONE          VARCHAR2(255)                NOT NULL,
-    ESTATE_NO      VARCHAR2(255)                NOT NULL,
+    AGENT_NO      VARCHAR2(255)                 NOT NULL,
     REV_PEOPLE     VARCHAR2(255)                NOT NULL,
     EMAIL          VARCHAR2(255),
     REV_ASK        VARCHAR2(255),
