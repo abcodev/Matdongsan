@@ -7,7 +7,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<c:url value="/resources/css/board/qnaBoardEnroll.css"/>">
-  <jsp:include page="../template/font.jsp"/>
   <script src="<c:url value="./resources/js/summernote-lite.js"/>"></script>
   <script src="<c:url value="./resources/js/summernote-ko-KR.js"/>"></script>
   <link rel="stylesheet" href="<c:url value="/resources/css/summernote/css/summernote-lite.css"/>">
