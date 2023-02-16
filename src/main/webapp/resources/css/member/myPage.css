@@ -248,6 +248,11 @@ table{
     font-weight: 450;
 }
 
+#myReviewList , #myBoardList{
+    height: 270px;
+}
+
+
 #myReviewList > table{
     width: 100%;
 }
