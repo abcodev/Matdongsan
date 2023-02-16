@@ -49,8 +49,7 @@
                         <c:if test="${w ne 1}">
                             <div class="alert_btn_box">
                                 <button type="button" class="alert_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    신고하기
-                                </button>
+                                신고하기</button>
                             </div>
                         </c:if>
                     </c:if>

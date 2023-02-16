@@ -5,9 +5,11 @@ import com.project.board.dto.QnaBoardListResponse;
 import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
+import com.project.common.annotation.Permission;
 import com.project.common.annotation.RequiredLogin;
 import com.project.common.template.BoardCookieHelper;
 import com.project.common.type.StateList;
+import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -59,6 +61,7 @@ public class QnaBoardController {
     // 게시글 작성페이지
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @RequiredLogin
+    @Permission(authority = MemberGrade.GENERAL2)
     public String insertBoard(
             Model model,
             HttpSession session
@@ -71,6 +74,7 @@ public class QnaBoardController {
 
     // 게시글 등록
     @RequestMapping("/insert")
+    @Permission(authority = MemberGrade.GENERAL2)
     public String insertQboard(
             Model model, QnaBoard qb, HttpSession session,
             @ModelAttribute("loginUser") Member loginUser,
@@ -89,6 +93,7 @@ public class QnaBoardController {
     // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
     @RequiredLogin
+    @Permission(authority = MemberGrade.GENERAL2)
     public ModelAndView insertBoard2(
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
@@ -110,6 +115,7 @@ public class QnaBoardController {
      */
     @RequestMapping("insertAnswer")
     @RequiredLogin
+    @Permission(authority = MemberGrade.GENERAL2)
     public String insertAnswer(
             @RequestParam(value = "depth") int depth,
             @RequestParam(value = "pBno") int parentBno,
@@ -152,6 +158,7 @@ public class QnaBoardController {
 
     // 게시글 삭제
     @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)
+    @Permission(authority = MemberGrade.GENERAL2)
     public String deleteBoard(@PathVariable("qBno") int qBno
     ) {
         int result = boardService.deleteBoard(qBno);
@@ -161,6 +168,7 @@ public class QnaBoardController {
     @RequestMapping("/qnaReport")
     @ResponseBody
     @RequiredLogin
+    @Permission(authority = MemberGrade.GENERAL2)
     public String reportPost(Report report) {
         int result = boardService.insertReport(report);
         if (result > 0) {

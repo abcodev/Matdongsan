@@ -56,7 +56,7 @@
 
 #btn_box{
     width: 15%;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 #btn_box > button {
@@ -174,9 +174,6 @@
     height: 350px;
     margin-top: 50px;
 }
-
-
-
 
 .board_history{
     width: 50%;
