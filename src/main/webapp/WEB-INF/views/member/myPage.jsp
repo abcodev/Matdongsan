@@ -27,7 +27,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                swal("관심 목록이 해제되었습니다","","success");
+                alert("관심 목록이 해제되었습니다","","success");
                 location.reload();
             }
         });
@@ -108,7 +108,7 @@
                 </table>
                 <div id="allBoardsPaging">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination" id="allBoardsPagination">
+                        <ul class="pagination pagination-sm" id="allBoardsPagination">
                             <c:choose>
                                 <c:when test="${ pi.currentPage eq 1 }">
                                     <li class="page-item disabled"><a class="page-link" href="#">
@@ -180,7 +180,7 @@
                 </table>
                 <div id="reviewPaging">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination" id="reviewPagination">
+                        <ul class="pagination pagination-sm" id="reviewPagination">
                             <c:choose>
                                 <c:when test="${ pi.currentPage eq 1 }">
                                     <li class="page-item disabled"><a class="page-link" href="#">

@@ -9,10 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/member/memberModify.css"/>">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
-<%@ include file="../template/header.jsp" %>
+
 
 <div id="content">
     <div id="userImg">
@@ -71,7 +70,7 @@
     $(function () {
         code2 = "";
         $("#phoneChk").click(function () {
-            alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
+            swal('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
             var phone = $("#phoneNumber").val();
             $.ajax({
                 type: "GET", // post 형식으로 발송
@@ -80,9 +79,9 @@
                 cache: false,
                 success: function (data) {
                     if (data == "error") {
-                        alert("휴대폰번호가 올바르지 않습니다.")
+                        swal("휴대폰번호가 올바르지 않습니다.")
                     } else {
-                        alert("인증번호가 전송되었습니다.")
+                        swal("인증번호가 전송되었습니다.")
                         code2 = data;
                     }
                 }
@@ -96,9 +95,9 @@
     $("#phoneChk2").click(function () {
         if ($("#phone2").val() === code2) {
             checkPhoneNumber = true;
-            alert('인증성공')
+            swal('인증성공')
         } else {
-            alert('인증실패 정확히 입력해주세요')
+            swal('인증실패 정확히 입력해주세요')
             $("#phoneChk2").focus();
             checkPhoneNumber = false;
         }
@@ -168,15 +167,15 @@
 
     function signupCheck() {
         if (!checkNickName) {
-            alert("사용 불가능한 닉네임입니다.")
+            swal("사용 불가능한 닉네임입니다.")
             return false;
         }
         const phoneNumber = $("#phoneNumber").val();
         if ('${loginUser.phone}' !== phoneNumber && !checkPhoneNumber) {
-            alert("회원정보를 위해 휴대폰 인증이 필요합니다.")
+            swal("회원정보를 위해 휴대폰 인증이 필요합니다.")
             return false;
         }
-        alert('회원정보 수정 완료')
+        swal('회원정보 수정 완료')
         return true;
     }
 

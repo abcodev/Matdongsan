@@ -102,10 +102,8 @@ public class AdminController {
     @RequiredLogin
     public ResponseEntity<String> handleApply(@RequestBody HandleApplyRequest req) {
         adminService.handleApply(req);
-
         HttpHeaders resHeaders = new HttpHeaders();
         resHeaders.add("Content-Type", "text/plain;charset=UTF-8");
-
         String result = "";
         if (req.getHandle().equals("consent")) {
             result = "신청 승인을 완료하였습니다.";
