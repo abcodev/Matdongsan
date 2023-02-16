@@ -78,6 +78,11 @@ textarea:focus , input:focus {
     padding-left: 30px;
     font-weight: 450;
     line-height: 2.8;
+
+    width: 142px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
 }
 #MainDiv{
     height: 1000px;

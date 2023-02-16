@@ -200,6 +200,14 @@
     text-align: center;
 }
 
+.table tr td:nth-child(3){
+    width: 145px;
+
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .table th:nth-child(even){
     width: 90px;
 }
@@ -235,12 +243,14 @@
     padding-top: 15px;
     padding-bottom: 80px;
     position: relative;
-    left: 35%;
-    float:left;
+    /*left: 35%;*/
+    /*float:left;*/
 
 }
 
-
+.pagination{
+    justify-content : center;
+}
 
 
 #big{
