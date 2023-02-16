@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                <c:if test="${loginUser.memberNo == 1}">
+                <c:if test="${loginUser.memberNo == 1 or loginUser.grade eq 'ADMIN'}">
                     <div class="dropdown">
                         <button class="dropdown-btn"><a
                                 href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
