@@ -5,8 +5,12 @@
     <%@ include file="../template/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
     <c:set var="w" value="${fb.memberNo}"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
 <div id="content">
     <div class="freeBoard_Detail">
         <div class="detail_top">

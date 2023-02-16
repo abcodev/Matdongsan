@@ -141,31 +141,31 @@
     </div>
 
 
-<%--    <div id="paging">--%>
-<%--        <ul class="pagination">--%>
-<%--            <c:choose>--%>
-<%--                <c:when test="${ pi.currentPage eq 1 }">--%>
-<%--                    <li class="page-item disabled"><</li>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage - 1})"><</li>--%>
-<%--                </c:otherwise>--%>
-<%--            </c:choose>--%>
+    <%--    <div id="paging">--%>
+    <%--        <ul class="pagination">--%>
+    <%--            <c:choose>--%>
+    <%--                <c:when test="${ pi.currentPage eq 1 }">--%>
+    <%--                    <li class="page-item disabled"><</li>--%>
+    <%--                </c:when>--%>
+    <%--                <c:otherwise>--%>
+    <%--                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage - 1})"><</li>--%>
+    <%--                </c:otherwise>--%>
+    <%--            </c:choose>--%>
 
-<%--            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--                <li class="page-item" onclick="retrieveFreeBoards(${item})">${item }</li>--%>
-<%--            </c:forEach>--%>
+    <%--            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
+    <%--                <li class="page-item" onclick="retrieveFreeBoards(${item})">${item }</li>--%>
+    <%--            </c:forEach>--%>
 
-<%--            <c:choose>--%>
-<%--                <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
-<%--                    <li class="page-item disabled"><a class="page-link">></a></li>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage + 1})">></li>--%>
-<%--                </c:otherwise>--%>
-<%--            </c:choose>--%>
-<%--        </ul>--%>
-<%--    </div>--%>
+    <%--            <c:choose>--%>
+    <%--                <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
+    <%--                    <li class="page-item disabled"><a class="page-link">></a></li>--%>
+    <%--                </c:when>--%>
+    <%--                <c:otherwise>--%>
+    <%--                    <li class="page-item" onclick="retrieveFreeBoards(${pi.currentPage + 1})">></li>--%>
+    <%--                </c:otherwise>--%>
+    <%--            </c:choose>--%>
+    <%--        </ul>--%>
+    <%--    </div>--%>
 
 
 
