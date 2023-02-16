@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -7,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>부동산상세페이지</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
     <%@ include file="../template/header.jsp" %>
@@ -57,7 +60,9 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td>${realEstateDetail.floor} 층</td>
+                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}" />
+                        ${floor} 층
+                    </td>
                 </tr>
                 <tr>
                     <th>거래일자</th>
@@ -179,12 +184,11 @@
             </div>
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services"></script>
             <script>
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                    mapCenter = new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                     mapOption = {
-                        center: mapCenter, // 지도의 중심 좌표
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                         level: 4 // 지도의 확대 레벨
                     };
 
@@ -230,7 +234,7 @@
                             // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
                             roadviewClient.getNearestPanoId(position, 500, function (panoId) {
                                 roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
-                                rvResetValue.panoId = panoId;
+                                // rvResetValue.panoId = panoId;
                             });
 
                             setTimeout(rvMarker, 1500);
@@ -275,7 +279,7 @@
 
     function showRealtor(agentNo, agentName) {
         if(${empty loginUser}){
-            alert("로그인 후 이용가능합니다.")
+            swal("로그인 후 이용이 가능합니다.","","warning")
             return false;
         }
         console.log(agentNo);
@@ -401,14 +405,14 @@
 
         // required 검사
         if (reservationDate == "") {
-            alert("날짜를 입력해주세요")
+            swal("날짜를 입력해주세요.","","warning")
             return false;
         } else if (memberName == "") {
-            alert("이름을 입력해주세요")
+            swal("이름을 입력해주세요.","","warning")
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            alert("휴대폰번호를 입력해주세요")
+            swal("핸드폰 번호를 입력해주세요.","","warning")
             $('#telephone').focus();
             return false;
         } else {
@@ -429,12 +433,12 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    alert("예약에 성공하였습니다.");
+                    swal("예약에 성공하였습니다.","","success");
                     offClick();
 
                 },
                 error: () => {
-                    alert("예약 등록에 실패하였습니다.");
+                    swal("예약에 실패하셧습니다.","","error");
                 }
             })
         }

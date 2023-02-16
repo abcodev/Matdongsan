@@ -1,4 +1,4 @@
-원<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>부동산 회원 신청</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/memberModify.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -78,7 +79,7 @@
 <script>
 
     $("form").on("submit", function() {
-        alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
+        swal("제휴 부동산 회원 신청이 완료되었습니다.","승인까지 1-3일이 소요됩니다.","success")
     });
 
     function readURL(input) {
@@ -91,7 +92,7 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            swal("파일 크기는 10mb 를 넘길 수 없습니다.");
             input.value = null;
         }
     }

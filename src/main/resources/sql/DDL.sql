@@ -647,7 +647,7 @@ CREATE TABLE "REPLY"
     "MEMBER_NO"     NUMBER                       NOT NULL,
     "FREE_BNO"      NUMBER                       NOT NULL,
     "REPLY_CONTENT" VARCHAR(2056)                NULL,
-    "REPLY_DATE"    DATE         DEFAULT SYSDATE NULL,
+    "REPLY_DATE"    TIMESTAMP DEFAULT localtimestamp NULL,
     "STATUS"        VARCHAR(255) DEFAULT 'Y'     NULL
 );
 

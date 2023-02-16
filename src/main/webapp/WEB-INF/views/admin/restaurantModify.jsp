@@ -39,9 +39,9 @@
             </div>
             <div class="resDiv">
                 <i class="bi bi-geo-alt-fill"></i>
-                <span class="font">지역 : </span>
+                <span class="font">지역 : </span>&nbsp;&nbsp;
                 <select id="space"  class="textInput" name="state">
-                    <option value="" style="text-align: center">지역을 선택해주세요</option>
+                    <option value="" style="text-align: center">${restaurantDetail.state}</option>
                     <c:forEach items="${stateList}" var="state">
                         <option value="${state}">${state}</option>
                     </c:forEach>
@@ -110,7 +110,7 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            swal("파일 크기는 10mb 를 넘길 수 없습니다.","","warning")
             input.value = null;
         }
     }
@@ -118,7 +118,7 @@
     $('input:checkbox[name=hashtagId]').click(function(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
-            alert('해시태그는 최대 2개까지 선택 가능합니다.')
+            swal("해쉬태그","2개 까지 선택가능합니다!","warning")
             $(this).prop('checked', false);
         }
     });
