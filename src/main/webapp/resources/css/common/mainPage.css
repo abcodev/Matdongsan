@@ -47,7 +47,24 @@ a{
     display: inline-block;
 }
 
-.dropdown-btn {
+.admin .dropdown-btn {
+    width: 200px;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    font-weight: bold;
+}
+
+.admin .dropdown-submenu {
+    display: none;
+    position: absolute;
+    min-width: 200px;
+    z-index: 1;
+    background-color: white;
+}
+.general .dropdown-btn {
     width: 250px;
     padding: 10px;
     font-size: 20px;
@@ -58,17 +75,17 @@ a{
     margin-left: 10px;
 }
 
-.dropdown-btn > a{
-    color: #213048;
-}
-
-.dropdown-submenu {
+.general .dropdown-submenu {
     display: none;
     position: absolute;
     min-width: 200px;
     z-index: 1;
     margin-left: 35px;
     background-color: white;
+}
+
+.dropdown-btn > a{
+    color: #213048;
 }
 
 .dropdown-submenu a {
@@ -139,7 +156,7 @@ a{
     margin-right: 20px;
 }
 
-.after{
+.after , .logOut{
     text-decoration: none;
     font-size: 14px;
     color: #213048;
@@ -297,8 +314,8 @@ a{
     display:none;
     background: white;
     position:fixed;
-    right: 65px;
-    top: 75px;
+    right: 40px;
+    top: 65px;
     width: 380px;
     height: 250px;
     border-radius:3px;
