@@ -78,6 +78,7 @@
     <resultMap id="adminChatRoomResultSet" type="adminChatRoom">
         <result column="CHAT_ROOM_NO" property="roomNo"/>
         <result column="MEMBER_NAME" property="memberName"/>
+        <result column="NICKNAME" property="nickName"/>
         <result column="PROFILE_IMAGE" property="profileImage"/>
         <result column="MS_CONTENT" property="latestMessage"/>
         <result column="CREATE_DATE" property="latestMessageTime"/>
@@ -86,6 +87,7 @@
     <select id="chattingList" resultMap="adminChatRoomResultSet">
         SELECT CHAT_ROOM_NO,
                MEMBER_NAME,
+               NICKNAME,
                PROFILE_IMAGE,
                CREATE_DATE,
                READ,
@@ -101,6 +103,7 @@
         <result column="CHAT_ROOM_NO" property="roomNo"></result>
         <result column="SEND_NO" property="memberNo"></result>
         <result column="MEMBER_NAME" property="memberName"></result>
+        <result column="NICKNAME" property="nickName"/>
         <result column="MS_CONTENT" property="message"></result>
         <result column="CREATE_DATE" property="createDate"></result>
         <result column="READ" property="read"></result>
@@ -110,6 +113,7 @@
         SELECT C.CHAT_ROOM_NO,
                C.SEND_NO,
                M.MEMBER_NAME,
+               M.NICKNAME,
                C.MS_CONTENT
         FROM CHAT_MESSAGE C
                  JOIN MEMBER M ON (M.MEMBER_NO = C.SEND_NO)
