@@ -325,6 +325,10 @@ table{
     background-color: #E0E0E0;
 }
 
+.myReserve_info_list{
+    height: 50px;
+}
+
 .myReserve_list > table th,
 .myReserve_list > table td{
     text-align: center;
