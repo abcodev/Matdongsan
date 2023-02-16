@@ -48,6 +48,8 @@ public class FreeBoardController {
         List<FreeBoard> freeNoticeList = freeBoardService.freeNoticeList();
         freeBoardService.selectReportList(); // 블라인드 게시글 조회 및 업데이트
 
+        System.out.println("공지사항 check: " + freeNoticeList);
+
         modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
         modelAndView.addObject("freeNoticeList", freeNoticeList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());

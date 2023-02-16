@@ -84,5 +84,9 @@ public class RealEstateDao {
     public List<RealEstateViewDto> selectBldgNmListIn(List<String> recentEstateNoList) {
         return sqlSession.selectList("sellMapper.selectBldgNmListIn", recentEstateNoList);
     }
+
+    public RealEstateAgent selectAgentByAgentNo(String agentNo) {
+        return sqlSession.selectOne("sellMapper.selectAgentByAgentNo", agentNo);
+    }
 }
 

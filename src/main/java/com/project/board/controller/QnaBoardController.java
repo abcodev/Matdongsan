@@ -71,25 +71,24 @@ public class QnaBoardController {
 
     // 게시글 등록
     @RequestMapping("/insert")
-    public String insertQboard(Model model, QnaBoard qb, HttpSession session,
-    @ModelAttribute("loginUser") Member loginUser,
-    @RequestParam(value = "qnaArea", defaultValue = "") String qnaArea
+    public String insertQboard(
+            Model model, QnaBoard qb, HttpSession session,
+            @ModelAttribute("loginUser") Member loginUser,
+            @RequestParam(value = "qnaArea", defaultValue = "") String qnaArea
     ) {
-
         Member m = (Member) session.getAttribute("loginUser");
-
         if(m.getMemberNo() == 1){
             boardService.insertNotice(qb);
         }else {
             boardService.insertQboard(qb);
         }
-
         return "redirect:/board/qnaList";
     }
 
 
     // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
+    @RequiredLogin
     public ModelAndView insertBoard2(
             @RequestParam(value = "depth") String depth,
             @RequestParam(value = "pBno") String parentBno,
@@ -110,6 +109,7 @@ public class QnaBoardController {
      * 답글 등록
      */
     @RequestMapping("insertAnswer")
+    @RequiredLogin
     public String insertAnswer(
             @RequestParam(value = "depth") int depth,
             @RequestParam(value = "pBno") int parentBno,
@@ -160,10 +160,9 @@ public class QnaBoardController {
 
     @RequestMapping("/qnaReport")
     @ResponseBody
+    @RequiredLogin
     public String reportPost(Report report) {
-
         int result = boardService.insertReport(report);
-
         if (result > 0) {
             return "1";
         } else {

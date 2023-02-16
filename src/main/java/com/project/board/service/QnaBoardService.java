@@ -55,7 +55,7 @@ public class QnaBoardService {
         QnaBoard qnaBoard = boardDao.selectByQnaBno(sqlSession, qb.getParentBno());
         long receiverNo = qnaBoard.getMemberNo();
 
-        AlarmTemplate template = AlarmTemplate.generateNewQnaMessageTemplate(receiverNo);
+        AlarmTemplate<Integer> template = AlarmTemplate.generateNewQnaMessageTemplate(receiverNo, qnaBoard.getQnaBno());
         alarmService.send(template);
 
         return boardDao.insertAnswer(sqlSession,qb);

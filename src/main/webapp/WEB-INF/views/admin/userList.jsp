@@ -15,7 +15,6 @@
 
 <body>
 <%@ include file="../template/header.jsp" %>
-<div id="big">
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: white; background: #585c9c; border: white">회원관리</button>
@@ -34,7 +33,6 @@
             <th>닉네임</th>
             <th>최근 접속일</th>
             <th>회원등급</th>
-            <th>회원상태</th>
         </tr>
         </thead>
         <tbody id="tableList">
@@ -42,12 +40,28 @@
             <tr id="memberData">
                 <td>${ul.memberNo}</td>
                 <td>${ul.provider}</td>
-                <td>${ul.providerId}</td>
+                <td>
+                    ${fn:substring(ul.providerId, 0, fn:length(ul.providerId)-6)}******
+                </td>
                 <td>${ul.memberName}</td>
                 <td>${ul.nickName}</td>
-                <td>${ul.recentAccess}</td>
-                <td>${ul.grade}</td>
-                <td>${ul.status}</td>
+                <td>
+                        ${fn:substring(ul.recentAccess, 0, 16)}
+                </td>
+                <td>
+                    <c:choose>
+                        <c:when test="${ul.grade eq 'ADMIN'}">
+                            관리자
+                        </c:when>
+                        <c:when test="${ul.grade eq 'BROKER'}">
+                            부동산 중개인
+                        </c:when>
+                        <c:when test="${ul.grade eq 'GENERAL'}">
+                            준회원
+                        </c:when>
+                        <c:otherwise>정회원</c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
@@ -55,39 +69,90 @@
 </div>
 
 
-<div class="paging">
-    <ul class="pagination">
-        <c:choose>
-            <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-link disabled"><</li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</li>
-            </c:otherwise>
-        </c:choose>
-        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+<%--<div class="paging">--%>
+<%--    <ul class="pagination">--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
+<%--                <div class="page-link disabled"><</div>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+
+<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
+<%--            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>--%>
+<%--        </c:forEach>--%>
+
+<%--        <c:choose>--%>
+<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
+<%--                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+<%--    </ul>--%>
+<%--</div>--%>
+
+
+
+
+
+<div id="paging">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
             <c:choose>
-                <c:when test="${pi.currentPage eq item }">
-                    <div class="current">${item }</div>
+                <c:when test="${ pi.currentPage eq 1 }">
+                    <li class="page-item disabled"><a class="page-link" href="#">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item" onclick="retrieveUserList(${item}) ">${item }</li>
+                    <li class="page-item"><a class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
                 </c:otherwise>
             </c:choose>
-        </c:forEach>
 
-        <c:choose>
-            <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
-            </c:when>
-            <c:otherwise>
-                <li class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></li>
-            </c:otherwise>
-        </c:choose>
-    </ul>
+            <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
+                <li class="page-item"><a class="page-link" onclick="retrieveUserList(${item})">${item }</a></li>
+            </c:forEach>
 
+            <c:choose>
+                <c:when test="${ pi.currentPage eq pi.maxPage }">
+                    <li class="page-item disabled"><a class="page-link" href="#">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item"><a class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </ul>
+    </nav>
 </div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 

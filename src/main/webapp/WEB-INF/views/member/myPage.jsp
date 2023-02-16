@@ -11,10 +11,11 @@
     <title>마이페이지</title>
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
@@ -33,10 +34,11 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                swal('해지 완료!', "관심 목록이 해지되었습니다!",'success');
+                alert("관심목록이 해제 되었습니다.");
                 location.reload();
             }
         });
+
     }
 </script>
 
@@ -111,52 +113,62 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <div id="allBoardsPaging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="allBoardsPagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-            </div>
-            <div id="paging_boardList"> <!-- <div id="paging"> -->
-                <ul class="mypaging">
-                    <c:choose>
-                        <c:when test="${pi1.currentPage eq 1}">
-                            <li class="page-item disabled"><</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})"><</li>
-                        </c:otherwise>
-                    </c:choose>
+                            <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                                <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
+                            </c:forEach>
 
-                    <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                        <c:choose>
-                            <c:when test="${pi1.currentPage eq item }">
-                                <div class="current">${item }</div>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveAllBoards(${item}) ">${item }</li>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-
-                    <c:choose>
-                        <c:when test="${pi1.currentPage eq pi1.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">></a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">></li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
+                            <c:choose>
+                                <c:when test="${ pi1.currentPage eq pi1.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
         <div class="review_history">
             <p>내가 남긴 리뷰</p>
             <div id="myReviewList">
-
-                <div class="review_resNm">레스토랑 이름</div>
-                <div class="review_star">★★★★★</div>
-                <div class="review_date">2023-01-18</div>
-
                 <table>
                     <tr>
-                        <td>리뷰 내용</td>
+                        <th>레스토랑 이름</th>
+                        <th>별점</th>
+                        <th>리뷰내용</th>
+                        <th>리뷰게시일</th>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <c:forEach var="reviewList" items="${reviewList}">
                         <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
@@ -186,89 +198,78 @@
                         </tr>
                     </c:forEach>
                 </table>
-
-                <div id="paging_review">
-                    <ul class="mypaging">
-                        <c:choose>
-                            <c:when test="${pi2.currentPage eq 1}">
-                                <li class="page-item disabled"><</li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})"><</li>
-                            </c:otherwise>
-                        </c:choose>
-                        <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                <div id="reviewPaging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="reviewPagination">
                             <c:choose>
-                                <c:when test="${pi2.currentPage eq item }">
-                                    <div class="current">${item }</div>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <li class="page-item" onclick="retrieveReviewList(${item}) ">${item }</li>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
-                        </c:forEach>
-                        <c:choose>
-                            <c:when test="${pi2.currentPage eq pi2.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">></a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+
+                            <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                                <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
+                            </c:forEach>
+
+                            <c:choose>
+                                <c:when test="${ pi2.currentPage eq pi2.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
         <div id="myReserveList">
-        <div class="myReserve_list">
-            <table id="reserveList_tb">
-                <tr class="myReserve_info_list_top">
-                    <th>공인중개사</th>
-                    <th>예약일</th>
-                    <th>예약시간</th>
-                    <th>예약인원</th>
-                    <th>예약처리</th>
-                </tr>
-                <c:forEach var="reservationList" items="${reservationList}">
-                <tr class="myReserve_info_list">
-                    <td>${reservationList.agentName}</td>
-                    <td>${reservationList.revDate}</td>
-                    <td>${reservationList.revTime}</td>
-                    <td>${reservationList.peopleCount}</td>
-                    <td>${reservationList.status}</td>
-                </tr>
-                </c:forEach>
-            </table>
-
-            <div id="paging_reserve">
-                <ul class="mypaging">
-                    <c:choose>
-                        <c:when test="${pi3.currentPage eq 1}">
-                            <li class="page-item disabled"><</li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage - 1})"><</li>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <c:forEach var="item" begin="${pi3.startPage }" end="${pi3.endPage }">
-                        <li class="page-item" onclick="retrieveReserveList(${item})">${item }</li>
+            <div class="myReserve_list">
+                <table id="reserveList_tb">
+                    <tr class="myReserve_info_list_top">
+                        <th>공인중개사</th>
+                        <th>예약일</th>
+                        <th>예약시간</th>
+                        <th>예약인원</th>
+                        <th>예약처리</th>
+                    </tr>
+                    <c:forEach var="reservationList" items="${reservationList}">
+                        <tr class="myReserve_info_list">
+                            <td style="display: none">${reservationList.revNo}</td>
+                            <td>${reservationList.agentName}</td>
+                            <td>${reservationList.revDate}</td>
+                            <td>${reservationList.revTime}</td>
+                            <td>${reservationList.peopleCount}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
+                                    <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
+                                    <c:otherwise>예약 취소</c:otherwise>
+                                </c:choose></td>
+                        </tr>
                     </c:forEach>
+                </table>
 
-                    <c:choose>
-                        <c:when test="${pi3.currentPage eq pi3.maxPage}">
-                            <li class="page-item disabled"><a class="page-link" href="#">></a></li>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveReserveList(${pi3.currentPage + 1})">></li>
-                        </c:otherwise>
-                    </c:choose>
-                </ul>
-            </div>
-        </div>
         </div>
         <%--  ************예약확인창 모달***************  --%>
         <button class="modal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none"></button>
@@ -308,8 +309,8 @@
             },
             success(data) {
                 $('#myBoardList').empty();
-                console.log($(data).find("#myBoardList"));
-                console.log($(data).find(".myBoard_info").length);
+                $('#allBoardsPagination').empty();
+                $('#allBoardsPaging').html($(data).find('#allBoardsPagination'))
                 if ($(data).find(".myBoard_info").length > 0) {
                     $('#myBoardList').html($(data).find("#myBoardList"))
                 } else {
@@ -328,32 +329,12 @@
             },
             success(data) {
                 $('#myReviewList').empty();
-                console.log($(data).find("#myReviewList"));
-                console.log($(data).find(".myReview_info").length);
+                $('#reviewPagination').empty();
+                $('#reviewPaging').html($(data).find('#reviewPagination'))
                 if ($(data).find(".myReview_info").length > 0) {
                     $('#myReviewList').html($(data).find("#myReviewList"))
                 } else {
                     $('#myReviewList').html('<p>조회된 게시글이 없습니다.</p>');
-                }
-            }
-        })
-    }
-
-    function retrieveReserveList(current_page3) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/myPage',
-            method: 'GET',
-            data: {
-                cpage: current_page3
-            },
-            success(data) {
-                $('#myReserveList').empty();
-                console.log($(data).find("#myReserveList"));
-                console.log($(data).find(".myReserve_info_list").length);
-                if ($(data).find(".myReserve_info_list").length > 0) {
-                    $('#myReserveList').html($(data).find("#myReserveList"))
-                } else {
-                    $('#myReserveList').html('<p>조회된 게시글이 없습니다.</p>');
                 }
             }
         })
@@ -364,18 +345,17 @@
         let revNo = $(this).find("td:eq(0)").text();
 
         $.ajax({
-            url: '${pageContext.request.contextPath}/myPage/modal',
+            url: '${pageContext.request.contextPath}/reservation/myPage/modal',
             method: 'GET',
             data: {revNo : revNo},
             success: function (data){
 
-                //const html = jQuery('<div>').html(data);
-                //const contents = html.find('div#revContent').html();
                 $('#exampleModal').html(data);
                 $(".modal_btn").click();
             }
         })
     })
+
 
 </script>
 
