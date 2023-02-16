@@ -9,6 +9,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <link rel="stylesheet" href="<c:url value="/resources/css/chat/chat_pop.css"/>">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -68,7 +69,7 @@
       },
       fail: function () {
         console.log("실패")
-        alert("사용 실패")
+        swal("사용 실패","","error")
         $("#chat-circle").toggle("scale");
       }
     })
@@ -76,7 +77,7 @@
 
   $("#chat-circle").click(function () {
     if (${empty loginUser}) {
-      alert("로그인 후 이용하실 수 있습니다.")
+      swal("로그인 후 이용할 수 있습니다","","warning")
     } else {
       openChat();
     }

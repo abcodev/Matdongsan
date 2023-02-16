@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>맛동산</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -125,7 +126,7 @@
 
     <script>
         if (${loginUser.grade == 'GENERAL'}) {
-            alert('회원정보 입력 후 이용해주세요.');
+            swal("회원 정보 입력후 사용해주세요","","warning")
             window.location = '${pageContext.request.contextPath}/memberModify';
         }
     </script>

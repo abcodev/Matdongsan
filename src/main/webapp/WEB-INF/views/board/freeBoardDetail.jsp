@@ -160,10 +160,10 @@
             type : "post",
             success : function (result){
                         console.log(result);
-                        alert("수정성공!");
+                        swal("수정성공!","","success");
                     },
             error : function (){
-                        alert("수정실패");
+                         swal("수정실패!","","error");
                     },
             complete : function (){
                             location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
@@ -255,11 +255,11 @@
                     memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
-                alert("댓글 삭제 성공");
+                swal("댓글 삭제 성공!","","success");
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
-                alert("댓글 삭제 실패");
+                swal("댓글 삭제 실패!","","error");
             }
         });
     }
@@ -286,7 +286,7 @@
                         $('#exampleModal').modal('hide');
                       },
             error : function (){
-                alert("신고 실패");
+                swal('신고 실패',"",'error');
             }
         })
     }

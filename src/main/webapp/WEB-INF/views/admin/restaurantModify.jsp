@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
     <title>Document</title>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -110,7 +111,7 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            swal("파일 크기는 10mb 를 넘길 수 없습니다.","","warning")
             input.value = null;
         }
     }
@@ -118,7 +119,7 @@
     $('input:checkbox[name=hashtagId]').click(function(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
-            alert('해시태그는 최대 2개까지 선택 가능합니다.')
+            swal("해쉬태그","2개 까지 선택가능합니다!","warning")
             $(this).prop('checked', false);
         }
     });

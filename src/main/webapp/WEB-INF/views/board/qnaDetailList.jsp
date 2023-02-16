@@ -142,14 +142,14 @@
           $('#exampleModal').modal('hide');
         },
         error : function (){
-          alert("신고 실패");
+          swal('신고 실패',"",'error');
         }
       })
     }
 
     function deletePage(qBno){
       location.href = '${pageContext.request.contextPath}/board/delete/'+qBno;
-      alert("게시판 삭제 완료")
+      swal('삭제 완료!','정상적으로 삭제되었습니다','success');
     }
   </script>
 
