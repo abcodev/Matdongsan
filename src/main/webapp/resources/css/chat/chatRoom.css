@@ -245,3 +245,8 @@
   width:50px;
   border-radius:50%;
 }
+
+
+#chat_right > .basicImage {
+  padding-left: 120px;
+}

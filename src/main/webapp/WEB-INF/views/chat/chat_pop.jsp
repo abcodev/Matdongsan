@@ -17,10 +17,15 @@
 </head>
 <body>
 <div class="floating-chat">
+
+
+
   <div id="chat-circle" class="btn btn-raised">
     <i class="fa-regular fa-comments"></i>
     <p>1:1문의</p>
   </div>
+
+
   <div class="chat-box">
     <div class="chat-box-header">
       <span>1:1 문의</span>
@@ -46,6 +51,15 @@
 </div>
 <script>
 
+  $("#chat-circle").click(function () {
+    if (${empty loginUser}) {
+      alert("로그인 후 이용하실 수 있습니다.")
+    } else {
+      openChat();
+    }
+  });
+
+
   $(function () {
     if (${pageContext.request.parameterMap.containsKey("open_chat_flag")
           && pageContext.request.getParameter("open_chat_flag")}) {
@@ -54,6 +68,7 @@
   })
 
   function openChat() {
+
     $.ajax({
       url: '${pageContext.request.contextPath}/createChatRoom',
       type: "POST",
@@ -74,13 +89,7 @@
     })
   }
 
-  $("#chat-circle").click(function () {
-    if (${empty loginUser}) {
-      alert("로그인 후 이용하실 수 있습니다.")
-    } else {
-      openChat();
-    }
-  });
+
 
 
   $(".chat-box-toggle").click(function () {

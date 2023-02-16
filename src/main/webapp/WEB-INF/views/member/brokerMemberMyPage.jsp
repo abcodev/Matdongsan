@@ -47,7 +47,6 @@
             <div id="btn_box">
                 <button onclick="deleteMember()">회원탈퇴</button>
                 <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-                <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
             </div>
         </div>
 
