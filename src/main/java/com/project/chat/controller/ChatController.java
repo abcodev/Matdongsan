@@ -38,7 +38,7 @@ public class ChatController {
         return ResponseEntity.ok().body(chat);
     }
 
-    @PostMapping("/chat/admin/enterChat")
+    @GetMapping("/chat/admin/enterChat")
     @ResponseBody
     public ModelAndView enterChat(@ModelAttribute("roomNo") String roomNo , ModelAndView mv) {
         List<AdminChatMessage> chattingList = chatService.adminMessageList(roomNo);
