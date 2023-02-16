@@ -128,6 +128,7 @@
         if(currentChatRoom === content.roomNo){
             clickPreChat(content.roomNo)
         }
+
     }
 
 
@@ -176,6 +177,7 @@
                     $('.messages-chat').append("<div class='request'><p class='text'>"+result[i].message+"</p></div>");
                 }
             }
+
         }
     }
 
@@ -184,6 +186,7 @@
         if(e.keyCode===13){
             send();
         }
+        $('.chat').scrollTop($('.chat').prop('scrollHeight'));
     });
 
 

@@ -67,18 +67,18 @@ public class MainController {
             newsList.add(newsInfo);
         }
 
-        Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser != null) {
-            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
-            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
-            model.addAttribute("recentViewList", recentViewList);
-            model.addAttribute("interestViewList", Collections.emptyList());
-        } else {
-            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
-            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
-            model.addAttribute("recentViewList", Collections.emptyList());
-            model.addAttribute("interestViewList", interestViewList);
-        }
+//        Member loginUser = (Member) session.getAttribute("loginUser");
+//        if (loginUser != null) {
+//            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
+//            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
+//            model.addAttribute("recentViewList", recentViewList);
+//            model.addAttribute("interestViewList", Collections.emptyList());
+//        } else {
+//            List<String> interestEstateNoList = interestRealEstateRedisService.findTopN(5);
+//            List<RealEstateViewDto> interestViewList = realEstateService.selectViewListIn(interestEstateNoList);
+//            model.addAttribute("recentViewList", Collections.emptyList());
+//            model.addAttribute("interestViewList", interestViewList);
+//        }
 
         model.addAttribute("newsList", newsList);
         Gson gson = new Gson();

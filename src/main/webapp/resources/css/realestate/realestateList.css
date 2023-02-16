@@ -107,8 +107,13 @@
     padding-top: 5px;
     padding-bottom: 80px;
     position: relative;
-    left: 35%;
-    float:left;
+    /*left: 35%;*/
+    /*float:left;*/
+    /*justify-content : center;*/
+}
+
+.pagination{
+    justify-content : center;
 }
 
 .search{
@@ -157,6 +162,10 @@ select:focus {
 
 .table_area {
     background-color: #ffffff;
+}
+
+.table tr th{
+    background-color: rgb(231, 229, 234);
 }
 
 .freeBoard_area{
@@ -213,3 +222,4 @@ select:focus {
 .realPage> li:hover{
     border: 2px solid #beb0d0;
 }
+
