@@ -35,16 +35,13 @@
                         <a href="${pageContext.request.contextPath}/board/qnaList">질문&답변</a>
                     </div>
                 </div>
-
-                <c:if test="${loginUser.memberNo == 1}">
+                <c:if test="${loginUser.grade == 'ADMIN'}">
                     <div class="dropdown">
-                        <button class="dropdown-btn"><a
-                                href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
+                        <button class="dropdown-btn">
+                            <a href="${pageContext.request.contextPath}/chat/admin">1:1문의</a>
                         </button>
                     </div>
                 </c:if>
-
-
             </div>
         </nav>
 
@@ -112,7 +109,6 @@
             }
 
         </script>
-
     </div>
 </header>
 </body>
