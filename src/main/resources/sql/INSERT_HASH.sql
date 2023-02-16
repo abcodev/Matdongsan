@@ -20,3 +20,12 @@ Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H18','#청결해요
 Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H19','#친절해요');
 Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H20','#미슐랭');
 Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H21','#넓은매장');
+
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H22', '#반려동물 입장가능');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H23', '#뷰좋아요');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H24', '#단체가능');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H25', '#예약가능');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H26', '#혼술');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H27', '#노키즈존');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H28', '#놀이방');
+Insert into MATDONGSAN.HASHTAG (HASHTAG_ID,HASHTAG) values ('H29', '#신선해요');
