@@ -11,7 +11,7 @@
 
 #content{
     padding: 60px 350px 30px 350px;
-    height: 800px;
+    height: 1000px;
 }
 
 .content{
@@ -194,6 +194,7 @@
 .boardlist{
     padding: 10px 5px ;
     border-bottom: #E0E0E0 2px solid;
+
 }
 
 .board_title > p{
@@ -243,4 +244,57 @@
 
 .board_info > .reply{
     margin-left: 10px;
+}
+
+/*.pagination> li{*/
+/*    display: inline-block;*/
+/*    position: relative;*/
+/*    left: 670px;*/
+/*    top:-50px;*/
+/*    margin:0 3px;*/
+/*    border:1px solid #e6e6e6;*/
+/*    width:28px;*/
+/*    height:28px;*/
+/*    line-height:28px;*/
+/*    text-align:center;*/
+/*    background-color:#fff;*/
+/*    font-size:13px;*/
+/*    color:#999999;*/
+/*    text-decoration:none;*/
+/*    font-weight: bold;*/
+/*}*/
+/*.pagination> li:hover{*/
+/*    border: 2px solid #beb0d0;*/
+/*}*/
+
+#paging {
+    height: 40px;
+    padding-top: 15px;
+    padding-bottom: 80px;
+    position: relative;
+    left: 35%;
+    float:left;
+}
+
+
+
+.page-link {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #555;
+    font-weight:bold;
+    background-color: #f1f1f1;
+    border-color: #ccc;
+
+}
+
+.page-link:focus, .page-link:hover {
+    color: #000;
+    background-color: #fafafa;
+    border-color: #ccc;
 }

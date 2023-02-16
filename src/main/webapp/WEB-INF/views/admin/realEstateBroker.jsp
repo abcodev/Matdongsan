@@ -8,12 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%@ page language="java" pageEncoding="UTF-8" %>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
     <title>부동산 중개업자 신청 관리</title>
 </head>
@@ -48,7 +44,7 @@
                 <td>${broker.agentName}</td>
                 <td>${broker.agentNo}</td>
                 <td>${broker.agentPhone}</td>
-                <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button>다운로드</button></a></td>
+                <td><a href="${broker.attachment}" download="${broker.agentName}_${broker.memberNo}"><button id="down">다운로드</button></a></td>
                 <td>
                     <c:if test="${broker.applyStatus eq 'A'}">
                         <button type="button" class="add-btn" id="btnOn" onclick="showApproveModal('${broker.agentNo}', ${broker.memberNo})">
@@ -71,14 +67,17 @@
         </tbody>
     </table>
 </div>
-<div class="paging">
+
+
+
+<div id="paging">
     <ul class="pagination">
         <c:choose>
             <c:when test="${ pi.currentPage eq 1 }">
-                <li class="page-item disabled">Previous</li>
+                <li class="page-item disabled"><</li>
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="brokerList(${pi.currentPage - 1})">Previous</li>
+                <li class="page-item" onclick="brokerList(${pi.currentPage - 1})"><</li>
             </c:otherwise>
         </c:choose>
 
@@ -88,16 +87,32 @@
 
         <c:choose>
             <c:when test="${ pi.currentPage eq pi.maxPage }">
-                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#"></a>></li>
+
             </c:when>
             <c:otherwise>
-                <li class="page-item" onclick="brokerList(${pi.currentPage + 1})">Next</li>
-
+                <li class="page-link" onclick="brokerList(${pi.currentPage + 1})">></li>
             </c:otherwise>
+
         </c:choose>
     </ul>
-
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- Modal -->
@@ -170,7 +185,7 @@
             success: function (data) {
                 $('#tableDiv').empty();
                 $('.pagination').empty();
-                $('.paging').html($(data).find('.pagination')) ;
+                $('#paging').html($(data).find('.pagination')) ;
                 if ($(data).find("#tableList").length > 0) {
                     $('.brokerTable').html($(data).find("#tableDiv"))
                 } else {

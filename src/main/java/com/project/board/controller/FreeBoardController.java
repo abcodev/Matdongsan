@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,10 +45,13 @@ public class FreeBoardController {
 
         FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
-
+        List<FreeBoard> freeNoticeList = freeBoardService.freeNoticeList();
         freeBoardService.selectReportList(); // 블라인드 게시글 조회 및 업데이트
 
+        System.out.println("공지사항 check: " + freeNoticeList);
+
         modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
+        modelAndView.addObject("freeNoticeList", freeNoticeList);
         modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("stateList", StateList.values());
         modelAndView.addObject("hotWeekList", freeBoardService.hotWeekList());
@@ -69,7 +73,7 @@ public class FreeBoardController {
     // 게시글 등록
     @RequestMapping("freeList/insert")
     public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "") String boardWriter,
-                                  @RequestParam(value = "boardArea") String boardArea,
+                                  @RequestParam(value = "boardArea", defaultValue = "") String boardArea,
                                   Model model, FreeBoard fb, HttpSession session
     ) {
         Member loginUser = (Member) session.getAttribute("loginUser");

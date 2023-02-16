@@ -2,6 +2,10 @@ package com.project.admin.controller;
 
 import com.project.admin.dto.*;
 import com.project.admin.service.AdminService;
+import com.project.common.annotation.Permission;
+import com.project.common.annotation.RequiredLogin;
+import com.project.member.type.MemberGrade;
+import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +13,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+
+
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("loginUser")
 @RequestMapping("/admin")
+@RequiredLogin
+@Permission(authority = MemberGrade.ADMIN)
 public class AdminController {
 
     private final AdminService adminService;
+
 
     @RequestMapping(value = "/userList")
     public ModelAndView selectUserList(
@@ -54,14 +64,12 @@ public class AdminController {
 
     @RequestMapping(value = "/deleteQna/{fNo}")
     public String deleteQna(@PathVariable("fNo") int fNo) {
-
         int result = adminService.deleteQna(fNo);
         if (result == 0) {
             return "common/errorPage";
         } else {
-            return "redirect:/admin/userList";
+            return "redirect:/admin/reportList";
         }
-
     }
 
     @RequestMapping(value = "/deleteFree/{fNo}")
@@ -72,7 +80,7 @@ public class AdminController {
         if (result == 0) {
             return "common/errorPage";
         } else {
-            return "redirect:/admin/userList";
+            return "redirect:/admin/reportList";
         }
     }
 
@@ -106,4 +114,6 @@ public class AdminController {
         }
         return ResponseEntity.ok().headers(resHeaders).body(result);
     }
+
+
 }

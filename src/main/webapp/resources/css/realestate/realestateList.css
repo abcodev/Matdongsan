@@ -101,8 +101,14 @@
     width: 20%;
 }
 
-#paging{
+
+#paging {
     height: 40px;
+    padding-top: 5px;
+    padding-bottom: 80px;
+    position: relative;
+    left: 35%;
+    float:left;
 }
 
 .search{
@@ -187,4 +193,23 @@ select:focus {
 
 .freeBoard_list > a:hover{
     color: #585c9c;
+}
+.realPage> li{
+    display: inline-block;
+    position: relative;
+    left: 120px;
+    margin:0 3px;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+    font-weight: bold;
+}
+.realPage> li:hover{
+    border: 2px solid #beb0d0;
 }

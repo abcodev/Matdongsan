@@ -1,19 +1,14 @@
 package com.project.member.controller;
 
 import com.project.admin.vo.BrokerEnroll;
+import com.project.common.annotation.RequiredLogin;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
 import com.project.member.service.MemberService;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.dto.ReservationRequest;
-import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.ReservationBroker;
-import com.project.restaurant.vo.Hashtag;
-import com.project.restaurant.vo.Restaurant;
-import com.project.restaurant.vo.Review;
-import org.json.JSONArray;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -41,6 +30,7 @@ public class MemberController {
     }
 
     @RequestMapping("/myPage")
+    @RequiredLogin
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
@@ -61,7 +51,9 @@ public class MemberController {
         return modelAndView;
     }
 
+
     @RequestMapping("/brokerMemberMyPage")
+    @RequiredLogin
     public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
@@ -74,7 +66,10 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("brokerResList", brokerReservationList);
-        modelAndView.addObject("pi", resp.getPageInfoCombine());
+        //modelAndView.addObject("pi", resp.getPageInfoCombine());
+        modelAndView.addObject("pi1", resp.getPageInfoCombine());
+        modelAndView.addObject("pi2", resp.getPageInfoCombine2());
+        modelAndView.addObject("pi3", resp.getPageInfoCombine3());
 
         System.out.println("부동산 예약 리스트 : " + brokerReservationList);
 
@@ -83,9 +78,8 @@ public class MemberController {
         return modelAndView;
     }
 
-
-
     @RequestMapping(value = "/memberModify")
+    @RequiredLogin
     public String memberModify(Model model){
         model.addAttribute("stateList", StateList.values());
         return "member/memberModify";
@@ -95,6 +89,7 @@ public class MemberController {
      * 회원정보를 수정하면 회원등급 변경
      */
     @RequestMapping(value = "/updateMember")
+    @RequiredLogin
     public String updateMember(HttpSession session, Model model, Member m) {
         int result = memberService.updateMember(m);
         if (result != 0) {
@@ -125,6 +120,7 @@ public class MemberController {
 
     @PostMapping("/myPage")
     @ResponseBody
+    @RequiredLogin
     public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session){
         Member loginUser = (Member) session.getAttribute("loginUser");
         if(loginUser == null){
@@ -135,6 +131,7 @@ public class MemberController {
     }
 
     @RequestMapping("/delete")
+    @RequiredLogin
     public String deleteMember(HttpSession session) {
         Member member = (Member)session.getAttribute("loginUser");
         memberService.deleteMember(member);
@@ -159,14 +156,14 @@ public class MemberController {
      * 부동산 회원 인증
      */
     @RequestMapping("broker/enrollPage")
+    @RequiredLogin
     public ModelAndView brokerEnrollPage(ModelAndView modelAndView) {
         modelAndView.setViewName("member/brokerMemberEnroll");
         return modelAndView;
     }
 
-    // Spring Boot -> Validator 를 이용한 유효성 검사
-    // Validator -> Client 로부터 받은 데이터에 대한 유효성 검사
     @PostMapping("broker/enroll")
+    @RequiredLogin
     public String agentMemberInsert(@RequestParam(value = "file", required = true) MultipartFile file,
                                     BrokerEnroll brokerEnroll
     ) {
@@ -175,12 +172,19 @@ public class MemberController {
     }
 
 //    @RequestMapping("/revDelete")
-//    public String deleteReservation(@RequestParam(value = "revNo")int revNo) {
-//        memberService.deleteReservation(revNo);
-//
+//    @RequiredLogin
+//    public String deleteReservation(HttpSession session){
+//        Member m = (Member) session.getAttribute("loginUser");
+//        memberService.deleteReservation(m);
 //        return "redirect:/myPage";
 //
 //    }
+
+    @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
+    @ResponseBody
+    public int nameCheck(@RequestParam("nName") String nName) {
+        return memberService.nNameCheck(nName);
+    }
 
 
 }

@@ -16,6 +16,8 @@
             crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
@@ -32,10 +34,11 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심목록이 해지되었습니다.")
+                alert("관심목록이 해제 되었습니다.");
                 location.reload();
             }
         });
+
     }
 </script>
 
@@ -110,30 +113,44 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <div id="paging_boardList">
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${pi1.currentPage eq 1}">
-                                <li class="page-item disabled">Previous</li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
-                            </c:otherwise>
-                        </c:choose>
+                <div id="allBoardsPaging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="allBoardsPagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-                        <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                            <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
-                        </c:forEach>
+                            <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                                <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
+                            </c:forEach>
 
-                        <c:choose>
-                            <c:when test="${pi1.currentPage eq pi1.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                            <c:choose>
+                                <c:when test="${ pi1.currentPage eq pi1.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -181,35 +198,49 @@
                         </tr>
                     </c:forEach>
                 </table>
+                <div id="reviewPaging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="reviewPagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-                <div id="paging_review">
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${pi2.currentPage eq 1}">
-                                <li class="page-item disabled">Previous</li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})">Previous</li>
-                            </c:otherwise>
-                        </c:choose>
+                            <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                                <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
+                            </c:forEach>
 
-                        <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
-                            <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
-                        </c:forEach>
-
-                        <c:choose>
-                            <c:when test="${pi2.currentPage eq pi2.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">Next</li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                            <c:choose>
+                                <c:when test="${ pi2.currentPage eq pi2.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="reserve_history">
         <p>부동산 예약 내역</p>
         <div id="myReserveList">
@@ -230,15 +261,15 @@
                             <td>${reservationList.revTime}</td>
                             <td>${reservationList.peopleCount}</td>
                             <td>
-                            <c:choose>
-                                <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
-                                <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
-                                <c:otherwise>예약 취소</c:otherwise>
-                            </c:choose></td>
+                                <c:choose>
+                                    <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
+                                    <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
+                                    <c:otherwise>예약 취소</c:otherwise>
+                                </c:choose></td>
                         </tr>
                     </c:forEach>
                 </table>
-            </div>
+
         </div>
         <%--  ************예약확인창 모달***************  --%>
         <button class="modal_btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none"></button>
@@ -278,8 +309,8 @@
             },
             success(data) {
                 $('#myBoardList').empty();
-                console.log($(data).find("#myBoardList"));
-                console.log($(data).find(".myBoard_info").length);
+                $('#allBoardsPagination').empty();
+                $('#allBoardsPaging').html($(data).find('#allBoardsPagination'))
                 if ($(data).find(".myBoard_info").length > 0) {
                     $('#myBoardList').html($(data).find("#myBoardList"))
                 } else {
@@ -298,8 +329,8 @@
             },
             success(data) {
                 $('#myReviewList').empty();
-                console.log($(data).find("#myReviewList"));
-                console.log($(data).find(".myReview_info").length);
+                $('#reviewPagination').empty();
+                $('#reviewPaging').html($(data).find('#reviewPagination'))
                 if ($(data).find(".myReview_info").length > 0) {
                     $('#myReviewList').html($(data).find("#myReviewList"))
                 } else {

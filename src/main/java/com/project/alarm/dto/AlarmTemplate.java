@@ -12,11 +12,11 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AlarmTemplate {
+public class AlarmTemplate <T> {
 
     private long memberNo;
     private AlarmType alarmType;
-    private String targetNo;
+    private T targetNo;
     private String title;
     private String contents;
 
@@ -24,8 +24,8 @@ public class AlarmTemplate {
         this.memberNo = memberNo;
     }
 
-    public static AlarmTemplate generateNewChatMessageTemplate(String roomNo, long receiverNo, String senderName) {
-        AlarmTemplate template = new AlarmTemplate(receiverNo);
+    public static AlarmTemplate<String> generateNewChatMessageTemplate(String roomNo, long receiverNo, String senderName) {
+        AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
         if (receiverNo == 1) {
             template.setTitle("1:1 문의");
             template.setAlarmType(AlarmType.NEW_QUESTION);
@@ -40,32 +40,60 @@ public class AlarmTemplate {
         return template;
     }
 
-    public static AlarmTemplate generateNewReplyTemplate(long receiverNo) {
-        AlarmTemplate template = new AlarmTemplate(receiverNo);
-        template.setTargetNo(String.valueOf(receiverNo));
+    public static AlarmTemplate<Integer> generateNewReplyTemplate(long receiverNo, int fNo) {
+        AlarmTemplate<Integer> template = new AlarmTemplate<>(receiverNo);
         template.setTitle("자유게시판 알림");
         template.setAlarmType(AlarmType.NEW_REPLY);
         template.setContents("내 글에 댓글이 등록됐습니다.");
+        template.setTargetNo(fNo);
         return template;
     }
 
-    public static AlarmTemplate generateNewQnaMessageTemplate(long receiverNo) {
-        AlarmTemplate template = new AlarmTemplate(receiverNo);
-        template.setTargetNo(String.valueOf(receiverNo));
+    public static AlarmTemplate<Integer> generateNewQnaMessageTemplate(long receiverNo, int qNo) {
+        AlarmTemplate<Integer> template = new AlarmTemplate<>(receiverNo);
         template.setTitle("질문게시판 알림");
         template.setAlarmType(AlarmType.NEW_BOARD_ANSWER);
         template.setContents("내 질문에 답변이 등록됐습니다.");
-        return template;
-    }
-    public static AlarmTemplate generateNewRervation(long receiverNo,String senderName){
-        AlarmTemplate template = new AlarmTemplate(receiverNo);
-        template.setTargetNo(String.valueOf(receiverNo));
-        template.setTitle("부동안 예약 알림");
-        template.setAlarmType(AlarmType.NEW_RESERVATION_BROKER);
-        template.setContents( senderName + "님이 방문예약을 하였습니다.");
+        template.setTargetNo(qNo);
         return template;
     }
 
+    public static AlarmTemplate<String> generateNewReservation(long receiverNo, String senderName, String agentNo) {
+        AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
+        template.setTitle("부동안 예약 알림");
+        template.setAlarmType(AlarmType.NEW_RESERVATION_BROKER);
+        template.setContents(senderName + "님이 방문상담을 예약하였습니다.");
+        template.setTargetNo(agentNo);
+        return template;
+    }
+
+    public static AlarmTemplate<Integer> generateApproveReservationTemplate(long receiverNo, String agentName, int revNo) {
+        AlarmTemplate<Integer> template = new AlarmTemplate<>(receiverNo);
+        template.setTitle("부동산 예약 알림");
+        template.setAlarmType(AlarmType.RESERVATION_APPROVE);
+        template.setContents(agentName + " 방문 예약이 승인되었습니다.");
+        template.setTargetNo(revNo);
+        return template;
+    }
+
+    public static AlarmTemplate<Integer> generateCancelReservationTemplate(long receiverNo, String agentName, int revNo) {
+        AlarmTemplate<Integer> template = new AlarmTemplate<>(receiverNo);
+        template.setTitle("부동산 예약 알림");
+        template.setAlarmType(AlarmType.RESERVATION_APPROVE);
+        template.setContents(agentName + " 방문 예약이 거절되었습니다.");
+        template.setTargetNo(revNo);
+        return template;
+    }
+
+
+    public static AlarmTemplate<String> generateNewAccept(long receiverNo) {
+        AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
+        template.setTargetNo(String.valueOf(receiverNo));
+        template.setTitle("회원 정보 알림");
+        template.setAlarmType(AlarmType.NEW_BROKER_ACCEPT);
+        template.setContents("부동산 회원 승인이 완료 됐습니다.");
+        return template;
+    }
 
 
 }

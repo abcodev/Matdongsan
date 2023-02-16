@@ -34,6 +34,10 @@ public class FreeBoardService {
         return new FreeBoardListResponse(result,pageInfoCombine);
     }
 
+    public List<FreeBoard> freeNoticeList(){
+        return freeBoardDao.freeNoticeList(sqlSession);
+    }
+
     public int selectReportList(){
         return freeBoardDao.selectReportList(sqlSession);
     }
@@ -53,7 +57,7 @@ public class FreeBoardService {
     public int insertReply(Reply r){
         FreeBoard freeBoard = freeBoardDao.selectByFreeBno(sqlSession, r.getFreeBno());
         long receiverNo = freeBoard.getMemberNo();
-        AlarmTemplate template = AlarmTemplate.generateNewReplyTemplate(receiverNo);
+        AlarmTemplate<Integer> template = AlarmTemplate.generateNewReplyTemplate(receiverNo, freeBoard.getBoardNo());
         alarmService.send(template);
 
         return freeBoardDao.insertReply(sqlSession, r);

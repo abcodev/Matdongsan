@@ -24,11 +24,16 @@
     <form id="enrollForm" method="post" action="${pageContext.request.contextPath}/board/freeList/insert">
         <div class="form_head">
             <div class="select_city">
-                <select id="boardArea" name="boardArea">
-                    <c:forEach var="localList" items="${localList}">
-                        <option value="${localList}">${localList}</option>
-                    </c:forEach>
-                </select>
+                <c:if test="${loginUser.memberNo ne 1}">
+                    <select id="boardArea" name="boardArea">
+                        <c:forEach var="localList" items="${localList}">
+                            <option value="${localList}">${localList}</option>
+                        </c:forEach>
+                    </select>
+                </c:if>
+                <c:if test="${loginUser.memberNo eq 1}">
+                    <input type="hidden" name="boardArea">
+                </c:if>
             </div>
             <input type="text" name="boardTitle" required placeholder="제목을 입력해주세요" class="board_title">
             <input type="hidden" name="boardWriter" value="${loginUser.nickName}">

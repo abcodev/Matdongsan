@@ -5,6 +5,7 @@ import com.project.chat.dto.AdminChatRoom;
 
 import com.project.chat.dto.MessageDto;
 import com.project.chat.service.ChatService;
+import com.project.common.annotation.RequiredLogin;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,18 @@ public class ChatController {
         List<AdminChatMessage> chattingList = chatService.adminMessageList(roomNo);
         return ResponseEntity.ok().body(chattingList);
     }
+
+
+
+//    @PostMapping("/chat/admin/enterChat")
+//    public ModelAndView enterChat(@ModelAttribute("roomNo") String roomNo) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        List<AdminChatMessage> chatMessageList = chatService.adminMessageList(roomNo);
+//
+//        modelAndView.addObject("chatMessageList", chatMessageList);
+//        modelAndView.setViewName("chat/adminChatContents");
+//        return modelAndView;
+//    }
 
 
     /**

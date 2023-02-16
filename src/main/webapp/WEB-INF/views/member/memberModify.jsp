@@ -26,8 +26,9 @@
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="userinfo nickName">
                 <span>닉네임</span>
-                <input type="text" id="nickName" name="nickName" value="${loginUser.nickName}" required>
-                <button>중복검사</button>
+                <input id="nickName" type="text" name="nickName" value="${loginUser.nickName}" maxlength="8" title="8자 까지 입력" required autofocus/>
+                <input type="hidden" id="nickNameDoubleChk"/>
+                <p class="point successNameChk">닉네임은 2자 이상 8자 이하로 설정해주세요</p>
             </div>
             <div class="userinfo email">
                 <span>이메일</span>
@@ -39,7 +40,7 @@
                 <button type="button" id="phoneChk">인증받기</button><br>
             </div>
             <div class="userinfo phone2">
-                <input id="phone2" type="text" name="phone2" placeholder="인증번호를 입력해주세요">
+                <input id="phone2" type="text" name="phone2" placeholder="인증번호를 입력해주세요" required>
                 <button type="button" value="인증확인" id="phoneChk2">인증확인</button>
             </div>
             <div class="userinfo address">
@@ -53,20 +54,19 @@
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button id="submit" type="submit">수정하기</button>
+                <button id="submit" type="submit" onclick="return signupCheck();">수정하기</button>
             </div>
         </div>
     </form>
 </div>
+
 <script>
     $(document).ready(function(){
         document.getElementById("submit").onclick = function (){
             document.form_name.submit();
         }
     });
-    $("#submit").click(function (){
-        alert('회원정보 수정 완료')
-    })
+
 
     $(function(){
         code2 = "";
@@ -86,17 +86,21 @@
                         code2 = data;
                     }
                 }
-
             });
         });
     });
 
+    // let checkNum = 0;
+    // let checkNickName = 0;
+
     $("#phoneChk2").click(function() {
         if ($("#phone2").val() == code2) {
+            // checkNum = 1;
             alert('인증성공')
         } else {
             alert('인증실패 정확히 입력해주세요')
             $("#phoneChk2").focus();
+            // checkNum = 0;
 
         }
     })
@@ -104,10 +108,7 @@
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var addr = ''; // 주소 변수
                 var extraAddr = ''; // 참고항목 변수
 
@@ -118,22 +119,6 @@
                     addr = data.jibunAddress;
                 }
 
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                //     if(data.buildingName !== '' && data.apartment === 'Y'){
-                //         extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                //     }
-                //     // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                //     if(extraAddr !== ''){
-                //         extraAddr = ' (' + extraAddr + ')';
-                //     }
-                //     // 조합된 참고항목을 해당 필드에 넣는다.
-                //     document.getElementById("sample6_extraAddress").value = extraAddr;
-                //
-                // } else {
-                //     document.getElementById("sample6_extraAddress").value = '';
-                // }
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
                 document.getElementById("sample6_address").value = addr;
@@ -142,9 +127,63 @@
             }
         }).open();
     }
+
+
+
+
+
+    $("#nickName").blur(function(){
+        var nName = $("#nickName").val();
+        if(nName == "" || nName.length < 2){
+            $(".successNameChk").text("닉네임은 2자 이상 8자 이하로 설정해주세요 :)");
+            $(".successNameChk").css("color", "red");
+            $("#nickNameDoubleChk").val("false");
+        }else{
+            $.ajax({
+                url : '${pageContext.request.contextPath}/nNameCheck?nName='+ nName,
+                type : 'post',
+                cache : false,
+                success : function(data) {
+                    if (data == 0) {
+                        $(".successNameChk").text("사용가능한 닉네임입니다 :)");
+                        $(".successNameChk").css("color", "green");
+                        $("#nameDoubleChk").val("true");
+                        // checkNickName = 1;
+
+                    } else {
+                        $(".successNameChk").text("이미 사용중인 닉네임입니다 :p");
+                        $(".successNameChk").css("color", "red");
+                        $("#nickNameDoubleChk").val("false");
+                        // checkNickName = 0;
+                    }
+                }, error : function() {
+                    console.log("실패");
+                }
+            });
+        }
+    });
+
+
+    // function signupCheck() {
+    //     if (!(checkNum == 1 && checkNickName == 1)) {
+    //         alert("필수 입력창을 모두 입력해주세요.")
+    //         return false;
+    //     }
+    // };
+
+
+
+    $("#submit").click(function (){
+        alert('회원정보 수정 완료')
+    })
+
+
+
+
+
+
+
 </script>
-
-
 
 </script>
 </body>

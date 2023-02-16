@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -92,6 +93,8 @@ public class MemberService {
         }
         return memberDao.updateMember(sqlSession, m);
     }
+
+
 
 
     public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
@@ -178,6 +181,13 @@ public class MemberService {
     public List<ReservationBroker> selectBrokerReservationList(Member m){
         return memberDao.selectBrokerReservationList(sqlSession, m);
     }
+
+
+    public int nNameCheck(String nName) {
+        return memberDao.nNameCheck(nName);
+    }
+
+
 
 }
 
