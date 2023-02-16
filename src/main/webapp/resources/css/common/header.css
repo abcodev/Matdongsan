@@ -149,9 +149,10 @@ a{
 
 .fa-bell{
     font-size: 20px;
-    margin-left: 15px;
-    padding-top: 10px;
+    margin-left: 10px;
+    padding-top: 13px;
     cursor: pointer;
+    position: relative;
 }
 
 .fa-bell:hover{
