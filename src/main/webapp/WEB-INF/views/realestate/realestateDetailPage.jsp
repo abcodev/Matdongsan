@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>부동산상세페이지</title>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
     <jsp:include page="../template/font.jsp"/>
     <%@ include file="../template/header.jsp" %>
@@ -194,7 +193,9 @@
 
                 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
                 var map = new kakao.maps.Map(mapContainer, mapOption);
+
                 var geocoder = new kakao.maps.services.Geocoder();
+
 
                 geocoder.addressSearch('${realEstateDetail.address}', function (result, status) {
 
@@ -206,19 +207,24 @@
                         // 결과값으로 받은 위치를 마커로 표시합니다
                         var marker = new kakao.maps.Marker({
                             map: map,
-                            position: coords
+                            position: coords,
+                            draggable:true
                         });
-
+                        marker.setMap(map);
+                        marker.setDraggable(true);
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         var infowindow = new kakao.maps.InfoWindow({
                             content: '<div style="width:150px;text-align:center;padding:6px 0;">${realEstateDetail.bldgNm}</div>'
                         });
+
                         infowindow.open(map, marker);
+
 
                         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                         map.setCenter(coords);
                     }
                 });
+
 
 
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
@@ -243,8 +249,10 @@
                                 // 로드뷰에 올릴 마커를 생성합니다.
                                 var rMarker = new kakao.maps.Marker({
                                     position: position,
+                                    draggable: true,
                                     map: roadview //map 대신 roadview(로드뷰 객체)로 설정하면 로드뷰에 올라갑니다.
                                 });
+                                rmarker.setDraggable(true);
 
                                 // 로드뷰에 올릴 장소명 인포윈도우를 생성합니다.
                                 var rLabel = new kakao.maps.InfoWindow({
@@ -262,6 +270,7 @@
                             }
                         }
                     });
+
                 }
 
                 Roadview();
