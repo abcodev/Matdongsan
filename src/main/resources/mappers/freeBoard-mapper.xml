@@ -215,8 +215,10 @@
             FREE_BNO,
             BOARD_AREA,
             BOARD_TITLE
-        FROM FREE_BOARD
-        WHERE STATUS = 'Y'
+        FROM FREE_BOARD F
+        JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
+        WHERE F.STATUS = 'Y'
+            AND GRADE != 'ADMIN'
           <if test="state != '' ">
           AND BOARD_AREA = '${sggNm}'
           </if>
