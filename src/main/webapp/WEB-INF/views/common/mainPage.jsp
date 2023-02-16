@@ -89,8 +89,13 @@
 
         </div>
     </div>
-
     <script>
+        if (${loginUser.grade == 'GENERAL'}) {
+            alert('회원정보 입력 후 이용해주세요.');
+            window.location = '${pageContext.request.contextPath}/memberModify';
+        }
+
+
         let alarmIsOpen = false;
         window.onload = () => {
             retrieveAlarmList();
@@ -119,14 +124,6 @@
                     }
                 }
             });
-        }
-
-    </script>
-
-    <script>
-        if (${loginUser.grade == 'GENERAL'}) {
-            alert('회원정보 입력 후 이용해주세요.');
-            window.location = '${pageContext.request.contextPath}/memberModify';
         }
     </script>
 
@@ -313,6 +310,16 @@
         </c:choose>
     </div>
 </div>
+<script>
+    $("#chat-circle").click(function () {
+        if (${not empty loginUser}) {
+            openChat();
+        } else {
+            console.log("로그인후 이용가능");
+            alert("로그인 후 이용하실 수 있습니다.");
+        }
+    });
+</script>
 
 </body>
 </html>
