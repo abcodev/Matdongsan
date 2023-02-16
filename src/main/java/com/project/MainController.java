@@ -67,7 +67,7 @@ public class MainController {
             newsList.add(newsInfo);
         }
 
-        Member loginUser = (Member) session.getAttribute("loginUser");
+//        Member loginUser = (Member) session.getAttribute("loginUser");
 //        if (loginUser != null) {
 //            List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
 //            List<RealEstateViewDto> recentViewList = realEstateService.selectViewListIn(recentEstateNoList);
