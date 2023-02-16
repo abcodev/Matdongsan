@@ -30,64 +30,69 @@
 <form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
     <div class="body">
         <div id="content">
-        <div id="contentHead"></div>
-        <div class="resDiv">
-            <i class="bi bi-shop"></i>
-            <span class="font">맛집이름 : &nbsp;</span>
-            <input type="text" name="resName"  class="textInput" value="${restaurantDetail.resName}">
-            <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
-        </div>
-        <div class="resDiv">
-            <i class="bi bi-geo-alt-fill"></i>
-            <span class="font">지역 : &nbsp;</span>
-            <input type="text" id="space"  class="textInput" name="state" value="${restaurantDetail.state}">
-        </div>
-        <div class="resDiv">
-            <i class="fa-solid fa-map-location-dot"></i>
-            <span class="font">주소 : &nbsp;</span>
-            <input type="text"  id="space2"  class="textInput"name="address" value="${restaurantDetail.address}">
-        </div>
-        <div class="resDiv">
-            <i class="fa-solid fa-phone"></i>
-            <span class="font">전화번호 : &nbsp;</span>
-            <input type="text"  class="textInput" name="resPhone" value="${restaurantDetail.resPhone}">
-        </div>
-        <div class="resDiv">
-            <i class="fa-solid fa-utensils"></i>
-            <span class="font">주요메뉴 : &nbsp;</span>
-            <input type="text"  class="textInput" name="resFood" value="${restaurantDetail.resFood}">
-        </div>
+            <div id="contentHead"></div>
+            <div class="resDiv">
+                <i class="bi bi-shop"></i>
+                <span class="font">맛집이름 : &nbsp;</span>
+                <input type="text" name="resName"  class="textInput" value="${restaurantDetail.resName}">
+                <input type="hidden" name="resNo" value="${restaurantDetail.resNo}">
+            </div>
+            <div class="resDiv">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="font">지역 : </span>
+                <select id="space"  class="textInput" name="state">
+                    <option value="" style="text-align: center">지역을 선택해주세요</option>
+                    <c:forEach items="${stateList}" var="state">
+                        <option value="${state}">${state}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="resDiv">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span class="font">주소 : &nbsp;</span>
+                <input type="text"  id="space2"  class="textInput"name="address" value="${restaurantDetail.address}">
+            </div>
+            <div class="resDiv">
+                <i class="fa-solid fa-phone"></i>
+                <span class="font">전화번호 : &nbsp;</span>
+                <input type="text"  class="textInput" name="resPhone" value="${restaurantDetail.resPhone}">
+            </div>
+            <div class="resDiv">
+                <i class="fa-solid fa-utensils"></i>
+                <span class="font">주요메뉴 : &nbsp;</span>
+                <input type="text"  class="textInput" name="resFood" value="${restaurantDetail.resFood}">
+            </div>
         </div>
 
 
-    <div class="placeHashtag">
-        <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
-            <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
-            <label class="btn btn-outline-secondary" id="hashBtn" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
-        </c:forEach>
-    </div>
-    <br><br>
+        <div class="placeHashtag">
+            <c:forEach items="${hashtagList}" var="hashtag" varStatus="i">
+                <input type="checkbox" class="btn-check" id="btn-check-outlined${i.count}" name="hashtagId" autocomplete="off" value="${hashtag.hashtagId}">
+                <label class="btn btn-outline-secondary" id="hashBtn" for="btn-check-outlined${i.count}">${hashtag.hashtag}</label>
+            </c:forEach>
+        </div>
+        <br><br>
 
 
-    <div class="resImg">
-        <%--<div>
-            <img src="${restaurantDetail.resImgUrl}">
-            <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
-        </div>--%>
+        <div class="resImg">
+            <%--<div>
+                <img src="${restaurantDetail.resImgUrl}">
+                <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
+            </div>--%>
             <span class="font"><i class="bi bi-camera"></i></span>
-        <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
+            <input class="form-control form-control-sm" id="formFileSm" name="file" type="file" onchange="readURL(this);">
             <br><br>
-        <img id="preview" src="${restaurantDetail.resImgUrl}">
-        <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
-        <br><br><br>
+            <img id="preview" src="${restaurantDetail.resImgUrl}">
+            <input type="hidden" name="resImgUrl" value="${restaurantDetail.resImgUrl}">
+            <br><br><br>
 
-    </div>
+        </div>
 
 
-    <div class="btn_box">
-        <button type="button" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
-        <button type="submit" class="bbtn">수정</button>
-    </div>
+        <div class="btn_box">
+            <button type="button" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
+            <button type="submit" class="bbtn">수정</button>
+        </div>
     </div>
 </form>
 

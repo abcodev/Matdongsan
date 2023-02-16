@@ -22,176 +22,204 @@
 <body>
 <%@ include file="../template/header.jsp" %>
 
-<div id="content">
-    <div id="info_box">
-        <div id="user_img">
-            <img src="${loginUser.profileImage}">
-        </div>
+    <div id="content">
+        <div id="info_box">
+            <div id="user_img">
+                <img src="${loginUser.profileImage}">
+            </div>
 
-        <div id="userInfo">
-            <table>
-                <tr>
-                    <td><span>닉네임</span>${loginUser.nickName}</td>
-                </tr>
-                <tr>
-                    <td><span>핸드폰</span>${loginUser.phone}</td>
-                </tr>
-                <tr>
-                    <td><span>이메일</span>${loginUser.email}</td>
-                </tr>
-                <tr>
-                    <td><span>주소</span>${loginUser.address}</td>
-                </tr>
-            </table>
-        </div>
-        <div id="btn_box">
-            <button onclick="deleteMember()">회원탈퇴</button>
-            <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
-            <%--            여기 정보수정하면 general2로 변경돼버리니까 부동산 멤버는 다른 정보수정 페이지가 필요하긴함..--%>
-        </div>
-    </div>
-
-    <div id="like">
-        <div class="like_list_top">내가 찜한 목록</div>
-        <div class="like_list">
-            <c:forEach items="${interestList}" var="interest">
-                <div id="heart">
-                    <input id="checkbox_heart_${interest.estateNo}" type="checkbox" onchange="changeHeart(${interest.estateNo})" checked="checked">
-                    <label for="checkbox_heart_${interest.estateNo}"><i class="fa-solid fa-heart"></i></label>
-                    <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
-                        <div class="bldg_name">${interest.bldgNm}</div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-
-    <div id="history_list">
-        <div class="board_history">
-            <p>내 게시글 보기</p>
-            <div id="myBoardList">
+            <div id="userInfo">
                 <table>
                     <tr>
-                        <th>게시판</th>
-                        <th>게시글 제목</th>
-                        <th>게시일</th>
+                        <td><span>닉네임</span>${loginUser.nickName}</td>
                     </tr>
-
-                    <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <c:choose>
-                            <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
-                                <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
-                            </c:when>
-                            <c:otherwise>
-                                <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
-                            </c:otherwise>
-                        </c:choose>
-                        <td>${selectAllBoardList.boardType}</td>
-                        <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
-                        <td>${selectAllBoardList.boardDate}</td>
-                        </tr>
-                    </c:forEach>
+                    <tr>
+                        <td><span>핸드폰</span>${loginUser.phone}</td>
+                    </tr>
+                    <tr>
+                        <td><span>이메일</span>${loginUser.email}</td>
+                    </tr>
+                    <tr>
+                        <td><span>주소</span>${loginUser.address}</td>
+                    </tr>
                 </table>
-                <div id="paging_boardList">
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${pi1.currentPage eq 1}">
-                                <li class="page-item disabled">Previous</li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage - 1})">Previous</li>
-                            </c:otherwise>
-                        </c:choose>
-
-                        <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                            <li class="page-item" onclick="retrieveAllBoards(${item})">${item }</li>
-                        </c:forEach>
-
-                        <c:choose>
-                            <c:when test="${pi1.currentPage eq pi1.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveAllBoards(${pi1.currentPage + 1})">Next</li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </div>
+            </div>
+            <div id="btn_box">
+                <button onclick="deleteMember()">회원탈퇴</button>
+                <button><a href="${pageContext.request.contextPath}/memberModify">정보수정</a></button>
+                <button><a href="${pageContext.request.contextPath}/broker/enrollPage">제휴부동산 신청</a></button>
             </div>
         </div>
-        <div class="review_history">
-            <p>내가 남긴 리뷰</p>
-            <div id="myReviewList">
-                <table>
-                    <tr>
-                        <th>레스토랑 이름</th>
-                        <th>별점</th>
-                        <th>리뷰내용</th>
-                        <th>리뷰게시일</th>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <c:forEach var="reviewList" items="${reviewList}">
-                        <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
-                            <td class="review_resNm">${reviewList.resName}</td>
-                            <td class="review_star">
+
+        <div id="like">
+            <div class="like_list_top">내가 찜한 목록</div>
+            <div class="like_list">
+                <c:forEach items="${interestList}" var="interest">
+                    <div id="heart">
+                        <input id="checkbox_heart_${interest.estateNo}" type="checkbox"
+                               onchange="changeHeart(${interest.estateNo})" checked="checked">
+                        <label for="checkbox_heart_${interest.estateNo}"><i class="fa-solid fa-heart"></i></label>
+                        <div onclick="location.href='realEstate/detail?estateNo=${interest.estateNo}'">
+                            <div class="bldg_name">${interest.bldgNm}</div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+
+        <div id="history_list">
+            <div class="board_history">
+                <p>내 게시글 보기</p>
+                <div id="myBoardList">
+                    <table>
+                        <tr>
+                            <th>게시판</th>
+                            <th>게시글 제목</th>
+                            <th>게시일</th>
+                        </tr>
+
+                        <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
+                            <c:choose>
+                                <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
+                                    <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
+                                </c:when>
+                                <c:otherwise>
+                                    <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
+                                </c:otherwise>
+                            </c:choose>
+                            <td>${selectAllBoardList.boardType}</td>
+                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
+                            <td>${selectAllBoardList.boardDate}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <div id="allBoardsPaging">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="allBoardsPagination">
                                 <c:choose>
-                                    <c:when test="${reviewList.starRating eq 5}">
-                                        ★★★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 4}">
-                                        ★★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 3}">
-                                        ★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 2}">
-                                        ★★
+                                    <c:when test="${ pi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                        </li>
                                     </c:when>
                                     <c:otherwise>
-                                        ★
+                                        <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                        </li>
                                     </c:otherwise>
                                 </c:choose>
-                            </td>
 
-                            <td>${reviewList.reviewContent}</td>
-                            <td class="review_date">${reviewList.createDate}</td>
+                                <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
+                                </c:forEach>
+
+                                <c:choose>
+                                    <c:when test="${ pi1.currentPage eq pi1.maxPage }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="review_history">
+                <p>내가 남긴 리뷰</p>
+                <div id="myReviewList">
+                    <table>
+                        <tr>
+                            <th>레스토랑 이름</th>
+                            <th>별점</th>
+                            <th>리뷰내용</th>
+                            <th>리뷰게시일</th>
                         </tr>
-                    </c:forEach>
-                </table>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <c:forEach var="reviewList" items="${reviewList}">
+                            <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                                <td class="review_resNm">${reviewList.resName}</td>
+                                <td class="review_star">
+                                    <c:choose>
+                                        <c:when test="${reviewList.starRating eq 5}">
+                                            ★★★★★
+                                        </c:when>
+                                        <c:when test="${reviewList.starRating eq 4}">
+                                            ★★★★
+                                        </c:when>
+                                        <c:when test="${reviewList.starRating eq 3}">
+                                            ★★★
+                                        </c:when>
+                                        <c:when test="${reviewList.starRating eq 2}">
+                                            ★★
+                                        </c:when>
+                                        <c:otherwise>
+                                            ★
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
 
-                <div id="paging_review">
-                    <ul class="pagination">
-                        <c:choose>
-                            <c:when test="${pi2.currentPage eq 1}">
-                                <li class="page-item disabled">Previous</li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage - 1})">Previous</li>
-                            </c:otherwise>
-                        </c:choose>
-
-                        <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
-                            <li class="page-item" onclick="retrieveReviewList(${item})">${item }</li>
+                                <td>${reviewList.reviewContent}</td>
+                                <td class="review_date">${reviewList.createDate}</td>
+                            </tr>
                         </c:forEach>
+                    </table>
+                    <div id="reviewPaging">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="reviewPagination">
+                                <c:choose>
+                                    <c:when test="${ pi.currentPage eq 1 }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
 
-                        <c:choose>
-                            <c:when test="${pi2.currentPage eq pi2.maxPage}">
-                                <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="page-item" onclick="retrieveReviewList(${pi2.currentPage + 1})">Next</li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                                <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
+                                </c:forEach>
+
+                                <c:choose>
+                                    <c:when test="${ pi2.currentPage eq pi2.maxPage }">
+                                        <li class="page-item disabled"><a class="page-link" href="#">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <div class="reserve_history">
         <p>예약 확인</p>

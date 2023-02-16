@@ -22,7 +22,7 @@
 
         <%--관리자 모드--%>
         <div class="detail_head_admin">
-            <c:if test="${ loginUser.memberNo == 1}">
+            <c:if test="${ loginUser.grade eq 'ADMIN'}">
                 <button onclick="location.href='admin/resModify?resNo=${restaurantDetail.resNo}'">수정하기</button>
                 <button onclick="location.href='admin/resDelete?resNo=${restaurantDetail.resNo}'">삭제하기</button>
             </c:if>
@@ -48,14 +48,6 @@
                     <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>
                 </c:forEach>
             </span>
-
-            <%--해시태그 비동기 갱신--%>
-            <%--            <span id = "hashtag_by_review">--%>
-            <%--                <c:forEach items="${resHashtagByReview}" var="hashtag">--%>
-            <%--                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" disabled>--%>
-            <%--                    <label class="btn btn-outline-secondary" for="btn-check-outlined">${hashtag}</label>--%>
-            <%--                </c:forEach>--%>
-            <%--            </span>--%>
         </div>
     </div>
     <div class="detail_main">

@@ -23,7 +23,7 @@ public class QnaBoardService {
     private final Pagination pagination;
     private final AlarmService alarmService;
 
-    private static final int DEFAULT_RES_SIZE = 7;
+    private static final int DEFAULT_RES_SIZE = 8;
 
     public QnaBoardListResponse selectQnaList(QnaBoardListRequest req) {
         QnaBoardListFilter filter = QnaBoardListFilter.from(req);

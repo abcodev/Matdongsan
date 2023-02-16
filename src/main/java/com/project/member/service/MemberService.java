@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -181,9 +182,13 @@ public class MemberService {
         return memberDao.selectBrokerReservationList(sqlSession, m);
     }
 
+
     public int nNameCheck(String nName) {
         return memberDao.nNameCheck(nName);
     }
+
+
+
 }
 
 
