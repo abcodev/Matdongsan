@@ -90,7 +90,8 @@
 
 
         <div class="btn_box">
-            <button type="button" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>
+            <%--        <button type="reset" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>--%>
+            <button type="reset" class="bbtn" onclick="history.back()">취소</button>
             <button type="submit" class="bbtn">수정</button>
         </div>
     </div>
