@@ -19,6 +19,7 @@ import java.util.Map;
 @Controller
 @SessionAttributes("loginUser")
 @RequiredArgsConstructor
+@RequiredLogin
 public class ChatController {
 
     private final ChatService chatService;

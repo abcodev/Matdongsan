@@ -99,6 +99,7 @@ public class AdminController {
 
     @RequestMapping(value = "/broker/handleApply", method = RequestMethod.POST)
     @ResponseBody
+    @RequiredLogin
     public ResponseEntity<String> handleApply(@RequestBody HandleApplyRequest req) {
         adminService.handleApply(req);
 

@@ -56,21 +56,23 @@ a{
 }
 
 .dropdown-btn {
-    width: 210px;
+    width: 250px;
     padding: 10px;
     font-size: 18px;
     border: none;
     cursor: pointer;
     background:none;
     font-weight: bold;
+    margin-left: 10px;
 }
 
 .dropdown-submenu {
     display: none;
     position: absolute;
-    min-width: 210px;
+    min-width: 100px;
     z-index: 1;
-    background:none;
+    background: #8588b1;
+    margin-left: 85px;
 }
 
 .dropdown-submenu a {
@@ -81,7 +83,8 @@ a{
     font-weight: bold;
 }
 
-.dropdown-btn a:hover {
+.dropdown-btn a:hover ,
+.dropdown-submenu a:hover{
     color: #eeeeee;
     text-decoration: none;
 }
@@ -119,7 +122,7 @@ a{
 }
 
 .login_after{
-    padding-left:130px;
+    padding-left:150px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -146,9 +149,10 @@ a{
 
 .fa-bell{
     font-size: 20px;
-    margin-left: 15px;
-    padding-top: 10px;
+    margin-left: 10px;
+    padding-top: 13px;
     cursor: pointer;
+    position: relative;
 }
 
 .fa-bell:hover{
@@ -158,13 +162,14 @@ a{
 #alarm_count{
     background-color: red;
     color: white;
+    font-size: 13px;
     font-weight: 650;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     display: inline-block;
     position: absolute;
-    right: -5px;
+    right: 56px;
 }
 
 
@@ -173,9 +178,9 @@ a{
     display:none;
     background: white;
     position:fixed;
-    right: 20px;
-    top: 65px;
-    width: 320px;
+    right: 30px;
+    top: 60px;
+    width: 400px;
     height: 250px;
     border-radius:3px;
     box-shadow: 0px 0px 7px 1px #666;
@@ -192,14 +197,29 @@ a{
     font-size: 15px;
     padding: 0 5px 0 10px;
     font-weight: bold;
+    width: 20%;
 }
 
 .alert_box_header :nth-child(2){
     font-size: 12px;
+    font-weight: 420;
     color: #566392;
-    padding: 3px 20px 0 120px;
+    padding-top: 3px;
     cursor: pointer;
+    width: 40%;
+    text-align: right;
 }
+
+.alert_box_header :nth-child(3){
+    font-size: 12px;
+    font-weight: 420;
+    color: #566392;
+    padding-top: 3px;
+    cursor: pointer;
+    width: 35%;
+    text-align: center;
+}
+
 
 .fa-x{
     cursor: pointer;
@@ -209,6 +229,22 @@ a{
     overflow-y:scroll;
     height: 215px;
     text-align: left;
+}
+
+.alert_list::-webkit-scrollbar{
+    height: 10px;
+    width: 10px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+.alert_list::-webkit-scrollbar-thumb{
+    background-color: rgba(86, 99, 146, 0.2);
+    border-radius: 10px;
+    width: 30px;
+}
+.alert_list::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(86, 99, 146, 0.8);
 }
 
 .new_alert {
@@ -251,5 +287,3 @@ a{
     color: #515151;
     font-weight: 500;
 }
-
-
