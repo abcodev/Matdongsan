@@ -47,7 +47,12 @@
 
             <div class="userinfo state">
                 <span>지역</span>
-                <input type="text" id="state"  name="state" placeholder="구를 입력해 주세요">
+                <select id="state" name="state">
+                    <option value="" style="text-align: center">지역구를 선택해주세요</option>
+                    <c:forEach items="${stateList}" var="state">
+                        <option value="${state}">${state}</option>
+                    </c:forEach>
+                </select>
                 <input type="text" id="bjdongNm" name="bjdongNm" placeholder="동을 입력해 주세요">
             </div>
 
