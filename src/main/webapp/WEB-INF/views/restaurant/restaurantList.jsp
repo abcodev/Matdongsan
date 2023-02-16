@@ -58,7 +58,7 @@
         });
 
         $.ajax({
-            url: 'REAL_RESERVATION.request.contextPath}/restaurants',
+            url: '${pageContext.request.contextPath}/restaurants',
             method: 'GET',
             data: {
                 cpage: current_page,

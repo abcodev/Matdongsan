@@ -105,6 +105,10 @@
     height: 40px;
 }
 
+.pagination{
+    justify-content : center;
+}
+
 .search{
     height: 50px;
     text-align: center;

@@ -45,7 +45,7 @@
 
     <div id="paging">
         <nav aria-label="Page navigation example">
-            <ul class="pagination">
+            <ul class="pagination" >
                 <c:choose>
                     <c:when test="${ pi.currentPage eq 1 }">
                         <li class="page-item disabled"><a class="page-link" href="#">

@@ -26,7 +26,7 @@
       <span>1:1 문의</span>
       <span class="chat-box-toggle"><i class="fa-solid fa-xmark"></i></span>
     </div>
-    <div class="chat-box-body">
+    <div class="chat-box-body" id="chatBox">
       <div class="chat-box-overlay">
       </div>
       <div class="chat-logs">
@@ -45,6 +45,7 @@
   </div>
 </div>
 <script>
+
   $(function () {
     if (${pageContext.request.parameterMap.containsKey("open_chat_flag")
           && pageContext.request.getParameter("open_chat_flag")}) {
@@ -129,6 +130,7 @@
       console.log("other")
       $('.chat-logs').append("<div class='other'>" + "<div>"+ data.message + "</div>" + "</div>"); // 남이 보낸 메세지
     }
+    $('.chat-logs').scrollTop($('.chat-logs').prop('scrollHeight'));
   }
 
   // 이전 채팅 내용 불러오는 함수
