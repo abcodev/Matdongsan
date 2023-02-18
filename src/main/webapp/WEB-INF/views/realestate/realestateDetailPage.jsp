@@ -318,8 +318,6 @@
         });
         $('select').find('option:first').attr('selected', 'selected');
 
-
-
     }
 
 
@@ -467,7 +465,7 @@
                 error: () => {
                     Swal.fire({
                         icon: 'error',
-                        title: '예약 등록에 실패 하였습니다.'
+                        title: '예약에 실패 하였습니다.'
                     });
                 }
             })

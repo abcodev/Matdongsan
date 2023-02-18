@@ -180,7 +180,7 @@
                '자유게시판' AS TYPE
         FROM FREE_BOARD F
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
-        WHERE M.MEMBER_NO = #{memberNo}
+        WHERE M.MEMBER_NO = #{memberNo} AND F.STATUS = 'Y'
 
         UNION ALL
 
@@ -190,7 +190,7 @@
                '질문게시판' AS TYPE
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
-        WHERE M.MEMBER_NO = #{memberNo}
+        WHERE M.MEMBER_NO = #{memberNo} AND Q.STATUS = 'Y'
         ORDER BY BOARD_DATE DESC
     </select>
 
@@ -201,14 +201,14 @@
                      BOARD_DATE,
                      'F' AS TYPE
               FROM FREE_BOARD
-              WHERE MEMBER_NO = #{memberNo}
+              WHERE MEMBER_NO = #{memberNo} AND STATUS = 'Y'
               UNION ALL
               SELECT QNA_BNO,
                      QNA_TITLE,
                      QNA_DATE,
                      'Q' AS TYPE
               FROM QNA_BOARD
-              WHERE MEMBER_NO = #{memberNo})
+              WHERE MEMBER_NO = #{memberNo} AND STATUS = 'Y')
     </select>
 
     <update id="deleteMember" parameterType="long">
@@ -230,24 +230,26 @@
         <result column="RES_NO" property="resNo"/>
         <result column="RES_NAME" property="resName"/>
         <result column="STAR_RATING" property="starRating"/>
+        <result column="STATUS" property="status"/>
     </resultMap>
 
     <select id="selectReviewList" resultMap="reviewList">
         SELECT R.REVIEW_CONTENT,
                R.CREATE_DATE,
                R.STAR_RATING,
+               R.STATUS,
                RES.RES_NO,
                RES.RES_NAME
         FROM REVIEW R
                  JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
                  JOIN RESTAURANT RES ON RES.RES_NO = R.RES_NO
-        WHERE R.MEMBER_NO = #{memberNo}
+        WHERE R.MEMBER_NO = #{memberNo} AND R.STATUS = 'Y'
         ORDER BY CREATE_DATE DESC
     </select>
     <select id="selectReviewCount" resultType="int">
         SELECT COUNT(*)
         FROM REVIEW
-        WHERE MEMBER_NO = #{memberNo}
+        WHERE MEMBER_NO = #{memberNo} AND STATUS = 'Y'
     </select>
 
 

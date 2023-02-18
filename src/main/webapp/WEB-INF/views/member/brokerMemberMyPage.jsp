@@ -275,13 +275,24 @@
     }
 
     function deleteMember() {
-        var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-        if(deleteMember === true){
-            location.href = '${pageContext.request.contextPath}/delete';
-            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
-        }
-        else if(deleteMember === false){
-        }
+        Swal.fire({
+            title: '정말 탈퇴하시겠습니까?',
+            text: "모든 정보가 삭제됩니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8a33e7',
+            cancelButtonColor: '#9a9898',
+            confirmButtonText: '회원탈퇴',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = '${pageContext.request.contextPath}/delete';
+                Swal.fire({
+                    icon: 'success',
+                    title: '성공적으로 탈퇴가 완료되었습니다.',
+                })
+            }
+        })
     }
 
 
