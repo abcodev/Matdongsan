@@ -284,16 +284,20 @@
     }
 
     window.onload = function () {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
-            method: 'GET',
-            data: {
-                'estateNo': ${realEstateDetail.estateNo}
-            },
-            success(data) {
-                $('#checkbox_heart').prop("checked", data);
-            }
-        });
+        if(${not empty loginUser}){
+            $.ajax({
+                url: '${pageContext.request.contextPath}/realEstate/detail/interest',
+                method: 'GET',
+                data: {
+                    'estateNo': ${realEstateDetail.estateNo}
+                },
+                success(data) {
+                        $('#checkbox_heart').prop("checked", data);
+
+                }
+            });
+        }
+
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
     };

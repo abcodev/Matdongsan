@@ -132,9 +132,6 @@ public class RealEstateController {
     @ResponseBody
     public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser == null) {
-            throw new RuntimeException("로그인 하고 오세용");
-        }
         boolean isInterest = realEstateService.checkInterest(estateNo, loginUser);
         return ResponseEntity.ok(isInterest);
     }
