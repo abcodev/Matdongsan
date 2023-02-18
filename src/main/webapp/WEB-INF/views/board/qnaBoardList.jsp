@@ -80,15 +80,16 @@
                                             </c:if>
                                             <c:if test="${qb.qnaArea != null}">
                                                 (${qb.qnaArea})
-                                            </c:if>${qb.qnaTitle}</td><td>${qb.qnaWriter}</td><td>${fn:substring(qb.qnaDate, 0, 16)}</td><td>${qb.count}
+                                            </c:if>${qb.qnaTitle}
                                         </td>
+                                        <td>${qb.qnaWriter}</td>
+                                        <td>${fn:substring(qb.qnaDate, 0, 16)}</td>
+                                        <td>${qb.count}</td>
                                     </tr>
                                 </c:if>
                                 <c:if test="${qb.blind eq 'Y'}">
                                     <tr style="background-color: #dddddd" class="tdBody">
-<%--                                        <c:if test="${loginUser.memberNo ne 1}">--%>
-                                            <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
-<%--                                        </c:if>--%>
+                                        <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
                                             <c:forEach step="1" begin="2" end="${qb.depth}">
                                                 <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             </c:forEach>
@@ -96,7 +97,7 @@
                                                 <i class="bi bi-arrow-return-right"></i>
                                             </c:if>
                                             블라인드 처리된 게시글 입니다.
-                                            </td>
+                                        </td>
                                     </tr>
                                 </c:if>
 
@@ -210,6 +211,8 @@
                         }
                     });
 
+                    console.log(current_page)
+                    console.log(item)
                     $('#boardlist_main').empty();
                     $('.pagination').empty();
                     $('#paging').html($(data).find('.pagination')) ;

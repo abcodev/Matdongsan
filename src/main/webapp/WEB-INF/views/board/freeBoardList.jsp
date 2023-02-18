@@ -266,7 +266,10 @@
             if(blind == 'N'){
                 location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
             }else {
-                alert("블라인드 처리된 게시글 입니다");
+                Swal.fire({
+                    icon: 'error',
+                    title: '블라인드 처리된 게시글 입니다'
+                });
             }
         }
 
@@ -300,7 +303,10 @@
                     }
                 }
                 , fail:function (){
-                    console.log("zzzzz");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '서버통신 실패!'
+                    });
                 }
             })
         }
