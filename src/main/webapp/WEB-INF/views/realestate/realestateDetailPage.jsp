@@ -303,9 +303,6 @@
         document.querySelector('.black_bg').style.display = 'none';
         $(".rm_input").val("");
         reservationDate = "";
-        removeClick.forEach((e) => {
-            e.classList.remove("click");
-        });
         $('select').find('option:first').attr('selected', 'selected');
 
 
