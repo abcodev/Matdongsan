@@ -148,7 +148,7 @@ public class FreeBoardController {
     // 댓글 작성
     @RequestMapping("/insertReply")
     @ResponseBody
-    @Permission(authority = MemberGrade.GENERAL2)
+//    @Permission(authority = MemberGrade.GENERAL2)
     public String insertReply(Reply r, HttpSession session) {
 
         Member m = (Member) session.getAttribute("loginUser");
