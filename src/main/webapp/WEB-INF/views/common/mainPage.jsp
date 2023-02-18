@@ -126,8 +126,14 @@
     </div>
     <script>
         if (${loginUser.grade == 'GENERAL'}) {
-            alert('회원정보 입력 후 이용해주세요.');
-            window.location = '${pageContext.request.contextPath}/memberModify';
+            Swal.fire({
+                icon: 'info',
+                title: '회원정보 입력 후 이용해 주세요.',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '${pageContext.request.contextPath}/memberModify'
+                }
+            })
         }
 
 

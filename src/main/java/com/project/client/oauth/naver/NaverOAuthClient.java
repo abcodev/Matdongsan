@@ -100,7 +100,6 @@ public class NaverOAuthClient implements OAuthClient {
             if (response == null) {
                 throw new RuntimeException();
             }
-
             // 네이버 -> RefreshToken 을 주지 않음..
             // response(OAuthToken) -> refreshToken -> null
             response.setOldRefreshToken(refreshToken);
