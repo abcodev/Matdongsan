@@ -22,7 +22,10 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
                 PrintWriter out = res.getWriter();
                 String pageUrl = req.getContextPath();
                 String element =
-                        "<script> alert('로그인을 해야합니다!'); " + "location.href='" + pageUrl + "/loginPage'; </script>";
+                                "<head><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css'>" +
+                                "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js'></script></head>"+
+                                "<body><script>Swal.fire({icon:'error',title:'로그인후 이용가능합니다.'}).then(()=>{location.href='" +
+                                 pageUrl + "/loginPage'});</script></body>";
                 out.println(element);
                 out.flush(); //브라우저 출력 비우기
                 out.close(); //아웃객체 닫기
