@@ -130,17 +130,10 @@
         let boardTitle = $('input[name="boardTitle"]').val();
         let boardContent = $('textarea[name="boardContent"]').val();
         let boardNo = $('input[name="fno"]').val();
-
-        console.log(boardTitle);
-        console.log(boardContent);
-        console.log(boardNo);
-
         let formData = new FormData();
         formData.append("boardTitle", boardTitle);
         formData.append("boardContent", boardContent);
         formData.append("boardNo", boardNo);
-
-        console.log(formData);
 
         //ajax로 파일전송 폼데이터를 보내기위해
         //enctype, processData, contentType 이 세가지를 반드시 세팅해야한다.
@@ -155,6 +148,8 @@
                 Swal.fire({
                     icon: 'success',
                     title: "수정에 성공하였습니다."
+                }).then(()=>{
+                    location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
                 })
             },
             error : function (){
@@ -163,9 +158,6 @@
                     title: "수정에 실패하였습니다."
                 })
             },
-            complete : function (){
-                location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
-            }
         });
     }
 
@@ -193,7 +185,6 @@
             data : {fno : '${fb.boardNo}'},
             dataType : 'json',
             success : function(result){
-                console.log(result);
                 let html = ""
                 for(let reply of result){
                     html += '<div class="reply_detail">'
@@ -217,11 +208,8 @@
             url : "${pageContext.request.contextPath}/board/insertReply",
             data: {freeBno : '${fb.boardNo}',
                 replyContent : $('input[name="replyContent"]:visible').val()},
-            success : function(result){
-                if(result == "1"){
-                    alertify.alert("서비스 요청 성공", '댓글등록 성공');
-                }
-                selectReplyList();
+            success : function(){
+                    selectReplyList();
             },
             complete : function(){
                 $('input[name="replyContent"]').val("");
@@ -242,17 +230,17 @@
                 replyNo : replyNo,
                 memberNo : '${loginUser.memberNo}'},
             success : function (result){
-                console.log(result);
                 Swal.fire({
                     icon: 'success',
                     title: "댓글을 삭제하였습니다."
+                }).then(()=>{
+                    location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
                 })
-                location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
                 Swal.fire({
                     icon: 'error',
-                    title: "댓글 삭제에 실패하였습니다."
+                    title: "댓글 삭제에 실패하였습니다.."
                 })
             }
         });
@@ -272,8 +260,7 @@
                 "reportContent" : reportContent,
                 "reportedPerson" : reportedPerson,
                 "reportFno" : reportFno},
-            success : function (result){
-                console.log(result);
+            success : function (){
                 Swal.fire({
                     icon: 'success',
                     title: "신고가 접수되었습니다."
