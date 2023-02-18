@@ -277,7 +277,10 @@
             if(blind == 'N'){
                 location.href = '${pageContext.request.contextPath}/board/freeList/detail/'+fno;
             }else {
-                alert("블라인드 처리된 게시글 입니다");
+                Swal.fire({
+                    icon: 'error',
+                    title: '블라인드 처리된 게시글 입니다'
+                });
             }
         }
 
@@ -311,86 +314,14 @@
                     }
                 }
                 , fail:function (){
-                    console.log("zzzzz");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '서버통신 실패!'
+                    });
                 }
             })
         }
     })
-
-    <%--function searchState() {--%>
-    <%--    $.ajax({--%>
-    <%--        type: 'GET',--%>
-    <%--        url: '${pageContext.request.contextPath}/board/freeList',--%>
-    <%--        contentType: "application/json; charset=UTF-8",--%>
-    <%--        data: {--%>
-    <%--            'state': $("#selectState").val(),--%>
-    <%--            'search': $("#freeBoardSearch").val()--%>
-    <%--        },--%>
-    <%--        dataType: 'html',--%>
-    <%--        success: function (data) {--%>
-    <%--            $('#boardlist_main').empty();--%>
-    <%--            console.log($(data).find("#boardlist_main"));--%>
-    <%--            console.log($(data).find(".board_info").length);--%>
-    <%--            if ($(data).find(".board_info").length > 0) {--%>
-    <%--                $('#boardlist_main').html($(data).find(".boardlist"))--%>
-    <%--            } else {--%>
-    <%--                $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');--%>
-    <%--            }--%>
-    <%--            $('input[type="checkbox"][name="arrayList"]').prop("checked", false);--%>
-    <%--        }--%>
-    <%--    })--%>
-    <%--}--%>
-
-    <%--$('#boardlist_main').on('click', '.boardlist', function () {--%>
-    <%--    console.log($(this).children('p:eq(0)').html());--%>
-    <%--    let fno = $(this).children('p:eq(0)').html();--%>
-    <%--    let member = $(this).children('p:eq(1)').html();--%>
-    <%--    let blind = $(this).children('p:eq(2)').html();--%>
-
-    <%--    if (${loginUser.memberNo eq 1}) {--%>
-    <%--        location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fno;--%>
-    <%--    } else {--%>
-    <%--        if (blind == 'N') {--%>
-    <%--            location.href = '${pageContext.request.contextPath}/board/freeList/detail/' + fno;--%>
-    <%--        } else {--%>
-    <%--            alert("블라인드 처리된 게시글 입니다");--%>
-    <%--        }--%>
-    <%--    }--%>
-
-    <%--})--%>
-
-
-    <%--$('input[type="checkbox"][name="arrayList"]').click(function () {--%>
-    <%--    if ($(this).prop('checked')) {--%>
-    <%--        $('input[type="checkbox"][name="arrayList"]').prop('checked', false);--%>
-    <%--        $(this).prop('checked', true);--%>
-    <%--        console.log($(this).val());--%>
-    <%--        let array = $(this).val();--%>
-    <%--        $.ajax({--%>
-    <%--            type: 'GET',--%>
-    <%--            url: '${pageContext.request.contextPath}/board/freeList',--%>
-    <%--            contentType: "application/json; charset=UTF-8",--%>
-    <%--            data: {--%>
-    <%--                'select': array,--%>
-    <%--                'search': $("#freeBoardSearch").val(),--%>
-    <%--                'state': $("#selectState").val()--%>
-    <%--            },--%>
-    <%--            dataType: 'html',--%>
-    <%--            success: function (data) {--%>
-    <%--                $('#boardlist_main').empty();--%>
-    <%--                console.log($(data).find("#boardlist_main"));--%>
-    <%--                console.log($(data).find(".board_info").length);--%>
-    <%--                if ($(data).find(".board_info").length > 0) {--%>
-    <%--                    $('#boardlist_main').html($(data).find(".boardlist"))--%>
-    <%--                } else {--%>
-    <%--                    $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');--%>
-    <%--                }--%>
-    <%--            }--%>
-    <%--            , fail: function () {--%>
-    <%--            }--%>
-    <%--        })--%>
-    <%--    }--%>
-    <%--})--%>
 </script>
 
 

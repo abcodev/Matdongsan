@@ -125,20 +125,29 @@
           "reportContent" : reportContent,
           "reportedPerson" : reportedPerson,
           "reportFno" : reportFno},
-        success : function (result){
-          console.log(result);
-          alert("신고 완료");
+        success : function (){
+          Swal.fire({
+            icon: 'success',
+            title: '신고를 접수하였습니다.'
+          });
           $('#exampleModal').modal('hide');
         },
         error : function (){
-          alert("신고 실패");
+          Swal.fire({
+            icon: 'error',
+            title: '서버 오류.'
+          });
         }
       })
     }
 
     function deletePage(qBno){
-      location.href = '${pageContext.request.contextPath}/board/delete/'+qBno;
-      alert("게시판 삭제 완료")
+      Swal.fire({
+        icon: 'success',
+        title: '해당 게시글을 삭제하였습니다.'
+      }).then(()=>{
+        location.href = '${pageContext.request.contextPath}/board/delete/'+qBno;
+      })
     }
   </script>
 
