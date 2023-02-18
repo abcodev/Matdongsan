@@ -90,22 +90,28 @@
                         <th>게시글 제목</th>
                         <th>게시일</th>
                     </tr>
-
-                    <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <c:choose>
-                            <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
-                                <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
-                            </c:when>
-                            <c:otherwise>
-                                <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
-                            </c:otherwise>
-                        </c:choose>
-                        <td>${selectAllBoardList.boardType}</td>
-                        <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
-                        <td>${selectAllBoardList.boardDate}</td>
-                        </tr>
-                    </c:forEach>
+                    <c:if test="${not empty selectAllBoardList}">
+                        <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
+                            <c:choose>
+                                <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
+                                    <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
+                                </c:when>
+                                <c:otherwise>
+                                    <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
+                                </c:otherwise>
+                            </c:choose>
+                            <td>${selectAllBoardList.boardType}</td>
+                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
+                            <td>${selectAllBoardList.boardDate}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                 </table>
+                <c:if test="${empty selectAllBoardList}">
+                    <tr>
+                        <td>조회된 게시글이 없습니다.</td>
+                    </tr>
+                </c:if>
             </div>
             <div id="allBoardsPaging">
                 <nav aria-label="Page navigation example">
@@ -151,32 +157,36 @@
             <p>내가 남긴 동네맛집 리뷰</p>
             <div id="myReviewList">
                 <table>
-                    <c:forEach var="reviewList" items="${reviewList}">
-                        <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
-                            <td class="review_resNm">${reviewList.resName}</td>
-                            <td class="review_star">
-                                <c:choose>
-                                    <c:when test="${reviewList.starRating eq 5}">
-                                        ★★★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 4}">
-                                        ★★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 3}">
-                                        ★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 2}">
-                                        ★★
-                                    </c:when>
-                                    <c:otherwise>
-                                        ★
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
-                        </tr>
-                        </tr>
-                    </c:forEach>
+                    <c:if test="${not empty reviewList}">
+                        <c:forEach var="reviewList" items="${reviewList}">
+                                <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                                    <td class="review_resNm">${reviewList.resName}</td>
+                                    <td class="review_star">
+                                        <c:choose>
+                                            <c:when test="${reviewList.starRating eq 5}">
+                                                ★★★★★
+                                            </c:when>
+                                            <c:when test="${reviewList.starRating eq 4}">
+                                                ★★★★
+                                            </c:when>
+                                            <c:when test="${reviewList.starRating eq 3}">
+                                                ★★★
+                                            </c:when>
+                                            <c:when test="${reviewList.starRating eq 2}">
+                                                ★★
+                                            </c:when>
+                                            <c:otherwise>
+                                                ★
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
+                                </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty reviewList}">
+                            조회된 리뷰가 없습니다.
+                    </c:if>
                 </table>
             </div>
             <div id="reviewPaging">
@@ -289,6 +299,14 @@
                 cpage: current_page1
             },
             success(data) {
+                // $('#myBoardList').empty();
+                // $('#allBoardsPagination').empty();
+                // $('#allBoardsPaging').html($(data).find('#allBoardsPagination'))
+                // if ($(data).find(".myBoard_info").length > 0) {
+                //     $('#myBoardList').html($(data).find("#myBoardList"))
+                // } else {
+                //     $('#myBoardList').html('<p>조회된 게시글이 없습니다.</p>');
+                // }
                 $('#myBoardList').empty();
                 $('#allBoardsPagination').empty();
                 $('#allBoardsPaging').html($(data).find('#allBoardsPagination'))
@@ -297,6 +315,8 @@
                 } else {
                     $('#myBoardList').html('<p>조회된 게시글이 없습니다.</p>');
                 }
+                $('#allBoardsPagination').empty();
+                $('#allBoardsPaging').html($(data).find('#allBoardsPagination'))
             }
         })
     }
@@ -309,14 +329,25 @@
                 cpage: current_page2
             },
             success(data) {
+                // $('#myReviewList').empty();
+                // $('#reviewPagination').empty();
+                // $('#reviewPaging').html($(data).find('#reviewPagination'))
+                // if ($(data).find(".myReview_info").length > 0) {
+                //     $('#myReviewList').html($(data).find("#myReviewList"))
+                // } else {
+                //     $('#myReviewList').html('<p>조회된 리뷰가 없습니다.</p>');
+                // }
+
                 $('#myReviewList').empty();
                 $('#reviewPagination').empty();
                 $('#reviewPaging').html($(data).find('#reviewPagination'))
                 if ($(data).find(".myReview_info").length > 0) {
                     $('#myReviewList').html($(data).find("#myReviewList"))
                 } else {
-                    $('#myReviewList').html('<p>조회된 게시글이 없습니다.</p>');
+                    $('#myReviewList').html('<p>조회된 리뷰가 없습니다.</p>');
                 }
+                $('#reviewPagination').empty();
+                $('#reviewPaging').html($(data).find('#reviewPagination'))
             }
         })
     }
