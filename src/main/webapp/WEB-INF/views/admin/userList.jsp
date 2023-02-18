@@ -64,38 +64,6 @@
         </tbody>
     </table>
 </div>
-
-
-<%--<div class="paging">--%>
-<%--    <ul class="pagination">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
-<%--                <div class="page-link disabled"><</div>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-
-<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>--%>
-<%--        </c:forEach>--%>
-
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
-<%--                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </ul>--%>
-<%--</div>--%>
-
-
-
-
-
 <div id="paging">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
