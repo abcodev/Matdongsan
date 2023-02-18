@@ -4,12 +4,11 @@
     <title>자유게시판 상세보기</title>
     <%@ include file="../template/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
-    <c:set var="w" value="${fb.memberNo}"/>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <c:set var="w" value="${fb.memberNo}"/>
 </head>
-<body>
 <body>
 <div id="content">
     <div class="freeBoard_Detail">
@@ -60,6 +59,7 @@
                 </c:if>
             </c:if>
         </div>
+
         <!-- 신고 모달 -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -123,8 +123,9 @@
     </div>
 </div>
 
-<!-- 게시글 수정 -->
+
 <script>
+    <!-- 게시글 수정 -->
     function updatePost(){
         let boardTitle = $('input[name="boardTitle"]').val();
         let boardContent = $('textarea[name="boardContent"]').val();
@@ -163,28 +164,20 @@
         });
     }
 
-</script>
-
-<script>
     function handleInputLength(el, max) {
         if(el.value.length > max) {
             el.value = el.value.substr(0, max);
         }
     }
-</script>
 
-<!-- 게시글 삭제 -->
-<script>
+    <!-- 게시글 삭제 -->
     function deletePost(){
         let fno = $('input[name=fno]').val();
 
         location.href = "${pageContext.request.contextPath}/board/freeList/deletePost=" + fno;
     }
-</script>
 
-
-<!-- 댓글 등록 & 리스트 보여주기 -->
-<script>
+    <!-- 댓글 등록 & 리스트 보여주기 -->
     $(function(){
         selectReplyList();
     });
@@ -231,10 +224,8 @@
 
         })
     }
-</script>
 
 <!-- 댓글 삭제 -->
-<script>
     function deleteReply(button){
 
         let replyNo = $(button).parent().parent().find("[name='replyNo']").val();
@@ -255,10 +246,8 @@
             }
         });
     }
-</script>
 
-<!-- 게시글 신고하기 -->
-<script>
+    <!-- 게시글 신고하기 -->
     function declaration(){
         let reporter = $('input[name="reporter"]').val();
         let reportContent = $('#reportContent option:selected').val();

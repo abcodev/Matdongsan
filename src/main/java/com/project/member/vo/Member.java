@@ -40,7 +40,6 @@ public class Member {
     private Timestamp recentAccess = Timestamp.valueOf(LocalDateTime.now());
     private String accessToken;
     private String refreshToken;
-    private Timestamp refreshTokenExpiredAt;
     private Timestamp banPeriod;
 
     public static Member of(OAuthUser oAuthUser, OAuthToken oAuthToken) {
@@ -52,9 +51,6 @@ public class Member {
                 .email(oAuthUser.getEmail())
                 .accessToken(oAuthToken.getAccessToken())
                 .refreshToken(oAuthToken.getRefreshToken())
-                .refreshTokenExpiredAt(
-                        Timestamp.valueOf(LocalDateTime.now().plus(Duration.ofSeconds(oAuthToken.getRefreshTokenExpiresIn())))
-                )
                 .build();
     }
 
@@ -72,9 +68,7 @@ public class Member {
     }
 
     public OAuthToken toOAuthToken() {
-        LocalDateTime expiredAt = this.getRefreshTokenExpiredAt().toLocalDateTime();
-        long expiresIn = expiredAt.toEpochSecond(ZoneOffset.UTC) - LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        return new OAuthToken(this.getAccessToken(), this.getRefreshToken(), expiresIn);
+        return new OAuthToken(this.getAccessToken(), this.getRefreshToken());
     }
 
     public boolean isBan() {

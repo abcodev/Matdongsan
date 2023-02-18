@@ -67,6 +67,7 @@ public class MainController {
             newsList.add(newsInfo);
         }
 
+        // 많이본 목록 , 최근 본 목록
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
             List<String> recentEstateNoList = recentRealEstateRedisService.findTopN(loginUser.getMemberNo(), 5);
@@ -83,7 +84,6 @@ public class MainController {
         model.addAttribute("newsList", newsList);
         Gson gson = new Gson();
         String sellList2 = gson.toJson(sellList);
-
         model.addAttribute("sellList2",sellList2);
 
         return "common/mainPage";

@@ -266,7 +266,7 @@
 
         if (deleteMember === true) {
             location.href = '${pageContext.request.contextPath}/delete';
-            alert("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
+            alert("성공적으로 회원 탈퇴가 완료되었습니다. \n 그동안 맛동산을 이용해주셔서 감사합니다.","success");
         } else if (deleteMember === false) {
         }
     }

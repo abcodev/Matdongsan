@@ -21,11 +21,11 @@
             </div>
             <script>
                 function changeHeart() {
-                    <%--if(${empty loginUser}){--%>
-                    <%--    $('#checkbox_heart').prop("checked", false);--%>
-                    <%--    alert("로그인 후 이용가능합니다.")--%>
-                    <%--    return false;--%>
-                    <%--}--%>
+                    if (${empty loginUser}) {
+                        $('#checkbox_heart').prop("checked", false);
+                        alert("로그인 후 이용가능합니다.")
+                        return;
+                    }
                     $.ajax({
                         url: '${pageContext.request.contextPath}/realEstate/detail/interest',
                         type: 'POST',
@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}" />
+                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}"/>
                         ${floor} 층
                     </td>
                 </tr>
@@ -199,7 +199,7 @@
 
                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        // 결과값으로 받은 위치를 마커로 표시
                         var marker = new kakao.maps.Marker({
                             map: map,
                             position: coords
@@ -211,11 +211,10 @@
                         });
                         infowindow.open(map, marker);
 
-                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        // 지도의 중심을 결과값으로 받은 위치로 이동
                         map.setCenter(coords);
                     }
                 });
-
 
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
                 var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
@@ -263,7 +262,6 @@
                 Roadview();
 
             </script>
-
         </div>
     </div>
 </div>
@@ -274,7 +272,7 @@
     let resercationAgentNo = null;
 
     function showRealtor(agentNo, agentName) {
-        if(${empty loginUser}){
+        if (${empty loginUser}) {
             alert("로그인 후 이용가능합니다.")
             return false;
         }
@@ -303,9 +301,11 @@
     function offClick() {
         document.querySelector('.modal_wrap').style.display = 'none';
         document.querySelector('.black_bg').style.display = 'none';
+
         $(".rm_input").val("");
         reservationDate = "";
     }
+
 
 
     let reservationDate = "";
@@ -352,6 +352,7 @@
 
         // 날짜 선택시 색상 고정
         const nonClick = document.querySelectorAll(".non-click");
+
         function handleClick(event) {
             // div에서 모든 "click" 클래스 제거
             nonClick.forEach((e) => {

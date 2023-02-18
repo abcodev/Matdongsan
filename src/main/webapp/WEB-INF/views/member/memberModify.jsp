@@ -70,15 +70,20 @@
     $(function () {
         code2 = "";
         $("#phoneChk").click(function () {
+            const phone = $("#phoneNumber").val();
+            if (phone === "") {
+                alert('휴대폰 번호를 입력해주세요.');
+                return;
+            }
+
             alert('인증번호 발송 완료.\n휴대폰에서 인증번호 확인을 해주십시오.');
-            var phone = $("#phoneNumber").val();
             $.ajax({
                 type: "GET", // post 형식으로 발송
                 url: "phoneCheck?phone=" + phone,
                 data: {phoneNumber: phone},
                 cache: false,
                 success: function (data) {
-                    if (data == "error") {
+                    if (data === "error") {
                         alert("휴대폰번호가 올바르지 않습니다.")
                     } else {
                         alert("인증번호가 전송되었습니다.")

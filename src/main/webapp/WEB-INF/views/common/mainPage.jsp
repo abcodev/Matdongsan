@@ -131,18 +131,19 @@
 
 
         let alarmIsOpen = false;
-        window.onload = () => {
-            retrieveAlarmList();
+        if (${not empty loginUser}) {
+            window.onload = () => {
+                retrieveAlarmList();
+            }
+
+            // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
+            const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+            // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
+            sse.addEventListener('realtime_alarm', (event) => {
+                retrieveAlarmList();
+                console.log(event);
+            });
         }
-
-        // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
-        const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-        // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
-        sse.addEventListener('realtime_alarm', (event) => {
-            retrieveAlarmList();
-            console.log(event);
-        });
-
         // 이벤트가 오면 콜백 메서드가 실행됨
 
         function retrieveAlarmList() {

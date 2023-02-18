@@ -120,15 +120,17 @@
             }
 
             let alarmIsOpen = false;
-            window.addEventListener('pageshow', () => {
-                retrieveAlarmList();
-            });
+            if (${not empty loginUser}) {
+                window.addEventListener('pageshow', () => {
+                    retrieveAlarmList();
+                });
 
-            const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-            sse.addEventListener('realtime_alarm', (event) => {
-                retrieveAlarmList();
-                console.log(event);
-            });
+                const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+                sse.addEventListener('realtime_alarm', (event) => {
+                    retrieveAlarmList();
+                    console.log(event);
+                });
+            }
 
             function retrieveAlarmList() {
                 $.ajax({
