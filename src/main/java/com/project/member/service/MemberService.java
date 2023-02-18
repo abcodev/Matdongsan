@@ -95,8 +95,6 @@ public class MemberService {
     }
 
 
-
-
     public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
         String api_key = "NCSOBLGT3XKTGRQB";
         String api_secret = "RKVNQQTAHQL0J3UR3VDG8GHL1TY9IUTT";

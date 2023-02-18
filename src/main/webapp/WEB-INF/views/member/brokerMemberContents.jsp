@@ -73,7 +73,6 @@
             data: {revNo: revNo},
             method: "GET",
             success: function (data){
-                console.log("승인 완료");
                 location.reload();
             }
         });
@@ -88,7 +87,6 @@
             data: {revNo : revNo},
             method: "GET",
             success: function (data){
-                console.log("취소 완료");
                 location.reload();
             }
         });

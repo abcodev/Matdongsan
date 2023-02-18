@@ -182,7 +182,6 @@
 
     function showApproveModal(agent, member) {
         $('#modal').addClass('show');
-        // TODO : 이벤트 발생하는 곳
         agentNo = agent;
         memberNo = member;
     }
@@ -204,14 +203,17 @@
                 'memberNo': memberNo
             }),
             success : function (result){
-                console.log(result)
-                document.location.href = document.location.href;
+                    Swal.fire({
+                        icon: 'success',
+                        title: result
+                    }).then(()=>{
+                        document.location.href = document.location.href;
+                    })
             }
         })
     })
 
     function brokerList(current_page) {
-        console.log(current_page)
         $.ajax({
             url: '${pageContext.request.contextPath}/admin/brokerList',
             method: 'GET',

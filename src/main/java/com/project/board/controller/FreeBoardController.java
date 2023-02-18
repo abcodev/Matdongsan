@@ -74,6 +74,7 @@ public class FreeBoardController {
 
     // 게시글 등록
     @RequestMapping("freeList/insert")
+    @RequiredLogin
     public String insertFreeBoard(@RequestParam(value = "boardWriter", defaultValue = "") String boardWriter,
                                   @RequestParam(value = "boardArea", defaultValue = "") String boardArea,
                                   Model model, FreeBoard fb, HttpSession session
@@ -125,7 +126,7 @@ public class FreeBoardController {
     // 게시글 수정
     @RequestMapping(value = "/update", produces = "application/json")
     @ResponseBody
-    @Permission(authority = MemberGrade.GENERAL2)
+    @RequiredLogin
     public ResponseEntity<FreeBoard> updatePost(FreeBoard freeBoard) throws Exception {
         freeBoardService.updatePost(freeBoard);
         freeBoard = freeBoardService.detailFreeBoard(freeBoard.getBoardNo());
@@ -134,7 +135,7 @@ public class FreeBoardController {
 
     // 게시글 삭제
     @RequestMapping("freeList/deletePost={fno}")
-    @Permission(authority = MemberGrade.GENERAL2)
+    @RequiredLogin
     public String deletePost(@PathVariable("fno") int fno) {
         int result = freeBoardService.deletePost(fno);
         if (result == 0) {
@@ -148,7 +149,7 @@ public class FreeBoardController {
     // 댓글 작성
     @RequestMapping("/insertReply")
     @ResponseBody
-    @Permission(authority = MemberGrade.GENERAL2)
+    @RequiredLogin
     public String insertReply(Reply r, HttpSession session) {
 
         Member m = (Member) session.getAttribute("loginUser");
@@ -185,7 +186,7 @@ public class FreeBoardController {
     // 게시글 신고하기
     @RequestMapping("/report")
     @ResponseBody
-    @Permission(authority = MemberGrade.GENERAL2)
+    @RequiredLogin
     public String reportPost(Report report) {
 
         int result = freeBoardService.insertReport(report);

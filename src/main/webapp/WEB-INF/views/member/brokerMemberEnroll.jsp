@@ -18,7 +18,7 @@
     <div id="userImg">
         <img src="${loginUser.profileImage}">
     </div>
-    <form action="${pageContext.request.contextPath}/broker/enroll" method="post" name="form_name" enctype="multipart/form-data">
+    <form id="brokerForm" action="${pageContext.request.contextPath}/broker/enroll" method="post" name="form_name" enctype="multipart/form-data">
         <div class="form">
             <input type="hidden" id="memberNo" name="memberNo" value="${loginUser.memberNo}">
             <div class="info name">
@@ -62,7 +62,7 @@
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit" onclick="brokerEnroll();">신청 하기</button>
+                <button id="brokerEnroll" type="submit" id="enrollBtn" onclick="brokerEnroll();">신청 하기</button>
             </div>
         </div>
     </form>
@@ -70,9 +70,42 @@
 
 <script>
 
-    $("form").on("submit", function() {
-        alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
-    });
+
+
+     $(document).ready(function(){
+         $('#brokerEnroll').on('click', function(event ) {
+             event.preventDefault();
+             let is_empty = false;
+             $('#brokerForm').find('input[type!="hidden"]').each(function(){
+                 if(!$(this).val()) {
+                     is_empty = true;
+                 }
+             });
+             if($('#state').val()==''){
+                 is_empty = true;
+             }
+             if(!is_empty){
+                 Swal.fire({
+                     title: "제휴부동산 회원 신청이 \n완료되었습니다.",
+                     text: "승인까지 1-3일이 소요됩니다.",
+                     type: "info",
+                     buttonsStyling: true,
+                     confirmButtonText: "확인",
+                 }).then(function(isConfirm){
+                     if(isConfirm){
+                         $("#brokerForm").submit();
+                     }
+                 });
+             }else{
+                 Swal.fire({
+                     icon: 'error',
+                     title: '모든 정보를 입력해주세요.'
+                 })
+             }
+         });
+     });
+
+
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -84,7 +117,10 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
             input.value = null;
         }
     }

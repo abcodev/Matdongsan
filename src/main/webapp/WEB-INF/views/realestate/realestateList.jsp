@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateList.css"/>">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
+
+
 </head>
 <body>
 <script>
@@ -168,7 +170,11 @@
                 }
             }
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            Swal.fire({
+                icon: 'error',
+                title: JSON.stringify(error)
+            });
+            // alert(JSON.stringify(error));
         })
     }
 

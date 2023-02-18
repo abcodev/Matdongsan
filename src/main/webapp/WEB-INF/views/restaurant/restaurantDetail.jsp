@@ -10,8 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantDetail.css"/>">
-<%--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>--%>
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">--%>
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
@@ -26,17 +24,24 @@
             </c:if>
         </div>
 
-            <script>
-                function deleteRes() {
-                    var deleteRes = confirm("삭제 하시겠습니까?");
+        <script>
+            function deleteRes() {
+                var deleteRes = confirm("삭제 하시겠습니까?");
 
-                    if (deleteRes === true) {
-                        location.href = location.href='admin/resDelete?resNo=${restaurantDetail.resNo}';
-                        alert("삭제완료","success");
-                    } else if (deleteRes === false) {
-                    }
+                if (deleteRes === true) {
+                    location.href = location.href='admin/resDelete?resNo=${restaurantDetail.resNo}';
+                    Swal.fire({
+                        icon: 'success',
+                        title: '맛집이 삭제되었습니다.'
+                    });
+                } else if (deleteRes === false) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '맛집이 삭제에 실패하였습니다.'
+                    });
                 }
-            </script>
+            }
+        </script>
 
 
 
@@ -151,10 +156,10 @@
                 </div>
 
                 <div class="review_img">
-                    <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" multiple onchange="readURL(this)">
                 </div>
                 <div class="modal-footer">
-                    <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">리뷰등록하기</button>
+                    <button id="review_insert">리뷰등록하기</button>
                 </div>
             </div>
         </div>
@@ -232,7 +237,8 @@
     }
 
     // 리뷰 등록
-    function insertReview() {
+    $('#review_insert').click(function(){
+
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function () {
@@ -241,60 +247,95 @@
         const contents = $('#reviewContent').val()
         const files = $('#formFileSm')[0].files
 
+        let is_empty = false;
         if(score === undefined) {
-            alert("별점을 입력해주세요")
-            return;
-        }
-        if(hashtags.length === 0){
-            alert("해시태그를 입력해주세요")
-            return;
-        }
-        if(contents === "") {
-            alert("리뷰를 입력해 주세요")
-            return;
-        }
-        if(files.length === 0) {
-            alert("사진을 첨부해주세요")
-            return;
+            Swal.fire({
+                icon: 'warning',
+                title: '별점을 입력해주세요.'
+            });
+            is_empty = true;
+        }else if(hashtags.length === 0){
+            Swal.fire({
+                icon: 'warning',
+                title: '해시태그를 입력해주세요.'
+            });
+            is_empty = true;
+        }else if(contents === ""){
+            Swal.fire({
+                icon: 'warning',
+                title: '리뷰 내용을 입력해주세요.'
+            });
+            is_empty = true;
+        }else if(files.length === 0){
+            Swal.fire({
+                icon: 'warning',
+                title: '사진을 첨부해주세요.'
+            });
+            is_empty = true;
         }
 
-        const formData = new FormData();
-        formData.set("resNo", ${restaurantDetail.resNo});
-        formData.set("score", score);
-        formData.set("hashtags", hashtags.join(","));
-        formData.set("contents", contents);
-        for (let i = 0; i < files.length; ++i) {
-            formData.append("files", files[i])
-        }
-
-        $.ajax({
-            url: '${pageContext.request.contextPath}/restaurant/insertReview',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: () => {
-                selectReviewList();
-                offClick();
-            },
-            error: function () {
-                offClick();
-                console.log("리뷰 등록 실패");
+        if(!is_empty){
+            const formData = new FormData();
+            formData.set("resNo", ${restaurantDetail.resNo});
+            formData.set("score", score);
+            formData.set("hashtags", hashtags.join(","));
+            formData.set("contents", contents);
+            for (let i = 0; i < files.length; ++i) {
+                formData.append("files", files[i])
             }
-        });
-    }
+
+            $.ajax({
+                url: '${pageContext.request.contextPath}/restaurant/insertReview',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: () => {
+                    $('.modal').modal('hide');
+                    offClick();
+                    selectReviewList();
+                },
+                error: function () {
+                    offClick();
+                }
+            });
+        }
+    })
+
 
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            Swal.fire({
+                icon: 'warning',
+                title: '해시태그는 최대 3개까지 선택 가능합니다.'
+            });
             $(this).prop('checked', false);
         }
     });
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+
+        if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
+            input.value = null;
+        }
+    }
+
 
     function offClick() {
-
         $("#reviewContent").val("");
         $("#formFileSm").val("");
         $('input:radio[name=reviewStar]').each(function () {
@@ -313,11 +354,17 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                alert("리뷰 삭제 성공");
+                Swal.fire({
+                    icon: 'success',
+                    title: '리뷰 삭제에 성공하였습니다.'
+                });
                 selectReviewList();
             },
             error: function () {
-                alert("리뷰 삭제 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: '리뷰 삭제에 실패하였습니다.'
+                });
             }
         });
     }

@@ -130,17 +130,10 @@
         let boardTitle = $('input[name="boardTitle"]').val();
         let boardContent = $('textarea[name="boardContent"]').val();
         let boardNo = $('input[name="fno"]').val();
-
-        console.log(boardTitle);
-        console.log(boardContent);
-        console.log(boardNo);
-
         let formData = new FormData();
         formData.append("boardTitle", boardTitle);
         formData.append("boardContent", boardContent);
         formData.append("boardNo", boardNo);
-
-        console.log(formData);
 
         //ajax로 파일전송 폼데이터를 보내기위해
         //enctype, processData, contentType 이 세가지를 반드시 세팅해야한다.
@@ -151,16 +144,20 @@
             contentType: false,
             data : formData,
             type : "post",
-            success : function (result){
-                console.log(result);
-                swal("수정성공!");
+            success : function (){
+                Swal.fire({
+                    icon: 'success',
+                    title: "수정에 성공하였습니다."
+                }).then(()=>{
+                    location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
+                })
             },
             error : function (){
-                swal("수정실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: "수정에 실패하였습니다."
+                })
             },
-            complete : function (){
-                location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
-            }
         });
     }
 
@@ -188,7 +185,6 @@
             data : {fno : '${fb.boardNo}'},
             dataType : 'json',
             success : function(result){
-                console.log(result);
                 let html = ""
                 for(let reply of result){
                     html += '<div class="reply_detail">'
@@ -212,11 +208,8 @@
             url : "${pageContext.request.contextPath}/board/insertReply",
             data: {freeBno : '${fb.boardNo}',
                 replyContent : $('input[name="replyContent"]:visible').val()},
-            success : function(result){
-                if(result == "1"){
-                    alertify.alert("서비스 요청 성공", '댓글등록 성공');
-                }
-                selectReplyList();
+            success : function(){
+                    selectReplyList();
             },
             complete : function(){
                 $('input[name="replyContent"]').val("");
@@ -237,12 +230,18 @@
                 replyNo : replyNo,
                 memberNo : '${loginUser.memberNo}'},
             success : function (result){
-                console.log(result);
-                swal("댓글 삭제 성공");
-                location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
+                Swal.fire({
+                    icon: 'success',
+                    title: "댓글을 삭제하였습니다."
+                }).then(()=>{
+                    location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
+                })
             },
             error : function (){
-                swal("댓글 삭제 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: "댓글 삭제에 실패하였습니다.."
+                })
             }
         });
     }
@@ -261,13 +260,19 @@
                 "reportContent" : reportContent,
                 "reportedPerson" : reportedPerson,
                 "reportFno" : reportFno},
-            success : function (result){
-                console.log(result);
-                swal("신고 완료");
+            success : function (){
+                Swal.fire({
+                    icon: 'success',
+                    title: '성공적으로 신고 접수 되었습니다.',
+                    text: '관리자 확인 후 처리됩니다.'
+                })
                 $('#exampleModal').modal('hide');
             },
             error : function (){
-                swal("신고 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: "신고 접수에 실패하였습니다"
+                })
             }
         })
     }

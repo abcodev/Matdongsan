@@ -22,7 +22,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequiredLogin
 public class MemberController {
 
     private final MemberService memberService;
@@ -32,6 +31,7 @@ public class MemberController {
     }
 
     @RequestMapping("/myPage")
+    @RequiredLogin
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");

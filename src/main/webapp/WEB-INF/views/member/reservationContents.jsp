@@ -16,62 +16,62 @@
             <span>예약 상세정보</span>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-            <div class="modal-body">
-                <div class="user_info">
-                    <p>예약자 정보</p>
-                    <input type="hidden" id="revNo" value="${selectReservation.revNo}">
-                    <div class="user_name">
-                        <span>이름</span>
-                        <p>${selectReservation.memberName}</p>
-                    </div>
-                    <div class="user_phone">
-                        <span>전화번호</span>
-                        <p>${selectReservation.phone}</p>
-                    </div>
-                    <div class="user_email">
-                        <span>이메일</span>
-                        <p>${selectReservation.email}</p>
-                    </div>
+        <div class="modal-body">
+            <div class="user_info">
+                <p>예약자 정보</p>
+                <input type="hidden" id="revNo" value="${selectReservation.revNo}">
+                <div class="user_name">
+                    <span>이름</span>
+                    <p>${selectReservation.memberName}</p>
                 </div>
-                <div class="reserve_info">
-                    <p>예약내역</p>
-                    <div class="realtor_name">${selectReservation.agentName}</div>
-                    <div class="reserve_person">
-                        <span>예약인원</span>
-                        <p>${selectReservation.revPeople}명</p>
-                    </div>
-                    <div class="reserve_date">
-                        <span>예약날짜</span>
-                        <p>${selectReservation.revDate}</p>
-                    </div>
-                    <div class="reserve_time">
-                        <span>예약시간</span>
-                        <p>${selectReservation.revTime}</p>
-                    </div>
-                    <div class="reserve_ask">
-                        <span>요청사항</span>
-                        <p>${selectReservation.revAsk}</p>
-                    </div>
-                    <div class="reserve_status">
-                        <span>상태</span>
-                        <p><c:choose>
-                            <c:when test="${selectReservation.revStatus eq 'C'}">예약확인 중</c:when>
-                            <c:when test="${selectReservation.revStatus eq 'A'}">예약 완료</c:when>
-                            <c:otherwise>예약 취소</c:otherwise>
-                        </c:choose></td></p>
-                    </div>
+                <div class="user_phone">
+                    <span>전화번호</span>
+                    <p>${selectReservation.phone}</p>
+                </div>
+                <div class="user_email">
+                    <span>이메일</span>
+                    <p>${selectReservation.email}</p>
                 </div>
             </div>
-            <div class="modal-footer">
-                <c:choose>
-                    <c:when test="${selectReservation.revStatus eq 'F'}">
-                        <button type="button" class="disabled">취소된 예약입니다.</button>
-                    </c:when>
-                    <c:otherwise>
-                        <button type="button" onclick="cancelRes();">예약취소</button>
-                    </c:otherwise>
-                </c:choose>
+            <div class="reserve_info">
+                <p>예약내역</p>
+                <div class="realtor_name">${selectReservation.agentName}</div>
+                <div class="reserve_person">
+                    <span>예약인원</span>
+                    <p>${selectReservation.revPeople}명</p>
+                </div>
+                <div class="reserve_date">
+                    <span>예약날짜</span>
+                    <p>${selectReservation.revDate}</p>
+                </div>
+                <div class="reserve_time">
+                    <span>예약시간</span>
+                    <p>${selectReservation.revTime}</p>
+                </div>
+                <div class="reserve_ask">
+                    <span>요청사항</span>
+                    <p>${selectReservation.revAsk}</p>
+                </div>
+                <div class="reserve_status">
+                    <span>상태</span>
+                    <p><c:choose>
+                        <c:when test="${selectReservation.revStatus eq 'C'}">예약확인 중</c:when>
+                        <c:when test="${selectReservation.revStatus eq 'A'}">예약 완료</c:when>
+                        <c:otherwise>예약 취소</c:otherwise>
+                    </c:choose></td></p>
+                </div>
             </div>
+        </div>
+        <div class="modal-footer">
+            <c:choose>
+                <c:when test="${selectReservation.revStatus eq 'F'}">
+                    <button type="button" class="disabled">취소된 예약입니다.</button>
+                </c:when>
+                <c:otherwise>
+                    <button type="button" onclick="cancelRes();">예약취소</button>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 </div>
 
@@ -80,9 +80,8 @@
         const revNo = $('#revNo').val();
         var cancelRes = confirm("예약을 취소하시겠습니까?");
         if(cancelRes === true){
-            swal("예약이 취소되었습니다.");
+            alert("예약이 취소되었습니다.");
         }else if(cancelRes === false){
-
         }
 
         $.ajax({
@@ -90,7 +89,6 @@
             data: {revNo : revNo},
             method: "GET",
             success: function (data){
-                console.log("취소 완료");
                 location.reload();
             }
         });
