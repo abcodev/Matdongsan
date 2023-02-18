@@ -237,7 +237,8 @@
     }
 
     // 리뷰 등록
-    function insertReview() {
+    $('#review_insert').click(function(){
+
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function () {
@@ -251,28 +252,28 @@
                 icon: 'warning',
                 title: '별점을 입력해주세요.'
             });
-            return false;
+            return;
         }
         if(hashtags.length === 0){
             Swal.fire({
                 icon: 'warning',
                 title: '해시태그를 입력해주세요.'
             });
-            return false;
+            return;
         }
         if(contents === "") {
             Swal.fire({
                 icon: 'warning',
                 title: '리뷰 내용을 입력해주세요.'
             });
-            return false;
+            return;
         }
         if(files.length === 0) {
             Swal.fire({
                 icon: 'warning',
                 title: '사진을 첨부해주세요.'
             });
-            return false;
+            return;
         }
 
         const formData = new FormData();
@@ -292,7 +293,6 @@
             contentType: false,
             processData: false,
             success: () => {
-                $('.modal').modal('hide');
                 selectReviewList();
                 offClick();
             },
