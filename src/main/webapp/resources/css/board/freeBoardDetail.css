@@ -126,14 +126,14 @@ textarea:focus , input:focus {
 /* 신고하기 */
 
 .btn_box > .alert_btn_box {
-    padding-left: 86%;
+    padding-right: 40%;
     margin-top: 10px;
 }
 
 .btn_box > .alert_btn_box > button{
     margin-left: 10px;
     border: none;
-    width: auto;
+    width: 100px;
     height: auto;
     font-size: 16px;
     background-color: #f3f1f5;

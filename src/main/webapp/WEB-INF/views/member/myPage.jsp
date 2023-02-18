@@ -22,7 +22,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심 목록이 해제되었습니다");중
+                alert("관심 목록이 해제되었습니다");
                 location.reload();
             }
         });
@@ -279,10 +279,12 @@
             cancelButtonText: '아니요'
         }).then((result) => {
             if (result.isConfirmed) {
-                location.href = '${pageContext.request.contextPath}/delete';
                 Swal.fire({
                     icon: 'success',
                     title: '성공적으로 탈퇴가 완료되었습니다.',
+                    text: '그동안 이용해주셔서 감사합니다.'
+                }).then(()=> {
+                    location.href = '${pageContext.request.contextPath}/delete';
                 })
             }
         })

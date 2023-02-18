@@ -66,7 +66,6 @@
                 connection(roomNo);
             },
             fail: function () {
-                console.log("실패")
                 alert("사용 실패")
                 $("#chat-circle").toggle("scale");
             }

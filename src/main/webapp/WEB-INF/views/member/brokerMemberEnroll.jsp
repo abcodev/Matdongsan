@@ -70,9 +70,44 @@
 
 <script>
 
-    $("#enrollBtn").on("submit", function() {
-        alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
+    // $("#enrollBtn").on("submit", function() {
+    //     alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
+    // });
+
+    // $(document).ready(function(){
+        $('#brokerEnroll').on('click', function(event ) {
+                event.preventDefault();
+
+            var is_empty = false;
+            $('#brokerFrom').find('input[type!="hidden"]').each(function(){
+                if(!$(this).val()) {
+                    is_empty = true;
+                }
+            });
+            if($('#state').val()==''){
+                is_empty = true;
+            }
+            if(!is_empty){
+                Swal.fire({
+                    title: "제휴부동산 회원 신청이 완료되었습니다.",
+                    text: "승인까지 1-3일이 소요됩니다.",
+                    type: "info",
+                    buttonsStyling: true,
+                    confirmButtonText: "확인",
+                }).then(function(isConfirm){
+                    if(isConfirm){
+                        $("#brokerFrom").submit();
+                    }
+                });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: '모든 정보를 입력해주세요.'
+                })
+            }
+        });
     });
+
 
 
     function readURL(input) {

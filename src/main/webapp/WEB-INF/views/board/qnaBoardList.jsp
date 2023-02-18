@@ -211,8 +211,6 @@
                         }
                     });
 
-                    console.log(current_page)
-                    console.log(item)
                     $('#boardlist_main').empty();
                     $('.pagination').empty();
                     $('#paging').html($(data).find('.pagination')) ;
