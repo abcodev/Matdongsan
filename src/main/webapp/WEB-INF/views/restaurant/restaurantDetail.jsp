@@ -159,7 +159,7 @@
                     <input class="form-control form-control-sm" id="formFileSm" type="file" multiple onchange="readURL(this)">
                 </div>
                 <div class="modal-footer">
-                    <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">리뷰등록하기</button>
+                    <button id="review_insert">리뷰등록하기</button>
                 </div>
             </div>
         </div>
@@ -237,7 +237,8 @@
     }
 
     // 리뷰 등록
-    function insertReview() {
+    $('#review_insert').click(function(){
+
         const score = $('input:radio[name=reviewStar]:checked').val();
         const hashtags = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function () {
@@ -246,60 +247,61 @@
         const contents = $('#reviewContent').val()
         const files = $('#formFileSm')[0].files
 
+        let is_empty = false;
         if(score === undefined) {
             Swal.fire({
                 icon: 'warning',
                 title: '별점을 입력해주세요.'
             });
-            return;
-        }
-        if(hashtags.length === 0){
+            is_empty = true;
+        }else if(hashtags.length === 0){
             Swal.fire({
                 icon: 'warning',
                 title: '해시태그를 입력해주세요.'
             });
-            return;
-        }
-        if(contents === "") {
+            is_empty = true;
+        }else if(contents === ""){
             Swal.fire({
                 icon: 'warning',
                 title: '리뷰 내용을 입력해주세요.'
             });
-            return;
-        }
-        if(files.length === 0) {
+            is_empty = true;
+        }else if(files.length === 0){
             Swal.fire({
                 icon: 'warning',
                 title: '사진을 첨부해주세요.'
             });
-            return;
+            is_empty = true;
         }
 
-        const formData = new FormData();
-        formData.set("resNo", ${restaurantDetail.resNo});
-        formData.set("score", score);
-        formData.set("hashtags", hashtags.join(","));
-        formData.set("contents", contents);
-        for (let i = 0; i < files.length; ++i) {
-            formData.append("files", files[i])
-        }
-
-
-        $.ajax({
-            url: '${pageContext.request.contextPath}/restaurant/insertReview',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: () => {
-                selectReviewList();
-                offClick();
-            },
-            error: function () {
-                offClick();
+        if(!is_empty){
+            const formData = new FormData();
+            formData.set("resNo", ${restaurantDetail.resNo});
+            formData.set("score", score);
+            formData.set("hashtags", hashtags.join(","));
+            formData.set("contents", contents);
+            for (let i = 0; i < files.length; ++i) {
+                formData.append("files", files[i])
             }
-        });
-    }
+
+            $.ajax({
+                url: '${pageContext.request.contextPath}/restaurant/insertReview',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: () => {
+                    $('.modal').modal('hide');
+                    offClick();
+                    selectReviewList();
+                },
+                error: function () {
+                    offClick();
+                }
+            });
+        }
+    })
+
 
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
@@ -334,7 +336,6 @@
 
 
     function offClick() {
-
         $("#reviewContent").val("");
         $("#formFileSm").val("");
         $('input:radio[name=reviewStar]').each(function () {
