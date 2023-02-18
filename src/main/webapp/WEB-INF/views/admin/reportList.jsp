@@ -121,35 +121,6 @@
         </div>
     </div>
 </div>
-<%--<div class="paging">--%>
-<%--    <ul class="pagination">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
-<%--                <li class="page-item disabled"> < </li>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})"> < </li>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-
-<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--            <li class="page-item" onclick="ReportList(${item})">${item }</li>--%>
-<%--        </c:forEach>--%>
-
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#"> > </a></li>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})"> > </li>--%>
-
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </ul>--%>
-
-<%--</div>--%>
-
-
 <div id="paging">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -189,16 +160,6 @@
         </ul>
     </nav>
 </div>
-
-
-
-
-
-
-
-
-
-
 <script>
 
     $("#userList").click(function () {
@@ -232,18 +193,8 @@
         })
     }
 
-
-
-
-    function changeSelect() {
-        const stop = document.getElementById("stop");
-        const value = (stop.options[stop.selectedIndex].value);
-        alert(value + " 처리하시겠습니까?");
-    }
-
-
     /* 모달*/
-    $(document).on('click', '.add-btn', function (e) {
+    $(document).on('click', '.add-btn', function () {
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
@@ -255,7 +206,7 @@
 
 
     // 모달 닫기
-    $(document).on('click', '#close_btn', function (e) {
+    $(document).on('click', '#close_btn', function () {
         console.log("click event");
         $('#modal').removeClass('show');
 
