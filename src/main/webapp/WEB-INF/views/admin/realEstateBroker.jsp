@@ -214,7 +214,6 @@
     })
 
     function brokerList(current_page) {
-        console.log(current_page)
         $.ajax({
             url: '${pageContext.request.contextPath}/admin/brokerList',
             method: 'GET',

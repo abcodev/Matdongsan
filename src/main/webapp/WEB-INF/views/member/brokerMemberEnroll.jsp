@@ -62,7 +62,7 @@
             </div>
             <div class="btn_box">
                 <button type="reset"><a href="${pageContext.request.contextPath}/myPage">취소</a></button>
-                <button type="submit" onclick="brokerEnroll();">신청 하기</button>
+                <button type="submit" id="enrollBtn" onclick="brokerEnroll();">신청 하기</button>
             </div>
         </div>
     </form>
@@ -70,13 +70,10 @@
 
 <script>
 
-    $("form").on("submit", function() {
-        // Swal.fire({
-        //     icon: 'success',
-        //     title: '제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.'
-        // });
-        // alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
+    $("#enrollBtn").on("submit", function() {
+        alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
     });
+
 
     function readURL(input) {
         if (input.files && input.files[0]) {

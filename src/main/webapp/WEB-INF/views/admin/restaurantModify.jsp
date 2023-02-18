@@ -80,7 +80,6 @@
 
 
         <div class="btn_box">
-            <%--        <button type="reset" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>--%>
             <button type="reset" class="bbtn" onclick="history.back()">취소</button>
             <button type="submit" class="bbtn">수정</button>
         </div>
@@ -113,7 +112,7 @@
         if(cntEPT>2){
             Swal.fire({
                 icon: 'warning',
-                title: '해쉬태그를 적어도 2개 입력해야합니다.'
+                title: '해쉬태그는 2개 입력 해야합니다.'
             });
             $(this).prop('checked', false);
         }

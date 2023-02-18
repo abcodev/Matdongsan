@@ -202,7 +202,6 @@
     });
     // 모달 닫기
     $(document).on('click', '#close_btn', function () {
-        console.log("click event");
         $('#modal').removeClass('show');
 
     });

@@ -263,14 +263,15 @@
             success : function (){
                 Swal.fire({
                     icon: 'success',
-                    title: "신고가 접수되었습니다."
+                    title: '성공적으로 신고 접수 되었습니다.',
+                    text: '관리자 확인 후 처리됩니다.'
                 })
                 $('#exampleModal').modal('hide');
             },
             error : function (){
                 Swal.fire({
                     icon: 'error',
-                    title: "신고 접수를 실패하였습니다"
+                    title: "신고 접수에 실패하였습니다"
                 })
             }
         })
