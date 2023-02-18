@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
@@ -350,8 +351,10 @@
         if (${not empty loginUser}) {
             openChat();
         } else {
-            console.log("로그인후 이용가능");
-            alert("로그인 후 이용하실 수 있습니다.");
+            Swal.fire({
+                icon: 'warning',
+                title: '로그인 후 이용 가능합니다.'
+            });
         }
     });
 </script>

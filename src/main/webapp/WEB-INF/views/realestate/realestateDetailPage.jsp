@@ -8,11 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
-<body>
 
+<body>
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -27,7 +25,7 @@
                         $('#checkbox_heart').prop("checked", false);
                         Swal.fire({
                             icon: 'warning',
-                            title: '로그인 후 이용가능합니다.'
+                            title: '로그인 후 이용 가능합니다.'
                         });
                         return;
                     }
@@ -41,7 +39,6 @@
                         })
                     });
                 }
-
             </script>
         </div>
         <div class="info_table body">
@@ -278,7 +275,10 @@
 
     function showRealtor(agentNo, agentName) {
         if (${empty loginUser}) {
-            alert("로그인 후 이용가능합니다.")
+            Swal.fire({
+                icon: 'warning',
+                title: '로그인 후 이용 가능합니다.'
+            });
             return false;
 
         }
@@ -351,11 +351,12 @@
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
             if (i < currentDate.getDate()) {
-                htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
+                htmlDummy += '<div onclick="Swal.fire(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
             } else {
                 htmlDummy += '<div class="non-click" onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
             }
         }
+
 
         // 다음달 날짜 표시하기
         for (let i = limitDay; i < nextDay; i++) {
@@ -418,14 +419,23 @@
 
         // required 검사
         if (reservationDate == "") {
-            alert("날짜를 입력해주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '날짜를 입력해 주세요.'
+            });
             return false;
         } else if (memberName == "") {
-            alert("이름을 입력해주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '이름을 입력해 주세요.'
+            });
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            alert("휴대폰번호를 입력해주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '휴대폰 번호를 입력해 주세요.'
+            });
             $('#telephone').focus();
             return false;
         } else {
@@ -446,12 +456,18 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    alert("예약에 성공하였습니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '예약에 성공 하였습니다.'
+                    });
                     offClick();
 
                 },
                 error: () => {
-                    alert("예약 등록에 실패하였습니다.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '예약 등록에 실패 하였습니다.'
+                    });
                 }
             })
         }
@@ -459,4 +475,6 @@
 </script>
 </body>
 </html>
+
+
 
