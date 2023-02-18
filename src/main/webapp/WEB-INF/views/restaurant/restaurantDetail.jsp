@@ -32,7 +32,10 @@
 
                     if (deleteRes === true) {
                         location.href = location.href='admin/resDelete?resNo=${restaurantDetail.resNo}';
-                        alert("삭제완료","success");
+                        Swal.fire({
+                            icon: 'success',
+                            title: '맛집이 삭제되었습니다.'
+                        });
                     } else if (deleteRes === false) {
                     }
                 }
@@ -151,7 +154,7 @@
                 </div>
 
                 <div class="review_img">
-                    <input class="form-control form-control-sm" id="formFileSm" type="file" multiple>
+                    <input class="form-control form-control-sm" id="formFileSm" type="file" multiple onchange="readURL(this)">
                 </div>
                 <div class="modal-footer">
                     <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">리뷰등록하기</button>
@@ -242,19 +245,31 @@
         const files = $('#formFileSm')[0].files
 
         if(score === undefined) {
-            alert("별점을 입력해주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '별점을 입력해주세요.'
+            });
             return;
         }
         if(hashtags.length === 0){
-            alert("해시태그를 입력해주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '해시태그를 입력해주세요.'
+            });
             return;
         }
         if(contents === "") {
-            alert("리뷰를 입력해 주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '리뷰 내용을 입력해주세요.'
+            });
             return;
         }
         if(files.length === 0) {
-            alert("사진을 첨부해주세요")
+            Swal.fire({
+                icon: 'warning',
+                title: '사진을 첨부해주세요.'
+            });
             return;
         }
 
@@ -266,6 +281,7 @@
         for (let i = 0; i < files.length; ++i) {
             formData.append("files", files[i])
         }
+
 
         $.ajax({
             url: '${pageContext.request.contextPath}/restaurant/insertReview',
@@ -287,10 +303,33 @@
     $('input:checkbox[name=chk_hashtag]').click(function () {
         let cntEPT = $('input:checkbox[name=chk_hashtag]:checked').length;
         if (cntEPT > 3) {
-            alert('해시태그는 최대 3개까지 선택 가능합니다.')
+            Swal.fire({
+                icon: 'warning',
+                title: '해시태그는 최대 3개까지 선택 가능합니다.'
+            });
             $(this).prop('checked', false);
         }
     });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            document.getElementById('preview').src = "";
+        }
+
+        if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
+            input.value = null;
+        }
+    }
 
 
     function offClick() {
@@ -313,11 +352,17 @@
             url: "${pageContext.request.contextPath}/restaurant/review/" + revNo,
             type: "delete",
             success: function (result) {
-                alert("리뷰 삭제 성공");
+                Swal.fire({
+                    icon: 'success',
+                    title: '리뷰 삭제에 성공하였습니다.'
+                });
                 selectReviewList();
             },
             error: function () {
-                alert("리뷰 삭제 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: '리뷰 삭제에 실패하였습니다.'
+                });
             }
         });
     }

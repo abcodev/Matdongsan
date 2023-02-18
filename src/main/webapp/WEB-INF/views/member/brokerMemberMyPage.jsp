@@ -268,7 +268,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                swal("관심목록이 해지되었습니다.")
+                alert("관심목록이 해지되었습니다.")
                 location.reload();
             }
         });
@@ -278,7 +278,7 @@
         var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
         if(deleteMember === true){
             location.href = '${pageContext.request.contextPath}/delete';
-            swal("그동안 맛동산을 이용해주셔서 감사합니다.");
+            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
         }
         else if(deleteMember === false){
         }
