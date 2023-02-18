@@ -151,12 +151,17 @@
             contentType: false,
             data : formData,
             type : "post",
-            success : function (result){
-                console.log(result);
-                swal("수정성공!");
+            success : function (){
+                Swal.fire({
+                    icon: 'success',
+                    title: "수정에 성공하였습니다."
+                })
             },
             error : function (){
-                swal("수정실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: "수정에 실패하였습니다."
+                })
             },
             complete : function (){
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + boardNo;
@@ -214,7 +219,7 @@
                 replyContent : $('input[name="replyContent"]:visible').val()},
             success : function(result){
                 if(result == "1"){
-                    // alertify.alert("서비스 요청 성공", '댓글등록 성공');
+                    alertify.alert("서비스 요청 성공", '댓글등록 성공');
                 }
                 selectReplyList();
             },
@@ -238,11 +243,17 @@
                 memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
-                alert("댓글 삭제 성공");
+                Swal.fire({
+                    icon: 'success',
+                    title: "댓글을 삭제하였습니다."
+                })
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
-                alert("댓글 삭제 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: "댓글 삭제에 실패하였습니다."
+                })
             }
         });
     }
@@ -263,11 +274,17 @@
                 "reportFno" : reportFno},
             success : function (result){
                 console.log(result);
-                alert("신고 완료");
+                Swal.fire({
+                    icon: 'success',
+                    title: "신고가 접수되었습니다."
+                })
                 $('#exampleModal').modal('hide');
             },
             error : function (){
-                alert("신고 실패");
+                Swal.fire({
+                    icon: 'error',
+                    title: "신고 접수를 실패하였습니다"
+                })
             }
         })
     }

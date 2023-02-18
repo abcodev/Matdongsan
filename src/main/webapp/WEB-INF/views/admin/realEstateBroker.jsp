@@ -203,8 +203,12 @@
                 'memberNo': memberNo
             }),
             success : function (result){
-                console.log(result)
-                document.location.href = document.location.href;
+                    Swal.fire({
+                        icon: 'success',
+                        title: result
+                    }).then(()=>{
+                        document.location.href = document.location.href;
+                    })
             }
         })
     })
