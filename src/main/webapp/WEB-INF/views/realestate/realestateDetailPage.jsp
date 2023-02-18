@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 <body>
 
@@ -23,7 +25,10 @@
                 function changeHeart() {
                     if (${empty loginUser}) {
                         $('#checkbox_heart').prop("checked", false);
-                        alert("로그인 후 이용가능합니다.")
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '로그인 후 이용가능합니다.'
+                        });
                         return;
                     }
                     $.ajax({
