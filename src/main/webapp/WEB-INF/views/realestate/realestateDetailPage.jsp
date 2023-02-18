@@ -11,11 +11,6 @@
 
 
 
-
-
-
-
-
     <style>
         .map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap {position:relative;width:100%;height:350px;}
@@ -29,9 +24,7 @@
         #category li .bank {background-position: -10px 0;}
         #category li .mart {background-position: -10px -36px;}
         #category li .pharmacy {background-position: -10px -72px;}
-        /*#category li .oil {background-position: -10px -108px;}*/
         #category li .cafe {background-position: -10px -144px;}
-        /*#category li .store {background-position: -10px -180px;}*/
         #category li.on .category_bg {background-position-x:-46px;}
         .placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
         .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
@@ -44,14 +37,6 @@
         .placeinfo .tel {color:#0f7833;}
         .placeinfo .jibun
     </style>
-
-
-
-
-
-
-
-
 
 
 
@@ -247,11 +232,9 @@
                 </div>
             </div>
 
-
             <script type="text/javascript"
                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services"></script>
             <script>
-
 
 
                 var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}),

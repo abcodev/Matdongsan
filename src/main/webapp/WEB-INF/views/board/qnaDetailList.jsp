@@ -44,7 +44,6 @@
                     <c:if test="${not empty loginUser}">
                         <c:if test="${q eq loginUser.memberNo}">
                             <button type="button" class="btn1" onclick="deletePage(${qb.qnaBno})">삭제</button>
-                            <%--<button><a href="${pageContext.request.contextPath}/board/delete/${qb.qnaBno}" class="btn1">삭제</a></button>--%>
                         </c:if>
                         <c:if test="${q ne loginUser.memberNo}">
                             <c:if test="${q ne 1}">
@@ -65,9 +64,6 @@
 
         <c:forEach var="list" items="${ab}">
             <div id="Answer">
-                    <%--    <c:if test="${empty list}">
-                          <span id="hong">작성된 답글이 없습니다</span>
-                        </c:if>--%>
                 <span class="font">${qb.qnaTitle}</span>
                 <span class="deptFont">에 대한 답글 제목 : </span>
                 <span class="font">${list.qnaTitle}</span><br><br>
@@ -148,7 +144,7 @@
         function deletePage(qBno) {
             Swal.fire({
                 icon: 'success',
-                title: '해당 게시글을 삭제하였습니다.'
+                title: '게시글을 삭제하였습니다.'
             }).then(() => {
                 location.href = '${pageContext.request.contextPath}/board/delete/' + qBno;
             })
