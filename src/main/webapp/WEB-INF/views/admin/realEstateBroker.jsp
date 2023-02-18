@@ -182,7 +182,6 @@
 
     function showApproveModal(agent, member) {
         $('#modal').addClass('show');
-        // TODO : 이벤트 발생하는 곳
         agentNo = agent;
         memberNo = member;
     }

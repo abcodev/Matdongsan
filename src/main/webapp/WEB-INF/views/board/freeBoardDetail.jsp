@@ -214,7 +214,7 @@
                 replyContent : $('input[name="replyContent"]:visible').val()},
             success : function(result){
                 if(result == "1"){
-                    alertify.alert("서비스 요청 성공", '댓글등록 성공');
+                    // alertify.alert("서비스 요청 성공", '댓글등록 성공');
                 }
                 selectReplyList();
             },
@@ -238,11 +238,11 @@
                 memberNo : '${loginUser.memberNo}'},
             success : function (result){
                 console.log(result);
-                swal("댓글 삭제 성공");
+                alert("댓글 삭제 성공");
                 location.href = "${pageContext.request.contextPath}/board/freeList/detail/" + ${fb.boardNo};
             },
             error : function (){
-                swal("댓글 삭제 실패");
+                alert("댓글 삭제 실패");
             }
         });
     }
@@ -263,11 +263,11 @@
                 "reportFno" : reportFno},
             success : function (result){
                 console.log(result);
-                swal("신고 완료");
+                alert("신고 완료");
                 $('#exampleModal').modal('hide');
             },
             error : function (){
-                swal("신고 실패");
+                alert("신고 실패");
             }
         })
     }
