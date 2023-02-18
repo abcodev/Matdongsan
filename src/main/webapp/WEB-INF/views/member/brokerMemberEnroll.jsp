@@ -86,7 +86,7 @@
              }
              if(!is_empty){
                  Swal.fire({
-                     title: "제휴부동산 회원 신청이 완료되었습니다.",
+                     title: "제휴부동산 회원 신청이 \n완료되었습니다.",
                      text: "승인까지 1-3일이 소요됩니다.",
                      type: "info",
                      buttonsStyling: true,

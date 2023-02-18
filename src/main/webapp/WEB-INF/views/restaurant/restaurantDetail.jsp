@@ -159,7 +159,7 @@
                     <input class="form-control form-control-sm" id="formFileSm" type="file" multiple onchange="readURL(this)">
                 </div>
                 <div class="modal-footer">
-                    <button id="review_insert" onclick="insertReview()" data-bs-dismiss="modal">리뷰등록하기</button>
+                    <button id="review_insert" onclick="insertReview()" >리뷰등록하기</button>
                 </div>
             </div>
         </div>
@@ -251,28 +251,28 @@
                 icon: 'warning',
                 title: '별점을 입력해주세요.'
             });
-            return;
+            return false;
         }
         if(hashtags.length === 0){
             Swal.fire({
                 icon: 'warning',
                 title: '해시태그를 입력해주세요.'
             });
-            return;
+            return false;
         }
         if(contents === "") {
             Swal.fire({
                 icon: 'warning',
                 title: '리뷰 내용을 입력해주세요.'
             });
-            return;
+            return false;
         }
         if(files.length === 0) {
             Swal.fire({
                 icon: 'warning',
                 title: '사진을 첨부해주세요.'
             });
-            return;
+            return false;
         }
 
         const formData = new FormData();
@@ -292,6 +292,7 @@
             contentType: false,
             processData: false,
             success: () => {
+                $('.modal').modal('hide');
                 selectReviewList();
                 offClick();
             },

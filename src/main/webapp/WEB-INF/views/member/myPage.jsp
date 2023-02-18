@@ -21,9 +21,13 @@
                 'estateNo': estateNo,
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
-            success() {
-                alert("관심 목록이 해제되었습니다");
-                location.reload();
+            success : function (){
+                Swal.fire({
+                    icon: 'success',
+                    title: '관심목록이 해제되었습니다.'
+                }).then(()=>{
+                    location.reload();
+                })
             }
         });
 

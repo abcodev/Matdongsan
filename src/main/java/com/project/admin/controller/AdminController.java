@@ -12,17 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 @RequiredArgsConstructor
 @SessionAttributes("loginUser")
 @RequestMapping("/admin")
-@RequiredLogin
 @Permission(authority = MemberGrade.ADMIN)
 public class AdminController {
 
     private final AdminService adminService;
-
 
     @RequestMapping(value = "/userList")
     public ModelAndView selectUserList(
@@ -106,9 +103,9 @@ public class AdminController {
         String result = "";
 
         if (req.getHandle().equals("consent")) {
-            result = "신청 승인을 완료하였습니다.";
+            result = "부동사 회원 승인을 완료하였습니다.";
         } else {
-            result = "신청 승인을 거절하였습니다";
+            result = "부동산 회원 신청을 거절하였습니다";
         }
         return ResponseEntity.ok().headers(resHeaders).body(result);
     }
