@@ -418,14 +418,23 @@
 
         // required 검사
         if (reservationDate == "") {
-            Swal.fire('날짜를 입력해 주세요.');
+            Swal.fire({
+                icon: 'warning',
+                title: '날짜를 입력해 주세요.'
+            });
             return false;
         } else if (memberName == "") {
-            Swal.fire('이름을 입력해 주세요.');
+            Swal.fire({
+                icon: 'warning',
+                title: '이름을 입력해 주세요.'
+            });
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            Swal.fire('휴대폰 번호를 입력해 주세요.');
+            Swal.fire({
+                icon: 'warning',
+                title: '휴대폰 번호를 입력해 주세요.'
+            });
             $('#telephone').focus();
             return false;
         } else {

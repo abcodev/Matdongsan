@@ -297,7 +297,6 @@
             },
             error: function () {
                 offClick();
-                console.log("리뷰 등록 실패");
             }
         });
     }

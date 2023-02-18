@@ -22,7 +22,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심 목록이 해제되었습니다");
+                alert("관심 목록이 해제되었습니다");중
                 location.reload();
             }
         });
@@ -268,7 +268,6 @@
 <script>
 
     function deleteMember() {
-        var deleteMember =
         Swal.fire({
             title: '정말 탈퇴하시겠습니까?',
             text: "모든 정보가 삭제됩니다.",

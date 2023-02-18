@@ -71,7 +71,11 @@
 <script>
 
     $("form").on("submit", function() {
-        alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: '제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.'
+        // });
+        // alert("제휴부동산 회원 신청이 완료되었습니다. \n승인까지 1-3일이 소요됩니다.");
     });
 
     function readURL(input) {
@@ -84,7 +88,10 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
             input.value = null;
         }
     }
