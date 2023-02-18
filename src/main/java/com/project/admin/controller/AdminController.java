@@ -60,13 +60,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/deleteQna/{fNo}")
-    public String deleteQna(@PathVariable("fNo") int fNo) {
+    public ModelAndView deleteQna(@PathVariable("fNo") int fNo) {
+        ModelAndView mv =new ModelAndView();
         int result = adminService.deleteQna(fNo);
         if (result == 0) {
-            return "common/errorPage";
+            mv.setViewName("common/errorPage");
         } else {
-            return "redirect:/admin/reportList";
+            mv.setViewName("redirect:/admin/reportList");
         }
+        return mv;
     }
 
     @RequestMapping(value = "/deleteFree/{fNo}")

@@ -185,7 +185,7 @@ public class FreeBoardController {
     // 게시글 신고하기
     @RequestMapping("/report")
     @ResponseBody
-    @Permission(authority = MemberGrade.GENERAL2)
+//    @Permission(authority = MemberGrade.GENERAL2)
     public String reportPost(Report report) {
 
         int result = freeBoardService.insertReport(report);

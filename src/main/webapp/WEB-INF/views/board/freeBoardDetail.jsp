@@ -260,7 +260,7 @@
                 "reportContent" : reportContent,
                 "reportedPerson" : reportedPerson,
                 "reportFno" : reportFno},
-            success : function (result){
+            success : function (){
                 Swal.fire({
                     icon: 'success',
                     title: "신고가 접수되었습니다."

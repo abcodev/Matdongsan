@@ -95,7 +95,6 @@
                                     location.reload();
                                 }
                             });
-                            console.log(banPeriod)
                         }
                     </script>
                 </td>
@@ -162,6 +161,7 @@
 </div>
 <script>
 
+
     $("#userList").click(function () {
         location.href = "${pageContext.request.contextPath}/admin/userList";
     });
@@ -181,18 +181,15 @@
             success: function (data) {
                 $('#tableDiv').empty();
                 $('.pagination').empty();
-                $('#paging').html($(data).find('.pagination')) ;
+                $('#paging').html($(data).find('.pagination'));
                 if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {
                     $('.reportTable').html('<p>조회된 회원이 없습니다.</p>');
                 }
-
-
             }
         })
     }
-
     /* 모달*/
     $(document).on('click', '.add-btn', function () {
         console.log("click event");
@@ -203,16 +200,12 @@
         $('#modal').addClass('show');
 
     });
-
-
     // 모달 닫기
     $(document).on('click', '#close_btn', function () {
         console.log("click event");
         $('#modal').removeClass('show');
 
     });
-
-
     function movePage(fNo, reportType) {
         if (reportType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/board/detail/' + fNo;
@@ -224,17 +217,17 @@
     function movePage2() {
         let fNo = $("#fNo").val();
         let rType = $("#rType").val();
-        if (rType === '질문게시판') {
-            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
-            alert('삭제 완료', "질문 게시판이 삭제 처리 되었습니다.", 'success')
-
-        } else {
-            location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
-            alert('삭제 완료',"자유 게시판이 삭제 처리 되었습니다", 'success')
-        }
+        Swal.fire({
+            icon: 'success',
+            title: '삭제 완료'
+        }).then(()=>{
+            if (rType === '질문게시판') {
+                location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
+            } else {
+                location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
+            }
+        })
     }
-
-
 </script>
 </body>
 </html>

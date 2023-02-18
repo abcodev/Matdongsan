@@ -168,7 +168,7 @@ public class QnaBoardController {
     @RequestMapping("/qnaReport")
     @ResponseBody
     @RequiredLogin
-    @Permission(authority = MemberGrade.GENERAL2)
+//    @Permission(authority = MemberGrade.GENERAL2)
     public String reportPost(Report report) {
         int result = boardService.insertReport(report);
         if (result > 0) {
