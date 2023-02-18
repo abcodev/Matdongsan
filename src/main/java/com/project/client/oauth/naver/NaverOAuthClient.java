@@ -12,12 +12,8 @@ import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.naver.dto.NaverUnlinkResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.compress.archivers.sevenz.CLI;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -27,8 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Slf4j
@@ -49,7 +43,7 @@ public class NaverOAuthClient implements OAuthClient {
     private final static String SESSION_STATE = "oauth_state";
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
-    private final static String UNLINK_API_URL = "https://nid.naver.com/oauth2.0/token";
+    private final static String TOKEN_API_URL = "https://nid.naver.com/oauth2.0/token";
 
     @Override
     public String generateRedirectUrl(HttpSession session) {
@@ -92,6 +86,31 @@ public class NaverOAuthClient implements OAuthClient {
     }
 
     @Override
+    public OAuthToken renewToken(String refreshToken) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("client_id", CLIENT_ID);
+        params.add("client_secret", CLIENT_SECRET);
+        params.add("refresh_token", refreshToken);
+        params.add("grant_type", "refresh_token");
+
+        try {
+            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(TOKEN_API_URL);
+            uriComponentsBuilder.queryParams(params);
+            OAuthToken response = restTemplate.getForObject(uriComponentsBuilder.build().toUri(), OAuthToken.class);
+            if (response == null) {
+                throw new RuntimeException();
+            }
+            // 네이버 -> RefreshToken 을 주지 않음..
+            // response(OAuthToken) -> refreshToken -> null
+            response.setOldRefreshToken(refreshToken);
+            return response;
+        } catch (Exception ex) {
+            log.info(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
     public OAuthUser getUserProfile(HttpSession session, OAuthToken oAuthToken) {
         OAuth20Service oauthService = new ServiceBuilder()
                 .apiKey(CLIENT_ID)
@@ -113,7 +132,7 @@ public class NaverOAuthClient implements OAuthClient {
         params.add("grant_type", "delete");
         params.add("service_provider", "NAVER");
         try {
-            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(UNLINK_API_URL);
+            UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromUriString(TOKEN_API_URL);
             uriComponentsBuilder.queryParams(params);
             NaverUnlinkResponse response = restTemplate.getForObject(uriComponentsBuilder.build().toUri(), NaverUnlinkResponse.class);
             if (response == null) {

@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
 </head>
-<body>
 
+<body>
 <div id="content">
     <div id="content_left">
         <div class="info_table head">
@@ -21,11 +21,14 @@
             </div>
             <script>
                 function changeHeart() {
-                    <%--if(${empty loginUser}){--%>
-                    <%--    $('#checkbox_heart').prop("checked", false);--%>
-                    <%--    alert("로그인 후 이용가능합니다.")--%>
-                    <%--    return false;--%>
-                    <%--}--%>
+                    if (${empty loginUser}) {
+                        $('#checkbox_heart').prop("checked", false);
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '로그인 후 이용 가능합니다.'
+                        });
+                        return;
+                    }
                     $.ajax({
                         url: '${pageContext.request.contextPath}/realEstate/detail/interest',
                         type: 'POST',
@@ -36,7 +39,6 @@
                         })
                     });
                 }
-
             </script>
         </div>
         <div class="info_table body">
@@ -55,7 +57,7 @@
                 </tr>
                 <tr>
                     <th>층</th>
-                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}" />
+                    <td><fmt:parseNumber var="floor" value="${realEstateDetail.floor}"/>
                         ${floor} 층
                     </td>
                 </tr>
@@ -199,7 +201,7 @@
 
                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        // 결과값으로 받은 위치를 마커로 표시
                         var marker = new kakao.maps.Marker({
                             map: map,
                             position: coords
@@ -211,11 +213,10 @@
                         });
                         infowindow.open(map, marker);
 
-                        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                        // 지도의 중심을 결과값으로 받은 위치로 이동
                         map.setCenter(coords);
                     }
                 });
-
 
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
                 var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
@@ -228,6 +229,7 @@
                         if (status === kakao.maps.services.Status.OK) {
                             var position = new kakao.maps.LatLng(result[0].y, result[0].x);
                             // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+                            var rvResetValue = {};
                             roadviewClient.getNearestPanoId(position, 500, function (panoId) {
                                 roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
                                 rvResetValue.panoId = panoId;
@@ -263,7 +265,6 @@
                 Roadview();
 
             </script>
-
         </div>
     </div>
 </div>
@@ -274,11 +275,14 @@
     let resercationAgentNo = null;
 
     function showRealtor(agentNo, agentName) {
-        if(${empty loginUser}){
-            alert("로그인 후 이용가능합니다.")
+        if (${empty loginUser}) {
+            Swal.fire({
+                icon: 'warning',
+                title: '로그인 후 이용 가능합니다.'
+            });
             return false;
+
         }
-        console.log(agentNo);
         $('#agent_name').html(agentName);
         resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
@@ -286,16 +290,20 @@
     }
 
     window.onload = function () {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/realEstate/detail/interest',
-            method: 'GET',
-            data: {
-                'estateNo': ${realEstateDetail.estateNo}
-            },
-            success(data) {
-                $('#checkbox_heart').prop("checked", data);
-            }
-        });
+        if(${not empty loginUser}){
+            $.ajax({
+                url: '${pageContext.request.contextPath}/realEstate/detail/interest',
+                method: 'GET',
+                data: {
+                    'estateNo': ${realEstateDetail.estateNo}
+                },
+                success(data) {
+                        $('#checkbox_heart').prop("checked", data);
+
+                }
+            });
+        }
+
         document.querySelector('.modal_close').addEventListener('click', offClick);
         document.querySelector('.black_bg').addEventListener("click", offClick);
     };
@@ -305,7 +313,13 @@
         document.querySelector('.black_bg').style.display = 'none';
         $(".rm_input").val("");
         reservationDate = "";
+        removeClick.forEach((e) => {
+            e.classList.remove("click");
+        });
+        $('select').find('option:first').attr('selected', 'selected');
+
     }
+
 
 
     let reservationDate = "";
@@ -336,11 +350,12 @@
         // 이번달 날짜 표시하기
         for (let i = 1; i <= lastDay; i++) {
             if (i < currentDate.getDate()) {
-                htmlDummy += '<div onclick="alert(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
+                htmlDummy += '<div onclick="Swal.fire(\'과거 일정은 선택할 수 없습니다!\')">' + i + '</div>';
             } else {
                 htmlDummy += '<div class="non-click" onclick="test(' + currentYear + ', ' + currentMonth + ', ' + i + ')">' + i + '</div>';
             }
         }
+
 
         // 다음달 날짜 표시하기
         for (let i = limitDay; i < nextDay; i++) {
@@ -352,6 +367,7 @@
 
         // 날짜 선택시 색상 고정
         const nonClick = document.querySelectorAll(".non-click");
+        removeClick = nonClick;
         function handleClick(event) {
             // div에서 모든 "click" 클래스 제거
             nonClick.forEach((e) => {
@@ -365,6 +381,7 @@
             e.addEventListener("click", handleClick);
         });
     }
+    let removeClick=null;
 
     function test(year, month, day) {
         console.log(year, month, day);
@@ -401,14 +418,14 @@
 
         // required 검사
         if (reservationDate == "") {
-            alert("날짜를 입력해주세요")
+            Swal.fire('날짜를 입력해 주세요.');
             return false;
         } else if (memberName == "") {
-            alert("이름을 입력해주세요")
+            Swal.fire('이름을 입력해 주세요.');
             $('#memberName').focus();
             return false;
         } else if (phone == "") {
-            alert("휴대폰번호를 입력해주세요")
+            Swal.fire('휴대폰 번호를 입력해 주세요.');
             $('#telephone').focus();
             return false;
         } else {
@@ -429,12 +446,18 @@
                 processData: false,
                 contentType: false,
                 success: () => {
-                    alert("예약에 성공하였습니다.");
+                    Swal.fire({
+                        icon: 'success',
+                        title: '예약에 성공 하였습니다.'
+                    });
                     offClick();
 
                 },
                 error: () => {
-                    alert("예약 등록에 실패하였습니다.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '예약에 실패 하였습니다.'
+                    });
                 }
             })
         }
@@ -442,4 +465,6 @@
 </script>
 </body>
 </html>
+
+
 

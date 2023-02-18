@@ -11,6 +11,7 @@ import com.project.common.template.PageInfoCombine;
 import com.project.member.dao.MemberDao;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
+import com.project.realestate.dao.RealEstateDao;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -73,19 +74,19 @@ public class AdminService {
 
     @Transactional
     public void handleApply(HandleApplyRequest req) {
-
-        if(req.getHandle().equals("consent")){
+        if (req.getHandle().equals("consent")) {
             adminDao.changeMemberGrade(sqlSession, req);
         }
         adminDao.changeEstateStatus(sqlSession, req);
-//        long receiverNo = adminDao.memberNoOfAccept(req.getAgentNo());
-//        AlarmTemplate<String> template = null;
-//        if (req.getHandle().equals("consent")) {
-//            template = AlarmTemplate.generateNewBrokerAcceptTemplate(receiverNo);
-//        } else if (req.getHandle().equals("reject")) {
-//            template = AlarmTemplate.generateNewBrokerRejectTemplate(receiverNo);
-//        }
-//        alarmService.send(template);
+
+        long receiverNo = req.getMemberNo();
+        AlarmTemplate<String> template = null;
+        if (req.getHandle().equals("consent")) {
+            template = AlarmTemplate.generateNewBrokerAcceptTemplate(receiverNo, req.getAgentNo());
+        } else if (req.getHandle().equals("reject")) {
+            template = AlarmTemplate.generateNewBrokerRejectTemplate(receiverNo, req.getAgentNo());
+        }
+        alarmService.send(template);
     }
 
 }

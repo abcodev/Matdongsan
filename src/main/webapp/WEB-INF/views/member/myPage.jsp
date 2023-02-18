@@ -8,11 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
-<%--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"--%>
-<%--            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>--%>
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
-<%--          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">--%>
-<%--    <jsp:include page="../template/font.jsp"/>--%>
 </head>
 <body>
 <script>
@@ -27,7 +22,7 @@
                 'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
             }),
             success() {
-                alert("관심 목록이 해제되었습니다","","success");
+                alert("관심 목록이 해제되었습니다");
                 location.reload();
             }
         });
@@ -91,21 +86,28 @@
                         <th>게시일</th>
                     </tr>
 
-                    <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
-                        <c:choose>
-                            <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
-                                <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
-                            </c:when>
-                            <c:otherwise>
-                                <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
-                            </c:otherwise>
-                        </c:choose>
-                        <td>${selectAllBoardList.boardType}</td>
-                        <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
-                        <td>${selectAllBoardList.boardDate}</td>
-                        </tr>
-                    </c:forEach>
+                    <c:if test="${not empty selectAllBoardList}">
+                        <c:forEach items="${selectAllBoardList}" var="selectAllBoardList">
+                            <c:choose>
+                                <c:when test="${selectAllBoardList.boardType eq '자유게시판'}">
+                                    <tr class="myBoard_info" onclick="location.href='${pageContext.request.contextPath}/board/freeList/detail/${selectAllBoardList.boardNo}'">
+                                </c:when>
+                                <c:otherwise>
+                                    <tr class="myBoard_info" onclick="location.href = '${pageContext.request.contextPath}/board/detail/${selectAllBoardList.boardNo}'">
+                                </c:otherwise>
+                            </c:choose>
+                            <td>${selectAllBoardList.boardType}</td>
+                            <td class="boardTitle">${selectAllBoardList.boardTitle}</td>
+                            <td>${selectAllBoardList.boardDate}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                 </table>
+                <c:if test="${empty selectAllBoardList}">
+                    <tr>
+                        <td>조회된 게시글이 없습니다.</td>
+                    </tr>
+                </c:if>
             </div>
             <div id="allBoardsPaging">
                 <nav aria-label="Page navigation example">
@@ -151,32 +153,36 @@
             <p>내가 남긴 동네맛집 리뷰</p>
             <div id="myReviewList">
                 <table>
-                    <c:forEach var="reviewList" items="${reviewList}">
-                        <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
-                            <td class="review_resNm">${reviewList.resName}</td>
-                            <td class="review_star">
-                                <c:choose>
-                                    <c:when test="${reviewList.starRating eq 5}">
-                                        ★★★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 4}">
-                                        ★★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 3}">
-                                        ★★★
-                                    </c:when>
-                                    <c:when test="${reviewList.starRating eq 2}">
-                                        ★★
-                                    </c:when>
-                                    <c:otherwise>
-                                        ★
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
-                        </tr>
-                        </tr>
-                    </c:forEach>
+                    <c:if test="${not empty reviewList}">
+                        <c:forEach var="reviewList" items="${reviewList}">
+                            <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
+                                <td class="review_resNm">${reviewList.resName}</td>
+                                <td class="review_star">
+                                    <c:choose>
+                                        <c:when test="${reviewList.starRating eq 5}">
+                                            ★★★★★
+                                        </c:when>
+                                        <c:when test="${reviewList.starRating eq 4}">
+                                            ★★★★
+                                        </c:when>
+                                        <c:when test="${reviewList.starRating eq 3}">
+                                            ★★★
+                                        </c:when>
+                                        <c:when test="${reviewList.starRating eq 2}">
+                                            ★★
+                                        </c:when>
+                                        <c:otherwise>
+                                            ★
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td class="review_date">${fn:substring(reviewList.createDate, 0, 16)}</td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty reviewList}">
+                        조회된 리뷰가 없습니다.
+                    </c:if>
                 </table>
             </div>
             <div id="reviewPaging">
@@ -262,13 +268,25 @@
 <script>
 
     function deleteMember() {
-        var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-
-        if (deleteMember === true) {
-            location.href = '${pageContext.request.contextPath}/delete';
-            alert("탈퇴완료","그동안 맛동산을 이용해주셔서 감사합니다.","success");
-        } else if (deleteMember === false) {
-        }
+        var deleteMember =
+        Swal.fire({
+            title: '정말 탈퇴하시겠습니까?',
+            text: "모든 정보가 삭제됩니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8a33e7',
+            cancelButtonColor: '#9a9898',
+            confirmButtonText: '회원탈퇴',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = '${pageContext.request.contextPath}/delete';
+                Swal.fire({
+                    icon: 'success',
+                    title: '성공적으로 탈퇴가 완료되었습니다.',
+                })
+            }
+        })
     }
 
     function deleteReservation(){

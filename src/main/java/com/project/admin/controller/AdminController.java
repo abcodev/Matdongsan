@@ -5,15 +5,12 @@ import com.project.admin.service.AdminService;
 import com.project.common.annotation.Permission;
 import com.project.common.annotation.RequiredLogin;
 import com.project.member.type.MemberGrade;
-import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -105,6 +102,7 @@ public class AdminController {
         HttpHeaders resHeaders = new HttpHeaders();
         resHeaders.add("Content-Type", "text/plain;charset=UTF-8");
         String result = "";
+
         if (req.getHandle().equals("consent")) {
             result = "신청 승인을 완료하였습니다.";
         } else {

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardList.css"/>">
 </head>
 <body>
-<body>
 <div id="content">
     <div class="side submenu">
         <a href="${pageContext.request.contextPath}/board/freeList">자유게시판</a>

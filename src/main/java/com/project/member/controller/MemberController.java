@@ -67,7 +67,6 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("brokerResList", brokerReservationList);
-        //modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("pi1", resp.getPageInfoCombine());
         modelAndView.addObject("pi2", resp.getPageInfoCombine2());
         modelAndView.addObject("pi3", resp.getPageInfoCombine3());
@@ -108,23 +107,12 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("/myPage/interest")
-//    @ResponseBody
-//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session){
-//        Member loginUser = (Member) session.getAttribute("loginUser");
-//        if (loginUser == null) {
-//            throw new RuntimeException("로그인 하고 오세용");
-//        }
-//        boolean isInterest = MemberService.checkInterest(estateNo, loginUser);
-//        return ResponseEntity.ok(isInterest);
-//    }
-
     @PostMapping("/myPage")
     @ResponseBody
     public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session){
         Member loginUser = (Member) session.getAttribute("loginUser");
         if(loginUser == null){
-            throw  new RuntimeException("로그인 해라 ");
+            throw  new RuntimeException("로그인 해주세요.");
         }
         memberService.saveInterest(req, loginUser);
         return ResponseEntity.ok().build();
@@ -137,7 +125,6 @@ public class MemberController {
         memberService.deleteMember(member);
         session.removeAttribute("loginUser");
         return "redirect:/";
-
     }
 
     /**

@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/header.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
 </head>
 <body>
@@ -120,15 +121,17 @@
             }
 
             let alarmIsOpen = false;
-            window.addEventListener('pageshow', () => {
-                retrieveAlarmList();
-            });
+            if (${not empty loginUser}) {
+                window.addEventListener('pageshow', () => {
+                    retrieveAlarmList();
+                });
 
-            const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-            sse.addEventListener('realtime_alarm', (event) => {
-                retrieveAlarmList();
-                console.log(event);
-            });
+                const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+                sse.addEventListener('realtime_alarm', (event) => {
+                    retrieveAlarmList();
+                    console.log(event);
+                });
+            }
 
             function retrieveAlarmList() {
                 $.ajax({

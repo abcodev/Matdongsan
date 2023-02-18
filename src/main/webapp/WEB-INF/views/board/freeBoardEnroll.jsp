@@ -4,15 +4,11 @@
     <title>자유게시판 작성</title>
     <%@ include file="../template/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardEnroll.css"/>">
-    <jsp:include page="../template/font.jsp"/>
     <script src="<c:url value="./resources/js/summernote-lite.js"/>"></script>
     <script src="<c:url value="./resources/js/summernote-ko-KR.js"/>"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/summernote/css/summernote-lite.css"/>">
 </head>
 <body>
-
-<%@ include file="../template/header.jsp" %>
-
 <div id="content">
     <div id="board_submenu">자유게시판</div>
     <div class="enroll_form">

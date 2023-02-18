@@ -62,7 +62,7 @@
         stompClient.send("/app/chat/send", {}, JSON.stringify(data));
         $("#chat-input").val('');
         // 채팅 보내고 받는 시간이 있으므로 0.2초 후에 스크롤 내리기
-        setTimeout(() => $('.chat').scrollTop($('.chat').prop('scrollHeight')), 200);
+        setTimeout(() => $('.chat').scrollTop($('.chat').prop('scrollHeight')), 250);
     }
 </script>
 </div>

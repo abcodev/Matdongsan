@@ -108,13 +108,9 @@
 
   // 실시간 채팅 내용
   function showMessage(data) {
-    console.log(data.memberNo + " " + ${loginUser.memberNo});
-    console.log()
     if (data.memberNo === ${loginUser.memberNo}) {
-      console.log("me")
       $('.chat-logs').append("<div class='me'>"  +  "<div>"+ data.message + "</div>" + "</div>"); // 내가 보낸 메세지
     } else {
-      console.log("other")
       $('.chat-logs').append("<div class='other'>" + "<div>"+ data.message + "</div>" + "</div>"); // 남이 보낸 메세지
     }
     $('.chat-logs').scrollTop($('.chat-logs').prop('scrollHeight'));
@@ -124,7 +120,6 @@
   function loadChat(messageList) {
     if (messageList != null) {
       for (let i in messageList) {
-        console.log(messageList[i].sendNo);
         if (messageList[i].sendNo === '${loginUser.memberNo}') {
           $('.chat-logs').append("<div class='me'>" + "<div>"+ messageList[i].content + "</div>" + "</div>");// 내가 보낸 메세지
         } else {

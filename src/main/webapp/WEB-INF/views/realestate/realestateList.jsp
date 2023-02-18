@@ -168,7 +168,11 @@
                 }
             }
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            Swal.fire({
+                icon: 'error',
+                title: JSON.stringify(error)
+            });
+            // alert(JSON.stringify(error));
         })
     }
 

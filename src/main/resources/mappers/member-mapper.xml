@@ -17,10 +17,9 @@
         <result column="STATUS" property="status"/>
         <result column="GRADE" property="grade"/>
         <result column="INTEREST_STATE" property="interestState"/>
-        <result column="ACCESS_TOKEN" property="accessToken" />
-        <result column="REFRESH_TOKEN" property="refreshToken" />
-        <result column="REFRESH_TOKEN_EXPIRED_AT" property="refreshTokenExpiredAt" />
-        <result column="BAN_PERIOD" property="banPeriod" />
+        <result column="ACCESS_TOKEN" property="accessToken"/>
+        <result column="REFRESH_TOKEN" property="refreshToken"/>
+        <result column="BAN_PERIOD" property="banPeriod"/>
     </resultMap>
 
     <resultMap type="memberInterest" id="interestList">
@@ -43,12 +42,12 @@
     </resultMap>
 
 
-
     <insert id="insert" parameterType="member">
         INSERT INTO MEMBER
-        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS, ACCESS_TOKEN, REFRESH_TOKEN, REFRESH_TOKEN_EXPIRED_AT)
+        (MEMBER_NO, PROVIDER, PROVIDER_ID, MEMBER_NAME, PROFILE_IMAGE, EMAIL, NICKNAME, PHONE, ADDRESS, RECENT_ACCESS,
+         ACCESS_TOKEN, REFRESH_TOKEN)
         VALUES (SEQ_MEMBER_NO.NEXTVAL, #{provider}, #{providerId}, #{memberName}, #{profileImage}, #{email},
-                #{nickName}, #{phone}, #{address}, #{recentAccess}, #{accessToken}, #{refreshToken}, #{refreshTokenExpiredAt})
+                #{nickName}, #{phone}, #{address}, #{recentAccess}, #{accessToken}, #{refreshToken})
     </insert>
 
     <select id="selectByMemberNo" resultMap="memberResultSet">
@@ -65,10 +64,16 @@
     </select>
 
 
-
     <select id="loginMember" parameterType="member" resultMap="memberResultSet">
-        SELECT
-            MEMBER_NO, NICKNAME, PROFILE_IMAGE, EMAIL, GRADE, PHONE, ADDRESS, PROVIDER, PROVIDER_ID
+        SELECT MEMBER_NO,
+               NICKNAME,
+               PROFILE_IMAGE,
+               EMAIL,
+               GRADE,
+               PHONE,
+               ADDRESS,
+               PROVIDER,
+               PROVIDER_ID
         FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
           AND STATUS = 'Y'
@@ -76,30 +81,26 @@
 
     <update id="update" parameterType="member">
         UPDATE MEMBER
-        SET
-            MEMBER_NO = #{memberNo},
-            NICKNAME = #{nickName},
-            EMAIL = #{email},
-            PHONE = #{phone},
-            ADDRESS = #{address},
-            GRADE = #{grade}
+        SET MEMBER_NO = #{memberNo},
+            NICKNAME  = #{nickName},
+            EMAIL     = #{email},
+            PHONE     = #{phone},
+            ADDRESS   = #{address},
+            GRADE     = #{grade}
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
     <update id="updateToken" parameterType="Map">
         UPDATE MEMBER
-        SET
-            ACCESS_TOKEN = #{accessToken},
-            REFRESH_TOKEN = #{refreshToken},
-            REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt}
-        WHERE PROVIDER = #{provider}
-          AND PROVIDER_ID = #{providerId}
+        SET ACCESS_TOKEN  = #{accessToken},
+            REFRESH_TOKEN = #{refreshToken}
+        WHERE MEMBER_NO = #{memberNo}
     </update>
+
 
     <update id="updateRecentAccess" parameterType="Map">
         UPDATE MEMBER
-        SET
-            RECENT_ACCESS = CURRENT_TIMESTAMP
+        SET RECENT_ACCESS = CURRENT_TIMESTAMP
         WHERE PROVIDER = #{provider}
           AND PROVIDER_ID = #{providerId}
     </update>
@@ -107,16 +108,15 @@
     <update id="updateWithLogin" parameterType="member">
         UPDATE MEMBER
         SET
-            PROFILE_IMAGE = #{profileImage},
-            MEMBER_NAME = #{memberName},
-            ACCESS_TOKEN = #{accessToken},
-            <if test="refreshToken != null">
-                REFRESH_TOKEN = #{refreshToken},
-                REFRESH_TOKEN_EXPIRED_AT = #{refreshTokenExpiredAt},
-            </if>
-            RECENT_ACCESS = CURRENT_TIMESTAMP
+        PROFILE_IMAGE = #{profileImage},
+        MEMBER_NAME = #{memberName},
+        ACCESS_TOKEN = #{accessToken},
+        <if test="refreshToken != null">
+            REFRESH_TOKEN = #{refreshToken},
+        </if>
+        RECENT_ACCESS = CURRENT_TIMESTAMP
         WHERE PROVIDER = #{provider}
-          AND PROVIDER_ID = #{providerId}
+        AND PROVIDER_ID = #{providerId}
     </update>
 
     <update id="updateBanPeriod" parameterType="Map">
@@ -126,14 +126,13 @@
     </update>
 
     <select id="getInterestList" resultMap="interestList">
-        SELECT
-            M.MEMBER_NO,
-            M.PROVIDER,
-            M.PROVIDER_ID,
-            M.NICKNAME,
-            I.ESTATE_NO,
-            S.BLDG_NM,
-            S.SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS
+        SELECT M.MEMBER_NO,
+               M.PROVIDER,
+               M.PROVIDER_ID,
+               M.NICKNAME,
+               I.ESTATE_NO,
+               S.BLDG_NM,
+               S.SGG_NM || ' ' || BJDONG_NM || ' ' || BONBEON || '-' || BUBEON as ADDRESS
 
         FROM MEMBER M
                  LEFT OUTER JOIN INTEREST I
@@ -145,14 +144,13 @@
 
         UNION ALL
 
-        SELECT
-            M.MEMBER_NO,
-            M.PROVIDER,
-            M.PROVIDER_ID,
-            M.NICKNAME,
-            I.ESTATE_NO,
-            R.BLDG_NM,
-            R.SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN as ADDRESS
+        SELECT M.MEMBER_NO,
+               M.PROVIDER,
+               M.PROVIDER_ID,
+               M.NICKNAME,
+               I.ESTATE_NO,
+               R.BLDG_NM,
+               R.SGG_NM || ' ' || BJDONG_NM || ' ' || BOBN || '-' || BUBN as ADDRESS
 
         FROM MEMBER M
                  LEFT OUTER JOIN INTEREST I
@@ -176,55 +174,54 @@
 
     </resultMap>
     <select id="selectAllBoard" resultMap="allBoardResultSet">
-        SELECT
-            F.FREE_BNO,
-            F.BOARD_TITLE,
-            F.BOARD_DATE,
-            '자유게시판' AS TYPE
+        SELECT F.FREE_BNO,
+               F.BOARD_TITLE,
+               F.BOARD_DATE,
+               '자유게시판' AS TYPE
         FROM FREE_BOARD F
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
-        WHERE M.MEMBER_NO = #{memberNo}
+        WHERE M.MEMBER_NO = #{memberNo} AND F.STATUS = 'Y'
 
         UNION ALL
 
-        SELECT
-            Q.QNA_BNO,
-            Q.QNA_TITLE,
-            Q.QNA_DATE,
-            '질문게시판' AS TYPE
+        SELECT Q.QNA_BNO,
+               Q.QNA_TITLE,
+               Q.QNA_DATE,
+               '질문게시판' AS TYPE
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
-        WHERE M.MEMBER_NO = #{memberNo}
+        WHERE M.MEMBER_NO = #{memberNo} AND Q.STATUS = 'Y'
         ORDER BY BOARD_DATE DESC
     </select>
 
     <select id="selectAllBoardCount" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM (SELECT
-                  FREE_BNO,
-                  BOARD_TITLE,
-                  BOARD_DATE,
-                  'F' AS TYPE
+        SELECT COUNT(*)
+        FROM (SELECT FREE_BNO,
+                     BOARD_TITLE,
+                     BOARD_DATE,
+                     'F' AS TYPE
               FROM FREE_BOARD
-              WHERE MEMBER_NO = #{memberNo}
+              WHERE MEMBER_NO = #{memberNo} AND STATUS = 'Y'
               UNION ALL
-              SELECT
-                  QNA_BNO,
-                  QNA_TITLE,
-                  QNA_DATE,
-                  'Q' AS TYPE
+              SELECT QNA_BNO,
+                     QNA_TITLE,
+                     QNA_DATE,
+                     'Q' AS TYPE
               FROM QNA_BOARD
-              WHERE MEMBER_NO = #{memberNo})
+              WHERE MEMBER_NO = #{memberNo} AND STATUS = 'Y')
     </select>
 
     <update id="deleteMember" parameterType="long">
-        DELETE FROM MEMBER
+        DELETE
+        FROM MEMBER
         WHERE MEMBER_NO = #{memberNo}
     </update>
 
     <delete id="delete" parameterType="Map">
-        DELETE FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
+        DELETE
+        FROM INTEREST
+        WHERE ESTATE_NO = #{estateNo}
+          AND MEMBER_NO = #{memberNo}
     </delete>
 
     <resultMap id="reviewList" type="review">
@@ -233,26 +230,26 @@
         <result column="RES_NO" property="resNo"/>
         <result column="RES_NAME" property="resName"/>
         <result column="STAR_RATING" property="starRating"/>
+        <result column="STATUS" property="status"/>
     </resultMap>
 
     <select id="selectReviewList" resultMap="reviewList">
-        SELECT
-            R.REVIEW_CONTENT,
-            R.CREATE_DATE,
-            R.STAR_RATING,
-            RES.RES_NO,
-            RES.RES_NAME
+        SELECT R.REVIEW_CONTENT,
+               R.CREATE_DATE,
+               R.STAR_RATING,
+               R.STATUS,
+               RES.RES_NO,
+               RES.RES_NAME
         FROM REVIEW R
                  JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
                  JOIN RESTAURANT RES ON RES.RES_NO = R.RES_NO
-        WHERE R.MEMBER_NO = #{memberNo}
+        WHERE R.MEMBER_NO = #{memberNo} AND R.STATUS = 'Y'
         ORDER BY CREATE_DATE DESC
     </select>
     <select id="selectReviewCount" resultType="int">
-        SELECT
-            COUNT(*)
+        SELECT COUNT(*)
         FROM REVIEW
-        WHERE MEMBER_NO = #{memberNo}
+        WHERE MEMBER_NO = #{memberNo} AND STATUS = 'Y'
     </select>
 
 
@@ -271,18 +268,17 @@
     </resultMap>
 
     <select id="selectReservationList" resultMap="reservationList">
-        SELECT
-            R.REV_NO,
-            R.MEMBER_NO,
-            R.MEMBER_NAME,
-            R.REV_PEOPLE,
-            R.PHONE,
-            R.EMAIL,
-            R.REV_ASK,
-            R.REV_TIME,
-            R.REV_DATE,
-            R.REV_STATUS,
-            RA.AGENT_NAME
+        SELECT R.REV_NO,
+               R.MEMBER_NO,
+               R.MEMBER_NAME,
+               R.REV_PEOPLE,
+               R.PHONE,
+               R.EMAIL,
+               R.REV_ASK,
+               R.REV_TIME,
+               R.REV_DATE,
+               R.REV_STATUS,
+               RA.AGENT_NAME
         FROM REAL_RESERVATION R
                  LEFT JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
                  JOIN REALESTATE_AGENT RA ON R.AGENT_NO = RA.AGENT_NO
@@ -290,8 +286,7 @@
     </select>
 
     <select id="selectReservationCount" resultType="int">
-        SELECT
-            COUNT(*)
+        SELECT COUNT(*)
         FROM REAL_RESERVATION
         WHERE MEMBER_NO = #{memberNo}
     </select>
@@ -301,9 +296,6 @@
         SET GRADE = #{grade}
         WHERE MEMBER_NO = #{memberNo}
     </update>
-
-
-
 
 
     <resultMap id="BrokerResList" type="brokerList">
@@ -323,17 +315,16 @@
     </resultMap>
 
     <select id="selectBrokerResList" resultMap="BrokerResList">
-        SELECT
-            R.REV_NO,
-            R.MEMBER_NO,
-            R.MEMBER_NAME,
-            REV_PEOPLE,
-            REV_TIME,
-            REV_DATE,
-            REV_CREATEDATE,
-            REV_STATUS
+        SELECT R.REV_NO,
+               R.MEMBER_NO,
+               R.MEMBER_NAME,
+               REV_PEOPLE,
+               REV_TIME,
+               REV_DATE,
+               REV_CREATEDATE,
+               REV_STATUS
         FROM REAL_RESERVATION R
-                 LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO= RA.AGENT_NO
+                 LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO = RA.AGENT_NO
         WHERE RA.MEMBER_NO = #{memberNo}
     </select>
 
@@ -343,18 +334,6 @@
         FROM MEMBER
         WHERE NICKNAME = #{ NICKNAME }
     </select>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </mapper>
