@@ -207,8 +207,9 @@
                     Swal.fire({
                         icon: 'success',
                         title: result
+                    }).then(()=>{
+                        document.location.href = document.location.href;
                     })
-                // document.location.href = document.location.href;
             }
         })
     })
