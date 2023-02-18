@@ -275,8 +275,8 @@
         if (${empty loginUser}) {
             alert("로그인 후 이용가능합니다.")
             return false;
+
         }
-        console.log(agentNo);
         $('#agent_name').html(agentName);
         resercationAgentNo = agentNo;
         document.querySelector('.modal_wrap').style.display = 'block';
@@ -301,9 +301,15 @@
     function offClick() {
         document.querySelector('.modal_wrap').style.display = 'none';
         document.querySelector('.black_bg').style.display = 'none';
-
         $(".rm_input").val("");
         reservationDate = "";
+        removeClick.forEach((e) => {
+            e.classList.remove("click");
+        });
+        $('select').find('option:first').attr('selected', 'selected');
+
+
+
     }
 
 
@@ -352,7 +358,7 @@
 
         // 날짜 선택시 색상 고정
         const nonClick = document.querySelectorAll(".non-click");
-
+        removeClick = nonClick;
         function handleClick(event) {
             // div에서 모든 "click" 클래스 제거
             nonClick.forEach((e) => {
@@ -366,6 +372,7 @@
             e.addEventListener("click", handleClick);
         });
     }
+    let removeClick=null;
 
     function test(year, month, day) {
         console.log(year, month, day);
