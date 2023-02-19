@@ -128,16 +128,6 @@
                 <p>내가 남긴 리뷰</p>
                 <div id="myReviewList">
                     <table>
-                        <tr>
-                            <th>레스토랑 이름</th>
-                            <th>별점</th>
-                            <th>리뷰게시일</th>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                         <c:forEach var="reviewList" items="${reviewList}">
                             <tr class="myReview_info" onclick="location.href='restaurantDetail?resNo=${reviewList.resNo}'">
                                 <td class="review_resNm">${reviewList.resName}</td>
@@ -211,7 +201,6 @@
 
         <div class="reserve_history">
             <p>예약 확인</p>
-
             <button class="myReserve_list">
                 <table id="broker_ResList">
                     <tr>
@@ -230,17 +219,15 @@
                             <td>${res.revPeople}</td>
                             <c:choose>
                                 <c:when test="${res.revStatus eq 'C'}">
-                                    <td>예약확인 중</td>
+                                    <td class="status_C">예약확인 중</td>
                                 </c:when>
                                 <c:when test="${res.revStatus eq 'A'}">
-                                    <td style="color: rgba(159,111,217,0.83)">예약 완료</td>
+                                    <td class="status_A">예약 완료</td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td style="color: #b4b1b0">예약 취소</td>
+                                    <td class="status_F">예약 취소</td>
                                 </c:otherwise>
                             </c:choose>
-
-
                         </tr>
                     </c:forEach>
                 </table>

@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
 <jsp:include page="../template/font.jsp"/>
 
 <%--  ************예약확인창 모달***************  --%>
@@ -58,8 +59,18 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" onclick="approveRes();">예약승인</button>
-            <button type="button" onclick="cancelRes();">예약취소</button>
+            <c:choose>
+                <c:when test="${selectReservation.revStatus eq 'F'}">
+                    <button type="button" class="disabled">취소된 예약입니다.</button>
+                </c:when>
+                <c:when test="${selectReservation.revStatus eq 'A'}">
+                    <button type="button" class="disabled">완료된 예약입니다.</button>
+                </c:when>
+                <c:otherwise>
+                <button type="button" onclick="approveRes();">예약승인</button>
+                <button type="button" onclick="cancelRes();">예약취소</button
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
