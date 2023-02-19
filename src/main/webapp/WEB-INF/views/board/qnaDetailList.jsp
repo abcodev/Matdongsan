@@ -52,14 +52,20 @@
                 </c:if>
             </div>
             <div class="answerList">
+                <p class="answerLine">답글</p>
                 <c:forEach var="list" items="${ab}">
                     <div id="Answer">
-                        <span class="deptFont">답글 제목 : </span>
-                        <span class="font">${list.qnaTitle}</span><br>
-                        <span class="deptFont">작성자 : </span>
-                        <span class="sFont">${list.qnaWriter}</span><br>
                         <i class="fa-solid fa-a"></i>
-                        <span class="sFont">${list.qnaContent}</span>
+                        <div class="answer">
+                            <div class="answerInfo">
+                                <span>답변자</span>
+                                <span>${list.qnaWriter}</span>
+                            </div>
+                            <div class="answerContent">
+                                <span>${list.qnaTitle}</span>
+                                <span>${list.qnaContent}</span>
+                            </div>
+                        </div>
                     </div>
                 </c:forEach>
             </div>

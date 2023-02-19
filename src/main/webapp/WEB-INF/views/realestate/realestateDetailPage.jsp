@@ -209,15 +209,12 @@
                         <ul id="category">
                             <li id="AG2" data-order="0">
                                 <span class="category_bg bank"></span>
-
                             </li>
                             <li id="MT1" data-order="1">
                                 <span class="category_bg mart"></span>
-
                             </li>
                             <li id="FD6" data-order="4">
                                 <span class="category_bg cafe"></span>
-
                             </li>
                         </ul>
 
