@@ -102,18 +102,16 @@
 }
 
 
-#paging {
-    height: 40px;
-    padding-top: 5px;
-    padding-bottom: 80px;
-    position: relative;
-    /*left: 35%;*/
-    /*float:left;*/
-}
+/*#paging {*/
+/*    height: 40px;*/
+/*    padding-top: 5px;*/
+/*    padding-bottom: 80px;*/
+/*    position: relative;*/
+/*    !*left: 35%;*!*/
+/*    !*float:left;*!*/
+/*}*/
 
-.pagination{
-    justify-content : center;
-}
+
 
 .search{
     height: 50px;
@@ -226,5 +224,20 @@ select:focus {
 }
 .realPage> li:hover{
     border: 2px solid #beb0d0;
+}
+
+
+
+.pagination{
+    justify-content : center;
+}
+
+.pagination a{
+    color: gray;
+}
+.pagination a:hover{
+    color : white;
+    background-color: rgb(86, 99, 146);
+    cursor: pointer;
 }
 

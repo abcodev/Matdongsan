@@ -212,16 +212,16 @@
 
     <select id="selectFboard" resultMap="fBoardResultSet">
         SELECT
-            FREE_BNO,
-            BOARD_AREA,
-            BOARD_TITLE
+        FREE_BNO,
+        BOARD_AREA,
+        BOARD_TITLE
         FROM FREE_BOARD F
         JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
         WHERE F.STATUS = 'Y'
-            AND GRADE != 'ADMIN'
-          <if test="state != '' ">
-          AND BOARD_AREA = '${sggNm}'
-          </if>
+        AND GRADE != 'ADMIN'
+        <if test="state != '' ">
+            AND BOARD_AREA = '${sggNm}'
+        </if>
         ORDER BY BOARD_DATE DESC
     </select>
 </mapper>

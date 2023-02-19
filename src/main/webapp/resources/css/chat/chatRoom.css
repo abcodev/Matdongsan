@@ -162,7 +162,7 @@
 }
 
 .chat .messages-chat .request{
-  margin: 5px 35px;
+  margin: 5px 250px 5px 35px;
   background-color: #f6f6f6;
   padding: 15px;
   border-radius: 12px;
@@ -177,7 +177,7 @@
   border-radius: 12px;
   display: block;
   width: auto;
-  margin: 5px 35px;
+  margin: 5px 35px 5px 250px;
   text-align: right;
 }
 
@@ -244,4 +244,9 @@
   height:50px;
   width:50px;
   border-radius:50%;
+}
+
+
+#chat_right > .basicImage {
+  padding-left: 120px;
 }

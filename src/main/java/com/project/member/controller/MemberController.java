@@ -1,6 +1,7 @@
 package com.project.member.controller;
 
 import com.project.admin.vo.BrokerEnroll;
+import com.project.common.annotation.Permission;
 import com.project.common.annotation.RequiredLogin;
 import com.project.common.type.StateList;
 import com.project.member.dto.*;
@@ -53,7 +54,7 @@ public class MemberController {
 
 
     @RequestMapping("/brokerMemberMyPage")
-    @RequiredLogin
+    @Permission(authority = MemberGrade.BROKER)
     public ModelAndView brokerMemberMyPage(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                    ModelAndView modelAndView, HttpSession session){
         Member m = (Member) session.getAttribute("loginUser");
@@ -66,7 +67,6 @@ public class MemberController {
         modelAndView.addObject("interestList", memberService.getInterestList(m));
         modelAndView.addObject("reviewList", resp.getReviewList());
         modelAndView.addObject("brokerResList", brokerReservationList);
-        //modelAndView.addObject("pi", resp.getPageInfoCombine());
         modelAndView.addObject("pi1", resp.getPageInfoCombine());
         modelAndView.addObject("pi2", resp.getPageInfoCombine2());
         modelAndView.addObject("pi3", resp.getPageInfoCombine3());
@@ -107,24 +107,12 @@ public class MemberController {
         }
     }
 
-//    @GetMapping("/myPage/interest")
-//    @ResponseBody
-//    public ResponseEntity<Boolean> checkInterest(@RequestParam String estateNo, HttpSession session){
-//        Member loginUser = (Member) session.getAttribute("loginUser");
-//        if (loginUser == null) {
-//            throw new RuntimeException("로그인 하고 오세용");
-//        }
-//        boolean isInterest = MemberService.checkInterest(estateNo, loginUser);
-//        return ResponseEntity.ok(isInterest);
-//    }
-
     @PostMapping("/myPage")
     @ResponseBody
-    @RequiredLogin
     public ResponseEntity<Void> saveInterest(@RequestBody RealEstateInterestRequest req, HttpSession session){
         Member loginUser = (Member) session.getAttribute("loginUser");
         if(loginUser == null){
-            throw  new RuntimeException("로그인 해라 ");
+            throw  new RuntimeException("로그인 해주세요.");
         }
         memberService.saveInterest(req, loginUser);
         return ResponseEntity.ok().build();
@@ -137,7 +125,6 @@ public class MemberController {
         memberService.deleteMember(member);
         session.removeAttribute("loginUser");
         return "redirect:/";
-
     }
 
     /**
@@ -158,6 +145,7 @@ public class MemberController {
     @RequestMapping("broker/enrollPage")
     @RequiredLogin
     public ModelAndView brokerEnrollPage(ModelAndView modelAndView) {
+        modelAndView.addObject("stateList", StateList.values());
         modelAndView.setViewName("member/brokerMemberEnroll");
         return modelAndView;
     }
@@ -171,14 +159,6 @@ public class MemberController {
         return "member/myPage";
     }
 
-//    @RequestMapping("/revDelete")
-//    @RequiredLogin
-//    public String deleteReservation(HttpSession session){
-//        Member m = (Member) session.getAttribute("loginUser");
-//        memberService.deleteReservation(m);
-//        return "redirect:/myPage";
-//
-//    }
 
     @RequestMapping(value = "/nNameCheck", method = RequestMethod.POST)
     @ResponseBody

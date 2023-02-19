@@ -1,28 +1,16 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>신고 리스트</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@ page language="java" pageEncoding="UTF-8" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>Document</title>
-
-
-
 </head>
 <body>
 
-<%@ include file="../template/header.jsp" %>
-<div id="big">
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: #585c9c; background: #eaeaed; border: #eaeaed;">회원관리</button>
@@ -107,7 +95,6 @@
                                     location.reload();
                                 }
                             });
-                            console.log(banPeriod)
                         }
                     </script>
                 </td>
@@ -133,35 +120,6 @@
         </div>
     </div>
 </div>
-<%--<div class="paging">--%>
-<%--    <ul class="pagination">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
-<%--                <li class="page-item disabled"> < </li>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <li class="page-item" onclick="ReportList(${pi.currentPage - 1})"> < </li>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-
-<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--            <li class="page-item" onclick="ReportList(${item})">${item }</li>--%>
-<%--        </c:forEach>--%>
-
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
-<%--                <li class="page-item disabled"><a class="page-link" href="#"> > </a></li>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <li class="page-item" onclick="ReportList(${pi.currentPage + 1})"> > </li>--%>
-
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </ul>--%>
-
-<%--</div>--%>
-
-
 <div id="paging">
     <nav aria-label="Page navigation example">
         <ul class="pagination">
@@ -201,17 +159,8 @@
         </ul>
     </nav>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
 <script>
+
 
     $("#userList").click(function () {
         location.href = "${pageContext.request.contextPath}/admin/userList";
@@ -232,30 +181,17 @@
             success: function (data) {
                 $('#tableDiv').empty();
                 $('.pagination').empty();
-                $('#paging').html($(data).find('.pagination')) ;
+                $('#paging').html($(data).find('.pagination'));
                 if ($(data).find("#tableList").length > 0) {
                     $('.reportTable').html($(data).find("#tableDiv"))
                 } else {
                     $('.reportTable').html('<p>조회된 회원이 없습니다.</p>');
                 }
-
-
             }
         })
     }
-
-
-
-
-    function changeSelect() {
-        const stop = document.getElementById("stop");
-        const value = (stop.options[stop.selectedIndex].value);
-        alert(value + " 처리하시겠습니까?");
-    }
-
-
     /* 모달*/
-    $(document).on('click', '.add-btn', function (e) {
+    $(document).on('click', '.add-btn', function () {
         console.log("click event");
         let fNo = $(this).data('no');
         let type = $(this).data('type');
@@ -264,16 +200,11 @@
         $('#modal').addClass('show');
 
     });
-
-
     // 모달 닫기
-    $(document).on('click', '#close_btn', function (e) {
-        console.log("click event");
+    $(document).on('click', '#close_btn', function () {
         $('#modal').removeClass('show');
 
     });
-
-
     function movePage(fNo, reportType) {
         if (reportType === '질문게시판') {
             location.href = '${pageContext.request.contextPath}/board/detail/' + fNo;
@@ -285,17 +216,17 @@
     function movePage2() {
         let fNo = $("#fNo").val();
         let rType = $("#rType").val();
-        if (rType === '질문게시판') {
-            location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
-            swal('삭제 완료!', rType+"이 삭제되었습니다.", 'success')
-
-        } else {
-            location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
-            alert("자유게시판 삭제처리 완료")
-        }
+        Swal.fire({
+            icon: 'success',
+            title: '삭제 완료'
+        }).then(()=>{
+            if (rType === '질문게시판') {
+                location.href = '${pageContext.request.contextPath}/admin/deleteQna/' + fNo;
+            } else {
+                location.href = '${pageContext.request.contextPath}/admin/deleteFree/' + fNo;
+            }
+        })
     }
-
-
 </script>
 </body>
 </html>

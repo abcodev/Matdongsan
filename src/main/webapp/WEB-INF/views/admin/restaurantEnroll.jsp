@@ -1,22 +1,19 @@
-<%@ page language="java" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <title>restaurantEnroll</title>
+    <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
-    <%@ include file="../template/header.jsp" %>
+    <!-- 페이징 부트 스트랩 -->
+
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/admin/resInsert" method="post" enctype="multipart/form-data" name="restaurantEnroll">
@@ -82,7 +79,10 @@
 
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
-            swal("해쉬태그 는 2개까지 선택가능합니다!","","warning")
+            Swal.fire({
+                icon: 'warning',
+                title: '해시태그는 최대 2개까지 선택 가능합니다.'
+            });
             $(this).prop('checked', false);
         }
     });
@@ -99,7 +99,10 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            swal("파일 크기는 10mb 를 넘길 수 없습니다.","","warning")
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
             input.value = null;
         }
     }
@@ -110,7 +113,10 @@
         if(cntEPT===2){
             return true;
         }else{
-            swal("해쉬태그","2개 까지 선택가능합니다!","warning")
+            Swal.fire({
+                icon: 'warning',
+                title: '해쉬태그를 적어도 2개 입력해야합니다.'
+            });
             return false;
         }
     }

@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,11 +57,10 @@
     </div>
 
     <script>
-        /**
-           alarmContents 는 알람이 올때마다 새로 그리게되는데, .alert_box 도 새로 그려지고 안보이는채로 그려지게 되는기
-           그래서 알림창을 켜둔채로 새로운 알림이 오게되면 안보이는 상태가 되어버림.
-           toggle("scale") 을 이용한 방식을 사용하고 있는데....
-           Show, Hide 를 이용해서 애초에 그릴때 보여지게 그리거나, 안보여지게 그리거나 해야할것같음.
+        /*
+            알람이 켜둔채로 새로운 알림이 오게되면 안보이는 상태가 되는 부분
+            alarmContents 는 알람이 올때마다 새로 그리게되는데, .alert_box 도 새로 그려지고 안보이는채로 그려지게 됨.
+            toggle("scale") 을 이용한 방식을 사용하고 있는데, Show, Hide 를 이용해서 애초에 그릴때 보여지게 그리거나, 안보여지게 그리거나 해야할것같음
          */
 
         $(".fa-bell").click(function () {
@@ -117,14 +114,14 @@
             });
         }
 
-        /**
-         *  1. 관리자에게 새로운 문의가 왔다는 알람 -> Type: NEW_QUESTION, Target: RoomNo(or MemberNo) -> *1:1문의 화면으로 보낼거*
-            2. 멤버에게 새로운 문의 답변이 왔다는 알람 -> Type: NEW_ANSWER, Target: ???????
-            3. 내 글에 댓글이 달렸다는 알람 -> Type: NEW_REPLY, Target: FreeBoardNo -> *FreeBoard 로 보낼거*
-            4. 내 질문에 답글이 달렸다는 알람 -> Type: NEW_BOARD_ANSWER, Target: QnaBoardNo -> *QnaBoard 로 보낼거*
-            5. 부동산멤버에게 새로운 방문요청이 왔다는 알람 -> Type: NEW_RESERVATION_BROKER, Target: AgentNo -> *MyPage 로 보낼거*
-            6. 방문요청이 승인되었다는 알람 -> Type: RESERVATION_APPROVE, Target: RevNo, -> *MyPage 로 보낼거*
-            7. 방문요청이 거절되었다는 알람 -> Type: RESERVATION_CANCEL, Target: RevNo, -> *MyPage 로 보낼거*
+        /*
+            1. 관리자에게 새로운 문의가 왔다는 알람 -> Type: NEW_QUESTION, Target: RoomNo(or MemberNo) -> 1:1문의 화면으로 보냄
+            2. 멤버에게 새로운 문의 답변이 왔다는 알람 -> Type: NEW_ANSWER, Target: 채팅방 -> 1:1 문의 채팅방으로 보냄
+            3. 내 글에 댓글이 달렸다는 알람 -> Type: NEW_REPLY, Target: FreeBoardNo -> FreeBoard 로 보냄
+            4. 내 질문에 답글이 달렸다는 알람 -> Type: NEW_BOARD_ANSWER, Target: QnaBoardNo -> QnaBoard 로 보냄
+            5. 부동산멤버에게 새로운 방문요청이 왔다는 알람 -> Type: NEW_RESERVATION_BROKER, Target: AgentNo -> MyPage 로 보냄
+            6. 방문요청이 승인되었다는 알람 -> Type: RESERVATION_APPROVE, Target: RevNo, -> MyPage 로 보냄
+            7. 방문요청이 거절되었다는 알람 -> Type: RESERVATION_CANCEL, Target: RevNo, -> MyPage 로 보냄
          */
         function move(alarmType, targetNo) {
             console.log(alarmType, targetNo);
@@ -140,10 +137,10 @@
             } else if (alarmType === 'NEW_RESERVATION_BROKER') {
                 moveUrl += '/brokerMemberMyPage';
             } else if (alarmType === 'RESERVATION_APPROVE'
-                        || alarmType === 'RESERVATION_CANCEL') {
-                moveUrl += '/myPage';
-            } else if (alarmType === 'NEW_BROKER_ACCEPT'
+                        || alarmType === 'RESERVATION_CANCEL'
                         || alarmType === 'NEW_BROKER_REJECT') {
+                moveUrl += '/myPage';
+            } else if (alarmType === 'NEW_BROKER_ACCEPT') {
                 moveUrl += '/brokerMemberMyPage';
             }
             location.href = moveUrl;

@@ -130,7 +130,6 @@
         LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
           AND QNA_BNO = #{qBno}
-
     </select>
 
     <update id="increaseCount" parameterType="int">
@@ -149,7 +148,6 @@
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
           AND P_BNO = #{qBno}
-
     </select>
 
     <insert id="insertAnswer" parameterType="QBoard">

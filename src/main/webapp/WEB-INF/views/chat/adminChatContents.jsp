@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,12 +37,15 @@
     </div>
 
 <script>
+    // 채팅 클릭시 밑으로 내리기
+    $('.chat').scrollTop($('.chat').prop('scrollHeight'));
     //엔터 눌렀을때 전송
     $('#chat-input').keypress(function(e){
         if(e.keyCode===13){
             send();
+
+
         }
-        $('.chat').scrollTop($('.chat').prop('scrollHeight'));
     });
 
     function send(){
@@ -59,6 +61,8 @@
         // send(destination,헤더,페이로드)
         stompClient.send("/app/chat/send", {}, JSON.stringify(data));
         $("#chat-input").val('');
+        // 채팅 보내고 받는 시간이 있으므로 0.2초 후에 스크롤 내리기
+        setTimeout(() => $('.chat').scrollTop($('.chat').prop('scrollHeight')), 250);
     }
 </script>
 </div>

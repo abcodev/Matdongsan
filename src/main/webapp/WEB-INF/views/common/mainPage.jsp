@@ -15,11 +15,20 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/common/mainPage.css"/>">
     <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <jsp:include page="../template/font.jsp"/>
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
     </c:if>
+
+    <style>
+        #controlOverlay{
+            width: 500px;
+            overflow: hidden;
+            height: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -115,21 +124,33 @@
 
         </div>
     </div>
-
     <script>
-        let alarmIsOpen = false;
-        window.onload = () => {
-            retrieveAlarmList();
+        if (${loginUser.grade == 'GENERAL'}) {
+            Swal.fire({
+                icon: 'info',
+                title: '회원정보 입력 후 이용해 주세요.',
+                text: '정보입력 페이지로 이동합니다.'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = '${pageContext.request.contextPath}/memberModify'
+                }
+            })
         }
 
-        // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
-        const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
-        // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
-        sse.addEventListener('realtime_alarm', (event) => {
-            retrieveAlarmList();
-            console.log(event);
-        });
 
+        let alarmIsOpen = false;
+        if (${not empty loginUser}) {
+            window.onload = () => {
+                retrieveAlarmList();
+            }
+
+            // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
+            const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
+            // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
+            sse.addEventListener('realtime_alarm', (event) => {
+                retrieveAlarmList();
+            });
+        }
         // 이벤트가 오면 콜백 메서드가 실행됨
 
         function retrieveAlarmList() {
@@ -146,14 +167,6 @@
                 }
             });
         }
-
-    </script>
-
-    <script>
-        if (${loginUser.grade == 'GENERAL'}) {
-            swal("회원 정보 입력후 사용해주세요","","warning")
-            window.location = '${pageContext.request.contextPath}/memberModify';
-        }
     </script>
 
 
@@ -166,7 +179,7 @@
 
 
             <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services&clusterer"></script>
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
             <%--            671b81703e84eaa09879d3693a30a73e--%>
             <%--            035c35f196fa7c757e49e610029837b1--%>
 
@@ -206,7 +219,7 @@
                                 image: markerImage
                             });
 
-                            var content = '<div class="wrap">' +
+                            var content = '<div id="controlOverlay" class="wrap">' +
                                 '    <div class="info">' +
                                 '           <div class="title">' +
                                 '               <div class="bldgNm">' + '건물명  : ' + addr['bldgNm'] + '</div>' +
@@ -339,6 +352,18 @@
         </c:choose>
     </div>
 </div>
+<script>
+    $("#chat-circle").click(function () {
+        if (${not empty loginUser}) {
+            openChat();
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: '로그인 후 이용 가능합니다.'
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
