@@ -4,6 +4,7 @@
     <title>자유게시판 상세보기</title>
     <%@ include file="../template/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/resources/css/board/freeBoardDetail.css"/>">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -191,7 +192,7 @@
                         + '<div class="reply_info">'
                         + '<div><img src=' + reply.profileImage + '></div>'
                         + '<div>' + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + '></div>'
-                        + '<div>' + reply.replyDate + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
+                        + '<div>' + moment(reply.replyDate).format("YYYY-MM-DD HH:mm:ss") + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
                         + '<div>' + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
                         + '</div>'
                         + '<div class="reply_content">' + reply.replyContent + '</div>'

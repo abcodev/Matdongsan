@@ -176,7 +176,8 @@
         LEFT JOIN MEMBER M ON M.MEMBER_NO = R.MEMBER_NO
         WHERE R.STATUS = 'Y'
             AND FREE_BNO = ${freeBno}
-        ORDER BY R.REPLY_DATE
+        ORDER BY
+                REPLY_DATE
     </select>
 
     <update id="deletePost" parameterType="int">
