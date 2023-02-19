@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/restaurant/restaurantList.css"/>">
 <jsp:include page="../template/font.jsp"></jsp:include>
 
 <div id="chat_contents_ajax">
@@ -33,7 +32,7 @@
     <div class="footer-chat">
         <input id="chat-input" type="text"/>
         <input id="roomNo-send" type="hidden">
-        <div class="bi bi-send" id="sendMessage" onclick="send();"/>
+        <div id="sendMessage" onclick="send();"><i class="fa-solid fa-paper-plane"></i></div>
     </div>
 
 <script>
