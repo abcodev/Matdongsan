@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
+    <jsp:include page="../template/font.jsp"/>
     <!-- 페이징 부트 스트랩 -->
 </head>
 <body>
@@ -24,7 +25,7 @@
         <thead>
         <tr>
             <th>회원번호</th>
-            <th>소셜사</th>
+            <th>소셜계정</th>
             <th>아이디</th>
             <th>회원명</th>
             <th>닉네임</th>
