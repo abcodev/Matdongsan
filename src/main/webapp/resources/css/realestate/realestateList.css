@@ -101,6 +101,14 @@
     width: 20%;
 }
 
+.realList{
+    cursor: pointer;
+}
+
+.realList:hover{
+    color: #585c9c;
+    font-weight: 450;
+}
 
 /*#paging {*/
 /*    height: 40px;*/

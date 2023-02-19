@@ -23,7 +23,7 @@
 
         <c:if test="${!empty estateRentList}">
             <c:forEach var="estateRent" items="${ estateRentList }">
-                <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
+                <tr class="realList" onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
                     <td class="rno" >${ estateRent.sggNm } </td>
                     <td>${estateRent.buildName }</td>
                     <td>${estateRent.rentGbn}</td>
@@ -59,16 +59,11 @@
                         </li>
                     </c:otherwise>
                 </c:choose>
+
                 <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">
-                    <c:choose>
-                        <c:when test="${pi.currentPage eq item }">
-                            <div class="current">${item }</div>
-                        </c:when>
-                        <c:otherwise>
-                            <li class="page-item" onclick="retrieveRealEstate(${item}) ">${item }</li>
-                        </c:otherwise>
-                    </c:choose>
+                    <li class="page-item"><a class="page-link" onclick="retrieveRealEstate(${item})">${item }</a></li>
                 </c:forEach>
+
                 <c:choose>
                     <c:when test="${ pi.currentPage eq pi.maxPage }">
                         <li class="page-item disabled"><a class="page-link" href="#">
