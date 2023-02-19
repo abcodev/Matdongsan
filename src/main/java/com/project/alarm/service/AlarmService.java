@@ -32,7 +32,7 @@ public class AlarmService {
         alarmRepository.save(alarm);
 
         // 2. alarmEventProducer.produce(memberNo)
-        alarmEventProducer.produce(template.getMemberNo());
+        alarmEventProducer.produceAlarm(template.getMemberNo());
     }
 
     public Alarm read(long alarmNo) {

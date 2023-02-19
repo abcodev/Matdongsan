@@ -27,49 +27,51 @@ public class QnaBoardService {
 
     public QnaBoardListResponse selectQnaList(QnaBoardListRequest req) {
         QnaBoardListFilter filter = QnaBoardListFilter.from(req);
-        int count = boardDao.selectQnaListCount(sqlSession,filter);
+        int count = boardDao.selectQnaListCount(sqlSession, filter);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_RES_SIZE);
         List<QnaBoard> result = boardDao.selectQnaList(sqlSession, pageInfoCombine, filter);
-        return new QnaBoardListResponse(result,pageInfoCombine);
+        return new QnaBoardListResponse(result, pageInfoCombine);
     }
 
     public int insertQboard(QnaBoard qb) {
         return boardDao.insertQboard(sqlSession, qb);
     }
 
-    public int insertNotice(QnaBoard qb){ return boardDao.insertNotice(sqlSession, qb); }
-
-    public QnaBoard selectQboard(int qBno){
-        return boardDao.selectQboard(sqlSession,qBno);
+    public int insertNotice(QnaBoard qb) {
+        return boardDao.insertNotice(sqlSession, qb);
     }
 
-    public int updateBoard(int qBno){
-        return boardDao.updateBoard(sqlSession,qBno);
+    public QnaBoard selectQboard(int qBno) {
+        return boardDao.selectQboard(sqlSession, qBno);
     }
 
-    public int increaseCount(int qBno){
-        return boardDao.increaseCount(sqlSession,qBno);
+    public int updateBoard(int qBno) {
+        return boardDao.updateBoard(sqlSession, qBno);
     }
 
-    public int insertAnswer(QnaBoard qb){
+    public int increaseCount(int qBno) {
+        return boardDao.increaseCount(sqlSession, qBno);
+    }
+
+    public int insertAnswer(QnaBoard qb) {
         QnaBoard qnaBoard = boardDao.selectByQnaBno(sqlSession, qb.getParentBno());
         long receiverNo = qnaBoard.getMemberNo();
 
         AlarmTemplate<Integer> template = AlarmTemplate.generateNewQnaMessageTemplate(receiverNo, qnaBoard.getQnaBno());
         alarmService.send(template);
 
-        return boardDao.insertAnswer(sqlSession,qb);
+        return boardDao.insertAnswer(sqlSession, qb);
     }
 
-    public List<QnaBoard> selectAnswer(int qBno){
-        return boardDao.selectAnswer(sqlSession,qBno);
+    public List<QnaBoard> selectAnswer(int qBno) {
+        return boardDao.selectAnswer(sqlSession, qBno);
     }
 
-    public int deleteBoard(int qBno){
-        return boardDao.deleteBoard(sqlSession,qBno);
+    public int deleteBoard(int qBno) {
+        return boardDao.deleteBoard(sqlSession, qBno);
     }
 
-    public int insertReport(Report report){
+    public int insertReport(Report report) {
         return boardDao.insertReport(sqlSession, report);
     }
 
@@ -78,6 +80,8 @@ public class QnaBoardService {
         return boardDao.selectReportList(sqlSession);
     }
 
-    public List<QnaBoard> selectQaNoticeList(){ return boardDao.selectQaNoticeList(sqlSession); }
+    public List<QnaBoard> selectQaNoticeList() {
+        return boardDao.selectQaNoticeList(sqlSession);
+    }
 
 }

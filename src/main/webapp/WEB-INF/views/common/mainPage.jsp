@@ -150,6 +150,9 @@
             sse.addEventListener('realtime_alarm', (event) => {
                 retrieveAlarmList();
             });
+            sse.addEventListener('change_grade', (event) => {
+               refreshSession();
+            });
         }
         // 이벤트가 오면 콜백 메서드가 실행됨
 
@@ -164,6 +167,16 @@
                     if (alarmIsOpen) {
                         $(".alert_box").toggle("scale");
                     }
+                }
+            });
+        }
+
+        function refreshSession() {
+            $.ajax({
+                url: '${pageContext.request.contextPath}/member/refreshSession',
+                method: 'GET',
+                success() {
+                    location.reload();
                 }
             });
         }
