@@ -12,10 +12,11 @@
 
 
     <style>
+
         .map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap {position:relative;width:100%;height:350px;}
-        #category {position:absolute;top:10px;left:10px;border-radius: 5px; border:1px solid #909090;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
-        #category li {float:left;list-style: none;width:50px;px;border-right:1px solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
+        #category {padding-left:0px; position:absolute;top:10px;left:10px;border-radius: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
+        #category li {float:left;list-style: none;width:50px;px; solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
         #category li.on {background: #eee;}
         #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
         #category li:last-child{margin-right:0;border-right:0;}
@@ -208,15 +209,15 @@
                         <ul id="category">
                             <li id="AG2" data-order="0">
                                 <span class="category_bg bank"></span>
-                                부동산
+
                             </li>
                             <li id="MT1" data-order="1">
                                 <span class="category_bg mart"></span>
-                                마트등
+
                             </li>
                             <li id="FD6" data-order="4">
                                 <span class="category_bg cafe"></span>
-                                맛집
+
                             </li>
                         </ul>
 
@@ -245,7 +246,7 @@
                     mapCenter = new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                     mapOption = {
                         center: mapCenter, // 지도의 중심 좌표
-                        level: 5 // 지도의 확대 레벨
+                        level: 6 // 지도의 확대 레벨
                     };
 
                 // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
@@ -493,32 +494,32 @@
                                 rvResetValue.panoId = panoId;
                             });
 
-                            setTimeout(rvMarker, 1500);
-
-                            function rvMarker() {
-
-                                var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
-                                    imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
-                                    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-                                // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-                                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-
-                                // 마커 생성
-                                var rMarker = new kakao.maps.Marker({
-                                    map: roadview,
-                                    position: position,
-                                    image : markerImage
-                                });
-
-
-                                // 로드뷰 마커가 중앙에 오도록 로드뷰의 viewpoint 조정 합니다.
-                                var projection = roadview.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
+                            // setTimeout(rvMarker, 1500);
+                            //
+                            // function rvMarker() {
+                            //
+                            //     var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
+                            //         imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
+                            //         imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                            //
+                            //     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+                            //     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
+                            //
+                            //     // 마커 생성
+                            //     var rMarker = new kakao.maps.Marker({
+                            //         map: roadview,
+                            //         position: position,
+                            //         image : markerImage
+                            //     });
+                            //
+                            //
+                            //     // 로드뷰 마커가 중앙에 오도록 로드뷰의 viewpoint 조정 합니다.
+                            //     var projection = roadview.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
 
                                 // 마커의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
                                 var viewpoint = projection.viewpointFromCoords(rMarker.getPosition(), rMarker.getAltitude());
                                 roadview.setViewpoint(viewpoint); //로드뷰에 뷰포인트를 설정합니다.
-                            }
+                            // }
                         }
                     });
                 }
