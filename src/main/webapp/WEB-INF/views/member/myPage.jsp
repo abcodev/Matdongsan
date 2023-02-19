@@ -288,6 +288,8 @@
         </div>
     </div>
 </div>
+
+
 <script>
 
     function deleteMember() {
@@ -312,16 +314,6 @@
             }
         })
     }
-
-    <%--function deleteReservation(){--%>
-    <%--    var deleteReservation = confirm("예약을 취소하시겠습니까?");--%>
-    <%--    if(deleteReservation === true){--%>
-    <%--        location.href = '${pageContext.request.contextPath}/revDelete';--%>
-    <%--        alert("예약이 취소되었습니다.","","success");--%>
-    <%--    }else if(deleteReservation === false){--%>
-
-    <%--    }--%>
-    <%--}--%>
 
     function retrieveAllBoards(current_page1) {
         $.ajax({

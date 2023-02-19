@@ -206,17 +206,13 @@
                     <div id="map">
 
                         <ul id="category">
-                            <li id="BK9" data-order="0">
+                            <li id="AG2" data-order="0">
                                 <span class="category_bg bank"></span>
-                                은행
+                                부동산
                             </li>
                             <li id="MT1" data-order="1">
                                 <span class="category_bg mart"></span>
                                 마트
-                            </li>
-                            <li id="PM9" data-order="2">
-                                <span class="category_bg pharmacy"></span>
-                                약국
                             </li>
                             <li id="FD6" data-order="4">
                                 <span class="category_bg cafe"></span>
@@ -476,27 +472,6 @@
                         el.className = 'on';
                     }
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

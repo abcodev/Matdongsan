@@ -26,9 +26,7 @@
                 </div>
                 <div class="detail_head">
                     <div class="board_title">
-
-                        <div name="boardTitle" value="${qb.qnaTitle}"></div>
-
+                        <input type="text" name="boardTitle" value="${qb.qnaTitle}">
                     </div>
                     <div class="board_info">
                         <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
@@ -36,9 +34,7 @@
                     </div>
                 </div>
                 <div class="detail_body">
-
                     <div name="boardContent">${qb.qnaContent}</div>
-
                 </div>
                 <div class="btn_box">
                     <c:if test="${not empty loginUser}">
@@ -61,17 +57,24 @@
         <br>
         <div id="line"></div>
 
-
         <c:forEach var="list" items="${ab}">
-            <div id="Answer">
-                <span class="font">${qb.qnaTitle}</span>
-                <span class="deptFont">에 대한 답글 제목 : </span>
-                <span class="font">${list.qnaTitle}</span><br><br>
-                <span class="deptFont">작성자 : </span>
-                <span class="sFont">${list.qnaWriter}</span><br><br>
-                <span class="deptFont">내용 : </span>
-                <span class="sFont">${list.qnaContent}</span>
-            </div>
+            <c:if test="${list.blind == 'N'}">
+                <div id="Answer">
+                    <span class="font">${qb.qnaTitle}</span>
+                    <span class="deptFont">에 대한 답글 제목 : </span>
+                    <span class="font">${list.qnaTitle}</span><br><br>
+                    <span class="deptFont">작성자 : </span>
+                    <span class="sFont">${list.qnaWriter}</span><br><br>
+                    <span class="deptFont">내용 : </span>
+                    <span class="sFont">${list.qnaContent}</span>
+                </div>
+            </c:if>
+<%--            <c:if test="${list.blind == 'Y'}">--%>
+<%--                <div id="Answer">--%>
+<%--                    블라인드 처리된 게시글입니다.<br>--%>
+<%--                    <span class="deptFont">작성자 : </span>--%>
+<%--                </div>--%>
+<%--            </c:if>--%>
         </c:forEach>
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
