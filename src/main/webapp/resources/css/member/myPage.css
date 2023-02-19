@@ -56,7 +56,7 @@
 
 #btn_box{
     width: 15%;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 #btn_box > button {
@@ -247,6 +247,11 @@ table{
     color: #566392;
     font-weight: 450;
 }
+
+#myReviewList , #myBoardList{
+    height: 270px;
+}
+
 
 #myReviewList > table{
     width: 100%;
@@ -487,6 +492,18 @@ table{
     padding-bottom: 20px;
 }
 
+
+
 .pagination{
+    /*display: inline-block;*/
+    /*position: relative;*/
     justify-content : center;
+}
+.pagination a{
+    color: gray;
+}
+.pagination a:hover{
+    color : white;
+    background-color: rgb(86, 99, 146);
+    cursor: pointer;
 }

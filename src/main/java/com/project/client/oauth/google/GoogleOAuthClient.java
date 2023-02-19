@@ -67,6 +67,28 @@ public class GoogleOAuthClient implements OAuthClient {
     }
 
     @Override
+    public OAuthToken renewToken(String refreshToken) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("client_id", CLIENT_ID);
+        params.add("client_secret", CLIENT_SECRET);
+        params.add("grant_type", "refresh_token");
+        params.add("refresh_token", refreshToken);
+
+        try {
+            OAuthToken response = restTemplate.postForObject(GOOGLE_TOKEN_BASE_URL, params, OAuthToken.class);
+            if (response == null) {
+                throw new RuntimeException();
+            }
+
+            response.setOldRefreshToken(refreshToken);
+            return response;
+        }catch (Exception ex){
+            log.info(ex.getMessage());
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
     public OAuthUser getUserProfile(HttpSession session, OAuthToken oAuthToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer" + oAuthToken.getAccessToken());

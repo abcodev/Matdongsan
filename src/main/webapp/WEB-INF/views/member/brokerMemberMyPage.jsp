@@ -83,45 +83,45 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <div id="allBoardsPaging">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination" id="allBoardsPagination">
-                                <c:choose>
-                                    <c:when test="${ pi.currentPage eq 1 }">
-                                        <li class="page-item disabled"><a class="page-link" href="#">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
+                </div>
+                <div id="allBoardsPaging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="allBoardsPagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage - 1})">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-                                <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
-                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
-                                </c:forEach>
+                            <c:forEach var="item" begin="${pi1.startPage }" end="${pi1.endPage }">
+                                <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${item})">${item }</a></li>
+                            </c:forEach>
 
-                                <c:choose>
-                                    <c:when test="${ pi1.currentPage eq pi1.maxPage }">
-                                        <li class="page-item disabled"><a class="page-link" href="#">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </ul>
-                        </nav>
-                    </div>
+                            <c:choose>
+                                <c:when test="${ pi1.currentPage eq pi1.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveAllBoards(${pi1.currentPage + 1})">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <div class="review_history">
@@ -131,12 +131,10 @@
                         <tr>
                             <th>레스토랑 이름</th>
                             <th>별점</th>
-                            <th>리뷰내용</th>
                             <th>리뷰게시일</th>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -168,45 +166,45 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <div id="reviewPaging">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination" id="reviewPagination">
-                                <c:choose>
-                                    <c:when test="${ pi.currentPage eq 1 }">
-                                        <li class="page-item disabled"><a class="page-link" href="#">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
+                </div>
+                <div id="reviewPaging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="reviewPagination">
+                            <c:choose>
+                                <c:when test="${ pi.currentPage eq 1 }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi2.currentPage - 1})">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
 
-                                <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
-                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
-                                </c:forEach>
+                            <c:forEach var="item" begin="${pi2.startPage }" end="${pi2.endPage }">
+                                <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${item})">${item }</a></li>
+                            </c:forEach>
 
-                                <c:choose>
-                                    <c:when test="${ pi2.currentPage eq pi2.maxPage }">
-                                        <li class="page-item disabled"><a class="page-link" href="#">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </ul>
-                        </nav>
-                    </div>
+                            <c:choose>
+                                <c:when test="${ pi2.currentPage eq pi2.maxPage }">
+                                    <li class="page-item disabled"><a class="page-link" href="#">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a class="page-link" onclick="retrieveReviewList(${pi.currentPage + 1})">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -260,30 +258,64 @@
 
 
 <script>
+
     function changeHeart(estateNo) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/myPage',
-            type: 'POST',
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify({
-                'estateNo': estateNo,
-                'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
-            }),
-            success() {
-                alert("관심목록이 해지되었습니다.")
+
+        Swal.fire({
+            title : '관심목록을 해제하시겠습니까?',
+            icon : 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8a33e7',
+            cancelButtonColor: '#9a9898',
+            confirmButtonText: '관심목록 해제',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : "${pageContext.request.contextPath}/myPage",
+                    type : 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data : JSON.stringify({
+                        'estateNo' : estateNo,
+                        'isInterest' : $('#checkbox_heart_' + estateNo).is(':checked')
+                    }),
+                    success : function(data){
+                        Swal.fire({
+                            icon : 'success',
+                            title : '관심목록이 해제되었습니다.'
+                        }).then(()=>{
+                            location.reload();
+                        })
+                    },
+                    error : function(e){
+
+                    }
+                })
+            }else if(!result.isConfirmed){
                 location.reload();
             }
-        });
+        })
     }
 
     function deleteMember() {
-        var deleteMember = confirm("모든 정보가 삭제됩니다.\n정말 탈퇴 하시겠습니까?");
-        if(deleteMember === true){
-            location.href = '${pageContext.request.contextPath}/delete';
-            alert("그동안 맛동산을 이용해주셔서 감사합니다.");
-        }
-        else if(deleteMember === false){
-        }
+        Swal.fire({
+            title: '정말 탈퇴하시겠습니까?',
+            text: "모든 정보가 삭제됩니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8a33e7',
+            cancelButtonColor: '#9a9898',
+            confirmButtonText: '회원탈퇴',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = '${pageContext.request.contextPath}/delete';
+                Swal.fire({
+                    icon: 'success',
+                    title: '성공적으로 탈퇴가 완료되었습니다.',
+                })
+            }
+        })
     }
 
 

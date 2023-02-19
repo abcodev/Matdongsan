@@ -192,23 +192,30 @@
 }
 
 .boardlist{
-    padding: 10px 5px ;
+    padding: 10px 5px 0 5px ;
     border-bottom: #E0E0E0 2px solid;
 
 }
 
 .board_title > p{
     font-weight: 450;
-    font-size: 20px;
+    font-size: 16px;
     word-break: break-word;
+    cursor: pointer;
 }
 
 .board_content > p{
-    font-size: 18px;
+    font-size: 14px;
     margin-top: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.board_title:hover,
+.board_content:hover{
+    color: #566392;
 }
 
 .board_info{
@@ -217,32 +224,37 @@
     margin-top: 15px;
 }
 
-.board_info >p{
-    font-size: 13px;
-    font-weight: 420;
+.writer,
+.area,
+.date{
+    font-size: 13.5px;
+    font-weight: 550;
 }
 
-.board_info > .writer ,
+.view,
+.reply{
+    font-weight: 450;
+    font-size: 14px;
+}
+
+.board_info > .writer{
+    width: 15%;
+}
+
 .board_info > .area{
     width: 8%;
-    font-size: 13.5px;
 }
-
 .board_info > .date{
-    width: 14.5%;
-
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
+    width: 18%;
 }
 
-.board_info > .view{
-    margin-left: 400px;
+.normal > .view{
+    margin-left: 360px;
 }
 
 .board_info > .info > .fa-eye,
 .board_info > .info > .fa-comment{
-    font-size: 16px;
+    font-size: 18px;
     margin-right: 3px;
 }
 
@@ -250,27 +262,50 @@
     margin-left: 10px;
 }
 
+/**********공지글 , 블라인드 , 조회된 게시글X *********/
+.empty{
+    font-size: 30px;
+    text-align: center;
+    font-weight: 600;
+    color: #3d3d3d;
+    margin-top: 25px;
+    padding-bottom: 30px;
+}
 
-/*.pagination> li{*/
-/*    display: inline-block;*/
-/*    position: relative;*/
-/*    left: 670px;*/
-/*    top:-50px;*/
-/*    margin:0 3px;*/
-/*    border:1px solid #e6e6e6;*/
-/*    width:28px;*/
-/*    height:28px;*/
-/*    line-height:28px;*/
-/*    text-align:center;*/
-/*    background-color:#fff;*/
-/*    font-size:13px;*/
-/*    color:#999999;*/
-/*    text-decoration:none;*/
-/*    font-weight: bold;*/
-/*}*/
-/*.pagination> li:hover{*/
-/*    border: 2px solid #beb0d0;*/
-/*}*/
+.blind{
+    background-color: #e5e5e5;
+    text-align: center;
+}
+
+.notice > .view{
+    margin-left: 420px;
+}
+
+.notice{
+    background-color: rgb(248, 212, 214);
+}
+
+.fa-bullhorn{
+    font-size: 20px;
+    margin: 0 5px;
+    color: rgb(203, 27, 34);
+}
+
+.notice > .board_title > p > span{
+    color: rgb(203, 27, 34);
+    font-weight: 600;
+    margin-right: 3px;
+}
+
+.blind > .board_title{
+    font-size: 20px;
+    font-weight: 550;
+    color: #3d3d3d;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+/**********************************/
 
 #paging {
     height: 40px;

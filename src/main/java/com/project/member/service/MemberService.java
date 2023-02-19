@@ -95,8 +95,6 @@ public class MemberService {
     }
 
 
-
-
     public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
         String api_key = "NCSOBLGT3XKTGRQB";
         String api_secret = "RKVNQQTAHQL0J3UR3VDG8GHL1TY9IUTT";
@@ -152,20 +150,24 @@ public class MemberService {
         }
     }
 
+    // AccessToken 이 만료됐을 수도 있다.
+    // 1. AccessToken 이 만료되었는지 확인.
+    /** TODO :
+     boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
+     if (isExpired) {
+     OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
+     member.setToken(freshToken);
+     }
+     */
+    // 2. RefreshToken 으로 AccessToken 재발급.
+    // 3. 재발급된 AccessToken 으로 요청.
+
     public void deleteMember(Member member) {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
-        // AccessToken 이 만료됐을 수도 있다.
-        // 1. AccessToken 이 만료되었는지 확인.
-        /** TODO :
-            boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-            if (isExpired) {
-                OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-                member.setToken(freshToken);
-            }
-         */
-        // 2. RefreshToken 으로 AccessToken 재발급.
-        // 3. 재발급된 AccessToken 으로 요청.
-        oAuthClient.unlink(member.toOAuthToken());
+        OAuthToken freshToken = oAuthClient.renewToken(member.getRefreshToken());
+        // memberDao.updateToken(member.getMemberNo(), freshToken);
+
+        oAuthClient.unlink(freshToken);
         memberDao.deleteMember(sqlSession, member.getMemberNo());
     }
 

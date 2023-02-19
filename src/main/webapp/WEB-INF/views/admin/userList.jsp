@@ -3,18 +3,15 @@
 <html lang="en">
 <head>
     <title>회원 리스트</title>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <%@ include file="../template/header.jsp" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="<c:url value="/resources/css/admin/userList.css"/>">
     <!-- 페이징 부트 스트랩 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-<%@ include file="../template/header.jsp" %>
 <div id="headeer"></div>
 <div id="button2">
     <button type="button" class="b1" id="userList" style="color: white; background: #585c9c; border: white">회원관리</button>
@@ -67,38 +64,6 @@
         </tbody>
     </table>
 </div>
-
-
-<%--<div class="paging">--%>
-<%--    <ul class="pagination">--%>
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq 1 }">--%>
-<%--                <div class="page-link disabled"><</div>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <div class="page-link" onclick="retrieveUserList(${pi.currentPage - 1})"><</div>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-
-<%--        <c:forEach var="item" begin="${pi.startPage }" end="${pi.endPage }">--%>
-<%--            <li class="page-item" onclick="retrieveUserList(${item})">${item }</li>--%>
-<%--        </c:forEach>--%>
-
-<%--        <c:choose>--%>
-<%--            <c:when test="${ pi.currentPage eq pi.maxPage }">--%>
-<%--                <div class="page-item disabled"><a class="page-link" href="#"></a>></div>--%>
-<%--            </c:when>--%>
-<%--            <c:otherwise>--%>
-<%--                <div class="page-link" onclick="retrieveUserList(${pi.currentPage + 1})">></div>--%>
-<%--            </c:otherwise>--%>
-<%--        </c:choose>--%>
-<%--    </ul>--%>
-<%--</div>--%>
-
-
-
-
-
 <div id="paging">
     <nav aria-label="Page navigation example">
         <ul class="pagination">

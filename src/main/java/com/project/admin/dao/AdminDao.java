@@ -29,10 +29,11 @@ public class AdminDao {
         return sqlSession.selectOne("adminMapper.uListCount");
     }
 
-    public List<Member> selectUserList(SqlSession sqlSession,PageInfoCombine pageInfoCombine) {
+    public List<Member> selectUserList(SqlSession sqlSession, PageInfoCombine pageInfoCombine) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
         return sqlSession.selectList("adminMapper.selectUserList", null, rowBounds);
     }
+
     public int rListCount(SqlSession sqlSession) {
         return sqlSession.selectOne("adminMapper.rListCount");
     }
@@ -42,16 +43,16 @@ public class AdminDao {
         return sqlSession.selectList("adminMapper.selectReportList", 0, rowBounds);
     }
 
-    public int deleteQna(SqlSession sqlSession,int fNo) {
-        return  sqlSession.update("adminMapper.deleteQna",fNo);
+    public int deleteQna(SqlSession sqlSession, int fNo) {
+        return sqlSession.update("adminMapper.deleteQna", fNo);
     }
 
-    public int  deleteFree(SqlSession sqlSession, int fNo){
-        return sqlSession.update("adminMapper.deleteFree",fNo);
+    public int deleteFree(SqlSession sqlSession, int fNo) {
+        return sqlSession.update("adminMapper.deleteFree", fNo);
     }
 
-    public int insertBlack(SqlSession sqlSession, Admin ad){
-        return sqlSession.insert("adminMapper.insertBlack",ad);
+    public int insertBlack(SqlSession sqlSession, Admin ad) {
+        return sqlSession.insert("adminMapper.insertBlack", ad);
 
     }
 
@@ -61,15 +62,15 @@ public class AdminDao {
 
     public List<BrokerEnroll> BrokerList(SqlSession sqlSession, PageInfoCombine pageInfoCombine) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("realEstateAgentMapper.BrokerList",null,rowBounds);
+        return sqlSession.selectList("realEstateAgentMapper.BrokerList", null, rowBounds);
     }
 
     public void changeMemberGrade(SqlSession sqlSession, HandleApplyRequest req) {
-        sqlSession.update("memberMapper.changeMemberGrade",req);
+        sqlSession.update("memberMapper.changeMemberGrade", req);
     }
 
     public void changeEstateStatus(SqlSession sqlSession, HandleApplyRequest req) {
-        sqlSession.update("realEstateAgentMapper.changeEstateStatus",req);
+        sqlSession.update("realEstateAgentMapper.changeEstateStatus", req);
     }
 
 //    public long memberNoOfAccept(String agentNo) {

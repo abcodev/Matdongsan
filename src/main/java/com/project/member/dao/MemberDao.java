@@ -1,5 +1,6 @@
 package com.project.member.dao;
 
+import com.project.client.oauth.OAuthToken;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
@@ -60,13 +61,6 @@ public class MemberDao {
     public Member select(long memberNo) {
         return sqlSession.selectOne("memberMapper.selectByMemberNo", memberNo);
     }
-
-//    public boolean checkInterest(String estateNo, long memberNo) {
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("estateNo", estateNo);
-//        params.put("memberNo", memberNo);
-//        return sqlSession.selectOne("interestEstateMapper.checkInterest", params) != null;
-//    }
 
     public void delete(String estateNo, long memberNo) {
         Map<String, Object> params = new HashMap<>();
@@ -133,4 +127,11 @@ public class MemberDao {
     }
 
 
+    public void updateToken(long memberNo, OAuthToken freshToken) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("memberNo", memberNo);
+        params.put("accessToken", freshToken.getAccessToken());
+        params.put("refreshToken", freshToken.getRefreshToken());
+        sqlSession.update("memberMapper.updateToken", params);
+    }
 }

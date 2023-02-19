@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<%@ include file="../template/header.jsp" %>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="<c:url value="/resources/css/admin/restaurantEnroll.css"/>">
@@ -10,14 +13,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
       rel="stylesheet">
-<!-- 페이징 부트 스트랩 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <title>restaurantModify</title>
 </head>
 <body>
 
-<%@ include file="../template/header.jsp" %>
 <form action="${pageContext.request.contextPath}/admin/resUpdate" method="post" enctype="multipart/form-data">
     <div class="body">
         <div id="content">
@@ -81,7 +80,6 @@
 
 
         <div class="btn_box">
-            <%--        <button type="reset" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>--%>
             <button type="reset" class="bbtn" onclick="history.back()">취소</button>
             <button type="submit" class="bbtn">수정</button>
         </div>
@@ -101,7 +99,10 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            swal("파일 크기는 10mb 를 넘길 수 없습니다.","","warning")
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
             input.value = null;
         }
     }
@@ -109,7 +110,10 @@
     $('input:checkbox[name=hashtagId]').click(function(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
-            swal("해쉬태그","2개 까지 선택가능합니다!","warning")
+            Swal.fire({
+                icon: 'warning',
+                title: '해쉬태그는 2개 입력 해야합니다.'
+            });
             $(this).prop('checked', false);
         }
     });

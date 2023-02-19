@@ -126,15 +126,15 @@ textarea:focus , input:focus {
 /* 신고하기 */
 
 .btn_box > .alert_btn_box {
-    padding-left: 86%;
+    padding-right: 40%;
     margin-top: 10px;
 }
 
 .btn_box > .alert_btn_box > button{
-    margin-left: -85px;
+    margin-left: 10px;
     border: none;
     width: 100px;
-    height: 32px;
+    height: auto;
     font-size: 16px;
     background-color: #f3f1f5;
     color: #213048;
@@ -199,25 +199,35 @@ textarea:focus , input:focus {
     margin-top: 20px;
 }
 
+.reply_detail{
+    padding: 10px;
+}
+
+.reply_detail:nth-child(even){
+    background-color: #f3f1f5;
+}
+
 .reply_head{
     display: flex;
+    margin-top: 25px;
 }
 
 .fa-comments{
-    font-size: 25px;
+    font-size: 27px;
     color: #beb0d0;
-    margin-right: 20px;
+    margin:0 20px 0 10px;
 }
 
 .reply_head > p{
-    font-size: 17px;
-    font-weight: 450;
-    margin-right: 20px;
+    font-size: 19px;
+    font-weight: 550;
+    margin-right: 10px;
     line-height: 1.2;
 }
 
 .reply_detail{
-    height: 95px;
+    height: auto;
+    margin: 10px 0;
 }
 
 .reply_info{
@@ -256,13 +266,15 @@ textarea:focus , input:focus {
 }
 
 .reply_content{
-    margin-top: 10px;
-    padding-left: 50px;
+    margin: 10px;
+    padding-left: 40px;
+    font-size: 17px;
+    word-break: break-word;
 }
 
 .reply_foot{
     border-top: #beb0d0 2px solid;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .reply_foot > div{

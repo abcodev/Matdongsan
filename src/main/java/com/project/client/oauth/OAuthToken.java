@@ -15,10 +15,12 @@ import lombok.NoArgsConstructor;
 public class OAuthToken {
     private String accessToken;
     private String refreshToken;
-    @JsonAlias(value = {"refresh_token_expires_in", "expires_in"})
-    private long refreshTokenExpiresIn;
+
+    public void setOldRefreshToken(String oldRefreshToken) {
+        this.refreshToken = oldRefreshToken;
+    }
 
     public static OAuthToken of(OAuth2AccessToken token) {
-        return new OAuthToken(token.getAccessToken(), token.getRefreshToken(), token.getExpiresIn());
+        return new OAuthToken(token.getAccessToken(), token.getRefreshToken());
     }
 }
