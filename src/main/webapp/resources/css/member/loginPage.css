@@ -11,7 +11,7 @@
 }
 
 #login_head{
-    margin-top: 100px;
+    margin-top: 150px;
 }
 
 h1{
@@ -19,23 +19,23 @@ h1{
 }
 
 #login_body{
-    padding: 0 30%;
+    padding: 0 26%;
     display: flex;
 }
 
 #login_body > .login{
     width: 33%;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 #login_body > .kakao > a > img,
 #login_body > .naver > a > img{
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
 }
 
 #login_body > .google > a > img{
-    width: 75px;
-    height: 75px;
+    width: 95px;
+    height: 95px;
     border-radius: 50%;
 }
