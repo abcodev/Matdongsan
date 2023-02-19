@@ -26,7 +26,7 @@
                 </div>
                 <div class="detail_head">
                     <div class="board_title">
-                        <input type="text" name="boardTitle" value="${qb.qnaTitle}">
+                        <input readonly type="text" name="boardTitle" value="${qb.qnaTitle}">
                     </div>
                     <div class="board_info">
                         <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
@@ -61,7 +61,7 @@
             <c:if test="${list.blind == 'N'}">
                 <div id="Answer">
                     <span class="font">${qb.qnaTitle}</span>
-                    <span class="deptFont">에 대한 답글 제목 : </span>
+                    <span class="deptFont">에 대한 답글 : </span>
                     <span class="font">${list.qnaTitle}</span><br><br>
                     <span class="deptFont">작성자 : </span>
                     <span class="sFont">${list.qnaWriter}</span><br><br>

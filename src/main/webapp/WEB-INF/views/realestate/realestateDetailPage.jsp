@@ -212,7 +212,7 @@
                             </li>
                             <li id="MT1" data-order="1">
                                 <span class="category_bg mart"></span>
-                                마트
+                                마트등
                             </li>
                             <li id="FD6" data-order="4">
                                 <span class="category_bg cafe"></span>
