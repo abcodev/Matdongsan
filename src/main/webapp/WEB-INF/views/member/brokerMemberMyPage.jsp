@@ -258,24 +258,43 @@
 
 
 <script>
+
     function changeHeart(estateNo) {
-        $.ajax({
-            url: '${pageContext.request.contextPath}/myPage',
-            type: 'POST',
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify({
-                'estateNo': estateNo,
-                'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')
-            }),
-            success : function (){
-                Swal.fire({
-                    icon: 'success',
-                    title: '관심목록이 해제되었습니다.'
-                }).then(()=>{
-                    location.reload();
+
+        Swal.fire({
+            title : '관심목록을 해제하시겠습니까?',
+            icon : 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8a33e7',
+            cancelButtonColor: '#9a9898',
+            confirmButtonText: '관심목록 해제',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : "${pageContext.request.contextPath}/myPage",
+                    type : 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data : JSON.stringify({
+                        'estateNo' : estateNo,
+                        'isInterest' : $('#checkbox_heart_' + estateNo).is(':checked')
+                    }),
+                    success : function(data){
+                        Swal.fire({
+                            icon : 'success',
+                            title : '관심목록이 해제되었습니다.'
+                        }).then(()=>{
+                            location.reload();
+                        })
+                    },
+                    error : function(e){
+
+                    }
                 })
+            }else if(!result.isConfirmed){
+                location.reload();
             }
-        });
+        })
     }
 
     function deleteMember() {

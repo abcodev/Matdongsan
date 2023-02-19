@@ -78,19 +78,51 @@
 <script>
     function cancelRes(){
         const revNo = $('#revNo').val();
-        var cancelRes = confirm("예약을 취소하시겠습니까?");
-        if(cancelRes === true){
-            alert("예약이 취소되었습니다.");
-        }else if(cancelRes === false){
-        }
+        Swal.fire({
+            title: '예약을 취소하시겠습니까?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#8a33e7',
+            cancelButtonColor: '#9a9898',
+            confirmButtonText: '예약취소',
+            cancelButtonText: '아니요'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : "${pageContext.request.contextPath}/reservation/myPage/cancel",
+                    data : {revNo : revNo},
+                    method : "GET",
+                    success : function(data){
+                        Swal.fire({
+                            icon : 'success',
+                            title : '예약이 취소되었습니다.'
+                        }).then(()=>{
+                            location.reload();
+                        })
+                    },
+                    error : function(e){
 
-        $.ajax({
-            url: "${pageContext.request.contextPath}/reservation/myPage/cancel",
-            data: {revNo : revNo},
-            method: "GET",
-            success: function (data){
-                location.reload();
+                    }
+                })
             }
-        });
+        })
+        <%--const revNo = $('#revNo').val();--%>
+        <%--var cancelRes = confirm("예약을 취소하시겠습니까?");--%>
+        <%--if(cancelRes === true){--%>
+        <%--    alert("예약이 취소되었습니다.");--%>
+
+        <%--}else if(cancelRes === false){--%>
+        <%--    return false;--%>
+        <%--}--%>
+
+        <%--$.ajax({--%>
+        <%--    url: "${pageContext.request.contextPath}/reservation/myPage/cancel",--%>
+        <%--    data: {revNo : revNo},--%>
+        <%--    method: "GET",--%>
+        <%--    success: function (data){--%>
+        <%--        location.reload();--%>
+        <%--    }--%>
+        <%--});--%>
     }
 </script>

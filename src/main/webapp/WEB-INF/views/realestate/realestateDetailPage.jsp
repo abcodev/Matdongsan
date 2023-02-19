@@ -743,7 +743,8 @@
                 success: () => {
                     Swal.fire({
                         icon: 'success',
-                        title: '예약에 성공 하였습니다.'
+                        title: '예약신청이 완료되었습니다.',
+                        text: '확인 후 예약이 승인됩니다.'
                     });
                     offClick();
 
