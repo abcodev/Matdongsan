@@ -27,7 +27,7 @@
                 <div class="detail_head">
                     <div class="board_title">
 
-                        <input type="text" name="boardTitle" value="${qb.qnaTitle}">
+                        <div name="boardTitle" value="${qb.qnaTitle}"></div>
 
                     </div>
                     <div class="board_info">
