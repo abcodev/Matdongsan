@@ -129,6 +129,7 @@
             Swal.fire({
                 icon: 'info',
                 title: '회원정보 입력 후 이용해 주세요.',
+                text: '정보입력 페이지로 이동합니다.'
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location = '${pageContext.request.contextPath}/memberModify'
@@ -148,7 +149,6 @@
             // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
             sse.addEventListener('realtime_alarm', (event) => {
                 retrieveAlarmList();
-                console.log(event);
             });
         }
         // 이벤트가 오면 콜백 메서드가 실행됨

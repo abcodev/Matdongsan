@@ -34,6 +34,7 @@ public class RealtimeAlarmController {
     private final AlarmService alarmService;
 
     @GetMapping("/alarmList")
+    @RequiredLogin
     public ModelAndView retrieveAlarmList(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
 //        if (loginUser == null) {

@@ -33,12 +33,12 @@
             </div>
             <div class="userinfo phone">
                 <span>휴대폰번호</span>
-                <input id="phoneNumber" type="text" name="phone" required>
+                <input id="phoneNumber" type="text" name="phone" >
                 <button type="button" id="phoneChk">인증받기</button>
                 <br>
             </div>
             <div class="userinfo phone2">
-                <input id="phone2" type="text" name="phone2" placeholder="인증번호를 입력해주세요" required>
+                <input id="phone2" type="text" name="phone2" placeholder="인증번호를 입력해주세요" >
                 <input type="hidden" id="phoneNumberDoubleChk" />
                 <button type="button" value="인증확인" id="phoneChk2">인증확인</button>
             </div>
@@ -95,9 +95,15 @@
     $("#phoneChk2").click(function () {
         if ($("#phone2").val() === code2) {
             checkPhoneNumber = true;
-            Swal.fire('인증성공')
+            Swal.fire({
+                icon: 'success',
+                title: '인증에 성공하였습니다.'
+            });
         } else {
-            Swal.fire('인증실패 정확히 입력해주세요')
+            Swal.fire({
+                icon: 'warning',
+                title: '인증실패 정확히 입력해주세요.',
+            });
             $("#phoneChk2").focus();
             checkPhoneNumber = false;
         }
@@ -167,15 +173,20 @@
 
     function signupCheck() {
         if (!checkNickName) {
-            Swal.fire("사용 불가능한 닉네임입니다.")
+            Swal.fire({
+                icon: 'warning',
+                title: '사용 불가능한 닉네임 입니다.',
+            });
             return false;
         }
-        const phoneNumber = $("#phoneNumber").val();
-        if ('${loginUser.phone}' !== phoneNumber && !checkPhoneNumber) {
-            Swal.fire("회원정보를 위해 휴대폰 인증이 필요합니다.")
-            return false;
-        }
-        // alert('회원정보 수정 완료')
+        <%--const phoneNumber = $("#phoneNumber").val();--%>
+        <%--if ('${loginUser.phone}' !== phoneNumber && !checkPhoneNumber) {--%>
+        <%--    Swal.fire({--%>
+        <%--        icon: 'warning',--%>
+        <%--        title: '회원정보 변경을 위해 휴대폰 인증이 필요합니다.',--%>
+        <%--    });--%>
+        <%--    return false;--%>
+        <%--}--%>
         return true;
     }
 

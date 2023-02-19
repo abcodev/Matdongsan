@@ -104,6 +104,7 @@ public class RestaurantController {
      * 관리자 - 맛집 등록
      */
     @RequestMapping("/admin/resEnroll")
+    @Permission(authority = MemberGrade.ADMIN)
     public ModelAndView restaurantEnroll() {
         List<Hashtag> hashtagList = restaurantService.selectHashtagList();
         ModelAndView modelAndView = new ModelAndView();
@@ -133,6 +134,7 @@ public class RestaurantController {
      * 관리자 - 맛집 수정
      */
     @RequestMapping("/admin/resModify")
+    @Permission(authority = MemberGrade.ADMIN)
     public ModelAndView restaurantModify(@RequestParam("resNo") String resNo,
                                          ModelAndView modelAndView
     ) {
@@ -149,6 +151,7 @@ public class RestaurantController {
 
 
     @PostMapping("/admin/resUpdate")
+    @Permission(authority = MemberGrade.ADMIN)
     public String restaurantModify(@RequestParam("file") MultipartFile file,
                                    @RequestParam(value = "hashtagId", defaultValue = "") List<String> hashtagId,
                                    HttpServletRequest req,
@@ -166,6 +169,7 @@ public class RestaurantController {
      */
     @RequestMapping("/admin/resDelete")
     @ResponseBody
+    @Permission(authority = MemberGrade.ADMIN)
     public ModelAndView restaurantDelete(@RequestParam("resNo") String resNo,
                                          ModelAndView modelAndView
     ) {

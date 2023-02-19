@@ -80,7 +80,6 @@
 
 
         <div class="btn_box">
-            <%--        <button type="reset" class="bbtn" onclick="location.href='restaurantDetail?resNo=${restaurantDetail.resNo}'">취소</button>--%>
             <button type="reset" class="bbtn" onclick="history.back()">취소</button>
             <button type="submit" class="bbtn">수정</button>
         </div>
@@ -100,7 +99,10 @@
         }
 
         if (input.files && input.files[0].size > (10 * 1024 * 1024)) {
-            alert("파일 크기는 10mb 를 넘길 수 없습니다.");
+            Swal.fire({
+                icon: 'warning',
+                title: '파일 크기는 10mb 를 넘길 수 없습니다.'
+            });
             input.value = null;
         }
     }
@@ -108,7 +110,10 @@
     $('input:checkbox[name=hashtagId]').click(function(){
         let cntEPT = $('input:checkbox[name=hashtagId]:checked').length;
         if(cntEPT>2){
-            alert('해시태그는 최대 2개까지 선택 가능합니다.')
+            Swal.fire({
+                icon: 'warning',
+                title: '해쉬태그는 2개 입력 해야합니다.'
+            });
             $(this).prop('checked', false);
         }
     });
