@@ -3,10 +3,6 @@
     font-family: 'IBM Plex Sans KR', sans-serif;
 }
 
-/* div{
-    border: 2px solid black; 
-} */
-
 #content{
     display: flex;
     width: 100%;
@@ -99,6 +95,14 @@
 
 .table th:first-child{
     width: 20%;
+}
+
+.table tr:nth-child(n+2){
+    cursor: pointer;
+}
+
+.table tr:nth-child(n+2):hover{
+    font-weight: 450;
 }
 
 

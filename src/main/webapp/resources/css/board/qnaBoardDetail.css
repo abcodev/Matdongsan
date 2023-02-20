@@ -117,6 +117,10 @@ textarea:focus , input:focus {
     margin-right: 10px;
 }
 
+.btn1{
+    margin-left: 88%;
+}
+
 /* 신고하기 */
 .modal-content{
     width: 80%;
