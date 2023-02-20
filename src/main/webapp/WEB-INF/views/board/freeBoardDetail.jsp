@@ -184,7 +184,7 @@
         $.ajax({
             url : '${pageContext.request.contextPath}/board/replyList',
             data : {fno : '${fb.boardNo}'},
-            dataType : 'json',
+                dataType : 'json',
             success : function(result){
                 let html = ""
                 for(let reply of result){

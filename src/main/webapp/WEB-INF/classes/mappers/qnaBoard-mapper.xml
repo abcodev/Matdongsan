@@ -85,11 +85,13 @@
             Q.MEMBER_NO,
             NICKNAME,
             QNA_TITLE,
+            QNA_CONTENT,
             QNA_DATE,
             COUNT
         FROM QNA_BOARD Q
-        JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
-        WHERE NOTICE = 1
+        LEFT JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
+        WHERE NOTICE = 1 AND
+        Q.STATUS = 'Y'
         ORDER BY QNA_DATE DESC
     </select>
 

@@ -100,7 +100,6 @@ public class MemberService {
         String api_secret = "RKVNQQTAHQL0J3UR3VDG8GHL1TY9IUTT";
         Message coolsms = new Message(api_key, api_secret);
 
-        // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", userPhoneNumber);    // 수신전화번호
         params.put("from", "010-4818-2172");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨

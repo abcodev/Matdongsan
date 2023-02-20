@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="detail_body">
-                <div name="boardContent" id="boardContent">${qb.qnaContent}</div>
+                <textarea name="boardContent" id="boardContent">${qb.qnaContent}</textarea>
             </div>
             <div class="btn_box">
                 <c:if test="${not empty loginUser}">
