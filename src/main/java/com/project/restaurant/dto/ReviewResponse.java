@@ -33,7 +33,8 @@ public class ReviewResponse {
 
     public void setImage(List<ResImg> resImgList) {
         this.changeNames = resImgList.stream()
-                .map(resImg -> "/Matdongsan/resources/images/restaurant/" + resImg.getChangeName())
+//                .map(resImg -> "/Matdongsan/resources/images/restaurant/" + resImg.getChangeName())
+                .map(resImg -> "/resources/images/restaurant/" + resImg.getChangeName())
                 .collect(Collectors.toList());
     }
 }
