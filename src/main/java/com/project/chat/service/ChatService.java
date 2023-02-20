@@ -25,7 +25,7 @@ public class ChatService {
 
 
     /**
-     * 채팅방 만들기
+     * 채팅방 생성 or 이전 채팅방 불러오기
      */
     public Map<String, Object> findRoom(long memberNo) {
 
@@ -52,15 +52,9 @@ public class ChatService {
         ChatingRoom chatingRoom = chatRepository.selectByRoomNo(data.getRoomNo());
         Member sender = memberDao.select(data.getMemberNo());
         long receiverNo = (data.getMemberNo() == 1) ? chatingRoom.getMemberNo() : 1;
-
         AlarmTemplate template = AlarmTemplate.generateNewChatMessageTemplate(data.getRoomNo(), receiverNo, sender.getMemberName());
         alarmService.send(template);
         chatRepository.sendMessage(data);
-    }
-
-
-    public List<AdminChatRoom> findAdminRoomList() {
-        return List.of();
     }
 
     public List<AdminChatRoom> adminChattingList() {
