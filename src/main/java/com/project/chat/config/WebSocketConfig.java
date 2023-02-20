@@ -16,6 +16,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 //                .setAllowedOrigins("/Matdongsan")
                 .withSockJS(); // SocketJS 를 연결한다는 설정
     }
+    //   .setAllowedOrigins("/Matdongsan")
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
          // 메세지 받을때
