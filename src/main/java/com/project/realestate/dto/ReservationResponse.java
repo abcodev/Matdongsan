@@ -11,6 +11,7 @@ public class ReservationResponse {
 
     public int revNo;
     private long memberNo;
+    private String agentNo;
     private String memberName;
     private String peopleCount;
     private String phone;

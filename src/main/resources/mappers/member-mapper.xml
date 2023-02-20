@@ -264,6 +264,7 @@
         <result column="REV_TIME" property="revTime"/>
         <result column="REV_DATE" property="revDate"/>
         <result column="REV_STATUS" property="status"/>
+        <result column="AGENT_NO" property="agentNo"/>
         <result column="AGENT_NAME" property="agentName"/>
     </resultMap>
 
@@ -278,6 +279,7 @@
                R.REV_TIME,
                R.REV_DATE,
                R.REV_STATUS,
+               RA.AGENT_NO,
                RA.AGENT_NAME
         FROM REAL_RESERVATION R
                  LEFT JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO

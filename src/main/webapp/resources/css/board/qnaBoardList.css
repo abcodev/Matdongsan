@@ -300,6 +300,15 @@
     border-color: #ccc;
 }
 
+.pagination a{
+    color: gray;
+}
+.pagination a:hover{
+    color : white;
+    background-color: rgb(86, 99, 146);
+    cursor: pointer;
+}
+
 
 
 

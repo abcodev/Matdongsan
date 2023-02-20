@@ -13,6 +13,6 @@ public class Reply {
     private String nickName;
     private int freeBno;
     private String replyContent;
-    private Date replyDate;
+    private Timestamp replyDate;
     private String status;
 }
