@@ -30,7 +30,7 @@
                 </div>
                 <div class="board_info">
                     <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
-                    <div class="board_date" name="boardDate">${qb.qnaDate}</div>
+                    <div class="board_date" name="boardDate">${fn:substring(qb.qnaDate, 0, 16)}</div>
                 </div>
             </div>
             <div class="detail_body">

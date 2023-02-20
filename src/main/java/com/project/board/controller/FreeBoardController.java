@@ -172,6 +172,8 @@ public class FreeBoardController {
         ArrayList<Reply> replyList = freeBoardService.selectReplyList(fno);
         Gson gson = new GsonBuilder().create();
         String result = gson.toJson(replyList);
+
+        System.out.println("댓글 : " + result);
         return result;
     }
 
