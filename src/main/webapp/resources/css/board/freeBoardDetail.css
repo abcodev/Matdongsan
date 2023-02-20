@@ -76,7 +76,6 @@ textarea:focus , input:focus {
     padding-left: 30px;
     font-weight: 450;
     line-height: 2.8;
-
     width: 150px;
     display: inline-block;
     white-space: nowrap;
@@ -203,7 +202,7 @@ textarea:focus , input:focus {
     padding: 10px;
 }
 
-.reply_detail:nth-child(even){
+.reply_detail:nth-child(odd){
     background-color: #f3f1f5;
 }
 

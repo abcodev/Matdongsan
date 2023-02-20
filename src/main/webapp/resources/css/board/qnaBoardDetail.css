@@ -6,7 +6,7 @@
 }
 
 #content{
-    padding: 60px 400px 30px 300px;
+    padding: 60px 330px 100px 330px;
 }
 
 a:link { color: black; text-decoration: none;}
@@ -32,7 +32,7 @@ textarea:focus , input:focus {
 }
 
 .board_area{
-    padding-left: 750px;
+    padding-left: 670px;
     font-size: 20px;
     color: #b0a3c4;
     line-height: 1.6;
@@ -43,10 +43,25 @@ textarea:focus , input:focus {
     margin-top: 30px;
 }
 
+.board_title{
+    display: flex;
+}
+
+.fa-q{
+    font-size: 35px;
+    background-color: #7f86b9;
+    height: 55px;
+    width: 60px;
+    border-radius: 50%;
+    padding: 9px 0 0 12px;
+    margin-right: 15px;
+    color: white;
+}
+
 .board_title > input{
-    font-size: 30px;
+    font-size: 35px;
     border: none;
-    font-weight: 400;
+    font-weight: 450;
     width: 100%;
 }
 
@@ -57,35 +72,17 @@ textarea:focus , input:focus {
     margin-top: 10px;
 }
 
-.writer_img{
-    width: 60px;
-}
-
-.writer_img > img{
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-}
-
 .board_writer{
-    font-size: 15px;
+    font-size: 19px;
     font-weight: 450;
     line-height: 2.5;
 }
 
 .board_date{
-    font-size: 13px;
+    font-size: 16px;
     padding-left: 30px;
     font-weight: 450;
     line-height: 2.8;
-
-    width: 142px;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-}
-#MainDiv{
-    height: 1000px;
 }
 
 .detail_body > div{
@@ -97,12 +94,7 @@ textarea:focus , input:focus {
     resize: none;
 }
 
-.btn_box{
-   float: right;
-}
-
 .btn_box > button{
-    margin-left: 10px;
     border: none;
     width: 100px;
     height: 40px;
@@ -112,6 +104,7 @@ textarea:focus , input:focus {
     font-weight: 450;
     cursor: pointer;
     border-radius: 2px;
+
 }
 
 .btn_box > button:hover{
@@ -119,19 +112,12 @@ textarea:focus , input:focus {
     color: #f3f1f5;
 }
 
+.insertAnswer{
+    margin-left: 73%;
+    margin-right: 10px;
+}
+
 /* 신고하기 */
-
-.btn_box > .alert_btn_box {
-    padding-left: 86%;
-    margin-top: 10px;
-}
-
-
-.btn_box > .alert_btn_box > button:hover{
-    background-color: #566392;
-    color: #f3f1f5;
-}
-
 .modal-content{
     width: 80%;
 }
@@ -175,43 +161,119 @@ textarea:focus , input:focus {
     background-color: #566392;
     color: #f3f1f5;
 }
+
 #boardContent{
-    border: 1px skyblue;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     resize: none;
-    height: 250px;
+    height: auto;
     width: 100%;
+    font-weight: 420;
+    padding-bottom: 50px;
 }
+
+.answerList{
+    margin-top: 50px;
+    padding-top: 30px;
+    border: #eeeeee 3px solid;
+    border-radius: 4px;
+    padding-bottom: 10px;
+    box-shadow: 6px -2px 13px 0px #eeeeee;
+    background: rgba(190, 176, 208, 0.13);
+}
+
+.answerLine{
+    font-weight: 600;
+    font-size: 19px;
+    margin-left: 30px;
+}
+
 #Answer{
-    box-sizing: border-box;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 30px;
-    border-radius: 10px;
-    width: 53%;
-    height: 200px;
     position: relative;
-    top: 35px;
-    margin-left: 303px;
-    margin-bottom: 20px;
+    padding: 10px 32px 10px;
+    display: flex;
 }
-#line{
-    border: 1px solid #beb0d0;
-    width: 55%;
-    margin: auto;
+
+#Answer::before{
+    position: absolute;
+    left: 52px;
+    z-index: 1;
+    content: "";
+    height: 100%;
+    width: 4px;
+    background-color: #dee2e6;
+}
+
+.fa-a{
     position: relative;
-    right: 45px;
+    font-size: 20px;
+    background-color: #353c65;
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    padding: 9px 0 0 13px;
+    margin-right: 12px;
+    color: white;
+    z-index: 2;
 }
-.font{
+
+.answer{
+    width: 80%;
+    padding: 3px 10px;
+}
+
+.answerInfo > span:first-child{
+    font-weight: 500;
+    font-size: 14px;
+    padding: 2px 3px;
+    border: #d2d2d2 2px solid;
+    border-radius: 3px;
+    color: #3d3d3d;
+    margin-right: 5px;
+    background: white;
+}
+
+.answerInfo > span:nth-child(2){
+    font-weight: 500;
+    font-size: 19px;
+    color: #3d3d3d;
+    margin-right: 5px;
+}
+
+.answerContent > span{
+    display: block;
+}
+
+.answerContent > span:first-child{
+    font-weight: 500;
+    font-size: 17px;
+    color: #3d3d3d;
+    margin: 10px 5px;
+}
+
+.answerContent > span:nth-child(2){
+    font-weight: 400;
     font-size: 16px;
-    font-weight: bold;
-    color: #23527c;
-
-
+    color: #3d3d3d;
+    margin: 10px 5px;
 }
-.deptFont{
-    color: #beb0d0;
-    font-weight: bold;
-    font-size: 18px;
-}
+
+/*#Answer{*/
+/*    border-radius: 4px;*/
+/*    padding: 30px;*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    margin-bottom: 20px;*/
+/*    background: linear-gradient(175deg, rgba(237,231,247,0.33469887955182074) 20%, rgba(110,87,167,0.1380252100840334) 93%);*/
+/*}*/
+
+/*.font{*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    color: #23527c;*/
+/*}*/
+/*.deptFont{*/
+/*    color: #beb0d0;*/
+/*    font-weight: bold;*/
+/*    font-size: 18px;*/
+/*}*/

@@ -23,6 +23,7 @@
     </div>
     <div class="chat-box">
         <div class="chat-box-header">
+            <img src="${pageContext.request.contextPath}/resources/images/common/맛동산메인로고.png">
             <span>1:1 문의</span>
             <span class="chat-box-toggle"><i class="fa-solid fa-xmark"></i></span>
         </div>

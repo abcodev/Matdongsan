@@ -12,20 +12,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"--%>
-<%--          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">--%>
 </head>
-
 
 <body>
 <div class="container">
     <div id="chat_left">
         <div class="chatSelect">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">전체 문의</a>
-                </li>
-            </ul>
+            <img src="https://cdn-icons-png.flaticon.com/512/1910/1910995.png">
+            <p>1:1 문의 내역</p>
         </div>
         <div class="preChatList" >
             <c:forEach items="${chattingList}" var="chattingList">
@@ -50,10 +44,12 @@
             </c:forEach>
         </div>
     </div>
-
+    <div id="middle"></div>
     <div id="chat_right">
         <div class="basicImage">
-            <img src="https://cdn-icons-png.flaticon.com/512/3518/3518657.png">
+            <img src="https://cdn-icons-png.flaticon.com/512/3069/3069806.png">
+            <div> 현재 활성화된 채팅이 없습니다.</div>
+            <div> 1:1 문의 내역에서 채팅을 선택해주세요</div>
         </div>
     </div>
 </div>

@@ -40,6 +40,7 @@
             <div class="userinfo phone2">
                 <input id="phone2" type="text" name="phone2" placeholder="인증번호를 입력해주세요" >
                 <input type="hidden" id="phoneNumberDoubleChk" />
+<%--                <span id="timeZone"></span>--%>
                 <button type="button" value="인증확인" id="phoneChk2">인증확인</button>
             </div>
             <div class="userinfo address">
@@ -108,6 +109,61 @@
             checkPhoneNumber = false;
         }
     })
+
+
+
+
+
+
+
+    // // 입력시간 출력
+    // function authTime() {
+    //     $("#timeZone").html("<span id='min'>3</span> : <span id='sec'>00</span>");
+    //     intervalId = window.setInterval(function () {
+    //         timeCount();
+    //     }, 1000);
+    // }
+    //
+    // function timeCount() {
+    //     const min = Number($("#min").text());
+    //     const sec = $("#sec").text();
+    //     if (sec == "00") {
+    //         if (min == 0) {
+    //             mailCode = null;
+    //             clearInterval(intervalId);
+    //         } else {
+    //             $("#min").text(min - 1);
+    //             $("#sec").text(59);
+    //         }
+    //     } else {
+    //         const Sec2 = Number(sec) - 1;
+    //         if (Sec2 < 10) {
+    //             $("#sec").text("0" + Sec2);
+    //         } else {
+    //             $("#sec").text(Sec2);
+    //         }
+    //     }
+    // }
+    // // Phone - number maxlength 지정
+    // function maxLengthChk(pNum) {
+    //     if (pNum.value.length > pNum.maxLength) {
+    //         pNum.value = pNum.value.slice(0, pNum.maxLength);
+    //     }
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function sample6_execDaumPostcode() {
         new daum.Postcode({
@@ -179,14 +235,14 @@
             });
             return false;
         }
-        <%--const phoneNumber = $("#phoneNumber").val();--%>
-        <%--if ('${loginUser.phone}' !== phoneNumber && !checkPhoneNumber) {--%>
-        <%--    Swal.fire({--%>
-        <%--        icon: 'warning',--%>
-        <%--        title: '회원정보 변경을 위해 휴대폰 인증이 필요합니다.',--%>
-        <%--    });--%>
-        <%--    return false;--%>
-        <%--}--%>
+        const phoneNumber = $("#phoneNumber").val();
+        if ('${loginUser.phone}' !== phoneNumber && !checkPhoneNumber) {
+            Swal.fire({
+                icon: 'warning',
+                title: '회원정보 변경을 위해 휴대폰 인증이 필요합니다.',
+            });
+            return false;
+        }
         return true;
     }
 

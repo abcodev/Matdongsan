@@ -85,15 +85,23 @@ public class AlarmEventProducer {
     }
 
     // send는 떠넘기기
-    public void produce(long memberNo) { // memberNo 만 보내면 알람이 왔다고 메세지가 가는 구조 (여길 호출하면 알람을 받겠다고 기다리는)
+    public void produceAlarm(long memberNo) { // memberNo 만 보내면 알람이 왔다고 메세지가 가는 구조 (여길 호출하면 알람을 받겠다고 기다리는)
+        this.produce(memberNo, "realtime_alarm", memberNo);
+    }
+
+    public void produceChangeGrade(long memberNo) {
+        this.produce(memberNo, "change_grade", memberNo);
+    }
+
+    private void produce(long memberNo, String eventName, Object data) {
         List<SseEmitter> emitters = subscribers.getOrDefault(memberNo, List.of());
         List<Integer> removeIndex = new ArrayList<>();
 
         for (int i = 0; i < emitters.size(); ++i) {
             try {
                 emitters.get(i).send(SseEmitter.event()
-                        .name("realtime_alarm")
-                        .data(memberNo));
+                        .name(eventName)
+                        .data(data));
             } catch (Exception ignored) {
                 removeIndex.add(i);
             }
