@@ -65,10 +65,11 @@
                 </c:when>
                 <c:when test="${selectReservation.revStatus eq 'A'}">
                     <button type="button" class="disabled">완료된 예약입니다.</button>
+                    <button type="button" onclick="cancelRes();">예약취소</button>
                 </c:when>
                 <c:otherwise>
                     <button type="button" onclick="approveRes();">예약승인</button>
-                    <button type="button" onclick="cancelRes();">예약취소</button
+                    <button type="button" onclick="cancelRes();">예약취소</button>
                 </c:otherwise>
             </c:choose>
         </div>

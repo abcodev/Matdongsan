@@ -118,9 +118,9 @@
             M.MEMBER_NAME,
             M.PROFILE_IMAGE
         FROM REVIEW R
-                INNER JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+                 INNER JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
         WHERE R.RES_NO = #{resNo}
-            AND R.STATUS = 'Y'
+          AND R.STATUS = 'Y'
         ORDER BY R.CREATE_DATE DESC
     </select>
 
@@ -146,10 +146,10 @@
         (
         <foreach collection="list" item="img" separator="UNION ALL">
             SELECT
-                #{img.originName} as ORIGIN_NAME,
-                #{img.changeName} as CHANGE_NAME,
-                #{img.revNo} as REV_NO,
-                #{img.imgLevel} as IMG_LEVEL
+            #{img.originName} as ORIGIN_NAME,
+            #{img.changeName} as CHANGE_NAME,
+            #{img.revNo} as REV_NO,
+            #{img.imgLevel} as IMG_LEVEL
             FROM DUAL
         </foreach>
         ) R
@@ -206,12 +206,5 @@
     <delete id="deleteResImgByImgNo" parameterType="_int">
         DELETE FROM RES_IMG WHERE IMG_NO = #{imgNo}
     </delete>
-
-
-
-
-
-
-
 
 </mapper>

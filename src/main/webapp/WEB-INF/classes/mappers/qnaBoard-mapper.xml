@@ -89,7 +89,7 @@
             COUNT
         FROM QNA_BOARD Q
         JOIN MEMBER M ON M.MEMBER_NO = Q.MEMBER_NO
-        WHERE NOTICE = 1
+        WHERE NOTICE = 1 AND Q.STATUS = 'Y'
         ORDER BY QNA_DATE DESC
     </select>
 
@@ -130,7 +130,6 @@
         LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
           AND QNA_BNO = #{qBno}
-
     </select>
 
     <update id="increaseCount" parameterType="int">
@@ -144,12 +143,12 @@
                QNA_TITLE,
                M.MEMBER_NO,
                QNA_CONTENT,
-               M.NICKNAME AS QNA_WRITER
+               M.NICKNAME AS QNA_WRITER,
+               BLIND
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'
           AND P_BNO = #{qBno}
-
     </select>
 
     <insert id="insertAnswer" parameterType="QBoard">

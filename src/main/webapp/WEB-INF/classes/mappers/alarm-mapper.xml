@@ -35,6 +35,7 @@
         SELECT *
         FROM ALARM
         WHERE MEMBER_NO = #{memberNo} AND IS_DELETED = 0
+        ORDER BY ALARM_NO DESC
     </select>
 
     <insert id="insert" parameterType="alarm">

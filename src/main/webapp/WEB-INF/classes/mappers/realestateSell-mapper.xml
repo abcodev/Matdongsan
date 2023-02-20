@@ -57,6 +57,9 @@
         <result column="REF_NAME" property="refName"/>
         <result column="AGENT_NAME" property="agentName"/>
         <result column="AGENT_PHONE" property="agentPhone"/>
+        <result column="MEMBER_NO" property="memberNo" />
+        <result column="APPLY_STATUS" property="applyStatus" />
+        <result column="ATTACHMENT" property="attachment" />
     </resultMap>
 
     <delete id="deleteAll">
@@ -156,6 +159,7 @@
         SELECT *
         FROM REALESTATE_AGENT
         WHERE BJDONG_NM = #{bjdongNm}
+            AND APPLY_STATUS = 'Y'
     </select>
 
     <select id="selectAgentByAgentNo" parameterType="String" resultMap="agentResultSet">
