@@ -24,7 +24,7 @@
                     <input type="text" name="boardTitle" value="${fb.boardTitle}" maxlength="70" oninput="handleInputLength(this, 70)">
                 </c:if>
                 <c:if test="${w ne loginUser.memberNo}">
-                    <input type="text" name="boardTitle" value="${fb.boardTitle}" readonly>
+                    <input type="text" name="boardTitle" value="${fb.boardTitle}" disabled style="background-color: white">
                 </c:if>
             </div>
             <div class="board_info">

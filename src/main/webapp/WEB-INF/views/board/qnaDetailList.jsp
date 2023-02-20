@@ -26,7 +26,7 @@
             <div class="detail_head">
                 <div class="board_title">
                     <i class="fa-solid fa-q"></i>
-                    <input type="text" name="boardTitle" value="${qb.qnaTitle}">
+                    <input type="text" name="boardTitle" value="${qb.qnaTitle}" disabled style="background-color: white">
                 </div>
                 <div class="board_info">
                     <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
