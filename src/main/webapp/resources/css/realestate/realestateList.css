@@ -230,3 +230,11 @@ select:focus {
     cursor: pointer;
 }
 
+.realList{
+    cursor: pointer;
+}
+
+.realList:hover{
+    color: #585c9c;
+    font-weight: 450;
+}

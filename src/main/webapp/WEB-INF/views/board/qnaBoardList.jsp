@@ -91,7 +91,7 @@
                                     </c:if>
                                     <c:if test="${qb.blind eq 'Y'}">
                                         <tr class="tdBody blind" >
-                                            <td colspan="4" onclick="alert('블라인드 처리된 게시글 입니다.')">
+                                            <td colspan="4" onclick="Swal.fire('블라인드 처리된 게시글 입니다.')">
                                                 <c:forEach step="1" begin="2" end="${qb.depth}">
                                                     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </c:forEach>
