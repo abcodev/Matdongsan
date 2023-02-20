@@ -133,13 +133,14 @@
             success : function (res){
                 const html = jQuery('<div>').html(res);
                 const contents = html.find('div#chat_contents_ajax').html();
-                console.log(contents);
                 $('#chat_right').html(contents)
                 $('#titleName').text(nickName);
-
             },
             fail:function (){
-                console.log("메세지 불러오기에 실패하였습니다. 새로고침해주세요.");
+                Swal.fire({
+                    icon: 'error',
+                    title: '서버 오류.'
+                });
             }
         })
     })

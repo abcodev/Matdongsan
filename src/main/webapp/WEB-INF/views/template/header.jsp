@@ -119,8 +119,8 @@
                 let redirectUrl = location.href.substring('http://localhost:8070/${pageContext.request.contextPath}'.length - 1);
                 return location.href = loginPage + redirectUrl;
             }
-
             let alarmIsOpen = false;
+
             if (${not empty loginUser}) {
                 window.addEventListener('pageshow', () => {
                     retrieveAlarmList();

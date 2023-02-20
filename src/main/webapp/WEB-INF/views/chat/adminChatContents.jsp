@@ -17,12 +17,12 @@
                 <c:choose>
                     <c:when test="${chattingMessageList.memberNo eq 1}">
                         <div class="response">
-                            <p class="text">${chattingMessageList.message}</p>
+                            <span class="text">${chattingMessageList.message}</span>
                         </div>
                     </c:when>
                     <c:otherwise>
                         <div class="request">
-                            <p class=" text">${chattingMessageList.message}</p>
+                            <span class=" text">${chattingMessageList.message}</span>
                         </div>
                     </c:otherwise>
                 </c:choose>
@@ -42,8 +42,6 @@
         $('#chat-input').keypress(function(e){
             if(e.keyCode===13){
                 send();
-
-
             }
         });
 
