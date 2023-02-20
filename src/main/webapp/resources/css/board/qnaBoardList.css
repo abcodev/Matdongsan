@@ -139,7 +139,7 @@
 
 #boardlist_main {
     width: 100%;
-    height: 86%;
+    height: auto;
     margin-top: 20px;
 }
 

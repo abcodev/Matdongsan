@@ -55,12 +55,62 @@ input{
     width: 10%;
 }
 
-.info > input[type=text],
+#agentName,
+#agentNo,
 .state > select {
     margin-left: 20px;
     height: 34px;
     border-radius: 3px;
     border: #a4a4a4 1px solid;
+    width: 280px;
+}
+
+#refName,
+#phoneNumber{
+    margin-left: 100px;
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+    width: 280px;;
+}
+
+#state{
+    margin-left: 100px;
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+    width: 180px;
+}
+
+#bjdongNm{
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+    width: 150px;
+    margin-left: 20px;
+}
+
+#sample6_postcode{
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+    width: 150px;
+    margin-left: 20px;
+}
+
+#sample6_address{
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+    width: 250px;
+}
+
+#sample6_detailAddress{
+    height: 34px;
+    border-radius: 3px;
+    border: #a4a4a4 1px solid;
+    width: 120px;
+    margin-left: 10px;
 }
 
 .state > select{
@@ -124,7 +174,7 @@ input{
 
 
 .btn_box{
-    padding-left: 320px;
+    padding-left: 360px;
     margin-top: 40px;
 }
 

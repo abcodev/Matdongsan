@@ -37,9 +37,6 @@ public class RealtimeAlarmController {
     @RequiredLogin
     public ModelAndView retrieveAlarmList(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-//        if (loginUser == null) {
-//            throw new RuntimeException("로그인 하고 오세용");
-//        }
 
         ModelAndView modelAndView = new ModelAndView();
         List<Alarm> alarmList = alarmService.retrieveAlarmList(loginUser.getMemberNo());

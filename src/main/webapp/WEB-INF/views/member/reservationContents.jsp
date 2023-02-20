@@ -111,22 +111,5 @@
                 })
             }
         })
-        <%--const revNo = $('#revNo').val();--%>
-        <%--var cancelRes = confirm("예약을 취소하시겠습니까?");--%>
-        <%--if(cancelRes === true){--%>
-        <%--    alert("예약이 취소되었습니다.");--%>
-
-        <%--}else if(cancelRes === false){--%>
-        <%--    return false;--%>
-        <%--}--%>
-
-        <%--$.ajax({--%>
-        <%--    url: "${pageContext.request.contextPath}/reservation/myPage/cancel",--%>
-        <%--    data: {revNo : revNo},--%>
-        <%--    method: "GET",--%>
-        <%--    success: function (data){--%>
-        <%--        location.reload();--%>
-        <%--    }--%>
-        <%--});--%>
     }
 </script>
