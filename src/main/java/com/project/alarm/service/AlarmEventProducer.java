@@ -106,7 +106,6 @@ public class AlarmEventProducer {
                 removeIndex.add(i);
             }
         }
-
         List<SseEmitter> alive = new ArrayList<>();
         for (int i = 0; i < emitters.size(); ++i) {
             if (!removeIndex.contains(i)) {
@@ -116,7 +115,7 @@ public class AlarmEventProducer {
         subscribers.put(memberNo, alive);
     }
 
-    public SseEmitter subscribe(long memberNo) { // 여기 memberNo 호출하면 알람이 가게되고
+    public SseEmitter subscribe(long memberNo) { // 여기 memberNo 호출하면 알람이 가게되고$
         SseEmitter subscriber = new SseEmitter();
         try {
             subscriber.send(SseEmitter.event()

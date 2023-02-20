@@ -21,14 +21,6 @@
     <c:if test="${loginUser.grade != 'ADMIN'}">
         <jsp:include page="../chat/chat_pop.jsp"/>
     </c:if>
-
-    <style>
-        #controlOverlay{
-            width: 500px;
-            overflow: hidden;
-            height: auto;
-        }
-    </style>
 </head>
 
 <body>
@@ -124,6 +116,7 @@
 
         </div>
     </div>
+
     <script>
         if (${loginUser.grade == 'GENERAL'}) {
             Swal.fire({
@@ -143,7 +136,6 @@
             window.onload = () => {
                 retrieveAlarmList();
             }
-
             // EventSource 객체가 생성되는 시점에 구독이 이루어지고,
             const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
             // addEventListener 를 통해서 연결되어있는 이벤트 스트림을 통해 새로운 이벤트가 왔을 때 할 행위를 등록함
@@ -193,8 +185,11 @@
 
             <script type="text/javascript"
                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=035c35f196fa7c757e49e610029837b1&libraries=services&clusterer"></script>
-            <%--            671b81703e84eaa09879d3693a30a73e--%>
-            <%--            035c35f196fa7c757e49e610029837b1--%>
+<%--            <script type="text/javascript"--%>
+<%--                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=671b81703e84eaa09879d3693a30a73e&libraries=services&clusterer"></script>--%>
+            <%--            현정 : 671b81703e84eaa09879d3693a30a73e--%>
+            <%--            진호 : d144cacea9a46e256bfcdd30547dea9e--%>
+            <%--            가영 : 035c35f196fa7c757e49e610029837b1--%>
 
             <script>
 

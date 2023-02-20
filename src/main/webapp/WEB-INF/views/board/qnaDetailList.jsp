@@ -26,11 +26,11 @@
             <div class="detail_head">
                 <div class="board_title">
                     <i class="fa-solid fa-q"></i>
-                    <input type="text" name="boardTitle" value="${qb.qnaTitle}">
+                    <input type="text" name="boardTitle" value="${qb.qnaTitle}" disabled style="background-color: white">
                 </div>
                 <div class="board_info">
                     <div class="board_writer" name="boardWriter">${qb.qnaWriter}</div>
-                    <div class="board_date" name="boardDate">${qb.qnaDate}</div>
+                    <div class="board_date" name="boardDate">${fn:substring(qb.qnaDate, 0, 16)}</div>
                 </div>
             </div>
             <div class="detail_body">
@@ -139,12 +139,12 @@
         }
 
         function deletePage(qBno) {
-            Swal.fire({
-                icon: 'success',
-                title: '게시글을 삭제하였습니다.'
-            }).then(() => {
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: '게시글을 삭제하였습니다.'
+            // }).then(() => {
                 location.href = '${pageContext.request.contextPath}/board/delete/' + qBno;
-            })
+            // })
         }
     </script>
 

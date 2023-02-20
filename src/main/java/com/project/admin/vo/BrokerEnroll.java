@@ -16,7 +16,6 @@ public class BrokerEnroll {
     private String agentNo;
     private String agentName;
     private String agentPhone;
-
     private String refName;
     private String state;
     private String bjdongNm;
