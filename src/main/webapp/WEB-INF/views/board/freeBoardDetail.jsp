@@ -210,7 +210,7 @@
             data: {freeBno : '${fb.boardNo}',
                 replyContent : $('input[name="replyContent"]:visible').val()},
             success : function(){
-                    selectReplyList();
+                selectReplyList();
             },
             complete : function(){
                 $('input[name="replyContent"]').val("");
@@ -219,7 +219,7 @@
         })
     }
 
-<!-- 댓글 삭제 -->
+    <!-- 댓글 삭제 -->
     function deleteReply(button){
 
         let replyNo = $(button).parent().parent().find("[name='replyNo']").val();

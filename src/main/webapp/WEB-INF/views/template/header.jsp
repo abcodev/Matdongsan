@@ -125,7 +125,6 @@
                 window.addEventListener('pageshow', () => {
                     retrieveAlarmList();
                 });
-
                 const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
                 sse.addEventListener('realtime_alarm', (event) => {
                     retrieveAlarmList();

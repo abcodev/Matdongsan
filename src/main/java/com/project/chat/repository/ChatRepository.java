@@ -1,6 +1,5 @@
 package com.project.chat.repository;
-//
-//import com.project.chat.dto.ChatingRoom;
+
 import com.project.chat.dto.*;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;

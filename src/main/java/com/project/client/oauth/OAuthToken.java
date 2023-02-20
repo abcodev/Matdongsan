@@ -19,7 +19,6 @@ public class OAuthToken {
     public void setOldRefreshToken(String oldRefreshToken) {
         this.refreshToken = oldRefreshToken;
     }
-
     public static OAuthToken of(OAuth2AccessToken token) {
         return new OAuthToken(token.getAccessToken(), token.getRefreshToken());
     }

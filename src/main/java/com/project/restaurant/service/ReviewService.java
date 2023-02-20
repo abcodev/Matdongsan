@@ -64,7 +64,6 @@ public class ReviewService {
 
     public List<ReviewResponse> selectReviewList(String resNo) {
         List<ReviewResponse> reviews = reviewDao.selectReviewList(resNo);
-        // Call By Reference
         reviews.forEach(review -> {
             List<ResHashtagDto> resHashtagList = resHashtagDao.selectByRevNo(review.getRevNo());
             review.setHashtags(resHashtagList);

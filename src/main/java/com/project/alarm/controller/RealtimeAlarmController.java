@@ -37,7 +37,6 @@ public class RealtimeAlarmController {
     @RequiredLogin
     public ModelAndView retrieveAlarmList(HttpSession session) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-
         ModelAndView modelAndView = new ModelAndView();
         List<Alarm> alarmList = alarmService.retrieveAlarmList(loginUser.getMemberNo());
         modelAndView.addObject("alarmList", alarmList);

@@ -101,7 +101,6 @@ public class AdminController {
         HttpHeaders resHeaders = new HttpHeaders();
         resHeaders.add("Content-Type", "text/plain;charset=UTF-8");
         String result = "";
-
         if (req.getHandle().equals("consent")) {
             result = "부동사 회원 승인을 완료하였습니다.";
         } else {

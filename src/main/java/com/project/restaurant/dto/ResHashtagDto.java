@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResHashtagDto {
-
     private String resNo;
     private String hashtagId;
     private String hashtag;

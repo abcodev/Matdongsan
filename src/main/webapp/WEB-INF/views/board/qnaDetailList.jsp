@@ -139,12 +139,12 @@
         }
 
         function deletePage(qBno) {
-            Swal.fire({
-                icon: 'success',
-                title: '게시글을 삭제하였습니다.'
-            }).then(() => {
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: '게시글을 삭제하였습니다.'
+            // }).then(() => {
                 location.href = '${pageContext.request.contextPath}/board/delete/' + qBno;
-            })
+            // })
         }
     </script>
 
