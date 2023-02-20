@@ -45,14 +45,15 @@ public class KakaoOAuthClient implements OAuthClient {
 
     @Override
     public String generateRedirectUrl(HttpSession session) {
-        return "https://kauth.kakao.com/oauth/authorize?client_id=857210a016a83ceffadc50f61d649c7b&redirect_uri=" + redirectUrl + "&response_type=code";
+//        return "https://kauth.kakao.com/oauth/authorize?client_id=857210a016a83ceffadc50f61d649c7b&redirect_uri=" + redirectUrl + "&response_type=code";
+        return "https://kauth.kakao.com/oauth/authorize?client_id=857210a016a83ceffadc50f61d649c7b&redirect_uri=http://matdongsan.site&response_type=code";
     }
 
     public OAuthToken getToken(HttpSession session, String code, String state) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", clientId);
-        body.add("redirect_uri", redirectUrl);
+//        body.add("redirect_uri", redirectUrl);
         body.add("code", code);
 
         try {
