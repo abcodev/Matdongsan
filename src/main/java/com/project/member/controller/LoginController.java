@@ -69,7 +69,6 @@ public class LoginController {
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }
-
 }
 
 
