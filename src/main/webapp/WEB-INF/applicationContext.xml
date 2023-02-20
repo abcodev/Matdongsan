@@ -48,7 +48,8 @@
     <!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
     <bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
         <property name="scope" value="https://www.googleapis.com/auth/drive.file" />
-        <property name="redirectUri" value="http://localhost:8070/Matdongsan/google/callback" />
+        <property name="redirectUri" value="http://matdongsan.site/google/callback" />
+<!--        <property name="redirectUri" value="http://localhost:8070/Matdongsan/google/callback" />-->
     </bean>
 </beans>
 
