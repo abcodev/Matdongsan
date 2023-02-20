@@ -220,7 +220,7 @@
                     if ($(data).find(".tdBody").length > 0) {
                         $('#boardlist_main').html($(data).find('#boardlist_main'))
                     } else {
-                        $('#boardlist_main').html('<p>조회된 게시글이 없습니다아아아아아아아아아.</p>');
+                        $('#boardlist_main').html('<p>조회된 게시글이 없습니다.</p>');
                     }
                     $('#paging').empty();
                     $('#paging').html($(data).find('#paging'))
