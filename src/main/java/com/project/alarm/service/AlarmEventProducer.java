@@ -72,11 +72,11 @@ public class AlarmEventProducer {
         실행중인 스프링이 프로세스가 되고 메모리를 할당받게되고 이 메모리 안에 저장하게 됨 -> 서버가 꺼지면서 메모리가 날아가면 사라짐
         서버를 끄면 클라이언트와 연결이 끊어지니까 날아가도 상관없음 (클라이언트가 다시 연결하면 다시 기록되니까)
      */
-    /**
-     *  List<SseEmitter> -> 한 사용자가 여러 SseEmitter
-     *  SSE 가 연결되어있는데 클라이언트가 일방적으로 끊을 수 있다. -> 브라우저를 닫거나..
-     *  A
-     *  1(x) 2(o)
+    /*
+        List<SseEmitter> -> 한 사용자가 여러 SseEmitter
+        SSE 가 연결되어있는데 클라이언트가 일방적으로 끊을 수 있다. -> 브라우저를 닫거나..
+        A
+        1(x) 2(o)
      */
     private final Map<Long, List<SseEmitter>> subscribers;
 

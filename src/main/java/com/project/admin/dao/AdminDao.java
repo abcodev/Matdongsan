@@ -73,7 +73,4 @@ public class AdminDao {
         sqlSession.update("realEstateAgentMapper.changeEstateStatus", req);
     }
 
-//    public long memberNoOfAccept(String agentNo) {
-//
-//    }
 }

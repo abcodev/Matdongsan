@@ -23,7 +23,7 @@
 
         <c:if test="${!empty estateRentList}">
             <c:forEach var="estateRent" items="${ estateRentList }">
-                <tr onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
+                <tr class="realList" onclick="location.href='realEstate/detail?estateNo=${estateRent.estateNo}'">
                     <td class="rno" >${ estateRent.sggNm } </td>
                     <td>${estateRent.buildName }</td>
                     <td>${estateRent.rentGbn}</td>
