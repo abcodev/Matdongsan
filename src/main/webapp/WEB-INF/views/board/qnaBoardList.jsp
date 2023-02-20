@@ -58,7 +58,6 @@
                                 <th>조회수</th>
                             </tr>
                             <c:forEach var="qn" items="${qnaNoticeList}">
-                                <c:if test="${qn.status eq 'Y'}">
                                     <tr class="notice">
                                         <td onclick="movePage(${qn.qnaBno})">
                                             <i class="fa-solid fa-bullhorn"></i><span>공지사항</span>
@@ -68,7 +67,6 @@
                                         <td>${qn.count}
                                         </td>
                                     </tr>
-                                </c:if>
                             </c:forEach>
 
                             <c:if test="${not empty qnaBoardList}">
