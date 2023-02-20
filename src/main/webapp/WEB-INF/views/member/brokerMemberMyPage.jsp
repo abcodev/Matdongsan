@@ -201,7 +201,7 @@
 
     <div class="reserve_history">
         <p>예약 확인</p>
-        <button class="myReserve_list">
+        <div class="myReserve_list">
             <table id="broker_ResList">
                 <tr>
                     <th>예약자명</th>
@@ -232,7 +232,7 @@
                 </c:forEach>
             </table>
             <button class='modal_btn' data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;"></button>
-        </button>
+        </div>
 
         <%-- 예약 모달창 --%>
         <div id="reservationModal">

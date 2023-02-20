@@ -312,6 +312,18 @@
         }
     })
 
+    if (${loginUser.grade == 'GENERAL'}) {
+        Swal.fire({
+            icon: 'info',
+            title: '회원정보 입력 후 이용해 주세요.',
+            text: '정보입력 페이지로 이동합니다.'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = '${pageContext.request.contextPath}/memberModify'
+            }
+        })
+    }
+
 </script>
 
 
