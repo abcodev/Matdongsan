@@ -129,7 +129,9 @@
                 const sse = new EventSource("${pageContext.request.contextPath}/alarm/subscribe");
                 sse.addEventListener('realtime_alarm', (event) => {
                     retrieveAlarmList();
-                    console.log(event);
+                });
+                sse.addEventListener('change_grade', (event) => {
+                    refreshSession();
                 });
             }
 
@@ -144,6 +146,16 @@
                         if (alarmIsOpen) {
                             $(".alert_box").toggle("scale");
                         }
+                    }
+                });
+            }
+
+            function refreshSession() {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/member/refreshSession',
+                    method: 'GET',
+                    success() {
+                        location.reload();
                     }
                 });
             }

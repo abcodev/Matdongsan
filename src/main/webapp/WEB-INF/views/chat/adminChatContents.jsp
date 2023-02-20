@@ -16,14 +16,14 @@
             <c:forEach items="${chattingMessageList}" var="chattingMessageList">
                 <c:choose>
                     <c:when test="${chattingMessageList.memberNo eq 1}">
-                            <div class="response">
-                                <p class="text">${chattingMessageList.message}</p>
-                            </div>
+                        <div class="response">
+                            <p class="text">${chattingMessageList.message}</p>
+                        </div>
                     </c:when>
                     <c:otherwise>
-                            <div class="request">
-                                <p class=" text">${chattingMessageList.message}</p>
-                            </div>
+                        <div class="request">
+                            <p class=" text">${chattingMessageList.message}</p>
+                        </div>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -35,33 +35,33 @@
         <div id="sendMessage" onclick="send();"><i class="fa-solid fa-paper-plane"></i></div>
     </div>
 
-<script>
-    // 채팅 클릭시 밑으로 내리기
-    $('.chat').scrollTop($('.chat').prop('scrollHeight'));
-    //엔터 눌렀을때 전송
-    $('#chat-input').keypress(function(e){
-        if(e.keyCode===13){
-            send();
+    <script>
+        // 채팅 클릭시 밑으로 내리기
+        $('.chat').scrollTop($('.chat').prop('scrollHeight'));
+        //엔터 눌렀을때 전송
+        $('#chat-input').keypress(function(e){
+            if(e.keyCode===13){
+                send();
 
 
+            }
+        });
+
+        function send(){
+            if($("#chat-input").val() == ''){
+                return false;
+            }
+            const roomNo = currentChatRoom;
+            const data = {
+                'memberNo' : ${loginUser.memberNo},
+                'message': $("#chat-input").val(),
+                'roomNo' : roomNo
+            };
+            // send(destination,헤더,페이로드)
+            stompClient.send("/app/chat/send", {}, JSON.stringify(data));
+            $("#chat-input").val('');
+            // 채팅 보내고 받는 시간이 있으므로 0.2초 후에 스크롤 내리기
+            setTimeout(() => $('.chat').scrollTop($('.chat').prop('scrollHeight')), 250);
         }
-    });
-
-    function send(){
-        if($("#chat-input").val() == ''){
-            return false;
-        }
-        const roomNo = currentChatRoom;
-        const data = {
-            'memberNo' : ${loginUser.memberNo},
-            'message': $("#chat-input").val(),
-            'roomNo' : roomNo
-        };
-        // send(destination,헤더,페이로드)
-        stompClient.send("/app/chat/send", {}, JSON.stringify(data));
-        $("#chat-input").val('');
-        // 채팅 보내고 받는 시간이 있으므로 0.2초 후에 스크롤 내리기
-        setTimeout(() => $('.chat').scrollTop($('.chat').prop('scrollHeight')), 250);
-    }
-</script>
+    </script>
 </div>

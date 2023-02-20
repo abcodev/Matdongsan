@@ -143,7 +143,8 @@
                QNA_TITLE,
                M.MEMBER_NO,
                QNA_CONTENT,
-               M.NICKNAME AS QNA_WRITER
+               M.NICKNAME AS QNA_WRITER,
+               BLIND
         FROM QNA_BOARD Q
                  LEFT JOIN MEMBER M ON (M.MEMBER_NO = Q.MEMBER_NO)
         WHERE Q.STATUS = 'Y'

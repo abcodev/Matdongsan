@@ -39,7 +39,7 @@
                 <td>${ul.memberNo}</td>
                 <td>${ul.provider}</td>
                 <td>
-                    ${fn:substring(ul.providerId, 0, fn:length(ul.providerId)-6)}******
+                        ${fn:substring(ul.providerId, 0, fn:length(ul.providerId)-6)}******
                 </td>
                 <td>${ul.memberName}</td>
                 <td>${ul.nickName}</td>
@@ -150,9 +150,6 @@
             }
         })
     }
-
-
-
 
 
 
