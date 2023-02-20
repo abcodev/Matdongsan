@@ -6,7 +6,7 @@
 #content{
     width: 100%;
     height: 100%;
-    padding: 60px 250px 5px 250px;;
+    padding: 60px 250px 80px 250px;;
 }
 
 #info_box{
@@ -272,12 +272,12 @@ table{
     font-weight: 420;
 }
 #myReviewList td:nth-child(2){
-    width: 40%;
+    width: 33%;
     font-size: 25px;
     color: #f8d562;
 }
 #myReviewList td:nth-child(3){
-    width: 25%;
+    width: 32%;
     font-size: 14px;
     font-weight: 420;
 }
@@ -306,8 +306,8 @@ table{
 
 .myReserve_list{
     overflow-y: scroll;
-    height: 300px;
-    margin-bottom: 50px;
+    height: 400px;
+    margin-bottom: 30px;
 }
 
 .myReserve_list::-webkit-scrollbar{
@@ -334,7 +334,6 @@ table{
 
 .myReserve_info_list{
     height: 50px;
-    background-color: white;
 }
 
 .myReserve_list > table th,
@@ -358,22 +357,39 @@ table{
 }
 
 .myReserve_list > table th{
-    background-color: #E0E0E0;
+    background-color: #eeeeee;
+    height: 40px;
 }
 
 .myReserve_info_list{
     cursor: pointer;
     border-bottom: rgba(164, 164, 164, 0.5) 2px solid;
+    background: white;
 }
 
 .myReserve_info_list:hover{
     font-weight: 420;
 }
 
+.status_A{
+    color: #0f9b0f;
+    font-weight: 500;
+}
+
+.status_F{
+    color: red;
+    font-weight: 500;
+}
+
+.status_C{
+    color: #989de1;
+    font-weight: 500;
+}
+
 /******예약확인모달*******/
 
 .modal-content{
-    width: 80%;
+    width: 440px;
 }
 
 .fa-user-check{
@@ -394,18 +410,24 @@ table{
 .user_info > div,
 .reserve_info > div{
     display: flex;
+    margin-left: 5px;
+}
+
+.user_info,
+.reserve_info{
+    margin-left: 10px;
 }
 
 .user_info > p,
 .reserve_info > p{
     font-size: 22px;
-    font-weight: 450;
+    font-weight: 600;
 }
 
 .user_info > div > span,
 .reserve_info > div > span{
     font-size: 19px;
-    font-weight: 420;
+    font-weight: 500;
     color: #3d3d3d;
     width: 20%;
 }
@@ -413,19 +435,17 @@ table{
 .user_info > div > p,
 .reserve_info > div > p{
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 450;
     color: #515151;
+    line-height: 1.6;
+    margin-left: 10px;
 }
 
 .realtor_name{
-    font-weight: 450;
+    font-weight: 650;
     color: #566392;
     font-size: 22px;
     margin-bottom: 15px;
-}
-
-.modal-footer{
-    padding-right: 150px;
 }
 
 .modal-footer > button{
@@ -442,11 +462,15 @@ table{
     padding: 5px 10px 5px 10px;
 }
 
-.modal-footer > button:hover{
+.modal-footer > button:not(.disabled):hover{
     background-color: #566392;
     color: #f3f1f5;
 }
 
+/*#paging{*/
+/*    margin-top: 10px;*/
+/*    height: 30px;*/
+/*}*/
 .mypaging > li{
     display: inline-block;
     position: relative;
@@ -463,7 +487,9 @@ table{
     text-decoration:none;
     font-weight: bold;
 }
-
+/*.pagination> li:hover{*/
+/*    border: 2px solid #beb0d0;*/
+/*}*/
 #reviewPaging{
     padding-bottom: 20px;
 }
@@ -471,7 +497,11 @@ table{
     padding-bottom: 20px;
 }
 
+
+
 .pagination{
+    /*display: inline-block;*/
+    /*position: relative;*/
     justify-content : center;
 }
 .pagination a{

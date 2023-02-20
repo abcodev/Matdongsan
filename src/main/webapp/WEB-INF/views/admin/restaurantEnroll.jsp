@@ -10,8 +10,6 @@
     <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap"
-          rel="stylesheet">
     <!-- 페이징 부트 스트랩 -->
 
 </head>
@@ -21,15 +19,15 @@
         <div id="content">
             <div id="contentHead"></div>
             <div class="resDiv">
-                <i class="bi bi-shop"></i>
+                <i class="fa-solid fa-store"></i>
                 <span class="font">맛집이름 : </span>
-                <input type="text" class="textInput" name="resName" required placeholder="맛집을 입력해주세요">
+                <input type="text" class="textInput" name="resName" required placeholder="맛집이름을 입력해주세요">
             </div>
             <div class="resDiv">
-                <i class="bi bi-geo-alt-fill"></i>
+                <i class="fa-solid fa-location-dot"></i>
                 <span class="font">지역 : </span>
                 <select id="space2"  class="textInput" name="state">
-                    <option value="" style="text-align: center">지역을 선택해주세요</option>
+                    <option value="" >지역을 선택해주세요</option>
                     <c:forEach items="${stateList}" var="state">
                         <option value="${state}">${state}</option>
                     </c:forEach>

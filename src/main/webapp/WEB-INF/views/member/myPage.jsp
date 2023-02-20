@@ -271,9 +271,9 @@
                             <td>${reservationList.peopleCount}</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
-                                    <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
-                                    <c:otherwise>예약 취소</c:otherwise>
+                                    <c:when test="${reservationList.status eq 'C'}"><span class="status_C">예약확인 중</span></c:when>
+                                    <c:when test="${reservationList.status eq 'A'}"><span class="status_A">예약 완료</span></c:when>
+                                    <c:otherwise><span class="status_F">예약 취소</span></c:otherwise>
                                 </c:choose></td>
                         </tr>
                     </c:forEach>
@@ -288,8 +288,6 @@
         </div>
     </div>
 </div>
-
-
 <script>
 
     function deleteMember() {
@@ -314,6 +312,16 @@
             }
         })
     }
+
+    <%--function deleteReservation(){--%>
+    <%--    var deleteReservation = confirm("예약을 취소하시겠습니까?");--%>
+    <%--    if(deleteReservation === true){--%>
+    <%--        location.href = '${pageContext.request.contextPath}/revDelete';--%>
+    <%--        alert("예약이 취소되었습니다.","","success");--%>
+    <%--    }else if(deleteReservation === false){--%>
+
+    <%--    }--%>
+    <%--}--%>
 
     function retrieveAllBoards(current_page1) {
         $.ajax({
@@ -375,7 +383,6 @@
             }
         })
     })
-
 
 
 </script>

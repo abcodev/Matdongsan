@@ -230,6 +230,7 @@ textarea:focus , input:focus {
     border-radius: 3px;
     color: #3d3d3d;
     margin-right: 5px;
+    background: white;
 }
 
 .answerInfo > span:nth-child(2){
