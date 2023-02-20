@@ -86,7 +86,6 @@ public class RestaurantService {
             String fileName = Utils.saveFile(savePath, file);
 
             // 2. Restaurant 엔티티 생성 후 저장
-//            restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
             restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
             String resNo = restaurantDao.resInsert(restaurant);
 
@@ -125,7 +124,6 @@ public class RestaurantService {
                 String savePath = servletContext.getRealPath("/resources/images/restaurant/");
                 String fileName = Utils.saveFile(savePath, file);
 
-//                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
                 restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
 
                 ResImg resImg = new ResImg();

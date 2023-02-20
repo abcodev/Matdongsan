@@ -49,7 +49,6 @@
     <bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
         <property name="scope" value="https://www.googleapis.com/auth/drive.file" />
         <property name="redirectUri" value="http://matdongsan.site/google/callback" />
-<!--        <property name="redirectUri" value="http://localhost:8070/Matdongsan/google/callback" />-->
     </bean>
 </beans>
 
