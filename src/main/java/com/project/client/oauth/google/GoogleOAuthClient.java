@@ -8,7 +8,6 @@ import com.project.client.oauth.google.dto.GoogleOAuthRequest;
 import com.project.client.oauth.google.dto.GoogleOAuthResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -36,22 +35,7 @@ public class GoogleOAuthClient implements OAuthClient {
     private final static String CLIENT_ID = "637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com";
     private final static String CLIENT_SECRET = "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";
 //    private final static String REDIRECT_URI = "http://localhost:8070/Matdongsan/google/callback";
-//    private final static String REDIRECT_URI = "http://matdongsan.site/google/callback";
-
-
-
-    @Value("http://matdongsan.site/google/callback")
-    private String redirectUri;
-
-
-
-
-
-
-
-
-
-
+    private final static String REDIRECT_URI = "http://matdongsan.site/google/callback";
     private final RestTemplate restTemplate;
 
     @Override
@@ -71,8 +55,7 @@ public class GoogleOAuthClient implements OAuthClient {
                 .clientId(CLIENT_ID)
                 .clientSecret(CLIENT_SECRET)
                 .code(code)
-//                .redirectUri(REDIRECT_URI)
-                .redirectUri(redirectUri)
+                .redirectUri(REDIRECT_URI)
                 .grantType("authorization_code").build();
        try {
            OAuthToken response = restTemplate.postForObject(GOOGLE_TOKEN_BASE_URL, googleOAuthRequestParam, OAuthToken.class);
