@@ -129,7 +129,7 @@ public class MemberService {
         int count3 = memberDao.selectReservationCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
         PageInfoCombine pageInfoCombine2 = new PageInfoCombine(count2, request.getCurrentPage(), DEFAULT_SIZE);
-        PageInfoCombine pageInfoCombine3 = new PageInfoCombine(count3, request.getCurrentPage(), DEFAULT_SIZE);
+        PageInfoCombine pageInfoCombine3 = new PageInfoCombine(count3, request.getCurrentPage());
         List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
         List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
         List<ReservationResponse> result2 = memberDao.selectReservationList(sqlSession, pageInfoCombine3, m);
