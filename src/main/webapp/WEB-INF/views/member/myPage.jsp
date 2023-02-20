@@ -16,7 +16,6 @@
 
         Swal.fire({
             title : '관심목록을 해제하시겠습니까?',
-            text : '',
             icon : 'warning',
             showCancelButton: true,
             confirmButtonColor: '#8a33e7',
@@ -49,37 +48,9 @@
                 location.reload();
             }
         })
-
-
-
-        <%--$.ajax({--%>
-        <%--    url: '${pageContext.request.contextPath}/myPage',--%>
-        <%--    type: 'POST',--%>
-        <%--    contentType: "application/json; charset=UTF-8",--%>
-        <%--    data: JSON.stringify({--%>
-        <%--        'estateNo': estateNo,--%>
-        <%--        'isInterest': $('#checkbox_heart_' + estateNo).is(':checked')--%>
-        <%--    }),--%>
-        <%--    success : function (){--%>
-        <%--        Swal.fire({--%>
-        <%--            icon: 'success',--%>
-        <%--            title: '관심목록이 해제되었습니다.'--%>
-        <%--        }).then(()=>{--%>
-        <%--            location.reload();--%>
-        <%--        })--%>
-        <%--    }--%>
-        <%--});--%>
-
     }
 
-    // var changeHerat = confirm("관심목록을 해제하시겠습니까?");
-    // if(changeHerat == true){
-    //
-    // }else if(changeHerat == false){
-    //     location.reload();
-    //     return false;
-    //
-    // }
+
 </script>
 
 <div id="content">
@@ -300,9 +271,9 @@
                             <td>${reservationList.peopleCount}</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${reservationList.status eq 'C'}">예약확인 중</c:when>
-                                    <c:when test="${reservationList.status eq 'A'}">예약 완료</c:when>
-                                    <c:otherwise>예약 취소</c:otherwise>
+                                    <c:when test="${reservationList.status eq 'C'}"><span class="status_C">예약확인 중</span></c:when>
+                                    <c:when test="${reservationList.status eq 'A'}"><span class="status_A">예약 완료</span></c:when>
+                                    <c:otherwise><span class="status_F">예약 취소</span></c:otherwise>
                                 </c:choose></td>
                         </tr>
                     </c:forEach>

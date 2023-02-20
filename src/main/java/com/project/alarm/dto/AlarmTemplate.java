@@ -62,7 +62,7 @@ public class AlarmTemplate <T> {
         AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
         template.setTitle("부동안 예약 알림");
         template.setAlarmType(AlarmType.NEW_RESERVATION_BROKER);
-        template.setContents(senderName + "님이 방문상담을 예약하였습니다.");
+        template.setContents(senderName + "님이 예약을 신청하였습니다.");
         template.setTargetNo(agentNo);
         return template;
     }

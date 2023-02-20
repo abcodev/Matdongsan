@@ -5,6 +5,7 @@ import com.project.admin.dto.*;
 import com.project.admin.vo.Admin;
 import com.project.admin.vo.BrokerEnroll;
 import com.project.alarm.dto.AlarmTemplate;
+import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
@@ -29,6 +30,8 @@ public class AdminService {
     private final MemberDao memberDao;
     private final SqlSession sqlSession;
     private final AlarmService alarmService;
+    private final AlarmEventProducer alarmEventProducer;
+
     private static final int DEFAULT_RES_SIZE = 12;
 
 
@@ -83,6 +86,7 @@ public class AdminService {
         AlarmTemplate<String> template = null;
         if (req.getHandle().equals("consent")) {
             template = AlarmTemplate.generateNewBrokerAcceptTemplate(receiverNo, req.getAgentNo());
+            alarmEventProducer.produceChangeGrade(receiverNo);
         } else if (req.getHandle().equals("reject")) {
             template = AlarmTemplate.generateNewBrokerRejectTemplate(receiverNo, req.getAgentNo());
         }

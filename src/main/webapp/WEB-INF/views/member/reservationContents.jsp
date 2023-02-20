@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://kit.fontawesome.com/2e05403237.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="<c:url value="/resources/css/member/myPage.css"/>">
 <jsp:include page="../template/font.jsp"/>
 
 <div class="modal-dialog">
@@ -55,9 +56,9 @@
                 <div class="reserve_status">
                     <span>상태</span>
                     <p><c:choose>
-                        <c:when test="${selectReservation.revStatus eq 'C'}">예약확인 중</c:when>
-                        <c:when test="${selectReservation.revStatus eq 'A'}">예약 완료</c:when>
-                        <c:otherwise>예약 취소</c:otherwise>
+                        <c:when test="${selectReservation.revStatus eq 'C'}"><span class="status_C">예약확인 중</span></c:when>
+                        <c:when test="${selectReservation.revStatus eq 'A'}"><span class="status_A">예약 완료</span></c:when>
+                        <c:otherwise><span class="status_F">예약 취소</span></c:otherwise>
                     </c:choose></td></p>
                 </div>
             </div>
@@ -66,6 +67,9 @@
             <c:choose>
                 <c:when test="${selectReservation.revStatus eq 'F'}">
                     <button type="button" class="disabled">취소된 예약입니다.</button>
+                </c:when>
+                <c:when test="${selectReservation.revStatus eq 'A'}">
+                    <button type="button" class="disabled">완료된 예약입니다.</button>
                 </c:when>
                 <c:otherwise>
                     <button type="button" onclick="cancelRes();">예약취소</button>

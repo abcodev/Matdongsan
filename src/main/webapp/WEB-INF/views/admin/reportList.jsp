@@ -22,8 +22,8 @@
     <table id="tableDiv">
         <thead>
         <tr>
-            <th>신고게시판</th>
             <th>신고번호</th>
+            <th>신고게시판</th>
             <th>피신고회원</th>
             <th>신고회원</th>
             <th>신고 사유</th>
@@ -35,8 +35,8 @@
         <tbody id="tableList">
         <c:forEach var="rl" items="${reportList}">
             <tr id="reportData">
-                <td>${rl.reportType}</td>
                 <td>${rl.reportNo}</td>
+                <td>${rl.reportType}</td>
                 <td>${rl.nickName}</td>
                 <td>${rl.nickName2}</td>
                 <td>${rl.reportContent}</td>
@@ -67,7 +67,7 @@
                                 <option value="7">7일정지</option>
                                 <option value="-1">영구정지</option>
                             </select>
-                            <button onclick="ban(${rl.reporter})">정지</button>
+                            <button onclick="ban(${rl.reporter})" class="report">정지</button>
                         </c:when>
                         <c:otherwise>
                             <fmt:formatDate value="${rl.banPeriod}" type="both"

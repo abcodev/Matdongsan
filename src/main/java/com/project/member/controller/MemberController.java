@@ -30,6 +30,15 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+    @GetMapping("/member/refreshSession")
+    @RequiredLogin
+    public ResponseEntity<Void> refreshSession(HttpSession session) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        Member freshUser = memberService.loginMember(loginUser);
+        session.setAttribute("loginUser", freshUser);
+        return ResponseEntity.ok().build();
+    }
+
     @RequestMapping("/myPage")
     @RequiredLogin
     public ModelAndView ListPaging(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
