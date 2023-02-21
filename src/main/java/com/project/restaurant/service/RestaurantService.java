@@ -124,7 +124,7 @@ public class RestaurantService {
                 String savePath = servletContext.getRealPath("/resources/images/restaurant/");
                 String fileName = Utils.saveFile(savePath, file);
 
-                restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
+                restaurant.setImageUrl("http://matdongsan.site/home/ubuntu/apps/tomcat/apache-tomcat-9.0.71/webapps/ROOT/resources/images/restaurant/" + fileName);
 
                 ResImg resImg = new ResImg();
                 resImg.setMemberNo(1L);
