@@ -82,7 +82,7 @@ public class RestaurantService {
 
         try {
             // 1. 이미지 파일 저장
-            String savePath = servletContext.getRealPath("http://matdongsan.site/home/ubuntu/apps/tomcat/apache-tomcat-9.0.71/webapps/ROOT/resources/images/restaurant/");
+            String savePath = servletContext.getRealPath("home\\ubuntu\\apps/tomcat\\apache-tomcat-9.0.71\\webapps\\ROOT\\resources\\images\\restaurant\\");
             String fileName = Utils.saveFile(savePath, file);
 
             // 2. Restaurant 엔티티 생성 후 저장

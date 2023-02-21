@@ -48,7 +48,7 @@ public class ReviewService {
             resHashtagDao.insert(resHashtag);
         });
         String root_path = session.getServletContext().getRealPath("/");
-        String uploadPath = root_path + "/resources/images/restaurant/";
+        String uploadPath = root_path + "resources\\images\\restaurant\\";
 
         // Image 저장
 //        String savePath = servletContext.getRealPath("/resources/images/restaurant/");
