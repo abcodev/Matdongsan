@@ -72,7 +72,7 @@
             stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
                 showMessage(JSON.parse(e .body));
             });
-        }, 600);
+        }, 1500);
         </c:forEach>
     }
 
