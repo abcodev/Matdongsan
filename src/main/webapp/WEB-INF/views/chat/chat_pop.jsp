@@ -94,7 +94,7 @@
             stompClient.subscribe('/topic/' + roomNo, function (e) {
                 showMessage(JSON.parse(e.body));
             });
-        }, 1200);
+        }, 600);
     }
 
     //엔터 눌렀을때 전송
