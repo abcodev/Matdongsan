@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -36,7 +37,7 @@ public class ReviewService {
      * 리뷰 등록
      */
     @Transactional
-    public void create(Member member, InsertReviewRequest req) {
+    public void create(Member member, InsertReviewRequest req, HttpSession session) {
         Review review = Review.of(member, req);
         int revNo = reviewDao.insertReview(review);
 
@@ -46,11 +47,13 @@ public class ReviewService {
             ResHashtag resHashtag = new ResHashtag(member, req, revNo, hashtagEntity);
             resHashtagDao.insert(resHashtag);
         });
+        String root_path = session.getServletContext().getRealPath("/");
+        String uploadPath = root_path + "/resources/images/restaurant/";
 
         // Image 저장
-        String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+//        String savePath = servletContext.getRealPath("/resources/images/restaurant/");
         req.getFiles().forEach(file -> {
-            String savedFileName = Utils.saveFile(savePath, file);
+            String savedFileName = Utils.saveFile(uploadPath, file);
             ResImg resImg = ResImg.builder()
                     .resNo(req.getResNo())
                     .changeName(savedFileName)
