@@ -122,8 +122,9 @@ public class RestaurantService {
         try {
             // 1. 이미지 파일 저장
             if (file.getSize() > 0) {
-                String savePath = servletContext.getRealPath("/resources/images/restaurant/");
-                String fileName = Utils.saveFile(savePath, file);
+//                String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+                String testUrl = "/home/ubuntu/apps/tomcat/apache-tomcat-9.0.71/webapps/ROOT/resources/images/restaurant/";
+                String fileName = Utils.saveFile(testUrl, file);
 
                 restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
 
