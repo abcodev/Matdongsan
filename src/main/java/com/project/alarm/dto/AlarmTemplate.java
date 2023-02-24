@@ -24,7 +24,8 @@ public class AlarmTemplate <T> {
         this.memberNo = memberNo;
     }
 
-    public static AlarmTemplate<String> generateNewChatMessageTemplate(String roomNo, long receiverNo, String senderName) {
+    public static AlarmTemplate<String> generateNewChatMessageTemplate
+            (String roomNo, long receiverNo, String senderName) {
         AlarmTemplate<String> template = new AlarmTemplate<>(receiverNo);
         if (receiverNo == 1) {
             template.setTitle("1:1 문의");

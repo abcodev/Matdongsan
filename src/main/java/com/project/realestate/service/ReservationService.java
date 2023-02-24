@@ -35,18 +35,18 @@ public class ReservationService {
     public void approveReservation(int revNo) {
         ReservationBroker reservationBroker = reservationDao.selectReservation(revNo);
         long receiverNo = reservationBroker.getMemberNo();
-        AlarmTemplate<Integer> template = AlarmTemplate.generateApproveReservationTemplate(receiverNo, reservationBroker.getAgentName(), revNo);
+        AlarmTemplate<Integer> template
+                = AlarmTemplate.generateApproveReservationTemplate(receiverNo, reservationBroker.getAgentName(), revNo);
         alarmService.send(template);
-
         reservationDao.approveReservation(revNo);
     }
 
     public void cancelReservation(int revNo) {
         ReservationBroker reservationBroker = reservationDao.selectReservation(revNo);
         long receiverNo = reservationBroker.getMemberNo();
-        AlarmTemplate<Integer> template = AlarmTemplate.generateCancelReservationTemplate(receiverNo, reservationBroker.getAgentName(), revNo);
+        AlarmTemplate<Integer> template
+                = AlarmTemplate.generateCancelReservationTemplate(receiverNo, reservationBroker.getAgentName(), revNo);
         alarmService.send(template);
-
         reservationDao.cancelReservation(revNo);
     }
 

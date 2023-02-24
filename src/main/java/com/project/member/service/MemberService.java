@@ -176,7 +176,6 @@ public class MemberService {
 //        String savePath = servletContext.getRealPath("/resources/files/agent/");
         String savePath = servletContext.getRealPath("/");
         String attachment = Utils.saveFile(savePath, file);
-
         brokerEnroll.setFileUrl("http://matdongsan.site/resources/files/agent/" + attachment);
         memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }

@@ -52,7 +52,8 @@ public class ChatService {
         ChatingRoom chatingRoom = chatRepository.selectByRoomNo(data.getRoomNo());
         Member sender = memberDao.select(data.getMemberNo());
         long receiverNo = (data.getMemberNo() == 1) ? chatingRoom.getMemberNo() : 1;
-        AlarmTemplate template = AlarmTemplate.generateNewChatMessageTemplate(data.getRoomNo(), receiverNo, sender.getMemberName());
+        AlarmTemplate template
+                = AlarmTemplate.generateNewChatMessageTemplate(data.getRoomNo(), receiverNo, sender.getMemberName());
         alarmService.send(template);
         chatRepository.sendMessage(data);
     }

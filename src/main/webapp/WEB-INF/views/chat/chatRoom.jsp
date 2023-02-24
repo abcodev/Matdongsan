@@ -61,7 +61,7 @@
     }
 
     function connection(){
-        let socket = new SockJS("/Matdongsan/mainPage");
+        let socket = new SockJS("/mainPage");
         stompClient = Stomp.over(socket);
         stompClient.connect({}, onConnected());
     }
@@ -72,7 +72,7 @@
             stompClient.subscribe('/topic/'+'${chattingList.roomNo}', function (e){
                 showMessage(JSON.parse(e .body));
             });
-        }, 500);
+        }, 1200);
         </c:forEach>
     }
 
