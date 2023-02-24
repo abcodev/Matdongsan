@@ -82,12 +82,12 @@ public class RestaurantService {
 
         try {
             // 1. 이미지 파일 저장
-//            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
-            String savePath = servletContext.getRealPath("/");
+            String savePath = servletContext.getRealPath("target/Matdongsan-1.0-SNAPSHOT/resources/images/restaurant/");
+//            String savePath = servletContext.getRealPath("/");
             String fileName = Utils.saveFile(savePath, file);
 
             // 2. Restaurant 엔티티 생성 후 저장
-            restaurant.setImageUrl("resources\\images\\restaurant\\" + fileName);
+            restaurant.setImageUrl("/resources/images/restaurant/" + fileName);
             String resNo = restaurantDao.resInsert(restaurant);
 
             // 3. ResImg 엔티티 생성 후 저장
@@ -125,7 +125,7 @@ public class RestaurantService {
                 String savePath = servletContext.getRealPath("/resources/images/restaurant/");
                 String fileName = Utils.saveFile(savePath, file);
 
-                restaurant.setImageUrl("/resources/images/restaurant/" + fileName);
+                restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
 
                 ResImg resImg = new ResImg();
                 resImg.setMemberNo(1L);
