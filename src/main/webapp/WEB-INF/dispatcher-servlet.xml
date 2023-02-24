@@ -27,6 +27,8 @@
 
     <!-- 추가 -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/images/**" location="/resources/images/restaurant/"/>
+
 
     <!--  <mvc:interceptors>
              <mvc:interceptor> &lt;!&ndash; 로그인 하는 url 과 회원가입 할떄 url은 제외시켜야 한다.&ndash;&gt;

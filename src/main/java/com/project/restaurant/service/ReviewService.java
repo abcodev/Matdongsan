@@ -48,7 +48,8 @@ public class ReviewService {
         });
 
         // Image 저장
-        String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+//        String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+        String savePath = servletContext.getRealPath("\\resources\\images\\restaurant\\");
         req.getFiles().forEach(file -> {
             String savedFileName = Utils.saveFile(savePath, file);
             ResImg resImg = ResImg.builder()
