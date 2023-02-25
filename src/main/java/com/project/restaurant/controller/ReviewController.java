@@ -34,7 +34,7 @@ public class ReviewController {
                                              HttpSession session
     ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        reviewService.create(loginUser, req,session);
+        reviewService.create(loginUser, req);
         return ResponseEntity.ok().build();
     }
 
