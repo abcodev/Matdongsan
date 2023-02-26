@@ -27,8 +27,8 @@ public class LoginAccessInterceptor extends HandlerInterceptorAdapter {
                                 "<body><script>Swal.fire({icon:'error',title:'로그인후 이용가능합니다.'}).then(()=>{location.href='" +
                                  pageUrl + "/loginPage'});</script></body>";
                 out.println(element);
-                out.flush(); //브라우저 출력 비우기
-                out.close(); //아웃객체 닫기
+                out.flush();
+                out.close();
                 return false;
             }
         }

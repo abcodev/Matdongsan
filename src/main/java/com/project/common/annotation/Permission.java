@@ -1,6 +1,5 @@
 package com.project.common.annotation;
 
-
 import com.project.member.type.MemberGrade;
 
 import java.lang.annotation.ElementType;
