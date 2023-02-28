@@ -16,7 +16,7 @@
 
 
 <h2>환경</h2>
-spring oracle
+Java , Spring , Oracle , JavaScript , JSP , AWS Ec2 , Redis 
 
 <h2>구조</h2>
 
