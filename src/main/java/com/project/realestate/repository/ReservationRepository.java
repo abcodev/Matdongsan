@@ -1,16 +1,15 @@
-package com.project.realestate.dao;
+package com.project.realestate.repository;
 
 
 import com.project.realestate.dto.ReservationDateFilter;
 import com.project.realestate.vo.ReservationBroker;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class ReservationDao {
+public class ReservationRepository {
 
     private final SqlSession sqlSession;
 

@@ -2,7 +2,7 @@ package com.project.realestate.service;
 
 import com.project.client.seoulApi.SeoulRentApiClient;
 
-import com.project.realestate.dao.RealEatateRentApiDao;
+import com.project.realestate.repository.RealEatateRentApiRepository;
 import com.project.realestate.vo.RealEstateRent;
 import lombok.extern.log4j.Log4j;
 import org.apache.ibatis.session.SqlSession;
@@ -16,19 +16,19 @@ import java.util.stream.Collectors;
 @Log4j
 public class RealEstateRentApiService {
 
-    private RealEatateRentApiDao realEatateRentApiDao;
+    private RealEatateRentApiRepository realEatateRentApiRepository;
     private SeoulRentApiClient seoulRentApiClient;
 
     @Autowired
-    public RealEstateRentApiService(RealEatateRentApiDao realEatateRentApiDao, SeoulRentApiClient seoulRentApiClient,
+    public RealEstateRentApiService(RealEatateRentApiRepository realEatateRentApiRepository, SeoulRentApiClient seoulRentApiClient,
                                     SqlSession sqlSession) {
-        this.realEatateRentApiDao = realEatateRentApiDao;
+        this.realEatateRentApiRepository = realEatateRentApiRepository;
         this.seoulRentApiClient = seoulRentApiClient;
     }
 
 
     public int getAndSave() {
-//        LocalDate latestDealYmd = realEatateRentApiDao.latestDealYmd();
+//        LocalDate latestDealYmd = realEatateRentApiRepository.latestDealYmd();
         List<RealEstateRent> houseList = seoulRentApiClient.getRentHouseList()
                 .stream()
                 .filter(rentHouseDto -> rentHouseDto.getHouseType().equals("아파트"))
@@ -36,8 +36,8 @@ public class RealEstateRentApiService {
                 .map(RealEstateRent::of)
                 .collect(Collectors.toList());
 
-//        realEatateRentApiDao.truncate();
-        realEatateRentApiDao.packageInsert(houseList);
+//        realEatateRentApiRepository.truncate();
+        realEatateRentApiRepository.packageInsert(houseList);
         return houseList.size();
     }
 }

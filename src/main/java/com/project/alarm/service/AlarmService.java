@@ -27,7 +27,7 @@ public class AlarmService {
         보내기전에 db에 기록을 해줘야하니까 알람 서비스가 필요 하고 서비스한테 send 해달라고 하면 기록하고 보냄
      */
     public void send(AlarmTemplate template) {
-        // 1. template -> Alarm Entity 생성 -> alarmDao.save(entity)
+        // 1. template -> Alarm Entity 생성 -> alarmRepository.save(entity)
         Alarm alarm = Alarm.of(template);
         alarmRepository.save(alarm);
         // 2. alarmEventProducer.produce(memberNo)

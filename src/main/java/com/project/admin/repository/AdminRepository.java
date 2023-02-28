@@ -1,29 +1,22 @@
-package com.project.admin.dao;
+package com.project.admin.repository;
 
 
 import com.project.admin.dto.HandleApplyRequest;
 import com.project.admin.vo.Admin;
 import com.project.admin.vo.BrokerEnroll;
 import com.project.board.vo.Report;
-import com.project.common.template.PageInfo;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.vo.Member;
-import com.project.restaurant.dto.RestaurantListFilter;
-import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.velocity.app.event.implement.EscapeSqlReference;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class AdminDao {
+public class AdminRepository {
 
     public int uListCount(SqlSession sqlSession) {
         return sqlSession.selectOne("adminMapper.uListCount");

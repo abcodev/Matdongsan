@@ -1,10 +1,7 @@
-package com.project.realestate.dao;
+package com.project.realestate.repository;
 
-import com.project.member.vo.Member;
-import com.project.realestate.dto.RealEstateMainListDto;
 import com.project.realestate.vo.Interest;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +11,7 @@ import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
-public class InterestEstateDao {
+public class InterestEstateRepository {
 
     private final SqlSessionTemplate sqlSession;
 

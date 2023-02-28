@@ -1,6 +1,6 @@
 package com.project.admin.service;
 
-import com.project.admin.dao.AdminDao;
+import com.project.admin.repository.AdminRepository;
 import com.project.admin.dto.*;
 import com.project.admin.vo.Admin;
 import com.project.admin.vo.BrokerEnroll;
@@ -9,14 +9,11 @@ import com.project.alarm.service.AlarmEventProducer;
 import com.project.alarm.service.AlarmService;
 import com.project.board.vo.Report;
 import com.project.common.template.PageInfoCombine;
-import com.project.member.dao.MemberDao;
-import com.project.member.type.MemberGrade;
+import com.project.member.repository.MemberRepository;
 import com.project.member.vo.Member;
-import com.project.realestate.dao.RealEstateDao;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,8 +23,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminService {
 
-    private final AdminDao adminDao;
-    private final MemberDao memberDao;
+    private final AdminRepository adminRepository;
+    private final MemberRepository memberRepository;
     private final SqlSession sqlSession;
     private final AlarmService alarmService;
     private final AlarmEventProducer alarmEventProducer;
@@ -36,51 +33,51 @@ public class AdminService {
 
 
     public AdminListResponse selectUserList(AdminListRequest request) {
-        int count = adminDao.uListCount(sqlSession);
+        int count = adminRepository.uListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
-        List<Member> result = adminDao.selectUserList(sqlSession, pageInfoCombine);
+        List<Member> result = adminRepository.selectUserList(sqlSession, pageInfoCombine);
         return new AdminListResponse(result, pageInfoCombine);
     }
 
 
     public ReportListResponse selectReportList(AdminListRequest request) {
-        int count = adminDao.rListCount(sqlSession);
+        int count = adminRepository.rListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
-        List<Report> result = adminDao.selectReportList(sqlSession, pageInfoCombine);
+        List<Report> result = adminRepository.selectReportList(sqlSession, pageInfoCombine);
         return new ReportListResponse(result, pageInfoCombine);
     }
 
 
     public int deleteQna(int fNo) {
-        return adminDao.deleteQna(sqlSession, fNo);
+        return adminRepository.deleteQna(sqlSession, fNo);
     }
 
     public int deleteFree(int fNo) {
-        return adminDao.deleteFree(sqlSession, fNo);
+        return adminRepository.deleteFree(sqlSession, fNo);
     }
 
     public int insertBlack(Admin ad) {
-        return adminDao.insertBlack(sqlSession, ad);
+        return adminRepository.insertBlack(sqlSession, ad);
     }
 
 
     public void ban(BanRequest req) {
-        memberDao.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
+        memberRepository.updateBanPeriod(req.getMemberNo(), req.periodToLocalDateTime());
     }
 
     public BrokerListResponse brokerList(int currentPage) {
-        int count = adminDao.BrokerListCount(sqlSession);
+        int count = adminRepository.BrokerListCount(sqlSession);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, currentPage, DEFAULT_RES_SIZE);
-        List<BrokerEnroll> brokerEnrollList = adminDao.BrokerList(sqlSession, pageInfoCombine);
+        List<BrokerEnroll> brokerEnrollList = adminRepository.BrokerList(sqlSession, pageInfoCombine);
         return new BrokerListResponse(brokerEnrollList, pageInfoCombine);
     }
 
     @Transactional
     public void handleApply(HandleApplyRequest req) {
         if (req.getHandle().equals("consent")) {
-            adminDao.changeMemberGrade(sqlSession, req);
+            adminRepository.changeMemberGrade(sqlSession, req);
         }
-        adminDao.changeEstateStatus(sqlSession, req);
+        adminRepository.changeEstateStatus(sqlSession, req);
 
         long receiverNo = req.getMemberNo();
         AlarmTemplate<String> template = null;

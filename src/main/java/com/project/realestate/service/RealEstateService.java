@@ -3,8 +3,8 @@ package com.project.realestate.service;
 import com.project.board.vo.FreeBoard;
 import com.project.common.template.PageInfoCombine;
 import com.project.member.vo.Member;
-import com.project.realestate.dao.InterestEstateDao;
-import com.project.realestate.dao.RealEstateDao;
+import com.project.realestate.repository.InterestEstateRepository;
+import com.project.realestate.repository.RealEstateRepository;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.Interest;
 import com.project.realestate.vo.RealEstateAgent;
@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 public class RealEstateService {
 
     private static final int DEFAULT_BOARD_SIZE = 10;
-    private final RealEstateDao realEstateDao;
-    private final InterestEstateDao interestEstateDao;
+    private final RealEstateRepository realEstateRepository;
+    private final InterestEstateRepository interestEstateRepository;
     private final SqlSession sqlSession;
 
     public int selectListCount() {
-        return realEstateDao.selectListCount(sqlSession);
+        return realEstateRepository.selectListCount(sqlSession);
     }
 
     /**
@@ -36,9 +36,9 @@ public class RealEstateService {
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
 
         RealEstateRentListFilter filter = RealEstateRentListFilter.from(req);
-        int count = realEstateDao.selectListCountByFilter(filter);
+        int count = realEstateRepository.selectListCountByFilter(filter);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, req.getCurrentPage(), DEFAULT_BOARD_SIZE);
-        List<RealEstateRent> result = realEstateDao.selectListByFilter(pageInfoCombine, filter);
+        List<RealEstateRent> result = realEstateRepository.selectListByFilter(pageInfoCombine, filter);
         return new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
@@ -46,68 +46,68 @@ public class RealEstateService {
      * 자치 구 리스트
      */
     public List<RealEstateRent> searchLocalList() {
-        return realEstateDao.searchLocalList(sqlSession);
+        return realEstateRepository.searchLocalList(sqlSession);
     }
 
     /**
      * 동 리스트
      */
     public List<RealEstateRent> searchDongList(String state) {
-        return realEstateDao.searchDongList(sqlSession, state);
+        return realEstateRepository.searchDongList(sqlSession, state);
     }
 
     /**
      * 메인페이지 지도 부동산 매매 리스트
      */
     public List<RealEstateMainListDto> getSellList() {
-        return realEstateDao.getSellList(sqlSession);
+        return realEstateRepository.getSellList(sqlSession);
     }
 
     /**
      * 부동산 해당 구의 자유게시판글
      */
     public List<FreeBoard> selectFboard(String state) {
-        return realEstateDao.selectFboard(sqlSession, state);
+        return realEstateRepository.selectFboard(sqlSession, state);
     }
 
     /**
      * 전세, 매매 평균값
      */
     public RealEstateRent chartList(String state) {
-        return realEstateDao.chartList(sqlSession, state);
+        return realEstateRepository.chartList(sqlSession, state);
     }
 
     /**
      * 서울시 전세, 매매 평균
      */
     public RealEstateRent basicChart() {
-        return realEstateDao.basicChart(sqlSession);
+        return realEstateRepository.basicChart(sqlSession);
     }
 
     public RealEstateDetailDto realEstateDetail(String estateNo) {
-        return realEstateDao.realEstateDetail(estateNo);
+        return realEstateRepository.realEstateDetail(estateNo);
     }
 
 
     public boolean checkInterest(String estateNo, Member loginUser) {
-        return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
+        return interestEstateRepository.checkInterest(estateNo, loginUser.getMemberNo());
     }
 
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
-            interestEstateDao.insert(req.getEstateNo(), loginUser.getMemberNo());
+            interestEstateRepository.insert(req.getEstateNo(), loginUser.getMemberNo());
         } else {
-            interestEstateDao.delete(req.getEstateNo(), loginUser.getMemberNo());
+            interestEstateRepository.delete(req.getEstateNo(), loginUser.getMemberNo());
         }
     }
 
 
     public List<Interest> getMostInterest() {
-        return interestEstateDao.getMostInterest();
+        return interestEstateRepository.getMostInterest();
     }
 
     public List<RealEstateAgent> selectAgentList(String bjdongNm) {
-        return realEstateDao.selectAgentListByBjdongNm(bjdongNm);
+        return realEstateRepository.selectAgentListByBjdongNm(bjdongNm);
     }
 
     public List<RealEstateViewDto> selectViewListIn(List<String> recentEstateNoList) {

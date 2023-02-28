@@ -1,4 +1,4 @@
-package com.project.member.dao;
+package com.project.member.repository;
 
 import com.project.client.oauth.OAuthToken;
 import com.project.common.template.PageInfoCombine;
@@ -7,7 +7,6 @@ import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.ReservationBroker;
-import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
-public class MemberDao {
+public class MemberRepository {
 
     private final SqlSessionTemplate sqlSession;
 

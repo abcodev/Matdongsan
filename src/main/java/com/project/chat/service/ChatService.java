@@ -4,7 +4,7 @@ import com.project.alarm.dto.AlarmTemplate;
 import com.project.alarm.service.AlarmService;
 import com.project.chat.dto.*;
 import com.project.chat.repository.ChatRepository;
-import com.project.member.dao.MemberDao;
+import com.project.member.repository.MemberRepository;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ChatService {
     private final ChatRepository chatRepository;
-    private final MemberDao memberDao;
+    private final MemberRepository memberRepository;
     private final AlarmService alarmService;
 
 
@@ -50,7 +50,7 @@ public class ChatService {
 
     public void sendMessage(MessageDto data) {
         ChatingRoom chatingRoom = chatRepository.selectByRoomNo(data.getRoomNo());
-        Member sender = memberDao.select(data.getMemberNo());
+        Member sender = memberRepository.select(data.getMemberNo());
         long receiverNo = (data.getMemberNo() == 1) ? chatingRoom.getMemberNo() : 1;
         AlarmTemplate template
                 = AlarmTemplate.generateNewChatMessageTemplate(data.getRoomNo(), receiverNo, sender.getMemberName());

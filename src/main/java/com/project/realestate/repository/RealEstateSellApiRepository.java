@@ -1,17 +1,15 @@
-package com.project.realestate.dao;
+package com.project.realestate.repository;
 
 import com.project.realestate.vo.RealEstateSell;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class RealEstateSellApiDao {
+public class RealEstateSellApiRepository {
 
     private final SqlSessionTemplate sqlSession;
 

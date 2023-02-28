@@ -1,4 +1,4 @@
-package com.project.restaurant.dao;
+package com.project.restaurant.repository;
 
 import com.project.restaurant.dto.ResHashtagDto;
 import com.project.restaurant.vo.ResHashtag;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ResHashtagDao {
+public class ResHashtagRepository {
     private final SqlSessionTemplate sqlSession;
 
     public void insert(ResHashtag resHashtag) {

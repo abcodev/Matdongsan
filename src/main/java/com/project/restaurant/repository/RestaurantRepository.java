@@ -1,4 +1,4 @@
-package com.project.restaurant.dao;
+package com.project.restaurant.repository;
 
 import com.project.common.template.PageInfoCombine;
 import com.project.restaurant.dto.RestaurantListFilter;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class RestaurantDao {
+public class RestaurantRepository {
 
     private final SqlSessionTemplate sqlSession;
 

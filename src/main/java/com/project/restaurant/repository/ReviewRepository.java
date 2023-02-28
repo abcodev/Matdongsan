@@ -1,4 +1,4 @@
-package com.project.restaurant.dao;
+package com.project.restaurant.repository;
 
 import com.project.restaurant.dto.ReviewResponse;
 import com.project.restaurant.vo.Review;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ReviewDao {
+public class ReviewRepository {
 
     private final SqlSessionTemplate sqlSession;
 

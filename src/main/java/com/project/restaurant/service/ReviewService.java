@@ -2,10 +2,10 @@ package com.project.restaurant.service;
 
 import com.project.common.template.Utils;
 import com.project.member.vo.Member;
-import com.project.restaurant.dao.HashtagDao;
-import com.project.restaurant.dao.ResHashtagDao;
-import com.project.restaurant.dao.RestaurantDao;
-import com.project.restaurant.dao.ReviewDao;
+import com.project.restaurant.repository.HashtagRepository;
+import com.project.restaurant.repository.ResHashtagRepository;
+import com.project.restaurant.repository.RestaurantRepository;
+import com.project.restaurant.repository.ReviewRepository;
 import com.project.restaurant.dto.InsertReviewRequest;
 import com.project.restaurant.dto.ResHashtagDto;
 import com.project.restaurant.dto.ReviewResponse;
@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    private final ReviewDao reviewDao;
-    private final RestaurantDao restaurantDao;
-    private final HashtagDao hashtagDao;
-    private final ResHashtagDao resHashtagDao;
+    private final ReviewRepository reviewRepository;
+    private final RestaurantRepository restaurantRepository;
+    private final HashtagRepository hashtagRepository;
+    private final ResHashtagRepository resHashtagRepository;
     private final ServletContext servletContext;
 
     /**
@@ -38,18 +38,17 @@ public class ReviewService {
     @Transactional
     public void create(Member member, InsertReviewRequest req) {
         Review review = Review.of(member, req);
-        int revNo = reviewDao.insertReview(review);
+        int revNo = reviewRepository.insertReview(review);
 
         // HashTag 등록
         req.getHashtags().forEach(hashtag -> {
-            Hashtag hashtagEntity = hashtagDao.select(hashtag);
+            Hashtag hashtagEntity = hashtagRepository.select(hashtag);
             ResHashtag resHashtag = new ResHashtag(member, req, revNo, hashtagEntity);
-            resHashtagDao.insert(resHashtag);
+            resHashtagRepository.insert(resHashtag);
         });
 
         // Image 저장
         String savePath = servletContext.getRealPath("/target/Matdongsan-1.0-SNAPSHOT/resources/images/restaurant/");
-//        String savePath = servletContext.getRealPath("\\resources\\images\\restaurant\\");
         req.getFiles().forEach(file -> {
             String savedFileName = Utils.saveFile(savePath, file);
             ResImg resImg = ResImg.builder()
@@ -59,16 +58,16 @@ public class ReviewService {
                     .revNo(revNo)
                     .memberNo(member.getMemberNo())
                     .build();
-            restaurantDao.resInsertImg(resImg);
+            restaurantRepository.resInsertImg(resImg);
         });
     }
 
     public List<ReviewResponse> selectReviewList(String resNo) {
-        List<ReviewResponse> reviews = reviewDao.selectReviewList(resNo);
+        List<ReviewResponse> reviews = reviewRepository.selectReviewList(resNo);
         reviews.forEach(review -> {
-            List<ResHashtagDto> resHashtagList = resHashtagDao.selectByRevNo(review.getRevNo());
+            List<ResHashtagDto> resHashtagList = resHashtagRepository.selectByRevNo(review.getRevNo());
             review.setHashtags(resHashtagList);
-            List<ResImg> resImgList = restaurantDao.selectImageListByRevNo(review.getRevNo());
+            List<ResImg> resImgList = restaurantRepository.selectImageListByRevNo(review.getRevNo());
             review.setImage(resImgList);
         });
         return reviews;
@@ -76,7 +75,7 @@ public class ReviewService {
 
     public List<String> retrieveTop2Hashtag(String resNo, List<String> excludeHashtags) {
 
-        List<ResHashtagDto> resHashtagList = resHashtagDao.selectByResNo(resNo);
+        List<ResHashtagDto> resHashtagList = resHashtagRepository.selectByResNo(resNo);
 
         Map<String, Long> hashtagCount = resHashtagList.stream() // List -> Stream
                 .map(ResHashtagDto::getHashtag) // ResHashtagDto -> HashTag 맵핑
@@ -94,18 +93,18 @@ public class ReviewService {
 
 
     public void deleteReview(int reviewNo) {
-        reviewDao.deleteReview(reviewNo);
-        resHashtagDao.deleteByRevNo(reviewNo);
+        reviewRepository.deleteReview(reviewNo);
+        resHashtagRepository.deleteByRevNo(reviewNo);
 
-        List<ResImg> images = restaurantDao.selectImageListByRevNo(reviewNo);
+        List<ResImg> images = restaurantRepository.selectImageListByRevNo(reviewNo);
         images.forEach(image -> {
             Utils.removeFile(image.getChangeName());
-            restaurantDao.deleteResImgByImgNo(image.getImgNo());
+            restaurantRepository.deleteResImgByImgNo(image.getImgNo());
         });
     }
 
     public List<String> selectReviewHashtagTop2(String resNo) {
-        return resHashtagDao.selectTop2ByReview(resNo);
+        return resHashtagRepository.selectTop2ByReview(resNo);
     }
 }
 

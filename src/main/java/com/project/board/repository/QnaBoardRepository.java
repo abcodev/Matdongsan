@@ -1,4 +1,4 @@
-package com.project.board.dao;
+package com.project.board.repository;
 
 import com.project.board.dto.QnaBoardListFilter;
 import com.project.board.vo.Report;
@@ -7,12 +7,11 @@ import com.project.common.template.PageInfoCombine;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
 
 @Repository
-public class QnaBoardDao {
+public class QnaBoardRepository {
 
     public List<QnaBoard> selectQnaList(SqlSession sqlSession,
                                         PageInfoCombine pageInfoCombine,

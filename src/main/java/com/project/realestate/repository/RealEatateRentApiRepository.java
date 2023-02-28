@@ -1,4 +1,4 @@
-package com.project.realestate.dao;
+package com.project.realestate.repository;
 
 import com.project.realestate.vo.RealEstateRent;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class RealEatateRentApiDao {
+public class RealEatateRentApiRepository {
     private final SqlSessionTemplate sqlSession;
 
 //    public void truncateData() {

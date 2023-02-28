@@ -2,7 +2,7 @@ package com.project.restaurant.service;
 
 import com.project.common.template.Utils;
 import com.project.common.template.PageInfoCombine;
-import com.project.restaurant.dao.RestaurantDao;
+import com.project.restaurant.repository.RestaurantRepository;
 import com.project.restaurant.dto.RestaurantListFilter;
 import com.project.restaurant.dto.RestaurantListRequest;
 import com.project.restaurant.dto.RestaurantListResponse;
@@ -27,7 +27,7 @@ public class RestaurantService {
     public static final String webPath = "/resources/images/";
     private static final int DEFAULT_RES_SIZE = 12;
     private final ServletContext servletContext;
-    private final RestaurantDao restaurantDao;
+    private final RestaurantRepository restaurantRepository;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
 
@@ -40,9 +40,9 @@ public class RestaurantService {
      */
     public RestaurantListResponse selectList(RestaurantListRequest request) {
         RestaurantListFilter filter = RestaurantListFilter.from(request);
-        int count = restaurantDao.selectResListCount(filter);
+        int count = restaurantRepository.selectResListCount(filter);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_RES_SIZE);
-        List<Restaurant> result = restaurantDao.selectResList(pageInfoCombine, filter);
+        List<Restaurant> result = restaurantRepository.selectResList(pageInfoCombine, filter);
         result.forEach(this::updateImageIfEmpty);
         return new RestaurantListResponse(result, pageInfoCombine);
     }
@@ -53,25 +53,25 @@ public class RestaurantService {
     private void updateImageIfEmpty(Restaurant restaurant) {
         if (Objects.isNull(restaurant.getResImgUrl()) || restaurant.getResImgUrl().isEmpty()) {
             String imageUrl = restaurantCrawlingService.findImage(restaurant.getResName());
-            restaurantDao.updateImage(restaurant.getResNo(), imageUrl);
+            restaurantRepository.updateImage(restaurant.getResNo(), imageUrl);
             restaurant.setImageUrl(imageUrl);
         }
     }
 
     public Restaurant restaurantDetail(String resNo) {
-        return restaurantDao.restaurantDetail(resNo);
+        return restaurantRepository.restaurantDetail(resNo);
     }
 
     public List<String> resHashtagByAdmin(String resNo) {
-        return restaurantDao.resHashtagByAdmin(resNo);
+        return restaurantRepository.resHashtagByAdmin(resNo);
     }
 
     public List<String> selectStateList() {
-        return restaurantDao.selectStateList();
+        return restaurantRepository.selectStateList();
     }
 
     public List<Hashtag> selectHashtagList() {
-        return restaurantDao.selectHashtagList();
+        return restaurantRepository.selectHashtagList();
     }
 
     /**
@@ -88,7 +88,7 @@ public class RestaurantService {
 
             // 2. Restaurant 엔티티 생성 후 저장
             restaurant.setImageUrl("/resources/images/restaurant/" + fileName);
-            String resNo = restaurantDao.resInsert(restaurant);
+            String resNo = restaurantRepository.resInsert(restaurant);
 
             // 3. ResImg 엔티티 생성 후 저장
             ResImg resImg = new ResImg();
@@ -96,7 +96,7 @@ public class RestaurantService {
             resImg.setResNo(resNo);
             resImg.setOriginName(file.getOriginalFilename());
             resImg.setChangeName(fileName);
-            restaurantDao.resInsertImg(resImg);
+            restaurantRepository.resInsertImg(resImg);
 
             // 4. ResHashTag 엔티티 List 생성 후 저장
             hashTagId.forEach(tagId -> {
@@ -104,7 +104,7 @@ public class RestaurantService {
                 resHashtag.setHashtagId(tagId);
                 resHashtag.setResNo(resNo);
                 resHashtag.setMemberNo(1L);
-                restaurantDao.resHashtagInsert(resHashtag);
+                restaurantRepository.resHashtagInsert(resHashtag);
             });
             return resNo;
         } catch (IllegalStateException e) {
@@ -132,21 +132,21 @@ public class RestaurantService {
                 resImg.setMemberNo(1L);
                 resImg.setResNo(restaurant.getResNo());
                 resImg.setChangeName(fileName);
-                restaurantDao.resInsertImg(resImg);
+                restaurantRepository.resInsertImg(resImg);
             }
 
             // 2. Restaurant 엔티티 생성 후 저장
-            String resNo = restaurantDao.resModify(restaurant);
+            String resNo = restaurantRepository.resModify(restaurant);
 
             // 4. ResHashTag 엔티티 List 생성 후 저장
             if (!hashTagId.isEmpty()) {
-                restaurantDao.deleteResHashOnlyAdmin(resNo);
+                restaurantRepository.deleteResHashOnlyAdmin(resNo);
                 hashTagId.forEach(tagId -> {
                     ResHashtag resHashtag = new ResHashtag();
                     resHashtag.setHashtagId(tagId);
                     resHashtag.setResNo(resNo);
                     resHashtag.setMemberNo(1L);
-                    restaurantDao.resHashtagInsert(resHashtag);
+                    restaurantRepository.resHashtagInsert(resHashtag);
                 });
             }
         } catch (IllegalStateException e) {
@@ -159,9 +159,9 @@ public class RestaurantService {
      */
     @Transactional
     public void deleteRes(String resNo) {
-        restaurantDao.deleteResHash(resNo);
-        restaurantDao.deleteResImg(resNo);
-        restaurantDao.deleteRes(resNo);
+        restaurantRepository.deleteResHash(resNo);
+        restaurantRepository.deleteResImg(resNo);
+        restaurantRepository.deleteRes(resNo);
     }
 
 }

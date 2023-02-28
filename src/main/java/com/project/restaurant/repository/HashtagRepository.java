@@ -1,4 +1,4 @@
-package com.project.restaurant.dao;
+package com.project.restaurant.repository;
 
 import com.project.restaurant.vo.Hashtag;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class HashtagDao {
+public class HashtagRepository {
 
     private final SqlSessionTemplate sqlSession;
 

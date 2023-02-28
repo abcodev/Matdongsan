@@ -1,7 +1,7 @@
 package com.project.realestate.service;
 
 import com.project.client.seoulApi.SeoulApiClient;
-import com.project.realestate.dao.RealEstateSellApiDao;
+import com.project.realestate.repository.RealEstateSellApiRepository;
 import com.project.realestate.vo.RealEstateSell;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +13,18 @@ import java.util.stream.Collectors;
 @Service
 public class RealEstateApiService {
 
-    private final RealEstateSellApiDao realEstateSellApiDao;
+    private final RealEstateSellApiRepository realEstateSellApiRepository;
     private final SeoulApiClient seoulApiClient;
 
     @Autowired
-    public RealEstateApiService(RealEstateSellApiDao realEstateSellApiDao, SeoulApiClient seoulApiClient,
+    public RealEstateApiService(RealEstateSellApiRepository realEstateSellApiRepository, SeoulApiClient seoulApiClient,
                                 SqlSession sqlSession) {
-        this.realEstateSellApiDao = realEstateSellApiDao;
+        this.realEstateSellApiRepository = realEstateSellApiRepository;
         this.seoulApiClient = seoulApiClient;
     }
 
     public int retrieveAndSave() {
-        //LocalDate latestDealYmd = realEstateSellApiDao.latestDealYmd();
+        //LocalDate latestDealYmd = realEstateSellApiRepository.latestDealYmd();
         List<RealEstateSell> sellList = seoulApiClient.getRealEstateSellList()
                 .stream()
                 .filter(realEstateSellDto -> realEstateSellDto.getHouseType().equals("아파트"))
@@ -35,8 +35,8 @@ public class RealEstateApiService {
         if (sellList.isEmpty()) {
             return 0;
         }
-        realEstateSellApiDao.truncate();
-        realEstateSellApiDao.batchInsert(sellList);
+        realEstateSellApiRepository.truncate();
+        realEstateSellApiRepository.batchInsert(sellList);
         return sellList.size();
     }
 

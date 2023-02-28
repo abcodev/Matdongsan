@@ -1,9 +1,7 @@
-package com.project.board.dao;
+package com.project.board.repository;
 
 import com.project.board.dto.FreeBoardCountDto;
 import com.project.board.dto.FreeBoardListFilter;
-import com.project.board.dto.FreeBoardListRequest;
-import com.project.board.dto.FreeBoardListResponse;
 import com.project.board.vo.FreeBoard;
 import com.project.board.vo.HotWeek;
 import com.project.board.vo.Reply;
@@ -12,16 +10,13 @@ import com.project.common.template.PageInfoCombine;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Repository
-public class FreeBoardDao {
+public class FreeBoardRepository {
 
     public int insertFboard(SqlSession sqlSession, FreeBoard fb){
         return sqlSession.insert("freeBoardMapper.insertFboard", fb);

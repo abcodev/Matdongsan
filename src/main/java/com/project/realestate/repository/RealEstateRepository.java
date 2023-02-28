@@ -1,24 +1,22 @@
-package com.project.realestate.dao;
+package com.project.realestate.repository;
 
 import com.project.board.vo.FreeBoard;
 import com.project.common.template.PageInfoCombine;
 import com.project.realestate.dto.*;
 import com.project.realestate.vo.RealEstateAgent;
 import com.project.realestate.vo.RealEstateRent;
-import com.project.restaurant.vo.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class RealEstateDao {
+public class RealEstateRepository {
 
     private final SqlSessionTemplate sqlSession;
 

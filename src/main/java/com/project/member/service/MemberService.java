@@ -7,15 +7,14 @@ import com.project.client.oauth.OAuthUser;
 import com.project.client.oauth.service.OAuthClientService;
 import com.project.common.template.PageInfoCombine;
 import com.project.common.template.Utils;
-import com.project.member.dao.MemberDao;
+import com.project.member.repository.MemberRepository;
 import com.project.member.dto.*;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
-import com.project.realestate.dao.InterestEstateDao;
+import com.project.realestate.repository.InterestEstateRepository;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationResponse;
 import com.project.realestate.vo.ReservationBroker;
-import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,9 +42,9 @@ import java.util.List;
 public class MemberService {
 
     private final OAuthClientService oAuthClientService;
-    private final MemberDao memberDao;
+    private final MemberRepository memberRepository;
     private final SqlSessionTemplate sqlSession;
-    private final InterestEstateDao interestEstateDao;
+    private final InterestEstateRepository interestEstateRepository;
     private static final int DEFAULT_SIZE = 5;
     private final ServletContext servletContext;
 
@@ -71,27 +69,27 @@ public class MemberService {
         OAuthUser oAuthUser = oAuthClient.getUserProfile(session, oAuthToken);
 
         Member member = Member.of(oAuthUser, oAuthToken);
-        if (memberDao.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
-            memberDao.insertMember(member);
+        if (memberRepository.exist(oAuthUser.getProvider(), oAuthUser.getId())) {
+            memberRepository.insertMember(member);
         }
-        memberDao.updateMemberWithLogin(member);
-        return memberDao.select(member.getProvider(), member.getProviderId());
+        memberRepository.updateMemberWithLogin(member);
+        return memberRepository.select(member.getProvider(), member.getProviderId());
     }
 
 
     public Member loginMember(Member m) {
-        return memberDao.loginMember(sqlSession, m);
+        return memberRepository.loginMember(sqlSession, m);
     }
 
 
     public int updateMember(Member m) {
-        Member existingMember = memberDao.select(m.getMemberNo());
+        Member existingMember = memberRepository.select(m.getMemberNo());
         if (existingMember.getGrade().equals(MemberGrade.GENERAL)) {
             m.setGrade(MemberGrade.GENERAL2);
         } else {
             m.setGrade(existingMember.getGrade());
         }
-        return memberDao.updateMember(sqlSession, m);
+        return memberRepository.updateMember(sqlSession, m);
     }
 
 
@@ -119,34 +117,34 @@ public class MemberService {
     }
 
     public List<Interest> getInterestList(Member m) {
-        return memberDao.getInterestList(sqlSession, m);
+        return memberRepository.getInterestList(sqlSession, m);
     }
 
 
     public MyPageListResponse selectList(MyPageListRequest request, Member m) {
-        int count = memberDao.selectListCount(sqlSession, m);
-        int count2 = memberDao.selectReviewCount(sqlSession, m);
-        int count3 = memberDao.selectReservationCount(sqlSession, m);
+        int count = memberRepository.selectListCount(sqlSession, m);
+        int count2 = memberRepository.selectReviewCount(sqlSession, m);
+        int count3 = memberRepository.selectReservationCount(sqlSession, m);
         PageInfoCombine pageInfoCombine = new PageInfoCombine(count, request.getCurrentPage(), DEFAULT_SIZE);
         PageInfoCombine pageInfoCombine2 = new PageInfoCombine(count2, request.getCurrentPage(), DEFAULT_SIZE);
         PageInfoCombine pageInfoCombine3 = new PageInfoCombine(count3, request.getCurrentPage(), DEFAULT_SIZE);
-        List<AllBoard> result = memberDao.selectAllBoardList(sqlSession, pageInfoCombine, m);
-        List<Review> result1 = memberDao.selectReviewList(sqlSession, pageInfoCombine2, m);
-        List<ReservationResponse> result2 = memberDao.selectReservationList(sqlSession, pageInfoCombine3, m);
+        List<AllBoard> result = memberRepository.selectAllBoardList(sqlSession, pageInfoCombine, m);
+        List<Review> result1 = memberRepository.selectReviewList(sqlSession, pageInfoCombine2, m);
+        List<ReservationResponse> result2 = memberRepository.selectReservationList(sqlSession, pageInfoCombine3, m);
 
         return new MyPageListResponse(result, result1, result2, pageInfoCombine, pageInfoCombine2, pageInfoCombine3);
 
     }
 
 //    public boolean checkInterest(String estateNo, Member loginUser) {
-//        return interestEstateDao.checkInterest(estateNo, loginUser.getMemberNo());
+//        return interestEstateRepository.checkInterest(estateNo, loginUser.getMemberNo());
 //    }
 
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
-            interestEstateDao.insert(req.getEstateNo(), loginUser.getMemberNo());
+            interestEstateRepository.insert(req.getEstateNo(), loginUser.getMemberNo());
         } else {
-            interestEstateDao.delete(req.getEstateNo(), loginUser.getMemberNo());
+            interestEstateRepository.delete(req.getEstateNo(), loginUser.getMemberNo());
         }
     }
 
@@ -165,10 +163,10 @@ public class MemberService {
     public void deleteMember(Member member) {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
         OAuthToken freshToken = oAuthClient.renewToken(member.getRefreshToken());
-        // memberDao.updateToken(member.getMemberNo(), freshToken);
+        // memberRepository.updateToken(member.getMemberNo(), freshToken);
 
         oAuthClient.unlink(freshToken);
-        memberDao.deleteMember(sqlSession, member.getMemberNo());
+        memberRepository.deleteMember(sqlSession, member.getMemberNo());
     }
 
     @Transactional
@@ -177,16 +175,16 @@ public class MemberService {
         String savePath = servletContext.getRealPath("/");
         String attachment = Utils.saveFile(savePath, file);
         brokerEnroll.setFileUrl("http://matdongsan.site/resources/files/agent/" + attachment);
-        memberDao.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
+        memberRepository.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 
     public List<ReservationBroker> selectBrokerReservationList(Member m){
-        return memberDao.selectBrokerReservationList(sqlSession, m);
+        return memberRepository.selectBrokerReservationList(sqlSession, m);
     }
 
 
     public int nNameCheck(String nName) {
-        return memberDao.nNameCheck(nName);
+        return memberRepository.nNameCheck(nName);
     }
 
 
