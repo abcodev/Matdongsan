@@ -9,6 +9,7 @@
 
 ## 서비스 소개
 ### 메인
+유튜브
 
 
 
@@ -24,20 +25,25 @@
 
   ```
   ├──java
-  │   ├──domain 
-  │   │   ├──dao # 
-  │   │   ├──dto #
-  │   │   ├──vo # 
-  │   │   └──type # enum
-  │   └──web #비지니스 로직
-  ├──resource
-  │   ├──key # api키 관리용 xml폴더
-  │   └──sql # sql문 저장용 xml폴더
+  │   ├──folder
+  │   │   ├──config 
+  │   │   ├──controller 
+  │   │   ├──dto 
+  │   │   ├──repository 
+  │   │   ├──service 
+  │   │   ├──type 
+  │   │   └──vo
+  ├──resources
+  │   ├──apiKey 
+  │   ├──mappers
+  │   └──sql
   ├──webapp
-  │   ├──js 자바스크립트 파일저장용폴더
-  │   ├──img 이미지 리소스 저장용폴더
-  │   ├──css css파일 저장용폴더
-  │   └──view # jsp파일 저장
+  │   ├──resources
+  │   │   ├──css
+  │   │   ├──files
+  │   └── └──js
+  │   ├──WEB-INF
+  │   │   ├──views
       
   ```
 
