@@ -133,12 +133,7 @@ public class MemberService {
         List<ReservationResponse> result2 = memberRepository.selectReservationList(sqlSession, pageInfoCombine3, m);
 
         return new MyPageListResponse(result, result1, result2, pageInfoCombine, pageInfoCombine2, pageInfoCombine3);
-
     }
-
-//    public boolean checkInterest(String estateNo, Member loginUser) {
-//        return interestEstateRepository.checkInterest(estateNo, loginUser.getMemberNo());
-//    }
 
     public void saveInterest(RealEstateInterestRequest req, Member loginUser) {
         if (req.getIsInterest()) {
@@ -147,18 +142,6 @@ public class MemberService {
             interestEstateRepository.delete(req.getEstateNo(), loginUser.getMemberNo());
         }
     }
-
-    // AccessToken 이 만료됐을 수도 있다.
-    // 1. AccessToken 이 만료되었는지 확인.
-    /** TODO :
-     boolean isExpired = oAuthClient.checkExpiredAccessToken(member.toOAuthToken());
-     if (isExpired) {
-     OAuthToken freshToken = AuthClient.renewToken(member.toOAuthToken());
-     member.setToken(freshToken);
-     }
-     */
-    // 2. RefreshToken 으로 AccessToken 재발급.
-    // 3. 재발급된 AccessToken 으로 요청.
 
     public void deleteMember(Member member) {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());

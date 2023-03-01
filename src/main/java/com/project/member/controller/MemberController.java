@@ -80,8 +80,6 @@ public class MemberController {
         modelAndView.addObject("pi2", resp.getPageInfoCombine2());
         modelAndView.addObject("pi3", resp.getPageInfoCombine3());
 
-        System.out.println("부동산 예약 리스트 : " + brokerReservationList);
-
         modelAndView.setViewName("member/brokerMemberMyPage");
 
         return modelAndView;

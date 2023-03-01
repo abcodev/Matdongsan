@@ -43,7 +43,6 @@ public class QnaBoardController {
         QnaBoardListRequest req = new QnaBoardListRequest(currentPage, state, search, select);
         QnaBoardListResponse resp = boardService.selectQnaList(req);
 
-        // 공지사항 게시글 불러오기
         List<QnaBoard> qnaNoticeList = boardService.selectQaNoticeList();
 
         modelAndView.addObject("qnaNoticeList", qnaNoticeList);
@@ -58,7 +57,6 @@ public class QnaBoardController {
         return modelAndView;
     }
 
-    // 게시글 작성페이지
     @RequestMapping(value = "/insert", method = RequestMethod.GET)
     @RequiredLogin
     public String insertBoard(
@@ -71,7 +69,7 @@ public class QnaBoardController {
         return "board/qnaInsertBoard";
     }
 
-    // 게시글 등록
+
     @RequestMapping("/insert")
     @RequiredLogin
     public String insertQboard(
@@ -89,7 +87,6 @@ public class QnaBoardController {
     }
 
 
-    // 답글달기 페이지
     @RequestMapping(value = "/insertAnswer", method = RequestMethod.GET)
     @RequiredLogin
     public ModelAndView insertBoard2(
@@ -108,9 +105,6 @@ public class QnaBoardController {
         return mv;
     }
 
-    /**
-     * 답글 등록
-     */
     @RequestMapping("insertAnswer")
     @RequiredLogin
     public String insertAnswer(
@@ -129,7 +123,6 @@ public class QnaBoardController {
         return "redirect:/board/qnaList";
     }
 
-    // 상세 페이지
     @RequestMapping("/detail/{qBno}")
     public ModelAndView qnaDetail(@PathVariable("qBno") int qBno,
                                   HttpSession session,
@@ -153,7 +146,6 @@ public class QnaBoardController {
         return mv;
     }
 
-    // 게시글 삭제
     @RequestMapping(value = "/delete/{qBno}", method = RequestMethod.GET)
     @RequiredLogin
     public String deleteBoard(@PathVariable("qBno") int qBno

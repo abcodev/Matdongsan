@@ -11,8 +11,6 @@ public class Utils {
 
     public static String saveFile(String path, MultipartFile file) {
         try {
-            // NPE x
-            // originName = ""
             String originName = file.getOriginalFilename(); // 원본 파일명 뽑기
             String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); // 시간 형식을 문자열로 뽑아오기
             int ranNum = (int) (Math.random() * 90000 + 10000); // 뒤에 붙을 5자리 랜덤값 뽑기

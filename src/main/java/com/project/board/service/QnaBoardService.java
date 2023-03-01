@@ -7,7 +7,6 @@ import com.project.board.dto.*;
 import com.project.board.vo.Report;
 import com.project.board.vo.QnaBoard;
 import com.project.common.template.PageInfoCombine;
-import com.project.common.template.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ public class QnaBoardService {
 
     private final QnaBoardRepository boardRepository;
     private final SqlSession sqlSession;
-    private final Pagination pagination;
     private final AlarmService alarmService;
 
     private static final int DEFAULT_RES_SIZE = 8;

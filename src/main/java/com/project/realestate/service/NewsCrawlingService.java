@@ -22,22 +22,15 @@ public class NewsCrawlingService {
 
         Elements photoElements = e2.getElementsByAttributeValue("class", "photo");
 
-//        ArrayList<String> newsTitle = new ArrayList<>();
-//        ArrayList<String> newsUrl= new ArrayList<>();
-
         for(int i = 0; i< 4; i++){
             Element articleElement = photoElements.get(i);
             Elements aElements = articleElement.select("a");
             Element aElement = aElements.get(0);
 
-            String articleUrl = "https://land.naver.com"+aElement.attr("href"); // 기사링크
+            String articleUrl = "https://land.naver.com"+aElement.attr("href");
 
             Element imgElement = aElement.select("img").get(0);
-            String title = imgElement.attr("alt"); //기사제목
-
-            System.out.println(title);
-            System.out.println(articleUrl);
-
+            String title = imgElement.attr("alt");
         }
 
     }

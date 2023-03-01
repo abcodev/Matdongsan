@@ -9,7 +9,6 @@ public class BoardCookieHelper {
 
     private static final int BOARD_COUNT_UP_COOKIE_MAX_AGE = 60 * 60;
 
-    // boardType : qna, free
     public static boolean existCountUpCookie(
             HttpServletRequest req,
             String boardType,
