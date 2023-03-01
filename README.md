@@ -7,13 +7,6 @@
 |---|---|---|---|---|---|
 | <a href="https://github.com/HyunjeongJang">@HyunjeongJang</a> | <a href="https://github.com/YEOMCODING">@YEOMCODING</a> | <a href="https://github.com/kayoung0814"> @kayoung0814</a> | <a href="https://github.com/JinHoYY"> @JinHoYY </a> | <a href="https://github.com/yisoo98776"> @yisoo98776 </a> | <a href="https://github.com/kimdory"> @kimdory </a> |
 
-## 서비스 소개
-### 메인
-유튜브
-
-
-
-
 ## 환경
 
 - **Back End** : JAVA11, Spring, Spring Security
@@ -21,7 +14,22 @@
 - **DevOps** : ORACLE 11g , Oracle Cloud , Redis, AWS Ec2
 - **Collaboration** : Git , Notion
 
-## 프로젝트 구조
+## 서비스 소개
+
+
+## 주요기능
+
+
+## 코드리뷰
+
+
+
+
+
+
+<details>
+<summary>프로젝트 구조</summary>
+<div markdown="1">
 
   ```
   ├──java
@@ -46,5 +54,7 @@
   │   │   ├──views
       
   ```
-
+</div>
+</details>
+<br/>
 
