@@ -22,7 +22,7 @@ public class RealEstateSell {
     private String bonbeon;
     private String bubeon;
     private String bldgNm;
-    private String dealYmd; // 20230120
+    private String dealYmd;
     private String objAmt;
     private String bldgArea;
     private String buildYear;
@@ -32,7 +32,6 @@ public class RealEstateSell {
 
     private String address;
     private String subAddress;
-
 
     public static RealEstateSell of(RealEstateSellDto realEstateSellDto) {
 

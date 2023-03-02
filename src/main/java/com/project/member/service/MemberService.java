@@ -14,7 +14,7 @@ import com.project.member.vo.Member;
 import com.project.realestate.repository.InterestEstateRepository;
 import com.project.realestate.dto.RealEstateInterestRequest;
 import com.project.realestate.dto.ReservationResponse;
-import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationBrokerDto;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -161,7 +161,7 @@ public class MemberService {
         memberRepository.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 
-    public List<ReservationBroker> selectBrokerReservationList(Member m){
+    public List<ReservationBrokerDto> selectBrokerReservationList(Member m){
         return memberRepository.selectBrokerReservationList(sqlSession, m);
     }
 

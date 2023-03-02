@@ -24,7 +24,7 @@
     <select id="selectListByResNo" parameterType="String" resultMap="resHashtagDtoResultSet">
         SELECT *
         FROM RES_HASHTAG R
-            INNER JOIN HASHTAG H ON R.HASHTAG_ID = H.HASHTAG_ID
+                 INNER JOIN HASHTAG H ON R.HASHTAG_ID = H.HASHTAG_ID
         WHERE R.RES_NO = #{resNo}
     </select>
 
@@ -41,10 +41,11 @@
               FROM (SELECT H.HASHTAG
                     FROM RES_HASHTAG RH
                              INNER JOIN HASHTAG H on RH.HASHTAG_ID = H.HASHTAG_ID
-                    WHERE RES_NO = #{resNo} AND RH.HASHTAG_ID NOT IN (SELECT HASHTAG_ID
-                                                                    FROM RES_HASHTAG
-                                                                    WHERE RES_HASHTAG.REV_NO is null
-                                                                      AND RES_HASHTAG.RES_NO = #{resNo}))
+                    WHERE RES_NO = #{resNo}
+                      AND RH.HASHTAG_ID NOT IN (SELECT HASHTAG_ID
+                                                FROM RES_HASHTAG
+                                                WHERE RES_HASHTAG.REV_NO is null
+                                                  AND RES_HASHTAG.RES_NO = #{resNo}))
               GROUP BY HASHTAG
               ORDER BY COUNT DESC)
         WHERE ROWNUM &lt;= 2
@@ -52,17 +53,23 @@
 
     <!-- 관리자 - 맛집 삭제 -->
     <delete id="deleteResHash" parameterType="string">
-        DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo}
+        DELETE
+        FROM RES_HASHTAG
+        WHERE RES_NO = #{resNo}
     </delete>
 
     <delete id="deleteResHashOnlyAdmin" parameterType="string">
-        DELETE FROM RES_HASHTAG WHERE RES_NO = #{resNo} AND REV_NO is null
+        DELETE
+        FROM RES_HASHTAG
+        WHERE RES_NO = #{resNo}
+          AND REV_NO is null
     </delete>
 
     <delete id="deleteByRevNo" parameterType="_int">
-        DELETE FROM RES_HASHTAG WHERE REV_NO = #{revNo}
+        DELETE
+        FROM RES_HASHTAG
+        WHERE REV_NO = #{revNo}
     </delete>
-
 
 
 </mapper>

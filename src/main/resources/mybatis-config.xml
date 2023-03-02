@@ -21,7 +21,7 @@
         <typeAlias type="com.project.restaurant.vo.Review" alias="review"/>
         <typeAlias type="com.project.restaurant.vo.ResImg" alias="resImg"/>
         <typeAlias type="com.project.board.vo.FreeBoard" alias="freeBoard"/>
-        <typeAlias type="com.project.board.vo.QnaBoard" alias="QBoard"/>
+        <typeAlias type="com.project.board.vo.QnaBoard" alias="qnaBoard"/>
         <typeAlias type="com.project.chat.dto.ChatingRoom" alias="chatingRoom"/>
         <typeAlias type="com.project.chat.dto.MessageListDto" alias="chatMessage"/>
         <typeAlias type="com.project.board.vo.Reply" alias="reply"/>
@@ -37,7 +37,7 @@
         <typeAlias type="com.project.realestate.dto.RealEstateMainListDto" alias="RealEstateMainListDto"/>
         <typeAlias type="com.project.realestate.dto.RealEstateViewDto" alias="RealEstateViewDto"/>
         <typeAlias type="com.project.admin.vo.BrokerEnroll" alias="brokerEnroll"/>
-        <typeAlias type="com.project.realestate.vo.ReservationBroker" alias="brokerList"/>
+        <typeAlias type="com.project.realestate.dto.ReservationBrokerDto" alias="brokerList"/>
     </typeAliases>
 
     <mappers>

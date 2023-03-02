@@ -37,6 +37,7 @@ public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
 
+    // 자유게시판 리스트
     @RequestMapping("/freeList")
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
@@ -48,7 +49,7 @@ public class FreeBoardController {
         FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
         List<FreeBoard> freeNoticeList = freeBoardService.freeNoticeList();
-        freeBoardService.selectReportList(); // 블라인드 게시글 조회 및 업데이트
+        freeBoardService.selectReportList();
 
         modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
         modelAndView.addObject("freeNoticeList", freeNoticeList);
@@ -62,7 +63,7 @@ public class FreeBoardController {
     }
 
 
-    // 게시글 작성폼
+    // 게시글 작성
     @RequestMapping("/freeList/enrollForm")
     @RequiredLogin
     public String enrollForm(Model model) {

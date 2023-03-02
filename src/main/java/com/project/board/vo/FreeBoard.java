@@ -20,7 +20,5 @@ public class FreeBoard {
     private int replyCount;
     private int notice;
     private String blind;
-
-
     private int currentPage;
 }

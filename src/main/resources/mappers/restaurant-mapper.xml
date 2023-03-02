@@ -94,7 +94,9 @@
     </select>
 
     <update id="updateImage" parameterType="Map">
-        UPDATE RESTAURANT SET RESTAURANT.RES_IMGURL = #{RES_IMGURL} WHERE RESTAURANT.RES_NO = #{RES_NO}
+        UPDATE RESTAURANT
+        SET RESTAURANT.RES_IMGURL = #{RES_IMGURL}
+        WHERE RESTAURANT.RES_NO = #{RES_NO}
     </update>
 
     <select id="selectDetail" resultMap="restaurantResultSet">
@@ -107,20 +109,19 @@
     <!-- 리뷰 목록 -->
     <!-- Projection -> 모양에맞는 별도의 객체 -->
     <select id="selectReviewList" parameterType="String" resultMap="reviewAndMemberResultSet">
-        SELECT
-            R.REV_NO,
-            R.RES_NO,
-            R.STAR_RATING,
-            R.REVIEW_CONTENT,
-            R.MEMBER_NO,
-            R.CREATE_DATE,
-            R.STATUS,
-            M.MEMBER_NAME,
-            M.PROFILE_IMAGE
+        SELECT R.REV_NO,
+               R.RES_NO,
+               R.STAR_RATING,
+               R.REVIEW_CONTENT,
+               R.MEMBER_NO,
+               R.CREATE_DATE,
+               R.STATUS,
+               M.MEMBER_NAME,
+               M.PROFILE_IMAGE
         FROM REVIEW R
-                INNER JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+                 INNER JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
         WHERE R.RES_NO = #{resNo}
-            AND R.STATUS = 'Y'
+          AND R.STATUS = 'Y'
         ORDER BY R.CREATE_DATE DESC
     </select>
 
@@ -146,10 +147,10 @@
         (
         <foreach collection="list" item="img" separator="UNION ALL">
             SELECT
-                #{img.originName} as ORIGIN_NAME,
-                #{img.changeName} as CHANGE_NAME,
-                #{img.revNo} as REV_NO,
-                #{img.imgLevel} as IMG_LEVEL
+            #{img.originName} as ORIGIN_NAME,
+            #{img.changeName} as CHANGE_NAME,
+            #{img.revNo} as REV_NO,
+            #{img.imgLevel} as IMG_LEVEL
             FROM DUAL
         </foreach>
         ) R
@@ -172,13 +173,10 @@
     </insert>
 
 
-
     <insert id="resInsertImg" parameterType="resImg">
-        INSERT INTO RES_IMG(IMG_NO, REV_NO, MEMBER_NO, RES_NO , ORIGIN_NAME, CHANGE_NAME)
-        VALUES(SEQ_IMG_NO.NEXTVAL, #{revNo}, #{memberNo}, #{resNo}, #{originName}, #{changeName})
+        INSERT INTO RES_IMG(IMG_NO, REV_NO, MEMBER_NO, RES_NO, ORIGIN_NAME, CHANGE_NAME)
+        VALUES (SEQ_IMG_NO.NEXTVAL, #{revNo}, #{memberNo}, #{resNo}, #{originName}, #{changeName})
     </insert>
-
-
 
 
     <!-- 관리자 - 맛집 수정 -->
@@ -194,24 +192,23 @@
     </update>
 
 
-
     <delete id="deleteRes" parameterType="string">
-        DELETE FROM RESTAURANT WHERE RES_NO = #{resNo}
+        DELETE
+        FROM RESTAURANT
+        WHERE RES_NO = #{resNo}
     </delete>
 
     <delete id="deleteResImgByResNo" parameterType="string">
-        DELETE FROM RES_IMG WHERE RES_NO = #{resNo}
+        DELETE
+        FROM RES_IMG
+        WHERE RES_NO = #{resNo}
     </delete>
 
     <delete id="deleteResImgByImgNo" parameterType="_int">
-        DELETE FROM RES_IMG WHERE IMG_NO = #{imgNo}
+        DELETE
+        FROM RES_IMG
+        WHERE IMG_NO = #{imgNo}
     </delete>
-
-
-
-
-
-
 
 
 </mapper>

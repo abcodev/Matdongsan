@@ -17,60 +17,60 @@ public class QnaBoardRepository {
                                         PageInfoCombine pageInfoCombine,
                                         QnaBoardListFilter filter) {
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("boardMapper.selectQnaList", filter, rowBounds);
+        return sqlSession.selectList("qnaBoardMapper.selectQnaList", filter, rowBounds);
     }
 
     public int selectQnaListCount(SqlSession sqlSession, QnaBoardListFilter filter) {
-        return sqlSession.selectOne("boardMapper.selectQnaListCount", filter);
+        return sqlSession.selectOne("qnaBoardMapper.selectQnaListCount", filter);
     }
 
 
     public int insertQboard(SqlSession sqlSession, QnaBoard qb) {
-        return sqlSession.insert("boardMapper.insertQboard", qb);
+        return sqlSession.insert("qnaBoardMapper.insertQboard", qb);
     }
 
     public int insertNotice(SqlSession sqlSession, QnaBoard qb) {
-        return sqlSession.insert("boardMapper.insertNotice", qb);
+        return sqlSession.insert("qnaBoardMapper.insertNotice", qb);
     }
 
     public QnaBoard selectQboard(SqlSession sqlSession, int qBno) {
-        return sqlSession.selectOne("boardMapper.selectQboard", qBno);
+        return sqlSession.selectOne("qnaBoardMapper.selectQboard", qBno);
     }
 
     public int selectReportList(SqlSession sqlSession) {
-        return sqlSession.update("boardMapper.selectReportList");
+        return sqlSession.update("qnaBoardMapper.selectReportList");
     }
 
     public int updateBoard(SqlSession sqlSession, int qBno) {
-        return sqlSession.update("boardMapper.updateBoard", qBno);
+        return sqlSession.update("qnaBoardMapper.updateBoard", qBno);
     }
 
     public int increaseCount(SqlSession sqlSession, int qBno) {
-        return sqlSession.update("boardMapper.increaseCount", qBno);
+        return sqlSession.update("qnaBoardMapper.increaseCount", qBno);
     }
 
     public int insertAnswer(SqlSession sqlSession, QnaBoard qb) {
-        return sqlSession.insert("boardMapper.insertAnswer", qb);
+        return sqlSession.insert("qnaBoardMapper.insertAnswer", qb);
     }
 
     public List<QnaBoard> selectAnswer(SqlSession sqlSession, int qBno) {
-        return sqlSession.selectList("boardMapper.selectAnswer", qBno);
+        return sqlSession.selectList("qnaBoardMapper.selectAnswer", qBno);
     }
 
     public int deleteBoard(SqlSession sqlSession, int qBno) {
-        return sqlSession.update("boardMapper.deleteBoard", qBno);
+        return sqlSession.update("qnaBoardMapper.deleteBoard", qBno);
     }
 
     public int insertReport(SqlSession sqlSession, Report report) {
-        return sqlSession.insert("boardMapper.insertReport", report);
+        return sqlSession.insert("qnaBoardMapper.insertReport", report);
     }
 
     public QnaBoard selectByQnaBno(SqlSession sqlSession, int parentBno) {
-        return sqlSession.selectOne("boardMapper.selectByQnaBno", parentBno);
+        return sqlSession.selectOne("qnaBoardMapper.selectByQnaBno", parentBno);
     }
 
     public List<QnaBoard> selectQaNoticeList(SqlSession sqlSession) {
-        return sqlSession.selectList("boardMapper.selectQaNoticeList");
+        return sqlSession.selectList("qnaBoardMapper.selectQaNoticeList");
     }
 
 }

@@ -9,7 +9,7 @@ import com.project.member.service.MemberService;
 import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.RealEstateInterestRequest;
-import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationBrokerDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,7 +70,7 @@ public class MemberController {
 
         MyPageListRequest req = new MyPageListRequest(currentPage);
         MyPageListResponse resp = memberService.selectList(req, m);
-        List<ReservationBroker> brokerReservationList = memberService.selectBrokerReservationList(m);
+        List<ReservationBrokerDto> brokerReservationList = memberService.selectBrokerReservationList(m);
 
         modelAndView.addObject("selectAllBoardList", resp.getAllBoardList());
         modelAndView.addObject("interestList", memberService.getInterestList(m));

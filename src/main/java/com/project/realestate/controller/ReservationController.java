@@ -3,7 +3,7 @@ package com.project.realestate.controller;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.ReservationRequest;
 import com.project.realestate.service.ReservationService;
-import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationBrokerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class ReservationController {
     @ResponseBody
     public ModelAndView selectReservation(@RequestParam(value = "revNo")int revNo){
         ModelAndView modelAndView = new ModelAndView();
-        ReservationBroker modalInfo = reservationService.selectReservation(revNo);
+        ReservationBrokerDto modalInfo = reservationService.selectReservation(revNo);
         modelAndView.addObject("selectReservation", modalInfo);
         modelAndView.setViewName("member/brokerMemberContents");
         return modelAndView;
@@ -55,7 +55,7 @@ public class ReservationController {
     @ResponseBody
     public ModelAndView modalReservation(@RequestParam(value = "revNo")int revNo,
                                          ModelAndView modelAndView){
-        ReservationBroker modalInfo = reservationService.selectReservation(revNo);
+        ReservationBrokerDto modalInfo = reservationService.selectReservation(revNo);
         modelAndView.addObject("selectReservation", modalInfo);
         modelAndView.setViewName("member/reservationContents");
         return modelAndView;

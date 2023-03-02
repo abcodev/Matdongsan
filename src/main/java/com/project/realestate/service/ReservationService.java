@@ -5,7 +5,7 @@ import com.project.alarm.service.AlarmService;
 import com.project.realestate.repository.ReservationRepository;
 import com.project.realestate.dto.ReservationDateFilter;
 import com.project.realestate.dto.ReservationRequest;
-import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationBrokerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,24 +26,24 @@ public class ReservationService {
         alarmService.send(template);
     }
 
-    public ReservationBroker selectReservation(int revNo) {
+    public ReservationBrokerDto selectReservation(int revNo) {
         return reservationRepository.selectReservation(revNo);
     }
 
     public void approveReservation(int revNo) {
-        ReservationBroker reservationBroker = reservationRepository.selectReservation(revNo);
-        long receiverNo = reservationBroker.getMemberNo();
+        ReservationBrokerDto reservationBrokerDto = reservationRepository.selectReservation(revNo);
+        long receiverNo = reservationBrokerDto.getMemberNo();
         AlarmTemplate<Integer> template
-                = AlarmTemplate.generateApproveReservationTemplate(receiverNo, reservationBroker.getAgentName(), revNo);
+                = AlarmTemplate.generateApproveReservationTemplate(receiverNo, reservationBrokerDto.getAgentName(), revNo);
         alarmService.send(template);
         reservationRepository.approveReservation(revNo);
     }
 
     public void cancelReservation(int revNo) {
-        ReservationBroker reservationBroker = reservationRepository.selectReservation(revNo);
-        long receiverNo = reservationBroker.getMemberNo();
+        ReservationBrokerDto reservationBrokerDto = reservationRepository.selectReservation(revNo);
+        long receiverNo = reservationBrokerDto.getMemberNo();
         AlarmTemplate<Integer> template
-                = AlarmTemplate.generateCancelReservationTemplate(receiverNo, reservationBroker.getAgentName(), revNo);
+                = AlarmTemplate.generateCancelReservationTemplate(receiverNo, reservationBrokerDto.getAgentName(), revNo);
         alarmService.send(template);
         reservationRepository.cancelReservation(revNo);
     }

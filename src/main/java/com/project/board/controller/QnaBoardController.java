@@ -5,11 +5,9 @@ import com.project.board.dto.QnaBoardListResponse;
 import com.project.board.service.QnaBoardService;
 import com.project.board.vo.QnaBoard;
 import com.project.board.vo.Report;
-import com.project.common.annotation.Permission;
 import com.project.common.annotation.RequiredLogin;
 import com.project.common.template.BoardCookieHelper;
 import com.project.common.type.StateList;
-import com.project.member.type.MemberGrade;
 import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -30,7 +28,7 @@ import java.util.List;
 @RequestMapping("/board")
 public class QnaBoardController {
     private static final Logger logger = LoggerFactory.getLogger(QnaBoardController.class);
-    private final QnaBoardService boardService;
+    private final QnaBoardService qnaBoardService;
 
     @RequestMapping("/qnaList")
     public ModelAndView selectFreeList(ModelAndView modelAndView,
@@ -41,9 +39,9 @@ public class QnaBoardController {
     ) {
 
         QnaBoardListRequest req = new QnaBoardListRequest(currentPage, state, search, select);
-        QnaBoardListResponse resp = boardService.selectQnaList(req);
+        QnaBoardListResponse resp = qnaBoardService.selectQnaList(req);
 
-        List<QnaBoard> qnaNoticeList = boardService.selectQaNoticeList();
+        List<QnaBoard> qnaNoticeList = qnaBoardService.selectQaNoticeList();
 
         modelAndView.addObject("qnaNoticeList", qnaNoticeList);
         modelAndView.addObject("qnaBoardList", resp.getQnaBoardList());
@@ -52,7 +50,7 @@ public class QnaBoardController {
         modelAndView.addObject("condition", req);
         modelAndView.setViewName("board/qnaBoardList");
 
-        boardService.selectReportList();// 블라인드 조회 및 업데이트
+        qnaBoardService.selectReportList();
 
         return modelAndView;
     }
@@ -79,9 +77,9 @@ public class QnaBoardController {
     ) {
         Member m = (Member) session.getAttribute("loginUser");
         if(m.getMemberNo() == 1){
-            boardService.insertNotice(qb);
+            qnaBoardService.insertNotice(qb);
         }else {
-            boardService.insertQboard(qb);
+            qnaBoardService.insertQboard(qb);
         }
         return "redirect:/board/qnaList";
     }
@@ -118,24 +116,25 @@ public class QnaBoardController {
         qb.setDepth(qb.getDepth() + 1);
         qb.setParentBno(qBno);
         qb.setMemberNo(m.getMemberNo());
-        boardService.insertAnswer(qb);
+        qnaBoardService.insertAnswer(qb);
         model.addAttribute("qb", qb);
         return "redirect:/board/qnaList";
     }
 
     @RequestMapping("/detail/{qBno}")
-    public ModelAndView qnaDetail(@PathVariable("qBno") int qBno,
-                                  HttpSession session,
-                                  ModelAndView mv,
-                                  HttpServletRequest req,
-                                  HttpServletResponse resp
+    public ModelAndView qnaDetail(
+            @PathVariable("qBno") int qBno,
+            HttpSession session,
+            ModelAndView mv,
+            HttpServletRequest req,
+            HttpServletResponse resp
     ) {
 
-        QnaBoard qb = boardService.selectQboard(qBno);
-        List<QnaBoard> ab = boardService.selectAnswer(qBno);
+        QnaBoard qb = qnaBoardService.selectQboard(qBno);
+        List<QnaBoard> ab = qnaBoardService.selectAnswer(qBno);
 
         if (!BoardCookieHelper.existCountUpCookie(req, "qna", qBno)) {
-            boardService.increaseCount(qBno);
+            qnaBoardService.increaseCount(qBno);
             BoardCookieHelper.generateCountUpCookie(req, resp, "qna", qBno);
         }
 
@@ -150,7 +149,7 @@ public class QnaBoardController {
     @RequiredLogin
     public String deleteBoard(@PathVariable("qBno") int qBno
     ) {
-        int result = boardService.deleteBoard(qBno);
+        int result = qnaBoardService.deleteBoard(qBno);
         return "redirect:/board/qnaList";
     }
 
@@ -158,7 +157,7 @@ public class QnaBoardController {
     @ResponseBody
     @RequiredLogin
     public String reportPost(Report report) {
-        int result = boardService.insertReport(report);
+        int result = qnaBoardService.insertReport(report);
         if (result > 0) {
             return "1";
         } else {

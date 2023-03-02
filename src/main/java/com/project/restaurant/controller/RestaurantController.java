@@ -33,9 +33,7 @@ public class RestaurantController {
     private final RestaurantCrawlingService restaurantCrawlingService;
 
 
-    /**
-     * 동네맛집 리스트
-     */
+    // 동네맛집 리스트
     @RequestMapping("/selectResList")
     public ModelAndView restaurantList(ModelAndView modelAndView) {
         List<String> stateList = restaurantService.selectStateList();
@@ -48,9 +46,7 @@ public class RestaurantController {
         return modelAndView;
     }
 
-    /**
-     * 동네맛집 리스트
-     */
+    // 동네맛집 리스트 - 컨텐츠
     @RequestMapping("/restaurants")
     public ModelAndView selectResList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage,
                                       @RequestParam(value = "state", defaultValue = "") String state,
@@ -66,9 +62,7 @@ public class RestaurantController {
         return modelAndView;
     }
 
-    /**
-     * 목록 이미지 크롤링
-     */
+    // 목록 이미지 크롤링
     @ResponseBody
     @RequestMapping("/restaurant/image/{name}")
     public String find(@PathVariable String name) {
@@ -76,9 +70,7 @@ public class RestaurantController {
     }
 
 
-    /**
-     * 동네맛집 상세보기
-     */
+    // 동네맛집 상세보기
     @RequestMapping("/restaurantDetail")
     public ModelAndView restaurantDetail(@RequestParam("resNo") String resNo,
                                          ModelAndView modelAndView
@@ -100,9 +92,8 @@ public class RestaurantController {
     }
 
 
-    /**
-     * 관리자 - 맛집 등록
-     */
+
+     // 관리자 - 맛집 등록
     @RequestMapping("/admin/resEnroll")
     @Permission(authority = MemberGrade.ADMIN)
     public ModelAndView restaurantEnroll() {
@@ -130,9 +121,8 @@ public class RestaurantController {
 
 
 
-    /**
-     * 관리자 - 맛집 수정
-     */
+
+     // 관리자 - 맛집 수정 페이지
     @RequestMapping("/admin/resModify")
     @Permission(authority = MemberGrade.ADMIN)
     public ModelAndView restaurantModify(@RequestParam("resNo") String resNo,
@@ -150,6 +140,7 @@ public class RestaurantController {
     }
 
 
+    // 관리자 - 맛집 수정
     @PostMapping("/admin/resUpdate")
     @Permission(authority = MemberGrade.ADMIN)
     public String restaurantModify(@RequestParam("file") MultipartFile file,
@@ -164,9 +155,7 @@ public class RestaurantController {
         return "redirect:/restaurantDetail?resNo=" + restaurant.getResNo(); // 성공하면 해당하는 resNo url로 보내야함
     }
 
-    /**
-     * 관리자 - 맛집 삭제
-     */
+    // 관리자 - 맛집 삭제
     @RequestMapping("/admin/resDelete")
     @ResponseBody
     @Permission(authority = MemberGrade.ADMIN)

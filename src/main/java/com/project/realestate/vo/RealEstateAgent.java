@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-// Entity 는 테이블이랑 똑같아
+// Entity 는 테이블이랑 똑같이
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

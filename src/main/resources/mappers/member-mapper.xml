@@ -37,6 +37,7 @@
     <resultMap type="interest" id="interestList1">
         <result column="ESTATE_NO" property="estateNo"/>
     </resultMap>
+
     <resultMap type="realEstateSell" id="interestList2">
         <result column="ESTATE_NO" property="estateNo"/>
     </resultMap>
@@ -159,9 +160,10 @@
                       ON I.ESTATE_NO = R.ESTATE_NO
 
         WHERE M.MEMBER_NO = #{memberNo}
-
-
     </select>
+
+
+
 
     <resultMap id="allBoardResultSet" type="allBoard">
         <result column="FREE_BNO" property="boardNo"/>
@@ -253,43 +255,43 @@
     </select>
 
 
-    <resultMap id="reservationList" type="com.project.realestate.dto.ReservationResponse">
-        <result column="REV_NO" property="revNo"/>
-        <result column="MEMBER_NO" property="memberNo"/>
-        <result column="MEMBER_NAME" property="memberName"/>
-        <result column="REV_PEOPLE" property="peopleCount"/>
-        <result column="PHONE" property="phone"/>
-        <result column="EMAIL" property="email"/>
-        <result column="REV_ASK" property="requestText"/>
-        <result column="REV_TIME" property="revTime"/>
-        <result column="REV_DATE" property="revDate"/>
-        <result column="REV_STATUS" property="status"/>
-        <result column="AGENT_NAME" property="agentName"/>
-    </resultMap>
+<!--    <resultMap id="reservationList" type="com.project.realestate.dto.ReservationResponse">-->
+<!--        <result column="REV_NO" property="revNo"/>-->
+<!--        <result column="MEMBER_NO" property="memberNo"/>-->
+<!--        <result column="MEMBER_NAME" property="memberName"/>-->
+<!--        <result column="REV_PEOPLE" property="peopleCount"/>-->
+<!--        <result column="PHONE" property="phone"/>-->
+<!--        <result column="EMAIL" property="email"/>-->
+<!--        <result column="REV_ASK" property="requestText"/>-->
+<!--        <result column="REV_TIME" property="revTime"/>-->
+<!--        <result column="REV_DATE" property="revDate"/>-->
+<!--        <result column="REV_STATUS" property="status"/>-->
+<!--        <result column="AGENT_NAME" property="agentName"/>-->
+<!--    </resultMap>-->
 
-    <select id="selectReservationList" resultMap="reservationList">
-        SELECT R.REV_NO,
-               R.MEMBER_NO,
-               R.MEMBER_NAME,
-               R.REV_PEOPLE,
-               R.PHONE,
-               R.EMAIL,
-               R.REV_ASK,
-               R.REV_TIME,
-               R.REV_DATE,
-               R.REV_STATUS,
-               RA.AGENT_NAME
-        FROM REAL_RESERVATION R
-                 LEFT JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
-                 JOIN REALESTATE_AGENT RA ON R.AGENT_NO = RA.AGENT_NO
-        WHERE R.MEMBER_NO = #{memberNo}
-    </select>
+<!--    <select id="selectReservationList" resultMap="reservationList">-->
+<!--        SELECT R.REV_NO,-->
+<!--               R.MEMBER_NO,-->
+<!--               R.MEMBER_NAME,-->
+<!--               R.REV_PEOPLE,-->
+<!--               R.PHONE,-->
+<!--               R.EMAIL,-->
+<!--               R.REV_ASK,-->
+<!--               R.REV_TIME,-->
+<!--               R.REV_DATE,-->
+<!--               R.REV_STATUS,-->
+<!--               RA.AGENT_NAME-->
+<!--        FROM REAL_RESERVATION R-->
+<!--                 LEFT JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO-->
+<!--                 JOIN REALESTATE_AGENT RA ON R.AGENT_NO = RA.AGENT_NO-->
+<!--        WHERE R.MEMBER_NO = #{memberNo}-->
+<!--    </select>-->
 
-    <select id="selectReservationCount" resultType="int">
-        SELECT COUNT(*)
-        FROM REAL_RESERVATION
-        WHERE MEMBER_NO = #{memberNo}
-    </select>
+<!--    <select id="selectReservationCount" resultType="int">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM REAL_RESERVATION-->
+<!--        WHERE MEMBER_NO = #{memberNo}-->
+<!--    </select>-->
 
     <update id="changeMemberGrade">
         UPDATE MEMBER
@@ -298,43 +300,43 @@
     </update>
 
 
-    <resultMap id="BrokerResList" type="brokerList">
-        <result column="REV_NO" property="revNo"/>
-        <result column="MEMBER_NO" property="memberNo"/>
-        <result column="MEMBER_NAME" property="memberName"/>
-        <result column="REV_PEOPLE" property="revPeople"/>
-        <result column="PHONE" property="phone"/>
-        <result column="EMAIL" property="email"/>
-        <result column="REV_ASK" property="revAsk"/>
-        <result column="REV_TIME" property="revTime"/>
-        <result column="REV_DATE" property="revDate"/>
-        <result column="REV_CREATEDATE" property="revCreateDate"/>
-        <result column="REV_STATUS" property="revStatus"/>
-        <result column="AGENT_NO" property="agentNo"/>
-        <result column="AGENT_NAME" property="agentName"/>
-    </resultMap>
+<!--    <resultMap id="BrokerResList" type="brokerList">-->
+<!--        <result column="REV_NO" property="revNo"/>-->
+<!--        <result column="MEMBER_NO" property="memberNo"/>-->
+<!--        <result column="MEMBER_NAME" property="memberName"/>-->
+<!--        <result column="REV_PEOPLE" property="revPeople"/>-->
+<!--        <result column="PHONE" property="phone"/>-->
+<!--        <result column="EMAIL" property="email"/>-->
+<!--        <result column="REV_ASK" property="revAsk"/>-->
+<!--        <result column="REV_TIME" property="revTime"/>-->
+<!--        <result column="REV_DATE" property="revDate"/>-->
+<!--        <result column="REV_CREATEDATE" property="revCreateDate"/>-->
+<!--        <result column="REV_STATUS" property="revStatus"/>-->
+<!--        <result column="AGENT_NO" property="agentNo"/>-->
+<!--        <result column="AGENT_NAME" property="agentName"/>-->
+<!--    </resultMap>-->
 
-    <select id="selectBrokerResList" resultMap="BrokerResList">
-        SELECT R.REV_NO,
-               R.MEMBER_NO,
-               R.MEMBER_NAME,
-               REV_PEOPLE,
-               REV_TIME,
-               REV_DATE,
-               REV_CREATEDATE,
-               REV_STATUS
-        FROM REAL_RESERVATION R
-                 LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO = RA.AGENT_NO
-        WHERE RA.MEMBER_NO = #{memberNo}
-        ORDER BY REV_DATE
-    </select>
+<!--    <select id="selectBrokerResList" resultMap="BrokerResList">-->
+<!--        SELECT R.REV_NO,-->
+<!--               R.MEMBER_NO,-->
+<!--               R.MEMBER_NAME,-->
+<!--               REV_PEOPLE,-->
+<!--               REV_TIME,-->
+<!--               REV_DATE,-->
+<!--               REV_CREATEDATE,-->
+<!--               REV_STATUS-->
+<!--        FROM REAL_RESERVATION R-->
+<!--                 LEFT JOIN REALESTATE_AGENT RA on R.AGENT_NO = RA.AGENT_NO-->
+<!--        WHERE RA.MEMBER_NO = #{memberNo}-->
+<!--        ORDER BY REV_DATE-->
+<!--    </select>-->
 
 
-    <select id="nNameCheck" resultType="int">
-        SELECT COUNT(*)
-        FROM MEMBER
-        WHERE NICKNAME = #{ NICKNAME }
-    </select>
+<!--    <select id="nNameCheck" resultType="int">-->
+<!--        SELECT COUNT(*)-->
+<!--        FROM MEMBER-->
+<!--        WHERE NICKNAME = #{ NICKNAME }-->
+<!--    </select>-->
 
 
 </mapper>

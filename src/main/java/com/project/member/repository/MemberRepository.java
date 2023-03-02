@@ -6,7 +6,7 @@ import com.project.member.dto.AllBoard;
 import com.project.member.dto.BrokerEnrollInsertDto;
 import com.project.member.vo.Member;
 import com.project.realestate.dto.ReservationResponse;
-import com.project.realestate.vo.ReservationBroker;
+import com.project.realestate.dto.ReservationBrokerDto;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
@@ -83,10 +83,9 @@ public class MemberRepository {
         return sqlSession.selectList("memberMapper.selectAllBoard",m,rowBounds);
     }
 
-    public int deleteMember(SqlSession sqlSession, long memberNo){
+    public int deleteMember(SqlSession sqlSession, long memberNo) {
         return sqlSession.delete("memberMapper.deleteMember", memberNo);
     }
-
 
     public String brokerInsert(BrokerEnrollInsertDto brokerEnroll) {
         sqlSession.insert("realEstateAgentMapper.brokerMemberInsert", brokerEnroll);
@@ -108,18 +107,25 @@ public class MemberRepository {
         return sqlSession.selectList("memberMapper.selectReviewList", m, rowBounds);
     }
 
+
+
     public int selectReservationCount(SqlSession sqlSession, Member m){
-        return sqlSession.selectOne("memberMapper.selectReservationCount", m);
+        return sqlSession.selectOne("reservationMapper.selectReservationCount", m);
     }
 
     public List<ReservationResponse> selectReservationList(SqlSession sqlSession, PageInfoCombine pageInfoCombine ,Member m){
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("memberMapper.selectReservationList", m, rowBounds);
+        return sqlSession.selectList("reservationMapper.selectReservationList", m, rowBounds);
     }
 
-    public List<ReservationBroker> selectBrokerReservationList(SqlSession sqlSession, Member m){
-        return sqlSession.selectList("memberMapper.selectBrokerResList", m);
+    public List<ReservationBrokerDto> selectBrokerReservationList(SqlSession sqlSession, Member m){
+        return sqlSession.selectList("reservationMapper.selectBrokerResList", m);
     }
+
+
+
+
+
 
     public int nNameCheck(String nName) {
         return sqlSession.selectOne("memberMapper.nNameCheck", nName);

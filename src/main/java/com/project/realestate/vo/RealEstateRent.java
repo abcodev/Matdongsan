@@ -11,20 +11,20 @@ public class RealEstateRent {
 
     private String estateNo;
     private String accYear;
-    private String sggCd; //자치구 코드
+    private String sggCd;
     private String sggNm;
     private String bjdCd;
     private String bjdName;
-    private String boBn; //본번
-    private String buBn; //부번
-    private String floorNo; // 층
+    private String boBn;
+    private String buBn;
+    private String floorNo;
     private String dealYmd;
     private String rentGbn;
     private String rentArea;
     private String rentGtn;
     private String rentFee;
     private String buildName;
-    private String buildYear; // 건축년도
+    private String buildYear;
     private String houseType;
 
     private String address;

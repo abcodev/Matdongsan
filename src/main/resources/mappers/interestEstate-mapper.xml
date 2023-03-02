@@ -13,7 +13,6 @@
     </resultMap>
 
 
-
     <select id="checkInterest" parameterType="Map" resultMap="interestResultSet">
         SELECT * FROM INTEREST WHERE ESTATE_NO = #{estateNo} AND MEMBER_NO = #{memberNo}
     </select>

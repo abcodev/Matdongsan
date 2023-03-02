@@ -1,4 +1,4 @@
-package com.project.realestate.vo;
+package com.project.realestate.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationBroker {
+public class ReservationBrokerDto {
     private int revNo;
     private int memberNo;
     private String memberName;

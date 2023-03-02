@@ -28,8 +28,4 @@ public class QnaBoard {
     private String blind;
 
 
-
-
-
-
 }
