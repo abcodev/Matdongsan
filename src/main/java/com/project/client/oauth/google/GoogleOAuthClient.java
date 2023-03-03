@@ -8,6 +8,7 @@ import com.project.client.oauth.google.dto.GoogleOAuthRequest;
 import com.project.client.oauth.google.dto.GoogleOAuthResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -32,9 +33,17 @@ public class GoogleOAuthClient implements OAuthClient {
     private static final String GOOGLE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/token";
     final static String GOOGLE_REVOKE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/revoke";
 
-    private final static String CLIENT_ID = "637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com";
-    private final static String CLIENT_SECRET = "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";
-    private final static String REDIRECT_URI = "http://matdongsan.site/google/callback";
+//    private final static String CLIENT_ID = "637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com";
+//    private final static String CLIENT_SECRET = "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";
+//    private final static String REDIRECT_URI = "http://matdongsan.site/google/callback";
+
+    @Value("${matdongsan.oauth.google.client_id}")
+    private String CLIENT_ID;
+    @Value("${matdongsan.oauth.google.client_secret}")
+    private String CLIENT_SECRET;
+    @Value("${matdongsan.oauth.google.redirect_uri}")
+    private String REDIRECT_URI;
+
     private final RestTemplate restTemplate;
 
     @Override

@@ -4,6 +4,7 @@ package com.project.client.seoulApi;
 import com.project.client.seoulApi.dto.RealEstateRentDto;
 import com.project.client.seoulApi.dto.RealEstateRentResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +16,9 @@ import java.util.List;
 public class SeoulRentApiClient {
     private final RestTemplate restTemplate;
     private static final String apiUrl = "http://openapi.seoul.go.kr:8088";
-    private final String apiKey = "6d504f496761686137326a50747377";
+//    private final String apiKey = "6d504f496761686137326a50747377";
+    @Value("${matdongsan.oauth.seoul_rent.client_id}")
+    private String apiKey;
 
     // Scheduling
     public List<RealEstateRentDto> getRentHouseList() {

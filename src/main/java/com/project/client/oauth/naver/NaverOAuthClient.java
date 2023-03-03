@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -37,9 +38,18 @@ public class NaverOAuthClient implements OAuthClient {
     //response_type: 인증 과정에 대한 구분값. code로 값이 고정돼 있음.
     //redirect_uri: 네이버 로그인 인증의 결과를 전달받을 콜백 URL(URL 인코딩). 애플리케이션을 등록할 때 Callback URL에 설정한 정보.
     //state: 애플리케이션이 생성한 상태 토큰
-    private final static String CLIENT_ID = "3Y5hO0TcAEavJAQGHzKc";
-    private final static String CLIENT_SECRET = "TXkzMNWLnU";
-    private final static String REDIRECT_URI = "http://matdongsan.site/naver/callback";
+
+//    private final static String CLIENT_ID = "3Y5hO0TcAEavJAQGHzKc";
+//    private final static String CLIENT_SECRET = "TXkzMNWLnU";
+//    private final static String REDIRECT_URI = "http://matdongsan.site/naver/callback";
+
+    @Value("${matdongsan.oauth.naver.client_id}")
+    private String CLIENT_ID;
+    @Value("${matdongsan.oauth.naver.client_secret}")
+    private String CLIENT_SECRET;
+    @Value("${matdongsan.oauth.naver.redirect_uri}")
+    private String REDIRECT_URI;
+
     private final static String SESSION_STATE = "oauth_state";
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

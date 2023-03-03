@@ -263,9 +263,6 @@ COMMENT ON COLUMN MATDONGSAN.REAL_RESERVATION.REV_CREATEDATE IS '얘약신청 �
 COMMENT ON COLUMN MATDONGSAN.REAL_RESERVATION.REV_STATUS IS '예약 상태';
 
 
-
-
-
 DROP TABLE "MEMBER";
 
 CREATE TABLE "MEMBER"
@@ -284,7 +281,7 @@ CREATE TABLE "MEMBER"
     "RECENT_ACCESS"            TIMESTAMP                      NULL,
     "ACCESS_TOKEN"             VARCHAR2(255)                  NULL,
     "REFRESH_TOKEN"            VARCHAR2(255)                  NULL,
-    "REFRESH_TOKEN_EXPIRED_AT" TIMESTAMP                      NULL,
+--     "REFRESH_TOKEN_EXPIRED_AT" TIMESTAMP                      NULL,
     "BAN_PERIOD"               TIMESTAMP                      NULL
 );
 
