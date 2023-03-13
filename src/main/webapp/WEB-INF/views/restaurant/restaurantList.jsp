@@ -11,11 +11,6 @@
 </head>
 <body>
 
-<script>
-    window.onload = () => {
-        retrieveRestaurants(1)
-    }
-</script>
 <div id="content">
     <c:if test="${loginUser.grade eq 'ADMIN'}">
         <div id="enroll_btn">
@@ -44,6 +39,11 @@
 </div>
 
 <script>
+
+    window.onload = () => {
+        retrieveRestaurants(1)
+    }
+
     function retrieveRestaurants(current_page) {
         const checkHashtag = [];
         $('input:checkbox[name=chk_hashtag]:checked').each(function() {

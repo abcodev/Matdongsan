@@ -147,7 +147,6 @@ public class MemberService {
         OAuthClient oAuthClient = oAuthClientService.getClient(member.getProvider());
         OAuthToken freshToken = oAuthClient.renewToken(member.getRefreshToken());
         // memberRepository.updateToken(member.getMemberNo(), freshToken);
-
         oAuthClient.unlink(freshToken);
         memberRepository.deleteMember(sqlSession, member.getMemberNo());
     }

@@ -44,8 +44,6 @@
         </script>
 
 
-
-
         <div class="head name">
             <span>${restaurantDetail.resName}</span>
         </div>
@@ -165,6 +163,7 @@
         </div>
     </div>
 </div>
+
 <script>
     window.onload = function () {
 

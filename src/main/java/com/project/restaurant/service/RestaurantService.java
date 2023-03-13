@@ -82,6 +82,7 @@ public class RestaurantService {
 
         try {
             // 1. 이미지 파일 저장
+//            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
             String savePath = servletContext.getRealPath("target/Matdongsan-1.0-SNAPSHOT/resources/images/restaurant/");
 //            String savePath = servletContext.getRealPath("/");
             String fileName = Utils.saveFile(savePath, file);
