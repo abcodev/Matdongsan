@@ -24,16 +24,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class RestaurantService {
 
-    public static final String webPath = "/resources/images/";
     private static final int DEFAULT_RES_SIZE = 12;
     private final ServletContext servletContext;
     private final RestaurantRepository restaurantRepository;
     private final RestaurantCrawlingService restaurantCrawlingService;
 
-
-    public int selectResListCount() {
-        return 0;
-    }
 
     /**
      * 전체 리스트 조회
@@ -82,13 +77,14 @@ public class RestaurantService {
 
         try {
             // 1. 이미지 파일 저장
-//            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
-            String savePath = servletContext.getRealPath("target/Matdongsan-1.0-SNAPSHOT/resources/images/restaurant/");
-//            String savePath = servletContext.getRealPath("/");
+            String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+//            String savePath = servletContext.getRealPath("target/Matdongsan-1.0-SNAPSHOT/resources/images/restaurant/");
             String fileName = Utils.saveFile(savePath, file);
 
             // 2. Restaurant 엔티티 생성 후 저장
-            restaurant.setImageUrl("/resources/images/restaurant/" + fileName);
+
+            restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
+//            restaurant.setImageUrl("/resources/images/restaurant/" + fileName);
             String resNo = restaurantRepository.resInsert(restaurant);
 
             // 3. ResImg 엔티티 생성 후 저장
@@ -123,11 +119,12 @@ public class RestaurantService {
         try {
             // 1. 이미지 파일 저장
             if (file.getSize() > 0) {
-//                String savePath = servletContext.getRealPath("/resources/images/restaurant/");
-                String testUrl = "/home/ubuntu/apps/tomcat/apache-tomcat-9.0.71/webapps/ROOT/resources/images/restaurant/";
-                String fileName = Utils.saveFile(testUrl, file);
+                String savePath = servletContext.getRealPath("/resources/images/restaurant/");
+//                String savePath = servletContext.getRealPath("/home/ubuntu/apps/tomcat/apache-tomcat-9.0.71/webapps/ROOT/resources/images/restaurant/");
+                String fileName = Utils.saveFile(savePath, file);
 
-                restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
+                restaurant.setImageUrl("http://localhost:8070/Matdongsan/resources/images/restaurant/" + fileName);
+//                restaurant.setImageUrl("http://matdongsan.site/resources/images/restaurant/" + fileName);
 
                 ResImg resImg = new ResImg();
                 resImg.setMemberNo(1L);

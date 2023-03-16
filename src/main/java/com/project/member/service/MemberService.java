@@ -18,15 +18,13 @@ import com.project.realestate.dto.ReservationBrokerDto;
 import com.project.realestate.vo.Interest;
 import com.project.restaurant.vo.Review;
 import lombok.RequiredArgsConstructor;
-//import net.nurigo.java_sdk.api.Message;
-//import net.nurigo.java_sdk.exceptions.CoolsmsException;
-//import org.json.simple.JSONObject;
 import lombok.extern.log4j.Log4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 import org.json.simple.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,20 +46,12 @@ public class MemberService {
     private static final int DEFAULT_SIZE = 5;
     private final ServletContext servletContext;
 
-    /*
-        sqlsession 만들지 않아도 되는 이유 (이건 jdbc 쓸 때 사용하는 방식)
+    @Value("${matdongsan.certify.phone.api_key}")
+    private String certifyApiKey;
 
-        유저 - 컨트롤러 - 서비스 - 레포지토리 - 디비의 흐름으로 의존성의 방향이 한 방향이어야 함
-        컨트롤러가 -> 서비스를 의존하고 -> 레포지토리를 의존함 (서비스에서는 레포지토리를 호출할수있고 서비스에서 컨트롤러는 호출할수 없음)
-        이렇게 하는 이유 : 계층별로 결합도를 낮추고 언제든지 하위계층이 바뀔 수 있는 구조를 만들기 위해서
+    @Value("${matdongsan.certify.phone.api_secret}")
+    private String certifyApiSecret;
 
-        마이바티스에서 -> SqlSessionTemplate : repository 영역을 담당하는 기술을 바꾼것
-        (jdbc -> sqlsession : 기술에 종속적임
-                              수정할 일이 있으면 서비스에 찾아와서 수정해야함, 상위계층이 하위계층에 종속적인 구조이기 때문에)
-
-        Bean을 만들어둬서 가져다 쓸 수 있음 (기술에 종속된 내용은 가져다 씀)
-        <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession"> <- 이부분
-     */
 
     public Member login(HttpSession session, String provider, String code, String state) {
         OAuthClient oAuthClient = oAuthClientService.getClient(provider);
@@ -94,14 +84,11 @@ public class MemberService {
 
 
     public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
-        String api_key = "NCSOBLGT3XKTGRQB";
-        String api_secret = "RKVNQQTAHQL0J3UR3VDG8GHL1TY9IUTT";
-        Message coolsms = new Message(api_key, api_secret);
+        Message coolsms = new Message(certifyApiKey, certifyApiSecret);
 
-        // 4 params(to, from, type, text) are mandatory. must be filled
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("to", userPhoneNumber);    // 수신전화번호
-        params.put("from", "010-4818-2172");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+        params.put("from", "010-4818-2172");    // 발신전화번호
         params.put("type", "SMS");
         params.put("text", "[MATDONGSAN] 인증번호는" + "[" + randomNumber + "]" + "입니다.");
         params.put("app_version", "test app 1.2");
@@ -153,10 +140,11 @@ public class MemberService {
 
     @Transactional
     public void brokerMemberInsert(MultipartFile file, BrokerEnroll brokerEnroll) {
-//        String savePath = servletContext.getRealPath("/resources/files/agent/");
-        String savePath = servletContext.getRealPath("/");
+        String savePath = servletContext.getRealPath("/resources/files/agent/");
+//        String savePath = servletContext.getRealPath("/");
         String attachment = Utils.saveFile(savePath, file);
-        brokerEnroll.setFileUrl("http://matdongsan.site/resources/files/agent/" + attachment);
+        brokerEnroll.setFileUrl("http://localhost:8070/Matdongsan/resources/files/agent/" + attachment);
+//        brokerEnroll.setFileUrl("http://matdongsan.site/resources/files/agent/" + attachment);
         memberRepository.brokerInsert(BrokerEnrollInsertDto.of(brokerEnroll));
     }
 

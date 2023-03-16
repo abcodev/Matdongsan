@@ -23,5 +23,4 @@ public class RestaurantCrawlingService {
             return "https://cdn-icons-png.flaticon.com/512/5449/5449904.png";
         }
     }
-
 }
