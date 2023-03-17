@@ -1,9 +1,5 @@
-# Matdongsan
+# 맛동산 - Matdongsan
 <img width="500" alt="스크린샷 2023-02-25 오전 12 04 복사" src="https://user-images.githubusercontent.com/113197284/221238352-64af84b3-5248-4c3b-82c1-921d378379ad.png">
-
-## 기획 의도
-부동산 가격 정보를 확인하고, 지역 커뮤니티를 통해 동네 주변 정보를 알아볼 수 있는 사이트를 기획하였습니다.
-
 
 ## 참여
 | 장현정 | 염서학 | 이가영 | 양진호 | 이이수 | 김도윤 |
@@ -19,7 +15,14 @@
 - **Collaboration** : Git , Notion
 
 ## 서비스 소개
-<img width="1840" alt="스크린샷 2023-03-16 오후 2 08 12" src="https://user-images.githubusercontent.com/113197284/225520481-795f6487-5b1b-4fab-b3cd-201a52300efc.png">
+
+### matdongsan.site
+부동산 가격 정보를 확인하고, 지역 커뮤니티를 통해 동네 주변 정보를 알아볼 수 있는 사이트 입니다.
+
+<img width="1840" alt="스크린샷 2023-03-17 오후 3 25 46" src="https://user-images.githubusercontent.com/113197284/225829227-4c5dd48b-fde3-4e57-affb-e3093e3a5fc4.png">
+
+
+
 
 
 ## 주요기능
