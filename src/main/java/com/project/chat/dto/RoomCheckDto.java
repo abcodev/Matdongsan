@@ -9,7 +9,6 @@ public class RoomCheckDto {
     private String roomNo;
     private long memberNo;
 
-
     public static RoomCheckDto checkDto(Long memberNo){
         return RoomCheckDto.builder().memberNo(memberNo).build();
     }

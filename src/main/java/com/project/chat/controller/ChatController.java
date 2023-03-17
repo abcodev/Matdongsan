@@ -64,11 +64,8 @@ public class ChatController {
     @RequestMapping("/updateMessage")
     @ResponseBody
     public void updateMessageRead(@ModelAttribute("content") MessageDto messageDto) {
-        System.out.println("test" + messageDto.getMessage());
         chatService.updateMessageRead(messageDto);
     }
-
-
 
     /*
         >> 관리자가 채팅방에 참여하려면 -> 관리자는 채팅에 참여자 개념이 아니고 채팅 리시버 개념
@@ -103,7 +100,6 @@ public class ChatController {
         >> 알림
         - 지금 1:1 문의를 눌렀을떄 구독이 시작되는 구조니까 사용자 측 채팅 알림은 따로 sse 로 띄운다
         - 관리자 페이지 new 는 웹소켓으로 띄운다,,, (visible 값 변경)
-
      */
 
 }

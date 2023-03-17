@@ -112,11 +112,11 @@
         </div>
 
 
-
         <script>
             function redirectLoginPage() {
                 let loginPage = '${pageContext.request.contextPath}/loginPage?redirectUrl=';
-                let redirectUrl = location.href.substring('http://matdongsan.site/${pageContext.request.contextPath}'.length - 1);
+                <%--let redirectUrl = location.href.substring('http://matdongsan.site/${pageContext.request.contextPath}'.length - 1);--%>
+                let redirectUrl = location.href.substring('http://localhost:8070/${pageContext.request.contextPath}'.length - 1);
                 return location.href = loginPage + redirectUrl;
             }
             let alarmIsOpen = false;

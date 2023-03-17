@@ -22,7 +22,6 @@
         <jsp:include page="../chat/chat_pop.jsp"/>
     </c:if>
 </head>
-
 <body>
 <header id="header">
     <div class="inner">
@@ -130,7 +129,6 @@
             })
         }
 
-
         let alarmIsOpen = false;
         if (${not empty loginUser}) {
             window.onload = () => {
@@ -173,7 +171,6 @@
             });
         }
     </script>
-
 
 </header>
 

@@ -33,10 +33,6 @@ public class GoogleOAuthClient implements OAuthClient {
     private static final String GOOGLE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/token";
     final static String GOOGLE_REVOKE_TOKEN_BASE_URL = "https://oauth2.googleapis.com/revoke";
 
-//    private final static String CLIENT_ID = "637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com";
-//    private final static String CLIENT_SECRET = "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";
-//    private final static String REDIRECT_URI = "http://matdongsan.site/google/callback";
-
     @Value("${matdongsan.oauth.google.client_id}")
     private String CLIENT_ID;
     @Value("${matdongsan.oauth.google.client_secret}")
@@ -48,7 +44,8 @@ public class GoogleOAuthClient implements OAuthClient {
 
     @Override
     public String generateRedirectUrl(HttpSession session) {
-        return "https://accounts.google.com/o/oauth2/v2/auth?client_id=637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com&redirect_uri=http://matdongsan.site/google/callback&response_type=code&scope=email%20profile%20openid&access_type=offline";
+        return "https://accounts.google.com/o/oauth2/v2/auth?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code&scope=email%20profile%20openid&access_type=offline";
+//        return "https://accounts.google.com/o/oauth2/v2/auth?client_id=637720502450-bcin8qk6a4atnjaccvsfspa823o725ep.apps.googleusercontent.com&redirect_uri=http://matdongsan.site/google/callback&response_type=code&scope=email%20profile%20openid&access_type=offline";
     }
 
 

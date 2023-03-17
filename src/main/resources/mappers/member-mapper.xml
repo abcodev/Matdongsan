@@ -332,11 +332,11 @@
 <!--    </select>-->
 
 
-<!--    <select id="nNameCheck" resultType="int">-->
-<!--        SELECT COUNT(*)-->
-<!--        FROM MEMBER-->
-<!--        WHERE NICKNAME = #{ NICKNAME }-->
-<!--    </select>-->
+    <select id="nNameCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE NICKNAME = #{ NICKNAME }
+    </select>
 
 
 </mapper>

@@ -50,7 +50,7 @@ public class MainController {
         ArrayList<HashMap> newsList = new ArrayList();
         List<RealEstateMainListDto> sellList = realEstateService.getSellList();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 5; i <10 ; i++) {
             Element articleElement = photoElements.get(i);
             Elements aElements = articleElement.select("a");
             Element aElement = aElements.get(0);

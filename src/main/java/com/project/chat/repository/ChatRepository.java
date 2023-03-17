@@ -1,22 +1,16 @@
 package com.project.chat.repository;
 
 import com.project.chat.dto.*;
-import com.project.member.vo.Member;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//
-//import java.util.List;
-//
 @Repository
 @RequiredArgsConstructor
 public class ChatRepository {
-//
     private final SqlSessionTemplate sqlSession;
-
 
 
     /**

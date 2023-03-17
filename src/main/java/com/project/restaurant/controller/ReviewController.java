@@ -1,6 +1,5 @@
 package com.project.restaurant.controller;
 
-import com.project.board.vo.Reply;
 import com.project.member.vo.Member;
 import com.project.restaurant.dto.InsertReviewRequest;
 import com.project.restaurant.dto.RestaurantReviewResponse;
@@ -27,7 +26,6 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final RestaurantService restaurantService;
 
-    // consumes : 클라이언트가 서버에게 보내는 데이터 타입을 명시
     @RequestMapping(value = "/restaurant/insertReview", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     public ResponseEntity<Void> insertReview(@ModelAttribute InsertReviewRequest req,

@@ -61,7 +61,8 @@
     }
 
     function connection(){
-        let socket = new SockJS("/mainPage");
+        // let socket = new SockJS("/mainPage");
+        let socket = new SockJS("/Matdongsan/mainPage");
         stompClient = Stomp.over(socket);
         stompClient.connect({}, onConnected());
     }
