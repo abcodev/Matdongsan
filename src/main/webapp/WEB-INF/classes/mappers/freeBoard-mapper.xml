@@ -45,8 +45,8 @@
     </insert>
 
     <insert id="insertNotice" parameterType="freeBoard">
-        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, BOARD_AREA, NOTICE)
-        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, #{boardArea}, 1)
+        INSERT INTO FREE_BOARD (FREE_BNO, MEMBER_NO, BOARD_TITLE, BOARD_WRITER, BOARD_CONTENT, NOTICE)
+        VALUES (SEQ_FREE_BNO.nextval, #{memberNo}, #{boardTitle}, #{boardWriter}, #{boardContent}, 1)
     </insert>
 
     <select id="selectByFreeBno" parameterType="_int" resultMap="fBoardResultSet">
@@ -219,6 +219,7 @@
         JOIN MEMBER M ON M.MEMBER_NO = F.MEMBER_NO
         WHERE F.STATUS = 'Y'
         AND GRADE != 'ADMIN'
+        AND BLIND != 'Y'
         <if test="state != '' ">
             AND BOARD_AREA = '${sggNm}'
         </if>

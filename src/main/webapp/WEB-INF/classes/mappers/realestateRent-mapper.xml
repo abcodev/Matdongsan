@@ -355,6 +355,7 @@
         from dual
     </select>
 
+    <!-- 기본 서울시 매매, 전세 평균값   -->
     <select id="selectBasicList" resultMap="avgResultSet">
         select
             ( SELECT round(AVG(TO_NUMBER(RENT_GTN)), 1)

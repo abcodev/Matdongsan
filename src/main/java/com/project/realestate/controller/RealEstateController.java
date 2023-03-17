@@ -64,8 +64,6 @@ public class RealEstateController {
         Gson gson = new Gson();
         String result = gson.toJson(searchResult);
 
-        System.out.println("result : " + result);
-
         model.addAttribute("result", result);
 
         return result;

@@ -513,9 +513,9 @@
                             //     // 로드뷰 마커가 중앙에 오도록 로드뷰의 viewpoint 조정 합니다.
                             //     var projection = roadview.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
 
-                                // 마커의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
-                                var viewpoint = projection.viewpointFromCoords(rMarker.getPosition(), rMarker.getAltitude());
-                                roadview.setViewpoint(viewpoint); //로드뷰에 뷰포인트를 설정합니다.
+                            // 마커의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
+                            var viewpoint = projection.viewpointFromCoords(rMarker.getPosition(), rMarker.getAltitude());
+                            roadview.setViewpoint(viewpoint); //로드뷰에 뷰포인트를 설정합니다.
                             // }
                         }
                     });
@@ -557,7 +557,7 @@
                     'estateNo': ${realEstateDetail.estateNo}
                 },
                 success(data) {
-                        $('#checkbox_heart').prop("checked", data);
+                    $('#checkbox_heart').prop("checked", data);
 
                 }
             });

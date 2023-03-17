@@ -193,7 +193,7 @@
                         + '<div><img src=' + reply.profileImage + '></div>'
                         + '<div>' + reply.nickName + "<input type='hidden' name='replyNo' value=" + reply.replyNo + '></div>'
                         + '<div>' + moment(reply.replyDate).format("YYYY-MM-DD HH:mm") + "<input type='hidden' name='replyWriter' value="+ reply.memberNo +'></div>'
-                        + '<div>' + ((reply.nickName == '${loginUser.nickName}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
+                        + '<div>' + ((reply.memberNo == '${loginUser.memberNo}' ? "<button onclick='deleteReply(this);'>x</button>":"")) + '</div>'
                         + '</div>'
                         + '<div class="reply_content">' + reply.replyContent + '</div>'
                         + '</div>';
