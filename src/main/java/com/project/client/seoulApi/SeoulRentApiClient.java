@@ -16,7 +16,6 @@ import java.util.List;
 public class SeoulRentApiClient {
     private final RestTemplate restTemplate;
     private static final String apiUrl = "http://openapi.seoul.go.kr:8088";
-//    private final String apiKey = "6d504f496761686137326a50747377";
     @Value("${matdongsan.oauth.seoul_rent.client_id}")
     private String apiKey;
 

@@ -10,33 +10,23 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/realestate/realestateDetailPage.css"/>">
 
     <style>
-        .map_wrap, .map_wrap * {margin:0; padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-        .map_wrap {position:relative;width:100%;height:350px;}
         #category {padding-left:0px; position:absolute;top:10px;left:10px;border-radius: 5px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);background: #fff;overflow: hidden;z-index: 2;}
         #category li {float:left;list-style: none;width:50px;px; solid #acacac;padding:6px 0;text-align: center; cursor: pointer;}
-        #category li.on {background: #eee;}
         #category li:hover {background: #ffe6e6;border-left:1px solid #acacac;margin-left: -1px;}
         #category li:last-child{margin-right:0;border-right:0;}
         #category li span {display: block;margin:0 auto 3px;width:27px;height: 28px;}
         #category li .category_bg {background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;}
         #category li .bank {background-position: -10px 0;}
         #category li .mart {background-position: -10px -36px;}
-        #category li .pharmacy {background-position: -10px -72px;}
         #category li .cafe {background-position: -10px -144px;}
         #category li.on .category_bg {background-position-x:-46px;}
-        .placeinfo_wrap {position:absolute;bottom:28px;left:-150px;width:300px;}
         .placeinfo {position:relative;width:100%;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;padding-bottom: 10px;background: #fff;}
         .placeinfo:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-        .placeinfo_wrap .after {content:'';position:relative;margin-left:-12px;left:50%;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
         .placeinfo a, .placeinfo a:hover, .placeinfo a:active{color:#fff;text-decoration: none;}
         .placeinfo a, .placeinfo span {display: block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
         .placeinfo span {margin:5px 5px 0 5px;cursor: default;font-size:13px;}
         .placeinfo .title {font-weight: bold; font-size:14px;border-radius: 6px 6px 0 0;margin: -1px -1px 0 -1px;padding:10px; color: #fff;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-        .placeinfo .tel {color:#0f7833;}
-        .placeinfo .jibun
     </style>
-
-
 
 </head>
 
@@ -97,7 +87,7 @@
                 </tr>
                 <tr>
                     <th>금액</th>
-                    <td>${realEstateDetail.gbn} / ${realEstateDetail.objAmt}</td>
+                    <td>${realEstateDetail.gbn} / ${realEstateDetail.objAmt} 만원</td>
                 </tr>
             </table>
         </div>
@@ -233,9 +223,6 @@
                     markers = [], // 마커를 담을 배열입니다
                     currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
 
-
-
-
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapCenter = new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심 좌표
                     mapOption = {
@@ -254,9 +241,6 @@
 
                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-
-
-
                         var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
                             imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
                             imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -272,7 +256,6 @@
                         });
 
 
-
                         // 인포윈도우로 장소에 대한 설명을 표시합니다
                         var infowindow = new kakao.maps.InfoWindow({
                             content: '<div style="width:150px;text-align:center;padding:6px 0;">${realEstateDetail.bldgNm}</div>'
@@ -283,13 +266,6 @@
                         map.setCenter(coords);
                     }
                 });
-
-
-
-
-
-
-
 
 
                 var ps = new kakao.maps.services.Places(map);
@@ -319,7 +295,6 @@
                         target.attachEvent('on' + type, callback);
                     }
                 }
-
                 // 카테고리 검색을 요청하는 함수입니다
                 function searchPlaces() {
                     if (!currCategory) {
@@ -346,18 +321,14 @@
 
                     } else if (status === kakao.maps.services.Status.ERROR) {
                         // 에러로 인해 검색결과가 나오지 않은 경우 해야할 처리가 있다면 이곳에 작성해 주세요
-
                     }
                 }
 
                 // 지도에 마커를 표출하는 함수입니다
                 function displayPlaces(places) {
-
                     // 몇번째 카테고리가 선택되어 있는지 얻어옵니다
                     // 이 순서는 스프라이트 이미지에서의 위치를 계산하는데 사용됩니다
                     var order = document.getElementById(currCategory).getAttribute('data-order');
-
-
 
                     for ( var i=0; i<places.length; i++ ) {
 
@@ -469,8 +440,6 @@
                 }
 
 
-
-
                 var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
                 var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
                 var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
@@ -488,32 +457,8 @@
                                 rvResetValue.panoId = panoId;
                             });
 
-                            // setTimeout(rvMarker, 1500);
-                            //
-                            // function rvMarker() {
-                            //
-                            //     var imageSrc = '	https://cdn-icons-png.flaticon.com/128/4974/4974596.png', // 마커이미지의 주소입니다
-                            //         imageSize = new kakao.maps.Size(60, 60), // 마커이미지의 크기입니다
-                            //         imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-                            //
-                            //     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-                            //     var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
-                            //
-                            //     // 마커 생성
-                            //     var rMarker = new kakao.maps.Marker({
-                            //         map: roadview,
-                            //         position: position,
-                            //         image : markerImage
-                            //     });
-                            //
-                            //
-                            //     // 로드뷰 마커가 중앙에 오도록 로드뷰의 viewpoint 조정 합니다.
-                            //     var projection = roadview.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
-
-                                // 마커의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
                                 var viewpoint = projection.viewpointFromCoords(rMarker.getPosition(), rMarker.getAltitude());
                                 roadview.setViewpoint(viewpoint); //로드뷰에 뷰포인트를 설정합니다.
-                            // }
                         }
                     });
                 }

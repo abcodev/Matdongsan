@@ -30,9 +30,8 @@ public class RealEstateService {
         return realEstateRepository.selectListCount(sqlSession);
     }
 
-    /**
-     * 부동산 리스트 - 검색결과
-     */
+
+    // 부동산 리스트 - 검색결과
     public RealEstateRentListResponse selectAllList(RealEstateRentListRequest req) {
 
         RealEstateRentListFilter filter = RealEstateRentListFilter.from(req);
@@ -42,44 +41,38 @@ public class RealEstateService {
         return new RealEstateRentListResponse(result, pageInfoCombine);
     }
 
-    /**
-     * 자치 구 리스트
-     */
+
+    // 자치 구 리스트
     public List<RealEstateRent> searchLocalList() {
         return realEstateRepository.searchLocalList(sqlSession);
     }
 
-    /**
-     * 동 리스트
-     */
+
+    // 동 리스트
     public List<RealEstateRent> searchDongList(String state) {
         return realEstateRepository.searchDongList(sqlSession, state);
     }
 
-    /**
-     * 메인페이지 지도 부동산 매매 리스트
-     */
+
+    // 메인페이지 지도 부동산 매매 리스트
     public List<RealEstateMainListDto> getSellList() {
         return realEstateRepository.getSellList(sqlSession);
     }
 
-    /**
-     * 부동산 해당 구의 자유게시판글
-     */
+
+    // 부동산 해당 구의 자유게시판글
     public List<FreeBoard> selectFboard(String state) {
         return realEstateRepository.selectFboard(sqlSession, state);
     }
 
-    /**
-     * 전세, 매매 평균값
-     */
+
+    // 전세 매매 평균값
     public RealEstateRent chartList(String state) {
         return realEstateRepository.chartList(sqlSession, state);
     }
 
-    /**
-     * 서울시 전세, 매매 평균
-     */
+
+    // 서울시 전세, 매매 평균
     public RealEstateRent basicChart() {
         return realEstateRepository.basicChart(sqlSession);
     }
@@ -101,10 +94,9 @@ public class RealEstateService {
         }
     }
 
-
-    public List<Interest> getMostInterest() {
-        return interestEstateRepository.getMostInterest();
-    }
+//    public List<Interest> getMostInterest() {
+//        return interestEstateRepository.getMostInterest();
+//    }
 
     public List<RealEstateAgent> selectAgentList(String bjdongNm) {
         return realEstateRepository.selectAgentListByBjdongNm(bjdongNm);

@@ -37,7 +37,6 @@ public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
 
-    // 자유게시판 리스트
     @RequestMapping("/freeList")
     public ModelAndView selectFreeList(ModelAndView modelAndView,
                                        @RequestParam(value = "cpage", defaultValue = "1") int currentPage,
@@ -45,25 +44,23 @@ public class FreeBoardController {
                                        @RequestParam(value = "search", defaultValue = "") String search,
                                        @RequestParam(value = "select", defaultValue = "recent") String select
     ) {
-
         FreeBoardListRequest req = new FreeBoardListRequest(currentPage, state, search, select);
         FreeBoardListResponse resp = freeBoardService.selectFreeList(req);
         List<FreeBoard> freeNoticeList = freeBoardService.freeNoticeList();
-        freeBoardService.selectReportList();
+        freeBoardService.selectReportList(); // 블라인드 게시글 조회 및 업데이트
 
-        modelAndView.addObject("freeBoardList", resp.getFreeBoardList());
-        modelAndView.addObject("freeNoticeList", freeNoticeList);
+        modelAndView.addObject("freeBoardList", resp.getFreeBoardList()); // 자유게시판 리스트
+        modelAndView.addObject("freeNoticeList", freeNoticeList); // 공지사항 리스트
         modelAndView.addObject("pi", resp.getPageInfoCombine());
-        modelAndView.addObject("stateList", StateList.values());
-        modelAndView.addObject("hotWeekList", freeBoardService.hotWeekList());
+        modelAndView.addObject("stateList", StateList.values()); // 검색시 자치구 리스트
+        modelAndView.addObject("hotWeekList", freeBoardService.hotWeekList()); // 인기글 리스트
         modelAndView.addObject("condition", req);
         modelAndView.setViewName("board/freeBoardList");
 
         return modelAndView;
     }
 
-
-    // 게시글 작성
+    // 게시글 작성폼
     @RequestMapping("/freeList/enrollForm")
     @RequiredLogin
     public String enrollForm(Model model) {
@@ -79,7 +76,7 @@ public class FreeBoardController {
                                   Model model, FreeBoard fb, HttpSession session
     ) {
         Member loginUser = (Member) session.getAttribute("loginUser");
-        if (loginUser.getMemberNo() == 1) {
+        if (loginUser.getGrade().equals(MemberGrade.ADMIN)) {
             model.addAttribute("boardWriter", boardWriter);
             freeBoardService.insertNotice(fb);
         } else {
@@ -142,26 +139,6 @@ public class FreeBoardController {
         } else {
             return "redirect:/board/freeList";
         }
-
-    }
-
-    // 댓글 작성
-    @RequestMapping("/insertReply")
-    @ResponseBody
-    @RequiredLogin
-    public String insertReply(Reply r, HttpSession session) {
-
-        Member m = (Member) session.getAttribute("loginUser");
-        if (m != null) {
-            r.setMemberNo(m.getMemberNo());
-        }
-        int result = freeBoardService.insertReply(r);
-        if (result > 0) {
-            return "1";
-        } else {
-            return "0";
-        }
-
     }
 
     // 댓글 보기
@@ -173,6 +150,21 @@ public class FreeBoardController {
         String result = gson.toJson(replyList);
         return result;
     }
+
+    // 댓글 작성
+    @RequestMapping("/insertReply")
+    @ResponseBody
+    @RequiredLogin
+    public int insertReply(Reply r, HttpSession session) {
+
+        Member m = (Member) session.getAttribute("loginUser");
+        if (m != null) {
+            r.setMemberNo(m.getMemberNo());
+        }
+        int result = freeBoardService.insertReply(r);
+        return result;
+    }
+
 
     // 댓글 삭제
     @RequestMapping("/deleteReply")
@@ -186,14 +178,8 @@ public class FreeBoardController {
     @RequestMapping("/report")
     @ResponseBody
     @RequiredLogin
-    public String reportPost(Report report) {
-
+    public int reportPost(Report report) {
         int result = freeBoardService.insertReport(report);
-        if (result > 0) {
-            return "1";
-        } else {
-            return "0";
-        }
+        return result;
     }
-
 }

@@ -14,15 +14,12 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class SeoulApiClient {
-
     private final RestTemplate restTemplate;
     private static final String SEOUL_API_BASE_URL = "http://openAPI.seoul.go.kr:8088";
-//    private final String apiKey = "685649547661686835364a424c4871";
 
     @Value("${matdongsan.oauth.seoul_sell.client_id}")
     private String apiKey;
 
-    // Scheduling
     public List<RealEstateSellDto> getRealEstateSellList() {
         String serviceName = "tbLnOpendataRtmsV";
         String url = this.generateUrl(serviceName, 1, 1000);

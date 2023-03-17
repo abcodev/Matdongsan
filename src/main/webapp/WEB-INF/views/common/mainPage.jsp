@@ -362,8 +362,18 @@
 </div>
 
 <script>
-
+    $("#chat-circle").click(function () {
+        if (${not empty loginUser}) {
+            openChat();
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: '로그인 후 이용 가능합니다.'
+            });
+        }
+    });
 </script>
+
 
 </body>
 </html>
