@@ -110,18 +110,17 @@ public class MemberRepository {
 
 
     public int selectReservationCount(SqlSession sqlSession, Member m){
-        return sqlSession.selectOne("reservationMapper.selectReservationCount", m);
+        return sqlSession.selectOne("memberMapper.selectReservationCount", m);
     }
 
     public List<ReservationResponse> selectReservationList(SqlSession sqlSession, PageInfoCombine pageInfoCombine ,Member m){
         RowBounds rowBounds = pageInfoCombine.generateRowBounds();
-        return sqlSession.selectList("reservationMapper.selectReservationList", m, rowBounds);
+        return sqlSession.selectList("memberMapper.selectReservationList", m, rowBounds);
     }
 
     public List<ReservationBrokerDto> selectBrokerReservationList(SqlSession sqlSession, Member m){
-        return sqlSession.selectList("reservationMapper.selectBrokerResList", m);
+        return sqlSession.selectList("memberMapper.selectBrokerResList", m);
     }
-
 
 
 
