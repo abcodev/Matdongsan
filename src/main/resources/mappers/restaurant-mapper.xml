@@ -36,6 +36,7 @@
         <result column="CREATE_DATE" property="createDate"/>
         <result column="STATUS" property="status"/>
         <result column="MEMBER_NAME" property="memberName"/>
+        <result column="NICKNAME" property="nickName"/>
         <result column="PROFILE_IMAGE" property="profileImage"/>
     </resultMap>
 
@@ -117,7 +118,8 @@
                R.CREATE_DATE,
                R.STATUS,
                M.MEMBER_NAME,
-               M.PROFILE_IMAGE
+               M.PROFILE_IMAGE,
+               M.NICKNAME
         FROM REVIEW R
                  INNER JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
         WHERE R.RES_NO = #{resNo}

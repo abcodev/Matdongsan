@@ -20,6 +20,7 @@ public class ReviewResponse {
     private String createDate;
     private String status;
     private String memberName;
+    private String nickName;
     private String profileImage;
 
     private List<String> hashtags;
