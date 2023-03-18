@@ -16,18 +16,60 @@
 
 ## 서비스 소개
 
-### matdongsan.site
 부동산 가격 정보를 확인하고, 지역 커뮤니티를 통해 동네 주변 정보를 알아볼 수 있는 사이트 입니다.
 
-<img width="1840" alt="스크린샷 2023-03-17 오후 3 25 46" src="https://user-images.githubusercontent.com/113197284/225829227-4c5dd48b-fde3-4e57-affb-e3093e3a5fc4.png">
+<img width="1840" alt="메인페이지 기본" src="https://user-images.githubusercontent.com/113197284/226084243-b4be2497-e948-48ce-a7ed-73e11e3be99e.png">
+
+<!-- <img width="1840" alt="메인페이지 로그인전" src="https://user-images.githubusercontent.com/113197284/226083438-d7c18898-af64-47eb-b3ef-791a1a37cb58.png"> -->
+
+<!-- <img width="1840" alt="메인페이지 로그인 전" src="https://user-images.githubusercontent.com/113197284/226083294-35c265b2-eeca-4116-83d4-02d714dc791f.png"> -->
+
+
+|최근본목록|실시간알림|1:1문의|
+|------|---|---|
+|<img width="318" alt="메인페이지 최근본목록" src="https://user-images.githubusercontent.com/113197284/226083987-c6d8ec7d-6920-4451-bbb5-626d84d5e743.png">|<img width="474" alt="메인페이지 알림" src="https://user-images.githubusercontent.com/113197284/226084046-1109343a-4edd-41e3-b0a3-276702517082.png">|<img width="300" alt="메인페이지 채팅" src="https://user-images.githubusercontent.com/113197284/226083997-7deceb4f-7901-4ad6-97bc-f9dc4add14f4.png">|
 
 
 
 
 
-## 주요기능
-
+### 부동산
 서울시 공공 Api 매매/전월세 실거래가 정보 매일 자정 업데이트
+
+|부동산 목록|상세페이지|
+|------|---|
+|<img width="500" alt="부동산 목록" src="https://user-images.githubusercontent.com/113197284/226082411-0bed4d1e-8b75-4458-8da3-313d0bb6f84d.png">|<img width="500" alt="스크린샷 2023-03-18 오전 11 50 57" src="https://user-images.githubusercontent.com/113197284/226081381-85c2c505-8484-46b3-b734-ab4373e69183.png">|
+
+
+
+
+
+### 동네맛집
+
+<img width="1728" alt="동네맛집 목록" src="https://user-images.githubusercontent.com/113197284/226084217-ded65fc7-3b4e-4cd1-8a99-dcdc4cea1085.png">
+
+
+
+### 자유게시판
+
+<img width="1728" alt="자유게시판 목록" src="https://user-images.githubusercontent.com/113197284/226082226-721439d1-da90-4bf4-88ca-04b81f87441b.png">
+
+
+
+
+### 질문게시판
+
+### 1:1 문의 - 관리자
+
+<img width="1840" alt="관리자 채팅" src="https://user-images.githubusercontent.com/113197284/226083685-c1680ed2-fa30-477f-817b-fc4611d55fe1.png">
+
+
+
+### 마이페이지
+
+메
+
+
 
 
 
