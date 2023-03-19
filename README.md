@@ -115,8 +115,7 @@
   ├──webapp
   │   ├──resources
   │   │   ├──css
-  │   │   ├──files
-  │   └── └──js
+  │   └── └──files
   │   ├──WEB-INF
   │   │   ├──views
       
