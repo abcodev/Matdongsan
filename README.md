@@ -1,6 +1,9 @@
 # 맛동산 - Matdongsan
 <img width="500" alt="스크린샷 2023-02-25 오전 12 04 복사" src="https://user-images.githubusercontent.com/113197284/221238352-64af84b3-5248-4c3b-82c1-921d378379ad.png">
 
+## 기획
+부동산 가격 정보를 확인하고, 지역 커뮤니티를 통해 동네 주변 정보를 알아볼 수 있는 사이트 입니다.
+
 ## 참여
 | 장현정 | 염서학 | 이가영 | 양진호 | 이이수 | 김도윤 |
 |---|---|---|---|---|---|
@@ -16,7 +19,7 @@
 
 ## 서비스 소개
 
-부동산 가격 정보를 확인하고, 지역 커뮤니티를 통해 동네 주변 정보를 알아볼 수 있는 사이트 입니다.
+### 메인 페이지
 
 <img width="1840" alt="메인페이지 기본" src="https://user-images.githubusercontent.com/113197284/226084243-b4be2497-e948-48ce-a7ed-73e11e3be99e.png">
 
@@ -29,7 +32,7 @@
 |최근본목록|실시간 알림|1:1문의|
 |------|---|---|
 |<img width="318" alt="메인페이지 최근본목록" src="https://user-images.githubusercontent.com/113197284/226083987-c6d8ec7d-6920-4451-bbb5-626d84d5e743.png">|<img width="474" alt="메인페이지 알림" src="https://user-images.githubusercontent.com/113197284/226084046-1109343a-4edd-41e3-b0a3-276702517082.png">|<img width="300" alt="메인페이지 채팅" src="https://user-images.githubusercontent.com/113197284/226083997-7deceb4f-7901-4ad6-97bc-f9dc4add14f4.png">|
-
+|로그인 시 최근 본 부동산 목록|채팅, 댓글, 답글, 예약, 부동산회원승인 실시간 알림 |관리자와 1:1 채팅문의|
 
 
 
@@ -60,6 +63,7 @@
 |자유게시판 목록|상세페이지|
 |------|---|
 |<img width="1728" alt="자유게시판 목록" src="https://user-images.githubusercontent.com/113197284/226084333-5507f4d6-6254-49af-a6a5-b8bfb210ced3.png">|<img width="1728" alt="자유게시판 상세페이지" src="https://user-images.githubusercontent.com/113197284/226087192-cb76bffb-6071-4aab-8016-f3fd65efeb1f.png">|
+|키워드 검색, 기준 정렬<br>신고 누적 블라인드 게시글|댓글작성, 신고(관리자 확인 후 정지처리)|
 
 
 
@@ -68,10 +72,12 @@
 |질문게시판 목록|상세페이지|
 |------|---|
 |<img width="1728" alt="질문게시판 목록" src="https://user-images.githubusercontent.com/113197284/226086255-322b4d6a-5032-4463-82f3-f063be2345e0.png">|<img width="1728" alt="질문게시판 상세페이지" src="https://user-images.githubusercontent.com/113197284/226084545-1708193e-7ea5-45dd-8da6-74b4637c71d5.png">|
+|계층형 게시판|게시글에 따른 답글 확인|
 
 ### 1:1 문의 - 관리자
-
+실시간 채팅 문의 확인
 <img width="1840" alt="관리자 채팅" src="https://user-images.githubusercontent.com/113197284/226083685-c1680ed2-fa30-477f-817b-fc4611d55fe1.png">
+
 
 
 
@@ -80,12 +86,10 @@
 |마이페이지|관심목록|예약목록|
 |------|---|---|
 |<img width="1728" alt="마이페이지" src="https://user-images.githubusercontent.com/113197284/226087295-db41125f-f6bf-4d07-bae3-92ae5fef61d5.png">|<img width="1728" alt="스크린샷 2023-03-18 오후 2 32 39" src="https://user-images.githubusercontent.com/113197284/226087302-32633af0-cb44-4e46-98fc-0e1130c94d23.png">|<img width="1728" alt="마이페이지 예약내역" src="https://user-images.githubusercontent.com/113197284/226087530-49554301-9de5-455e-9159-e912e867ef32.png">|
+|회원정보수정, 부동산회원신청, 회원탈퇴|관심목록 해제|예약내역 확인 및 취소|
 
 
 
-
-
-## 코드리뷰
 
 
 
