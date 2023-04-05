@@ -27,6 +27,11 @@
 
 <!-- <img width="1840" alt="메인페이지 로그인 전" src="https://user-images.githubusercontent.com/113197284/226083294-35c265b2-eeca-4116-83d4-02d714dc791f.png"> -->
 
+### 소셜 로그인
+카카오, 네이버, 구글 3사 소셜 로그인 이용 가능  - 카카오 회원가입 및 로그인 화면
+<img width="1840" alt="스크린샷 2023-04-06 오전 1 01 28" src="https://user-images.githubusercontent.com/113197284/230138127-469cdfec-3255-4eaf-829c-42755325b2f9.png">
+
+
 ### 로그인 후
 
 |최근본목록|실시간 알림|1:1문의|
