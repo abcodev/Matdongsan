@@ -17,6 +17,19 @@
 - **DevOps** : ORACLE 11g , Oracle Cloud , Redis, AWS Ec2, Route53
 - **Collaboration** : Git , Notion
 
+## 담당한 기능
+
+- **소셜로그인**과 **사용자 인증 토큰** 관리 - Spring Security , oAuth2.0
+- **SSE**를 통한 실시간 알림
+- 서울시 **공공데이터 API**
+- **Redis**를 이용한 최근 본 목록, 많이 본 목록
+- 부동산 상세페이지
+- 부동산 회원 신청
+- 동네 맛집 리스트, 이미지크롤링
+- 동네맛집 상세페이지, 수정, 삭제
+- 회원탈퇴, 회원정지, aop
+- **AWS EC2** 배포
+
 ## 서비스 소개
 
 ### 메인 페이지
