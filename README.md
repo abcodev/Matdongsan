@@ -60,7 +60,7 @@
 |부동산 목록|상세페이지|예약|
 |------|---|---|
 |<img width="1728" alt="부동산 목록" src="https://user-images.githubusercontent.com/113197284/226082411-0bed4d1e-8b75-4458-8da3-313d0bb6f84d.png">|<img width="1728" alt="부동산 상세페이지" src="https://user-images.githubusercontent.com/113197284/226084488-5d061a3d-4dba-48a0-a73c-884677925a85.png">|<img width="1728" alt="부동산 예약" src="https://user-images.githubusercontent.com/113197284/226087342-8a7730b6-b1f9-4e27-97b1-a4bd40dd47da.png">|
-|서울시 공공 Api<br>매매,전월세 실거래가 매일 자정 업데이트<br>조건검색 , 평균가격 그래프지역|관심목록 등록<br> 상세정보 지도 , 로드뷰|부동산 예약신청|
+|서울시 공공 Api<br>매매,전월세 실거래가 매일 자정 업데이트<br>조건검색 , 평균가격 그래프|관심목록 등록<br> 상세정보 지도 , 로드뷰|부동산 예약신청|
 
 
 
