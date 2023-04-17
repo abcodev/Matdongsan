@@ -17,7 +17,7 @@
 - **DevOps** : ORACLE 11g , Oracle Cloud , Redis, AWS Ec2, Route53
 - **Collaboration** : Git , Notion
 
-## 담당한 기능
+## 담당 기능
 
 - **소셜로그인**과 **사용자 인증 토큰** 관리 - **Spring Security, oAuth2.0**
 - **SSE**를 통한 실시간 알림
