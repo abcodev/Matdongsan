@@ -5,7 +5,7 @@
 부동산 가격 정보를 확인하고, 지역 커뮤니티를 통해 동네 주변 정보를 알아볼 수 있는 사이트 입니다.
 
 ## 참여
-| 장현정 | 염서학 | 이가영 | 양진호 | 이이수 | 김도윤 |
+| 팀장 장현정 | 염서학 | 이가영 | 양진호 | 이이수 | 김도윤 |
 |---|---|---|---|---|---|
 | <a href="https://github.com/HyunjeongJang">@HyunjeongJang</a> | <a href="https://github.com/YEOMCODING">@YEOMCODING</a> | <a href="https://github.com/kayoung0814"> @kayoung0814</a> | <a href="https://github.com/JinHoYY"> @JinHoYY </a> | <a href="https://github.com/yisoo98776"> @yisoo98776 </a> | <a href="https://github.com/kimdory"> @kimdory </a> |
 
