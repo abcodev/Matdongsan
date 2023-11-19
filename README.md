@@ -13,7 +13,7 @@
 
 ## 환경
 
-- **Back End** : Java11, Spring, Spring Security
+- **Back End** : Java11, Spring, Spring Security, Oauth2
 - **Front End** :  JavaScript, Html/CSS
 - **DevOps** : ORACLE 11g , Oracle Cloud , Redis, AWS Ec2, Route53
 - **Collaboration** : Git , Notion
