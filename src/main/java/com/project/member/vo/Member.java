@@ -6,17 +6,7 @@ import com.project.member.type.MemberGrade;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-
-/*
-    빌더패턴 : 객체 생성을 위한 디자인 패턴
-    사용한 이유 : 인자가 너무 많을 때 생성자를 만들지 않아도 필요한 인자들만 객체를 생성할 수 있음
-               인자들을 선택해서 생성자들이 여러개 나올 떄
-               주로 엔티티 만들땐 빌더패턴을 많이 사용
-               필드가 많을 때
- */
 
 @Getter
 @Setter
