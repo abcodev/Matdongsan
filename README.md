@@ -8,7 +8,7 @@
 | 장현정 | 염서학 | 이가영 | 양진호 | 이이수 | 김도윤 |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |팀장 Backend|Backend|Backend|Backend|Frontend|Frontend|
-| <a href="https://github.com/HyunjeongJang">@HyunjeongJang</a> | <a href="https://github.com/YEOMCODING">@YEOMCODING</a> | <a href="https://github.com/kayoung0814"> @kayoung0814</a> | <a href="https://github.com/JinHoYY"> @JinHoYY </a> | <a href="https://github.com/yisoo98776"> @yisoo98776 </a> | <a href="https://github.com/kimdory"> @kimdory </a> |
+| <a href="https://github.com/abcodev">@abcodev</a> | <a href="https://github.com/YEOMCODING">@YEOMCODING</a> | <a href="https://github.com/kayoung0814"> @kayoung0814</a> | <a href="https://github.com/JinHoYY"> @JinHoYY </a> | <a href="https://github.com/yisoo98776"> @yisoo98776 </a> | <a href="https://github.com/kimdory"> @kimdory </a> |
 
 
 ## 환경
